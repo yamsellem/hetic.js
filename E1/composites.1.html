@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Conditions</title>
+        <style>
+            body {font-family: 'verdana'; font-size: 30px; text-align: center;}
+        </style>
+    </head>
+    <body></body>
+
+    <script>
+        var words = ['banana', 'apple', 'orange', 'kiwi'];
+        var smallWords = [];
+
+        for (word of words) {
+            if (word.length <= 5) {
+                smallWords.push(word);
+            }
+        }
+
+        document.body.innerHTML = smallWords;
+    </script>
+</html>

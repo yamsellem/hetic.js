@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Conditions</title>
+        <style>
+            body {font-family: 'verdana'; font-size: 30px; text-align: center;}
+        </style>
+    </head>
+    <body></body>
+
+    <script>
+        var musicians = [
+            {name: 'john', instrument: 'voices'},
+            {name: 'paul', instrument: 'guitar'},
+            {name: 'georges', instrument: 'guitar'},
+            {name: 'ringo', instrument: 'drums'}
+        ];
+        var guitarists = [];
+
+        for (musician of musicians) {
+            if (musician.instrument == 'guitar') {
+                guitarists.push(musician.name);
+            }
+        }
+
+        document.body.innerHTML = guitarists;
+    </script>
+</html>

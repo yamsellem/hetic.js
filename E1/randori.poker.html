@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Conditions</title>
+        <style>
+            body {font-family: 'verdana'; font-size: 30px; text-align: center;}
+        </style>
+    </head>
+    <body></body>
+
+    <script>
+        var p1 = [1, 2, 3, 4].sort();
+        var p2 = [4, 4, 4, 3].sort();
+
+        var c1 = 0;
+        for (card of p1) {
+            c1 += card;
+        }
+        if (p1[0] === p1[1] && p1[1] === p1[2] && p1[2] === p1[3]) {
+            // carré
+            c1 += 50;
+        } else if (p1[0] < p1[1] && p1[1] < p1[2] && p1[2] < p1[3]) {
+            // suite
+            c1 += 40;
+        } else if (p1[0] === p1[1] && p1[1] === p1[2]) {
+            // brelan
+            c1 += 30;
+        } else if (
+            p1[0] === p1[1] || p1[1] === p1[2] || p1[2] === p1[3]
+        ) {
+            // paire
+            c1 += 10;
+            if (p1[0] === p1[1] && p1[2] === p1[3]) {
+                // double paire
+                c1 += 10;
+            }
+        }
+
+        var c2 = 0;
+        for (card of p2) {
+            c2 += card;
+        }
+        if (p2[0] === p2[1] && p2[1] === p2[2] && p2[2] === p2[3]) {
+            c2 += 50;
+        } else if (p2[0] < p2[1] && p2[1] < p2[2] && p2[2] < p2[3]) {
+            c2 += 40;
+        } else if (p2[0] === p2[1] && p2[1] === p2[2]) {
+            c2 += 30;
+        } else if (
+            p2[0] === p2[1] || p2[1] === p2[2] || p2[2] === p2[3]
+        ) {
+            c2 += 10;
+            if (p2[0] === p2[1] && p2[2] === p2[3]) {
+                c2 += 10;
+            }
+        }
+
+        var result;
+        if (c1 == c2)
+            result = 'Égalité';
+        else if (c1 > c2)
+            result = 'Joueur 1 gagne';
+        else
+            result = 'Joueur 2 gagne';
+
+        document.body.innerHTML = result;
+    </script>
+</html>
