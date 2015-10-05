@@ -1,0 +1,19 @@
+{
+  "name": "hetic.js",
+  "version": "0.1.0",
+  "description": "Matériel du cours javascript du bachelor web de l'Hetic",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yamsellem/hetic.js.git"
+  },
+  "author": "Amsellem Yves <amsellem.yves@gmail.com>",
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/yamsellem/hetic.js/issues"
+  },
+  "homepage": "https://github.com/yamsellem/hetic.js",
+  "dependencies": {
+      "mocha": "x",
+      "chai": "x"
+  }
+}
