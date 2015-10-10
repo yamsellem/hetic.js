@@ -35,7 +35,7 @@ __Introduction__: Questions ou incompréhesions scéance précédente
 
 ---
 
-:closed_book: Lire
+:closed_book: Lire [la fin du chapitre 1](https://goo.gl/QbZSn8#heading=h.if8cr9oewryj), [la dernière page du chapitre 2](https://goo.gl/QbZSn8#heading=h.4mzfbzxpf5lm) et [le chapitre 4](https://goo.gl/QbZSn8#heading=h.iizm3mri0q6b)
 
 ---
 
