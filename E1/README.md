@@ -17,7 +17,7 @@ __Le sujet__: Le langage de programmation dynamique, fonctionnel, orienté objet
 
 :loop: En entrée, une date, en sortie afficher 'Noir et Blanc' si inférieure à 1930 et 'Couleurs' si supérieure
 
-:loop: En sortie afficher tous les nombres paires de 1 à 10
+:loop: En sortie afficher tous les nombres de 1 à 10 (puis uniquement les pairs)
 
 :loop: Enlever les quatre derniers caractères d'une chaîne tant qu'elle à plus de 15 caractères
 

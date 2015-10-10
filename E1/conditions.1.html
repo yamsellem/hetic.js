@@ -15,8 +15,10 @@
 
         if (date < 1930)
             colours = 'Noir et Blanc';
-        else
+        else if (date < 2010)
             colours = 'Couleurs';
+        else
+            colours = '3D';
 
         document.body.innerHTML = colours;
     </script>
