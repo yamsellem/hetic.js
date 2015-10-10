@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Conditions</title>
+        <style>
+            body {font-family: 'verdana'; font-size: 30px; text-align: center;}
+        </style>
+    </head>
+    <body></body>
+
+    <script>
+        var p1 = [1, 2, 3, 4].sort();
+        var p2 = [1, 2, 2, 2].sort();
+
+        // create a reverse hand {1: 1, 3: 2} with {card: count}
+        var reverseHand = {};
+        for (var card of p1) {
+            var count = reverseHand[card] || 0;
+            reverseHand[card] = count + 1;
+        }
+
+        // create a hand {1: 1, 2: 3} with {count: card},
+        // erase multiple occurence (1: 1 + 1: 4, gives 1: 4, keep the highest single)
+        // but keep multiple pairs for double pairs comparison
+        var hand = {}
+        for (var card in reverseHand) {
+            var count = reverseHand[card];
+            if (count === 2 && hand[count])
+                hand['2x'] = parseInt(card);
+            else
+                hand[count] = parseInt(card);
+        }
+
+        var c1 = 0;
+        if (hand[4]) {
+            // carré
+            c1 = 500 + hand[4];
+        } else if (p1[0] < p1[1] && p1[1] < p1[2] && p1[2] < p1[3]) {
+            // suite
+            c1 = 400;
+        } else if (hand[3]){
+            // brelan
+            c1 = 300 + hand[3];
+        } else if (hand[2] && hand['2x']) {
+            // double paire
+            c1 = 200 + 2 * hand['2x'] + hand[2];
+        } else if (hand[2]) {
+            // paire simple
+            c1 = 100 + hand[2];
+        } else {
+            // plus forte carte
+            c1 = hand[1];
+        }
+
+        reverseHand = {};
+        for (var card of p2) {
+            var count = reverseHand[card] || 0;
+            reverseHand[card] = count + 1;
+        }
+
+        hand = {}
+        for (var card in reverseHand) {
+            var count = reverseHand[card];
+            if (count === 2 && hand[count])
+                hand['2x'] = parseInt(card);
+            else
+                hand[count] = parseInt(card);
+        }
+
+        var c2 = 0;
+        if (hand[4]) {
+            // carré
+            c2 = 500 + hand[4];
+        } else if (p2[0] < p2[1] && p2[1] < p2[2] && p2[2] < p2[3]) {
+            // suite
+            c2 = 400;
+        } else if (hand[3]){
+            // brelan
+            c2 = 300 + hand[3];
+        } else if (hand[2] && hand['2x']) {
+            // double paire
+            c2 = 200 + 2 * hand['2x'] + hand[2];
+        } else if (hand[2]) {
+            // paire simple
+            c2 = 100 + hand[2];
+        } else {
+            // plus forte carte
+            c2 = hand[1];
+        }
+
+        var result;
+        if (c1 == c2)
+            result = 'Égalité';
+        else if (c1 > c2)
+            result = 'Joueur 1 gagne';
+        else
+            result = 'Joueur 2 gagne';
+
+        document.body.innerHTML = result;
+    </script>
+</html>
