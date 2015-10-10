@@ -29,7 +29,7 @@ __Le sujet__: Le langage de programmation dynamique, fonctionnel, orienté objet
 
 :loop: Filtrer les joueurs de guitares d'un tableau d'objets littéraux
 
-:cookie: Le web 2.0, les réseaux sociaux → voir le film [The Social Network](http://www.senscritique.com/film/The_Social_Network/394207)
+:cookie: Le web 2.0, les réseaux sociaux → voir le film [The Social Network](http://www.senscritique.com/film/The_Social_Network/394207) et s'abonner au podcast de [Place de la Toile](http://www.franceculture.fr/emission-place-de-la-toile-0)
 
 :beginner: Comparer deux mains de Poker et identifier la meilleure
 
