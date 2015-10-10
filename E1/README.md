@@ -37,4 +37,4 @@ __Le sujet__: Le langage de programmation dynamique, fonctionnel, orienté objet
 
 ---
 
-_Légende_:bulb:idées, :loop:kata, :beginner:randori, :closed_book:résumé, :cookie: aparté
+_Légende_:bulb:idées, :loop:kata, :beginner:randori, :closed_book:résumé, :cookie:aparté
