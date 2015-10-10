@@ -9,7 +9,7 @@ __Le sujet__: Le langage de programmation dynamique, fonctionnel, orienté objet
 
 :bulb: HTML, CSS, JS, langage et logiques
 
-:mahjong: Sites, applications, mobile et jeux développés avec JavaScript
+:bulb: Sites, applications, mobile et jeux développés avec JavaScript
 
 :bulb: Valeurs (nombres, chaîne de caractères, booléen), opérateurs (+, -, *, /, %), variables (type, déclaration, affectation)
 
@@ -29,10 +29,12 @@ __Le sujet__: Le langage de programmation dynamique, fonctionnel, orienté objet
 
 :loop: Filtrer les joueurs de guitares d'un tableau d'objets littéraux
 
+:cookie: Le web 2.0, les réseaux sociaux → voir le film The Social Network
+
 :beginner: Comparer deux mains de Poker et identifier la meilleure
 
 :closed_book: Lire le chapitre 1
 
 ---
 
-_Légende_:bulb:idées, :loop:kata, :beginner:randori, :closed_book:résumé, :mahjong:extra
+_Légende_:bulb:idées, :loop:kata, :beginner:randori, :closed_book:résumé, :cookie: aparté
