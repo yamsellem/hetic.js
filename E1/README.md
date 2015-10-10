@@ -33,7 +33,7 @@ __Le sujet__: Le langage de programmation dynamique, fonctionnel, orienté objet
 
 :beginner: Comparer deux mains de Poker et identifier la meilleure
 
-:closed_book: Lire le chapitre 1
+:closed_book: Lire le [chapitre 1](https://goo.gl/QbZSn8#heading=h.if8cr9oewryj)
 
 ---
 
