@@ -27,11 +27,11 @@ __Introduction__: Questions ou incompréhesions scéance précédente
 
 :bulb: Event loop et erreurs
 
-:loop: Écouter la position de la souris, changer la couleur de fond de la page, en rose à gauche, violet à droite, et un mélange proportionnel entre les deux.
+:loop: Écouter la position de la souris, changer la couleur de fond de la page, en rose à gauche, violet à droite, et un mélange proportionnel entre les deux
 
-:cookie: Intelligence artificielle, base de connaissances et prise de décision des machines → [lire la nouvele](http://www.senscritique.com/livre/Les_Androides_revent_ils_de_moutons_electriques_Blade_Runner/452029) ou  [voir le film](http://www.senscritique.com/film/Blade_Runner/494050) Blade Runner et voir le film [2001 : L'Odyséée de l'espace](http://www.senscritique.com/film/2001_L_Odyssee_de_l_espace/475251)
+:cookie: Intelligence artificielle, base de connaissances et prise de décision des machines → [lire la nouvelle](http://www.senscritique.com/livre/Les_Androides_revent_ils_de_moutons_electriques_Blade_Runner/452029) /  [regarder le film](http://www.senscritique.com/film/Blade_Runner/494050) Blade Runner, regarder le film [2001 : L'Odysée de l'espace](http://www.senscritique.com/film/2001_L_Odyssee_de_l_espace/475251), regarder le documentaire [L'intelligence artificielle, la science dépasse la fiction](https://www.youtube.com/watch?v=Aksbi3UCQO0)
 
-:beginner: [ A ] Afficher l'heure, seconde par seconde, au format `hh:mm:ss`. [ B ] Remplacer le numéro des mois par leur nom. [ C ] Afficher chacune des trois unités dans une teinte allant du jaune au rouge (0% yellow, 20% gold, 40% orange, 60% tomato, 80% crimson) plus l'unité s'approche de son maximum. [ D ] Masquer des unités en fonction de la position de la souris (en haut de page, masquer minutes et secondes, au centre, masquer secondes).
+:beginner: [ A ] Afficher l'heure, seconde par seconde, au format `hh:mm:ss`. [ B ] Remplacer le numéro des mois par leur nom. [ C ] Afficher chacune des trois unités dans une teinte allant du jaune au rouge (0% yellow, 20% gold, 40% orange, 60% tomato, 80% crimson) plus l'unité s'approche de son maximum. [ D ] Masquer des unités en fonction de la position de la souris (en haut de page, masquer heures et minutes, au centre, masquer heures)
 
 ---
 
