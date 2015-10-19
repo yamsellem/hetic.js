@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Conditions</title>
+        <style>
+            body {font-family: 'verdana'; font-size: 30px; text-align: center;}
+        </style>
+    </head>
+    <body></body>
+
+    <script>
+        // 2 numbers
+        var max = function(a, b) {
+            if (a > b)
+                return a;
+            else
+                return b;
+        }
+
+        // any number of numbers
+        var maximum = function() {
+            // arguments is a array-like structure containing every arguments
+            if (arguments.length === 0)
+                return -1;
+
+            var result = arguments[0];
+            for (var i = 1; i < arguments.length; i++) {
+                result = max(result, arguments[i]);
+            }
+            return result;
+        }
+
+        document.body.innerHTML = maximum(4, 2, 3, 8, 1);
+    </script>
+</html>

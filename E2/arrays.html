@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Conditions</title>
+        <style>
+            body {font-family: 'verdana'; font-size: 30px; text-align: center;}
+        </style>
+    </head>
+    <body></body>
+
+    <script>
+        var first = [3, 2];
+        var second = [3, 2];
+
+        var equals = true;
+
+        if (first.length !== second.length) {
+            equals = false;
+        } else {
+            for (var i = 0; i < first.length; i++) {
+                if (first[i] !== second[i]) {
+                    equals = false;
+                    break;
+                }
+            }
+        }
+
+        document.body.innerHTML = equals;
+    </script>
+</html>
