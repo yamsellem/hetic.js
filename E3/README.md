@@ -21,7 +21,7 @@ __Introduction__: Questions ou incompréhesions scéance précédente
 
 :bulb: Navigateurs récents fonctionnent sur le même modèle, les anciens ont des disparités
 
-:cookie: La cryptographie, enigma et les temps modernes → regarder les films [Imitation Game](http://www.senscritique.com/film/Imitation_Game/10625262) et [Citizenfour](http://www.senscritique.com/film/Citizenfour/12556559), lire le livre [1984](http://www.senscritique.com/livre/1984/245854), écouter l'épisode [Cryptologie et informatique : une histoire d'amour](http://plus.franceculture.fr/partenaires/selection-france-culture/place-de-la-toile-cryptologie-et-informatique-une-histoire-d), suivre le cours [Prouver la sécurité informatique](http://www.college-de-france.fr/site/gerard-berry/seminar-2015-03-25-17h30.htm)
+:cookie: Intelligence artificielle, base de connaissances et prise de décision des machines → [lire la nouvelle](http://www.senscritique.com/livre/Les_Androides_revent_ils_de_moutons_electriques_Blade_Runner/452029) /  [regarder le film](http://www.senscritique.com/film/Blade_Runner/494050) Blade Runner, regarder le film [2001 : L'Odysée de l'espace](http://www.senscritique.com/film/2001_L_Odyssee_de_l_espace/475251), regarder le documentaire [L'intelligence artificielle, la science dépasse la fiction](https://www.youtube.com/watch?v=Aksbi3UCQO0)
 
 :beginner: [ A ] Réaliser un slide puzzle - 9 cases dont une vide, le clic sur une case l'intervertit avec la vide (pas de mouvement en diagonale). [ B ] Mélange initial. [ C ] Détecteur de victoire. [ D ] Compteur de score
 

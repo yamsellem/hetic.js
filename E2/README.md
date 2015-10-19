@@ -1,9 +1,11 @@
 ## E2 — Le langage dans le navigateur
 > globales navigateur, fonctions, erreurs
 
-__Introduction__: Questions ou incompréhesions scéance précédente
-
 :cactus: En entrée, un texte, en sortie, le nombre de fois que les caractères « a » et « e » apparaissent
+
+:bulb: Modifier et comparer des types composites
+
+:loop: En entrée, deux tableaux, en sortie, un booléen indiquant si ils sont égaux
 
 :bulb: Fonctions (arguments, retour, invocation)
 
@@ -11,11 +13,11 @@ __Introduction__: Questions ou incompréhesions scéance précédente
 
 :bulb: Fonctions (imbrication, scope, composition, récursion)
 
-:loop: En entrée, une liste d'enchères (nombres entiers), en sortie la seconde meilleure enchère majorée de 10%
+:loop: En entrée, un arbre binaire et une valeur, en sortie un booléen indiquant la présence de la valeur dans l'arbre
 
 :bulb: Passage de paramètres en valeur, en référence
 
-:loop: En entrée, une variable de type numérique, en sortie, son double. Idem avec un tableau. Variables en entrées modifiées uniquement si de type composite.
+:loop: En entrée, un nombre, en sortie, son double. Idem avec un tableau de nombres (variables en entrées modifiées uniquement si de type composite)
 
 :bulb: Globales navigateur (document, window, Math, Date, console, location, history)
 
@@ -27,11 +29,11 @@ __Introduction__: Questions ou incompréhesions scéance précédente
 
 :bulb: Event loop et erreurs
 
-:loop: Écouter la position de la souris, changer la couleur de fond de la page, en rose à gauche, violet à droite, et un mélange proportionnel entre les deux
+:loop: Afficher l'heure seconde par seconde au format `hh:mm:ss` et remplacer le numéro du mois par son nom
 
-:cookie: Intelligence artificielle, base de connaissances et prise de décision des machines → [lire la nouvelle](http://www.senscritique.com/livre/Les_Androides_revent_ils_de_moutons_electriques_Blade_Runner/452029) /  [regarder le film](http://www.senscritique.com/film/Blade_Runner/494050) Blade Runner, regarder le film [2001 : L'Odysée de l'espace](http://www.senscritique.com/film/2001_L_Odyssee_de_l_espace/475251), regarder le documentaire [L'intelligence artificielle, la science dépasse la fiction](https://www.youtube.com/watch?v=Aksbi3UCQO0)
+:cookie: Le web 2.0, les réseaux sociaux → regarder le film [The Social Network](http://www.senscritique.com/film/The_Social_Network/394207), s'abonner au podcast  [Place de la Toile](http://www.franceculture.fr/emission-place-de-la-toile-0), suivre [Hacker News](https://cheeaun.github.io/hackerweb/), lire [Gatsby le magnifique](http://www.senscritique.com/livre/Gatsby_le_magnifique/156124)
 
-:beginner: [ A ] Afficher l'heure, seconde par seconde, au format `hh:mm:ss`. [ B ] Remplacer le numéro des mois par leur nom. [ C ] Afficher chacune des trois unités dans une teinte allant du jaune au rouge (0% yellow, 20% gold, 40% orange, 60% tomato, 80% crimson) plus l'unité s'approche de son maximum. [ D ] Masquer des unités en fonction de la position de la souris (en haut de page, masquer heures et minutes, au centre, masquer heures)
+:beginner: Créer un paysage animé composé de trois plans dotés [d'un effet de parallax](http://stephband.info/jparallax/) (relatif à la position de la souris)
 
 ---
 

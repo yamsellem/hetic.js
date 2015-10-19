@@ -29,8 +29,6 @@ __Le sujet__: Le langage de programmation dynamique, fonctionnel, orienté objet
 
 :loop: Filtrer les joueurs de guitares d'un tableau d'objets littéraux
 
-:cookie: Le web 2.0, les réseaux sociaux → regarder le film [The Social Network](http://www.senscritique.com/film/The_Social_Network/394207), s'abonner au podcast  [Place de la Toile](http://www.franceculture.fr/emission-place-de-la-toile-0), suivre [Hacker News](https://cheeaun.github.io/hackerweb/), lire [Gatsby le magnifique](http://www.senscritique.com/livre/Gatsby_le_magnifique/156124)
-
 :beginner: Comparer deux mains de Poker et identifier la meilleure
 
 ---
@@ -39,4 +37,4 @@ __Le sujet__: Le langage de programmation dynamique, fonctionnel, orienté objet
 
 ---
 
-_Légende_:bulb:idées, :loop:kata, :beginner:randori, :closed_book:résumé, :cookie:aparté
+_Légende_:bulb:idées, :loop:kata, :beginner:randori, :closed_book:résumé
