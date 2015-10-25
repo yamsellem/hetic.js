@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Conditions</title>
+        <title>Hetic</title>
         <style>
             body {font-family: 'verdana'; font-size: 30px; text-align: center;}
         </style>
@@ -10,27 +10,17 @@
     <body></body>
 
     <script>
-        //
-        //       8
-        //    3 ─┴─ 10
-        // 1 ─┴─ 6   └─ 14
-        //
-        var binaryTree = {value: 8,
-            left: {value: 3, left: {value: 1}, right: {value: 6}},
-            right: {value: 10, right: {value: 14}}
-        };
-
-        var search = function(tree, value) {
-            if (!tree)
-                return false;
-            else if (value === tree.value)
-                return true;
-            else if (value > tree.value)
-                return search(tree.right, value);
-            else
-                return search(tree.left, value);
+        var double = function(value) {
+            if (typeof (value) === 'number')
+                return value * 2;
+            else if (Array.isArray(value)) {
+                for (var i = 0; i < value.length; i++) {
+                    value[i] *= 2;
+                }
+                return value;
+            }
         }
 
-        document.body.innerHTML = search(binaryTree, 14);
+        document.body.innerHTML = double([14, 15]);
     </script>
 </html>

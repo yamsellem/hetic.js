@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Hetic</title>
+        <style>
+            body {font-family: 'verdana'; font-size: 30px; text-align: center;}
+        </style>
+    </head>
+    <body></body>
+
+    <script>
+        var error;
+        try {
+            JSON.parse('[1, 2]');
+            JSON.parse('[1, a]');
+        } catch(err) {
+            error = err;
+        }
+
+        document.body.innerHTML = error;
+    </script>
+</html>

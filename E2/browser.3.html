@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Hetic</title>
+        <style>
+            body {font-family: 'verdana'; font-size: 30px; text-align: center;}
+        </style>
+    </head>
+    <body></body>
+
+    <script>
+        var again = function(timer) {
+            console.log('it is happening again');
+            timer += 250;
+            setTimeout(again.bind(null, timer), timer);
+        }
+
+        setTimeout(again.bind(null, 500));
+    </script>
+</html>
