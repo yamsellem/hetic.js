@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Hetic</title>
+        <style>
+            body { padding: 0; margin: 0; font-family: 'verdana'; font-size: 20px; text-align: center; }
+            h1 { margin: 0 0 20px 0; background: coral; }
+            ul { list-style-type: none; margin: 0; padding: 0; }
+            li { -webkit-user-select: none; cursor: pointer; }
+            li.selected { color: coral; }
+        </style>
+    </head>
+    <body>
+        <h1>Fruits</h1>
+        <ul>
+            <li>banana</li>
+            <li id="favorite" class="winter">kiwi</li>
+            <li class="winter">mango</li>
+        </ul>
+    </body>
+
+    <script>
+        // simple version with style access
+        var simpleToggle = function($ul) {
+            for (var i = 0; i < $ul.children.length; i++) {
+                $li = $ul.children[i];
+                $li.addEventListener('click', function() {
+                    // won't be set until used in javascript
+                    // use getComputedStyle($li) to get before set
+                    if (this.style.color !== 'coral')
+                        this.style.color = 'coral';
+                    else
+                        this.style.color = 'black';
+                });
+            }
+        }
+
+        // advanced version with class and count
+        var advancedToggle = function($ul) {
+            for (var i = 0; i < $ul.children.length; i++) {
+                $li = $ul.children[i];
+                $li.addEventListener('click', function() {
+                    // won't be set until used in javascript
+                    // use getComputedStyle($li) to get before set
+                    if (this.classList.contains('selected'))
+                        this.classList.remove('selected');
+                    else
+                        this.classList.add('selected');
+
+                    var title = 'Fruits';
+                    var count = $ul.querySelectorAll('li.selected').length;
+                    if (count)
+                        title = 'Fruits (' + count +')';
+                    document.querySelector('h1').innerHTML = title;
+                });
+            }
+        }
+
+        var $ul = document.querySelector('ul');
+        advancedToggle($ul);
+    </script>
+</html>

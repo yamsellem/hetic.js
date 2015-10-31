@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Hetic</title>
+        <style>
+        body { padding: 0; margin: 0; font-family: 'verdana'; font-size: 20px; text-align: center; }
+        h1 { margin: 0 0 20px 0; background: coral; }
+        ul { list-style-type: none; margin: 0; padding: 0; }
+        </style>
+    </head>
+    <body>
+        <h1>Fruits</h1>
+        <ul>
+            <li>banana</li>
+            <li id="favorite" class="winter">kiwi</li>
+            <li class="winter">mango</li>
+        </ul>
+    </body>
+
+    <script>
+        var $h1 = document.querySelector('h1');
+        $h1.style.color = 'white ';
+
+        var $lis = document.querySelectorAll('li');
+        for (var i = 0; i < $lis.length; i++) {
+            var $li = $lis[i];
+            $li.style.color = 'coral';
+
+            if ($li.id === 'favorite')
+                $li.style.fontWeight = 'bold';
+
+            if ($li.classList.contains('winter'))
+                $li.style.fontStyle = 'italic';
+        }
+
+        // ligne 29:33 replace or the following
+
+        // var $li = document.querySelector('li#favorite');
+        // $li.style.fontWeight = 'bold';
+        //
+        // var $lis = document.querySelectorAll('li.winter');
+        // for (var i = 0; i < $lis.length; i++) {
+        //     var $li = $lis[i];
+        //     $li.style.fontStyle = 'italic';
+        // }
+    </script>
+</html>

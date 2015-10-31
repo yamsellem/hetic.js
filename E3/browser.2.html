@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Hetic</title>
+        <style>
+            body { padding: 0; margin: 0; font-family: 'verdana'; font-size: 20px; text-align: center; }
+            h1 { margin: 0 0 20px 0; background: coral; }
+            ul { list-style-type: none; margin: 0; padding: 0; }
+        </style>
+    </head>
+    <body>
+        <h1>Fruits</h1>
+        <ul>
+            <li>banana</li>
+            <li id="favorite" class="winter">kiwi</li>
+            <li class="winter">mango</li>
+        </ul>
+    </body>
+
+    <script>
+        var $ul = document.querySelector('ul');
+
+        var $li = document.createElement('li');
+        $li.innerHTML = 'orange';
+        $li.style.color = 'orange';
+
+        $ul.appendChild($li);
+
+        var $fav = document.querySelector('li#favorite');
+        $fav.remove();
+        $ul.appendChild($fav);
+    </script>
+</html>
