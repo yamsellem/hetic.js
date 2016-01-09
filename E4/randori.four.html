@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Hetic</title>
+        <style>
+        body { padding: 0; margin: 0; font-family: 'verdana'; font-size: 20px; text-align: center; }
+        table { border-collapse: collapse; margin: 40px auto 0; cursor: pointer; }
+        td { border: 1px solid blue; width: 30px; height: 30px; border-radius: 30px; }
+        td.yellow { background-color: yellow;  }
+        td.red { background-color: red; }
+        </style>
+    </head>
+    <body>
+        <table></table>
+    </body>
+
+    <script src="assets/jquery-2.1.4.js"></script>
+    <script src="randori.four.js"></script>
+    <script>
+        $('table').four();
+    </script>
+</html>
