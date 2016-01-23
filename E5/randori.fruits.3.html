@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Hetic</title>
+        <style>
+        body { padding: 0; margin: 0; font-family: 'verdana'; font-size: 14px; background-color: #ffe0cb; }
+        ul { list-style-type: none; margin: 0; padding: 0; }
+        hr {  padding: 0; border: none; border-top: 1px solid #333; color: #333; text-align: center; }
+        .container { width: 700px; margin: auto; }
+        .fruits { width: 500px; float: left; }
+        img { width: 50px; padding: 20px; float: left; cursor: pointer; }
+        img.selected { background-color: #fdea60; }
+
+        input { width: 700px; margin: 10px 0; font-size: 14px; }
+
+        .basket { width: 200px; float: right; }
+        .basket label { display: block; }
+        </style>
+
+        <!-- see webpack.config.js to create a bundle  -->
+        <script src="randori.fruits.3.bundle.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="fruits">
+                <img data-name="apple" src="assets/apple.png">
+                <img data-name="banana" src="assets/banana.png">
+                <img data-name="basket" src="assets/basket.png">
+                <img data-name="blender" src="assets/blender.png">
+                <img data-name="bread" src="assets/bread.png">
+                <img data-name="broccoli" src="assets/broccoli.png">
+                <img data-name="carrot" src="assets/carrot.png">
+                <img data-name="coconut" src="assets/coconut.png">
+                <img data-name="corn" src="assets/corn.png">
+                <img data-name="cucumber" src="assets/cucumber.png">
+                <img data-name="egg" src="assets/egg.png">
+                <img data-name="eggplant" src="assets/eggplant.png">
+                <img data-name="ekobag" src="assets/ekobag.png">
+                <img data-name="grain" src="assets/grain.png">
+                <img data-name="grape" src="assets/grape.png">
+                <img data-name="honey" src="assets/honey.png">
+                <img data-name="jam" src="assets/jam.png">
+                <img data-name="leaf" src="assets/leaf.png">
+                <img data-name="lemon" src="assets/lemon.png">
+                <img data-name="lettuce" src="assets/lettuce.png">
+                <img data-name="milk" src="assets/milk.png">
+                <img data-name="mushrooms" src="assets/mushrooms.png">
+                <img data-name="onion" src="assets/onion.png">
+                <img data-name="pear" src="assets/pear.png">
+                <img data-name="pepper" src="assets/pepper.png">
+                <img data-name="radish" src="assets/radish.png">
+                <img data-name="smoothie" src="assets/smoothie.png">
+                <img data-name="squeezer" src="assets/squeezer.png">
+                <img data-name="tomato" src="assets/tomato.png">
+                <img data-name="watermelon" src="assets/watermelon.png">
+            </div>
+
+            <div class="basket">
+                <h5>Basket</h5>
+                <ul class="items"></ul>
+                <hr>
+                <p class="total">0€</p>
+            </div>
+        </div>
+    </body>
+</html>
