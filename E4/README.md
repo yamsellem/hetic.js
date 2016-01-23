@@ -15,7 +15,7 @@
 
 :bulb: La librairie éternelle, [Moment](http://momentjs.com/) (manipuler, valider et afficher des dates)
 
-:loop: La date du jour, cliquer sur une unité (seconde, minute, heure) l'incrémente
+:loop: L'heure du jour, cliquer sur une unité (seconde, minute, heure) l'incrémente
 
 :bulb: La librairie polyglotte, [Format](http://formatjs.io/)
 
