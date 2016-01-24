@@ -27,7 +27,7 @@
 
 ---
 
-:closed_book: Lire [l'annexe A](https://goo.gl/QbZSn8#heading=h.17ho6ha21lgt) et [l'annexe B](https://goo.gl/QbZSn8#heading=h.e5dkxzusmp6b)
+:closed_book: Lire [l'annexe A](https://goo.gl/QbZSn8#heading=h.17ho6ha21lgt), [l'annexe B](https://goo.gl/QbZSn8#heading=h.e5dkxzusmp6b) et [l'annexe C](https://goo.gl/QbZSn8#heading=h.3pd3x3oxf85z)
 
 ---
 
