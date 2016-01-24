@@ -1,4 +1,4 @@
-## E4 — La production
+## E5 — La production
 > Hébergement et qualité logicielle
 
 :cactus: Masquer un div avec fondu lors d'un clic à l'aide de jQuery
@@ -7,15 +7,15 @@
 
 :bulb: Modulariser une application (refactoring, dépendances)
 
-:beginner: Découper en fonctions une application de gestion de panier existante
+:beginner: Découper une application de gestion de panier existante en plusieurs fonctions
 
 :bulb: Les librairies, [NPM](https://www.npmjs.com/) et les bundlers ([Require](http://requirejs.org/), [Browserify](http://browserify.org/), [Webpack](https://webpack.github.io/), [System](https://github.com/systemjs/systemjs))
 
-:loop: Découper en fichiers avec [Webpack](https://webpack.github.io/)
+:loop: Découper en plusieurs fichiers avec [Webpack](https://webpack.github.io/)
 
 :loop: Créer un livrable (.min.js)
 
-:bulb: Maintenance et bugs, les tests runner ([Mocha](https://mochajs.org/), [Karma](https://karma-runner.github.io), [Zombie](http://zombie.js.org/), [Casper](http://casperjs.org/)) et asserters ([Chai](http://chaijs.com/))
+:bulb: Maintenance et bugs ; les tests runner ([Mocha](https://mochajs.org/), [Karma](https://karma-runner.github.io), [Zombie](http://zombie.js.org/), [Casper](http://casperjs.org/)) et asserters ([Chai](http://chaijs.com/))
 
 :loop: Tester le calcul du nombre de fruits du panier
 
@@ -27,7 +27,7 @@
 
 ---
 
-:closed_book: Lire [l'annexe A](https://goo.gl/QbZSn8#heading=h.17ho6ha21lgt)
+:closed_book: Lire [l'annexe A](https://goo.gl/QbZSn8#heading=h.17ho6ha21lgt) et [l'annexe B](https://goo.gl/QbZSn8#heading=h.e5dkxzusmp6b)
 
 ---
 
