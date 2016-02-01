@@ -2,7 +2,7 @@
 
 var assert = require('chai').assert;
 
-var module = require('../lib/basket');
+var module = require('../src/basket');
 
 describe('Basket', function() {
     it('should count intersect of 2 arrays', function() {
