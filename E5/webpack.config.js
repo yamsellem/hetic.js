@@ -1,11 +1,9 @@
-// -> to use webpack, run these 2 lines in a terminal
-// sudo npm install -g webpack
-// sudo npm install -g webpack-dev-server
+// -> install latest nodejs though nodejs.org
 
-// -> then to launch the server, run this and go to http://localhost:3000
+// -> start the dev server, and go to http://localhost:3000
 // npm start
 
-// -> then to start the tests run
+// -> start the tests
 // npm test
 
 module.exports = {
