@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style>
+            ul { list-style-type: none; font-family: verdana; width: 400px; text-align: center; margin: auto;}
+            li {display: inline-block; width: 100px; padding: 20px 0; cursor: pointer; }
+            li.selected {background-color: yellow; }
+        </style>
+    </head>
+
+    <body></body>
+
+    <script>
+    var eightPairs = function() {
+        var values = ['rain', 'sun', 'storm', 'desert', 'mountain', 'ocean', 'forest', 'cosmos'];
+        return values.concat(values);
+    };
+
+    var append = function(pairs) {
+        var ul = document.createElement('ul');
+        for (var i = 0; i < pairs.length; i++) {
+            var li = document.createElement('li');
+            li.innerHTML = pairs[i];
+            ul.appendChild(li);
+        }
+        document.body.appendChild(ul);
+    };
+
+    var last;
+    var play = function() {
+        if (last && last.innerHTML === this.innerHTML) {
+            last.remove();
+            this.remove();
+            last = null;
+        } else if (last) {
+            this.classList.add('selected');
+            last = null;
+        } else {
+            for (var i = 0; i < lis.length; i++)
+                lis[i].classList.remove('selected');
+
+            this.classList.add('selected');
+            last = this;
+        }
+    };
+
+    var pairs = eightPairs();
+    append(pairs);
+
+    var lis = document.querySelectorAll('li');
+    for (var i = 0; i < lis.length; i++)
+        lis[i].addEventListener('click', play);
+    </script>
+</html>

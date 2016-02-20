@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style>
+            table { text-align: center; margin: auto; font-family: verdana; }
+            td { padding: 10px; cursor: pointer; }
+            td.selected { background: yellow; }
+        </style>
+    </head>
+
+    <body></body>
+
+    <script>
+    var text = "I used to get mad at my school (No I can't complain)";
+
+    var append = '';
+    for (var i = 0; i < text.length; i++) {
+        var char = text[i];
+        if (char === 'a')
+            char = '4';
+        else if (char === 'e')
+            char = '3';
+        else if (char === 'o')
+            char = '0';
+        append += char;
+    }
+
+    var words = append.split(' ');
+    var values = [];
+    for (var i = 0; i < words.length; i++) {
+        var word = words[i];
+        var value = word.length;
+        for (var j = 0; j < word.length; j++) {
+            var char = word[j];
+            if (char === '4')
+                value += 3;
+            else if (char === '3')
+                value += 2;
+            else if (char === '0' || char === '(' || char === ')' || char === "'")
+                value += -1;
+        }
+        values.push(value);
+    }
+
+    var table = document.createElement('table');
+    var tr = document.createElement('tr');
+
+    for (var i = 0; i < words.length; i++) {
+        var td = document.createElement('td');
+        td.innerHTML = words[i];
+        td.classList.add('v' + values[i]);
+        tr.appendChild(td);
+    }
+
+    table.appendChild(tr);
+    tr = document.createElement('tr');
+
+    for (var i = 0; i < values.length; i++) {
+        var td = document.createElement('td');
+        td.innerHTML = values[i];
+        tr.appendChild(td);
+
+        td.addEventListener('click', function() {
+            var all = document.querySelectorAll('td.v' + this.innerHTML);
+            for (var j = 0; j < all.length; j++)
+                all[j].classList.add('selected');
+        });
+    }
+
+    table.appendChild(tr);
+    document.body.appendChild(table);
+    </script>
+</html>

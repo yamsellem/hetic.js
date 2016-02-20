@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+
+    <body></body>
+
+    <script>
+    var feedback = function(guess, code) {
+        var feedback = [0, 0, 0, 0];
+        var letters = code.slice(0);
+
+        for (var i = 0; i < guess.length; i++)
+            if (guess[i] === code[i]) {
+                feedback[i] = 2;
+                var index = letters.indexOf(guess[i]);
+                letters.splice(index, 1);
+            }
+
+        for (var i = 0; i < guess.length; i++)
+            if (feedback[i] === 0 && letters.indexOf(guess[i]) !== -1)
+                feedback[i] = 1;
+
+        return feedback;
+    }
+
+    console.log(feedback(['R', 'G', 'Y', 'R'], ['B', 'B', 'Y', 'G'])); // [0, 1, 2, 0]
+    console.log(feedback(['R', 'G', 'Y', 'R'], ['G', 'G', 'Y', 'R'])); // [0, 2, 2, 2]
+    </script>
+</html>
