@@ -20,8 +20,11 @@
             }
 
         for (var i = 0; i < guess.length; i++)
-            if (feedback[i] === 0 && letters.indexOf(guess[i]) !== -1)
+            if (feedback[i] === 0 && letters.indexOf(guess[i]) !== -1){
                 feedback[i] = 1;
+                var index = letters.indexOf(guess[i]);
+                letters.splice(index, 1);
+            }
 
         return feedback;
     }
