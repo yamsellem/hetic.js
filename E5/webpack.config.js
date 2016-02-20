@@ -1,4 +1,6 @@
 // -> install latest nodejs though nodejs.org
+// -> once node is installed, in this folder
+// npm install
 
 // -> start the dev server, and go to http://localhost:3000
 // npm start
