@@ -44,9 +44,9 @@
         for (var card in reverseHand) {
             var count = reverseHand[card];
             if (count === 2 && hand[count])
-                hand['2x'] = parseInt(card);
+                hand['2x'] = parseInt(card); // parseInt transforms a string into an int
             else
-                hand[count] = parseInt(card);
+                hand[count] = parseInt(card); // this is useful, because dictionnary keys are string
         }
 
         // compute a score for that hand
