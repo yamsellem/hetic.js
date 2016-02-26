@@ -1,4 +1,4 @@
-## E5 — Programmation orientée objet
+## E6 — Programmation orientée objet
 > Prototype, classe, instances, constructeurs, contexte
 
 :cactus: Retours sur les exercices du partiel
