@@ -5,54 +5,39 @@ var $ = require('jquery');
 var Cargo = function() {
     this.bottom = 170;
     this.left = 260;
-    this.items = 0;
     this.boxes = [];
 };
 
 Cargo.prototype.store = function(box) {
-    if (this.boxes >= 28)
-        return;
-
-    this.renderItem(box);
-    this.boxes.push(box);
-};
-
-Cargo.prototype.renderItem = function(box) {
-    var $img = $('<img>').attr('src', box.image);
-
-    var bottom = this.bottom + 45 * (this.items % 3);
-    var left = this.left + 45 * parseInt(this.items / 3);
-    $img.css({'bottom': bottom, 'left': left});
-
+    var $img = $('<img>');
     $('.cargo').append($img);
 
-    if (box instanceof Fruit)
-        this.items += 3 - (this.items % 3);
-    else
-        this.items++;
-};
+    this.boxes.push(box);
 
-Cargo.prototype.render = function() {
-    $('.cargo').html('');
-    this.items = 0;
+    $img.attr('src', './assets/' + box.name + '.png')
+    $img.css('bottom', this.bottom +'px');
+    $img.css('left', this.left +'px');
+    $img.addClass(box.destination);
 
-    for (var i = 0; i < this.boxes.length; i++)
-        this.renderItem(this.boxes[i]);
-};
-
-Cargo.prototype.deliver = function(place) {
-    var weight = 0;
-    var delivered = [];
-    for (var i = this.boxes.length - 1; i >= 0; i--) {
-        var box = this.boxes[i];
-        if (box.destination === place) {
-            var removed = this.boxes.splice(i, 1);
-            delivered.push(removed.pop());
-        }
+    this.bottom += 45;
+    if (this.bottom === 305 || box instanceof Fruit) {
+        this.bottom = 170;
+        this.left += 45;
     }
+};
 
-    this.render();
-    return delivered;
+Cargo.prototype.deliver = function(destination) {
+    $('img.' + destination).remove();
+
+    var boxes = {in: [], out: []};
+    for (var i = 0; i < this.boxes.length; i++) {
+        if (this.boxes[i].destination === destination)
+            boxes.out.push(this.boxes[i]);
+        else
+            boxes.in.push(this.boxes[i]);
+    }
+    this.boxes = boxes.in;
+    return boxes.out;
 };
 
 var Box = function(name, destination, contents) {
