@@ -1,0 +1,25 @@
+{
+  "name": "E7",
+  "version": "1.0.0",
+  "description": "> Appels distants",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server -d --inline --port 3000 & nodemon server.js",
+    "test": "mocha ./test"
+  },
+  "author": "Amsellem Yves <amsellem.yves@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "1.x",
+    "express": "4.x",
+    "express-http-proxy": "^0.6.0",
+    "jquery": "2.x",
+    "moment": "2.x"
+  },
+  "devDependencies": {
+    "chai": "x",
+    "webpack": "x",
+    "webpack-dev-server": "x",
+    "nodemon": "x"
+  }
+}
