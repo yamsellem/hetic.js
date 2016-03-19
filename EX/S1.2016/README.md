@@ -1,4 +1,4 @@
-Partiel S1 - HETIC W1 - Promotion 2018 (_Jeudi 18 février 2016 / 10h00-12h00 _)
+Partiel S1 - HETIC W1 - Promotion 2018 (_Jeudi 18 février 2016 / 10h00-12h00_)
 
 ---
 
