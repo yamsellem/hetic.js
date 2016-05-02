@@ -4,7 +4,7 @@
   "description": "> Compatibilité",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server -d --inline --port 3000",
+    "start": "webpack-dev-server --hot --inline --port 3000",
     "test": "mocha ./test"
   },
   "author": "Amsellem Yves <amsellem.yves@gmail.com>",
