@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" data-framework="ampersand">
+
+<head>
+    <meta charset="utf-8">
+    <title>TodoMVC</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="shortcut icon" href="./favicon.ico">
+</head>
+
+<body>
+    <section id="todoapp">
+        <header id="header">
+            <h1>todos</h1>
+            <input id="new-todo" placeholder="What needs to be done?" autofocus>
+        </header>
+        <section id="main">
+            <input id="toggle-all" type="checkbox">
+            <label for="toggle-all">Mark all as complete</label>
+            <ul id="todo-list">
+                <li>
+                    <div class="view">
+                        <input type="checkbox" class="toggle" />
+                        <label>Let the magic happens</label>
+                        <button class="destroy"></button>
+                    </div>
+                    <input type="text" class="edit" />
+                </li>
+            </ul>
+        </section>
+        <footer id="footer">
+            <span id="todo-count"></span>
+            <ul id="filters">
+                <li>
+                    <a class="selected" href="#/">All</a>
+                </li>
+                <li>
+                    <a href="#/active">Active</a>
+                </li>
+                <li>
+                    <a href="#/completed">Completed</a>
+                </li>
+            </ul>
+            <button id="clear-completed">Clear completed</button>
+        </footer>
+    </section>
+    <footer id="info">
+        <p>Double-click to edit a todo</p>
+        <p>Written by <a href="https://twitter.com/henrikjoreteg">Henrik Joreteg</a>, <a href="https://twitter.com/lukekarrys">Luke Karrys</a>, and <a href="https://twitter.com/philip_roberts">Philip Roberts</a></p>
+        <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+    </footer>
+</body>
+
+</html>
