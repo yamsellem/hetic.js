@@ -191,6 +191,9 @@ class Collection extends Map {
   onChange(cb) {
     this.listeners.push(cb);
   }
+  toArray() {
+    return Array.from(this.values());
+  }
 }
 
 var collection = new Collection();

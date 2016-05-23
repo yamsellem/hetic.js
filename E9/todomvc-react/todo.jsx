@@ -102,8 +102,7 @@
             this.props.collection.onChange(this.forceUpdate.bind(this));
         },
         render: function() {
-            var items = Array
-            .from(this.props.collection.values())
+            var items = this.props.collection.toArray()
             .filter(model => {
                 if (this.props.nowShowing === 'active')
                     return !model.completed;
@@ -125,7 +124,7 @@
                 <input
                     id="toggle-all"
                     type="checkbox"
-                    checked={Array.from(this.props.collection.values()).every(model => model.completed)}
+                    checked={this.props.collection.toArray().every(model => model.completed)}
                     onChange={this.toggleAll}/>
                 <label htmlFor="toggle-all">Mark all as complete</label>
                 <ul id="todo-list">
@@ -144,8 +143,7 @@
             this.props.collection.delete(model.id);
         },
         toggleAll: function() {
-            Array
-            .from(this.props.collection.values())
+            this.props.collection.toArray()
             .forEach(model => {
                 model.completed = !model.completed;
                 this.props.collection.set(model.id, model);
@@ -159,8 +157,7 @@
         render: function() {
             var nowShowing = this.props.nowShowing;
 
-            var activeCount = Array
-            .from(this.props.collection.values())
+            var activeCount = this.props.collection.toArray()
             .filter(model => !model.completed).length;
 
             if (activeCount < 2)
@@ -192,8 +189,7 @@
             </footer>;
         },
         handleDeleteComplete: function() {
-            Array
-            .from(this.props.collection.values())
+            this.props.collection.toArray()
             .filter(model => model.completed)
             .forEach(model => this.props.collection.delete(model.id));
         }
@@ -215,6 +211,9 @@
         }
         onChange(cb) {
             this.listeners.push(cb);
+        }
+        toArray() {
+            return Array.from(this.values());
         }
     }
 
