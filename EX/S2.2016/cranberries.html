@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style>
+            #basket {
+                padding-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <span>Chocolate</span>
+            <button class="add chocolate">+</button>
+            <span>2€/slice</span>
+        </div>
+        <div>
+            <span>Apple</span>
+            <button class="add apple">+</button>
+            <span>1.5€/slice</span>
+        </div>
+
+        <div id="basket"></div>
+    </body>
+    <script>
+        var basket = { chocolate: 0, apple: 0 };
+        var prices = { chocolate: 2, apple: 1.5 };
+
+        var render = function(basket) {
+            var template = '';
+            var total = 0;
+            Object.keys(basket).forEach(function(key) {
+                template += '<div>';
+                template += '<span>' + basket[key] + 'x '+ key + ' </span>';
+                template += '<button class="remove ' + key + '">-</button>';
+                template += '</div>';
+
+                total += basket[key] * prices[key];
+            });
+
+            template += '<div> Total: ' + total + '€</div>';
+
+            document.querySelector('#basket').innerHTML = template;
+
+            document.querySelector('.remove.chocolate').addEventListener('click', function() {
+                basket.chocolate -= 1;
+                if (basket.chocolate < 0)
+                    basket.chocolate = 0;
+                render(basket);
+            });
+
+            document.querySelector('.remove.apple').addEventListener('click', function() {
+                basket.apple -= 1;
+                if (basket.apple < 0)
+                    basket.apple = 0;
+                render(basket);
+            });
+        }
+
+        document.querySelector('.add.chocolate').addEventListener('click', function() {
+            basket.chocolate += 1;
+            render(basket);
+        });
+
+        document.querySelector('.add.apple').addEventListener('click', function() {
+            basket.apple += 1;
+            render(basket);
+        });
+
+        render(basket);
+    </script>
+</html>

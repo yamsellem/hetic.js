@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style>
+            ul, div { list-style-type: none; font-family: verdana; width: 300px; text-align: center; margin: auto;}
+            li {display: inline-block; vertical-align: top; width: 98px; padding: 50px 0; cursor: pointer; border: 1px solid lightgrey; }
+            li.selected {background-color: lightgrey; }
+        </style>
+    </head>
+    <body>
+        <ul>
+               <li id="1"></li><!--
+            --><li id="2"></li><!--
+            --><li id="3"></li><!--
+            --><li id="4"></li><!--
+            --><li id="5"></li><!--
+            --><li id="6"></li><!--
+            --><li id="7"></li><!--
+            --><li id="8"></li><!--
+            --><li id="9"></li>
+        </ul>
+
+        <div>
+            <input type="checkbox" id="x" onclick="return false">X</input> <!-- readonly -->
+            <input type="checkbox" id="l" onclick="return false">L</input> <!-- readonly -->
+            <input type="checkbox" id="h" onclick="return false">H</input> <!-- readonly -->
+        </div>
+    </body>
+    <script>
+        var figures = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+        var x = [1, 0, 1, 0, 1, 0, 1, 0, 1];
+        var l1 = [1, 0, 0, 1, 0, 0, 1, 1, 0];
+        var l2 = [0, 1, 0, 0, 1, 0, 0, 1, 1];
+        var h = [1, 0, 1, 1, 1, 1, 1, 0, 1];
+
+        var arraysMatch = function(pattern, reference) {
+            for (var i = 0; i < reference.length; i++) {
+                if (reference[i] === 1 && pattern[i] !== 1)
+                    return false
+            }
+            return true;
+        };
+
+        var toggle = function() {
+            this.classList.toggle('selected');
+            var id = this.id - 1;
+            figures[id] = figures[id] ? 0 : 1;
+
+            document.querySelector('#x').checked = arraysMatch(figures, x);
+            document.querySelector('#l').checked = arraysMatch(figures, l1) || arraysMatch(figures, l2);
+            document.querySelector('#h').checked = arraysMatch(figures, h);
+        };
+
+        var lis = document.querySelectorAll('li');
+        for (var i = 0; i < lis.length; i++)
+            lis[i].addEventListener('click', toggle);
+
+    </script>
+</html>
