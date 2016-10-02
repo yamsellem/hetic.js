@@ -1,40 +1,30 @@
-## E1 — Le langage
-> valeurs, variables, tableau, objets littéraux, conditionnelles
+## E1 — Le code
+> « Change, plutôt que tes désirs, l'ordre du monde » A. Damasio
 
-__Introduction__: 10 séances de cours, 20 de TP, 2 projets de programmation, 2 partiels, 1 soutenance, 1 colle
+__Programme__: 15 séances de 3h de cours, chacune suivie d'un TP de 2h, des projets de programmation, 2 partiels, 2 colles
 
-__Les enseignants__: Lamia B. (universitaire) chargée de TP, Yves A. (professionnel) chargé de cours
+__Enseignants__: Ariel D. (ancien heticien) chargé de TP, Yves A. (professionnel) chargé de cours
 
-__Le sujet__: Le langage de programmation dynamique, fonctionnel, orienté objet à prototype, à event loop, __JavaScript__
+__Sujet__: Le langage de programmation dynamique, fonctionnel, orienté objet à prototype, à event loop, __JavaScript__
 
-:bulb: HTML, CSS, JS, langage et logiques
+:bulb: Dessine-moi un navigateur
 
-:bulb: Sites, applications, mobile et jeux développés avec JavaScript
+:bulb: Internet, pages et liens
 
-:bulb: Valeurs (nombres, chaîne de caractères, booléen), opérateurs (+, -, *, /, %), variables (type, déclaration, affectation)
+:bulb: HTML, CSS, JS, markup, langage et logiques
 
-:bulb: Structures conditionnelles (if, for, while)
+:bulb: Sites, applications mobiles, jeux, objets connectés développés avec JavaScript
 
-:loop: En entrée, une date, en sortie afficher 'Noir et Blanc' si inférieure à 1930 et 'Couleurs' si supérieure
+:loop: Créer une page HTML avec un formulaire composé de 3 boutons radio
 
-:loop: En sortie afficher tous les nombres de 1 à 10 (puis uniquement les pairs)
+:bulb: Display inline & block, éléments imbriqués ([solution](basics.html))
 
-:loop: Enlever les quatre derniers caractères d'une chaîne tant qu'elle à plus de 15 caractères
-
-:bulb: Tableaux et objets littéraux
-
-:loop: Filtrer les mots de plus de 5 caractères d'un tableau
-
-:loop: Filtrer les nombres paires d'un tableau
-
-:loop: Filtrer les joueurs de guitares d'un tableau d'objets littéraux
-
-:beginner: Comparer deux mains de Poker et identifier la meilleure
+:loop: Les bases de la programmation avec [lightbot](https://goo.gl/GtmUwL)
 
 ---
 
-:closed_book: Lire [l'introduction](https://goo.gl/QbZSn8#heading=h.lnks55ch91wr) et [le chapitre 1](https://goo.gl/QbZSn8#heading=h.if8cr9oewryj)
+:closed_book: Lire [l'introduction](https://goo.gl/QbZSn8#heading=h.lnks55ch91wr)
 
 ---
 
-_Légende_:bulb:idées, :loop:kata, :beginner:randori, :closed_book:résumé
+_Légende_:bulb:idées, :loop:kata, :closed_book:résumé
