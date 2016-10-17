@@ -21,9 +21,11 @@ __Sujet__: Le langage de programmation dynamique, fonctionnel, orienté objet à
 
 :loop: Les bases de la programmation avec [lightbot](https://goo.gl/GtmUwL)
 
+:loop: Les bases de JavaScript avec [lightbot, bis](lightbot.html)
+
 ---
 
-:closed_book: Lire [l'introduction](https://goo.gl/QbZSn8#heading=h.lnks55ch91wr)
+:closed_book: Lire [l'introduction](https://goo.gl/QbZSn8#heading=h.lnks55ch91wr) et [le chapitre 1](https://goo.gl/QbZSn8#heading=h.if8cr9oewryj)
 
 ---
 
