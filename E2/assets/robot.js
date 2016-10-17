@@ -174,7 +174,7 @@ class Level {
         switch (this.stage) {
             case 1:
                 // method calls
-                new Manual('Une ampoule',  "Pour allumer l'ampoule (●), modifier la balise &lt;script&gt; en invoquant les méthodes <code>robot.move()</code>, <code>robot.turn('left')</code> et <code>robot.light()</code>. Les flèches ⇥ et ↩ en bas de page permettent de lancer le robot, ou de réésayer si cela échoue.")
+                new Manual('Un peu de lumière',  "Pour allumer l'ampoule (●), modifier la balise &lt;script&gt; en invoquant les méthodes <code>robot.move()</code>, <code>robot.turn('left')</code> et <code>robot.light()</code>. <br><br>Les flèches ⇥ et ↩ en bas de page permettent de lancer le robot, ou de réésayer si cela échoue.")
                 var board = new Board([
                     {}, {empty:true}, {goal:true},
                     {}, {empty:true}, {},
@@ -185,7 +185,7 @@ class Level {
             break;
             case 2:
                 // method calls
-                new Manual('Deux ampoules',  "Pour allumer les deux ampoules (●), modifier l'ordre d'appel des méthodes <code>robot.move()</code>, <code>robot.turn('left')</code> et <code>robot.light()</code>.")
+                new Manual('Plus de lumière',  "Pour allumer les deux ampoules (●), modifier l'ordre d'appel des méthodes <code>robot.move()</code>, <code>robot.turn('left')</code> et <code>robot.light()</code>.")
                 var board = new Board([
                     {}, {}, {goal:true},
                     {}, {empty:true}, {},
@@ -208,7 +208,7 @@ class Level {
                 // numbers addition
                 var x = this.random();
                 var y = this.random();
-                new Manual('Addition',  "Les deux secrets retournés (◇) par les coffres sont des nombres à additioner et à transmettre à l'ampoule pour l'allumer.")
+                new Manual('Deux secrets',  "Les deux secrets retournés (◇) par les coffres sont des nombres à additioner et à transmettre à l'ampoule pour l'allumer.")
                 var board = new Board([
                     {}, {step: true, secret: x}, {empty: true},
                     {step: true, secret: y}, {goal: true, secret: x + y}, {empty: true},
@@ -221,7 +221,7 @@ class Level {
                 var x = this.randomize('purple', 'sapphire', 'blue', 'red');
                 var y = this.randomize('skate', 'rollers', 'submarine');
                 var secret = function(answer) { return answer === x + ' ' + y || answer === y + ' ' + x; };
-                new Manual('Concaténation',  "Les deux secrets retournés (◇) par les coffres sont des chaînes de caractères à concaténér (séparée d'un espace) et à transmettre à l'ampoule pour l'allumer.")
+                new Manual('Deux mots',  "Les deux secrets retournés (◇) par les coffres sont des chaînes de caractères à concaténer (séparée d'un espace) et à transmettre à l'ampoule pour l'allumer.")
                 var board = new Board([
                     {}, {step: true, secret: x}, {empty: true},
                     {step: true, secret: y}, {goal: true, secret: secret}, {empty: true},
@@ -234,7 +234,7 @@ class Level {
                 var x = this.random(1, 50);
                 var y = this.random(51, 99);
                 var secret = function(answer) { return answer === parseInt(x / y, 10) || answer === parseInt(y / x, 10); };
-                new Manual('Division',  "Les deux secrets retournés (◇) par les coffres sont des nombres à diviser l'un par l'autre (arrondi à l'entier inférieur) et à transmettre à l'ampoule pour l'allumer.")
+                new Manual('Deux nombres',  "Les deux secrets retournés (◇) par les coffres sont des nombres à diviser l'un par l'autre (arrondi à l'entier inférieur) et à transmettre à l'ampoule pour l'allumer.")
                 var board = new Board([
                     {}, {step: true, secret: x}, {empty: true},
                     {step: true, secret: y}, {goal: true, secret: secret}, {empty: true},
@@ -242,70 +242,70 @@ class Level {
                 ]);
                 window.robot = new Robot(1, 1, 'left', { done: done, board: board });
             break;
-            // case 7:
-            //     // conditionnal or Math static
-            //     var x = this.random();
-            //     var y = this.random();
-            //     new Manual('Le plus grand',  "?")
-            //     var board = new Board([
-            //         {}, {step: true, secret: x}, {empty: true},
-            //         {step: true, secret: y}, {goal: true, secret: Math.max(x, y)}, {empty: true},
-            //         {empty: true}, {empty: true}, {empty: true}
-            //     ]);
-            //     window.robot = new Robot(1, 1, 'left', { done: done, board: board });
-            // break;
-            // case 8:
-            //     // conditonnal
-            //     var x = this.randomize('purple', 'sapphire', 'blue', 'red');
-            //     var y = this.randomize('skate', 'rollers', 'submarine');
-            //     var secret = function(answer) { return answer === x.length > y.length ? x : y; };
-            //     new Manual('Le plus long',  "?")
-            //     var board = new Board([
-            //         {}, {step: true, secret: x}, {empty: true},
-            //         {step: true, secret: y}, {goal: true, secret: secret}, {empty: true},
-            //         {empty: true}, {empty: true}, {empty: true}
-            //     ]);
-            //     window.robot = new Robot(1, 1, 'left', { done: done, board: board });
-            // break;
-            // case 9:
-            //     // loop
-            //     var x = this.randomize(3, 5, 8, 13);
-            //     var y = this.randomize('skate', 'rollers', 'submarine');
-            //     var secret = function(answer) { var result = ''; for(var i = 0; i < x; i++) result+=y; return answer === result; };
-            //     new Manual('Répétition',  "?")
-            //     var board = new Board([
-            //         {}, {step: true, secret: x}, {empty: true},
-            //         {step: true, secret: y}, {goal: true, secret: secret}, {empty: true},
-            //         {empty: true}, {empty: true}, {empty: true}
-            //     ]);
-            //     window.robot = new Robot(1, 1, 'left', { done: done, board: board });
-            // break;
-            // case 10:
-            //     // loop & condtionnal
-            //     var x = this.randomize('skate', 'rollers', 'submarine');
-            //     var secret = function(answer) { return answer === x.split('').reverse().join('').replace(/[aeiou]+/g, ''); };
-            //     new Manual('?',  "?")
-            //     var board = new Board([
-            //         {}, {step: true, secret: x}, {empty: true},
-            //         {step: true}, {goal: true, secret: secret}, {empty: true},
-            //         {empty: true}, {empty: true}, {empty: true}
-            //     ]);
-            //     window.robot = new Robot(1, 1, 'left', { done: done, board: board });
-            // break;
-            // case 11:
-            //     // loop & condtionnal
-            //     var x = this.random(5, 9);
-            //     var secret = function(answer) { var result = 0; for(var i = 1; i <= x; i++) if (i % 2 !== 0) result += i; return answer === result; };
-            //     new Manual('?',  "?")
-            //     var board = new Board([
-            //         {}, {step: true}, {empty: true},
-            //         {step: true, secret: x}, {goal: true, secret: secret}, {empty: true},
-            //         {empty: true}, {empty: true}, {empty: true}
-            //     ]);
-            //     window.robot = new Robot(1, 1, 'left', { done: done, board: board });
-            // break;
+            case 7:
+                // conditionnal or Math static
+                var x = this.random();
+                var y = this.random();
+                new Manual('Le plus grand',  "Les deux secrets retournés (◇) par les coffres sont des nombres à comparer dont le plus grand est à transmettre à l'ampoule pour l'allumer.")
+                var board = new Board([
+                    {}, {step: true, secret: x}, {empty: true},
+                    {step: true, secret: y}, {goal: true, secret: Math.max(x, y)}, {empty: true},
+                    {empty: true}, {empty: true}, {empty: true}
+                ]);
+                window.robot = new Robot(1, 1, 'left', { done: done, board: board });
+            break;
+            case 8:
+                // conditonnal
+                var x = this.randomize('purple', 'sapphire', 'blue', 'red');
+                var y = this.randomize('skate', 'rollers', 'submarine');
+                var secret = function(answer) { return answer === x.length > y.length ? x : y; };
+                new Manual('Le plus grand (bis)',  "Les deux secrets retournés (◇) par les coffres sont des chaînes de caractères à comparer dont celle avec le plus grand nombre de caractères est à transmettre à l'ampoule pour l'allumer.")
+                var board = new Board([
+                    {}, {step: true, secret: x}, {empty: true},
+                    {step: true, secret: y}, {goal: true, secret: secret}, {empty: true},
+                    {empty: true}, {empty: true}, {empty: true}
+                ]);
+                window.robot = new Robot(1, 1, 'left', { done: done, board: board });
+            break;
+            case 9:
+                // loop
+                var x = this.randomize(3, 5, 8, 13);
+                var y = this.randomize('skate', 'rollers', 'submarine');
+                var secret = function(answer) { var result = ''; for(var i = 0; i < x; i++) result+=y; return answer === result; };
+                new Manual('Écho',  "Les deux secrets retournés (◇) par les coffres sont un nombre et une chaîne de caractères qu'il faut répéter autant de fois que le nombre l'indique (ex. 3, skate -> skateskateskate) et transmettre à l'ampoule pour l'allumer.")
+                var board = new Board([
+                    {}, {step: true, secret: x}, {empty: true},
+                    {step: true, secret: y}, {goal: true, secret: secret}, {empty: true},
+                    {empty: true}, {empty: true}, {empty: true}
+                ]);
+                window.robot = new Robot(1, 1, 'left', { done: done, board: board });
+            break;
+            case 10:
+                // loop & conditionnal
+                var x = this.randomize('skate', 'rollers', 'submarine');
+                var secret = function(answer) { return answer === x.split('').reverse().join('').replace(/[aeiou]+/g, ''); };
+                new Manual('Écho (bis)',  "Le secret retourné (◇) par le coffre est une chaîne de caractère qu'il faut mettre à l'envers et dont il faut retirer les voyelles puis transmettre à l'ampoule pour l'allumer.")
+                var board = new Board([
+                    {}, {step: true, secret: x}, {empty: true},
+                    {step: true}, {goal: true, secret: secret}, {empty: true},
+                    {empty: true}, {empty: true}, {empty: true}
+                ]);
+                window.robot = new Robot(1, 1, 'left', { done: done, board: board });
+            break;
+            case 11:
+                // loop & condtionnal
+                var x = this.random(5, 9);
+                var secret = function(answer) { var result = 0; for(var i = 1; i <= x; i++) if (i % 2 !== 0) result += i; return answer === result; };
+                new Manual('Un sur deux',  "Le secret retourné (◇) par le coffre est un nombre auquel il faut additioner tous les nombres de 1 jusqu'à lui sans les pairs (ex. 7 -> 7+5+3+1) puis transmettre à l'ampoule pour l'allumer.")
+                var board = new Board([
+                    {}, {step: true}, {empty: true},
+                    {step: true, secret: x}, {goal: true, secret: secret}, {empty: true},
+                    {empty: true}, {empty: true}, {empty: true}
+                ]);
+                window.robot = new Robot(1, 1, 'left', { done: done, board: board });
+            break;
             // case 12:
-            //     // array -> test me
+            //     // array
             //     var x = this.xRandomize(this.random(5, 9), 'skate', 'rollers', 'submarine')
             //     var y = this.randomize(x);
             //     var secret = function(answer) { return answer === x.filter(function(item) { return item === y; }).length; };
@@ -321,7 +321,7 @@ class Level {
                 document.querySelector('[data-hook=level] span').innerHTML = '✓';
                 document.querySelector('[data-hook=level]').classList.add('success');
                 document.querySelector('[data-hook=next]').classList.remove('active');
-                new Manual('Terminé',  "Bien vu l'artiste");
+                new Manual('Nickel chrome',  "C'est tout bon.");
                 window.robot = {};
         }
     }
