@@ -27,7 +27,8 @@ class Board {
         }.bind(this));
     }
     learn(robot) {
-        return this.square(robot.x, robot.y).secret;
+        if (!this.square(robot.x, robot.y).goal)
+            return this.square(robot.x, robot.y).secret;
     }
     square(x, y) {
         return this.squares[x + (y - 1) * 3 - 1];
