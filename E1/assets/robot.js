@@ -34,14 +34,6 @@ class Board {
                 if (!this.squares.filter(function(square) { return square.goal; }).length)
                     done();
             }
-            if (square.goal && (!square.secret || (typeof square.secret === 'function' ? square.secret(answer) : square.secret === answer))) {
-                delete square.goal;
-                square.light = true;
-                this.render(clone);
-
-                if (!this.squares.filter(function(square) { return square.goal; }).length)
-                    done();
-            }
         }.bind(this));
     }
     learn(robot) {
