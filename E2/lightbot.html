@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Lightbot</title>
+        <link href="assets/robot.css" rel="stylesheet">
+    </head>
+    <body></body>
+
+    <script type="text/javascript" src="assets/robot.js"></script>
+    <script type="text/javascript">
+        document.body.addEventListener('keydown', function(e) {
+            console.log(e.which);
+            /* left — turn robot & render board */
+            /* up — move robot & render board */
+            /* right — robot & render board */
+        });
+
+        var robot = {
+            x: 1,
+            y: 1,
+            direction : 'left',
+            move: function() {
+                // if 'top' update robot's x
+                // if 'right' update robot's y
+                // if 'bottom' update robot's x
+                // if 'left' update robot's y
+
+                // maybe check if board.isFree(x, y) before moving
+            },
+            turn(direction) {
+                // if 'right' or 'left', update robot's direction
+            }
+        }
+
+        // this displays the board with a robot (according to its x, y & direction attributes)
+        board.render(robot);
+    </script>
+</html>
