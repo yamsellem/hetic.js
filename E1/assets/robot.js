@@ -504,13 +504,13 @@ class Level {
 var level = new Level();
 
 document.body.addEventListener('keyup', function(e) {
-    if (event.which === 13)
+    if (e.which === 13)
         level.start();
-    if (event.which === 27)
+    if (e.which === 27)
         level.reset();
-    if (event.which === 39)
+    if (e.which === 39)
         level.next();
-    if (event.which === 37)
+    if (e.which === 37)
         level.previous();
 });
 
