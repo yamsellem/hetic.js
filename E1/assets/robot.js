@@ -312,7 +312,7 @@ class Level {
                 // conditonnal
                 var x = this.randomize(5, 9, 14, 18);
                 var y = this.randomize(5, 9, 14, 18);
-                var secret = function() { return x > 10 && y > 10; };
+                var secret = function() { return x > 10 || y > 10; };
                 new Manual('Opérateur logique',  "Les deux secrets sont des nombres, s'il l'un des deux est supérieur à 10 (ou les deux), transmettre vrai à l'ampoule pour l'allumer. Sinon, transmettre faux. ")
                 var board = new Board([
                     {}, {step: true, secret: x}, {empty: true},
@@ -378,7 +378,7 @@ class Level {
                 var secret = function() { return [].concat(x, y); };
                 new Manual('Tableaux',  "Les deux secrets sont un tableau et un nombre à réunir dans un seul tableau (ex. 7, [1, 5] -> [1, 5, 7]) puis transmettre à l'ampoule pour l'allumer.")
                 var board = new Board([
-                    {}, {step: true, secret: x}, {empty: true},
+                    {}, {step: true, secret: x.slice(0)}, {empty: true},
                     {step: true, secret: y}, {goal: true, secret: secret}, {empty: true},
                     {empty: true}, {empty: true}, {empty: true}
                 ]);
@@ -391,7 +391,7 @@ class Level {
                 new Manual('Transformer un tableau',  "Le secret est un tableau de nombres dont il faut doubler la valeur (ex. [1, 5, 7] -> [2, 10, 14]) puis transmettre à l'ampoule pour l'allumer.")
                 var board = new Board([
                     {}, {}, {empty: true},
-                    {step: true, secret: x}, {goal: true, secret: secret}, {empty: true},
+                    {step: true, secret: x.slice(0)}, {goal: true, secret: secret}, {empty: true},
                     {empty: true}, {empty: true}, {empty: true}
                 ]);
                 window.robot = new Robot(1, 1, 'left', { done: done, board: board });
@@ -403,7 +403,7 @@ class Level {
                 var secret = function() { return x.filter(function(i) { return i !== y; }); };
                 new Manual('Filtrer un tableau',  "Les deux secrets sont un nombre et une tableau dont il faut retirer les apparitions du nombre (ex. 3, [1, 3, 3, 1] -> [1, 1]) puis transmettre à l'ampoule pour l'allumer.")
                 var board = new Board([
-                    {}, {step: true, secret: x}, {empty: true},
+                    {}, {step: true, secret: x.slice(0)}, {empty: true},
                     {step: true, secret: y}, {goal: true, secret: secret}, {empty: true},
                     {empty: true}, {empty: true}, {empty: true}
                 ]);
@@ -416,7 +416,7 @@ class Level {
                 new Manual('Réduire un tableau',  "Le secret est un tableau de nombres dont le total (ex. [1, 5, 7] -> 13) est à transmettre à l'ampoule pour l'allumer.")
                 var board = new Board([
                     {}, {}, {empty: true},
-                    {step: true, secret: x}, {goal: true, secret: secret}, {empty: true},
+                    {step: true, secret: x.slice(0)}, {goal: true, secret: secret}, {empty: true},
                     {empty: true}, {empty: true}, {empty: true}
                 ]);
                 window.robot = new Robot(1, 1, 'left', { done: done, board: board });
@@ -452,7 +452,7 @@ class Level {
                 var x = {a: this.random(1, 3), b: this.random(1, 3), c: this.random(1, 3), d: this.random(1, 3), e: this.random(1, 3), f: this.random(1, 3)};
                 var y = this.randomize(x.a, x.b, x.c, x.d, x.e, x.f);
                 var secret = function() { var result = {}; Object.keys(x).forEach(function(key) { if (x[key] !== y) result[key] = x[key]; }); return result; };
-                new Manual('Dictionnaires',  "Les secrets sont un nombre et un dictionnaire dont il faut retirer les clé dont la valeur égale celle du nombre (ex. 2, {a: 1, b: 2} -> {a: 1}) puis transmettre à l'ampoule pour l'allumer.")
+                new Manual('Dictionnaires',  "Les secrets sont un nombre et un dictionnaire dont il faut retirer les clés dont la valeur égale celle du nombre (ex. 2, {a: 1, b: 2} -> {a: 1}) puis transmettre à l'ampoule pour l'allumer.")
                 var board = new Board([
                     {}, {step: true, secret: x}, {empty: true},
                     {step: true, secret: y}, {goal: true, secret: secret}, {empty: true},
@@ -474,13 +474,6 @@ class Level {
     randomize() {
         var array = [].slice.call(arguments);
         return array[Math.floor(Math.random() * array.length)];
-    }
-    xRandomize(times) {
-        var result = [];
-        var values = [].slice.call(arguments).slice(1);
-        for (var i = 0; i < times; i++)
-            result = result.concat(this.randomize.apply(this, values))
-        return result;
     }
     next() {
         if (!document.querySelector('[data-hook=next]').classList.contains('active')) return;
