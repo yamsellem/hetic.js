@@ -400,7 +400,7 @@ class Level {
                 // array filter
                 var x = [this.random(1, 3), this.random(1, 3), this.random(1, 3), ''+this.random(1, 3), this.random(1, 3), ''+this.random(1, 3), this.random(1, 3), ''+this.random(1, 3)];
                 var y = this.randomize.apply(this, x);
-                var secret = function() { return x.filter(function(i) { return i !== y; }); };
+                var secret = function() { return x.filter(function(i) { return i != y; }); };
                 new Manual('Filtrer un tableau',  "Les deux secrets sont un nombre et une tableau dont il faut retirer les apparitions du nombre (ex. 3, [1, 3, 3, 1] -> [1, 1]) puis transmettre à l'ampoule pour l'allumer.")
                 var board = new Board([
                     {}, {step: true, secret: x.slice(0)}, {empty: true},
