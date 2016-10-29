@@ -7,7 +7,7 @@
 
 :bulb: Les conditions et les boucles
 
-:bulb: Les événements navigateur
+:bulb: Les événements du navigateur
 
 :loop: Les bases de JavaScript avec [lightbot, ter](lightbot.html)
 
