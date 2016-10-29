@@ -5,6 +5,8 @@
 
 :bulb: Les tableaux et dictionnaires
 
+:bulb: Les conditions et les boucles
+
 :bulb: Les événements navigateur
 
 :loop: Les bases de JavaScript avec [lightbot, ter](lightbot.html)
