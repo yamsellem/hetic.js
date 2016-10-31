@@ -81,3 +81,60 @@ for (var i = 0; i < x.length; i++) {
         secret += char;;
     }
 }
+// step 14
+var secret = 0;
+for (var i = 1; i <= y; i++) {
+    if (i % 2 !== 0) {
+        secret += i;
+    }
+}
+// step 15
+var secret = [x, y];
+// step 16
+var secret = [].concat(x, y);
+// step 17
+var secret = [];
+for (var i = 0; i < y.length; i++) {
+    var value = y[i];
+    secret.push(value * 2);
+}
+// step 18
+var secret = [];
+for (var i = 0; i < x.length; i++) {
+    if (x[i] !== y) {
+        secret.push(value);
+    }
+}
+// step 19
+var secret = 0;
+for (var i = 0; i < y.length; i++) {
+    secret += y[i];
+}
+// step 20
+var secret = {};
+if (x < y) {
+    secret.min = x;
+    secret.max = y;
+} else {
+    secret.min = y;
+    secret.max = x;
+}
+// step 21
+var secret = {};
+if (x.min < y.min) {
+    secret.min = x.min;
+} else {
+    secret.min = y.min;
+}
+if (x.max > y.max) {
+    secret.max = x.max;
+} else {
+    secret.max = y.max;
+}
+// step 22
+var secret = {};
+for (var key in x) {
+    if (x[key] !== y) {
+        secret[key] = x[key];
+    }
+}
