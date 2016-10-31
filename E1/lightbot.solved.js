@@ -57,13 +57,13 @@ if (x + y > 100) {
     secret = false;
 }
 // step 10
-if (x > 10 && y > 10) {
+if (x > 10 && y > 10) { // both are true
     secret = true;
 } else {
     secret = false;
 }
 // step 11
-if (x > 10 || y > 10) {
+if (x > 10 || y > 10) { // one of both (or both) are true
     secret = true;
 } else {
     secret = false;
@@ -71,21 +71,21 @@ if (x > 10 || y > 10) {
 // step 12
 var secret = '';
 for (var i = 0; i < x; i++) {
-    secret += y;
+    secret = secret + y; // each loop add y string to secret
 }
 // step 13
 var secret = '';
 for (var i = 0; i < x.length; i++) {
-    var char = x.charAt(i);
+    var char = x[i];
     if (char !== 'e') {
-        secret += char;;
+        secret = secret + char;
     }
 }
 // step 14
 var secret = 0;
 for (var i = 1; i <= y; i++) {
-    if (i % 2 !== 0) {
-        secret += i;
+    if (i % 2 === 1) { // test is number odd
+        secret = secret + i;
     }
 }
 // step 15
@@ -96,19 +96,19 @@ var secret = [].concat(x, y);
 var secret = [];
 for (var i = 0; i < y.length; i++) {
     var value = y[i];
-    secret.push(value * 2);
+    secret.push(value * 2); // creates a new array with new values
 }
 // step 18
 var secret = [];
 for (var i = 0; i < x.length; i++) {
     if (x[i] !== y) {
-        secret.push(value);
+        secret.push(value); // creates a new array with filtered values
     }
 }
 // step 19
 var secret = 0;
 for (var i = 0; i < y.length; i++) {
-    secret += y[i];
+    secret = secret + y[i];
 }
 // step 20
 var secret = {};
