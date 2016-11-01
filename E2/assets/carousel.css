@@ -1,0 +1,40 @@
+body, ul {
+    padding: 0;
+    margin: 0;
+}
+ul {
+    position: relative;
+    list-style-type: none;
+    user-select: none;
+    font-family: 'Lucida Grande';
+    text-align: center;
+    font-size: 5rem;
+    height: 20rem;
+    line-height: 20rem;
+    color: white;
+}
+li {
+    display: none;
+    background-color: #02BBD7;
+    transition: transform 0.3s;
+}
+li:nth-child(even) { background-color: #0297A9; }
+li.visible { display: block; }
+
+ul span {
+    position: absolute;
+    top: 0; bottom: 0;
+    cursor: pointer;
+}
+ul span.prev {
+    left: 0;
+    padding-left: 1rem;
+}
+ul span.next {
+    right: 0;
+    padding-right: 1rem;
+}
+
+ul span.hidden {
+    display: none;
+}

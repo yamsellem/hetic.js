@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Carousel</title>
+        <link rel="stylesheet" href="assets/carousel.css">
+    </head>
+    <body>
+        <ul>
+            <li class="visible">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <span class="prev">←</span>
+            <span class="next">→</span>
+        </ul>
+    </body>
+
+    <script type="text/javascript">
+        var elPrev = document.querySelector('.prev');
+        var elNext = document.querySelector('.next');
+
+        var navigation = function(index) {
+            elPrev.classList.toggle('hidden', index === 0);
+            elNext.classList.toggle('hidden', index === 4);
+        }
+
+        var next = function() {
+            // remove class 'visible' on current li
+            // add class 'visible' on next li
+            // update navigation
+        }
+
+        var prev = function() {
+            // remove class 'visible' on current li
+            // add class 'visible' on previous li
+            // update navigation
+        }
+
+        document.querySelector('body').addEventListener('keyup', function(event) {
+            console.log(event.which);
+            // call next on keyboard ← press
+            // call prev on keyboard → press
+        });
+
+        // call next on span containing ← click on
+        // call next on span containing → click on
+
+        navigation(0);
+    </script>
+</html>

@@ -1,0 +1,50 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'verdana';
+    font-size: 14px;
+    background-color: #ffe0cb;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+hr {
+    padding: 0;
+    border: none;
+    border-top: 1px solid #333;
+    color: #333;
+    text-align: center;
+}
+.container {
+    width: 600px;
+    margin: auto;
+}
+.fruits {
+    width: 360px;
+    float: left;
+}
+img {
+    width: 50px;
+    padding: 20px;
+    float: left;
+    cursor: pointer;
+}
+img.selected {
+    background-color: #fdea60;
+}
+
+input {
+    width: 700px;
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.basket {
+    width: 200px;
+    float: right;
+}
+.basket label {
+    display: block;
+}
