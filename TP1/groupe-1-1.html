@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TP 1 - Pizza YOLO</title>
+</head>
+<body>
+  
+  <script>
+    // ici on a une variable qui contient le nom de la pizza
+    // à l'avenir ceci pourrait être une pizza donné par l'utilisateur
+    var pizza_yolo = 'regina';
+
+    console.log('Ajourd\'hui, on va faire une pizza ' + pizza_yolo + ' frère !');
+    console.log('On attends que le four préchauffe');
+
+    // pour un temps qui commence à 1 (a = 1)
+    // on vérifie que 'a' n'est pas arrivé à 5 encore
+    // et on affiche depuis quand ça chauffe
+    for (var a = 1; a <= 5; a++) {
+      if (a > 1) {
+        console.log('ça fait ' + a + ' minutes');
+      } else {
+        console.log('ça fait ' + a + ' minute');
+      }
+    }
+
+    console.log('On mets la pizza au four');
+    console.log('On attends que la pizza cuise');
+
+    // on établie un temps de cuisson
+    var temps_cuisson = 10;
+
+    // tant que le temps est supérieur à 0, on affiche le temps restant
+    while (temps_cuisson > 0) {
+      if (temps_cuisson > 1) {
+        console.log('il reste ' + temps_cuisson + ' minutes');
+      } else {
+        console.log('il reste ' + temps_cuisson + ' minute');
+      }
+
+      // on décrémente à la fin de nos phrases, mais dans le while
+      // car le while ne prends que des conditions et rien d'autre
+      // contrairement au for qui prends initialisation, condition et action sur la même ligne
+      temps_cuisson--;
+    }
+
+    console.log('la pizza est prête !');  
+  </script>
+</body>
+</html>
