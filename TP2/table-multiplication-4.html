@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Table de multiplication</title>
+</head>
+<body>
+  
+  <script>
+    // voir le fichier table-multiplication-3.html avant
+    // maintenant on va juste ajouter un prompt pour que ce soit
+    // vraiment dynamique et interactif
+    // on ne change que les 3 première ligne comparé au fichier précédent
+    // notre logique ne bouge pas, on n'a fait que changer nos variables
+    // de départ
+    var table_de = prompt('Quel table de multiplication de départ frère ?');
+    var table_limite = prompt('Quel est la dernière table de multiplication à afficher ?');
+    var limit_multiplicateur = prompt('Quel est la limite du multiplicateur ?');
+    var resultat;
+
+    for (var i = 1; i <= limit_multiplicateur; i++) {
+      resultat = table_de * i;
+      console.log(table_de + ' fois ' + i + ' = ' + resultat);
+
+      // si on a fini de générer une table
+      // c'est à dire, si 'i' vaut la limite du multiplicateur (ici 12)
+      // et que la limite des tables n'est pas atteinte
+      // on RESET le tout pour que notre boucle continue
+      if (i == limit_multiplicateur && table_de < table_limite) {
+        // pourquoi i = 0 et pas i = 1 ?
+        // car rappelez-vous, juste après nos instructions
+        // à la fin de la boucle, que se passe-t-il ?
+        // le " i++ " !!!
+        // donc comme on sait que i va faire un "++", on le met à 0
+        // du coup quand la boucle recommencera il sera à 1
+        i = 0;
+        // et on incrémente la table
+        table_de++;
+      }
+    }
+  </script>
+</body>
+</html>
