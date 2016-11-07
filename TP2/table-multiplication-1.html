@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Table de multiplication</title>
+</head>
+<body>
+  
+  <script>
+    // afficher la table de multiplication du chiffre 5
+    // on commence par déclarer une variable qui stockera
+    // le résultat de 5 fois 1, 5 fois 2, 5 fois 3 etc
+
+    // on peut déclarer une variable sans ASSIGNER de valeur
+    // cette variable vaut donc 'undefined'
+    var resultat;
+
+    // on multiplira ce chiffre en partant de 1 à 12
+    // donc on boucle de 1 à 12
+    for (var i = 1; i <= 12; i++) {
+      // on fait notre calcul DANS LA BOUCLE
+      // pour afficher le résultat du calcul à chaque fois
+      // 'i' contient notre variation, c'est grâce à i que la boucle fera
+      // 5 * 1, quand i vaut 1
+      // 5 * 2, quand i vaut 2 etc
+      resultat = 5 * i;
+      console.log('5 fois ' + i + ' = ' + resultat);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Table de multiplication</title>
+</head>
+<body>
+  
+  <script>
+    // voir le fichier table-multiplication-1.html avant
+    // maintenant faisons ça de manière propre
+    // avec des variables pour ne pas dupliquer son code
+    // et surtout le rendre dynamique
+    var table_de = 9;
+    var limit_multiplicateur = 12;
+    var resultat;
+
+    for (var i = 1; i <= limit_multiplicateur; i++) {
+      resultat = table_de * i;
+      console.log(table_de + ' fois ' + i + ' = ' + resultat);
+    }
+  </script>
+</body>
+</html>

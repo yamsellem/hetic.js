@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bonjour, Bon après midi, Bonsoir</title>
+</head>
+<body>
+  
+  <script>
+    // ne vous préocupez pas des deux lignes suivantes
+    // retenez juste que heure vaut l'heure qui est sur votre pc
+    // au moment ou votre charger la page
+    // ça va de 0 à 23 pour ceux au format 24h
+    // et de 1 à 12 pour ceux au format 12h, donc pour 15h vous aurez 3
+    var date = new Date;
+    var heure = date.getHours();
+
+    // si l'heure actuelle est entre 6h exclus et 12h exclus affiche bonjour
+    if (heure > 6 && heure < 12) {
+      console.log('bonjour');
+    } else if (heure >= 12 && heure < 17) {
+      // sinon si l'heure actuelle est entre 12h inclus et 17h exclus 
+      // affiche bon après midi
+      console.log('bon après midi');
+    } else {
+      // sinon, dans tous les autres cas, affiche bonsoir
+      // les autres cas par déduction sont : de 0h inclus à 6h inclus
+      // et de 17h inclus à 23h inclus
+      console.log('bonsoir');
+    }
+  </script>
+</body>
+</html>

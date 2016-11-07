@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quel âge as-tu ?</title>
+</head>
+<body>
+  
+  <script>
+    var notes = [20, 16, 12, 14, 2, 8];
+
+    // on commence notre somme de notes à 0
+    // sinon la suite du calcul produira ce qu'on appel un NaN
+    // Not a Number (pas Naan au fromage)
+    var somme = 0;
+
+    // on fait une boucle qui va de 0
+    // 0 est le premier index d'un tableau
+    // cette boucle continue jusqu'au dernière index du tableau
+    // donc on va que la boucle continue jusque "i < notes.length"
+    // qui ici vaut 6, donc jusque 5 < 6, donc sera le dernier tour
+    // de boucle
+    for (var i = 0; i < notes.length; i++) {
+      // ici on ajoute à l'ancienne somme, la note actuel
+      // donc si "i" vaut 0 par exemple
+      // on a notes[i] qui veut dire notes[0] puis
+      // on a notes[i] qui veut dire notes[1] puis
+      // on a notes[i] qui veut dire notes[2] puis etc jusque 5
+      // vu que on dit de continuer la boucle tant que i < notes.length (6)
+      somme = somme + notes[i];
+    }
+
+    // ici on calcule notre moyenne
+    var moyenne = somme / notes.length;
+
+    console.log(moyenne);
+  </script>
+</body>
+</html>
