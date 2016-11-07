@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Carousel</title>
+        <link rel="stylesheet" href="assets/carousel.css">
+    </head>
+    <body>
+        <ul>
+            <li class="visible">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <span class="prev">←</span>
+            <span class="next">→</span>
+        </ul>
+    </body>
+
+    <script type="text/javascript">
+        var elPrev = document.querySelector('.prev');
+        var elNext = document.querySelector('.next');
+
+        var navigation = function(index) {
+            elPrev.classList.toggle('hidden', index === 0);
+            elNext.classList.toggle('hidden', index === 4);
+        }
+
+        var lis = document.querySelectorAll('li');
+        var index = 0;
+
+        var next = function() {
+            lis[index].classList.remove('visible');
+            index = Math.min(index + 1, 4);
+            lis[index].classList.add('visible');
+
+            navigation(index);
+        }
+
+        var prev = function() {
+            lis[index].classList.remove('visible');
+            index = Math.max(index - 1, 0);
+            lis[index].classList.add('visible');
+
+            navigation(index);
+        }
+
+        document.querySelector('body').addEventListener('keyup', function(event) {
+            if (event.which === 37) {
+                prev();
+            }
+            if (event.which === 39) {
+                next();
+            }
+        });
+
+        elNext.addEventListener('click', function() {
+            next();
+        });
+        elPrev.addEventListener('click', function() {
+            prev();
+        });
+
+        navigation(0);
+    </script>
+</html>
