@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nombre d'occurence d'une lettres</title>
+</head>
+<body>
+  
+  <script>
+    var lettres = ['a', 'b', 'c', 'c', 'a', 'b', 'e', 'f', 'r', 'b'];
+
+    var lettre_a_chercher = prompt('donne une lettre');
+    var occurences = 0;
+
+    // se référer au TP sur les moyennes
+    // pour rappel parcourir un tableau se fait toujour de la même manière
+    // on veut aller de 0 (le premier index) au dernière index
+    // qui se tout le temps nombre total d'éléments du tableau - 1
+    // donc pour 6 éléments par exemple, le dernière index est 5
+    // on irait donc de 0 à 5
+    // mais pour faire ça dynamiquement
+    // on va de 0, et on incrémente tant que c'est inférieur au nombre total
+    for (var i = 0; i < lettres.length; i++) {
+      if (lettres[i] == lettre_a_chercher) {
+        occurences++;
+      }
+    }
+
+    console.log('il y a ' + occurences + ' fois la lettre "' + lettre_a_chercher + '" dans la classe');
+  </script>
+</body>
+</html>
