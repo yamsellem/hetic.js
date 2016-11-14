@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Devine</title>
+</head>
+<body>
+  
+  <script>
+    // on veut donner 5 chances au joueur
+    var coups_possibles = 5;
+
+    // on défini le nombre de coups qu'il a fait
+    var coups_joues = 0;
+
+    // on définit un nombre à deviner entre 1 et 10
+    var nombre_a_trouver = 9;
+
+    // pour créer un chiffre aléatoire entre 1 et 10
+    // vous pouvez faire 
+    // var nombre_a_trouver = Math.floor( Math.random() * 11 );
+
+    // on definit la var qui stock la réponse
+    var reponse;
+
+    // tant que le nombre de coups joués est 
+    while (coups_joues <= coups_possibles) {
+
+      // si c'est le premier coup on propose la phrase de début
+      if (coups_joues === 0) {
+        reponse = prompt('Bienvenue ! Devinez le chiffre entre 1 et 10.');
+        // on comptabilise qu'il a joué après cette réponse
+        coups_joues++;
+      }
+
+      // si la réponse est vide ou n'est pas un numéro
+      // on arrête là
+      // la fonction isNaN() permet de savoir si le parametre
+      // n'est pas un numéro
+      if (reponse === '' || reponse === null || isNaN(reponse)) {
+        alert('On arrête le jeux tu ne veux pas jouer !');
+        break;
+      } else if (reponse == nombre_a_trouver) {
+        // sinon si la réponse est la bonne il a gagné
+        // donc on lui dit qu'il a gagné et on stop
+        // ici, on fait un " == " au lieu d'un " === " car
+        // la réponse d'un prompt est toujours une chaine de caractère
+        // donc la réponse ne sera jamais strictement égale à nombre 
+        // nombre_a_trouver qui lui est un entier et non une chaine de caractère
+        alert("Tu as gagné c'est trop cool ouesh gros t'es fort, en " + coups_joues + " coups");
+        break;
+      } else if (coups_joues === coups_possibles) {
+        // sinon si le nombre de coup joués est égale au nombre de coups possibles
+        // c'est que il a perdu donc on arrête là
+        alert('Tu as perdu khey !');
+        break;
+      } else if (reponse > nombre_a_trouver) {
+        // sinon si la réponse est supérieur au nombre à trouver
+        // on lui dit que le nombre à trouver est inférieur
+        // on lui dit le nombre de coups qu'il lui reste
+        // le nombre de coups total permis moins le nombre de coups joués
+        reponse = prompt('Le nombre à trouver est inférieur et il te reste ' + (coups_possibles - coups_joues) + ' coups');
+        // on comptabilise qu'il a joué après cette réponse
+        coups_joues++;
+      } else if (reponse < nombre_a_trouver) {
+        // sinon si la réponse est inférieur au nombre à trouver
+        // on lui dit que le nombre à trouver est supérieur
+        // on lui dit le nombre de coups qu'il lui reste
+        // le nombre de coups total permis moins le nombre de coups joués
+        reponse = prompt('Le nombre à trouver est supérieur et il te reste ' + (coups_possibles - coups_joues) + ' coups');
+        // on comptabilise qu'il a joué après cette réponse
+        coups_joues++;
+      }
+    }
+  </script>
+</body>
+</html>
