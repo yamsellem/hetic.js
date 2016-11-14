@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Shaker</title>
+        <link rel="stylesheet" href="assets/shaker.css">
+    </head>
+    <body>
+        <div class="container">
+            <ul class="fruits">
+                <li data-name="banana" class="sprite banana"></li>
+                <li data-name="broccoli" class="sprite broccoli"></li>
+                <li data-name="carrot" class="sprite carrot"></li>
+                <li data-name="coconut" class="sprite coconut"></li>
+                <li data-name="corn" class="sprite corn"></li>
+                <li data-name="cucumber" class="sprite cucumber"></li>
+                <li data-name="eggplant" class="sprite eggplant"></li>
+                <li data-name="grain" class="sprite grain"></li>
+                <li data-name="grape" class="sprite grape"></li>
+                <li data-name="lemon" class="sprite lemon"></li>
+                <li data-name="lettuce" class="sprite lettuce"></li>
+                <li data-name="mushrooms" class="sprite mushrooms"></li>
+                <li data-name="onion" class="sprite onion"></li>
+                <li data-name="pepper" class="sprite pepper"></li>
+                <li data-name="tomato" class="sprite tomato"></li>
+                <li data-name="watermelon" class="sprite watermelon"></li>
+            </ul>
+
+            <div class="summary">
+                <h5>Fresh juice</h5>
+                <ul class="items"></ul>
+                <hr>
+                <p class="total">0 vitamins</p>
+            </div>
+        </div>
+    </body>
+
+    <script type="text/javascript">
+        // fruits have .5 vitamins
+        // vegetables have .3 vitamins
+        // mushrooms & pepper have .8 vitamins
+
+        var renderPrice = function(name, toggle) {
+            // compute total price
+            // display total price in '.total'
+        }
+
+        var renderItems = function(name, toggle) {
+            // compute items list
+            // display items list in '.items' with <li>
+        }
+
+        var handleClick = function(elImg) {
+            elImg.addEventListener('click', function() {
+                console.log(elImg.dataset.name);
+                // on elImg click
+                // - add selected class or remove it
+                // - add or remove the item from the juice '.items' list
+                // - add or remove the item price from the total
+            });
+        }
+
+        var elImgs = document.querySelectorAll('.sprite');
+        for (var i = 0; i < elImgs.length; i++) {
+            handleClick(elImgs[i]);
+        }
+
+        // when everything else works: handle quantity on '.items' <li>
+        // default is <li>(1x) banana</li>
+        // and clicking on it
+        // makes it <li>(2x) banana</li>
+        // and changes the prices accordingly
+    </script>
+</html>
