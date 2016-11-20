@@ -1,4 +1,4 @@
-## E1 — Le code
+## E1 à E3 — Le code
 > « Change, plutôt que tes désirs, l'ordre du monde » A. Damasio
 
 :package: [Télécharger la séance](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/yamsellem/hetic.js/tree/master/E1)
