@@ -1,7 +1,7 @@
 ## E5 — Le navigateur
 > « L'homme se découvre quand il se mesure avec l'obstacle. » A. Saint-Exupéry
 
-:package: [Télécharger la séance](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/yamsellem/hetic.js/tree/master/E3)
+:package: [Télécharger la séance](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/yamsellem/hetic.js/tree/master/E5)
 
 :bulb: Selectors et event listeners
 

@@ -1,7 +1,7 @@
 ## E4 — Le navigateur
 > « La terre nous en apprend plus long que tous les livres, car elle nous résiste. » A. Saint-Exupéry
 
-:package: [Télécharger la séance](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/yamsellem/hetic.js/tree/master/E2)
+:package: [Télécharger la séance](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/yamsellem/hetic.js/tree/master/E4)
 
 :bulb: Le DOM (onglet Elements, modification de contenu, de style)
 

@@ -1,7 +1,7 @@
 ## E1 à E3 — Le code
 > « Change, plutôt que tes désirs, l'ordre du monde » A. Damasio
 
-:package: [Télécharger la séance](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/yamsellem/hetic.js/tree/master/E1)
+:package: [Télécharger la séance](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/yamsellem/hetic.js/tree/master/E1-3)
 
 __Programme__: 15 séances de 3h de cours, chacune suivie d'un TP de 2h, des projets de programmation, 2 partiels, 2 colles
 
