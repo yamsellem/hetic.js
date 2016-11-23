@@ -18,35 +18,44 @@
     </body>
 
     <script type="text/javascript">
+        // Sélection des span avec la classe .prev et .next
         var elPrev = document.querySelector('.prev');
         var elNext = document.querySelector('.next');
 
+        // 4. Méthode permettant d'afficher / masquer les span flèches ← et →
+        // Cet affichage est fonction de l'index
         var navigation = function(index) {
             elPrev.classList.toggle('hidden', index === 0);
             elNext.classList.toggle('hidden', index === 4);
         }
 
+        // 3. Méthode permettant de passer au slide suivant du carousel
         var next = function() {
-            // remove class 'visible' on current li
-            // add class 'visible' on next li
-            // update navigation
+            // Récupérer le slide affiché actuellement (le seul avec la classe .visible)
+            // et supprimer sa classe .visible
+
+            // Afficher la prochaine slide
+
+            // Appeler la méthode navigation qui affiche / masque les fléches ← et →
         }
 
         var prev = function() {
-            // remove class 'visible' on current li
-            // add class 'visible' on previous li
-            // update navigation
+            // Identique à next mais afficher du slide précédent
         }
 
+        // 1. Ajout d'un écouteur d'événement sur le body
         document.querySelector('body').addEventListener('keyup', function(event) {
             console.log(event.which);
-            // call prev on keyboard ← press
-            // call next on keyboard → press
+            // Lors de l'appui sur la touche ←, appeler la méthode prev
+            // Lors de l'appui sur la touche →, appeler la méthode next
         });
 
-        // call prev on span containing ← click on
-        // call next on span containing → click on
+        // 2. Ajouter un écouteur d'événement sur le span avec la classe .prev
+        // Au clic, appeler la méthode next
 
-        navigation(0);
+        // Ajouter un écouteur d'événement sur le span avec la classe .next
+        // Au clic, appeler la méthode prev
+
+        navigation(0); // Initialisation de l'affichage des flèches
     </script>
 </html>
