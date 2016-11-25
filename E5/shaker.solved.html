@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Shaker</title>
+        <link rel="stylesheet" href="assets/shaker.css">
+    </head>
+    <body>
+        <div class="container">
+            <ul class="fruits">
+                <li data-name="banana" class="sprite banana"></li>
+                <li data-name="broccoli" class="sprite broccoli"></li>
+                <li data-name="carrot" class="sprite carrot"></li>
+                <li data-name="coconut" class="sprite coconut"></li>
+                <li data-name="corn" class="sprite corn"></li>
+                <li data-name="cucumber" class="sprite cucumber"></li>
+                <li data-name="eggplant" class="sprite eggplant"></li>
+                <li data-name="grain" class="sprite grain"></li>
+                <li data-name="grape" class="sprite grape"></li>
+                <li data-name="lemon" class="sprite lemon"></li>
+                <li data-name="lettuce" class="sprite lettuce"></li>
+                <li data-name="mushrooms" class="sprite mushrooms"></li>
+                <li data-name="onion" class="sprite onion"></li>
+                <li data-name="pepper" class="sprite pepper"></li>
+                <li data-name="tomato" class="sprite tomato"></li>
+                <li data-name="watermelon" class="sprite watermelon"></li>
+            </ul>
+
+            <div class="summary">
+                <h5>Fresh juice</h5>
+                <ul class="items"></ul>
+                <hr>
+                <p class="total">0 vitamins</p>
+            </div>
+        </div>
+    </body>
+
+    <script type="text/javascript">
+        // Dictionnaire clé-valeur utilisé comme référence du nombre de vitamines de chaque fruit / légume
+        var prices = {
+            banana: .5,
+            broccoli: .3,
+            carrot: .3,
+            coconut: .5,
+            corn: .3,
+            cucumber: .3,
+            eggplant: .3,
+            grain: .3,
+            grape: .5,
+            lemon: .5,
+            lettuce: .3,
+            mushrooms: .8,
+            onion: .3,
+            pepper: .8,
+            tomato: .3,
+            watermelon: .5
+        }
+
+        var total = 0; // Total de vitamines
+        var items = {}; // Dictionnaire mémorisant les items sélectionnés (ceux ayant la classe .selected)
+
+        // 5.2 Méthode permettant l'affichage du total de vitamines
+        var renderVitamins = function(name, toggle) {
+            if (toggle) {
+                var price = prices[name] * 100;
+                total += price;
+            } else {
+                var quantity = items[name];
+                var price = prices[name] * 100 * quantity;
+                total -= price;
+            }
+
+            document.querySelector('.total').innerHTML = (Math.floor(total) / 100) + ' vitamins';
+        }
+
+        // 5.1 Méthode permettant l'affichage de la liste des fruits / légumes dans .items sur la droite
+        var renderItems = function(name, toggle) {
+            if (toggle) {
+                items[name] = items[name] || 1;
+            } else {
+                delete items[name];
+            }
+
+            var lis = '';
+            for (var key in items) {
+                var value = items[key];
+                lis += '<li data-name="' + key + '"> (' + value + 'x) ' + key + '</li>';
+            }
+            document.querySelector('.items').innerHTML = lis;
+        }
+
+        // 1. Sélection de tous les li avec la classe .sprite
+        var elImages = document.querySelectorAll('.sprite');
+        for (var i = 0; i < elImages.length; i++) {
+            // 2. Ajout d'un écouteur d'événement au click sur chaque li
+            elImages[i].addEventListener('click', function() {
+                // 3. Lors d'un clic, ajout de la classe .selected si elle est présente
+                // retrait sinon
+                var toggle = this.classList.toggle('selected');
+                // 4. Récupération de l'attribut data-name du li
+                var name = this.dataset.name;
+
+                // 5. Appel des méthodes d'affichage du total de vitamines
+                // et de la liste des items
+                renderVitamins(name, toggle);
+                renderItems(name, toggle);
+            });
+        }
+
+        // 6. Ajout d'un écouteur d'événement sur les li de la liste de droite
+        document.querySelector('.items').addEventListener('click', function(event) {
+            var name = event.target.dataset.name;
+            if (!name) {
+                return;
+            }
+
+            // Au clic, modification du nombre de fruits / légumes de ce type
+            items[name]++;
+
+            // Calcul et nouvel affichage du total de vitamines et de la liste des items
+            renderVitamins(name, true);
+            renderItems(name, true);
+        });
+    </script>
+</html>

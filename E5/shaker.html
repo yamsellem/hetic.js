@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Shaker</title>
+        <link rel="stylesheet" href="assets/shaker.css">
+    </head>
+    <body>
+        <div class="container">
+            <ul class="fruits">
+                <li data-name="banana" class="sprite banana"></li>
+                <li data-name="broccoli" class="sprite broccoli"></li>
+                <li data-name="carrot" class="sprite carrot"></li>
+                <li data-name="coconut" class="sprite coconut"></li>
+                <li data-name="corn" class="sprite corn"></li>
+                <li data-name="cucumber" class="sprite cucumber"></li>
+                <li data-name="eggplant" class="sprite eggplant"></li>
+                <li data-name="grain" class="sprite grain"></li>
+                <li data-name="grape" class="sprite grape"></li>
+                <li data-name="lemon" class="sprite lemon"></li>
+                <li data-name="lettuce" class="sprite lettuce"></li>
+                <li data-name="mushrooms" class="sprite mushrooms"></li>
+                <li data-name="onion" class="sprite onion"></li>
+                <li data-name="pepper" class="sprite pepper"></li>
+                <li data-name="tomato" class="sprite tomato"></li>
+                <li data-name="watermelon" class="sprite watermelon"></li>
+            </ul>
+
+            <div class="summary">
+                <h5>Fresh juice</h5>
+                <ul class="items"></ul>
+                <hr>
+                <p class="total">0 vitamins</p>
+            </div>
+        </div>
+    </body>
+
+    <script type="text/javascript">
+        // Les fruits ont .5 vitamines
+        // Les légumes ont .3 vitamines
+        // Les champignons (mushrooms) & le poivre (pepper) ont .8 vitamines
+
+        var total = 0; // Total de vitamines
+        var items = {}; // Dictionnaire mémorisant les items sélectionnés (ceux ayant la classe .selected)
+
+        // 5.2 Méthode permettant l'affichage du total de vitamines
+        var renderVitamins = function(name, toggle) {
+            // Calculer le total de vitamines, en additionnant (toggle === true) ou soustrayant
+            // la valeur en vitamine du nom en paramètre
+
+            // Afficher ce total dans le p avec la classe .total
+        }
+
+        // 5.1 Méthode permettant l'affichage de la liste des fruits / légumes dans .items sur la droite
+        var renderItems = function(name, toggle) {
+            // Si le nom est à ajouter (toggle === true), l'insérer dans le dictionnaire
+            // Sinon, le supprimer du dictionnaire
+
+            // Afficher cette liste de noms avec des <li> dans le ul avec la classe .items
+        }
+
+        // 1. Sélection de tous les li avec la classe sprite
+        var elImgs = document.querySelectorAll('.sprite');
+        for (var i = 0; i < elImgs.length; i++) {
+            // 2. Ajout d'un écouteur d'événement au click sur chaque li
+            elImg.addEventListener('click', function() {
+                console.log(this.dataset.name);
+
+                // 3. Lors d'un clic, ajout de la selected si elle est présente
+                // retrait sinon
+
+                // 4. Récupération de l'attribut data-name du li
+
+                // 5. Appel des méthodes d'affichage du total de vitamines
+                // et de la liste des items
+            });
+        }
+
+        // 6. Gérer la quantité
+        // Par défaut, les fruits et légumes sélectionnés sont affichés <li>(1x) banana</li>
+        // Cliquer sur l'un d'eux, les change en <li>(2x) banana</li>
+        // et modifie le nombres de vitamines en fonction
+    </script>
+</html>
