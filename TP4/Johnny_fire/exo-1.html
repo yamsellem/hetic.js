@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Allumer le feu !</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+
+  <p>
+    <img class="johnny" src="johnny.png" alt="johnny Hallyday">
+    <img class="flamme" src="feu.png" alt="Flamme de Johnny">
+  </p>
+
+  <button>Toggle le feu Johnny !</button>
+
+  <script>
+    /*
+      On veut récupérer l'élément que l'on va afficher et cacher (l'élément avec la class flamme)
+      la méthode permettant de récupérer / cibler UN ÉLÉMENT est :
+      document.querySelector( ici vous mettez votre selecteur css )
+      ça veut dire : sur le document HTML prends-moi un élément HTML qui correspond à mon sélecteur
+    */
+    var flamme = document.querySelector('.flamme');
+
+    /*
+      On prend aussi l'élément qui va écouter / attendre un évènement
+      c'est l'élément avec lequel l'utilisateur interagi
+    */
+    var allumer = document.querySelector('button');
+
+    /*
+      On va dire à notre élément d'écouter un évènement, à l'écoute de cet évènement
+      il exécutera une fonction.
+      La syntaxe de l'écoute d'un événement sera souvent celle ci-dessous : 
+
+      votre_element.addEventListener( ici le nom d'un évènement, ici une fonction anonyme )
+
+      lien vers une liste exhaustive des événements qui existent : 
+      https://developer.mozilla.org/en-US/docs/Web/Events
+    */
+    allumer.addEventListener('click', function () {
+
+      /*
+        ICI, on veut agrandir la flamme si on clique la première fois
+        et remettre une petite taille si on reclique.
+
+        Pour switcher (on dit aussi : faire un toggle)
+        On vérifie si la valeur du width est la nôtre,
+        Si c'est la nôtre,
+          on met la valeur initiale, donc il prendra celle du fichier CSS
+        Sinon
+          on met la valeur finale, la nôtre, pour afficher
+      */
+      if (flamme.style.width === '400px') {
+        flamme.style.width = ''; 
+        // la valeur initiale, donc il prendra celle du css même si c'est vide ici
+      } else {
+        flamme.style.width = '400px';
+        // nôtre valeur à nous
+      }
+
+    });
+  </script>
+</body>
+</html>
