@@ -104,7 +104,7 @@ let elContains = function(el, value) {
 let chapters = [
     {
         title: "Bases du langage",
-        description: "Opérations, variables, conditions, etc.",
+        description: "JavaScript est un langage de programmation dynamique, principalement utilisé dans les navigateurs web pour interagir avec l'utilisateur, modifier l'état de la page et communiquer avec un serveur de façon asynchrone. Depuis peu, il est aussi utilisé côté serveur à l'aide d'environnements d'exécution (<i>comme Node.js</i>).<br><br>Ce chapitre présente les bases du language, les variables (<i>nombres, chaines de caractères, etc</i>), les opérations (<i>addition, concaténation</i>), les conditions et le boucles.",
         color: "green",
         steps: [
             {
@@ -467,7 +467,7 @@ let chapters = [
         ]
     }, {
         title: "Le DOM",
-        description: "Sélecteurs CSS, écouteurs d'événements, etc.",
+        description: "Les fonctionnalités principales de JavaScript dans le navigateur sont d'écouter les actions utilisateur et de modifier dynamiquement la page. Pour ce faire, il propose une structure arborescente, le DOM (<i>Document Object Model</i>), représentant le contenu de la page accessible via la variable globale <code>document</code>.<br><br>Ce chapitre présente les accès aux noeuds du DOM (<i>à l'aide de sélecteurs CSS</i>) et les écouteurs d'événements (<i>comme les clics ou les appuis de touches</i>).",
         color: "yellow",
         steps: [
             {
@@ -685,7 +685,7 @@ let chapters = [
         ]
     }, {
         title: "Composant | Todolist",
-        description: "Fonctions, etc.",
+        description: "Pour faciliter la réalisation d'applications et leur maintenance, plusieurs approches MV* (<i>modèle, vue & co</i>) ont vu le jour ces dernières années. Un modèle stocke l'état de l'application (<i>ex. les articles dans un panier</i>). Les vues affichent les informations issues d'un ou plusieurs modèles, modifient ceux-ci, et se mettent à jour en fonction.<br><br>Ce chapitre présente la réalisation d'une liste de tâches pas à pas. Il propose dans un premier temps d'écouter le DOM et de le modifier de façon classique, puis, dans un second temps, d'utiliser une approche MV*.",
         color: "violet",
         steps: [
             {
