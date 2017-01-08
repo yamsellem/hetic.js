@@ -1,0 +1,164 @@
+@font-face {
+  font-family: 'Icons';
+  src: url("./fonts/icons.eot");
+  src: url("./fonts/icons.eot?#iefix") format('embedded-opentype'), url("./fonts/icons.woff2") format('woff2'), url("./fonts/icons.woff") format('woff'), url("./fonts/icons.ttf") format('truetype'), url("./fonts/icons.svg#icons") format('svg');
+}
+
+body {
+    background-color: #EDEFF0;
+    margin-top: 20px;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+li {
+    display: inline-block;
+}
+
+h1.ui.header {
+    margin-bottom: 0;
+}
+h3.ui.header {
+    margin-top: 0;
+}
+
+h3 a {
+    color: #767676;
+}
+
+code {
+    background-color: rgba(0, 0, 0, 0.08);
+    border-radius: 3px;
+    display: inline-block;
+    font-family: "Monaco","Menlo","Ubuntu Mono","Consolas","source-code-pro",monospace;
+    font-size: 0.875em;
+    font-weight: normal;
+    padding: 1px 6px;
+    vertical-align: baseline;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.ui.header .icon:only-child {
+    margin-right: .5rem;
+}
+
+.ui.card.h-colored {
+    border-radius: none;
+    box-shadow: none;
+    min-height: 310px;
+}
+
+.ui.card.h-colored > .content:first-child {
+    flex-grow: 0;
+}
+
+.ui.card.h-green > .content:first-child { background-color: #28BA27; }
+.ui.card.h-yellow > .content:first-child { background-color: #FBBE00; }
+.ui.card.h-violet > .content:first-child { background-color: #6232D1; }
+.ui.card.h-red > .content:first-child { background-color: #DB2B1E; }
+.ui.card.h-grey > .content:first-child { background-color: #767676; }
+.ui.card.h-pink > .content:first-child { background-color: #DF3A9B; }
+.ui.card.h-orange > .content:first-child { background-color: #F27200; }
+.ui.card.h-olive > .content:first-child { background-color: #B6CD00; }
+
+.ui.card.h-colored > .content:first-child > .header {
+    color: white;
+}
+
+.ui.card.h-colored > .content:first-child li {
+    height: 10px;
+    width: 10px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 10px;
+    margin-right: 5px;
+}
+
+.ui.card.h-colored > .content:first-child li:first-child,
+.ui.card.h-colored > .content:first-child li.active {
+    border: 2px solid white;
+}
+
+.ui.card.h-colored > .content:first-child li.complete {
+    background-color: white;
+}
+
+.stepper .ui.card.h-colored > .content:first-child li:first-child,
+.stepper .ui.card.h-colored > .content:first-child li.active,
+.stepper .ui.card.h-colored > .content:first-child li.complete,
+.stepper .ui.card.h-colored > .content:first-child li.complete + li {
+    cursor: pointer;
+}
+
+.stepper .ui.card.h-colored > .content:first-child li.active.complete {
+    border: 2px solid rgba(0,0,0,0.1);
+}
+
+.stepper .extra.content span:first-child {
+    display: inline-block;
+    padding-top: 6px;
+    font-size: 1.2em;
+}
+
+.stepper .dom {
+    margin: 2rem 0;
+}
+
+.stepper .board {
+    display: flex;
+    flex-flow: row wrap;
+    width: 17rem;
+    min-width: 17rem;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15rem;
+}
+.stepper .ui.button {
+    padding: .78571429em 1em;
+}
+
+.stepper .board li {
+    width: 4rem;
+    height: 4rem;
+    position: relative;
+    display: inline-block;
+}
+.stepper .board li.candyapplered { background-color: #FA0E02; }
+.stepper .board li.cadmiumyellow { background-color: #FAFA05; }
+.stepper .board li.bondiblue { background-color: #029FB8; }
+.stepper .board li.braken { background-color: #5C3D28; }
+.stepper .board li.champagne { background-color: #FAD9A9; }
+
+.stepper .board li.chileanfire { background-color: #F66F02; }
+
+.stepper .board li.kellygreen { background-color: #4DD205; }
+.stepper .board li.islamicgreen { background-color: #0E9300; }
+.stepper .board li.champagne { background-color: #FAD9A9; }
+.stepper .board li.safetyorange { background-color: #FA6800; }
+.stepper .board li.darkgreen { background-color: #086800; }
+.stepper .board li.white { background: none; }
+
+.stepper .todos ul.ui.list li:before {
+    content: none;
+}
+.stepper .todos ul.ui.list li {
+    cursor: pointer;
+    user-select: none;
+}
+.stepper .todos ul.ui.list li.done {
+    color: grey;
+    text-decoration: line-through;
+}
+.stepper .todos ul.ui.list li.done i {
+    color: black;
+    text-decoration: none;
+}
+.stepper .todos ul.ui.list {
+    margin-left: 0;
+}
