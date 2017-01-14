@@ -4,6 +4,19 @@
   src: url("./fonts/icons.eot?#iefix") format('embedded-opentype'), url("./fonts/icons.woff2") format('woff2'), url("./fonts/icons.woff") format('woff'), url("./fonts/icons.ttf") format('truetype'), url("./fonts/icons.svg#icons") format('svg');
 }
 
+/*! highlight.css v9.9.0 */
+.hljs-comment,.hljs-quote{color:#7285b7}.hljs-deletion,.hljs-name,.hljs-regexp,.hljs-selector-class,.hljs-selector-id,.hljs-tag,.hljs-template-variable,.hljs-variable{color:#ff9da4}.hljs-built_in,.hljs-builtin-name,.hljs-link,.hljs-literal,.hljs-meta,.hljs-number,.hljs-params,.hljs-type{color:#ffc58f}.hljs-attribute{color:#ffeead}.hljs-addition,.hljs-bullet,.hljs-string,.hljs-symbol{color:#d1f1a9}.hljs-section,.hljs-title{color:#bbdaff}.hljs-keyword,.hljs-selector-tag{color:#ebbbff}.hljs{display:block;overflow-x:auto;background:#002451;color:#fff;padding:.5em}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}
+
+code {
+    border-radius: 3px;
+    font-family: "Monaco","Menlo","Ubuntu Mono","Consolas","source-code-pro",monospace;
+    font-size: 0.875em;
+    font-weight: normal;
+}
+
+code.hljs { display: inline; padding:.4em }
+pre > code.hljs { display: block; }
+
 body {
     background-color: #EDEFF0;
     margin-top: 20px;
@@ -28,17 +41,6 @@ h3.ui.header {
 
 h3 a {
     color: #767676;
-}
-
-code {
-    background-color: rgba(0, 0, 0, 0.08);
-    border-radius: 3px;
-    display: inline-block;
-    font-family: "Monaco","Menlo","Ubuntu Mono","Consolas","source-code-pro",monospace;
-    font-size: 0.875em;
-    font-weight: normal;
-    padding: 1px 6px;
-    vertical-align: baseline;
 }
 
 .hidden {
