@@ -1011,9 +1011,6 @@ let stepper = function(el, data, methods) {
     let chapterContent = chapters[chapter - 1];
     let stepContent = chapters[chapter - 1].steps[step - 1];
 
-    if (stepContent.init)
-        stepContent.init();
-
     return {
         render: function() {
             let excerptHidden = !stepContent.excerpt ? 'hidden' : '';
@@ -1107,13 +1104,14 @@ let stepper = function(el, data, methods) {
                 return chapterContent.steps.length === _step && chapters.length === _chapter;
             },
             validate: function() {
-                this.methods.renderDom.call(this);
+                this.methods.renderDom.call(this, true);
 
                 let complete = false;
                 try {
                     complete = stepContent.answer();
                 } catch (err) {
-                    console.log(err);
+                    err.stack = null;
+                    console.error(err);
                 };
 
                 el.querySelector('[data-hook=next]').classList.toggle('disabled', !complete);
@@ -1126,10 +1124,12 @@ let stepper = function(el, data, methods) {
 
                 this.methods.renderDom.call(this);
             },
-            renderDom: function() {
+            renderDom: function(noWarning) {
+                if (stepContent.init)
+                    stepContent.init();
                 if (stepContent.dom)
                     document.querySelector('[data-hook=dom]').innerHTML = stepContent.dom()();
-                this.methods.reload();
+                this.methods.reload(noWarning);
             },
             warn: function() {
                 let warning = 'Réponse incorrecte';
@@ -1144,7 +1144,7 @@ let stepper = function(el, data, methods) {
                 }
                 return warning;
             },
-            reload: function() {
+            reload: function(noWarning) {
                 let reload = document.head.querySelector('#reload');
                 if (reload)
                     reload.remove();
@@ -1155,7 +1155,12 @@ let stepper = function(el, data, methods) {
                     let script = document.createElement('script');
                     script.id = 'reload';
                     script.type = 'text/javascript';
-                    script.innerHTML = code.innerHTML;
+                    let content = code.innerHTML
+                    if (noWarning)
+                        content = `try { ${content} } catch (err) {};`;
+                    else
+                        content = `try { ${content} } catch (err) { err.stack = null; console.error(err); };`;
+                    script.innerHTML = content;
                     head.appendChild(script);
                 }
             }
