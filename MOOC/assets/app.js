@@ -66,7 +66,7 @@ let board = function(squares) {
 
 // Forms
 
-let form = function() {
+let todolist = function() {
     return `
         <div class="todos">
             <div class="ui input">
@@ -80,6 +80,39 @@ let form = function() {
         </div>
     `;
 }
+
+// Carousel
+
+let carousel = function(dots) {
+    let elDots = !dots ? '' : `
+        <span class="dots">
+            <ul>
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </span>
+    `;
+
+    return `
+        <div class="carousel">
+            <ul>
+                <li class="visible">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <span class="prev"><i class="angle left icon"></i></span>
+                <span class="next"><i class="angle right icon"></i></span>
+                ${elDots}
+           </ul>
+        </div>
+    `;
+}
+
+// Helpers
 
 let keypress = function(el, key) {
     let oEvent = document.createEvent('KeyboardEvent');
@@ -100,6 +133,9 @@ let keypress = function(el, key) {
 
 let elContains = function(el, value) {
     return !!(el && el.innerHTML.indexOf(value) !== -1);
+}
+let elHasClass = function(el, clazz) {
+    return !!(el && el.classList.contains(clazz));
 }
 
 //
@@ -690,7 +726,7 @@ let chapters = [
         ]
     }, {
         title: "Composant | Todolist",
-        description: "Pour faciliter la réalisation d'applications et leur maintenance, plusieurs approches MV* (<i>modèle, vue & co</i>) ont vu le jour ces dernières années. Un modèle stocke l'état de l'application (<i>ex. les articles dans un panier</i>). Les vues affichent les informations issues d'un ou plusieurs modèles, modifient ceux-ci, et se mettent à jour en fonction.<br><br>Ce chapitre présente la réalisation d'une liste de tâches pas à pas. Il propose dans un premier temps d'écouter le DOM et de le modifier de façon classique, puis, dans un second temps, d'utiliser une approche MV*.",
+        description: "Pour faciliter la réalisation d'applications et leur maintenance, plusieurs approches MV* (<i>modèle, vue & co</i>) ont vu le jour ces dernières années. Un modèle stocke l'état de l'application (<i>ex. les articles dans un panier</i>). Les vues affichent les informations issues d'un ou plusieurs modèles, modifient ceux-ci, et se rafraichissent.<br><br>Ce chapitre présente la réalisation d'une liste de tâches pas à pas. Il propose dans un premier temps de manipuler le DOM de façon classique, puis, dans un second temps, d'utiliser une approche MV*.",
         color: "violet",
         steps: [
             {
@@ -698,7 +734,7 @@ let chapters = [
                 description: "Ajouter un <code>li</code> au <code>.todos ul</code> existant à chaque appui sur entrée dans le champ de formulaire. Ce nouveau <code>li</code> à pour texte la valeur saisie dans le champ de formulaire.",
                 excerpt: "Un écouteur d'événement reçoit en premier paramètre l'événement qui l'a déclenché. s'il s'agit d'un événement clavier <code>keypress</code> celui indique via <code>event.keyCode</code> quelle touche a été saisie, et via <code>event.target.value</code> quelle est la valeur actuelle du champ de formulaire.<br><br><strong>Exemple</strong> : <pre><code>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) { <br>  console.log(event.keyCode, event.target.value); <br>});</code></pre> affiche ces deux informations à chaque saisie dans le premier <code>input</code> de la page.",
                 dom: function() {
-                    return form.bind(form);
+                    return todolist.bind(todolist);
                 },
                 answer: function() {
                     let input = document.querySelector('input');
@@ -718,7 +754,7 @@ let chapters = [
                 title: "Ajouter plusieurs todos",
                 description: "Si le champ de formulaire est vide, aucun <code>li</code> ne doit être créé. Et, losqu'un <code>li</code> est créé, le champ de formulaire doit être vidé.",
                 dom: function() {
-                    return form.bind(form);
+                    return todolist.bind(todolist);
                 },
                 answer: function() {
                     let input = document.querySelector('input');
@@ -746,7 +782,7 @@ let chapters = [
                 description: "Lorsqu'un <code>li</code> est ajouté au <code>.todos ul</code> existant, son texte est préfixé par <code>&lt;i class=\"remove icon\"&gt;&lt;/i&gt;</code>. Cette balise fait apparaitre une croix devant son nom. Au clic sur cette croix, le <code>li</code> doit être supprimé.",
                 excerpt: "À la création d'un élément dans le DOM, il est possible d'ajouter un écouteur d'événement sur un de ses sous éléments, ou sur lui même.",
                 dom: function() {
-                    return form.bind(form);
+                    return todolist.bind(todolist);
                 },
                 answer: function() {
                     let input = document.querySelector('input');
@@ -771,7 +807,7 @@ let chapters = [
                 title: "Cocher les todos",
                 description: "Lorsqu'un <code>li</code> est cliqué, la classe <code>done</code> doit lui être ajoutée. S'il est cliqué de nouveau, cette classe est supprimée.",
                 dom: function() {
-                    return form.bind(form);
+                    return todolist.bind(todolist);
                 },
                 answer: function() {
                     let input = document.querySelector('input');
@@ -801,7 +837,7 @@ let chapters = [
                 description: "Créer une variable <code>todos</code> pour stocker l'état du composant (<i>combien d'éléments, lesquels sont cochés, etc</i>). À chaque modification de cette variable, appeller une méthode <code>render</code> charger de mettre à jour l'affichage.",
                 excerpt: "Au lieu d'ajouter directement les <code>li</code> au DOM, créer un tableau <code>todos</code> et une méthode <code>render</code>. À chaque appui sur entrée dans le champ de formulaire, ajouter un object <code>{name: event.target.value, done: false}</code> au tableau <code>todos</code> et déclencher la méthode <code>render</code>. Le rôle de cette méthode est de vider le contenu du <code>ul</code> à chaque fois, et de parcourir le tableau <code>todos</code> afin de générer autant de <code>li</code> qu'il y a d'éléments dans le tableau. <br><br>Au lieu de modifier le DOM lors des événements (<i>clic sur la croix ou clic sur le nom du todo</i>), c'est l'élément du tableau qui est modifié et la méthode <code>render</code> qui est appellée de nouveau. Ce découpage sépare le modèle (<i>les données</i>) de la vue (<i>l'affichage</i>) et va simplifier les opérations suivantes. Supprimer et afficher de nouveaux tous les éléments n'est pas coûteux en terme de performance, tant que leur nombre n'est pas très grand.",
                 dom: function() {
-                    return form.bind(form);
+                    return todolist.bind(todolist);
                 },
                 answer: function() {
                     let input = document.querySelector('input');
@@ -829,7 +865,7 @@ let chapters = [
                 title: "Compter les todos",
                 description: "À chaque création d'un todo, le texte de <code>.filter-todo</code> doit afficher le nombre total de todo non cochés (<i>sans le classe <code>done</code></i>). Le texte de <code>.filter-done</code> affiche quant à lui, le nombre total de todo cochés (<i>avec la classe <code>done</code></i>). Penser au pluriel pour « 0 fait », « 1 fait » et « 2 faits ».",
                 dom: function() {
-                    return form.bind(form);
+                    return todolist.bind(todolist);
                 },
                 answer: function() {
                     let input = document.querySelector('input');
@@ -861,7 +897,7 @@ let chapters = [
                 title: "Filtrer les todos",
                 description: "Au clic sur <code>.filter-done</code> cet élément récupère la classe <code>active</code> et seuls les todos terminés sont affichés. Idem pour <code>.filter-todo</code>. Seul un de ces deux boutons peut être actif à la fois. Cliquer sur un bouton actif le désactive (<i>et affiche ainsi tous les todos</i>). Plutôt que se baser sur le DOM pour savoir quel filtre est activé, utiliser une variable à 3 états, et modifier la méthode <code>render</code> pour la mise à jour de la classe <code>active</code> sur les boutons.",
                 dom: function() {
-                    return form.bind(form);
+                    return todolist.bind(todolist);
                 },
                 answer: function() {
                     let input = document.querySelector('input');
@@ -900,6 +936,275 @@ let chapters = [
                     basic = basic && elContains(todoCount, '2 à faire');
                     basic = basic && elContains(doneCount, '1 fait');
 
+                    return basic;
+                }
+            }
+        ]
+    }, {
+        title: "Fonctions",
+        description: "Une fonction est un sous programme qui peut être appelé par du code externe (<i>ou interne, en cas d'appels récursifs</i>). Comme une boucle conditionnelle, une fonction est composée d'une liste d'opérations (<i>délimitées entre accolades</i>), il est possible de lui fournir des arguments et elle peut retourner un résultat. Les fonctions sont des citoyens de première classe en JavaScript (<i>des variables comme les autres</i>).<br><br>Ce chapitre présente la déclaration et l'usage des fonctions, de leurs paramètres et valeur de retour.",
+        color: "orange",
+        steps: [
+            {
+                title: "Identifier un nombre positif",
+                description: "Créer une fonction nommée <code>positive</code> qui prend un paramètre et retourne <code>true</code> si celui-ci est supérieur ou égal à zéro, <code>false</code> sinon.",
+                excerpt: "Une fonction est comme une usine, elle transforme quelque chose (<i>ses paramètres d'entrée</i>) en autre chose (<i>son paramètre de sortie</i>). L'utilisation de fonctions permet de structurer un programme. Au lieu de lister toutes les opérations d'un programme les unes à la suite des autres, il est préférable de regrouper les opérations en plusieurs fonctions correspondant à des parties clairement identifiées du programme.<br><br><strong>Exemple </strong>: <pre><code>var double = function(value) {<br>  return value * 2; <br>}</code></pre> déclare une variable <code>value</code> qui sera initialisée à une valeur à chaque appel de la fonction. Cette variable est locale à la fonction, elle n'existe pas à l'extérieur du code de celle-ci. Le mot clé <code>return</code> interrompt immédiatement la fonction et retourne le résultat au code appelant. <pre><code>var x = double(12);<br>x; /* 24 */<br>var y = double(7);<br>y; /* 14 */<br>var weird = double('hello');<br>weird; /* NaN */<br>value; /* undefined */<br></code></pre>",
+                answer: function() {
+                    let basic = true;
+                    let x = random();
+                    let y = random();
+                    basic = basic && positive && positive(0);
+                    basic = basic && positive && positive(x);
+                    basic = basic && positive && !positive(-y);
+                    return basic;
+                }
+            },
+            {
+                title: "Additionner deux nombres",
+                description: "Créer une fonction <code>add</code> qui prend deux paramètres et retourne leur somme. Cette fonction retourne <code>0</code> si un de ces paramètres n'est pas un nombre.",
+                excerpt: "Une fonction peut prendre plusieurs paramètres en entrée, séparés par des virgules <code>function(a, b, c) { ... }</code>. L'opérateur <code>typeof</code> permet quant à lui de vérfier le type d'une variable.<br><br><strong>Exemple </strong>: <pre><code>typeof 12 === 'number'; /* true */<br>typeof 'hello' === 'string'; /* true */<br>typeof ['1', '2', '3'] === 'string'; /* false */</code></pre>",
+                answer: function() {
+                    let basic = true;
+                    let x = random();
+                    let y = random();
+                    basic = basic && add && add(x, y) === x + y;
+                    basic = basic && add && add('invalid', y) === 0;
+                    basic = basic && add && add(x, 'invalid') === 0;
+                    return basic;
+                }
+            },
+            {
+                title: "Calculer l'hypoténuse d'un triangle",
+                description: "Créer une fonction <code>hypotenuse</code> qui prend deux paramètres, représentant la dimension de deux côtés d'un triangle, et retourne l'hypoténuse de celui-ci.",
+                excerpt: "Une fonction peut elle-même appeler d'autres fonctions.",
+                answer: function() {
+                    let basic = true;
+                    basic = basic && hypotenuse && hypotenuse(3, 4) === 5;
+                    basic = basic && hypotenuse && hypotenuse(5, 12) === 13;
+                    return basic;
+                }
+            },
+            {
+                title: "Trouver une valeur dans un tableau",
+                description: "Créer une fonction <code>includes</code> qui prend deux paramètres, un tableau et une valeur. Si la valeur est une des valeurs du tableau, la fonction retourne <code>true</code>, sinon elle retrourne <code>false</code>.",
+                answer: function() {
+                    let basic = true;
+                    basic = basic && includes && includes(['banana', 'kiwi', 'apple'], 'kiwi');
+                    basic = basic && includes && !includes(['banana', 'kiwi', 'apple'], 'orange');
+                    basic = basic && includes && includes([5, 8, 13], 5);
+                    basic = basic && includes && !includes([5, 8, 13], 3);
+                    return basic;
+                }
+            },
+            {
+                title: "Calculer le maximum d'une série de nombres",
+                description: "Créer une fonction <code>max</code> qui prend un nombre quelconque de paramètres et retourne le nombre le plus élevé parmi eux. Si aucun paramètre n'est indiqué, elle retourne <code>-1</code>.",
+                excerpt: "Les fonctions disposent toutes d'un paramètre spécial <code>arguments</code> qui est un tableau listant tous les paramètres reçus par la fonction. Il est ainsi possible de créer des fonctions dotées d'un nombre indéterminé de paramètres (<i>et sans avoir besoin de nommer chacun d'entre eux</i>).<br><br><strong>Exemple </strong>: <pre><code>var sum = function() { <br>  var total = 0;<br>  for (var i = 0; i < arguments.length; i++) {<br>    total += arguments[i];<br>  }<br>  return total;<br>}</code></pre> crée une méthode calculant la somme d'un nombre quelconque de paramètres, par exemple <code>sum(5, 8, 13)</code> retourne <code>26</code>.",
+                answer: function() {
+                    let basic = true;
+                    basic = basic && max && max(3, 5, 13, 2) === 13;
+                    basic = basic && max && max(5, 12) === 12;
+                    basic = basic && max && max() === -1;
+                    return basic;
+                }
+            },
+            {
+                title: "Compter le nombre de « a » et « e »",
+                description: "Créer une fonction <code>count</code> qui prend un paramètre et retourne un littéral indiquant le nombre de « a » et de « e » de cette chaine (<i>sous la forme <code>{a: 5, e: 7}</code></i>).",
+                answer: function() {
+                    let basic = true;
+                    basic = basic && count && equals({a: 2, e: 1}, count('Short ribs fatback pork chop turducken.'));
+                    basic = basic && count && equals({a: 7, e: 5}, count('Andouille pork chop picanha pancetta landjaeger brisket.'))
+                    basic = basic && count && equals({a: 0, e: 0}, count(''))
+                    return basic;
+                }
+            },
+            {
+                title: "Rechercher dans un arbre binaire",
+                description: "Créer une fonction <code>search</code> qui prend deux paramètres, un arbre binaire et une valeur. Si la valeur est une des valeurs de l'arbre, la fonction retourne <code>true</code>, sinon elle retrourne <code>false</code>.",
+                excerpt: "<pre><code>var tree = {<br>  value: 8, <br>  left: {value: 3, left: {value: 1}, right: {value: 6}}, <br>  right: {value: 11, right: {value: 14}}<br>};<br><br>//       8<br>//    3 ─┴─ 11<br>// 1 ─┴─ 6   └─ 14</code></pre>Un arbre binaire dispose d'une racine, <code>8</code> (<i>ici</i>), celle-ci est dotée d'une noeud gauche, <code>3</code> et droit, <code>10</code>, qui, eux-mêmes peuvent disposer d'un noeud gauche et droit, et ainsi de suite. Un arbre binaire est trié de telle sorte que la noeud gauche d'une valeur lui est inférieur, <code>3 > 8</code> et que son noeud droit lui est supérieur, <code>8 < 10</code>. Et ceci récursivement, chaque noeud gauche inférieur à sa racine, chaque noeud droit supérieur à sa racine. Cette structure permet d'effectuer des recherches très efficaces (<i>peu de comparaison</i>) au sein d'un ensemble de valeurs.<br><br>La fonction à réaliser est une fonction récursive (<i>elle peut s'appeler elle-même</i>). Elle vérifie si la racine est égale, supérieure ou inférieure à la valeur recherchée. En cas d'égalité, elle retourne <code>true</code>, en cas d'infériorité, elle s'appelle elle-même avec le noeud gauche, en cas de supériorité, avec le noeud droit. Arrivée en fin d'arbre (<i>sur une feuille — un noeud sans noeud enfant</i>), elle retourne <code>false</code> si sa valeur n'est pas celle recherchée.",
+                answer: function() {
+                    let tree = {value: 8,
+                        left: {value: 3, left: {value: 1}, right: {value: 6}},
+                        right: {value: 11, left: {value:9, right: {value: 10}}, right: {value: 14}}
+                    };
+                    var basic = true;
+                    basic = basic && search && search(tree, 3);
+                    basic = basic && search && search(tree, 14);
+                    basic = basic && search && search(tree, 10);
+                    basic = basic && search && !search(tree, 7);
+                    basic = basic && search && !search(tree, 2);
+                    return basic;
+                }
+            }
+        ]
+    }, {
+        title: "Composant | Carrousel",
+        description: "Un carrousel est une liste dont un seul élément est visible et dont la navigation de l'un à l'autre de ses éléments s'effectue à l'aide de flèches « précédente » et « suivante » situées de part et d'autre du contenu. Il est souvent utilisé pour afficher une image plein cadre, et naviguer parmi un catalogue de photos.<br><br>Ce chapitre présente la réalisation d'un carrousel pas à pas.",
+        color: "violet",
+        steps: [
+            {
+                title: "Naviguer au suivant",
+                description: "Lors du clic sur l'élément doté de la classe <code>next</code>, masquer le premier élément du carrousel et révéler le second.",
+                excerpt: "Les items du carrousel se situent dans la liste <code>.carousel > ul > li</code> et un seul d'entre eux à la classe <code>active</code> (<i>ainsi, les autres sont masqués</i>). Retirer la classe <code>active</code> d'un élément et l'ajouter à un autre, permet de masquer le premier et de révéler le second.<br><br><strong>Exemple </strong>: <pre><code>var next = document.querySelector('.next');<br>next.addEventListener('click', function() {<br>  var li = document.querySelector('.carousel > ul > li.visible');<br>  li.classList.remove('visible');<br>});</code></pre> déclare un écouteur d'événement sur la flêche de droite, et masque le premier élément du carrousel.",
+                dom: function() {
+                    return carousel.bind(carousel);
+                },
+                answer: function() {
+                    var elPrev = document.querySelector('.prev');
+                    var elNext = document.querySelector('.next');
+
+                    var lis = document.querySelectorAll('.carousel > ul > li');
+
+                    let basic = true;
+                    basic = basic && (lis.length === 5);
+                    basic = basic && elHasClass(lis[0], 'visible');
+                    basic = basic && !elHasClass(lis[1], 'visible');
+
+                    elNext.click();
+                    basic = basic && !elHasClass(lis[0], 'visible');
+                    basic = basic && elHasClass(lis[1], 'visible');
+                    return basic;
+                }
+            },
+            {
+                title: "Naviguer au suivant, sans dépasser le dernier",
+                description: "S'assurer que cliquer sur la flêche de droite permet de passer d'un élément au suivant, mais qu'une fois arrivé au dernier, n'a plus d'effet.",
+                dom: function() {
+                    return carousel.bind(carousel);
+                },
+                answer: function() {
+                    var elPrev = document.querySelector('.prev');
+                    var elNext = document.querySelector('.next');
+
+                    var lis = document.querySelectorAll('.carousel > ul > li');
+
+                    let basic = true;
+                    basic = basic && (lis.length === 5);
+                    basic = basic && elHasClass(lis[0], 'visible');
+                    basic = basic && !elHasClass(lis[1], 'visible');
+
+                    elNext.click(); elNext.click(); elNext.click(); elNext.click(); elNext.click();
+                    basic = basic && !elHasClass(lis[1], 'visible');
+                    basic = basic && elHasClass(lis[4], 'visible');
+                    return basic;
+                }
+            },
+            {
+                title: "Naviguer au précédent",
+                description: "Appliquer le même fonctionnement à la flêche de gauche, dotée de la classe <code>prev</code>, cette fois-ci pour passer d'un élément à l'élément précédent, sans avoir d'effet sur le premier.",
+                excerpt: "Déclarer une variable <code>index</code> et l'utiliser pour mémoriser la position actuelle peut faciliter les choses. À chaque action utilisateur, le <code>li</code> à cet index peut être masqué et la position du suivant (<i>ou précédent</i>) peut être déduite à partir de cette variable (<i>et non du DOM</i>).",
+                dom: function() {
+                    return carousel.bind(carousel);
+                },
+                answer: function() {
+                    var elPrev = document.querySelector('.prev');
+                    var elNext = document.querySelector('.next');
+
+                    var lis = document.querySelectorAll('.carousel > ul > li');
+
+                    let basic = true;
+                    basic = basic && (lis.length === 5);
+                    basic = basic && elHasClass(lis[0], 'visible');
+                    basic = basic && !elHasClass(lis[1], 'visible');
+
+                    elPrev.click();
+                    basic = basic && elHasClass(lis[0], 'visible');
+                    basic = basic && !elHasClass(lis[1], 'visible');
+
+                    elNext.click(); elNext.click(); elPrev.click();
+                    basic = basic && !elHasClass(lis[0], 'visible');
+                    basic = basic && elHasClass(lis[1], 'visible');
+                    return basic;
+                }
+            },
+            {
+                title: "Cacher les fléches de navigation",
+                description: "Lorsque le premier élément du carrousel est affiché, masquer la flêche de gauche, sur le dernier, cacher la flêche de droite. Ajouter la classe <code>hidden</code> à l'élément <code>next</code> ou <code>prev</code> permet de les masquer.",
+                excerpt: "Il est possible de regrouper le code de passage d'un élément au suivant (<i>ou au précédent</i>) dans une fonction <code>jump</code>. Cette fonction peut être dotée d'un paramètre d'entrée indiquant le prochain index (<i>calculé par l'appelant</i>), la fonction peut ainsi vérifier que l'index ne passe pas en dessous de <code>0</code> ou au dessus de <code>4</code>. Elle peut également se charger d'afficher / masquer les flêches de navigation.<br><br><strong>Exemple </strong>: <pre><code>var index =  0;<br>var jump = function(to) {<br>  /* retrait de la classe .visible du li actuel */<br>  /* modification de l'index */<br>  /* ajout de la classe .visible au li correspondant au nouvel index */<br>  /* affichage / masquage des flêches de navigation en fonction du nouvel index */<br>};<br><br>document.querySelector('.next').addEventListener('click', function() {<br>  jump(index + 1);<br>});</code></pre>",
+                dom: function() {
+                    return carousel.bind(carousel);
+                },
+                answer: function() {
+                    var elPrev = document.querySelector('.prev');
+                    var elNext = document.querySelector('.next');
+
+                    var lis = document.querySelectorAll('.carousel > ul > li');
+
+                    let basic = true;
+                    basic = basic && (lis.length === 5);
+                    basic = basic && elHasClass(lis[0], 'visible');
+                    basic = basic && elHasClass(elPrev, 'hidden');
+                    basic = basic && !elHasClass(elNext, 'hidden');
+
+                    elNext.click();
+                    basic = basic && !elHasClass(elPrev, 'hidden');
+                    basic = basic && !elHasClass(elNext, 'hidden');
+
+                    elNext.click(); elNext.click(); elNext.click();
+                    basic = basic && elHasClass(lis[4], 'visible');
+                    basic = basic && !elHasClass(elPrev, 'hidden');
+                    basic = basic && elHasClass(elNext, 'hidden');
+                    return basic;
+                }
+            },
+            {
+                title: "Afficher la position",
+                description: "Une liste d'indicateurs <code>.dots li</code> est disponible sous le carrousel. Ajouter la classe <code>active</code> à celui d'entre eux qui correspond à l'élément du carrousel affiché (<i>le premier rond quand le premier élément est affiché, le second pour le second, etc</i>). Mettre à jour cet indicateur lors du changement d'élément dans le carrousel.",
+                dom: function() {
+                    return carousel.bind(carousel, true);
+                },
+                answer: function() {
+                    var elPrev = document.querySelector('.prev');
+                    var elNext = document.querySelector('.next');
+
+                    var dots = document.querySelectorAll('.carousel .dots li');
+
+                    let basic = true;
+                    basic = basic && (dots.length === 5);
+                    basic = basic && elHasClass(dots[0], 'active');
+
+                    elNext.click();
+                    basic = basic && !elHasClass(dots[0], 'active');
+                    basic = basic && elHasClass(dots[1], 'active');
+
+                    elNext.click(); elNext.click(); elNext.click();
+                    basic = basic && elHasClass(lis[4], 'visible');
+                    basic = basic && !elHasClass(elPrev, 'hidden');
+                    basic = basic && elHasClass(elNext, 'hidden');
+                    return basic;
+                }
+            },
+            {
+                title: "Modifier la position",
+                description: "Cliquer sur l'un des ronds doit permettre de naviguer à l'élément du carrousel à la même position. Les flêches de navigation gauche ou droite sont masquées si il s'agit du premier ou dernier élément du carrousel (<i>comme lors de la navigation manuelle de l'utilisateur</i>).",
+                dom: function() {
+                    return carousel.bind(carousel, true);
+                },
+                answer: function() {
+                    var elPrev = document.querySelector('.prev');
+                    var elNext = document.querySelector('.next');
+
+                    var dots = document.querySelectorAll('.carousel .dots li');
+
+                    let basic = true;
+                    basic = basic && (dots.length === 5);
+                    basic = basic && elHasClass(dots[0], 'active');
+
+                    dots[2].click();
+                    basic = basic && !elHasClass(dots[0], 'active');
+                    basic = basic && elHasClass(dots[2], 'active');
+
+                    elNext.click();
+                    basic = basic && !elHasClass(dots[2], 'active');
+                    basic = basic && elHasClass(dots[3], 'active');
+
+                    dots[0].click();
+                    basic = basic && !elHasClass(dots[3], 'active');
+                    basic = basic && elHasClass(dots[0], 'active');
+
+                    basic = basic && elHasClass(elPrev, 'hidden');
+                    basic = basic && !elHasClass(elNext, 'hidden');
                     return basic;
                 }
             }

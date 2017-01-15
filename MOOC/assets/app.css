@@ -164,3 +164,54 @@ h3 a {
 .stepper .todos ul.ui.list {
     margin-left: 0;
 }
+
+.stepper .carousel > ul {
+    position: relative;
+    text-align: center;
+    font-size: 3rem;
+    height: 15rem;
+    line-height: 15rem;
+    color: white;
+}
+.stepper .carousel > ul > li {
+    display: none;
+    background-color: #6232D1;
+    user-select: none;
+}
+.stepper .carousel > ul > li:nth-child(even) { background-color: #5829bb; }
+.stepper .carousel > ul > li.visible { display: block; }
+
+.stepper .carousel > ul span:not(.dots) {
+    position: absolute;
+    top: 0; bottom: 0;
+    cursor: pointer;
+}
+.stepper .carousel > ul span.dots {
+    line-height: 1.5rem;
+    cursor: auto;
+    user-select: none;
+}
+.stepper .carousel > ul span.dots li {
+    height: 10px;
+    width: 10px;
+    border-radius: 10px;
+    border: 2px solid #767676;
+    cursor: pointer;
+}
+
+.stepper .carousel > ul span.dots li.active {
+    background-color: #767676;
+    cursor: auto;
+}
+
+.stepper .carousel > ul span.prev {
+    left: 0;
+    padding-left: 1rem;
+}
+.stepper .carousel > ul span.next {
+    right: 0;
+    padding-right: 1rem;
+}
+.stepper .carousel > ul span.hidden {
+    display: none;
+}
