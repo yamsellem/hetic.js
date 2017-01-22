@@ -112,6 +112,27 @@ let carousel = function(dots) {
     `;
 }
 
+// Sliding
+
+let sliding = function() {
+    return `
+        <div class="sliding">
+            <ul>
+                <li class="square1"></li>
+                <li class="square2"></li>
+                <li class="square0"></li>
+                <li class="square3"></li>
+                <li class="square4"></li>
+                <li class="square5"></li>
+                <li class="square6"></li>
+                <li class="square7"></li>
+                <li class="square8"></li>
+            </ul>
+            <button class="ui red button">Mélanger</button>
+        </div>
+    `;
+}
+
 // Helpers
 
 let keypress = function(el, key) {
@@ -136,6 +157,15 @@ let elContains = function(el, value) {
 }
 let elHasClass = function(el, clazz) {
     return !!(el && el.classList.contains(clazz));
+}
+
+let getClassNames = function(selector) {
+    var classNames = [];
+    var els = document.querySelectorAll(selector);
+    for (var i = 0; i < els.length; i++) {
+        classNames.push(els[i].className);
+    }
+    return classNames;
 }
 
 //
@@ -1209,7 +1239,118 @@ let chapters = [
                 }
             }
         ]
-    } /*, {
+    }, {
+        title: "Puzzle | Taquin",
+        description: "Un taquin est ce puzzle en plastique à résoudre du bout des pouces. Une pièce peut être glissée horizontalement ou verticalement et venir prendre la place de l'espace libre (<i>un libre pour neuf cases sur les versions simples</i>).<br><br>Ce chapitre présente la réalisation (<i>corsée</i>) d'un taquin pas à pas.",
+        color: "red",
+        steps: [
+            {
+                title: "Mélanger les cases",
+                description: "Mélanger les 9 <code>li</code> du puzzle listés dans <code>.sliding ul</code> au clic sur le bouton « mélanger ».",
+                excerpt: "La méthode <code>Math.floor(Math.random() * 9)</code> retourne un nombre aléatoire entre 0 et 8.",
+                dom: function() {
+                    return sliding.bind(sliding);
+                },
+                answer: function() {
+                    let classNames = getClassNames('.sliding li');
+
+                    let basic = true;
+                    basic = basic && classNames.length === 9;
+                    basic = basic && equals(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']);
+
+                    let button = document.querySelector('.sliding button');
+                    button.click();
+
+                    classNames = getClassNames('.sliding li');
+                    basic = basic && classNames.length === 9;
+                    basic = basic && !equals(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']);
+                    return basic;
+                }
+            },
+            {
+                title: "Gérer le déplacement horizontal d'une case",
+                description: "Au clic sur une case, celle-ci doit être intervertie avec la case vide <code>.square0</code> à condition que l'une et l'autre soit à côté (<i>et pas en diagonale</i>).",
+                excerpt: "Stocker l'état du puzzle dans une variable (<i>une matrice de préférence — un tableau de tableaux, 3 lignes, 3 colonnes</i>), et trouver une façon condensée pour lister quelles cases sont accessibles à partir d'une autre case. Se concentrer pour l'instant sur les mouvements horizontaux.",
+                dom: function() {
+                    return sliding.bind(sliding);
+                },
+                answer: function() {
+                    let button = document.querySelector('.sliding button');
+                    button.click();
+
+                    // click on possible
+                    let classNames = getClassNames('.sliding li');
+                    let expected = classNames.slice(0);
+                    let position = classNames.indexOf('square0') + 1;
+                    let toPosition;
+                    if ([1, 2, 4, 5, 7, 8].indexOf(position) !== -1) {
+                        toPosition = position + 1;
+                    } else {
+                        toPosition = position - 1;
+                    }
+                    document.querySelector(`.sliding li:nth-child(${toPosition})`).click();
+                    let memo = expected[position - 1];
+                    expected[position - 1] = expected[toPosition - 1];
+                    expected[toPosition - 1] = memo;
+
+                    classNames = getClassNames('.sliding li');
+
+                    let basic = true;
+                    basic = basic && equals(expected, classNames);
+
+                    // click on empty
+                    expected = classNames.slice(0);
+                    position = classNames.indexOf('square0') + 1;
+                    document.querySelector(`.sliding li:nth-child(${position})`).click();
+                    classNames = getClassNames('.sliding li');
+                    basic = basic && equals(expected, classNames);
+
+                    // click on impossible
+                    expected = classNames.slice(0);
+                    position = classNames.indexOf('square0');
+                    position = ((position + 4) % 9) + 1;
+                    document.querySelector(`.sliding li:nth-child(${position})`).click();
+                    classNames = getClassNames('.sliding li');
+                    basic = basic && equals(expected, classNames);
+
+                    return basic;
+                }
+            },
+            {
+                title: "Gérer le déplacement vertical d'une case",
+                description: "Au clic sur une case, celle-ci doit être intervertie avec la case vide <code>.square0</code> à condition que l'une et l'autre soit à côté (<i>et pas en diagonale</i>).",
+                dom: function() {
+                    return sliding.bind(sliding);
+                },
+                answer: function() {
+                    let button = document.querySelector('.sliding button');
+                    button.click();
+
+                    // click on possible
+                    let classNames = getClassNames('.sliding li');
+                    let expected = classNames.slice(0);
+                    let position = classNames.indexOf('square0') + 1;
+                    let toPosition;
+                    if ([1, 2, 3, 4, 5, 6].indexOf(position) !== -1) {
+                        toPosition = position + 3;
+                    } else {
+                        toPosition = position - 3;
+                    }
+                    document.querySelector(`.sliding li:nth-child(${toPosition})`).click();
+                    let memo = expected[position - 1];
+                    expected[position - 1] = expected[toPosition - 1];
+                    expected[toPosition - 1] = memo;
+
+                    classNames = getClassNames('.sliding li');
+
+                    let basic = true;
+                    basic = basic && equals(expected, classNames);
+
+                    return basic;
+                }
+            }
+        ]
+    }, /*, {
         title: "Librairies",
         description: "Google Maps, Stripe, jQuery, moment, etc.",
         color: "red",
