@@ -1,0 +1,22 @@
+{
+  "name": "solver",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yamsellem/hetic.js.git"
+  },
+  "author": "Amsellem Yves <amsellem.yves@gmail.com>",
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/yamsellem/hetic.js/issues"
+  },
+  "homepage": "https://github.com/yamsellem/hetic.js",
+  "dependencies": {
+    "finalhandler": "0.5.x",
+    "serve-static": "1.11.x",
+    "nightmare": "2.9.x"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
