@@ -1,4 +1,5 @@
-Partiel S½ - HETIC W1 - Promotion 2018 (_Lundi 21 mars 2016 / 1h20_)
+**Partiel S½ - HETIC W1 - Promotion 2018**
+<br>Lundi 21 mars 2016 / 1h20
 
 ---
 

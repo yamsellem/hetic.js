@@ -1,4 +1,5 @@
-Partiel 2 - HETIC W1 - Promotion 2018 (_Jeudi 16 juin 2016 / 10h00-12h00_)
+**Partiel 2 - HETIC W1 - Promotion 2018**
+<br>Jeudi 16 juin 2016 / 10h00-12h00
 
 ---
 
