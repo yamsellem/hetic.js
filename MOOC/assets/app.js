@@ -182,6 +182,7 @@ let chapters = [
                 title: "Initialiser une variable",
                 description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur numérique <code>12</code>",
                 excerpt: "Une variable est un symbole qui associe un nom à une valeur stockée en mémoire. Le nom doit être unique. La valeur peut être de plusieurs types.<br><br>JavaScript est un langage typé dynamiquement, toutes les variables sont définies avec le mot clé <code>var</code> et le moteur d'exécution se charge de leur affecter le type adéquat (<i>type qui peut évoluer dans le temps</i>). Le langage propose trois types primitifs — nombre, chaine de caractères et booléen — et deux types composites — objet et tableau.<br><br><strong>Exemple</strong> : l'instruction <code>var value = 5;</code> déclare la variable <code>value</code> et lui affecte la valeur numérique <code>5</code> (<i>le point virgule en fin de chaque ligne est optionnel</i>).",
+                solved: "var secret = 12;",
                 warn: "La variable <code>secret</code> doit être déclarée et initialisée à <code>12</code>",
                 answer: function() {
                     return secret === 12;
@@ -191,6 +192,7 @@ let chapters = [
                 title: "Additionner deux nombres",
                 description: "Créer une variable nommée <code>secret</code> et lui affecter la somme des variables numériques <code>x</code> et <code>y</code> (<i>déclarées par ce tutoriel</i>).",
                 excerpt: "Un opérateur est un symbole qui représente une action. Il permet de modifier la valeur des variables. Tous les opérateurs ne s'appliquent pas à tous les types de variables.<br><br>L'opérateur mathématiques <code>+</code> additionne les nombres et concatène les chaines de caractères (<i>les ajoute bout à bout</i>).<br><br>Les opérateurs mathématiques <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code> s'appliquent aux nombres uniquement. Les opérations mathématiques sont effectuées de gauche à droite, la multiplication, la division et le modulo ont la priorité sur l'addition et la soustraction. Pour modifier l'ordre, il est possible d'utiliser des parenthèses. <br><br><strong>Exemple</strong> : l'instruction <code>var value = 5 + 10;</code> déclare la variable <code>value</code> et lui affecte le résultat de l'opération, <code>15</code>.",
+                solved: "var secret = x + y;",
                 init: function() {
                     window.x = this.x = random();
                     window.y = this.y = random();
@@ -209,6 +211,7 @@ let chapters = [
                 title: "Concaténer deux chaines de caractères",
                 description: "Créer une variable nommée <code>secret</code> et lui affecter la concaténation des variables <code>x</code> et <code>y</code> séparées d'un espace (<i>déclarées par ce tutoriel</i>).",
                 excerpt: "Ajouter une chaine de caractères à une autre avec l'opérateur <code>+</code> permet de les concaténer (<i>les mettre bout à bout</i>).<br><br>Pour ajouter un espace à une chaine existante, il est possible de créer une chaine composée uniquement d'un espace <code>' '</code>. Les chaines de caractères peuvent être déclarées à l'aide de guillemets simples <code>'lorem ipsum'</code> ou double <code>\"lorem ipsum bacon\"</code>.<br><br><strong>Exemple</strong> : <code>'lorem ' + 'ipsum'</code> crée la chaine <code>'lorem ipsum'</code>.",
+                solved: "var secret = x + ' ' + y;",
                 init: function() {
                     window.x = this.x = randomize('purple', 'sapphire', 'blue', 'red');
                     window.y = this.y = randomize('skate', 'rollers', 'submarine');
@@ -227,6 +230,7 @@ let chapters = [
                 title: "Diviser deux nombres",
                 description: "Créer une variable nommée <code>secret</code> et lui affecter le résultat de la division de la variables <code>x</code> par <code>y</code> (<i>déclarées par ce tutoriel</i>) arrondi à l'entier inférieur.",
                 excerpt: "Il est possible d'effectuer des arrondis avec la fonction <code>parseInt(value, 10)</code> ou <code>Math.floor(value)</code> (<i>founies par tous les navigateurs</i>).",
+                solved: "var secret = parseInt(x / y, 10);",
                 init: function() {
                     window.x = this.x = randomize(13, 23, 33, 43, 53);
                     window.y = this.y = randomize(2, 4, 6, 8);
@@ -245,6 +249,7 @@ let chapters = [
                 title: "Retourner le plus grand de deux nombres",
                 description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur du plus grand nombre parmi <code>x</code> et <code>y</code> (<i>déclarées par ce tutoriel</i>).",
                 excerpt: "L'objet <code>Math</code> dispose également d'autres fonctionnalités pour identifier les maximum, minimum, sinus, etc. Il est également possible d'écrire une condition qui vérifie lequel des nombres est le plus grand avec <code>if</code>. L'expression conditionnelle <code>if</code> effectue une opération si sa condition est vérifiée (<i>égale à true</i>). L'expression facultative <code>else</code> effectue une opération dans le cas inverse.<br><br><strong>Exemple</strong> : <pre><code>if (value > 10) {<br>  console.log('value is greater than 10');<br>} else {<br>  ...<br>}</code></pre> affiche le texte dans la console du navigateur si la variable value est supérieure à 10. Les accolades délimitent le code à exécuter si la condition est vérifiée, il est préférable de sauter une ligne entre chaque instruction pour la lisibilité.",
+                solved: "var secret = Math.max(x, y);",
                 init: function() {
                     window.x = this.x = random();
                     window.y = this.y = random();
@@ -263,6 +268,7 @@ let chapters = [
                 title: "Retourner la plus grande de deux chaines",
                 description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de la chaîne de caractères la plus longue parmi <code>x</code> et <code>y</code> (<i>déclarées par ce tutoriel</i>).",
                 excerpt: "Les chaines de caractères sont des tableaux de caractères. Elles disposent donc d'un attribut <code>length</code> indiquant leur nombre d'éléments. Il est également possible d'accéder - comme pour un tableau - à un élément avec son index.<br><br><strong>Exemple</strong> : <code>'lorem ipsum'.length</code> retourne <code>11</code>, car la chaine est composée de 11 caractères. <code>'lorem ipsum'[3]</code> retourne <code>e</code>, car il s'agit du 4iem caractère de la chaine (<i>l'index des tableaux commence à zéro</i>).",
+                solved: "var secret;<br>if (x.length > y.length) {<br>  secret = x;<br>} else {<br>  secret = y;<br>}",
                 init: function() {
                     window.x = this.x = randomize('purple', 'sapphire', 'blue', 'red');
                     window.y = this.y = randomize('skate', 'rollers', 'submarine');
@@ -281,6 +287,7 @@ let chapters = [
                 title: "Initialiser un booléen",
                 description: "Créer une variable nommée <code>secret</code> et lui affecter <code>true</code> si la somme de <code>x</code> et <code>y</code> (<i>déclarées par ce tutoriel</i>) est supérieure à 100, <code>false</code> sinon.",
                 excerpt: "En plus des nombres et des chaines de caractères, le language dispose de booléens, des variables dont la valeur est <code>true</code> ou <code>false</code>. Les conditions et les boucles sont basées sur des tests booléens (<i>faits par le navigateur</i>).",
+                solved: "var secret = x + y > 100;",
                 init: function() {
                     window.x = this.x = randomize(30, 40, 50);
                     window.y = this.y = randomize(50, 60, 70);
@@ -299,6 +306,7 @@ let chapters = [
                 title: "Effectuer deux conditions simultanées",
                 description: "Créer une variable nommée <code>secret</code> et lui affecter <code>true</code> si <code>x</code> et <code>y</code> (<i>déclarées par ce tutoriel</i>) sont tous deux supérieurs à 10, <code>false</code> sinon.",
                 excerpt: "Les opérateurs et <code>&&</code> et ou <code>||</code> permettent de combiner des conditions.<br><br><strong>Exemple</strong> : <code>10 < 12 && 12 < 15</code> retourne <code>true</code> car les deux conditions sont vérifiées. <code>10 < 12 || 12 > 15</code> retourne <code>true</code> car une des deux conditions est vérifiée. <code>10 > 12 || 12 > 15</code> retourne <code>false</code> car aucune des deux conditions n'est vérifiée.",
+                solved: "var secret = x > 10 && y > 10;",
                 init: function() {
                     window.x = this.x = randomize(5, 9, 14, 18);
                     window.y = this.y = randomize(5, 9, 14, 18);
@@ -316,6 +324,7 @@ let chapters = [
             {
                 title: "Effectuer une condition ou une autre",
                 description: "Créer une variable nommée <code>secret</code> et lui affecter <code>true</code> si <code>x</code> ou <code>y</code> (<i>déclarées par ce tutoriel</i>) est supérieur à 10, <code>false</code> sinon.",
+                solved: "var secret = x > 10 || y > 10;",
                 init: function() {
                     window.x = this.x = randomize(5, 9, 14, 18);
                     window.y = this.y = randomize(5, 9, 14, 18);
@@ -334,6 +343,7 @@ let chapters = [
                 title: "Effectuer une boucle",
                 description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de la chaîne <code>x</code> répétée autant de fois que la valeur numérique <code>y</code> (<i>ex. 3, skate -> skateskateskate — déclarées par ce tutoriel</i>)",
                 excerpt: "L'expression conditionnelle de boucle <code>for</code> effectue une opération tant que sa condition est vérifiée (<i>égale à true</i>). Cette expression est originale : elle se définit en trois parties facultatives, d'abord une initialisation, ensuite une condition, enfin une opération finale. L'initialisation est effectuée au premier pas de boucle, ensuite, tant que la condition n'est pas vérifiée, la ou les opérations sont évaluées, puis l'opération finale est évaluée à son tour.<br><br><strong>Exemple</strong> : <pre><code>for (var i = 0; i < 5; i++) {<br> console.log(i);<br>}</code></pre> affiche <code>0 1 2 3 4</code> dans la console du navigateur. Elle peut se lire ainsi : « Soit <code>i</code> initialisé à zéro, tant que <code>i</code> est inférieur à <code>5</code> effectuer les opérations suivantes. Après avoir effectué les opérations, ajouter <code>1</code> à <code>i</code>, puis recommencer ».",
+                solved: "var secret = '';<br>for (var i = 0; i < y; i++) {<br>  secret = secret + x;<br>}",
                 init: function() {
                     window.x = this.x = randomize('skate', 'rollers', 'submarine');
                     window.y = this.y = randomize(3, 5, 8, 13);
@@ -355,6 +365,7 @@ let chapters = [
                 title: "Effectuer une boucle",
                 description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de <code>x</code> (<i>déclarée par ce tutoriel</i>) dont tous les <code>e</code> ont été retirés.",
                 excerpt: "Les condition et les boucles peuvent être imbriquées les unes dans les autres.",
+                solved: "var secret = '';<br>for (var i = 0; i < x.length; i++) {<br>  var char = x[i];<br>  if (char !== 'e') {<br>    secret = secret + char;<br>  }<br>}",
                 init: function() {
                     window.x = this.x = randomize('skate', 'rollers', 'submarine');
                 },
@@ -371,6 +382,7 @@ let chapters = [
             {
                 title: "Effectuer une boucle et une condition",
                 description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de tous les nombres de 1 jusqu'à <code>x</code> (<i>déclarée par ce tutoriel</i>) sans les pairs (<i>ex. 7 -> 7 + 5 + 3 + 1</i>).",
+                solved: "var secret = 0;<br>for (var i = 1; i <= x; i++) {<br>  if (i % 2 === 1) {<br>    secret = secret + i;<br>  }<br>}",
                 init: function() {
                     window.x = this.x = random(5, 9);
                 },
@@ -392,6 +404,7 @@ let chapters = [
                 title: "Créer un tableau",
                 description: "Créer une variable nommée <code>secret</code> de type tableau et lui ajouter les valeurs de <code>x</code> et de <code>y</code> (<i>déclarées par ce tutoriel</i>).",
                 excerpt: "Les tableaux représentent une liste ordonnée de variables (qu'importe leur type). La propriété <code>length</code> permet de connaitre le nombre d'éléments d'un tableau. Les crochets <code>[ ]</code> permettent d'accèder à un élément par index (<i>l'index des tableaux commence à zéro</i>).<br><br>Manipuler les tableaux par index est délicat. Ajouter un élément au début du tableau demande de déplacer tous les éléments existants et supprimer un élément de décaler les éléments suivants afin de combler le « vide » ainsi créé. Ces opérations sont falitées par les méthodes <code>push</code> (<i>ajoute un élément à la fin</i>), <code>pop</code> (<i>supprime le dernier élément</i>), <code>indexOf</code> (<i>retourne la position d'un élément ou -1 s'il n'est pas présent</i>) et bien d'autres.<br><br><strong>Exemple</strong> : <pre><code>var items = ['paul', 'john'];<br>items.push('ringo');<br>console.log(items.length, items[2]);</code></pre> affiche la taille du tableau, <code>3</code>, et son 3iem élément, (<i>ajouté par <code>push</code></i>), c'est à dire <code>'ringo'</code>. ",
+                solved: "var secret = [x, y];",
                 init: function() {
                     window.x = this.x = random(1, 10);
                     window.y = this.y = random(11, 20);
@@ -410,6 +423,7 @@ let chapters = [
                 title: "Concaténer deux tableaux",
                 description: "Créer une variable nommée <code>secret</code> de type tableau et lui ajouter les valeurs de <code>x</code> (un tableau également) et de <code>y</code> (<i>déclarées par ce tutoriel</i>).",
                 excerpt: "La méthode <code>concat</code> permet de rassembler un tableau à tableaux autres.",
+                solved: "var secret = [].concat(x, y);",
                 init: function() {
                     this.x = [random(1, 10), random(1, 10)];
                     window.x = this.x.slice(0);
@@ -429,6 +443,7 @@ let chapters = [
                 title: "Modifier un tableau",
                 description: "Créer une variable nommée <code>secret</code> de type tableau avec toutes les valeurs du tableau <code>x</code> (<i>déclarée par ce tutoriel</i>) dont chaque valeur a été doublée (<i>ex. [1, 5, 7] -> [2, 10, 14]</i>).",
                 excerpt: "Les boucles <code>for</code> sont souvent utilisées pour parcourir un tableau et récupérer chacune de ses valeurs une à une.<br><br><strong>Exemple</strong> : <pre><code>for (var i = 0; i < items.length; i++) { <br>  console.log('value', items[i]); <br>}</code></pre> parcourt un tableau et affiche chacune de ses valeurs.",
+                solved: "var secret = [];<br>for (var i = 0; i < x.length; i++) {<br>  var value = x[i];<br>  secret.push(value * 2); <br>}",
                 init: function() {
                     this.x = [random(1, 10), random(1, 10), random(1, 10), random(1, 10)];
                     window.x = this.x.slice(0);
@@ -446,6 +461,7 @@ let chapters = [
             {
                 title: "Filtrer un tableau",
                 description: "Créer une variable nommée <code>secret</code> de type tableau avec toutes les valeurs du tableau <code>x</code> dont la valeur de <code>y</code> a été retirée (<i>ex. 3, [1, 3, 3, 1] -> [1, 1] — déclarées par ce tutoriel</i>).",
+                solved: "var secret = [];<br>for (var i = 0; i < x.length; i++) {<br>  if (x[i] !== y) {<br>    secret.push(x[i]);<br>  }<br>}",
                 init: function() {
                     this.x = [random(1, 3), random(1, 3), random(1, 3), ''+random(1, 3), random(1, 3), ''+random(1, 3), random(1, 3), ''+random(1, 3)];
                     window.x = this.x.slice(0);
@@ -465,6 +481,7 @@ let chapters = [
             {
                 title: "Réduire un tableau",
                 description: "Créer une variable nommée <code>secret</code> ayant pour la valeur la somme de toutes les valeur du tableau <code>x</code> (<i>ex. [1, 5, 7] -> 13 — déclarée par ce tutoriel</i>).",
+                solved: "var secret = 0;<br>for (var i = 0; i < x.length; i++) {<br>  secret = secret + x[i];<br>}",
                 init: function() {
                     this.x = [random(1, 10), random(1, 10), random(1, 10), random(1, 10)];
                     window.x = this.x.slice(0);
@@ -483,6 +500,7 @@ let chapters = [
                 title: "Créer un dictionnaire (ou un objet littéral)",
                 description: "Créer une variable nommée <code>secret</code> de type dictionnaire avec deux clés, <code>min</code> et <code>max</code>, ayant pour valeur le minimum et le maximum des valeurs <code>x</code> et <code>y</code> (<i>ex. 7, 5 -> {min: 5, max: 7} — déclarées par ce tutoriel</i>).",
                 excerpt: "Les objets littéraux (<i> ou dictionnaires</i>), représentent une suite de paires clé - valeur séparées par une virgule. Chacune des valeurs ainsi listées peut être d'une type primitif ou composite.<br><br><strong>Exemple</strong> : <code>var obj = { age: 27, name: 'paul' }</code> déclare un objet littéral avec deux clés, la première ayant pour valeur un nombre, la seconde, une chaine de caractères. Ainsi <code>obj.age</code> retourne <code>27</code> et <code>obj.name</code> retourne <code>'paul'</code>. Ces valeurs peuvent être modifiées comme elles sont accédées, <code>obj.age = 32</code>.",
+                solved: "var secret = {};<br>if (x < y) {<br>  secret.min = x;<br>  secret.max = y;<br>} else {<br>  secret.min = y;<br>  secret.max = x;<br>}",
                 init: function() {
                     window.x = this.x = random(1, 50);
                     window.y = this.y = random(1, 50);
@@ -500,6 +518,7 @@ let chapters = [
             {
                 title: "Créer un dictionnaire",
                 description: "Créer une variable nommée <code>secret</code> de type dictionnaire avec deux clés, <code>min</code> et <code>max</code>, ayant pour valeur le minimum et le maximum des dictionnaires <code>x</code> et <code>y</code> (<i>déclarées par ce tutoriel</i>) ayant chacun une clé <code>min</code> et <code>max</code> (<i>ex. {min: 1, max: 7}, {min: 4, max: 12} -> {min: 1, max: 12}</i>).",
+                solved: "var secret = {};<br>if (x.min < y.min) {<br>  secret.min = x.min;<br>} else {<br>  secret.min = y.min;<br>}<br>if (x.max > y.max) {<br>  secret.max = x.max;<br>} else {<br>  secret.max = y.max;<br>}",
                 init: function() {
                     window.x = this.x = {min: random(1, 24), max: random(25, 40)};
                     window.y = this.y = {min: random(1, 24), max: random(25, 40)};
@@ -517,6 +536,7 @@ let chapters = [
             {
                 title: "Filter un dictionnaire",
                 description: "Créer une variable nommée <code>secret</code> de type dictionnaire avec les clés de <code>x</code> dont les clés égale à la valeur de <code>y</code> ont été retirées (<i>ex. 2, {a: 1, b: 2} -> {a: 1} — déclarées par ce tutoriel</i>).",
+                solved: "var secret = {};<br>for (var key in x) {<br>  if (x[key] !== y) {<br>    secret[key] = x[key];<br>  }<br>}",
                 init: function() {
                     window.x = this.x = {a: random(1, 3), b: random(1, 3), c: random(1, 3), d: random(1, 3), e: random(1, 3), f: random(1, 3)};
                     window.y = this.y = randomize(this.x.a, this.x.b, this.x.c, this.x.d, this.x.e, this.x.f);
@@ -545,6 +565,7 @@ let chapters = [
                 title: "Sélectionner un élément",
                 description: "Ajouter la classe <code>cadmiumyellow</code> au premier <code>li</code> contenu dans <code>ul.board</code>.",
                 excerpt: "La méthode <code>document.querySelector</code> peut être utilisée avec un sélecteur css pour récupérer un élément. Cet élément dispose d'un attribut <code>classList</code> qui permet de modifier ses classes css.<br><br><strong>Exemple</strong> : <pre><code>var div = document.querySelector('div');<br>div.classList.add('visible');</code></pre> ajouter la classe <code>visible</code> au premier <code>div</code> de la page.",
+                solved: "var li = document.querySelector('.board li');<br>li.classList.add('cadmiumyellow');",
                 dom: function() {
                     return board.bind(board, cartman);
                 },
@@ -557,6 +578,7 @@ let chapters = [
                 title: "Sélectionner plusieurs éléments",
                 description: "Supprimer la classe <code>braken</code> des éléments qui la possède, et remplacer la par <code>candyapplered</code>.",
                 excerpt: "La méthode <code>document.querySelectorAll</code> peut être utilisée pour récupérer une liste d'éléments. Ensuite, il est nécessaire d'effectuer une boucle <code>for</code> pour parcourir chacun des éléments.",
+                solved: "var lis = document.querySelectorAll('.board li.braken');<br>for (var i = 0; i < lis.length; i++) {<br>  lis[i].className = 'candyapplered';<br>}",
                 dom: function() {
                     return board.bind(board, cartman);
                 },
@@ -570,6 +592,7 @@ let chapters = [
                 title: "Écouter un événement",
                 description: "Ajouter un écouteur d'événement sur le premier élément doté de la classe <code>cadmiumyellow</code>, et, au clic, remplacer cette classe par <code>bondiblue</code>.",
                 excerpt: "La méthode <code>addEventListener</code> peut être utilisée sur un élément pour l'abonner aux événements utilisateur comme <code>click</code>.<br><br><strong>Exemple</strong> : <pre><code>var div = document.querySelector('div');<br>div.addEventListener('click', function() { <br>  console.log('clicked'); <br>});</code></pre> ajoute un écouteur sur le premier <code>div</code> de la page et affiche <code>'clicked'</code> dans la console à chaque clic sur celui-ci.",
+                solved: "var li = document.querySelector('.board li.cadmiumyellow');<br>li.addEventListener('click', function() {<br>  li.className = 'bondiblue';<br>});",
                 dom: function() {
                     return board.bind(board, cartman);
                 },
@@ -583,6 +606,7 @@ let chapters = [
             {
                 title: "Écouter un événement et boucle",
                 description: "Ajouter un écouteur d'événement sur le premier élément doté de la classe <code>candyapplered</code>, et, au clic, remplacer la classe de tous les <code>li</code> de <code>ul.board</code> par <code>candyapplered</code>.",
+                solved: "var li = document.querySelector('.board li.candyapplered');<br>li.addEventListener('click', function() {<br>  var lis = document.querySelectorAll('.board li');<br>  for (var i = 0; i < lis.length; i++)<br>    lis[i].className = 'candyapplered';<br>});",
                 dom: function() {
                     return board.bind(board, cartman);
                 },
@@ -596,6 +620,7 @@ let chapters = [
                 title: "Écouter plusieurs événements",
                 description: "Ajouter un écouteur d'événement sur tous les éléments dotés de la classe <code>champagne</code>, et, au clic, remplacer cette classe par <code>braken</code>.",
                 excerpt: "Le code déclaré dans la fonction d'un écouteur d'événement n'est excuté par le navigateur qu'on moment où l'événement se produit. Cela pose problème avec les boucles car elles modifient les variables <code>i</code> & co. et la valeur du code dans l'écouteur d'événement se retrouve être la dernière positionnée par la boucle.<br><br>Pour éviter cela, il est possible d'utiliser <code>this</code> dasn l'écouteur d'événement (<i>qui correspond à l'élément qui a été cliqué</i>) ou de déclarer toutes les variables de la boucles avec <code>let name</code> au lieu de <code>var name</code> (<i>leur portée est ainsi limitée à la boucle</i>) ou encore de créer une fonction qui encapsule le code déclenché par l'événement.<br><br>Ce problème tient à la portée des variables déclarées avec <code>var</code> qui est locale à la fonction qui l'encapsule, et non à la boucle qui l'encapsule.",
+                solved: "var lis = document.querySelectorAll('.board li.champagne');<br>for (var i = 0; i < lis.length; i++) {<br>  var li = lis[i];<br>  li.addEventListener('click', function() {<br>    this.className = 'braken';<br>  });<br>}",
                 dom: function() {
                     return board.bind(board, cartman);
                 },
@@ -615,6 +640,7 @@ let chapters = [
                 title: "Écouter un événement",
                 description: "Ajouter un écouteur d'événement sur le premier élément doté de la classe <code>braken</code> et le premier doté de la classe <code>champagne</code>, et, au clic sur l'un des deux, intervertir leurs classes.",
                 excerpt: "Lorsque du code se retrouve dupliqué, il est possible de le rassembler au sein d'une fonction et d'appeller celle-ci plusieurs fois. Le mot clé <code>function</code> permet de déclarer un sous programme qui peut être appelé par du code externe (<i>ou s'appeller elle-même, en cas d'appels récursifs</i>). Comme une boucle conditionnelle, une fonction est composée d'une liste d'opérations (<i>délimitées entre accolades</i>), il est possible de lui fournir des arguments et elle peut retourner une valeur avec le mot clé <code>return</code>. Une fonction est variables comme les autres.<br><br><strong>Exemple</strong> : <pre><code>var double = function(value) { <br>  return value * 2; <br>}</code></pre> crée une fonction qui retourne le double d'un nombre. utilisée ainsi <code>double(12)</code> elle retourne <code>24</code>.",
+                solved: "var lib = document.querySelector('.board li.braken');<br>var lic = document.querySelector('.board li.champagne');<br><br>var toggle = function(li) {<br>  if (li.className === 'champagne') {<br>    li.className = 'braken';<br>  } else {<br>    li.className = 'champagne';<br>  }<br>}<br><br>lib.addEventListener('click', function() {<br>  toggle(lib);<br>  toggle(lic);<br>});<br><br>lic.addEventListener('click', function() {<br>  toggle(lib);<br>  toggle(lic);<br>});",
                 dom: function() {
                     return board.bind(board, kenny);
                 },
@@ -640,6 +666,7 @@ let chapters = [
                 title: "Mémoriser un état",
                 description: "Ajouter un écouteur d'événement sur le premier élément doté de la classe <code>champagne</code>, et, après 3 clics répétés sur celui-ci, remplacer sa classe par <code>braken</code>.",
                 excerpt: "Utiliser une variable d'état est souvent plus pratique que sauvegarder des données dans le DOM.",
+                solved: "var li = document.querySelector('.board li.champagne');<br>var i = 0;<br>li.addEventListener('click', function() {<br>  i++;<br>  if (i > 2) {<br>    li.className = 'braken';<br>  }<br>});",
                 dom: function() {
                     return board.bind(board, kenny);
                 },
@@ -661,6 +688,7 @@ let chapters = [
             {
                 title: "Mémoriser un état",
                 description: "Ajouter un écouteur d'événement sur tous les éléments dotés de la classe <code>braken</code>, et, après 3 clics répétés sur n'importe lequel d'entre eux, remplacer sa classe par <code>champagne</code>.",
+                solved: "var handleClick = function(lis, count, i) {<br>  count[i] = 0;<br>  var li = lis[i];<br>  li.addEventListener('click', function() {<br>    count[i]++;<br>    if (count[i] > 2) {<br>      li.className = 'champagne';<br>    }<br>  });<br>}<br><br>var lis = document.querySelectorAll('.board li.braken');<br>var count = [];<br>for (var i = 0; i < lis.length; i++) {<br>  handleClick(lis, count, i);<br>}",
                 dom: function() {
                     return board.bind(board, kenny);
                 },
@@ -679,6 +707,7 @@ let chapters = [
                 title: "Ajout d'éléménts à la fin",
                 description: "Ajouter 4 <code>li</code> à la suite des <code>li</code> contenus par <code>ul.board</code> avec les deux du milieu dotés de la classe <code>darkgreen</code>.",
                 excerpt: "L'attribut <code>innerHTML</code> des éléments du DOM permet de modifier leur contenu.<br><br><strong>Exemple</strong> : <pre><code>var div = document.querySelector('div');<br>div.innerHTML = '&lt;ul&gt;&lt;li&gt;paul&lt;/li&gt;&lt;li&gt;john&lt;/li&gt;&lt;/ul&gt;';</code></pre> ajoute un <code>ul</code> avec deux <code>li</code> au premier <code>div</code> de la page.",
+                solved: "var ul = document.querySelector('.board');<br>ul.innerHTML += '<li></li><li class=\"darkgreen\"></li><li class=\"darkgreen\"></li><li></li>';",
                 dom: function() {
                     return board.bind(board, kyle.slice(0, 12));
                 },
@@ -699,6 +728,7 @@ let chapters = [
                 title: "Ajout d'éléménts au milieu",
                 description: "Ajouter 4 <code>li</code> après le huitième <code>li</code> de <code>ul.board</code> tous dotés de la classe <code>safetyorange</code>.",
                 excerpt: "La méthode <code>insertAdjacentHTML</code>, plus rarement utilisée, permet d'insérer du texte à une position donné dans un élément.",
+                solved: "var li = document.querySelector('.board li:nth-child(8)');<br>li.insertAdjacentHTML('afterend', '<li class=\"safetyorange\"></li><li class=\"safetyorange\"></li><li class=\"safetyorange\"></li><li class=\"safetyorange\"></li>');",
                 dom: function() {
                     return board.bind(board, kyle.slice(0, 8).concat(kyle.slice(12, 16)));
                 },
@@ -716,6 +746,7 @@ let chapters = [
             {
                 title: "Inverser deux éléménts",
                 description: "Mémoriser lorsqu'un <code>li</code> de <code>ul.board</code> est cliqué, et, lorsqu'un second l'est à son tour, intervertir les classes de ces élements.",
+                solved: "ar lis = document.querySelectorAll('.board li');<br>for (var i = 0; i < lis.length; i++) {<br>  var li = lis[i];<br>  li.addEventListener('click', function() {<br>    var toggle = document.querySelector('.board li.toggle');<br>    if (!toggle) {<br>      this.classList.add('toggle');<br>    } else {<br>      toggle.classList.remove('toggle');<br>      var memo = toggle.className;<br>      toggle.className = this.className;<br>      this.className = memo;<br>    }<br>  });<br>}",
                 dom: function() {
                     return board.bind(board, kyle);
                 },
@@ -738,6 +769,7 @@ let chapters = [
             {
                 title: "Manipuler les attributs data-*",
                 description: "À chaque clic sur un <code>li</code> de <code>ul.board</code>, ajouter un attribut <code>data-value</code> sur cet élément avec le nombre d'éléments sélectionnés jusque là.<br><br>Un élément ne peut être sélectionné deux fois.",
+                solved: "var value = 0;<br>var lis = document.querySelectorAll('.board li');<br>for (var i = 0; i < lis.length; i++) {<br>  var li = lis[i];<br>  li.addEventListener('click', function() {<br>    if (!this.dataset.value) {<br>      this.dataset.value = value++;<br>    }<br>  });<br>}",
                 dom: function() {
                     return board.bind(board, kyle);
                 },
@@ -979,6 +1011,7 @@ let chapters = [
                 title: "Identifier un nombre positif",
                 description: "Créer une fonction nommée <code>positive</code> qui prend un paramètre et retourne <code>true</code> si celui-ci est supérieur ou égal à zéro, <code>false</code> sinon.",
                 excerpt: "Une fonction est comme une usine, elle transforme quelque chose (<i>ses paramètres d'entrée</i>) en autre chose (<i>son paramètre de sortie</i>). L'utilisation de fonctions permet de structurer un programme. Au lieu de lister toutes les opérations d'un programme les unes à la suite des autres, il est préférable de regrouper les opérations en plusieurs fonctions correspondant à des parties clairement identifiées du programme.<br><br><strong>Exemple </strong>: <pre><code>var double = function(value) {<br>  return value * 2; <br>}</code></pre> déclare une variable <code>value</code> qui sera initialisée à une valeur à chaque appel de la fonction. Cette variable est locale à la fonction, elle n'existe pas à l'extérieur du code de celle-ci. Le mot clé <code>return</code> interrompt immédiatement la fonction et retourne le résultat au code appelant. <pre><code>var x = double(12);<br>x; /* 24 */<br>var y = double(7);<br>y; /* 14 */<br>var weird = double('hello');<br>weird; /* NaN */<br>value; /* undefined */<br></code></pre>",
+                solved: "var positive = function(value) {<br>  return value >= 0;<br>};",
                 answer: function() {
                     let basic = true;
                     let x = random();
@@ -993,6 +1026,7 @@ let chapters = [
                 title: "Additionner deux nombres",
                 description: "Créer une fonction <code>add</code> qui prend deux paramètres et retourne leur somme. Cette fonction retourne <code>0</code> si un de ces paramètres n'est pas un nombre.",
                 excerpt: "Une fonction peut prendre plusieurs paramètres en entrée, séparés par des virgules <code>function(a, b, c) { ... }</code>. L'opérateur <code>typeof</code> permet quant à lui de vérfier le type d'une variable.<br><br><strong>Exemple </strong>: <pre><code>typeof 12 === 'number'; /* true */<br>typeof 'hello' === 'string'; /* true */<br>typeof ['1', '2', '3'] === 'string'; /* false */</code></pre>",
+                solved: "var add = function(a, b) {<br>  if (typeof a !== 'number' || typeof b !== 'number') {<br>    return 0;<br>  }<br>  return a + b;<br>};",
                 answer: function() {
                     let basic = true;
                     let x = random();
@@ -1007,6 +1041,7 @@ let chapters = [
                 title: "Calculer l'hypoténuse d'un triangle",
                 description: "Créer une fonction <code>hypotenuse</code> qui prend deux paramètres, représentant la dimension de deux côtés d'un triangle, et retourne l'hypoténuse de celui-ci.",
                 excerpt: "Une fonction peut elle-même appeler d'autres fonctions.",
+                solved: "var hypotenuse = function(a, b) {<br>  return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));<br>};",
                 answer: function() {
                     let basic = true;
                     basic = basic && hypotenuse && hypotenuse(3, 4) === 5;
@@ -1017,6 +1052,7 @@ let chapters = [
             {
                 title: "Trouver une valeur dans un tableau",
                 description: "Créer une fonction <code>includes</code> qui prend deux paramètres, un tableau et une valeur. Si la valeur est une des valeurs du tableau, la fonction retourne <code>true</code>, sinon elle retrourne <code>false</code>.",
+                solved: "var includes = function(array, value) {<br>  return array.some(function(item) {<br>    return item === value;<br>  });<br>};",
                 answer: function() {
                     let basic = true;
                     basic = basic && includes && includes(['banana', 'kiwi', 'apple'], 'kiwi');
@@ -1030,6 +1066,7 @@ let chapters = [
                 title: "Calculer le maximum d'une série de nombres",
                 description: "Créer une fonction <code>max</code> qui prend un nombre quelconque de paramètres et retourne le nombre le plus élevé parmi eux. Si aucun paramètre n'est indiqué, elle retourne <code>-1</code>.",
                 excerpt: "Les fonctions disposent toutes d'un paramètre spécial <code>arguments</code> qui est un tableau listant tous les paramètres reçus par la fonction. Il est ainsi possible de créer des fonctions dotées d'un nombre indéterminé de paramètres (<i>et sans avoir besoin de nommer chacun d'entre eux</i>).<br><br><strong>Exemple </strong>: <pre><code>var sum = function() { <br>  var total = 0;<br>  for (var i = 0; i < arguments.length; i++) {<br>    total += arguments[i];<br>  }<br>  return total;<br>}</code></pre> crée une méthode calculant la somme d'un nombre quelconque de paramètres, par exemple <code>sum(5, 8, 13)</code> retourne <code>26</code>.",
+                solved: "var max = function() {<br>  if (arguments.length === 0)<br>    return -1;<br>  var result = arguments[0];<br>  for (var i = 1; i < arguments.length; i++) {<br>    result = Math.max(result, arguments[i]);<br>  }<br>  return result;<br>};",
                 answer: function() {
                     let basic = true;
                     basic = basic && max && max(3, 5, 13, 2) === 13;
@@ -1041,6 +1078,7 @@ let chapters = [
             {
                 title: "Compter le nombre de « a » et « e »",
                 description: "Créer une fonction <code>count</code> qui prend un paramètre et retourne un littéral indiquant le nombre de « a » et de « e » de cette chaine (<i>sous la forme <code>{a: 5, e: 7}</code></i>).",
+                solved: "var text = 'Short ribs fatback pork chop turducken. Hamburger capicola turkey sausage tail leberkas ham andouille pork chop picanha pancetta landjaeger brisket. Ground round pork belly jowl pancetta frankfurter beef ribs ham cupim turkey tenderloin drumstick sausage shoulder. Pig cow short ribs tenderloin tongue pork belly.';<br>var count = function(text) {<br>  text = text.toLowerCase();<br>  var total = {a: 0, e: 0};<br>  for (var i = 0; i < text.length; i++) {<br>    var char = text.charAt(i);<br>    if (char === 'a')<br>      total.a++;<br>    else if (char === 'e')<br>      total.e++;<br>  };<br>  return total;<br>};",
                 answer: function() {
                     let basic = true;
                     basic = basic && count && equals({a: 2, e: 1}, count('Short ribs fatback pork chop turducken.'));
@@ -1053,6 +1091,7 @@ let chapters = [
                 title: "Rechercher dans un arbre binaire",
                 description: "Créer une fonction <code>search</code> qui prend deux paramètres, un arbre binaire et une valeur. Si la valeur est une des valeurs de l'arbre, la fonction retourne <code>true</code>, sinon elle retrourne <code>false</code>.",
                 excerpt: "<pre><code>var tree = {<br>  value: 8, <br>  left: {value: 3, left: {value: 1}, right: {value: 6}}, <br>  right: {value: 11, right: {value: 14}}<br>};<br><br>//       8<br>//    3 ─┴─ 11<br>// 1 ─┴─ 6   └─ 14</code></pre>Un arbre binaire dispose d'une racine, <code>8</code> (<i>ici</i>), celle-ci est dotée d'une noeud gauche, <code>3</code> et droit, <code>10</code>, qui, eux-mêmes peuvent disposer d'un noeud gauche et droit, et ainsi de suite. Un arbre binaire est trié de telle sorte que la noeud gauche d'une valeur lui est inférieur, <code>3 > 8</code> et que son noeud droit lui est supérieur, <code>8 < 10</code>. Et ceci récursivement, chaque noeud gauche inférieur à sa racine, chaque noeud droit supérieur à sa racine. Cette structure permet d'effectuer des recherches très efficaces (<i>peu de comparaison</i>) au sein d'un ensemble de valeurs.<br><br>La fonction à réaliser est une fonction récursive (<i>elle peut s'appeler elle-même</i>). Elle vérifie si la racine est égale, supérieure ou inférieure à la valeur recherchée. En cas d'égalité, elle retourne <code>true</code>, en cas d'infériorité, elle s'appelle elle-même avec le noeud gauche, en cas de supériorité, avec le noeud droit. Arrivée en fin d'arbre (<i>sur une feuille — un noeud sans noeud enfant</i>), elle retourne <code>false</code> si sa valeur n'est pas celle recherchée.",
+                solved: "var search = function(tree, value) {<br>  if (!tree)<br>    return false;<br>  else if (value === tree.value)<br>    return true;<br>  else if (value > tree.value)<br>    return search(tree.right, value);<br>  else<br>    return search(tree.left, value);<br>};",
                 answer: function() {
                     let tree = {value: 8,
                         left: {value: 3, left: {value: 1}, right: {value: 6}},
@@ -1470,8 +1509,8 @@ let stepper = function(el, data, methods) {
             let lis = '';
             for (let _step = 0; _step < chapterContent.steps.length; _step++) {
                 let className = '';
-                className += this.methods.isDone(_step + 1, chapter + 1) ? 'complete ' : '';
-                className += this.methods.isActive(_step + 1, chapter + 1) ? 'active ' : '';
+                className += this.methods.isDone(_step + 1) ? 'complete ' : '';
+                className += this.methods.isActive(_step + 1) ? 'active ' : '';
                 lis += `<li class="${className}"></li>`;
             }
 
@@ -1489,6 +1528,7 @@ let stepper = function(el, data, methods) {
                                 <div class="header">${stepContent.title}</div>
                                 <div class="description"><p>${stepContent.description}</p></div>
                                 <div class="dom" data-hook="dom"></div>
+                                <div data-hook="divulge"></div>
                                 <div class="ui piled segment ${chapterContent.color} ${excerptHidden}">
                                     <h4 class="ui header">À propos</h4>
                                     <p>${stepContent.excerpt}</p>
@@ -1513,7 +1553,6 @@ let stepper = function(el, data, methods) {
                 </div>
             </div>`;
 
-            this.methods.highlight.call(this);
             this.methods.renderDom.call(this);
 
             el.querySelector('[data-hook=leave]').addEventListener('click', function(event) {
@@ -1581,7 +1620,9 @@ let stepper = function(el, data, methods) {
                     stepContent.init();
                 if (stepContent.dom)
                     document.querySelector('[data-hook=dom]').innerHTML = stepContent.dom()();
-                this.methods.reload(noWarning);
+                this.methods.reload.call(this, noWarning);
+                this.methods.divulge.call(this);
+                this.methods.highlight.call(this);
             },
             warn: function() {
                 let warning = 'Réponse incorrecte';
@@ -1620,6 +1661,16 @@ let stepper = function(el, data, methods) {
                 let blocks = document.querySelectorAll('code')
                 for (var i = 0; i < blocks.length; i++) {
                     hljs.highlightBlock(blocks[i]);
+                }
+            },
+            divulge: function() {
+                let done = this.methods.isDone(step);
+                if (done && stepContent.solved) {
+                    el.querySelector('[data-hook=divulge]').innerHTML = `
+                        <a class="ui ${chapterContent.color} ribbon label">
+                            <i class="bug icon"></i>Solution
+                        </a>
+                        <p><pre><code>${stepContent.solved}</code></pre></p>`;
                 }
             }
         }
