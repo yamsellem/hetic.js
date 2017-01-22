@@ -12,8 +12,5 @@
     "url": "https://github.com/yamsellem/hetic.js/issues"
   },
   "homepage": "https://github.com/yamsellem/hetic.js",
-  "dependencies": {
-      "mocha": "x",
-      "chai": "x"
-  }
+  "dependencies": {}
 }
