@@ -9,13 +9,19 @@ serve.start(folder, port);
 
 const students = require('./lib/students')(stepNames, folder);
 
+let times = 0;
+
 const promises = [];
 for (let student in students) {
     let files = students[student].files;
     console.log(`${student} --- ${Object.keys(files)}`);
     for (let file in files) {
-        let promise = require(`./lib/assertions/${file}`)(`http://localhost:${port}/${student}/${file}.html`);
-        promise
+        let promise = new Promise(function (resolve, reject) {
+            setTimeout(resolve, 10000 * times++);
+        })
+        .then(() => {
+            return require(`./lib/assertions/${file}`)(`http://localhost:${port}/${student}/${file}.html`);
+        })
         .then((score) => {
             files[file] = score;
             students[student].score += score;
