@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <input></input>
+        <div id="copy"></div>
+        <div id="count"></div>
+        <div id="swap"></div>
+    </body>
+    <script type="text/javascript">
+        document.querySelector('input').addEventListener('keyup', function(event) {
+            var text = event.target.value;
+
+            var swap = [];
+            var array = text.split(' ');
+            for (var i = 0; i < array.length; i++) {
+                if (array[i] === 'vert') {
+                    swap.push('bleu');
+                } else {
+                    swap.push(array[i]);
+                }
+            }
+            document.querySelector('#copy').innerHTML = text;
+            document.querySelector('#count').innerHTML = array.length - 1;
+            document.querySelector('#swap').innerHTML = swap.join(' ');
+        });
+    </script>
+</html>

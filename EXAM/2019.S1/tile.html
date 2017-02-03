@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style media="screen">
+            .tomato { background-color: tomato; }
+            .yellow { background-color: yellow; }
+            .indigo { background-color: indigo; }
+            ul { margin: auto; width: 300px; list-style-type: none; display: flex; flex-wrap: wrap; }
+            li { display: inline-flex; width: 100px; height: 100px; }
+        </style>
+    </head>
+    <body>
+        <ul>
+            <li class="yellow"></li>
+            <li class="tomato"></li>
+            <li class="indigo"></li>
+            <li class="indigo"></li>
+            <li class="yellow"></li>
+            <li class="tomato"></li>
+            <li class="yellow"></li>
+            <li class="indigo"></li>
+            <li class="tomato"></li>
+        </ul>
+    </body>
+
+    <script type="text/javascript">
+        var previousColor;
+        var previousLi;
+        var update = false;
+        var ul = document.querySelector('ul');
+        var lis = ul.querySelectorAll('li');
+
+        var listen = function(li) {
+            li.addEventListener('click', function() {
+                var color = li.className;
+                if (!previousColor) {
+                    previousColor = color;
+                    previousLi = li;
+                    return;
+                }
+
+                if (color === previousColor) {
+                    previousLi.remove();
+                    li.remove();
+
+                    update = true;
+                } else if (!update) {
+                    var newLi = document.createElement('li');
+                    newLi.className = 'tomato'
+                    listen(newLi);
+                    ul.appendChild(newLi);
+                    update = true;
+                } else {
+                    update = false;
+                }
+
+                previousColor = color;
+                previousLi = li;
+            });
+        }
+
+        for (var i = 0; i < lis.length; i++) {
+            listen(lis[i]);
+        }
+    </script>
+</html>
