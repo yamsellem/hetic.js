@@ -14,6 +14,17 @@ code {
     font-weight: normal;
 }
 
+code.basic {
+    background-color: rgba(0, 0, 0, 0.08);
+    border-radius: 3px;
+    display: inline-block;
+    font-family: "Monaco","Menlo","Ubuntu Mono","Consolas","source-code-pro",monospace;
+    font-size: 0.875em;
+    font-weight: normal;
+    padding: 1px 6px;
+    vertical-align: baseline;
+}
+
 code.hljs { display: inline; padding:.4em }
 pre > code.hljs { display: block; }
 

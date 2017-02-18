@@ -28,6 +28,10 @@ let equals = function(a, b) {
         && Object.keys(b).reduce(function(memo, key) { return memo && a[key] === b[key]; }, true);
 }
 
+let equalsContent = function(a, b) {
+    return JSON.stringify(a) === JSON.stringify(b);
+}
+
 // DOM
 
 let cartman = [
@@ -746,7 +750,7 @@ let chapters = [
             {
                 title: "Inverser deux éléménts",
                 description: "Mémoriser lorsqu'un <code>li</code> de <code>ul.board</code> est cliqué, et, lorsqu'un second l'est à son tour, intervertir les classes de ces élements.",
-                solved: "ar lis = document.querySelectorAll('.board li');<br>for (var i = 0; i < lis.length; i++) {<br>  var li = lis[i];<br>  li.addEventListener('click', function() {<br>    var toggle = document.querySelector('.board li.toggle');<br>    if (!toggle) {<br>      this.classList.add('toggle');<br>    } else {<br>      toggle.classList.remove('toggle');<br>      var memo = toggle.className;<br>      toggle.className = this.className;<br>      this.className = memo;<br>    }<br>  });<br>}",
+                solved: "var memo;<br>var lis = document.querySelectorAll('.board li');<br><br>for (let i = 0; i < lis.length; i++) {<br>  let li = lis[i];<br>  li.addEventListener('click', function() {<br>    if (!memo) {<br>      memo = li;<br>    } else {<br>      var className = memo.className;<br>      memo.className = li.className;<br>      li.className = className;<br>      memo = undefined;<br>    }<br>  });<br>}",
                 dom: function() {
                     return board.bind(board, kyle);
                 },
@@ -1052,7 +1056,7 @@ let chapters = [
             {
                 title: "Trouver une valeur dans un tableau",
                 description: "Créer une fonction <code>includes</code> qui prend deux paramètres, un tableau et une valeur. Si la valeur est une des valeurs du tableau, la fonction retourne <code>true</code>, sinon elle retrourne <code>false</code>.",
-                solved: "var includes = function(array, value) {<br>  return array.some(function(item) {<br>    return item === value;<br>  });<br>};",
+                solved: "var includes = function(array, value) {<br>  for (var i = 0; i < array.length; i++) {<br>    if (array[i] === value) {<br>      return true;<br>    }<br>  }<br>  return false;<br>};",
                 answer: function() {
                     let basic = true;
                     basic = basic && includes && includes(['banana', 'kiwi', 'apple'], 'kiwi');
@@ -1066,7 +1070,7 @@ let chapters = [
                 title: "Calculer le maximum d'une série de nombres",
                 description: "Créer une fonction <code>max</code> qui prend un nombre quelconque de paramètres et retourne le nombre le plus élevé parmi eux. Si aucun paramètre n'est indiqué, elle retourne <code>-1</code>.",
                 excerpt: "Les fonctions disposent toutes d'un paramètre spécial <code>arguments</code> qui est un tableau listant tous les paramètres reçus par la fonction. Il est ainsi possible de créer des fonctions dotées d'un nombre indéterminé de paramètres (<i>et sans avoir besoin de nommer chacun d'entre eux</i>).<br><br><strong>Exemple </strong>: <pre><code>var sum = function() { <br>  var total = 0;<br>  for (var i = 0; i < arguments.length; i++) {<br>    total += arguments[i];<br>  }<br>  return total;<br>}</code></pre> crée une méthode calculant la somme d'un nombre quelconque de paramètres, par exemple <code>sum(5, 8, 13)</code> retourne <code>26</code>.",
-                solved: "var max = function() {<br>  if (arguments.length === 0)<br>    return -1;<br>  var result = arguments[0];<br>  for (var i = 1; i < arguments.length; i++) {<br>    result = Math.max(result, arguments[i]);<br>  }<br>  return result;<br>};",
+                solved: "var max = function() {<br>  if (arguments.length === 0)<br>    return -1;<br><br>  var result = arguments[0];<br>  for (var i = 1; i < arguments.length; i++) {<br>    if (arguments[i] > result) {<br>      result = arguments[i];<br>    }<br>  }<br>  return result;<br>};",
                 answer: function() {
                     let basic = true;
                     basic = basic && max && max(3, 5, 13, 2) === 13;
@@ -1115,7 +1119,7 @@ let chapters = [
             {
                 title: "Naviguer au suivant",
                 description: "Lors du clic sur l'élément doté de la classe <code>next</code>, masquer le premier élément du carrousel et révéler le second.",
-                excerpt: "Les items du carrousel se situent dans la liste <code>.carousel > ul > li</code> et un seul d'entre eux à la classe <code>active</code> (<i>ainsi, les autres sont masqués</i>). Retirer la classe <code>active</code> d'un élément et l'ajouter à un autre, permet de masquer le premier et de révéler le second.<br><br><strong>Exemple </strong>: <pre><code>var next = document.querySelector('.next');<br>next.addEventListener('click', function() {<br>  var li = document.querySelector('.carousel > ul > li.visible');<br>  li.classList.remove('visible');<br>});</code></pre> déclare un écouteur d'événement sur la flêche de droite, et masque le premier élément du carrousel.",
+                excerpt: "Les items du carrousel se situent dans la liste <code>.carousel > ul > li</code> et un seul d'entre eux à la classe <code>visible</code> (<i>ainsi, les autres sont masqués</i>). Retirer la classe <code>visible</code> d'un élément et l'ajouter à un autre, permet de masquer le premier et de révéler le second.<br><br><strong>Exemple </strong>: <pre><code>var next = document.querySelector('.next');<br>next.addEventListener('click', function() {<br>  var li = document.querySelector('.carousel > ul > li.visible');<br>  li.classList.remove('visible');<br>});</code></pre> déclare un écouteur d'événement sur la flêche de droite, et masque le premier élément du carrousel.",
                 dom: function() {
                     return carousel.bind(carousel);
                 },
@@ -1303,6 +1307,8 @@ let chapters = [
                     classNames = getClassNames('.sliding li');
                     basic = basic && classNames.length === 9;
                     basic = basic && !equals(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']);
+                    basic = basic && equalsContent(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8'])
+
                     return basic;
                 }
             },
@@ -1535,11 +1541,11 @@ let stepper = function(el, data, methods) {
                                 </div>
                             </div>
                             <div class="extra content">
-                                <div class="ui stackable two column grid">
-                                    <div class="column">
+                                <div class="ui stackable grid">
+                                    <div class="eight wide tablet eleven wide computer column">
                                         <span class="hidden" data-hook="error"><i class="help circle outline icon"></i><span data-hook="error-label"></span></span>
                                     </div>
-                                    <div class="column">
+                                    <div class="eight wide tablet five wide computer column">
                                         <button class="ui right labeled right floated icon ${chapterContent.color} disabled button" data-hook="next">
                                             <i class="right arrow icon"></i>
                                             <span>${labelNext}</span>
@@ -1635,6 +1641,7 @@ let stepper = function(el, data, methods) {
                 } else if (stepContent.warn) {
                     warning = stepContent.warn;
                 }
+                warning = warning.replace(/<code>/g, '<code class="basic">');
                 return warning;
             },
             reload: function(noWarning) {
@@ -1658,7 +1665,7 @@ let stepper = function(el, data, methods) {
                 }
             },
             highlight: function() {
-                let blocks = document.querySelectorAll('code')
+                let blocks = document.querySelectorAll('code:not(.basic)')
                 for (var i = 0; i < blocks.length; i++) {
                     hljs.highlightBlock(blocks[i]);
                 }
