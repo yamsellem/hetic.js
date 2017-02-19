@@ -93,11 +93,15 @@ h3 a {
     margin-right: 5px;
 }
 
-.ui.card.h-colored > .content:first-child li:first-child,
-.ui.card.h-colored > .content:first-child li.active {
+.ui.card.h-colored > .content:first-child li:first-child {
     border: 2px solid white;
 }
-
+.ui.card.h-colored > .content:first-child li.active {
+    height: 14px;
+    width: 14px;
+    position: relative;
+    top: 2px;
+}
 .ui.card.h-colored > .content:first-child li.complete {
     background-color: white;
 }
@@ -107,10 +111,6 @@ h3 a {
 .stepper .ui.card.h-colored > .content:first-child li.complete,
 .stepper .ui.card.h-colored > .content:first-child li.complete + li {
     cursor: pointer;
-}
-
-.stepper .ui.card.h-colored > .content:first-child li.active.complete {
-    border: 2px solid rgba(0,0,0,0.1);
 }
 
 .stepper .extra.content span:first-child {
@@ -252,4 +252,56 @@ h3 a {
 }
 .places .mini.input input {
     border-radius: 0px;
+}
+
+.booking {
+    margin: auto;
+    max-width: 400px;
+}
+.booking .ui.stackable.grid > .eight.column {
+    padding: 0 !important;
+}
+.booking .ui.stackable.grid > .orange.column {
+    box-shadow: 0 1px 3px 0 #F2711C, 0 0 0 1px #F2711C;
+}
+.booking .ui.stackable.grid > .grey.column h3 {
+    line-height: 66px;
+}
+.booking .ui.card {
+    border-radius: 0;
+    width: auto;
+    position: relative;
+    height: 66px;
+}
+.booking .ui.grey.card {
+    background: #D4D4D5;
+    box-shadow: 0 1px 3px 0 #D4D4D5, 0 0 0 1px #D4D4D5;
+}
+.booking .ui.grey.card .content {
+    padding: 0;
+}
+.booking .ui.grey.card .header {
+    line-height: 70px;
+}
+.booking .ui.input {
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+}
+.booking .ui.input input {
+    border: none;
+    background: transparent;
+    padding-top: 20px;
+}
+.booking .header {
+    color: white;
+}
+.booking .ui.dropdown {
+    border: 0;
+    height: 66px;
+    background: white;
+    border-radius: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    box-shadow: 0 1px 3px 0 #D4D4D5, 0 0 0 1px #D4D4D5;
+    padding: 14px;
 }

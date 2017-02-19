@@ -176,6 +176,78 @@ let near = function(positionA, positionB) {
         && 0.01 > +positionA.lng.toFixed(4) - +positionB.lng.toFixed(4);
 }
 
+// Booking
+
+let booking = function() {
+    return `
+        <div class="booking">
+            <div class="ui stackable grid">
+                <div class="sixteen wide orange center aligned column">
+                    <h4 class="ui header">
+                        <i class="plane icon"></i>
+                        <div class="content">Réserver un vol</div>
+                    </h4>
+                </div>
+                <div class="eight wide column">
+                    <div class="ui card">
+                        <div class="content">
+                            <div class="header">DEL</div>
+                            <div class="meta">
+                                <span class="date">NEW DEHLI</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="eight wide column">
+                    <div class="ui card">
+                        <div class="content">
+                            <div class="header">BKK</div>
+                            <div class="meta">
+                                <span class="date">BANGKOK</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="eight wide column">
+                    <div class="ui card from">
+                        <div class="content">
+                            <a class="header formatted">-</a>
+                            <div class="ui input">
+                                <input type="date" placeholder="yyyy-mm-dd"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="eight wide column">
+                    <div class="ui card to">
+                        <div class="content">
+                            <a class="header formatted">-</a>
+                            <div class="ui input">
+                                <input type="date" placeholder="yyyy-mm-dd"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="eight wide column">
+                    <select class="ui fluid dropdown">
+                        <option value="1">1 voyageur</option>
+                        <option value="2">2 voyageurs</option>
+                        <option value="3">3 voyageurs</option>
+                        <option value="4">4 voyageurs</option>
+                    </select>
+                </div>
+                <div class="eight wide column">
+                    <div class="ui grey center aligned card">
+                        <div class="content">
+                            <span class="header price">0€</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
 // Helpers
 
 let keypress = function(el, key) {
@@ -193,6 +265,11 @@ let keypress = function(el, key) {
 
     oEvent.keyCodeVal = key;
     el.dispatchEvent(oEvent);
+}
+
+let change = function(el) {
+    var event = new Event('change');
+    el.dispatchEvent(event);
 }
 
 let elContains = function(el, value) {
@@ -1459,7 +1536,7 @@ let chapters = [
                 title: "Afficher une carte",
                 description: "Créer une variable <code>map</code> et l'initialiser avec une carte de <a target=\"_blank\" href=\"https://developers.google.com/maps/\">la librairie google maps</a>. L'afficher dans la balise <code>.map</code>, la centrer sur Paris (<i>lat: 48.86, lng: 2.35</i>) et zoomer x12.",
                 excerpt: "<strong>Ne pas utiliser la propriété <code>async</code> du script ni son <code>callback</code></strong>. Bien qu'il s'agisse de la méthode classique pour manipuler une carte google (<i>l'affichage de la carte ne bloque pas le chargement du reste de la page</i>), cette méthode n'est pas compatible avec ce tutoriel. Sans callback, le script de la librairie doit être avant le script qui l'utilise, et ce dernier n'a pas besoin d'une fonction englobante (<i>puisque la page est bloquée tant que google maps n'est pas chargé</i>), et peut être directement déclaré <code>var map = new google.maps.Map(..)</code>.<br><br>Il est possible d'obtenir une clé d'usage via la documentation (<i>les librairies ont courament des clés afin d'effectuer un suivi / limite d'usage</i>).",
-                solved: "/* à ajouter avant le script suivant, &lt;script src=\"https://maps.googleapis.com/maps/api/js?key=\"&gt;&lt;/script&gt; */<br>var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});",
+                solved: "/* à ajouter avant le script principal<br>&lt;script src=\"https://maps.googleapis.com/maps/api/js?key=\"&gt;&lt;/script&gt;<br>*/<br>var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});",
                 dom: function() {
                     return maps.bind(maps);
                 },
@@ -1630,6 +1707,172 @@ let chapters = [
                             resolve(basic);
                         });
                     });
+                }
+            }
+        ]
+    }, {
+        title: "Dates",
+        description: "Les dates sont des types natifs comme les nombres ou les chaines de caractères. Chaque date représente un instant du calendrier, précis à la miliseconde près. Les langages de programmation ne facilitent pas forcément la comparaison de dates, leur formatage ou la gestion de différents fuseaux horaires.<br><br>Ce chapitre présente la manipulation de dates avec la librairie moment — qui en facilite grandement l'usage.",
+        color: "orange",
+        steps: [
+            {
+                title: "Formatter des dates",
+                description: "Mettre en forme les dates saisies dans <code>.from input</code> et <code>.to input</code> de façon a ce qu'elles s'affichent dans <code>.from .formatted</code> et <code>.to .formatted</code> sous le format « JANV. 10 » (<i>premières initiales du mois, suivies du jour, avec la locale française</i>).",
+                excerpt: "La librairie <a target=\"_blank\" href=\"http://momentjs.com/\">moment</a> permet de manipuler facilement des dates, et, notamment, de les mettre en forme en fonction de la locale.",
+                solved: "/* à ajouter avant le script principal<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js\"&gt;&lt;/script&gt;<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/fr.js\"&gt;&lt;/script&gt;<br>*/<br>document.querySelector('.booking .from input').addEventListener('change', function() {<br>  var date = moment(this.value);<br>  document.querySelector('.from .formatted').innerHTML = date.format('MMM').toUpperCase() + ' ' + date.format('D');<br>});<br><br>document.querySelector('.booking .to input').addEventListener('change', function() {<br>  var date = moment(this.value);<br>  document.querySelector('.to .formatted').innerHTML = date.format('MMM').toUpperCase() + ' ' + date.format('D');<br>});",
+                dom: function() {
+                    return booking.bind(booking);
+                },
+                answer: function() {
+                    var from = {
+                        input: document.querySelector('.from input'),
+                        formatted: document.querySelector('.from .formatted')
+                    }
+                    var to = {
+                        input: document.querySelector('.to input'),
+                        formatted: document.querySelector('.to .formatted')
+                    }
+
+                    from.input.value = '2017-01-24';
+                    change(from.input);
+
+                    to.input.value = '2017-01-26';
+                    change(to.input);
+
+                    var basic = true;
+                    basic = basic && elContains(from.formatted, 'JANV. 24');
+                    basic = basic && elContains(to.formatted, 'JANV. 26');
+                    return basic;
+                }
+            },
+            {
+                title: "Limiter les dates",
+                description: "Si la date de retour saisie est antérieure à la date de l'aller, elle est par défaut 1 jour après l'aller (<i>l'aller est le 12 janvier, si une date antérieure est saisie pour le retour, il est le 13 janvier</i>).",
+                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>});",
+                dom: function() {
+                    return booking.bind(booking);
+                },
+                answer: function() {
+                    var from = {
+                        input: document.querySelector('.from input'),
+                        formatted: document.querySelector('.from .formatted')
+                    }
+                    var to = {
+                        input: document.querySelector('.to input'),
+                        formatted: document.querySelector('.to .formatted')
+                    }
+
+                    from.input.value = '2017-01-24';
+                    change(from.input);
+
+                    to.input.value = '2017-01-24';
+                    change(to.input);
+
+                    var basic = true;
+                    basic = basic && elContains(from.formatted, 'JANV. 24');
+                    basic = basic && elContains(to.formatted, 'JANV. 25');
+                    basic = basic && to.input.value === '2017-01-25';
+                    return basic;
+                }
+            },
+            {
+                title: "Compter le nombre de jours de voyage",
+                description: "Pour chaque jour séparant le départ du retour, compter 40€, et afficher le total dans <code>.price</code>.",
+                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = to.value.diff(from.value, 'days') + 1;<br>  document.querySelector('.price').innerHTML = 40 * days + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});",
+                dom: function() {
+                    return booking.bind(booking);
+                },
+                answer: function() {
+                    var from = {
+                        input: document.querySelector('.from input'),
+                        formatted: document.querySelector('.from .formatted')
+                    }
+                    var to = {
+                        input: document.querySelector('.to input'),
+                        formatted: document.querySelector('.to .formatted')
+                    }
+
+                    from.input.value = '2017-01-24';
+                    change(from.input);
+
+                    to.input.value = '2017-01-27';
+                    change(to.input);
+
+                    var basic = true;
+                    basic = basic && elContains(document.querySelector('.price'), '160€');
+                    return basic;
+                }
+            },
+            {
+                title: "Multiplier par le nombre de voyageurs",
+                description: "Pour chaque voyageur, multiplier le prix (<i>un voyage à 80€ coûtera 240€ pour 3 voyageurs</i>).",
+                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br>var passengers = 1;<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = to.value.diff(from.value, 'days') + 1;<br>  document.querySelector('.price').innerHTML = 40 * days * passengers + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});<br><br>document.querySelector('select').addEventListener('change', function() {<br>  passengers = this.value;<br>  total();<br>});",
+                dom: function() {
+                    return booking.bind(booking);
+                },
+                answer: function() {
+                    var from = {
+                        input: document.querySelector('.from input'),
+                        formatted: document.querySelector('.from .formatted')
+                    }
+                    var to = {
+                        input: document.querySelector('.to input'),
+                        formatted: document.querySelector('.to .formatted')
+                    }
+
+                    from.input.value = '2017-01-24';
+                    change(from.input);
+
+                    to.input.value = '2017-01-27';
+                    change(to.input);
+
+                    var select = document.querySelector('select');
+                    select.value = 3;
+                    change(select);
+
+                    var basic = true;
+                    basic = basic && elContains(document.querySelector('.price'), '480€');
+                    return basic;
+                }
+            },
+            {
+                title: "Décompter les weekends",
+                description: "Les samedis et dimanches ne sont pas facturés (<i>vendredi, samedi, dimanche coûtera 40€ — 1 jour —, vendredi, samedi, dimanche, lundi coûtera 80€ — 2 jours —, du lundi au lundi deux semaines après, coûtera 840€ — 11 jours</i>).",
+                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br>var passengers = 1;<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = 0;<br>  var clone = from.value.clone();<br>  while (clone.isSameOrBefore(to.value)) {<br>    if (clone.day() !== 6 && clone.day() !== 0)<br>      days++;<br>    clone.add(1, 'days');<br>  }<br><br>  document.querySelector('.price').innerHTML = 40 * days * passengers + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});<br><br>document.querySelector('select').addEventListener('change', function() {<br>  passengers = this.value;<br>  total();<br>});",
+                dom: function() {
+                    return booking.bind(booking);
+                },
+                answer: function() {
+                    var from = {
+                        input: document.querySelector('.from input'),
+                        formatted: document.querySelector('.from .formatted')
+                    }
+                    var to = {
+                        input: document.querySelector('.to input'),
+                        formatted: document.querySelector('.to .formatted')
+                    }
+
+                    from.input.value = '2017-01-27';
+                    change(from.input);
+
+                    to.input.value = '2017-01-30';
+                    change(to.input);
+
+                    var select = document.querySelector('select');
+                    select.value = 2;
+                    change(select);
+
+                    var basic = true;
+                    basic = basic && elContains(document.querySelector('.price'), '160€');
+
+                    from.input.value = '2017-01-13';
+                    change(from.input);
+
+                    to.input.value = '2017-01-30';
+                    change(to.input);
+
+                    basic = basic && elContains(document.querySelector('.price'), '960€');
+                    return basic;
                 }
             }
         ]
