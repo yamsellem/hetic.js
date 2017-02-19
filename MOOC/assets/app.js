@@ -32,7 +32,7 @@ let equals = function(a, b) {
 }
 
 let equalsContent = function(a, b) {
-    return JSON.stringify(a) === JSON.stringify(b);
+    return JSON.stringify(a.slice(0).sort()) === JSON.stringify(b.slice(0).sort());
 }
 
 // DOM
@@ -138,6 +138,42 @@ let sliding = function() {
             <button class="ui red button">Mélanger</button>
         </div>
     `;
+}
+
+// Maps
+
+let maps = function(searchable) {
+    if (!searchable)
+        return `
+            <div class="places">
+                <div class="map"></div>
+            </div>
+        `;
+
+    return `
+        <div class="places">
+            <div class="ui icon mini input">
+                <i class="search icon"></i>
+                <input type="text" placeholder="Rechercher un lieu">
+            </div>
+            <div class="map"></div>
+        </div>
+    `;
+}
+
+let mapsWait = function(fn) {
+    return new Promise(function(resolve, reject) {
+        setTimeout(resolve.bind(null, false), 3000);
+        google.maps.event.addListenerOnce(map, 'idle', fn.bind(null, resolve, reject));
+    });
+}
+
+let near = function(positionA, positionB) {
+    if (!positionA || !positionB)
+        return false;
+
+    return 0.01 > +positionA.lat.toFixed(4) - +positionB.lat.toFixed(4)
+        && 0.01 > +positionA.lng.toFixed(4) - +positionB.lng.toFixed(4);
 }
 
 // Helpers
@@ -714,7 +750,7 @@ let chapters = [
                 title: "Ajout d'éléménts à la fin",
                 description: "Ajouter 4 <code>li</code> à la suite des <code>li</code> contenus par <code>ul.board</code> avec les deux du milieu dotés de la classe <code>darkgreen</code>.",
                 excerpt: "L'attribut <code>innerHTML</code> des éléments du DOM permet de modifier leur contenu.<br><br><strong>Exemple</strong> : <pre><code>var div = document.querySelector('div');<br>div.innerHTML = '&lt;ul&gt;&lt;li&gt;paul&lt;/li&gt;&lt;li&gt;john&lt;/li&gt;&lt;/ul&gt;';</code></pre> ajoute un <code>ul</code> avec deux <code>li</code> au premier <code>div</code> de la page.",
-                solved: "var ul = document.querySelector('.board');<br>ul.innerHTML += '<li></li><li class=\"darkgreen\"></li><li class=\"darkgreen\"></li><li></li>';",
+                solved: "var ul = document.querySelector('.board');<br>ul.innerHTML += '&lt;li&gt;&lt;/li&gt;&lt;li class=\"darkgreen\"&gt;&lt;/li&gt;&lt;li class=\"darkgreen\"&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;';",
                 dom: function() {
                     return board.bind(board, kyle.slice(0, 12));
                 },
@@ -735,7 +771,7 @@ let chapters = [
                 title: "Ajout d'éléménts au milieu",
                 description: "Ajouter 4 <code>li</code> après le huitième <code>li</code> de <code>ul.board</code> tous dotés de la classe <code>safetyorange</code>.",
                 excerpt: "La méthode <code>insertAdjacentHTML</code>, plus rarement utilisée, permet d'insérer du texte à une position donné dans un élément.",
-                solved: "var li = document.querySelector('.board li:nth-child(8)');<br>li.insertAdjacentHTML('afterend', '<li class=\"safetyorange\"></li><li class=\"safetyorange\"></li><li class=\"safetyorange\"></li><li class=\"safetyorange\"></li>');",
+                solved: "var li = document.querySelector('.board li:nth-child(8)');<br>li.insertAdjacentHTML('afterend', '&lt;li class=\"safetyorange\"&gt;&lt;/li&gt;&lt;li class=\"safetyorange\"&gt;&lt;/li&gt;&lt;li class=\"safetyorange\"&gt;&lt;/li&gt;&lt;li class=\"safetyorange\"&gt;&lt;/li&gt;');",
                 dom: function() {
                     return board.bind(board, kyle.slice(0, 8).concat(kyle.slice(12, 16)));
                 },
@@ -799,9 +835,10 @@ let chapters = [
         color: "violet",
         steps: [
             {
-                title: "Ajouter un todoo",
+                title: "Ajouter un todo",
                 description: "Ajouter un <code>li</code> au <code>.todos ul</code> existant à chaque appui sur entrée dans le champ de formulaire. Ce nouveau <code>li</code> à pour texte la valeur saisie dans le champ de formulaire.",
                 excerpt: "Un écouteur d'événement reçoit en premier paramètre l'événement qui l'a déclenché. s'il s'agit d'un événement clavier <code>keypress</code> celui indique via <code>event.keyCode</code> quelle touche a été saisie, et via <code>event.target.value</code> quelle est la valeur actuelle du champ de formulaire.<br><br><strong>Exemple</strong> : <pre><code>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) { <br>  console.log(event.keyCode, event.target.value); <br>});</code></pre> affiche ces deux informations à chaque saisie dans le premier <code>input</code> de la page.",
+                solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    var ul = document.querySelector('.todos ul');<br>    ul.innerHTML = '&lt;li class=\"item\"&gt;&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value + '&lt;/li&gt;';<br>  }<br>});",
                 dom: function() {
                     return todolist.bind(todolist);
                 },
@@ -822,6 +859,7 @@ let chapters = [
             {
                 title: "Ajouter plusieurs todos",
                 description: "Si le champ de formulaire est vide, aucun <code>li</code> ne doit être créé. Et, losqu'un <code>li</code> est créé, le champ de formulaire doit être vidé.",
+                solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    var ul = document.querySelector('.todos ul');<br>    ul.innerHTML += '&lt;li class=\"item\"&gt;&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value + '&lt;/li&gt;';<br>    event.target.value ='';<br>  }<br>});",
                 dom: function() {
                     return todolist.bind(todolist);
                 },
@@ -850,6 +888,7 @@ let chapters = [
                 title: "Supprimer des todos",
                 description: "Lorsqu'un <code>li</code> est ajouté au <code>.todos ul</code> existant, son texte est préfixé par <code>&lt;i class=\"remove icon\"&gt;&lt;/i&gt;</code>. Cette balise fait apparaitre une croix devant son nom. Au clic sur cette croix, le <code>li</code> doit être supprimé.",
                 excerpt: "À la création d'un élément dans le DOM, il est possible d'ajouter un écouteur d'événement sur un de ses sous éléments, ou sur lui même.",
+                solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    var ul = document.querySelector('.todos ul');<br>    var li = document.createElement('li');<br>    li.className = 'item';<br>    li.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value;<br>    li.querySelector('i').addEventListener('click', function() {<br>      li.remove();<br>    });<br>    ul.appendChild(li);<br>    event.target.value = '';<br>  }<br>});",
                 dom: function() {
                     return todolist.bind(todolist);
                 },
@@ -875,6 +914,7 @@ let chapters = [
             {
                 title: "Cocher les todos",
                 description: "Lorsqu'un <code>li</code> est cliqué, la classe <code>done</code> doit lui être ajoutée. S'il est cliqué de nouveau, cette classe est supprimée.",
+                solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    var ul = document.querySelector('.todos ul');<br>    var li = document.createElement('li');<br>    li.className = 'item';<br>    li.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value;<br>    li.querySelector('i').addEventListener('click', function() {<br>      li.remove();<br>    });<br>    li.addEventListener('click', function() {<br>        li.classList.toggle('done');<br>    });<br>    ul.appendChild(li);<br>    event.target.value = '';<br>  }<br>});",
                 dom: function() {
                     return todolist.bind(todolist);
                 },
@@ -905,6 +945,7 @@ let chapters = [
                 title: "Séparer le modèle de la vue",
                 description: "Créer une variable <code>todos</code> pour stocker l'état du composant (<i>combien d'éléments, lesquels sont cochés, etc</i>). À chaque modification de cette variable, appeller une méthode <code>render</code> charger de mettre à jour l'affichage.",
                 excerpt: "Au lieu d'ajouter directement les <code>li</code> au DOM, créer un tableau <code>todos</code> et une méthode <code>render</code>. À chaque appui sur entrée dans le champ de formulaire, ajouter un object <code>{name: event.target.value, done: false}</code> au tableau <code>todos</code> et déclencher la méthode <code>render</code>. Le rôle de cette méthode est de vider le contenu du <code>ul</code> à chaque fois, et de parcourir le tableau <code>todos</code> afin de générer autant de <code>li</code> qu'il y a d'éléments dans le tableau. <br><br>Au lieu de modifier le DOM lors des événements (<i>clic sur la croix ou clic sur le nom du todo</i>), c'est l'élément du tableau qui est modifié et la méthode <code>render</code> qui est appellée de nouveau. Ce découpage sépare le modèle (<i>les données</i>) de la vue (<i>l'affichage</i>) et va simplifier les opérations suivantes. Supprimer et afficher de nouveaux tous les éléments n'est pas coûteux en terme de performance, tant que leur nombre n'est pas très grand.",
+                solved: "var todos = [];<br>var render = function() {<br>  var ul = document.querySelector('.todos ul');<br>  ul.innerHTML = '';<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br><br>    let li = document.createElement('li');<br>    li.classList.add('item');<br>    li.classList.toggle('done', todo.done);<br>    li.innerHTML = todo.name;<br><br>    li.querySelector('i').addEventListener('click', function() {<br>      todos.splice(i, 1);<br>      render();<br>    });<br>    li.addEventListener('click', function() {<br>      todo.done = !todo.done;<br>      render();<br>    });<br><br>    ul.appendChild(li);<br>  }<br>}<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});",
                 dom: function() {
                     return todolist.bind(todolist);
                 },
@@ -933,6 +974,7 @@ let chapters = [
             {
                 title: "Compter les todos",
                 description: "À chaque création d'un todo, le texte de <code>.filter-todo</code> doit afficher le nombre total de todo non cochés (<i>sans le classe <code>done</code></i>). Le texte de <code>.filter-done</code> affiche quant à lui, le nombre total de todo cochés (<i>avec la classe <code>done</code></i>). Penser au pluriel pour « 0 fait », « 1 fait » et « 2 faits ».",
+                solved: "var todos = [];<br>var render = function() {<br>  var ul = document.querySelector('.todos ul');<br>  ul.innerHTML = '';<br>  var todoCount = 0, doneCount = 0;<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br><br>    if (todo.done)<br>      doneCount++;<br>    else<br>      todoCount++;<br><br>    let li = document.createElement('li');<br>    li.classList.add('item');<br>    li.classList.toggle('done', todo.done);<br>    li.innerHTML = todo.name;<br><br>    li.querySelector('i').addEventListener('click', function() {<br>      todos.splice(i, 1);<br>      render();<br>    });<br>    li.addEventListener('click', function() {<br>      todo.done = !todo.done;<br>      render();<br>    });<br><br>    ul.appendChild(li);<br>  }<br><br>  document.querySelector('.filter-todo').innerHTML = todoCount + ' à faire';<br>  document.querySelector('.filter-done').innerHTML = doneCount + (doneCount > 1 ? ' faits' : ' fait');<br>}<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});",
                 dom: function() {
                     return todolist.bind(todolist);
                 },
@@ -965,6 +1007,7 @@ let chapters = [
             {
                 title: "Filtrer les todos",
                 description: "Au clic sur <code>.filter-done</code> cet élément récupère la classe <code>active</code> et seuls les todos terminés sont affichés. Idem pour <code>.filter-todo</code>. Seul un de ces deux boutons peut être actif à la fois. Cliquer sur un bouton actif le désactive (<i>et affiche ainsi tous les todos</i>). Plutôt que se baser sur le DOM pour savoir quel filtre est activé, utiliser une variable à 3 états, et modifier la méthode <code>render</code> pour la mise à jour de la classe <code>active</code> sur les boutons.",
+                solved: "var todos = [];<br>var state = 'all';<br>var render = function() {<br>  var ul = document.querySelector('.todos ul');<br>  ul.innerHTML = '';<br>  var todoCount = 0, doneCount = 0;<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br><br>    if (todo.done)<br>      doneCount++;<br>    else<br>      todoCount++;<br><br>    if (state !== 'all') {<br>      if ((state === 'todo' && todo.done) || (state === 'done' && !todo.done)) {<br>        continue;<br>      }<br>    }<br><br>    let li = document.createElement('li');<br>    li.classList.add('item');<br>    li.classList.toggle('done', todo.done);<br>    li.innerHTML = todo.name;<br><br>    li.querySelector('i').addEventListener('click', function() {<br>      todos.splice(i, 1);<br>      render();<br>    });<br>    li.addEventListener('click', function() {<br>      todo.done = !todo.done;<br>      render();<br>    });<br><br>    ul.appendChild(li);<br>  }<br><br>  document.querySelector('.filter-todo').innerHTML = todoCount + ' à faire';<br>  document.querySelector('.filter-done').innerHTML = doneCount + (doneCount > 1 ? ' faits' : ' fait');<br><br>  document.querySelector('.filter-todo').classList.toggle('active', state === 'todo');<br>  document.querySelector('.filter-done').classList.toggle('active', state === 'done');<br>}<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});<br><br>document.querySelector('.filter-todo').addEventListener('click', function() {<br>  if (state !== 'todo')<br>    state = 'todo';<br>  else<br>    state = 'all';<br>  render();<br>});<br><br>document.querySelector('.filter-done').addEventListener('click', function() {<br>  if (state !== 'done')<br>    state = 'done';<br>  else<br>    state = 'all';<br>  render();<br>});",
                 dom: function() {
                     return todolist.bind(todolist);
                 },
@@ -1123,6 +1166,7 @@ let chapters = [
                 title: "Naviguer au suivant",
                 description: "Lors du clic sur l'élément doté de la classe <code>next</code>, masquer le premier élément du carrousel et révéler le second.",
                 excerpt: "Les items du carrousel se situent dans la liste <code>.carousel > ul > li</code> et un seul d'entre eux à la classe <code>visible</code> (<i>ainsi, les autres sont masqués</i>). Retirer la classe <code>visible</code> d'un élément et l'ajouter à un autre, permet de masquer le premier et de révéler le second.<br><br><strong>Exemple </strong>: <pre><code>var next = document.querySelector('.next');<br>next.addEventListener('click', function() {<br>  var li = document.querySelector('.carousel > ul > li.visible');<br>  li.classList.remove('visible');<br>});</code></pre> déclare un écouteur d'événement sur la flêche de droite, et masque le premier élément du carrousel.",
+                solved: "var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br><br>elNext.addEventListener('click', function() {<br>  lis[0].classList.remove('visible');<br>  lis[1].classList.add('visible');<br>});",
                 dom: function() {
                     return carousel.bind(carousel);
                 },
@@ -1146,6 +1190,7 @@ let chapters = [
             {
                 title: "Naviguer au suivant, sans dépasser le dernier",
                 description: "S'assurer que cliquer sur la flêche de droite permet de passer d'un élément au suivant, mais qu'une fois arrivé au dernier, n'a plus d'effet.",
+                solved: "var index = 0;<br>var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br><br>elNext.addEventListener('click', function() {<br>  lis[index].classList.remove('visible');<br>  index++;<br>  if (index > 4)<br>    index = 4;<br><br>  lis[index].classList.add('visible');<br>});",
                 dom: function() {
                     return carousel.bind(carousel);
                 },
@@ -1170,6 +1215,7 @@ let chapters = [
                 title: "Naviguer au précédent",
                 description: "Appliquer le même fonctionnement à la flêche de gauche, dotée de la classe <code>prev</code>, cette fois-ci pour passer d'un élément à l'élément précédent, sans avoir d'effet sur le premier.",
                 excerpt: "Déclarer une variable <code>index</code> et l'utiliser pour mémoriser la position actuelle peut faciliter les choses. À chaque action utilisateur, le <code>li</code> à cet index peut être masqué et la position du suivant (<i>ou précédent</i>) peut être déduite à partir de cette variable (<i>et non du DOM</i>).",
+                solved: "var index = 0;<br>var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br>var elPrev = document.querySelector('.prev');<br><br>elPrev.addEventListener('click', function() {<br>  lis[index].classList.remove('visible');<br>  index--;<br>  if (index < 0)<br>    index = 0;<br><br>  lis[index].classList.add('visible');<br>});<br><br>elNext.addEventListener('click', function() {<br>  lis[index].classList.remove('visible');<br>  index++;<br>  if (index > 4)<br>    index = 4;<br><br>  lis[index].classList.add('visible');<br>});",
                 dom: function() {
                     return carousel.bind(carousel);
                 },
@@ -1198,6 +1244,7 @@ let chapters = [
                 title: "Cacher les fléches de navigation",
                 description: "Lorsque le premier élément du carrousel est affiché, masquer la flêche de gauche, sur le dernier, cacher la flêche de droite. Ajouter la classe <code>hidden</code> à l'élément <code>next</code> ou <code>prev</code> permet de les masquer.",
                 excerpt: "Il est possible de regrouper le code de passage d'un élément au suivant (<i>ou au précédent</i>) dans une fonction <code>jump</code>. Cette fonction peut être dotée d'un paramètre d'entrée indiquant le prochain index (<i>calculé par l'appelant</i>), la fonction peut ainsi vérifier que l'index ne passe pas en dessous de <code>0</code> ou au dessus de <code>4</code>. Elle peut également se charger d'afficher / masquer les flêches de navigation.<br><br><strong>Exemple </strong>: <pre><code>var index =  0;<br>var jump = function(to) {<br>  /* retrait de la classe .visible du li actuel */<br>  /* modification de l'index */<br>  /* ajout de la classe .visible au li correspondant au nouvel index */<br>  /* affichage / masquage des flêches de navigation en fonction du nouvel index */<br>};<br><br>document.querySelector('.next').addEventListener('click', function() {<br>  jump(index + 1);<br>});</code></pre>",
+                solved: "var index = 0;<br>var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br>var elPrev = document.querySelector('.prev');<br><br>var navigation = function(index) {<br>  elPrev.classList.toggle('hidden', index === 0);<br>  elNext.classList.toggle('hidden', index === 4);<br>}<br><br>var jump = function(to) {<br>  lis[index].classList.remove('visible');<br>  index = to;<br>  if (index > 4)<br>    index = 4;<br>  if (index < 0)<br>    index = 0;<br>  lis[index].classList.add('visible');<br>  navigation(index);<br>}<br><br>elPrev.addEventListener('click', function() {<br>  jump(index - 1);<br>});<br><br>elNext.addEventListener('click', function() {<br>  jump(index + 1);<br>});<br><br>navigation(0);",
                 dom: function() {
                     return carousel.bind(carousel);
                 },
@@ -1227,6 +1274,7 @@ let chapters = [
             {
                 title: "Afficher la position",
                 description: "Une liste d'indicateurs <code>.dots li</code> est disponible sous le carrousel. Ajouter la classe <code>active</code> à celui d'entre eux qui correspond à l'élément du carrousel affiché (<i>le premier rond quand le premier élément est affiché, le second pour le second, etc</i>). Mettre à jour cet indicateur lors du changement d'élément dans le carrousel.",
+                solved: "var index = 0;<br>var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br>var elPrev = document.querySelector('.prev');<br><br>var dots = document.querySelectorAll('.carousel .dots li');<br>var navigation = function(index) {<br>  elPrev.classList.toggle('hidden', index === 0);<br>  elNext.classList.toggle('hidden', index === 4);<br><br>  for (var i = 0; i < dots.length; i++) {<br>    dots[i].classList.remove('active');<br>  }<br>  dots[index].classList.add('active');<br>}<br><br>var jump = function(to) {<br>  lis[index].classList.remove('visible');<br>  index = to;<br>  if (index > 4)<br>    index = 4;<br>  if (index < 0)<br>    index = 0;<br>  lis[index].classList.add('visible');<br>  navigation(index);<br>}<br><br>elPrev.addEventListener('click', function() {<br>  jump(index - 1);<br>});<br><br>elNext.addEventListener('click', function() {<br>  jump(index + 1);<br>});<br><br>navigation(0);",
                 dom: function() {
                     return carousel.bind(carousel, true);
                 },
@@ -1254,6 +1302,7 @@ let chapters = [
             {
                 title: "Modifier la position",
                 description: "Cliquer sur l'un des ronds doit permettre de naviguer à l'élément du carrousel à la même position. Les flêches de navigation gauche ou droite sont masquées si il s'agit du premier ou dernier élément du carrousel (<i>comme lors de la navigation manuelle de l'utilisateur</i>).",
+                solved: "var index = 0;<br>var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br>var elPrev = document.querySelector('.prev');<br><br>var dots = document.querySelectorAll('.carousel .dots li');<br>var navigation = function(index) {<br>  elPrev.classList.toggle('hidden', index === 0);<br>  elNext.classList.toggle('hidden', index === 4);<br><br>  for (var i = 0; i < dots.length; i++) {<br>    dots[i].classList.remove('active');<br>  }<br>  dots[index].classList.add('active');<br>}<br><br>var jump = function(to) {<br>  lis[index].classList.remove('visible');<br>  index = to;<br>  if (index > 4)<br>    index = 4;<br>  if (index < 0)<br>    index = 0;<br>  lis[index].classList.add('visible');<br>  navigation(index);<br>}<br><br>elPrev.addEventListener('click', function() {<br>  jump(index - 1);<br>});<br><br>elNext.addEventListener('click', function() {<br>  jump(index + 1);<br>});<br><br>for (let i = 0; i < dots.length; i++) {<br>  dots[i].addEventListener('click', function() {<br>    jump(i);<br>  });<br>}<br><br>navigation(0);",
                 dom: function() {
                     return carousel.bind(carousel, true);
                 },
@@ -1287,13 +1336,14 @@ let chapters = [
         ]
     }, {
         title: "Puzzle | Taquin",
-        description: "Un taquin est ce puzzle en plastique à résoudre du bout des pouces. Une pièce peut être glissée horizontalement ou verticalement et venir prendre la place de l'espace libre (<i>un libre pour neuf cases sur les versions simples</i>).<br><br>Ce chapitre présente la réalisation (<i>corsée</i>) d'un taquin pas à pas.",
+        description: "Un taquin est ce puzzle en plastique à résoudre du bout des pouces. Une pièce peut être glissée horizontalement ou verticalement pour venir prendre la place de l'espace libre (<i>un libre pour neuf cases sur les versions simples</i>).<br><br>Ce chapitre présente la réalisation (<i>corsée</i>) d'un taquin pas à pas.",
         color: "red",
         steps: [
             {
                 title: "Mélanger les cases",
                 description: "Mélanger les 9 <code>li</code> du puzzle listés dans <code>.sliding ul</code> au clic sur le bouton « mélanger ».",
                 excerpt: "La méthode <code>Math.floor(Math.random() * 9)</code> retourne un nombre aléatoire entre 0 et 8.",
+                solved: "var shuffle = function(o){<br>  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);<br>  return o;<br>}<br><br>var render = function(matrix) {<br>  var ul = document.querySelector('.sliding ul');<br>  ul.innerHTML = '';<br><br>  var squares = [].concat(matrix[0], matrix[1], matrix[2])<br>  for (var square of squares) {<br>    var li = document.createElement('li');<br>    li.className = 'square' + square;<br>    ul.appendChild(li);<br>  }<br>}<br><br>document.querySelector('.sliding button').addEventListener('click', function() {<br>  var squares = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8]);<br>  var matrix = [<br>    [squares[0], squares[1], squares[2]],<br>    [squares[3], squares[4], squares[5]],<br>    [squares[6], squares[7], squares[8]]<br>  ];<br>  render(matrix);<br>});",
                 dom: function() {
                     return sliding.bind(sliding);
                 },
@@ -1319,6 +1369,7 @@ let chapters = [
                 title: "Gérer le déplacement horizontal d'une case",
                 description: "Au clic sur une case, celle-ci doit être intervertie avec la case vide <code>.square0</code> à condition que l'une et l'autre soit à côté (<i>et pas en diagonale</i>).",
                 excerpt: "Stocker l'état du puzzle dans une variable (<i>une matrice de préférence — un tableau de tableaux, 3 lignes, 3 colonnes</i>), et trouver une façon condensée pour lister quelles cases sont accessibles à partir d'une autre case. Se concentrer pour l'instant sur les mouvements horizontaux.",
+                solved: "var shuffle = function(o){<br>  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);<br>  return o;<br>}<br><br>var render = function(matrix) {<br>  var ul = document.querySelector('.sliding ul');<br>  ul.innerHTML = '';<br><br>  var squares = [].concat(matrix[0], matrix[1], matrix[2])<br>  for (var square of squares) {<br>    var li = document.createElement('li');<br>    li.className = 'square' + square;<br>    li.setAttribute('data-id', square);<br>    li.addEventListener('click', function() {<br>      move(matrix, parseInt(this.getAttribute('data-id')));<br>    });<br>    ul.appendChild(li);<br>  }<br>}<br>var move = function(matrix, square) {<br>  if (square === 0)<br>    return false;<br>  if (matrix[0][0] === square)<br>    canToggle(matrix, [0, 0], [[0, 1]]);<br>  else if (matrix[0][1] === square)<br>    canToggle(matrix, [0, 1], [[0, 0], [0, 2]]);<br>  else if (matrix[0][2] === square)<br>    canToggle(matrix, [0, 2], [[0, 1]]);<br>  else if (matrix[1][0] === square)<br>    canToggle(matrix, [1, 0], [[1, 1]]);<br>  else if (matrix[1][1] === square)<br>    canToggle(matrix, [1, 1], [[1, 0], [1, 2]]);<br>  else if (matrix[1][2] === square)<br>    canToggle(matrix, [1, 2], [[1, 1]]);<br>  else if (matrix[2][0] === square)<br>    canToggle(matrix, [2, 0], [[2, 1]]);<br>  else if (matrix[2][1] === square)<br>    canToggle(matrix, [2, 1], [[2, 0], [2, 2]]);<br>  else if (matrix[2][2] === square)<br>    canToggle(matrix, [2, 2], [[2, 1]]);<br>}<br>var canToggle = function(matrix, from, combinaisons) {<br>  for (var c of combinaisons) {<br>    if (matrix[c[0]][c[1]] === 0) {<br>      toggle(matrix, [from[0], from[1]], [c[0], c[1]]);<br>      break;<br>    }<br>  }<br>}<br>var toggle = function(matrix, from, to) {<br>  var memo = matrix[from[0]][from[1]];<br>  matrix[from[0]][from[1]] = matrix[to[0]][to[1]];<br>  matrix[to[0]][to[1]] = memo;<br>  render(matrix);<br>}<br><br>document.querySelector('.sliding button').addEventListener('click', function() {<br>  var squares = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8]);<br>  var matrix = [<br>    [squares[0], squares[1], squares[2]],<br>    [squares[3], squares[4], squares[5]],<br>    [squares[6], squares[7], squares[8]]<br>  ];<br>  render(matrix);<br>});",
                 dom: function() {
                     return sliding.bind(sliding);
                 },
@@ -1367,6 +1418,7 @@ let chapters = [
             {
                 title: "Gérer le déplacement vertical d'une case",
                 description: "Au clic sur une case, celle-ci doit être intervertie avec la case vide <code>.square0</code> à condition que l'une et l'autre soit à côté (<i>et pas en diagonale</i>).",
+                solved: "var shuffle = function(o){<br>  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);<br>  return o;<br>}<br><br>var render = function(matrix) {<br>  var ul = document.querySelector('.sliding ul');<br>  ul.innerHTML = '';<br><br>  var squares = [].concat(matrix[0], matrix[1], matrix[2])<br>  for (var square of squares) {<br>    var li = document.createElement('li');<br>    li.className = 'square' + square;<br>    li.setAttribute('data-id', square);<br>    li.addEventListener('click', function() {<br>      move(matrix, parseInt(this.getAttribute('data-id')));<br>    });<br>    ul.appendChild(li);<br>  }<br>}<br>var move = function(matrix, square) {<br>  if (square === 0)<br>    return false;<br>  if (matrix[0][0] === square)<br>    canToggle(matrix, [0, 0], [[0, 1], [1, 0]]);<br>  else if (matrix[0][1] === square)<br>    canToggle(matrix, [0, 1], [[0, 0], [1, 1], [0, 2]]);<br>  else if (matrix[0][2] === square)<br>    canToggle(matrix, [0, 2], [[0, 1], [1, 2]]);<br>  else if (matrix[1][0] === square)<br>    canToggle(matrix, [1, 0], [[0, 0], [1, 1], [2, 0]]);<br>  else if (matrix[1][1] === square)<br>    canToggle(matrix, [1, 1], [[0, 1], [1, 0], [1, 2], [2, 1]]);<br>  else if (matrix[1][2] === square)<br>    canToggle(matrix, [1, 2], [[0, 2], [1, 1], [2, 2]]);<br>  else if (matrix[2][0] === square)<br>    canToggle(matrix, [2, 0], [[1, 0], [2, 1]]);<br>  else if (matrix[2][1] === square)<br>    canToggle(matrix, [2, 1], [[2, 0], [1, 1], [2, 2]]);<br>  else if (matrix[2][2] === square)<br>    canToggle(matrix, [2, 2], [[2, 1], [1, 2]]);<br>}<br>var canToggle = function(matrix, from, combinaisons) {<br>  for (var c of combinaisons) {<br>    if (matrix[c[0]][c[1]] === 0) {<br>      toggle(matrix, [from[0], from[1]], [c[0], c[1]]);<br>      break;<br>    }<br>  }<br>}<br>var toggle = function(matrix, from, to) {<br>  var memo = matrix[from[0]][from[1]];<br>  matrix[from[0]][from[1]] = matrix[to[0]][to[1]];<br>  matrix[to[0]][to[1]] = memo;<br>  render(matrix);<br>}<br><br>document.querySelector('.sliding button').addEventListener('click', function() {<br>  var squares = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8]);<br>  var matrix = [<br>    [squares[0], squares[1], squares[2]],<br>    [squares[3], squares[4], squares[5]],<br>    [squares[6], squares[7], squares[8]]<br>  ];<br>  render(matrix);<br>});",
                 dom: function() {
                     return sliding.bind(sliding);
                 },
@@ -1398,14 +1450,190 @@ let chapters = [
                 }
             }
         ]
-    }, /*, {
-        title: "Librairies",
-        description: "Google Maps, Stripe, jQuery, moment, etc.",
-        color: "red",
-        steps: [
-
-        ]
     }, {
+        title: "Composant | Carte",
+        description: "Les cartes sont devenues une des fonctionnalités clés des navigateurs web, notamment sur mobile. Elle affichent les rues, les adresses, les itinéraires et les points d'intérêt (<i>restaurants, cinémas, métros, gares & co</i>). À l'aide de géolocalisation (<i>gps et wifi notamment</i>), elles peuvent également afficher la position de l'utilisateur.<br><br>Ce chapitre présente l'utilisation des cartes google pas à pas.",
+        color: "violet",
+        steps: [
+            {
+                title: "Afficher une carte",
+                description: "Créer une variable <code>map</code> et l'initialiser avec une carte de <a target=\"_blank\" href=\"https://developers.google.com/maps/\">la librairie google maps</a>. L'afficher dans la balise <code>.map</code>, la centrer sur Paris (<i>lat: 48.86, lng: 2.35</i>) et zoomer x12.",
+                excerpt: "<strong>Ne pas utiliser la propriété <code>async</code> du script ni son <code>callback</code></strong>. Bien qu'il s'agisse de la méthode classique pour manipuler une carte google (<i>l'affichage de la carte ne bloque pas le chargement du reste de la page</i>), cette méthode n'est pas compatible avec ce tutoriel. Sans callback, le script de la librairie doit être avant le script qui l'utilise, et ce dernier n'a pas besoin d'une fonction englobante (<i>puisque la page est bloquée tant que google maps n'est pas chargé</i>), et peut être directement déclaré <code>var map = new google.maps.Map(..)</code>.<br><br>Il est possible d'obtenir une clé d'usage via la documentation (<i>les librairies ont courament des clés afin d'effectuer un suivi / limite d'usage</i>).",
+                solved: "/* à ajouter avant le script suivant, &lt;script src=\"https://maps.googleapis.com/maps/api/js?key=\"&gt;&lt;/script&gt; */<br>var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});",
+                dom: function() {
+                    return maps.bind(maps);
+                },
+                answer: function() {
+                    if (!map)
+                        return;
+
+                    return mapsWait(function(resolve, reject) {
+                        let basic = true;
+                        basic = basic && near(
+                            {lat: map.center.lat(), lng: map.center.lng()},
+                            {lat: 48.86, lng: 2.35}
+                        );
+                        basic = basic && 12 === map.zoom;
+                        resolve(basic);
+                    });
+                }
+            },
+            {
+                title: "Ajouter un point d'intérêt",
+                description: "Créer une variable <code>marker</code> et l'initialiser avec un marqueur de carte (<i>le célèbre pin rouge</i>) aux coordonnées du pont des arts de Paris.",
+                solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});",
+                dom: function() {
+                    return maps.bind(maps);
+                },
+                answer: function() {
+                    if (!map || !marker)
+                        return;
+
+                    return mapsWait(function(resolve, reject) {
+                        let basic = true;
+                        basic = basic && near(
+                            {lat: marker.position.lat(), lng: marker.position.lng()},
+                            {lat: 48.8583, lng: 2.3353}
+                        );
+                        resolve(basic);
+                    });
+                }
+            },
+            {
+                title: "Ajouter une popin au clic sur un point d'intérêt",
+                description: "Afficher « Le Pont des Arts » dans une <code>infowindow</code> au clic sur le point d'intérêt. Cette fenêtre doit se fermer au clic sur la carte.",
+                solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});<br><br>var infowindow = new google.maps.InfoWindow({<br>  content: 'Le Pont des Arts'<br>});<br><br>marker.addListener('click', function() {<br>  infowindow.open(map, marker);<br>});<br><br>map.addListener('click', function() {<br>  infowindow.close();<br>});",
+                dom: function() {
+                    return maps.bind(maps, true);
+                },
+                answer: function() {
+                    if (!map || !marker)
+                        return;
+
+                    return mapsWait(function(resolve, reject) {
+                        google.maps.event.trigger(marker, 'click');
+
+                        let basic = true;
+                        basic = basic && elContains(document.querySelector('.gm-style-iw div div'), 'Le Pont des Arts');
+
+                        google.maps.event.trigger(map, 'click');
+                        basic = basic && !elContains(document.querySelector('.gm-style-iw div div'), 'Le Pont des Arts');
+                        resolve(basic);
+                    });
+                }
+            },
+            {
+                title: "Déplacer le marqueur à l'adresse recherchée",
+                description: "Lorsqu'une adresse est saisie dans <code>.places input</code> suivi de la touche entrée, le marqueur actuel est déplacé vers l'adresse ainsi recherchée et la carte est centrée sur ce point.",
+                excerpt: "La librairie offre un géocodeur pour transformer une adresse en coordonnées latitude, longitude.",
+                solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});<br><br>var infowindow = new google.maps.InfoWindow({<br>  content: 'Le Pont des Arts'<br>});<br><br>marker.addListener('click', function() {<br>  infowindow.open(map, marker);<br>});<br><br>map.addListener('click', function() {<br>  infowindow.close();<br>});<br><br>geocoder = new google.maps.Geocoder();<br>document.querySelector('.places input').addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13)<br>    return;<br><br>  geocoder.geocode({'address': event.target.value}, function(results, status) {<br>    if (status !== google.maps.GeocoderStatus.OK)<br>      return;<br><br>    map.setCenter(results[0].geometry.location);<br>    marker.setPosition(results[0].geometry.location);<br>  });<br>});",
+                dom: function() {
+                    return maps.bind(maps, true);
+                },
+                answer: function() {
+                    if (!map || !marker)
+                        return;
+
+                    return mapsWait(function(resolve, reject) {
+                        let input = document.querySelector('.places input');
+
+                        let basic = true;
+                        basic = basic && near(
+                            {lat: marker.position.lat(), lng: marker.position.lng()},
+                            {lat: 48.8583, lng: 2.3353}
+                        );
+
+                        input.value = '29 Rue des Trois Frères';
+                        keypress(input, 13);
+
+                        Promise
+                        .resolve()
+                        .then(function() {
+                            // wait for the geocoder
+                            return new Promise(function(res, rej) { setTimeout(res, 100); });
+                        })
+                        .then(function() {
+                            basic = basic && near(
+                                {lat: marker.position.lat(), lng: marker.position.lng()},
+                                {lat: 48.8848, lng: 2.3407}
+                            );
+                            basic = basic && near(
+                                {lat: map.center.lat(), lng: map.center.lng()},
+                                {lat: 48.8848, lng: 2.3407}
+                            );
+
+                            input.value = '13 Boulevard Garibaldi';
+                            keypress(input, 13);
+                        })
+                        .then(function() {
+                            // wait for the geocoder
+                            return new Promise(function(res, rej) { setTimeout(res, 100); });
+                        })
+                        .then(function() {
+                            basic = basic && near(
+                                {lat: marker.position.lat(), lng: marker.position.lng()},
+                                {lat: 48.8476, lng: 2.3036}
+                            );
+                            basic = basic && near(
+                                {lat: map.center.lat(), lng: map.center.lng()},
+                                {lat: 48.8476, lng: 2.3036}
+                            );
+
+                            resolve(basic);
+                        });
+                    });
+                }
+            },
+            {
+                title: "Déplacer le marqueur à l'adresse de l'utilisateur",
+                description: "Lorsque l'adresse saisie est « ici », le navigateur est géolocalisé et sa position est affichée sur la carte.",
+                excerpt: "Le navigateur est en mesure d'acèder à <a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/Using_geolocation\">sa position géographique</a>, cepdendant, il a besoin de l'autorisation de l'utilisateur pour ce faire.",
+                solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});<br><br>var infowindow = new google.maps.InfoWindow({<br>  content: 'Le Pont des Arts'<br>});<br><br>marker.addListener('click', function() {<br>  infowindow.open(map, marker);<br>});<br><br>map.addListener('click', function() {<br>  infowindow.close();<br>});<br><br>geocoder = new google.maps.Geocoder();<br>document.querySelector('.places input').addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13)<br>    return;<br><br>  if (event.target.value === 'ici') {<br>    return navigator.geolocation.getCurrentPosition(function(position) {<br>      map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude});<br>      marker.setPosition({lat: position.coords.latitude, lng: position.coords.longitude});<br>    });<br>  }<br><br>  geocoder.geocode({'address': event.target.value}, function(results, status) {<br>    if (status !== google.maps.GeocoderStatus.OK)<br>      return;<br><br>    map.setCenter(results[0].geometry.location);<br>    marker.setPosition(results[0].geometry.location);<br>  });<br>});",
+                dom: function() {
+                    return maps.bind(maps, true);
+                },
+                answer: function() {
+                    if (!map || !marker)
+                        return;
+
+                    return mapsWait(function(resolve, reject) {
+                        let input = document.querySelector('.places input');
+
+                        let basic = true;
+                        basic = basic && near(
+                            {lat: marker.position.lat(), lng: marker.position.lng()},
+                            {lat: 48.8583, lng: 2.3353}
+                        );
+
+                        input.value = 'ici';
+                        keypress(input, 13);
+
+                        Promise
+                        .resolve()
+                        .then(function() {
+                            return new Promise(function(res, rej) {
+                                navigator.geolocation.getCurrentPosition(function(geoloc) {
+                                    res(geoloc);
+                                });
+                            });
+                        })
+                        .then(function(geoloc) {
+                            // wait for the marker
+                            return new Promise(function(res, rej) { setTimeout(function() { res(geoloc); }, 100); });
+                        })
+                        .then(function(geoloc) {
+                            basic = basic && near(
+                                {lat: marker.position.lat(), lng: marker.position.lng()},
+                                {lat: geoloc.coords.latitude, lng: geoloc.coords.longitude}
+                            );
+
+                            resolve(basic);
+                        });
+                    });
+                }
+            }
+        ]
+    }, /* {
         title: "Ajax",
         description: "Appels asynchrones serveur, REST, Promesses, etc.",
         color: "grey",
@@ -1513,7 +1741,7 @@ let stepper = function(el, data, methods) {
     return {
         render: function() {
             let excerptHidden = !stepContent.excerpt ? 'hidden' : '';
-            let labelNext = !this.methods.isLast(step) ? 'Étape suivante' : (!this.methods.isLatest(chapter, step) ? 'Chapitre suivant' : 'Chapitres');
+            let labelNext = !this.methods.isLast(step) ? 'Étape suivante' : (!this.methods.isLatest(chapter, step) ? `Chapitre ${chapter+1}` : 'Chapitres');
 
             let lis = '';
             for (let _step = 0; _step < chapterContent.steps.length; _step++) {
@@ -1607,22 +1835,27 @@ let stepper = function(el, data, methods) {
                 this.methods.renderDom.call(this, true);
 
                 let complete = false;
-                try {
-                    complete = stepContent.answer();
-                } catch (err) {
-                    err.stack = null;
+
+                Promise
+                .resolve(stepContent.answer())
+                .then(function(anwser) {
+                    complete = anwser;
+                })
+                .catch(function(err) {
+                    delete err.stack;
                     console.error(err);
-                };
+                })
+                .then(function() {
+                    el.querySelector('[data-hook=next]').classList.toggle('disabled', !complete);
+                    el.querySelector('[data-hook=error]').classList.toggle('hidden', complete);
+                    if (!complete)
+                        el.querySelector('[data-hook=error-label]').innerHTML = this.methods.warn();
 
-                el.querySelector('[data-hook=next]').classList.toggle('disabled', !complete);
-                el.querySelector('[data-hook=error]').classList.toggle('hidden', complete);
-                if (!complete)
-                    el.querySelector('[data-hook=error-label]').innerHTML = this.methods.warn();
+                    if (complete && completion[chapter] <= step)
+                        completed(chapter, step);
 
-                if (complete && completion[chapter] <= step)
-                    completed(chapter, step);
-
-                this.methods.renderDom.call(this);
+                    this.methods.renderDom.call(this);
+                }.bind(this));
             },
             renderDom: function(noWarning) {
                 if (stepContent.init)
@@ -1648,24 +1881,23 @@ let stepper = function(el, data, methods) {
                 return warning;
             },
             reload: function(noWarning) {
-                let reload = document.head.querySelector('#reload');
-                if (reload)
-                    reload.remove();
+                var code = document.querySelector('#code');
+                if (!code)
+                    return;
 
-                let code = document.querySelector('#code');
-                if (code) {
-                    let head = document.head;
-                    let script = document.createElement('script');
-                    script.id = 'reload';
-                    script.type = 'text/javascript';
-                    let content = code.innerHTML
-                    if (noWarning)
-                        content = `try { ${content} } catch (err) {};`;
-                    else
-                        content = `try { ${content} } catch (err) { err.stack = null; console.error(err); };`;
-                    script.innerHTML = content;
-                    head.appendChild(script);
-                }
+                let script = document.createElement('script');
+                script.id = 'code';
+                script.type = 'text/javascript';
+
+                let content = code.innerHTML
+                if (noWarning)
+                    content = `try { ${content} } catch (err) {};`
+                else if (content.substring(0, 6) === 'try { ' && content.substring(content.length - 18, content.length) ===  ' } catch (err) {};')
+                    content = content.substring(6, content.length - 18);
+                script.innerHTML = content;
+
+                code.remove();
+                document.body.appendChild(script);
             },
             highlight: function() {
                 let blocks = document.querySelectorAll('code:not(.basic)')
@@ -1680,7 +1912,11 @@ let stepper = function(el, data, methods) {
                         <a class="ui ${chapterContent.color} ribbon label">
                             <i class="bug icon"></i>Solution
                         </a>
-                        <p><pre><code>${stepContent.solved}</code></pre></p>`;
+                        <p><pre><code class="hidden">${stepContent.solved}</code></pre></p>`;
+
+                    el.querySelector('[data-hook=divulge] .ribbon').addEventListener('click', function() {
+                        this.parentNode.querySelector('code').classList.toggle('hidden');
+                    });
                 }
             }
         }
