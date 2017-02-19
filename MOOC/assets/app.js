@@ -248,6 +248,16 @@ let booking = function() {
     `;
 }
 
+// Connect Four
+
+let connectfour = function() {
+    return `
+        <div class="connectfour">
+            <table></table>
+        </div>
+    `;
+}
+
 // Helpers
 
 let keypress = function(el, key) {
@@ -1876,6 +1886,109 @@ let chapters = [
                 }
             }
         ]
+    }, {
+        title: "Puzzle | Puissance 4",
+        description: "Un puissance 4 est un puzzle pour 2 joueurs (<i>l'un jaune, l'autre rouge</i>) jouant à tour de rôle un jeton dans une des 7 colonnes disponibles. Chaque jeton s'empile aux jetons précédement joués dans cette colonne. Le premier joueur à aligner 4 jetons, horizontalement, verticalement ou en diagonale gagne.<br><br>Ce chapitre présente la réalisation (<i>corsée</i>) d'un puissance 4 pas à pas.",
+        color: "red",
+        steps: [
+            {
+                title: "Générer une table de jeu",
+                description: "Dans la <code>table</code> générer 6 lignes <code>tr</code> avec chacune 7 colonnes <code>td</code> afin de créer le plateau de jeu.",
+                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br>render();",
+                dom: function() {
+                    return connectfour.bind(connectfour);
+                },
+                answer: function() {
+                    var basic = true;
+                    basic = basic && 6 === document.querySelectorAll('table tr').length;
+                    basic = basic && 42 === document.querySelectorAll('table tr td').length;
+                    return basic;
+                }
+            },
+            {
+                title: "Ajouter un jeton alternativement jaune puis rouge",
+                description: "Au clic sur n'importe quel <code>td</code> d'une colonne, ajouter au <code>td</code> en pied de cette colonne la classe <code>yellow</code> ou <code>red</code> alternativement (<i>si il n'a pas de classe</i>). Au fur et à mesure des clics, les jetons s'empilent ainsi les uns sur les autres. Si une colonne est remplie, elle ne reçoit plus de jeton au clic.",
+                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      if (column)<br>        td.className = column;<br><br>      td.addEventListener('click', function(e) {<br>        var index = Array.prototype.indexOf.call(this.parentElement.children, this);<br>        for (var i = 5; i >= 0; i--) {<br>          if (!grid[i][index]) {<br>            color = (color === 'yellow' ? 'red' : 'yellow');<br>            grid[i][index] = color;<br>            break;<br>          } else continue;<br>        }<br>        render();<br>      });<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br>render();",
+                dom: function() {
+                    return connectfour.bind(connectfour);
+                },
+                answer: function() {
+                    var cell = function(tr, td) {
+                        return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
+                    }
+
+                    cell(1, 1).click();
+                    cell(1, 1).click();
+                    cell(1, 1).click();
+                    cell(1, 2).click();
+
+                    var basic = true;
+                    basic = basic && elHasClass(cell(6, 1), 'yellow');
+                    basic = basic && elHasClass(cell(5, 1), 'red');
+                    basic = basic && elHasClass(cell(4, 1), 'yellow');
+                    basic = basic && elHasClass(cell(6, 2), 'red');
+                    return basic;
+                }
+            },
+            {
+                title: "Combinaison horizontale gagnante",
+                description: "Lorsque 4 jetons consécutifs de la même couleur sont alignés horizontalement, leur ajouter la classe <code>victory</code>. Les clics suivants sur la table n'ajoutent plus de jetons.",
+                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var winner = false;<br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      if (column)<br>        td.className = column;<br><br>      td.addEventListener('click', function(e) {<br>        if (winner)<br>          return;<br><br>        var index = Array.prototype.indexOf.call(this.parentElement.children, this);<br>        for (var i = 5; i >= 0; i--) {<br>          if (!grid[i][index]) {<br>            color = (color === 'yellow' ? 'red' : 'yellow');<br>            grid[i][index] = color;<br>            break;<br>          } else continue;<br>        }<br><br>        winner = wins(grid);<br>        if (winner) {<br>          for (var i = 0; i < winner.length; i++) {<br>            var position = winner[i].split('-');<br>            grid[position[0]][position[1]] += ' victory';<br>          }<br>        }<br>        render();<br>      });<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br><br>var wins = function() {<br>  return horizontalWinner(grid);<br>};<br><br>var horizontalWinner = function() {<br>  var player, positions;<br>  for (var row = 5; row >= 0; row--) {<br>    positions = []<br>    for (var column = 0; column < 7; column++) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>render();",
+                dom: function() {
+                    return connectfour.bind(connectfour);
+                },
+                answer: function() {
+                    var cell = function(tr, td) {
+                        return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
+                    }
+
+                    cell(1, 2).click(); cell(1, 3).click();
+                    cell(1, 4).click(); cell(1, 5).click();
+                    cell(1, 2).click(); cell(1, 1).click();
+                    cell(1, 3).click(); cell(1, 6).click();
+                    cell(1, 1).click(); cell(1, 1).click();
+                    cell(1, 4).click(); cell(1, 4).click();
+
+                    var basic = true;
+                    basic = basic && elHasClass(cell(5, 1), 'victory');
+                    basic = basic && elHasClass(cell(5, 2), 'victory');
+                    basic = basic && elHasClass(cell(5, 3), 'victory');
+                    basic = basic && elHasClass(cell(5, 4), 'victory');
+                    basic = basic && !elHasClass(cell(4, 4), 'red');
+                    return basic;
+                }
+            },
+            {
+                title: "Combinaison verticale gagnante",
+                description: "Faire de même lorsque 4 jetons sont alignés verticalement.",
+                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var winner = false;<br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      if (column)<br>        td.className = column;<br><br>      td.addEventListener('click', function(e) {<br>        if (winner)<br>          return;<br><br>        var index = Array.prototype.indexOf.call(this.parentElement.children, this);<br>        for (var i = 5; i >= 0; i--) {<br>          if (!grid[i][index]) {<br>            color = (color === 'yellow' ? 'red' : 'yellow');<br>            grid[i][index] = color;<br>            break;<br>          } else continue;<br>        }<br><br>        winner = wins(grid);<br>        if (winner) {<br>          for (var i = 0; i < winner.length; i++) {<br>            var position = winner[i].split('-');<br>            grid[position[0]][position[1]] += ' victory';<br>          }<br>        }<br>        render();<br>      });<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br><br>var wins = function() {<br>  return verticalWinner(grid) || horizontalWinner(grid);<br>};<br><br>var verticalWinner = function() {<br>  var player, positions;<br>  for (var column = 0; column < 7; column++) {<br>    positions = [];<br>    for (var row = 5; row >= 0; row--) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>var horizontalWinner = function() {<br>  var player, positions;<br>  for (var row = 5; row >= 0; row--) {<br>    positions = []<br>    for (var column = 0; column < 7; column++) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>render();",
+                dom: function() {
+                    return connectfour.bind(connectfour);
+                },
+                answer: function() {
+                    var cell = function(tr, td) {
+                        return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
+                    }
+
+                    cell(1, 4).click(); cell(1, 4).click();
+                    cell(1, 1).click(); cell(1, 2).click();
+                    cell(1, 1).click(); cell(1, 2).click();
+                    cell(1, 1).click(); cell(1, 2).click();
+                    cell(1, 1).click(); cell(1, 2).click();
+
+                    var basic = true;
+                    basic = basic && elHasClass(cell(6, 1), 'victory');
+                    basic = basic && elHasClass(cell(5, 1), 'victory');
+                    basic = basic && elHasClass(cell(4, 1), 'victory');
+                    basic = basic && elHasClass(cell(3, 1), 'victory');
+                    basic = basic && !elHasClass(cell(6, 2), 'victory');
+                    basic = basic && !elHasClass(cell(5, 2), 'victory');
+                    basic = basic && elHasClass(cell(4, 2), 'red');
+                    basic = basic && !elHasClass(cell(3, 2), 'red');
+                    return basic;
+                }
+            }
+        ]
     }, /* {
         title: "Ajax",
         description: "Appels asynchrones serveur, REST, Promesses, etc.",
@@ -2094,7 +2207,7 @@ let stepper = function(el, data, methods) {
                     if (!complete)
                         el.querySelector('[data-hook=error-label]').innerHTML = this.methods.warn();
 
-                    if (complete && completion[chapter] <= step)
+                    if (complete && (!completion[chapter] || completion[chapter] <= step))
                         completed(chapter, step);
 
                     this.methods.renderDom.call(this);
@@ -2172,9 +2285,7 @@ let app = {
         chapter: null,
         step: null,
         digest: true,
-        completion: {
-            1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0
-        }
+        completion: {}
     },
     render: function() {
         let methods = {};
@@ -2191,7 +2302,7 @@ let app = {
         enter: function(chapter) {
             this.data.digest = false;
             this.data.chapter = chapter;
-            this.data.step = Math.min(this.data.completion[chapter] + 1, chapters[chapter - 1].steps.length);
+            this.data.step = Math.min((this.data.completion[chapter] || 0) + 1, chapters[chapter - 1].steps.length);
 
             this.methods.updateProgress.call(this);
         },
