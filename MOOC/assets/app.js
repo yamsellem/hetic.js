@@ -26,7 +26,7 @@ let randomize = function() {
 };
 
 let equals = function(a, b) {
-    return Object.keys(a).length === Object.keys(b).length
+    return a && b && Object.keys(a).length === Object.keys(b).length
         && Object.keys(a).reduce(function(memo, key) { return memo && a[key] === b[key]; }, true)
         && Object.keys(b).reduce(function(memo, key) { return memo && a[key] === b[key]; }, true);
 }
@@ -173,7 +173,9 @@ let near = function(positionA, positionB) {
         return false;
 
     return 0.01 > +positionA.lat.toFixed(4) - +positionB.lat.toFixed(4)
-        && 0.01 > +positionA.lng.toFixed(4) - +positionB.lng.toFixed(4);
+        && 0.01 > +positionA.lng.toFixed(4) - +positionB.lng.toFixed(4)
+        && -0.01 < +positionA.lat.toFixed(4) - +positionB.lat.toFixed(4)
+        && -0.01 < +positionA.lng.toFixed(4) - +positionB.lng.toFixed(4);
 }
 
 // Booking
@@ -937,10 +939,12 @@ let chapters = [
 
                     let lis = document.querySelectorAll('.todos ul li');
 
-                    let basic = true;
-                    basic = basic && (lis.length === 1);
-                    basic = basic && elContains(lis[0], 'apple');
-                    return basic;
+                    if (lis.length !== 1)
+                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, un <code>li</code> doit être créé dans le <code>.todos ul</code>";
+                    if (elContains(lis[0], 'apple') !== true)
+                        this.warn = this.warn || "Le <code>li</code> doit contenir le mot saisi dans l'input";
+
+                    return !this.warn;
                 }
             },
             {
@@ -963,12 +967,16 @@ let chapters = [
 
                     let lis = document.querySelectorAll('.todos ul li');
 
-                    let basic = true;
-                    basic = basic && !input.value;
-                    basic = basic && (lis.length === 2);
-                    basic = basic && elContains(lis[0], 'apple');
-                    basic = basic && elContains(lis[1], 'pear');
-                    return basic;
+                    if (input.value !== '')
+                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, l'input doit être vidé";
+                    if (lis.length !== 2)
+                        this.warn = this.warn || "À la saisie d'un mot vide, puis d'entrée, aucun <code>li</code> ne doit être créé";
+                    if (elContains(lis[0], 'apple') !== true)
+                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, un <code>li</code> doit être créé";
+                    if (elContains(lis[1], 'pear') !== true)
+                        this.warn = this.warn || "À la saisie d'un second mot, puis d'entrée, un second <code>li</code> doit être créé";
+
+                    return !this.warn;
                 }
             },
             {
@@ -992,10 +1000,12 @@ let chapters = [
 
                     let lis = document.querySelectorAll('.todos ul li');
 
-                    let basic = true;
-                    basic = basic && (lis.length === 1);
-                    basic = basic && elContains(lis[0], 'pear');
-                    return basic;
+                    if (lis.length !== 1)
+                        this.warn = this.warn || "Après l'ajout d'un <code>li</code> un clic sur la croix du premier doit le supprimer";
+                    if (elContains(lis[0], 'pear') !== true)
+                        this.warn = this.warn || "Après l'ajout de deux <code>li</code> un clic sur la croix du premier ne doit laisser que le second dans la liste";
+
+                    return !this.warn;
                 }
             },
             {
@@ -1015,17 +1025,25 @@ let chapters = [
 
                     let lis = document.querySelectorAll('.todos ul li');
 
-                    let basic = true;
-                    basic = basic && (lis.length === 2);
+                    if (lis.length !== 2)
+                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, à deux reprises, deux <code>li</code> doivent être créés dans le <code>.todos ul</code>";
+
                     lis[0].click(); lis[0].click(); lis[0].click();
                     lis[1].click(); lis[1].click();
 
                     lis = document.querySelectorAll('.todos ul li');
-                    basic = basic && elContains(lis[0], 'apple');
-                    basic = basic && elContains(lis[1], 'pear');
-                    basic = basic && lis[0].classList.contains('done');
-                    basic = basic && !lis[1].classList.contains('done');
-                    return basic;
+
+                    if (elContains(lis[0], 'apple') !== true)
+                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, un <code>li</code> doit être créé";
+                    if (elContains(lis[1], 'pear') !== true )
+                        this.warn = this.warn || "À la saisie d'un second mot, puis d'entrée, un second <code>li</code> doit être créé";
+
+                    if (lis[0].classList.contains('done') !== true)
+                        this.warn = this.warn || "Après avoir été cliqué trois fois, le premier <code>li</code> doit avoir la classe <code>done</code>";
+                    if (lis[1].classList.contains('done') !== false)
+                        this.warn = this.warn || "Après avoir été cliqué deux fois, le second <code>li</code> ne doit pas avoir la classe <code>done</code>";
+
+                    return !this.warn;
                 }
             },
             {
@@ -1044,9 +1062,9 @@ let chapters = [
                     input.value = 'pear';
                     keypress(input, 13);
 
-                    let basic = true;
                     let lis = document.querySelectorAll('.todos ul li');
-                    basic = basic && (lis.length === 2);
+                    if (lis.length !== 2)
+                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, à deux reprises, deux <code>li</code> doivent être créés dans le <code>.todos ul</code>";
 
                     let ul = document.querySelector('.todos ul');
                     ul.innerHTML += '<li class="item done"><i class="remove icon"></i>banana</li>';
@@ -1054,8 +1072,10 @@ let chapters = [
                     render && render();
 
                     lis = document.querySelectorAll('.todos ul li');
-                    basic = basic && (lis.length === 2);
-                    return basic;
+                    if (lis.length !== 2)
+                        this.warn = this.warn || "À l'appel de la méthode <code>render</code>, les deux <code>li</code> doivent être créés de nouveau et remplacer ceux du <code>.todos ul</code>";
+                    
+                    return !this.warn;
                 }
             },
             {
@@ -1077,18 +1097,26 @@ let chapters = [
                     let todoCount = document.querySelector('.filter-todo');
                     let doneCount = document.querySelector('.filter-done');
 
-                    let basic = true;
-                    basic = basic && elContains(todoCount, '2 à faire');
-                    basic = basic && elContains(doneCount, '0 fait');
+                    if (elContains(todoCount, '2 à faire') !== true)
+                        this.warn = this.warn || "Après la création de 2 todos, le compte todo doit indiquer « 2 à faire »"
+                    if (elContains(doneCount, '0 fait') !== true)
+                        this.warn = this.warn || "Après la création de 2 todos, le compte done doit indiquer « 0 fait »"
+
                     lis[0].click();
                     lis = document.querySelectorAll('.todos ul li');
-                    basic = basic && elContains(todoCount, '1 à faire');
-                    basic = basic && elContains(doneCount, '1 fait');
+                    if (elContains(todoCount, '1 à faire') !== true)
+                        this.warn = this.warn || "Après la création de 2 todos et le clic sur l'un des deux, le compte todo doit indiquer « 1 à faire »"
+                    if (elContains(doneCount, '1 fait') !== true)
+                        this.warn = this.warn || "Après la création de 2 todos et le clic sur l'un des deux, le compte done doit indiquer « 1 fait »"
+
                     lis[1].click();
                     lis = document.querySelectorAll('.todos ul li');
-                    basic = basic && elContains(todoCount, '0 à faire');
-                    basic = basic && elContains(doneCount, '2 faits');
-                    return basic;
+                    if (elContains(todoCount, '0 à faire') !== true)
+                        this.warn = this.warn || "Après la création de 2 todos et le clic sur les deux, le compte todo doit indiquer « 0 à faire »"
+                    if (elContains(doneCount, '2 faits') !== true)
+                        this.warn = this.warn || "Après la création de 2 todos et le clic sur les deux, le compte done doit indiquer « 2 faits »"
+
+                    return !this.warn;
                 }
             },
             {
@@ -1115,27 +1143,35 @@ let chapters = [
 
                     lis[1].click();
 
-                    let basic = true;
-                    basic = basic && (lis.length === 3);
-                    basic = basic && elContains(todoCount, '2 à faire');
-                    basic = basic && elContains(doneCount, '1 fait');
+                    if (lis.length !== 3)
+                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, à trois reprises, trois <code>li</code> doivent être créés dans le <code>.todos ul</code>";
+                    if (elContains(todoCount, '2 à faire') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, le compte todo doit indiquer « 2 à faire »";
+                    if (elContains(doneCount, '1 fait') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, le compte done doit indiquer « 1 fait »";
 
                     todoCount.click();
                     lis = document.querySelectorAll('.todos ul li');
-                    basic = basic && (lis.length === 2);
+                    if (lis.length !== 2)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 2 à faire » seuls les deux todos concernés sont affichés";
 
                     todoCount.click();
                     lis = document.querySelectorAll('.todos ul li');
-                    basic = basic && (lis.length === 3);
+                    if (lis.length !== 3)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 2 à faire » à deux reprises, tous les todos sont affichés";
 
                     doneCount.click();
                     lis = document.querySelectorAll('.todos ul li');
-                    basic = basic && (lis.length === 1);
-                    basic = basic && elContains(lis[0], 'pear');
-                    basic = basic && elContains(todoCount, '2 à faire');
-                    basic = basic && elContains(doneCount, '1 fait');
+                    if (lis.length !== 1)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » seul le todo concerné est affiché";
+                    if (elContains(lis[0], 'pear') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » ce todo contient toujours la valeur d'origine";
+                    if (elContains(todoCount, '2 à faire') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » le compte todo doit indiquer « 2 à faire »";
+                    if (elContains(doneCount, '1 fait') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » le compte done doit indiquer « 1 fait »"
 
-                    return basic;
+                    return !this.warn;
                 }
             }
         ]
@@ -1150,13 +1186,18 @@ let chapters = [
                 excerpt: "Une fonction est comme une usine, elle transforme quelque chose (<i>ses paramètres d'entrée</i>) en autre chose (<i>son paramètre de sortie</i>). L'utilisation de fonctions permet de structurer un programme. Au lieu de lister toutes les opérations d'un programme les unes à la suite des autres, il est préférable de regrouper les opérations en plusieurs fonctions correspondant à des parties clairement identifiées du programme.<br><br><strong>Exemple </strong>: <pre><code>var double = function(value) {<br>  return value * 2; <br>}</code></pre> déclare une variable <code>value</code> qui sera initialisée à une valeur à chaque appel de la fonction. Cette variable est locale à la fonction, elle n'existe pas à l'extérieur du code de celle-ci. Le mot clé <code>return</code> interrompt immédiatement la fonction et retourne le résultat au code appelant. <pre><code>var x = double(12);<br>x; /* 24 */<br>var y = double(7);<br>y; /* 14 */<br>var weird = double('hello');<br>weird; /* NaN */<br>value; /* undefined */<br></code></pre>",
                 solved: "var positive = function(value) {<br>  return value >= 0;<br>};",
                 answer: function() {
-                    let basic = true;
                     let x = random();
                     let y = random();
-                    basic = basic && positive && positive(0);
-                    basic = basic && positive && positive(x);
-                    basic = basic && positive && !positive(-y);
-                    return basic;
+                    if (positive(0) !== true)
+                        this.warn = this.warn || "La fonction <code>positive(0)</code> doit retourner <code>true</code>";
+
+                    if (positive(x) !== true )
+                        this.warn = this.warn || `La fonction <code>positive(${x})</code> doit retourner <code>true</code>, le paramètre est positif`;
+
+                    if (positive(-y) !== false )
+                        this.warn = this.warn || `La fonction <code>positive(${-y})</code> doit retourner <code>false</code>, le paramètre est négatif`;
+
+                    return !this.warn;
                 }
             },
             {
@@ -1165,13 +1206,18 @@ let chapters = [
                 excerpt: "Une fonction peut prendre plusieurs paramètres en entrée, séparés par des virgules <code>function(a, b, c) { ... }</code>. L'opérateur <code>typeof</code> permet quant à lui de vérfier le type d'une variable.<br><br><strong>Exemple </strong>: <pre><code>typeof 12 === 'number'; /* true */<br>typeof 'hello' === 'string'; /* true */<br>typeof ['1', '2', '3'] === 'string'; /* false */</code></pre>",
                 solved: "var add = function(a, b) {<br>  if (typeof a !== 'number' || typeof b !== 'number') {<br>    return 0;<br>  }<br>  return a + b;<br>};",
                 answer: function() {
-                    let basic = true;
                     let x = random();
                     let y = random();
-                    basic = basic && add && add(x, y) === x + y;
-                    basic = basic && add && add('invalid', y) === 0;
-                    basic = basic && add && add(x, 'invalid') === 0;
-                    return basic;
+                    if (add(x, y) !== x + y)
+                        this.warn = this.warn || `La fonction <code>add(${x}, ${y})</code> doit retourner ${x+y}`;
+
+                    if (add('invalid', y) !== 0)
+                        this.warn = this.warn || `La fonction <code>add('invalid', ${y})</code> doit retourner <code>0</code>, le premier paramètre est invalide`;
+
+                    if (add(x, 'invalid') !== 0)
+                        this.warn = this.warn || `La fonction <code>add(${x}, 'invalid')</code> doit retourner <code>0</code>, le second paramètre est invalide`;
+
+                    return !this.warn;
                 }
             },
             {
@@ -1180,10 +1226,12 @@ let chapters = [
                 excerpt: "Une fonction peut elle-même appeler d'autres fonctions.",
                 solved: "var hypotenuse = function(a, b) {<br>  return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));<br>};",
                 answer: function() {
-                    let basic = true;
-                    basic = basic && hypotenuse && hypotenuse(3, 4) === 5;
-                    basic = basic && hypotenuse && hypotenuse(5, 12) === 13;
-                    return basic;
+                    if (hypotenuse(3, 4) !== 5)
+                        this.warn = this.warn || "La fonction <code>hypotenuse(3, 4)</code> doit retourner <code>5</code>";
+
+                    if (hypotenuse(5, 12) !== 13)
+                        this.warn = this.warn || "La fonction <code>hypotenuse(5, 12)</code> doit retourner <code>13</code>";
+                    return !this.warn;
                 }
             },
             {
@@ -1191,12 +1239,19 @@ let chapters = [
                 description: "Créer une fonction <code>includes</code> qui prend deux paramètres, un tableau et une valeur. Si la valeur est une des valeurs du tableau, la fonction retourne <code>true</code>, sinon elle retrourne <code>false</code>.",
                 solved: "var includes = function(array, value) {<br>  for (var i = 0; i < array.length; i++) {<br>    if (array[i] === value) {<br>      return true;<br>    }<br>  }<br>  return false;<br>};",
                 answer: function() {
-                    let basic = true;
-                    basic = basic && includes && includes(['banana', 'kiwi', 'apple'], 'kiwi');
-                    basic = basic && includes && !includes(['banana', 'kiwi', 'apple'], 'orange');
-                    basic = basic && includes && includes([5, 8, 13], 5);
-                    basic = basic && includes && !includes([5, 8, 13], 3);
-                    return basic;
+                    if (includes(['banana', 'kiwi', 'apple'], 'kiwi') !== true)
+                        this.warn = this.warn || "La fonction <code>includes(['banana', 'kiwi', 'apple'], 'kiwi')</code> doit retourner <code>true</code>";
+
+                    if (includes(['banana', 'kiwi', 'apple'], 'orange') !== false)
+                        this.warn = this.warn || "La fonction <code>includes(['banana', 'kiwi', 'apple'], 'orange')</code> doit retourner <code>false</code>";
+
+                    if (includes([5, 8, 13], 5) !== true)
+                        this.warn = this.warn || "La fonction <code>includes([5, 8, 13], 5)</code> doit retourner <code>true</code>";
+
+                    if (includes([5, 8, 13], 3) !== false)
+                        this.warn = this.warn || "La fonction <code>includes([5, 8, 13], 3)</code> doit retourner <code>false</code>";
+
+                    return !this.warn;
                 }
             },
             {
@@ -1205,11 +1260,16 @@ let chapters = [
                 excerpt: "Les fonctions disposent toutes d'un paramètre spécial <code>arguments</code> qui est un tableau listant tous les paramètres reçus par la fonction. Il est ainsi possible de créer des fonctions dotées d'un nombre indéterminé de paramètres (<i>et sans avoir besoin de nommer chacun d'entre eux</i>).<br><br><strong>Exemple </strong>: <pre><code>var sum = function() { <br>  var total = 0;<br>  for (var i = 0; i < arguments.length; i++) {<br>    total += arguments[i];<br>  }<br>  return total;<br>}</code></pre> crée une méthode calculant la somme d'un nombre quelconque de paramètres, par exemple <code>sum(5, 8, 13)</code> retourne <code>26</code>.",
                 solved: "var max = function() {<br>  if (arguments.length === 0)<br>    return -1;<br><br>  var result = arguments[0];<br>  for (var i = 1; i < arguments.length; i++) {<br>    if (arguments[i] > result) {<br>      result = arguments[i];<br>    }<br>  }<br>  return result;<br>};",
                 answer: function() {
-                    let basic = true;
-                    basic = basic && max && max(3, 5, 13, 2) === 13;
-                    basic = basic && max && max(5, 12) === 12;
-                    basic = basic && max && max() === -1;
-                    return basic;
+                    if (max(5, 12) !== 12)
+                        this.warn = this.warn || "La fonction <code>max(5, 12)</code> doit retourner <code>12</code>";
+
+                    if (max(3, 5, 13, 2) !== 13)
+                        this.warn = this.warn || "La fonction <code>max(3, 5, 13, 2)</code> doit retourner <code>13</code>";
+
+                    if (max() !== -1)
+                        this.warn = this.warn || "La fonction <code>max()</code> doit retourner <code>-1</code>";
+
+                    return !this.warn;
                 }
             },
             {
@@ -1217,11 +1277,16 @@ let chapters = [
                 description: "Créer une fonction <code>count</code> qui prend un paramètre et retourne un littéral indiquant le nombre de « a » et de « e » de cette chaine (<i>sous la forme <code>{a: 5, e: 7}</code></i>).",
                 solved: "var text = 'Short ribs fatback pork chop turducken. Hamburger capicola turkey sausage tail leberkas ham andouille pork chop picanha pancetta landjaeger brisket. Ground round pork belly jowl pancetta frankfurter beef ribs ham cupim turkey tenderloin drumstick sausage shoulder. Pig cow short ribs tenderloin tongue pork belly.';<br>var count = function(text) {<br>  text = text.toLowerCase();<br>  var total = {a: 0, e: 0};<br>  for (var i = 0; i < text.length; i++) {<br>    var char = text.charAt(i);<br>    if (char === 'a')<br>      total.a++;<br>    else if (char === 'e')<br>      total.e++;<br>  };<br>  return total;<br>};",
                 answer: function() {
-                    let basic = true;
-                    basic = basic && count && equals({a: 2, e: 1}, count('Short ribs fatback pork chop turducken.'));
-                    basic = basic && count && equals({a: 7, e: 5}, count('Andouille pork chop picanha pancetta landjaeger brisket.'))
-                    basic = basic && count && equals({a: 0, e: 0}, count(''))
-                    return basic;
+                    if (equals({a: 0, e: 0}, count('')) !== true)
+                        this.warn = this.warn || "La fonction <code>count('')</code> doit retourner <code>{a: 0, e: 0}</code>";
+
+                    if (equals({a: 2, e: 1}, count('Short ribs fatback pork chop turducken.')) !== true)
+                        this.warn = this.warn || "La fonction <code>count('Short ribs fatback pork chop turducken.')</code> doit retourner <code>{a: 2, e: 1}</code>";
+
+                    if (equals({a: 7, e: 5}, count('Andouille pork chop picanha pancetta landjaeger brisket.')) !== true)
+                        this.warn = this.warn || "La fonction <code>count('Andouille pork chop picanha pancetta landjaeger brisket.')</code> doit retourner <code>{a: 7, e: 5}</code>";
+                    
+                    return !this.warn;
                 }
             },
             {
@@ -1234,13 +1299,18 @@ let chapters = [
                         left: {value: 3, left: {value: 1}, right: {value: 6}},
                         right: {value: 11, left: {value:9, right: {value: 10}}, right: {value: 14}}
                     };
-                    var basic = true;
-                    basic = basic && search && search(tree, 3);
-                    basic = basic && search && search(tree, 14);
-                    basic = basic && search && search(tree, 10);
-                    basic = basic && search && !search(tree, 7);
-                    basic = basic && search && !search(tree, 2);
-                    return basic;
+                    
+                    if (search(tree, 3) !== true)
+                        this.warn = this.warn || "La fonction <code>search(tree, 3)</code> doit retourner <code>true</code>";
+                    if (search(tree, 14) !== true)
+                        this.warn = this.warn || "La fonction <code>search(tree, 14)</code> doit retourner <code>true</code>";
+                    if (search(tree, 10) !== true)
+                        this.warn = this.warn || "La fonction <code>search(tree, 10)</code> doit retourner <code>true</code>";
+                    if (search(tree, 7) !== false)
+                        this.warn = this.warn || "La fonction <code>search(tree, 7)</code> doit retourner <code>false</code>";
+                    if (search(tree, 2) !== false)
+                        this.warn = this.warn || "La fonction <code>search(tree, 2)</code> doit retourner <code>false</code>";
+                    return !this.warn;
                 }
             }
         ]
@@ -1263,15 +1333,20 @@ let chapters = [
 
                     var lis = document.querySelectorAll('.carousel > ul > li');
 
-                    let basic = true;
-                    basic = basic && (lis.length === 5);
-                    basic = basic && elHasClass(lis[0], 'visible');
-                    basic = basic && !elHasClass(lis[1], 'visible');
+                    if (lis.length !== 5)
+                        this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
+                    if (elHasClass(lis[0], 'visible') !== true)
+                        this.warn = this.warn || "Le premier <code>li</code> doit avoir la classe <code>visible</code>";
+                    if (elHasClass(lis[1], 'visible') !== false)
+                        this.warn = this.warn || "Le second <code>li</code> ne doit avoir la classe <code>visible</code>";
 
                     elNext.click();
-                    basic = basic && !elHasClass(lis[0], 'visible');
-                    basic = basic && elHasClass(lis[1], 'visible');
-                    return basic;
+                    if (elHasClass(lis[0], 'visible') !== false)
+                        this.warn = this.warn || "Après un clic sur suivant, le premier <code>li</code> ne doit plus avoir la classe <code>visible</code>";
+                    if (elHasClass(lis[1], 'visible') !== true)
+                        this.warn = this.warn || "Après un clic sur suivant, le second <code>li</code> doit avoir la classe <code>visible</code>";
+                    
+                    return !this.warn;
                 }
             },
             {
@@ -1287,15 +1362,20 @@ let chapters = [
 
                     var lis = document.querySelectorAll('.carousel > ul > li');
 
-                    let basic = true;
-                    basic = basic && (lis.length === 5);
-                    basic = basic && elHasClass(lis[0], 'visible');
-                    basic = basic && !elHasClass(lis[1], 'visible');
+                    if (lis.length !== 5)
+                        this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
+                    if (elHasClass(lis[0], 'visible') !== true)
+                        this.warn = this.warn || "Le premier <code>li</code> doit avoir la classe <code>visible</code>";
+                    if (elHasClass(lis[1], 'visible') !== false)
+                        this.warn = this.warn || "Le second <code>li</code> ne doit avoir la classe <code>visible</code>";
 
                     elNext.click(); elNext.click(); elNext.click(); elNext.click(); elNext.click();
-                    basic = basic && !elHasClass(lis[1], 'visible');
-                    basic = basic && elHasClass(lis[4], 'visible');
-                    return basic;
+                    if (elHasClass(lis[1], 'visible') !== false)
+                        this.warn = this.warn || "Après quatre clic sur suivant, le premier <code>li</code> ne doit plus avoir la classe <code>visible</code>";
+                    if (elHasClass(lis[4], 'visible') !== true)
+                        this.warn = this.warn || "Après quatre clic sur suivant, le cinquième <code>li</code> doit avoir la classe <code>visible</code>";
+
+                    return !this.warn;
                 }
             },
             {
@@ -1312,19 +1392,26 @@ let chapters = [
 
                     var lis = document.querySelectorAll('.carousel > ul > li');
 
-                    let basic = true;
-                    basic = basic && (lis.length === 5);
-                    basic = basic && elHasClass(lis[0], 'visible');
-                    basic = basic && !elHasClass(lis[1], 'visible');
+                    if (lis.length !== 5)
+                        this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
+                    if (elHasClass(lis[0], 'visible') !== true)
+                        this.warn = this.warn || "Le premier <code>li</code> doit avoir la classe <code>visible</code>";
+                    if (elHasClass(lis[1], 'visible') !== false)
+                        this.warn = this.warn || "Le second <code>li</code> ne doit avoir la classe <code>visible</code>";
 
                     elPrev.click();
-                    basic = basic && elHasClass(lis[0], 'visible');
-                    basic = basic && !elHasClass(lis[1], 'visible');
+                    if (elHasClass(lis[0], 'visible') !== true)
+                        this.warn = this.warn || "Après un clic sur précédent, le premier <code>li</code> doit avoir la classe <code>visible</code>";
+                    if (elHasClass(lis[1], 'visible') !== false)
+                        this.warn = this.warn || "Après un clic sur précédent, le second <code>li</code> ne doit avoir la classe <code>visible</code>";
 
                     elNext.click(); elNext.click(); elPrev.click();
-                    basic = basic && !elHasClass(lis[0], 'visible');
-                    basic = basic && elHasClass(lis[1], 'visible');
-                    return basic;
+                    if (elHasClass(lis[0], 'visible') !== false)
+                        this.warn = this.warn || "Après un clic sur suivant, précédent, suivant, le premier <code>li</code> ne doit plus avoir la classe <code>visible</code>";
+                    if (elHasClass(lis[1], 'visible') !== true)
+                        this.warn = this.warn || "Après un clic sur suivant, précédent, suivant, le second <code>li</code> doit avoir la classe <code>visible</code>";
+                    
+                    return !this.warn;
                 }
             },
             {
@@ -1341,21 +1428,28 @@ let chapters = [
 
                     var lis = document.querySelectorAll('.carousel > ul > li');
 
-                    let basic = true;
-                    basic = basic && (lis.length === 5);
-                    basic = basic && elHasClass(lis[0], 'visible');
-                    basic = basic && elHasClass(elPrev, 'hidden');
-                    basic = basic && !elHasClass(elNext, 'hidden');
+                    if (lis.length !== 5)
+                        this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
+                    if (elHasClass(elPrev, 'hidden') !== true)
+                        this.warn = this.warn || "La flêche de gauche doit être masquée quand le premier élément est affiché";
+                    if (elHasClass(elNext, 'hidden') !== false)
+                        this.warn = this.warn || "La flêche de gauche doit être affichée quand le premier élément est affiché";
 
                     elNext.click();
-                    basic = basic && !elHasClass(elPrev, 'hidden');
-                    basic = basic && !elHasClass(elNext, 'hidden');
+                    if (elHasClass(elPrev, 'hidden') !== false)
+                        this.warn = this.warn || "La flêche de gauche doit être affichée quand le second élément est affiché";
+                    if (elHasClass(elNext, 'hidden') !== false)
+                        this.warn = this.warn || "La flêche de gauche doit être affichée quand le second élément est affiché";
 
                     elNext.click(); elNext.click(); elNext.click();
-                    basic = basic && elHasClass(lis[4], 'visible');
-                    basic = basic && !elHasClass(elPrev, 'hidden');
-                    basic = basic && elHasClass(elNext, 'hidden');
-                    return basic;
+                    if (elHasClass(lis[4], 'visible') !== true)
+                        this.warn = this.warn || "Après quatre clic sur suivant, le cinquième <code>li</code> doit avoir la classe <code>visible</code>";
+                    if (elHasClass(elPrev, 'hidden') !== false)
+                        this.warn = this.warn || "La flêche de gauche doit être affichée quand le cinquième élément est affiché";
+                    if (elHasClass(elNext, 'hidden') !== true)
+                        this.warn = this.warn || "La flêche de gauche doit être masquée quand le cinquième élément est affiché";
+
+                    return !this.warn;
                 }
             },
             {
@@ -1369,21 +1463,29 @@ let chapters = [
                     var elPrev = document.querySelector('.prev');
                     var elNext = document.querySelector('.next');
 
+                    var lis = document.querySelectorAll('.carousel > ul > li');
                     var dots = document.querySelectorAll('.carousel .dots li');
 
-                    let basic = true;
-                    basic = basic && (dots.length === 5);
-                    basic = basic && elHasClass(dots[0], 'active');
+                    if (lis.length !== 5)
+                        this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
+                    if (elHasClass(dots[0], 'active') !== true)
+                        this.warn = this.warn || "Le premier indicateur doit avoir la classe <code>active</code> lorsque le premier élément est affiché";
 
                     elNext.click();
-                    basic = basic && !elHasClass(dots[0], 'active');
-                    basic = basic && elHasClass(dots[1], 'active');
+                    if (elHasClass(dots[0], 'active') !== false)
+                        this.warn = this.warn || "Après un clic sur suivant, le premier indicateur ne doit pas avoir la classe <code>active</code>";
+                    if (elHasClass(dots[1], 'active') !== true)
+                        this.warn = this.warn || "Après un clic sur suivant, le second indicateur doit avoir la classe <code>active</code>";
 
                     elNext.click(); elNext.click(); elNext.click();
-                    basic = basic && elHasClass(lis[4], 'visible');
-                    basic = basic && !elHasClass(elPrev, 'hidden');
-                    basic = basic && elHasClass(elNext, 'hidden');
-                    return basic;
+                    if (elHasClass(lis[4], 'visible') !== true)
+                        this.warn = this.warn || "Après quatre clic sur suivant, le cinquième <code>li</code> doit avoir la classe <code>visible</code>";
+                    if (elHasClass(elPrev, 'hidden') !== false)
+                        this.warn = this.warn || "La flêche de gauche doit être affichée quand le cinquième élément est affiché";
+                    if (elHasClass(elNext, 'hidden') !== true)
+                        this.warn = this.warn || "La flêche de gauche doit être masquée quand le cinquième élément est affiché";
+
+                    return !this.warn;
                 }
             },
             {
@@ -1397,27 +1499,38 @@ let chapters = [
                     var elPrev = document.querySelector('.prev');
                     var elNext = document.querySelector('.next');
 
+                    var lis = document.querySelectorAll('.carousel > ul > li');
                     var dots = document.querySelectorAll('.carousel .dots li');
 
-                    let basic = true;
-                    basic = basic && (dots.length === 5);
-                    basic = basic && elHasClass(dots[0], 'active');
+                    if (lis.length !== 5)
+                        this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
+                    if (elHasClass(dots[0], 'active') !== true)
+                        this.warn = this.warn || "Le premier indicateur doit avoir la classe <code>active</code> lorsque le premier élément est affiché";
 
                     dots[2].click();
-                    basic = basic && !elHasClass(dots[0], 'active');
-                    basic = basic && elHasClass(dots[2], 'active');
+                    if (elHasClass(dots[0], 'active') !== false)
+                        this.warn = this.warn || "Après un clic le troisième indicateur, le premier indicateur ne doit pas avoir la classe <code>active</code>";
+                    if (elHasClass(dots[2], 'active') !== true)
+                        this.warn = this.warn || "Après un clic le troisième indicateur, le troisième indicateur doit avoir la classe <code>active</code>";
 
                     elNext.click();
-                    basic = basic && !elHasClass(dots[2], 'active');
-                    basic = basic && elHasClass(dots[3], 'active');
+                    if (elHasClass(dots[2], 'active') !== false)
+                        this.warn = this.warn || "Après un clic le troisième indicateur puis sur suivant, le troisième indicateur ne doit pas avoir la classe <code>active</code>";
+                    if (elHasClass(dots[3], 'active') !== true)
+                        this.warn = this.warn || "Après un clic le troisième indicateur puis sur suivant, le quatrième indicateur doit avoir la classe <code>active</code>";
 
                     dots[0].click();
-                    basic = basic && !elHasClass(dots[3], 'active');
-                    basic = basic && elHasClass(dots[0], 'active');
+                    if (elHasClass(dots[3], 'active') !== false)
+                        this.warn = this.warn || "Après un clic le premier indicateur, le troisième indicateur ne doit pas avoir la classe <code>active</code>";
+                    if (elHasClass(dots[0], 'active') !== true)
+                        this.warn = this.warn || "Après un clic le premier indicateur, le premier indicateur doit avoir la classe <code>active</code>";
 
-                    basic = basic && elHasClass(elPrev, 'hidden');
-                    basic = basic && !elHasClass(elNext, 'hidden');
-                    return basic;
+                    if (elHasClass(elPrev, 'hidden') !== true)
+                        this.warn = this.warn || "La flêche de gauche doit être masquée quand le premier élément est affiché";
+                    if (elHasClass(elNext, 'hidden') !== false)
+                        this.warn = this.warn || "La flêche de gauche doit être affichée quand le premier élément est affiché";
+
+                    return !this.warn;
                 }
             }
         ]
@@ -1437,19 +1550,23 @@ let chapters = [
                 answer: function() {
                     let classNames = getClassNames('.sliding li');
 
-                    let basic = true;
-                    basic = basic && classNames.length === 9;
-                    basic = basic && equals(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']);
+                    if (classNames.length !== 9)
+                        this.warn = this.warn || "Le puzzle doit contenir 9 <code>li</code>";
+                    if (equals(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']) !== true)
+                        this.warn = this.warn || "Les cases doivent être dans l'ordre avant le mélange";
 
                     let button = document.querySelector('.sliding button');
                     button.click();
 
                     classNames = getClassNames('.sliding li');
-                    basic = basic && classNames.length === 9;
-                    basic = basic && !equals(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']);
-                    basic = basic && equalsContent(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8'])
+                    if (classNames.length !== 9)
+                        this.warn = this.warn || "Le puzzle doit contenir 9 <code>li</code>";
+                    if (equals(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']) !== false)
+                        this.warn = this.warn || "Les cases doivent être dans le désordre après le mélange";
+                    if (equalsContent(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']) !== true)
+                        this.warn = this.warn || "Les cases doivent toutes être présentes, sans doublon";
 
-                    return basic;
+                    return !this.warn;
                 }
             },
             {
@@ -1499,6 +1616,8 @@ let chapters = [
                     classNames = getClassNames('.sliding li');
                     basic = basic && equals(expected, classNames);
 
+                    if (!basic)
+                        this.warn = "Le déplacement horizontal d'une case doit fonctionner";
                     return basic;
                 }
             },
@@ -1533,6 +1652,8 @@ let chapters = [
                     let basic = true;
                     basic = basic && equals(expected, classNames);
 
+                    if (!basic)
+                        this.warn = "Le déplacement vertical d'une case doit fonctionner";
                     return basic;
                 }
             }
@@ -1555,14 +1676,12 @@ let chapters = [
                         return;
 
                     return mapsWait(function(resolve, reject) {
-                        let basic = true;
-                        basic = basic && near(
-                            {lat: map.center.lat(), lng: map.center.lng()},
-                            {lat: 48.86, lng: 2.35}
-                        );
-                        basic = basic && 12 === map.zoom;
-                        resolve(basic);
-                    });
+                        if (near({lat: map.center.lat(), lng: map.center.lng()}, {lat: 48.86, lng: 2.35}) !== true)
+                            this.warn = this.warn || "Le centre le carte doit être positionné proche de <code>{lat: 48.86, lng: 2.35}</code>";
+                        if (map.zoom !== 12)
+                            this.warn = this.warn || "Le zoom de la carte doit être égal à <code>12</code>";
+                        resolve(!this.warn);
+                    }.bind(this));
                 }
             },
             {
@@ -1577,13 +1696,10 @@ let chapters = [
                         return;
 
                     return mapsWait(function(resolve, reject) {
-                        let basic = true;
-                        basic = basic && near(
-                            {lat: marker.position.lat(), lng: marker.position.lng()},
-                            {lat: 48.8583, lng: 2.3353}
-                        );
-                        resolve(basic);
-                    });
+                        if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
+                            this.warn = this.warn || "Le marqueur doit être positionné proche de <code>{lat: 48.8583, lng: 2.3353}</code>";
+                        resolve(!this.warn);
+                    }.bind(this));
                 }
             },
             {
@@ -1601,12 +1717,15 @@ let chapters = [
                         google.maps.event.trigger(marker, 'click');
 
                         let basic = true;
-                        basic = basic && elContains(document.querySelector('.gm-style-iw div div'), 'Le Pont des Arts');
+                        if (elContains(document.querySelector('.gm-style-iw div div'), 'Le Pont des Arts') !== true)
+                            this.warn = this.warn || "Le popin doit afficher « Le Pont des Arts »";
 
                         google.maps.event.trigger(map, 'click');
-                        basic = basic && !elContains(document.querySelector('.gm-style-iw div div'), 'Le Pont des Arts');
-                        resolve(basic);
-                    });
+                        if (elContains(document.querySelector('.gm-style-iw div div'), 'Le Pont des Arts') !== false)
+                            this.warn = this.warn || "Au clic sur la carte, le popin doit être masqué";
+                        
+                        resolve(!this.warn);
+                    }.bind(this));
                 }
             },
             {
@@ -1624,11 +1743,8 @@ let chapters = [
                     return mapsWait(function(resolve, reject) {
                         let input = document.querySelector('.places input');
 
-                        let basic = true;
-                        basic = basic && near(
-                            {lat: marker.position.lat(), lng: marker.position.lng()},
-                            {lat: 48.8583, lng: 2.3353}
-                        );
+                        if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
+                            this.warn = this.warn || "Le marqueur doit être positionné proche de <code>{lat: 48.8583, lng: 2.3353}</code>";
 
                         input.value = '29 Rue des Trois Frères';
                         keypress(input, 13);
@@ -1640,35 +1756,28 @@ let chapters = [
                             return new Promise(function(res, rej) { setTimeout(res, 100); });
                         })
                         .then(function() {
-                            basic = basic && near(
-                                {lat: marker.position.lat(), lng: marker.position.lng()},
-                                {lat: 48.8848, lng: 2.3407}
-                            );
-                            basic = basic && near(
-                                {lat: map.center.lat(), lng: map.center.lng()},
-                                {lat: 48.8848, lng: 2.3407}
-                            );
+                            if (near( {lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8848, lng: 2.3407}) !== true)
+                                this.warn = this.warn || "Après une recherche sur « 29 Rue des Trois Frères », la marqueur doit être positionné proche de <code>{lat: 48.8848, lng: 2.3407}</code>";
+                            if (near({lat: map.center.lat(), lng: map.center.lng()}, {lat: 48.8848, lng: 2.3407}) !== true)
+                                this.warn = this.warn || "Après une recherche sur « 29 Rue des Trois Frères », la carte doit être centrée proche de <code>{lat: 48.8848, lng: 2.3407}</code>";
 
                             input.value = '13 Boulevard Garibaldi';
                             keypress(input, 13);
-                        })
+                        }.bind(this))
                         .then(function() {
                             // wait for the geocoder
                             return new Promise(function(res, rej) { setTimeout(res, 100); });
                         })
                         .then(function() {
-                            basic = basic && near(
-                                {lat: marker.position.lat(), lng: marker.position.lng()},
-                                {lat: 48.8476, lng: 2.3036}
-                            );
-                            basic = basic && near(
-                                {lat: map.center.lat(), lng: map.center.lng()},
-                                {lat: 48.8476, lng: 2.3036}
-                            );
+                            if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8476, lng: 2.3036}) !== true)
+                                this.warn = this.warn || "Après une recherche sur « 13 Boulevard Garibaldi », le marqueur doit être positionné proche de <code>{lat: 48.8476, lng: 2.3036}</code>";
 
-                            resolve(basic);
-                        });
-                    });
+                            if (near({lat: map.center.lat(), lng: map.center.lng()}, {lat: 48.8476, lng: 2.3036}) !== true)
+                                this.warn = this.warn || "Après une recherche sur « 13 Boulevard Garibaldi », le carte doit être centrée proche de <code>{lat: 48.8476, lng: 2.3036}</code>";
+
+                            resolve(!this.warn);
+                        }.bind(this));
+                    }.bind(this));
                 }
             },
             {
@@ -1686,11 +1795,8 @@ let chapters = [
                     return mapsWait(function(resolve, reject) {
                         let input = document.querySelector('.places input');
 
-                        let basic = true;
-                        basic = basic && near(
-                            {lat: marker.position.lat(), lng: marker.position.lng()},
-                            {lat: 48.8583, lng: 2.3353}
-                        );
+                        if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
+                            this.warn = this.warn || "Le marqueur doit être positionné proche de <code>{lat: 48.8583, lng: 2.3353}</code>";
 
                         input.value = 'ici';
                         keypress(input, 13);
@@ -1709,14 +1815,12 @@ let chapters = [
                             return new Promise(function(res, rej) { setTimeout(function() { res(geoloc); }, 100); });
                         })
                         .then(function(geoloc) {
-                            basic = basic && near(
-                                {lat: marker.position.lat(), lng: marker.position.lng()},
-                                {lat: geoloc.coords.latitude, lng: geoloc.coords.longitude}
-                            );
-
-                            resolve(basic);
-                        });
-                    });
+                            if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: geoloc.coords.latitude, lng: geoloc.coords.longitude}) !== true)
+                                this.warn = this.warn || "Après une recherche sur « ici », le marqueur doit être positionné proche de la position de l'utilisateur";
+                            
+                            resolve(!this.warn);
+                        }.bind(this));
+                    }.bind(this));
                 }
             }
         ]
@@ -1749,15 +1853,16 @@ let chapters = [
                     to.input.value = '2017-01-26';
                     change(to.input);
 
-                    var basic = true;
-                    basic = basic && elContains(from.formatted, 'JANV. 24');
-                    basic = basic && elContains(to.formatted, 'JANV. 26');
-                    return basic;
+                    if (elContains(from.formatted, 'JANV. 24') !== true)
+                        this.warn = this.warn || "La date affichée dans <code>.from .formatted</code> doit être égale à JANV. 24, lorsque la date saisie est le 24 janvier";
+                    if (elContains(to.formatted, 'JANV. 26') !== true)
+                        this.warn = this.warn || "La date affichée dans <code>.to .formatted</code> doit être égale à JANV. 26, lorsque la date saisie est le 26 janvier";
+                    return !this.warn;
                 }
             },
             {
                 title: "Limiter les dates",
-                description: "Si la date de retour saisie est antérieure à la date de l'aller, elle est par défaut 1 jour après l'aller (<i>l'aller est le 12 janvier, si une date antérieure est saisie pour le retour, il est le 13 janvier</i>).",
+                description: "Si la date de retour saisie est antérieure ou égale à la date de l'aller, elle est par défaut 1 jour après l'aller (<i>l'aller est le 12 janvier, la date de retour doit être le 13 janvier au plus tôt</i>).",
                 solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>});",
                 dom: function() {
                     return booking.bind(booking);
@@ -1778,16 +1883,18 @@ let chapters = [
                     to.input.value = '2017-01-24';
                     change(to.input);
 
-                    var basic = true;
-                    basic = basic && elContains(from.formatted, 'JANV. 24');
-                    basic = basic && elContains(to.formatted, 'JANV. 25');
-                    basic = basic && to.input.value === '2017-01-25';
-                    return basic;
+                    if (elContains(from.formatted, 'JANV. 24') !== true)
+                        this.warn = this.warn || "La date affichée dans <code>.from .formatted</code> doit être égale à JANV. 24, lorsque la date saisie est le 24 janvier";
+                    if (elContains(to.formatted, 'JANV. 25') !== true)
+                        this.warn = this.warn || "La date affichée dans <code>.to .formatted</code> doit être égale à JANV. 25, lorsque la date de l'aller est le 24 janvier et que la date saisie lui est antérieure";
+                    if (to.input.value !== '2017-01-25')
+                        this.warn = this.warn || "La date de l'input <code>.to</code> doit être égale au 25 janvier, lorsque la date de l'aller est le 24 janvier et que la date saisie lui est antérieure";
+                    return !this.warn;
                 }
             },
             {
                 title: "Compter le nombre de jours de voyage",
-                description: "Pour chaque jour séparant le départ du retour, compter 40€, et afficher le total dans <code>.price</code>.",
+                description: "Pour chaque jour de voyage, compter 40€, et afficher le total dans <code>.price</code>.",
                 solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = to.value.diff(from.value, 'days') + 1;<br>  document.querySelector('.price').innerHTML = 40 * days + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});",
                 dom: function() {
                     return booking.bind(booking);
@@ -1808,9 +1915,9 @@ let chapters = [
                     to.input.value = '2017-01-27';
                     change(to.input);
 
-                    var basic = true;
-                    basic = basic && elContains(document.querySelector('.price'), '160€');
-                    return basic;
+                    if (elContains(document.querySelector('.price'), '160€') !== true)
+                        this.warn = "Le prix doit être de 160€ pour un voyage du 24 au 27 janvier";
+                    return !this.warn;
                 }
             },
             {
@@ -1840,9 +1947,9 @@ let chapters = [
                     select.value = 3;
                     change(select);
 
-                    var basic = true;
-                    basic = basic && elContains(document.querySelector('.price'), '480€');
-                    return basic;
+                    if (elContains(document.querySelector('.price'), '480€') !== true)
+                        this.warn = "Le prix doit être de 160€ pour un voyage du 24 au 27 janvier pour 3 voyageurs";
+                    return !this.warn;
                 }
             },
             {
@@ -1874,6 +1981,8 @@ let chapters = [
 
                     var basic = true;
                     basic = basic && elContains(document.querySelector('.price'), '160€');
+                    if (elContains(document.querySelector('.price'), '160€') !== true)
+                        this.warn = this.warn || "Le prix doit être de 160€ pour un voyage de 4 jours incluant samedi et dimanche pour 2 voyageurs";
 
                     from.input.value = '2017-01-13';
                     change(from.input);
@@ -1881,8 +1990,9 @@ let chapters = [
                     to.input.value = '2017-01-30';
                     change(to.input);
 
-                    basic = basic && elContains(document.querySelector('.price'), '960€');
-                    return basic;
+                    if (elContains(document.querySelector('.price'), '960€') !== true)
+                        this.warn = this.warn || "Le prix doit être de 960€ pour un voyage de 18 jours incluant 3 samedis et dimanches pour 2 voyageurs";
+                    return !this.warn;
                 }
             }
         ]
@@ -1899,10 +2009,11 @@ let chapters = [
                     return connectfour.bind(connectfour);
                 },
                 answer: function() {
-                    var basic = true;
-                    basic = basic && 6 === document.querySelectorAll('table tr').length;
-                    basic = basic && 42 === document.querySelectorAll('table tr td').length;
-                    return basic;
+                    if (document.querySelectorAll('table tr').length !== 6)
+                        this.warn = this.warn || "La table doit contenir 6 <code>tr</code>";
+                    if (document.querySelectorAll('table tr td').length !== 42)
+                        this.warn = this.warn || "La table doit contenir 42 <code>td</code>";
+                    return !this.warn;
                 }
             },
             {
@@ -1922,12 +2033,15 @@ let chapters = [
                     cell(1, 1).click();
                     cell(1, 2).click();
 
-                    var basic = true;
-                    basic = basic && elHasClass(cell(6, 1), 'yellow');
-                    basic = basic && elHasClass(cell(5, 1), 'red');
-                    basic = basic && elHasClass(cell(4, 1), 'yellow');
-                    basic = basic && elHasClass(cell(6, 2), 'red');
-                    return basic;
+                    if (elHasClass(cell(6, 1), 'yellow') !== true)
+                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la première case de cette colonne doit être jaune";
+                    if (elHasClass(cell(5, 1), 'red') !== true)
+                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la deuxième case de cette colonne doit être rouge";
+                    if (elHasClass(cell(4, 1), 'yellow') !== true)
+                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la troisième case de cette colonne doit être jaune";
+                    if (elHasClass(cell(6, 2), 'red') !== true)
+                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la quatrième case de cette colonne doit être rouge";
+                    return !this.warn;
                 }
             },
             {
@@ -1955,6 +2069,9 @@ let chapters = [
                     basic = basic && elHasClass(cell(5, 3), 'victory');
                     basic = basic && elHasClass(cell(5, 4), 'victory');
                     basic = basic && !elHasClass(cell(4, 4), 'red');
+
+                    if (!basic)
+                        this.warn = "Les combinaisons horizontales gagnantes doivent fonctionner";
                     return basic;
                 }
             },
@@ -1985,6 +2102,9 @@ let chapters = [
                     basic = basic && !elHasClass(cell(5, 2), 'victory');
                     basic = basic && elHasClass(cell(4, 2), 'red');
                     basic = basic && !elHasClass(cell(3, 2), 'red');
+
+                    if (!basic)
+                        this.warn = "Les combinaisons verticales gagnantes doivent fonctionner";
                     return basic;
                 }
             }
@@ -2130,7 +2250,7 @@ let stepper = function(el, data, methods) {
                             <div class="extra content">
                                 <div class="ui stackable grid">
                                     <div class="eight wide tablet eleven wide computer column">
-                                        <span class="hidden" data-hook="error"><i class="help circle outline icon"></i><span data-hook="error-label"></span></span>
+                                        <span class="hidden" data-hook="error"><i class="remove circle icon"></i><span data-hook="error-label"></span></span>
                                     </div>
                                     <div class="eight wide tablet five wide computer column">
                                         <button class="ui right labeled right floated icon ${chapterContent.color} disabled button" data-hook="next">
@@ -2192,20 +2312,23 @@ let stepper = function(el, data, methods) {
 
                 let complete = false;
 
-                Promise
-                .resolve(stepContent.answer())
-                .then(function(anwser) {
-                    complete = anwser;
-                })
-                .catch(function(err) {
-                    delete err.stack;
-                    console.error(err);
-                })
-                .then(function() {
+                new Promise(function(resolve) {
+                    try {
+                        Promise
+                        .resolve(stepContent.answer())
+                        .then(function(answer) {
+                            complete = answer;
+                            resolve(this.methods.warn());
+                        }.bind(this));
+                    } catch(err) {
+                        resolve(`Erreur navigateur : ${err.message}`);
+                    }
+                }.bind(this))
+                .then(function(warn) {
                     el.querySelector('[data-hook=next]').classList.toggle('disabled', !complete);
                     el.querySelector('[data-hook=error]').classList.toggle('hidden', complete);
                     if (!complete)
-                        el.querySelector('[data-hook=error-label]').innerHTML = this.methods.warn();
+                        el.querySelector('[data-hook=error-label]').innerHTML = warn;
 
                     if (complete && (!completion[chapter] || completion[chapter] <= step))
                         completed(chapter, step);

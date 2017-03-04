@@ -15,7 +15,7 @@ code {
 }
 
 code.basic {
-    background-color: rgba(0, 0, 0, 0.08);
+    background-color: rgba(219, 43, 30, 0.08);
     border-radius: 3px;
     display: inline-block;
     font-family: "Monaco","Menlo","Ubuntu Mono","Consolas","source-code-pro",monospace;
@@ -104,6 +104,9 @@ h3 a {
 }
 .ui.card.h-colored > .content:first-child li.complete {
     background-color: white;
+}
+.ui.card > .extra {
+    color: #DB2B1E;
 }
 
 .stepper .ui.card.h-colored > .content:first-child li:first-child,
