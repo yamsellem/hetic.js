@@ -58,6 +58,25 @@ h3 a {
     display: none !important;
 }
 
+.digest, .stepper {
+    position: relative;
+}
+
+.top.right.attached.labels {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.top.right.attached.labels .ui.basic.label {
+    background: none;
+    border-radius: .3rem;
+    color: #767676;
+}
+.top.right.attached.labels .ui.basic.label > .icon {
+    margin: 0 .5em 0 0;
+    color: #767676;
+}
+
 .ui.header .icon:only-child {
     margin-right: .5rem;
 }

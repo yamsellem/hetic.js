@@ -2142,6 +2142,7 @@ let chapters = [
 
 let digest = function(el, data, methods) {
     let completion = data.completion;
+    let score = data.score;
 
     let enter = methods.enter;
 
@@ -2150,7 +2151,17 @@ let digest = function(el, data, methods) {
             el.innerHTML = `
             <div class="digest">
                 <h1 class="ui grey header">JavaScript</h1>
-                <h3 class="ui grey header">La langage du web</h3>
+                <h3 class="ui grey header">Le langage du web</h3>
+                <div class="ui top right attached medium labels">
+                    <a target="_blank" href="https://goo.gl/QbZSn8" class="ui basic label">
+                        Cours
+                    </a>
+                    <div class="ui basic label h-score">
+                        <i class="trophy icon"></i>
+                        <span>${score}</span>
+                    </div>
+                </div>
+                
                 <div class="ui stackable two column grid"></div>
             </div>`;
 
@@ -2202,6 +2213,7 @@ let digest = function(el, data, methods) {
 
 let stepper = function(el, data, methods) {
     let completion = data.completion;
+    let score = data.score;
     let chapter = data.chapter;
     let step = data.step;
 
@@ -2230,6 +2242,15 @@ let stepper = function(el, data, methods) {
             el.innerHTML = `
             <div class="stepper">
                 <h3 class="ui grey header"><a href="" data-hook="leave"><i class="arrow left icon"></i>${chapterContent.title}</a></h3>
+                <div class="ui top right attached medium labels">
+                    <a target="_blank" href="https://goo.gl/QbZSn8" class="ui basic label">
+                        Cours
+                    </a>
+                    <div class="ui basic label h-score">
+                        <i class="trophy icon"></i>
+                        <span>${score}</span>
+                    </div>
+                </div>
 
                 <div class="ui stackable one column grid">
                     <div class="column">
@@ -2408,7 +2429,8 @@ let app = {
         chapter: null,
         step: null,
         digest: true,
-        completion: {}
+        completion: {},
+        score: 0
     },
     render: function() {
         let methods = {};
@@ -2454,6 +2476,11 @@ let app = {
         },
         completed: function(chapter, step) {
             this.data.completion[chapter] = step;
+            app.data.score = 0;
+            for (let chapter in app.data.completion) {
+                app.data.score += app.data.completion[chapter];
+            }
+
             localStorage.setItem('completion', JSON.stringify(this.data.completion));
         },
         updateProgress: function() {
@@ -2466,6 +2493,10 @@ let app = {
 
 if (localStorage.getItem('completion')) {
     app.data.completion = JSON.parse(localStorage.getItem('completion'));
+    app.data.score = 0;
+    for (let chapter in app.data.completion) {
+        app.data.score += app.data.completion[chapter];
+    }
 }
 if (localStorage.getItem('chapter') && localStorage.getItem('step')) {
     app.data.chapter = +localStorage.getItem('chapter');
