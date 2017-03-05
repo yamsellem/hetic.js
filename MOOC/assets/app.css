@@ -14,7 +14,7 @@ code {
     font-weight: normal;
 }
 
-code.basic {
+code.no-highlight {
     background-color: rgba(219, 43, 30, 0.08);
     border-radius: 3px;
     display: inline-block;
@@ -71,6 +71,9 @@ h3 a {
     background: none;
     border-radius: .3rem;
     color: #767676;
+}
+.top.right.attached.labels .ui.basic.label:last-child {
+    margin-right: 0;
 }
 .top.right.attached.labels .ui.basic.label > .icon {
     margin: 0 .5em 0 0;

@@ -4,7 +4,7 @@
 (function() {
 
 /*! highlight.js v9.9.0 */
-!function(e){var n="object"==typeof window&&window||"object"==typeof self&&self;"undefined"!=typeof exports?e(exports):n&&(n.hljs=e({}),"function"==typeof define&&define.amd&&define([],function(){return n.hljs}))}(function(e){function n(e){return e.replace(/[&<>]/gm,function(e){return I[e]})}function t(e){return e.nodeName.toLowerCase()}function r(e,n){var t=e&&e.exec(n);return t&&0===t.index}function i(e){return k.test(e)}function a(e){var n,t,r,a,o=e.className+" ";if(o+=e.parentNode?e.parentNode.className:"",t=B.exec(o))return R(t[1])?t[1]:"no-highlight";for(o=o.split(/\s+/),n=0,r=o.length;r>n;n++)if(a=o[n],i(a)||R(a))return a}function o(e,n){var t,r={};for(t in e)r[t]=e[t];if(n)for(t in n)r[t]=n[t];return r}function u(e){var n=[];return function r(e,i){for(var a=e.firstChild;a;a=a.nextSibling)3===a.nodeType?i+=a.nodeValue.length:1===a.nodeType&&(n.push({event:"start",offset:i,node:a}),i=r(a,i),t(a).match(/br|hr|img|input/)||n.push({event:"stop",offset:i,node:a}));return i}(e,0),n}function c(e,r,i){function a(){return e.length&&r.length?e[0].offset!==r[0].offset?e[0].offset<r[0].offset?e:r:"start"===r[0].event?e:r:e.length?e:r}function o(e){function r(e){return" "+e.nodeName+'="'+n(e.value)+'"'}l+="<"+t(e)+w.map.call(e.attributes,r).join("")+">"}function u(e){l+="</"+t(e)+">"}function c(e){("start"===e.event?o:u)(e.node)}for(var s=0,l="",f=[];e.length||r.length;){var g=a();if(l+=n(i.substring(s,g[0].offset)),s=g[0].offset,g===e){f.reverse().forEach(u);do c(g.splice(0,1)[0]),g=a();while(g===e&&g.length&&g[0].offset===s);f.reverse().forEach(o)}else"start"===g[0].event?f.push(g[0].node):f.pop(),c(g.splice(0,1)[0])}return l+n(i.substr(s))}function s(e){function n(e){return e&&e.source||e}function t(t,r){return new RegExp(n(t),"m"+(e.cI?"i":"")+(r?"g":""))}function r(i,a){if(!i.compiled){if(i.compiled=!0,i.k=i.k||i.bK,i.k){var u={},c=function(n,t){e.cI&&(t=t.toLowerCase()),t.split(" ").forEach(function(e){var t=e.split("|");u[t[0]]=[n,t[1]?Number(t[1]):1]})};"string"==typeof i.k?c("keyword",i.k):E(i.k).forEach(function(e){c(e,i.k[e])}),i.k=u}i.lR=t(i.l||/\w+/,!0),a&&(i.bK&&(i.b="\\b("+i.bK.split(" ").join("|")+")\\b"),i.b||(i.b=/\B|\b/),i.bR=t(i.b),i.e||i.eW||(i.e=/\B|\b/),i.e&&(i.eR=t(i.e)),i.tE=n(i.e)||"",i.eW&&a.tE&&(i.tE+=(i.e?"|":"")+a.tE)),i.i&&(i.iR=t(i.i)),null==i.r&&(i.r=1),i.c||(i.c=[]);var s=[];i.c.forEach(function(e){e.v?e.v.forEach(function(n){s.push(o(e,n))}):s.push("self"===e?i:e)}),i.c=s,i.c.forEach(function(e){r(e,i)}),i.starts&&r(i.starts,a);var l=i.c.map(function(e){return e.bK?"\\.?("+e.b+")\\.?":e.b}).concat([i.tE,i.i]).map(n).filter(Boolean);i.t=l.length?t(l.join("|"),!0):{exec:function(){return null}}}}r(e)}function l(e,t,i,a){function o(e,n){var t,i;for(t=0,i=n.c.length;i>t;t++)if(r(n.c[t].bR,e))return n.c[t]}function u(e,n){if(r(e.eR,n)){for(;e.endsParent&&e.parent;)e=e.parent;return e}return e.eW?u(e.parent,n):void 0}function c(e,n){return!i&&r(n.iR,e)}function g(e,n){var t=N.cI?n[0].toLowerCase():n[0];return e.k.hasOwnProperty(t)&&e.k[t]}function h(e,n,t,r){var i=r?"":y.classPrefix,a='<span class="'+i,o=t?"":C;return a+=e+'">',a+n+o}function p(){var e,t,r,i;if(!E.k)return n(B);for(i="",t=0,E.lR.lastIndex=0,r=E.lR.exec(B);r;)i+=n(B.substring(t,r.index)),e=g(E,r),e?(M+=e[1],i+=h(e[0],n(r[0]))):i+=n(r[0]),t=E.lR.lastIndex,r=E.lR.exec(B);return i+n(B.substr(t))}function d(){var e="string"==typeof E.sL;if(e&&!x[E.sL])return n(B);var t=e?l(E.sL,B,!0,L[E.sL]):f(B,E.sL.length?E.sL:void 0);return E.r>0&&(M+=t.r),e&&(L[E.sL]=t.top),h(t.language,t.value,!1,!0)}function b(){k+=null!=E.sL?d():p(),B=""}function v(e){k+=e.cN?h(e.cN,"",!0):"",E=Object.create(e,{parent:{value:E}})}function m(e,n){if(B+=e,null==n)return b(),0;var t=o(n,E);if(t)return t.skip?B+=n:(t.eB&&(B+=n),b(),t.rB||t.eB||(B=n)),v(t,n),t.rB?0:n.length;var r=u(E,n);if(r){var i=E;i.skip?B+=n:(i.rE||i.eE||(B+=n),b(),i.eE&&(B=n));do E.cN&&(k+=C),E.skip||(M+=E.r),E=E.parent;while(E!==r.parent);return r.starts&&v(r.starts,""),i.rE?0:n.length}if(c(n,E))throw new Error('Illegal lexeme "'+n+'" for mode "'+(E.cN||"<unnamed>")+'"');return B+=n,n.length||1}var N=R(e);if(!N)throw new Error('Unknown language: "'+e+'"');s(N);var w,E=a||N,L={},k="";for(w=E;w!==N;w=w.parent)w.cN&&(k=h(w.cN,"",!0)+k);var B="",M=0;try{for(var I,j,O=0;;){if(E.t.lastIndex=O,I=E.t.exec(t),!I)break;j=m(t.substring(O,I.index),I[0]),O=I.index+j}for(m(t.substr(O)),w=E;w.parent;w=w.parent)w.cN&&(k+=C);return{r:M,value:k,language:e,top:E}}catch(T){if(T.message&&-1!==T.message.indexOf("Illegal"))return{r:0,value:n(t)};throw T}}function f(e,t){t=t||y.languages||E(x);var r={r:0,value:n(e)},i=r;return t.filter(R).forEach(function(n){var t=l(n,e,!1);t.language=n,t.r>i.r&&(i=t),t.r>r.r&&(i=r,r=t)}),i.language&&(r.second_best=i),r}function g(e){return y.tabReplace||y.useBR?e.replace(M,function(e,n){return y.useBR&&"\n"===e?"<br>":y.tabReplace?n.replace(/\t/g,y.tabReplace):void 0}):e}function h(e,n,t){var r=n?L[n]:t,i=[e.trim()];return e.match(/\bhljs\b/)||i.push("hljs"),-1===e.indexOf(r)&&i.push(r),i.join(" ").trim()}function p(e){var n,t,r,o,s,p=a(e);i(p)||(y.useBR?(n=document.createElementNS("http://www.w3.org/1999/xhtml","div"),n.innerHTML=e.innerHTML.replace(/\n/g,"").replace(/<br[ \/]*>/g,"\n")):n=e,s=n.textContent,r=p?l(p,s,!0):f(s),t=u(n),t.length&&(o=document.createElementNS("http://www.w3.org/1999/xhtml","div"),o.innerHTML=r.value,r.value=c(t,u(o),s)),r.value=g(r.value),e.innerHTML=r.value,e.className=h(e.className,p,r.language),e.result={language:r.language,re:r.r},r.second_best&&(e.second_best={language:r.second_best.language,re:r.second_best.r}))}function d(e){y=o(y,e)}function b(){if(!b.called){b.called=!0;var e=document.querySelectorAll("pre code");w.forEach.call(e,p)}}function v(){addEventListener("DOMContentLoaded",b,!1),addEventListener("load",b,!1)}function m(n,t){var r=x[n]=t(e);r.aliases&&r.aliases.forEach(function(e){L[e]=n})}function N(){return E(x)}function R(e){return e=(e||"").toLowerCase(),x[e]||x[L[e]]}var w=[],E=Object.keys,x={},L={},k=/^(no-?highlight|plain|text)$/i,B=/\blang(?:uage)?-([\w-]+)\b/i,M=/((^(<[^>]+>|\t|)+|(?:\n)))/gm,C="</span>",y={classPrefix:"hljs-",tabReplace:null,useBR:!1,languages:void 0},I={"&":"&amp;","<":"&lt;",">":"&gt;"};return e.highlight=l,e.highlightAuto=f,e.fixMarkup=g,e.highlightBlock=p,e.configure=d,e.initHighlighting=b,e.initHighlightingOnLoad=v,e.registerLanguage=m,e.listLanguages=N,e.getLanguage=R,e.inherit=o,e.IR="[a-zA-Z]\\w*",e.UIR="[a-zA-Z_]\\w*",e.NR="\\b\\d+(\\.\\d+)?",e.CNR="(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)",e.BNR="\\b(0b[01]+)",e.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|-|-=|/=|/|:|;|<<|<<=|<=|<|===|==|=|>>>=|>>=|>=|>>>|>>|>|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~",e.BE={b:"\\\\[\\s\\S]",r:0},e.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[e.BE]},e.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[e.BE]},e.PWM={b:/\b(a|an|the|are|I'm|isn't|don't|doesn't|won't|but|just|should|pretty|simply|enough|gonna|going|wtf|so|such|will|you|your|like)\b/},e.C=function(n,t,r){var i=e.inherit({cN:"comment",b:n,e:t,c:[]},r||{});return i.c.push(e.PWM),i.c.push({cN:"doctag",b:"(?:TODO|FIXME|NOTE|BUG|XXX):",r:0}),i},e.CLCM=e.C("//","$"),e.CBCM=e.C("/\\*","\\*/"),e.HCM=e.C("#","$"),e.NM={cN:"number",b:e.NR,r:0},e.CNM={cN:"number",b:e.CNR,r:0},e.BNM={cN:"number",b:e.BNR,r:0},e.CSSNM={cN:"number",b:e.NR+"(%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc|px|deg|grad|rad|turn|s|ms|Hz|kHz|dpi|dpcm|dppx)?",r:0},e.RM={cN:"regexp",b:/\//,e:/\/[gimuy]*/,i:/\n/,c:[e.BE,{b:/\[/,e:/\]/,r:0,c:[e.BE]}]},e.TM={cN:"title",b:e.IR,r:0},e.UTM={cN:"title",b:e.UIR,r:0},e.METHOD_GUARD={b:"\\.\\s*"+e.UIR,r:0},e});hljs.registerLanguage("json",function(e){var i={literal:"true false null"},n=[e.QSM,e.CNM],r={e:",",eW:!0,eE:!0,c:n,k:i},t={b:"{",e:"}",c:[{cN:"attr",b:/"/,e:/"/,c:[e.BE],i:"\\n"},e.inherit(r,{b:/:/})],i:"\\S"},c={b:"\\[",e:"\\]",c:[e.inherit(r)],i:"\\S"};return n.splice(n.length,0,t,c),{c:n,k:i,i:"\\S"}});hljs.registerLanguage("javascript",function(e){var r="[A-Za-z$_][0-9A-Za-z$_]*",t={keyword:"in of if for while finally var new function do return void else break catch instanceof with throw case default try this switch continue typeof delete let yield const export super debugger as async await static import from as",literal:"true false null undefined NaN Infinity",built_in:"eval isFinite isNaN parseFloat parseInt decodeURI decodeURIComponent encodeURI encodeURIComponent escape unescape Object Function Boolean Error EvalError InternalError RangeError ReferenceError StopIteration SyntaxError TypeError URIError Number Math Date String RegExp Array Float32Array Float64Array Int16Array Int32Array Int8Array Uint16Array Uint32Array Uint8Array Uint8ClampedArray ArrayBuffer DataView JSON Intl arguments require module console window document Symbol Set Map WeakSet WeakMap Proxy Reflect Promise"},a={cN:"number",v:[{b:"\\b(0[bB][01]+)"},{b:"\\b(0[oO][0-7]+)"},{b:e.CNR}],r:0},n={cN:"subst",b:"\\$\\{",e:"\\}",k:t,c:[]},c={cN:"string",b:"`",e:"`",c:[e.BE,n]};n.c=[e.ASM,e.QSM,c,a,e.RM];var s=n.c.concat([e.CBCM,e.CLCM]);return{aliases:["js","jsx"],k:t,c:[{cN:"meta",r:10,b:/^\s*['"]use (strict|asm)['"]/},{cN:"meta",b:/^#!/,e:/$/},e.ASM,e.QSM,c,e.CLCM,e.CBCM,a,{b:/[{,]\s*/,r:0,c:[{b:r+"\\s*:",rB:!0,r:0,c:[{cN:"attr",b:r,r:0}]}]},{b:"("+e.RSR+"|\\b(case|return|throw)\\b)\\s*",k:"return throw case",c:[e.CLCM,e.CBCM,e.RM,{cN:"function",b:"(\\(.*?\\)|"+r+")\\s*=>",rB:!0,e:"\\s*=>",c:[{cN:"params",v:[{b:r},{b:/\(\s*\)/},{b:/\(/,e:/\)/,eB:!0,eE:!0,k:t,c:s}]}]},{b:/</,e:/(\/\w+|\w+\/)>/,sL:"xml",c:[{b:/<\w+\s*\/>/,skip:!0},{b:/<\w+/,e:/(\/\w+|\w+\/)>/,skip:!0,c:[{b:/<\w+\s*\/>/,skip:!0},"self"]}]}],r:0},{cN:"function",bK:"function",e:/\{/,eE:!0,c:[e.inherit(e.TM,{b:r}),{cN:"params",b:/\(/,e:/\)/,eB:!0,eE:!0,c:s}],i:/\[|%/},{b:/\$[(.]/},e.METHOD_GUARD,{cN:"class",bK:"class",e:/[{;=]/,eE:!0,i:/[:"\[\]]/,c:[{bK:"extends"},e.UTM]},{bK:"constructor",e:/\{/,eE:!0}],i:/#(?!!)/}});
+!function(e){var n="object"==typeof window&&window||"object"==typeof self&&self;"undefined"!=typeof exports?e(exports):n&&(n.hljs=e({}),"function"==typeof define&&define.amd&&define([],function(){return n.hljs}))}(function(e){function n(e){return e.replace(/[&<>]/gm,function(e){return I[e]})}function t(e){return e.nodeName.toLowerCase()}function r(e,n){var t=e&&e.exec(n);return t&&0===t.index}function i(e){return k.test(e)}function a(e){var n,t,r,a,o=e.className+" ";if(o+=e.parentNode?e.parentNode.className:"",t=B.exec(o))return R(t[1])?t[1]:"no-highlight";for(o=o.split(/\s+/),n=0,r=o.length;r>n;n++)if(a=o[n],i(a)||R(a))return a}function o(e,n){var t,r={};for(t in e)r[t]=e[t];if(n)for(t in n)r[t]=n[t];return r}function u(e){var n=[];return function r(e,i){for(var a=e.firstChild;a;a=a.nextSibling)3===a.nodeType?i+=a.nodeValue.length:1===a.nodeType&&(n.push({event:"start",offset:i,node:a}),i=r(a,i),t(a).match(/br|hr|img|input/)||n.push({event:"stop",offset:i,node:a}));return i}(e,0),n}function c(e,r,i){function a(){return e.length&&r.length?e[0].offset!==r[0].offset?e[0].offset<r[0].offset?e:r:"start"===r[0].event?e:r:e.length?e:r}function o(e){function r(e){return" "+e.nodeName+'="'+n(e.value)+'"'}l+="<"+t(e)+w.map.call(e.attributes,r).join("")+">"}function u(e){l+="</"+t(e)+">"}function c(e){("start"===e.event?o:u)(e.node)}for(var s=0,l="",f=[];e.length||r.length;){var g=a();if(l+=n(i.substring(s,g[0].offset)),s=g[0].offset,g===e){f.reverse().forEach(u);do c(g.splice(0,1)[0]),g=a();while(g===e&&g.length&&g[0].offset===s);f.reverse().forEach(o)}else"start"===g[0].event?f.push(g[0].node):f.pop(),c(g.splice(0,1)[0])}return l+n(i.substr(s))}function s(e){function n(e){return e&&e.source||e}function t(t,r){return new RegExp(n(t),"m"+(e.cI?"i":"")+(r?"g":""))}function r(i,a){if(!i.compiled){if(i.compiled=!0,i.k=i.k||i.bK,i.k){var u={},c=function(n,t){e.cI&&(t=t.toLowerCase()),t.split(" ").forEach(function(e){var t=e.split("|");u[t[0]]=[n,t[1]?Number(t[1]):1]})};"string"==typeof i.k?c("keyword",i.k):E(i.k).forEach(function(e){c(e,i.k[e])}),i.k=u}i.lR=t(i.l||/\w+/,!0),a&&(i.bK&&(i.b="\\b("+i.bK.split(" ").join("|")+")\\b"),i.b||(i.b=/\B|\b/),i.bR=t(i.b),i.e||i.eW||(i.e=/\B|\b/),i.e&&(i.eR=t(i.e)),i.tE=n(i.e)||"",i.eW&&a.tE&&(i.tE+=(i.e?"|":"")+a.tE)),i.i&&(i.iR=t(i.i)),null==i.r&&(i.r=1),i.c||(i.c=[]);var s=[];i.c.forEach(function(e){e.v?e.v.forEach(function(n){s.push(o(e,n))}):s.push("self"===e?i:e)}),i.c=s,i.c.forEach(function(e){r(e,i)}),i.starts&&r(i.starts,a);var l=i.c.map(function(e){return e.bK?"\\.?("+e.b+")\\.?":e.b}).concat([i.tE,i.i]).map(n).filter(Boolean);i.t=l.length?t(l.join("|"),!0):{exec:function(){return null}}}}r(e)}function l(e,t,i,a){function o(e,n){var t,i;for(t=0,i=n.c.length;i>t;t++)if(r(n.c[t].bR,e))return n.c[t]}function u(e,n){if(r(e.eR,n)){for(;e.endsParent&&e.parent;)e=e.parent;return e}return e.eW?u(e.parent,n):void 0}function c(e,n){return!i&&r(n.iR,e)}function g(e,n){var t=N.cI?n[0].toLowerCase():n[0];return e.k.hasOwnProperty(t)&&e.k[t]}function h(e,n,t,r){var i=r?"":y.classPrefix,a='<span class="'+i,o=t?"":C;return a+=e+'">',a+n+o}function p(){var e,t,r,i;if(!E.k)return n(B);for(i="",t=0,E.lR.lastIndex=0,r=E.lR.exec(B);r;)i+=n(B.substring(t,r.index)),e=g(E,r),e?(M+=e[1],i+=h(e[0],n(r[0]))):i+=n(r[0]),t=E.lR.lastIndex,r=E.lR.exec(B);return i+n(B.substr(t))}function d(){var e="string"==typeof E.sL;if(e&&!x[E.sL])return n(B);var t=e?l(E.sL,B,!0,L[E.sL]):f(B,E.sL.length?E.sL:void 0);return E.r>0&&(M+=t.r),e&&(L[E.sL]=t.top),h(t.language,t.value,!1,!0)}function b(){k+=null!=E.sL?d():p(),B=""}function v(e){k+=e.cN?h(e.cN,"",!0):"",E=Object.create(e,{parent:{value:E}})}function m(e,n){if(B+=e,null==n)return b(),0;var t=o(n,E);if(t)return t.skip?B+=n:(t.eB&&(B+=n),b(),t.rB||t.eB||(B=n)),v(t,n),t.rB?0:n.length;var r=u(E,n);if(r){var i=E;i.skip?B+=n:(i.rE||i.eE||(B+=n),b(),i.eE&&(B=n));do E.cN&&(k+=C),E.skip||(M+=E.r),E=E.parent;while(E!==r.parent);return r.starts&&v(r.starts,""),i.rE?0:n.length}if(c(n,E))throw new Error('Illegal lexeme "'+n+'" for mode "'+(E.cN||"<unnamed>")+'"');return B+=n,n.length||1}var N=R(e);if(!N)throw new Error('Unknown language: "'+e+'"');s(N);var w,E=a||N,L={},k="";for(w=E;w!==N;w=w.parent)w.cN&&(k=h(w.cN,"",!0)+k);var B="",M=0;try{for(var I,j,O=0;;){if(E.t.lastIndex=O,I=E.t.exec(t),!I)break;j=m(t.substring(O,I.index),I[0]),O=I.index+j}for(m(t.substr(O)),w=E;w.parent;w=w.parent)w.cN&&(k+=C);return{r:M,value:k,language:e,top:E}}catch(T){if(T.message&&-1!==T.message.indexOf("Illegal"))return{r:0,value:n(t)};throw T}}function f(e,t){t=t||y.languages||E(x);var r={r:0,value:n(e)},i=r;return t.filter(R).forEach(function(n){var t=l(n,e,!1);t.language=n,t.r>i.r&&(i=t),t.r>r.r&&(i=r,r=t)}),i.language&&(r.second_best=i),r}function g(e){return y.tabReplace||y.useBR?e.replace(M,function(e,n){return y.useBR&&"\n"===e?"<br>":y.tabReplace?n.replace(/\t/g,y.tabReplace):void 0}):e}function h(e,n,t){var r=n?L[n]:t,i=[e.trim()];return e.match(/\bhljs\b/)||i.push("hljs"),-1===e.indexOf(r)&&i.push(r),i.join(" ").trim()}function p(e){var n,t,r,o,s,p=a(e);i(p)||(y.useBR?(n=document.createElementNS("http://www.w3.org/1999/xhtml","div"),n.innerHTML=e.innerHTML.replace(/\n/g,"").replace(/<br[ \/]*>/g,"\n")):n=e,s=n.textContent,r=p?l(p,s,!0):f(s),t=u(n),t.length&&(o=document.createElementNS("http://www.w3.org/1999/xhtml","div"),o.innerHTML=r.value,r.value=c(t,u(o),s)),r.value=g(r.value),e.innerHTML=r.value,e.className=h(e.className,p,r.language),e.result={language:r.language,re:r.r},r.second_best&&(e.second_best={language:r.second_best.language,re:r.second_best.r}))}function d(e){y=o(y,e)}function b(){if(!b.called){b.called=!0;var e=document.querySelectorAll("pre code");w.forEach.call(e,p)}}function v(){addEventListener("DOMContentLoaded",b,!1),addEventListener("load",b,!1)}function m(n,t){var r=x[n]=t(e);r.aliases&&r.aliases.forEach(function(e){L[e]=n})}function N(){return E(x)}function R(e){return e=(e||"").toLowerCase(),x[e]||x[L[e]]}var w=[],E=Object.keys,x={},L={},k=/^(no-?highlight|plain|text)$/i,B=/\blang(?:uage)?-([\w-]+)\b/i,M=/((^(<[^>]+>|\t|)+|(?:\n)))/gm,C="</span>",y={classPrefix:"hljs-",tabReplace:null,useBR:!1,languages:void 0},I={"&":"&amp;","<":"&lt;",">":"&gt;"};return e.highlight=l,e.highlightAuto=f,e.fixMarkup=g,e.highlightBlock=p,e.configure=d,e.initHighlighting=b,e.initHighlightingOnLoad=v,e.registerLanguage=m,e.listLanguages=N,e.getLanguage=R,e.inherit=o,e.IR="[a-zA-Z]\\w*",e.UIR="[a-zA-Z_]\\w*",e.NR="\\b\\d+(\\.\\d+)?",e.CNR="(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)",e.BNR="\\b(0b[01]+)",e.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|-|-=|/=|/|:|;|<<|<<=|<=|<|===|==|=|>>>=|>>=|>=|>>>|>>|>|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~",e.BE={b:"\\\\[\\s\\S]",r:0},e.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[e.BE]},e.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[e.BE]},e.PWM={b:/\b(a|an|the|are|I'm|isn't|don't|doesn't|won't|but|just|should|pretty|simply|enough|gonna|going|wtf|so|such|will|you|your|like)\b/},e.C=function(n,t,r){var i=e.inherit({cN:"comment",b:n,e:t,c:[]},r||{});return i.c.push(e.PWM),i.c.push({cN:"doctag",b:"(?:TODO|FIXME|NOTE|BUG|XXX):",r:0}),i},e.CLCM=e.C("//","$"),e.CBCM=e.C("/\\*","\\*/"),e.HCM=e.C("#","$"),e.NM={cN:"number",b:e.NR,r:0},e.CNM={cN:"number",b:e.CNR,r:0},e.BNM={cN:"number",b:e.BNR,r:0},e.CSSNM={cN:"number",b:e.NR+"(%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc|px|deg|grad|rad|turn|s|ms|Hz|kHz|dpi|dpcm|dppx)?",r:0},e.RM={cN:"regexp",b:/\//,e:/\/[gimuy]*/,i:/\n/,c:[e.BE,{b:/\[/,e:/\]/,r:0,c:[e.BE]}]},e.TM={cN:"title",b:e.IR,r:0},e.UTM={cN:"title",b:e.UIR,r:0},e.METHOD_GUARD={b:"\\.\\s*"+e.UIR,r:0},e});hljs.registerLanguage("xml",function(s){var e="[A-Za-z0-9\\._:-]+",t={eW:!0,i:/</,r:0,c:[{cN:"attr",b:e,r:0},{b:/=\s*/,r:0,c:[{cN:"string",endsParent:!0,v:[{b:/"/,e:/"/},{b:/'/,e:/'/},{b:/[^\s"'=<>`]+/}]}]}]};return{aliases:["html","xhtml","rss","atom","xjb","xsd","xsl","plist"],cI:!0,c:[{cN:"meta",b:"<!DOCTYPE",e:">",r:10,c:[{b:"\\[",e:"\\]"}]},s.C("<!--","-->",{r:10}),{b:"<\\!\\[CDATA\\[",e:"\\]\\]>",r:10},{b:/<\?(php)?/,e:/\?>/,sL:"php",c:[{b:"/\\*",e:"\\*/",skip:!0}]},{cN:"tag",b:"<style(?=\\s|>|$)",e:">",k:{name:"style"},c:[t],starts:{e:"</style>",rE:!0,sL:["css","xml"]}},{cN:"tag",b:"<script(?=\\s|>|$)",e:">",k:{name:"script"},c:[t],starts:{e:"</script>",rE:!0,sL:["actionscript","javascript","handlebars","xml"]}},{cN:"meta",v:[{b:/<\?xml/,e:/\?>/,r:10},{b:/<\?\w+/,e:/\?>/}]},{cN:"tag",b:"</?",e:"/?>",c:[{cN:"name",b:/[^\/><\s]+/,r:0},t]}]}});hljs.registerLanguage("javascript",function(e){var r="[A-Za-z$_][0-9A-Za-z$_]*",t={keyword:"in of if for while finally var new function do return void else break catch instanceof with throw case default try this switch continue typeof delete let yield const export super debugger as async await static import from as",literal:"true false null undefined NaN Infinity",built_in:"eval isFinite isNaN parseFloat parseInt decodeURI decodeURIComponent encodeURI encodeURIComponent escape unescape Object Function Boolean Error EvalError InternalError RangeError ReferenceError StopIteration SyntaxError TypeError URIError Number Math Date String RegExp Array Float32Array Float64Array Int16Array Int32Array Int8Array Uint16Array Uint32Array Uint8Array Uint8ClampedArray ArrayBuffer DataView JSON Intl arguments require module console window document Symbol Set Map WeakSet WeakMap Proxy Reflect Promise"},a={cN:"number",v:[{b:"\\b(0[bB][01]+)"},{b:"\\b(0[oO][0-7]+)"},{b:e.CNR}],r:0},n={cN:"subst",b:"\\$\\{",e:"\\}",k:t,c:[]},c={cN:"string",b:"`",e:"`",c:[e.BE,n]};n.c=[e.ASM,e.QSM,c,a,e.RM];var s=n.c.concat([e.CBCM,e.CLCM]);return{aliases:["js","jsx"],k:t,c:[{cN:"meta",r:10,b:/^\s*['"]use (strict|asm)['"]/},{cN:"meta",b:/^#!/,e:/$/},e.ASM,e.QSM,c,e.CLCM,e.CBCM,a,{b:/[{,]\s*/,r:0,c:[{b:r+"\\s*:",rB:!0,r:0,c:[{cN:"attr",b:r,r:0}]}]},{b:"("+e.RSR+"|\\b(case|return|throw)\\b)\\s*",k:"return throw case",c:[e.CLCM,e.CBCM,e.RM,{cN:"function",b:"(\\(.*?\\)|"+r+")\\s*=>",rB:!0,e:"\\s*=>",c:[{cN:"params",v:[{b:r},{b:/\(\s*\)/},{b:/\(/,e:/\)/,eB:!0,eE:!0,k:t,c:s}]}]},{b:/</,e:/(\/\w+|\w+\/)>/,sL:"xml",c:[{b:/<\w+\s*\/>/,skip:!0},{b:/<\w+/,e:/(\/\w+|\w+\/)>/,skip:!0,c:[{b:/<\w+\s*\/>/,skip:!0},"self"]}]}],r:0},{cN:"function",bK:"function",e:/\{/,eE:!0,c:[e.inherit(e.TM,{b:r}),{cN:"params",b:/\(/,e:/\)/,eB:!0,eE:!0,c:s}],i:/\[|%/},{b:/\$[(.]/},e.METHOD_GUARD,{cN:"class",bK:"class",e:/[{;=]/,eE:!0,i:/[:"\[\]]/,c:[{bK:"extends"},e.UTM]},{bK:"constructor",e:/\{/,eE:!0}],i:/#(?!!)/}});
 
 // Body
 
@@ -161,10 +161,10 @@ let maps = function(searchable) {
     `;
 }
 
-let mapsWait = function(fn) {
-    return new Promise(function(resolve, reject) {
+let mapsWait = function() {
+    return new Promise(function(resolve) {
         setTimeout(resolve.bind(null, false), 3000);
-        google.maps.event.addListenerOnce(map, 'idle', fn.bind(null, resolve, reject));
+        google.maps.event.addListenerOnce(map, 'idle', resolve);
     });
 }
 
@@ -260,9 +260,47 @@ let connectfour = function() {
     `;
 }
 
+// Search
+
+let ajaxWait = function(url) {
+    return new Promise(function(resolve, reject) {
+        setTimeout(resolve.bind(null, false), 3000);
+
+        $(document).off('ajaxComplete').ajaxComplete(function(event, xhr, settings) {
+            setTimeout(resolve.bind(null, settings), 0);
+        });
+    });
+}
+
+let search = function() {
+    return `
+        <div class="ui centered stackable grid">
+            <div class="ui eight wide column">
+                <div class="ui labeled search focus">
+                    <div class="ui icon fluid input">
+                        <input class="prompt" type="text" placeholder="Search repositories..." autocomplete="off">
+                        <i class="search icon"></i>
+                    </div>
+                    <div class="results transition"></div>
+                </div>
+            </div>
+            <div class="ui eight wide column">
+                <div class="ui middle aligned divided list"></div>
+            </div>
+        </div>
+    `;
+
+}
+
 // Helpers
 
 let keypress = function(el, key) {
+    keyevent(el, key, 'keypress');
+    keyevent(el, key, 'keyup');
+    keyevent(el, key, 'keydown');
+}
+
+let keyevent = function(el, key, event) {
     let oEvent = document.createEvent('KeyboardEvent');
 
     // Chromium Hack
@@ -270,9 +308,9 @@ let keypress = function(el, key) {
     Object.defineProperty(oEvent, 'which', { get : function() { return this.keyCodeVal; } });
 
     if (oEvent.initKeyboardEvent) {
-        oEvent.initKeyboardEvent("keypress", true, true, document.defaultView, false, false, false, false, key, key);
+        oEvent.initKeyboardEvent(event, true, true, document.defaultView, false, false, false, false, key, key);
     } else {
-        oEvent.initKeyEvent("keypress", true, true, document.defaultView, false, false, false, false, key, 0);
+        oEvent.initKeyEvent(event, true, true, document.defaultView, false, false, false, false, key, 0);
     }
 
     oEvent.keyCodeVal = key;
@@ -1675,12 +1713,12 @@ let chapters = [
                     if (!map)
                         return;
 
-                    return mapsWait(function(resolve, reject) {
+                    return mapsWait().then(function() {
                         if (near({lat: map.center.lat(), lng: map.center.lng()}, {lat: 48.86, lng: 2.35}) !== true)
                             this.warn = this.warn || "Le centre le carte doit être positionné proche de <code>{lat: 48.86, lng: 2.35}</code>";
                         if (map.zoom !== 12)
                             this.warn = this.warn || "Le zoom de la carte doit être égal à <code>12</code>";
-                        resolve(!this.warn);
+                        return !this.warn;
                     }.bind(this));
                 }
             },
@@ -1695,10 +1733,10 @@ let chapters = [
                     if (!map || !marker)
                         return;
 
-                    return mapsWait(function(resolve, reject) {
+                    return mapsWait().then(function() {
                         if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
                             this.warn = this.warn || "Le marqueur doit être positionné proche de <code>{lat: 48.8583, lng: 2.3353}</code>";
-                        resolve(!this.warn);
+                        return !this.warn;
                     }.bind(this));
                 }
             },
@@ -1713,7 +1751,7 @@ let chapters = [
                     if (!map || !marker)
                         return;
 
-                    return mapsWait(function(resolve, reject) {
+                    return mapsWait().then(function() {
                         google.maps.event.trigger(marker, 'click');
 
                         let basic = true;
@@ -1724,7 +1762,7 @@ let chapters = [
                         if (elContains(document.querySelector('.gm-style-iw div div'), 'Le Pont des Arts') !== false)
                             this.warn = this.warn || "Au clic sur la carte, le popin doit être masqué";
                         
-                        resolve(!this.warn);
+                        return !this.warn;
                     }.bind(this));
                 }
             },
@@ -1740,7 +1778,7 @@ let chapters = [
                     if (!map || !marker)
                         return;
 
-                    return mapsWait(function(resolve, reject) {
+                    return mapsWait().then(function() {
                         let input = document.querySelector('.places input');
 
                         if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
@@ -1749,7 +1787,7 @@ let chapters = [
                         input.value = '29 Rue des Trois Frères';
                         keypress(input, 13);
 
-                        Promise
+                        return Promise
                         .resolve()
                         .then(function() {
                             // wait for the geocoder
@@ -1775,7 +1813,7 @@ let chapters = [
                             if (near({lat: map.center.lat(), lng: map.center.lng()}, {lat: 48.8476, lng: 2.3036}) !== true)
                                 this.warn = this.warn || "Après une recherche sur « 13 Boulevard Garibaldi », le carte doit être centrée proche de <code>{lat: 48.8476, lng: 2.3036}</code>";
 
-                            resolve(!this.warn);
+                            return !this.warn;
                         }.bind(this));
                     }.bind(this));
                 }
@@ -1792,7 +1830,7 @@ let chapters = [
                     if (!map || !marker)
                         return;
 
-                    return mapsWait(function(resolve, reject) {
+                    return mapsWait().then(function() {
                         let input = document.querySelector('.places input');
 
                         if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
@@ -1801,7 +1839,7 @@ let chapters = [
                         input.value = 'ici';
                         keypress(input, 13);
 
-                        Promise
+                        return Promise
                         .resolve()
                         .then(function() {
                             return new Promise(function(res, rej) {
@@ -1818,7 +1856,7 @@ let chapters = [
                             if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: geoloc.coords.latitude, lng: geoloc.coords.longitude}) !== true)
                                 this.warn = this.warn || "Après une recherche sur « ici », le marqueur doit être positionné proche de la position de l'utilisateur";
                             
-                            resolve(!this.warn);
+                            return !this.warn;
                         }.bind(this));
                     }.bind(this));
                 }
@@ -2109,23 +2147,199 @@ let chapters = [
                 }
             }
         ]
-    }, /* {
+    }, {
         title: "Ajax",
-        description: "Appels asynchrones serveur, REST, Promesses, etc.",
+        description: "Une application web peut poser des questions à un serveur distant ; vérifier si une carte bleue est valide et réagir en fonction. Ajax — basé sur le protocole HTTP — est une option pour ce faire. Le navigateur émet une requête et attend une réponse du serveur. Cette requête est asynchrone, elle ne bloque pas le navigateur, qui peut continuer à interagir avec l'utilisateur, et sera notifié lors du retour du serveur.<br><br>Ce chapitre présente ajax pas à pas.",
         color: "grey",
         steps: [
+            {
+                title: "Rechercher un repository github",
+                description: "Effectuer un appel ajax vers <code>https://api.github.com/search/repositories?q=</code> avec <a target=\"blank\" href=\"http://api.jquery.com/jquery.ajax/\">jQuery</a> à l'appui sur entrée dans <code>.search input</code> en indiquant comme paramètre <code>q=</code> la recherche saisie.<br><br>Afficher les trois premiers résultats dans <code>.results</code> chacun sous la forme <code>&lt;span class=\"result\"&gt;{full_name}&lt;/span&gt;</code> (<i>et ajouter la classe <code>visible</code> à <code>.results</code> pour le révéler</i>).",
+                excerpt: "Ajax est une technologie utilisée pour requêter un serveur de façon asynchrone. <a target=\"_blank\" href=\"http://api.jquery.com/jquery.ajax/\">jQuery l'a simplifiée et popularisée</a>. Pour effectuer une requête vers un serveur, deux informations sont nécessaires, son adresse <code>http://..</code> et l'action à réaliser, <code>GET</code> (<i>lecture</i>), <code>POST</code> (<i>création</i>), <code>PUT</code> (<i>modification</i>) ou <code>DELETE</code> (<i>suppression</i>).<br><br>Une requête ajax prend également une fonction en paramètre et l'invoquera lorsque le serveur aura répondu.",
+                solved: "/* à ajouter avant le script principal<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js\"&gt;&lt;/script&gt;<br>*/<br>var $search = $('.search');<br>var $input = $search.find('input');<br>var $results = $search.find('.results');<br><br>$input.on('keypress', function(event) {<br>  if(event.keyCode !== 13 || !$input.val()) {<br>    return<br>  }<br><br>  $.ajax('https://api.github.com/search/repositories?q=' + $input.val())<br>  .then((data) => {<br>    $results.html('').toggleClass('visible', data.items.length > 0);<br><br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      $results.append('&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;');<br>    }<br>  });<br>});",
+                dom: function() {
+                    return search.bind(search);
+                },
+                answer: function() {
+                    var input = document.querySelector('.search input');
 
-        ]
-    }, {
-        title: "Composants",
-        description: "Carousel, Affix, etc.",
-        color: "orange",
-        steps: [
+                    input.value = 'hetic';
+                    keypress(input, 13);
 
+                    return ajaxWait().then(function() {
+                        var results = document.querySelectorAll('.search .result');
+                        if (results.length !== 3)
+                            this.warn = this.warn || "Des résultats doivent apparaitre dans <code>.results</code> et être limités à 3";
+                        if (elContains(results[0], 'hetic') !== true)
+                            this.warn = this.warn || "Le premier résultat doit porter le nom d'un projet github";
+                        return !this.warn;
+                    }.bind(this));
+                }
+            }, 
+            {
+                title: "Afficher un indicateur de chargement",
+                description: "Ajouter la classe <code>loading</code> sur <code>.search</code> lorsque l'appel ajax est lancé, la retirée lorsque le serveur répond.",
+                solved: "var $search = $('.search');<br>var $input = $search.find('input');<br>var $results = $search.find('.results');<br><br>$input.on('keypress', function(event) {<br>  if(event.keyCode !== 13 || !$input.val()) {<br>    return<br>  }<br><br>  $search.addClass('loading');<br><br>  $.ajax('https://api.github.com/search/repositories?q=' + $input.val())<br>  .then((data) => {<br>    $search.removeClass('loading');<br><br>    $results.html('').toggleClass('visible', data.items.length > 0);<br><br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      $results.append('&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;');<br>    }<br>  });<br>});",
+                dom: function() {
+                    return search.bind(search);
+                },
+                answer: function() {
+                    var search = document.querySelector('.search');
+                    var input = search.querySelector('input');
+
+                    input.value = 'hetic';
+                    keypress(input, 13);
+
+                    if (elHasClass(search, 'loading') !== true)
+                        this.warn = this.warn || "La classe <code>loading</code> n'est pas ajoutée lors de l'appel au serveur";
+
+                    return ajaxWait().then(function() {
+                        if (elHasClass(search, 'loading') !== false)
+                            this.warn = this.warn || "La classe <code>loading</code> n'est pas retirée après la réponse du serveur";
+
+                        var results = document.querySelectorAll('.search .result');
+                        if (results.length !== 3)
+                            this.warn = this.warn || "Des résultats doivent apparaitre dans <code>.results</code> et être limités à 3";
+
+                        return !this.warn;
+                    }.bind(this));
+                }
+            },
+            {
+                title: "Mémoriser une liste de favoris",
+                description: "Au clic sur un résultat, l'ajouter sous la forme <code>&lt;a class=\"item\" href=\"{html_url}\"&gt;&lt;i class=\"github icon\"&gt;&lt;/i&gt;{full_name}&lt;/a&gt;</code> à <code>.list</code>. Plusieurs éléments peuvent ainsi être ajoutées, comme dans une liste de favoris.",
+                solved: "var $search = $('.search');<br>var $input = $search.find('input');<br>var $results = $search.find('.results');<br>var $list = $('.list');<br><br>var repositories = [];<br>var favorites = [];<br><br>$search.on('click', 'span', function() {<br>  var repository = repositories[$(this).index()];<br>  favorites.push(repository);<br><br>  $results.html('').removeClass('visible');<br><br>  $list.html('');<br>  for (var i = 0; i < favorites.length; i++) {<br>    $list.append('&lt;a class=\"item\" href=\"' + favorites[i].html_url + '\"&gt;&lt;i class=\"github icon\"&gt;&lt;/i&gt;' + favorites[i].full_name + '&lt;/a&gt;');<br>  }<br>});<br><br>$input.on('keypress', function(event) {<br>  if(event.keyCode !== 13 || !$input.val()) {<br>    return<br>  }<br><br>  $search.addClass('loading');<br><br>  $.ajax('https://api.github.com/search/repositories?q=' + $input.val())<br>  .then((data) => {<br>    repositories = data.items;<br><br>    $search.removeClass('loading');<br><br>    $results.html('').toggleClass('visible', data.items.length > 0);<br><br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      $results.append('&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;');<br>    }<br>  });<br>});",
+                dom: function() {
+                    return search.bind(search);
+                },
+                answer: function() {
+                    var search = document.querySelector('.search');
+                    var input = search.querySelector('input');
+
+                    input.value = 'hetic';
+                    keypress(input, 13);
+
+                    return ajaxWait().then(function() {
+                        var results = document.querySelectorAll('.search .result');
+                        if (results.length !== 3)
+                            this.warn = this.warn || "Des résultats doivent apparaitre dans <code>.results</code> et être limités à 3";
+
+                        var list = document.querySelectorAll('.list .item');
+                        if (list.length !== 0)
+                            this.warn = this.warn || "La liste des favoris doit être vide tant qu'aucun résultat n'a été cliqué";
+
+                        var result = results[0].innerHTML;
+                        results[0].click();
+                        
+                        list = document.querySelectorAll('.list .item');
+                        if (list.length !== 1)
+                            this.warn = this.warn || "La liste des favoris doit contenir le résultat cliqué";
+
+                        if (elContains(list[0], result) !== true)
+                            this.warn = this.warn || "Le favoris doit avoir le même nom que le résultat de recherche";
+
+                        if (!list[0] || list[0].href !== `https://github.com/${result}`)
+                            this.warn = this.warn || "Le favoris doit avoir un lien vers le repository github";
+
+                        return !this.warn;
+                    }.bind(this));
+                }
+            },
+            {
+                title: "Stocker la liste de favoris sur un serveur",
+                description: "À chaque ajout de favoris, mémoriser la liste avec un appel ajax <code>POST</code> vers <code>http://myjson.com/api</code>.",
+                excerpt: "Lors d'appels <code>POST</code> et <code>PUT</code>, il est également possible d'envoyer un body sous forme de texte ou de <code>JSON</code> au serveur pour enregistrer des données.",
+                solved: "var $search = $('.search');<br>var $input = $search.find('input');<br>var $results = $search.find('.results');<br>var $list = $('.list');<br><br>var repositories = [];<br>var favorites = [];<br><br>$search.on('click', 'span', function() {<br>  var repository = repositories[$(this).index()];<br>  favorites.push(repository);<br><br>  $results.html('').removeClass('visible');<br><br>  $.ajax({<br>    method: 'post',<br>    url: 'https://api.myjson.com/bins', <br>    data: JSON.stringify({items: favorites}),<br>    contentType: 'application/json',<br>    dataType: 'json',<br>  })<br>  .then(function(data) {<br>    $list.html('');<br>    for (var i = 0; i < favorites.length; i++) {<br>      $list.append('&lt;a class=\"item\" href=\"' + favorites[i].html_url + '\"&gt;&lt;i class=\"github icon\"&gt;&lt;/i&gt;' + favorites[i].full_name + '&lt;/a&gt;');<br>    }<br>  });<br>});<br><br>$input.on('keypress', function(event) {<br>  if(event.keyCode !== 13 || !$input.val()) {<br>    return<br>  }<br><br>  $search.addClass('loading');<br><br>  $.ajax('https://api.github.com/search/repositories?q=' + $input.val())<br>  .then((data) => {<br>    repositories = data.items;<br><br>    $search.removeClass('loading');<br><br>    $results.html('').toggleClass('visible', data.items.length > 0);<br><br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      $results.append('&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;');<br>    }<br>  });<br>});",
+                dom: function() {
+                    return search.bind(search);
+                },
+                answer: function() {
+                    var search = document.querySelector('.search');
+                    var input = search.querySelector('input');
+
+                    input.value = 'hetic';
+                    keypress(input, 13);
+
+                    return ajaxWait().then(function() {
+                        var results = document.querySelectorAll('.search .result');
+                        if (results.length !== 3)
+                            this.warn = this.warn || "Des résultats doivent apparaitre dans <code>.results</code> et être limités à 3";
+
+                        var result = results[0].innerHTML;
+                        results[0].click();
+                        
+                        return ajaxWait();
+                    }.bind(this))
+                    .then(function(fetched) {
+                        var list = document.querySelectorAll('.list .item');
+
+                        if (list.length !== 1)
+                            this.warn = this.warn || "La liste des favoris doit contenir le résultat cliqué";
+
+                        if (!fetched || fetched.url.indexOf('https://api.myjson.com/bins') === -1)
+                            this.warn = this.warn || "Un POST vers <code>https://api.myjson.com/bins</code> doit être effectué";
+
+                        return !this.warn;
+                    }.bind(this));
+                }
+            },
+            {
+                title: "Mettre à jour la liste des favoris sur un serveur",
+                description: "À l'ajout du premier favoris, créer la liste vers <code>http://myjson.com/api</code> avec <code>POST</code>, puis, à chaque nouvel ajout, modifier cette liste avec <code>PUT</code>.",
+                excerpt: "Par convention, <code>POST</code> retourne un id qu'il est ensuite possible d'ajouter à l'adresse <code>http://../id</code> et d'utiliser avec <code>GET</code> et <code>PUT</code> pour accéder à l'enregistrement créé et le modifier. Cette convention est définie en détails par le style d'architecture REST.",
+                solved: "var $search = $('.search');<br>var $input = $search.find('input');<br>var $results = $search.find('.results');<br>var $list = $('.list');<br><br>var repositories = [];<br>var favorites = [];<br>var uri;<br><br>$search.on('click', 'span', function() {<br>  var repository = repositories[$(this).index()];<br>  favorites.push(repository);<br><br>  $results.html('').removeClass('visible');<br><br>  $.ajax({<br>    method: uri ? 'put' : 'post',<br>    url: uri ? uri : 'https://api.myjson.com/bins', <br>    data: JSON.stringify({items: favorites}),<br>    contentType: 'application/json',<br>    dataType: 'json',<br>  })<br>  .then(function(data) {<br>    if (data.uri) {<br>      uri = data.uri;<br>    }<br><br>    $list.html('');<br>    for (var i = 0; i < favorites.length; i++) {<br>      $list.append('&lt;a class=\"item\" href=\"' + favorites[i].html_url + '\"&gt;&lt;i class=\"github icon\"&gt;&lt;/i&gt;' + favorites[i].full_name + '&lt;/a&gt;');<br>    }<br>  });<br>});<br><br>$input.on('keypress', function(event) {<br>  if(event.keyCode !== 13 || !$input.val()) {<br>    return<br>  }<br><br>  $search.addClass('loading');<br><br>  $.ajax('https://api.github.com/search/repositories?q=' + $input.val())<br>  .then((data) => {<br>    repositories = data.items;<br><br>    $search.removeClass('loading');<br><br>    $results.html('').toggleClass('visible', data.items.length > 0);<br><br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      $results.append('&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;');<br>    }<br>  });<br>});",
+                dom: function() {
+                    return search.bind(search);
+                },
+                answer: function() {
+                    var search = document.querySelector('.search');
+                    var input = search.querySelector('input');
+
+                    input.value = 'hetic';
+                    keypress(input, 13);
+
+                    return ajaxWait().then(function() {
+                        var results = document.querySelectorAll('.search .result');
+                        if (results.length !== 3)
+                            this.warn = this.warn || "Des résultats doivent apparaitre dans <code>.results</code> et être limités à 3";
+
+                        var result = results[0].innerHTML;
+                        results[0].click();
+                        
+                        return ajaxWait();
+                    }.bind(this))
+                    .then(function(fetched) {
+                        var list = document.querySelectorAll('.list .item');
+                        if (!fetched || fetched.url.indexOf('https://api.myjson.com/bins') === -1 || fetched.type !== 'POST')
+                            this.warn = this.warn || "Un POST vers <code>https://api.myjson.com/bins</code> doit être effectué";
+
+                        input.value = 'hetic';
+                        keypress(input, 13);
+
+                        return ajaxWait();
+                    }.bind(this))
+                    .then(function() {
+                        var results = document.querySelectorAll('.search .result');
+                        results[1].click();
+
+                        return ajaxWait();
+                    }.bind(this))
+                    .then(function(fetched) {
+                        var list = document.querySelectorAll('.list .item');
+                        if (list.length !== 2)
+                            this.warn = this.warn || "La liste des favoris doit contenir les deux résultats cliqués";
+
+                        if (!fetched || fetched.url.indexOf('https://api.myjson.com/bins') === -1 || fetched.type !== 'PUT')
+                            this.warn = this.warn || "Un PUT vers <code>https://api.myjson.com/bins</code> doit être effectué";
+
+                        return !this.warn;
+                    }.bind(this));
+                }
+            }
         ]
-    }, {
+    }, /* {
         title: "Super pouvoirs du navigateur",
-        description: "Géoloc, storage, canvas, etc.",
+        description: "Promesse, storage, canvas, etc.",
         color: "pink",
         steps: [
 
@@ -2156,7 +2370,7 @@ let digest = function(el, data, methods) {
                     <a target="_blank" href="https://goo.gl/QbZSn8" class="ui basic label">
                         Cours
                     </a>
-                    <div class="ui basic label h-score">
+                    <div class="ui basic label">
                         <i class="trophy icon"></i>
                         <span>${score}</span>
                     </div>
@@ -2246,7 +2460,7 @@ let stepper = function(el, data, methods) {
                     <a target="_blank" href="https://goo.gl/QbZSn8" class="ui basic label">
                         Cours
                     </a>
-                    <div class="ui basic label h-score">
+                    <div class="ui basic label">
                         <i class="trophy icon"></i>
                         <span>${score}</span>
                     </div>
@@ -2377,7 +2591,7 @@ let stepper = function(el, data, methods) {
                 } else if (stepContent.warn) {
                     warning = stepContent.warn;
                 }
-                warning = warning.replace(/<code>/g, '<code class="basic">');
+                warning = warning.replace(/<code>/g, '<code class="no-highlight">');
                 return warning;
             },
             reload: function(noWarning) {
@@ -2400,7 +2614,7 @@ let stepper = function(el, data, methods) {
                 document.body.appendChild(script);
             },
             highlight: function() {
-                let blocks = document.querySelectorAll('code:not(.basic)')
+                let blocks = document.querySelectorAll('code');
                 for (var i = 0; i < blocks.length; i++) {
                     hljs.highlightBlock(blocks[i]);
                 }
