@@ -2470,7 +2470,7 @@ let stepper = function(el, data, methods) {
                     <div class="column">
                         <div class="ui fluid card h-colored h-${chapterContent.color}">
                             <div class="content">
-                                <ul>${lis}</ul>
+                                <ul class="h-steps">${lis}</ul>
                             </div>
                             <div class="content">
                                 <div class="header">${stepContent.title}</div>
@@ -2521,7 +2521,7 @@ let stepper = function(el, data, methods) {
                 this.methods.validate.call(this);
             }.bind(this));
 
-            lis = el.querySelectorAll('ul li');
+            lis = el.querySelectorAll('ul.h-steps li');
             for (let _step = 0; _step < lis.length; _step++) {
                 lis[_step].addEventListener('click', function() {
                     if (_step + 1 <= completion[chapter] + 1)
