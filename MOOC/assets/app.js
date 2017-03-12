@@ -163,7 +163,7 @@ let maps = function(searchable) {
 
 let mapsWait = function() {
     return new Promise(function(resolve) {
-        setTimeout(resolve.bind(null, false), 3000);
+        setTimeout(resolve, 3000);
         google.maps.event.addListenerOnce(map, 'idle', resolve);
     });
 }
@@ -262,19 +262,51 @@ let connectfour = function() {
 
 // Search
 
-let ajaxWait = function(url) {
-    return new Promise(function(resolve, reject) {
-        setTimeout(resolve.bind(null, false), 3000);
+let httpWait = function(url) {
+    var open = XMLHttpRequest.prototype.open;
+    var fetching = fetch;
 
-        $(document).off('ajaxComplete').ajaxComplete(function(event, xhr, settings) {
-            setTimeout(resolve.bind(null, settings), 0);
-        });
+    return new Promise(function(resolve) {
+        setTimeout(resolve, 3000);
+
+        XMLHttpRequest.prototype.open = function() {
+            this.addEventListener('readystatechange', function(event) {
+                if (event.target.readyState !== 4) 
+                    return;
+
+                // await for xhr listeners to be called
+                setTimeout(resolve.bind(null, event.target.responseURL), 200);
+            });
+
+            open.apply(this, arguments);
+        }
+
+        fetch = function() {
+            let promise = fetching.apply(this, arguments);
+            promise.then(function() {
+                let url = arguments[0] && arguments[0].url;
+                // await for json() to be completed
+                setTimeout(resolve.bind(null, url), 200);
+            });
+            return promise;
+        }
+    }).then(function(url) {
+        // remove listener
+        XMLHttpRequest.prototype.open = open;
+        fetch = fetching;
+
+        return url;
     });
+}
+
+let getParameterByName = function(url, name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(url);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 }
 
 let search = function() {
     return `
-        <div class="ui centered stackable grid">
+        <div class="ui centered stackable grid favorites">
             <div class="ui eight wide column">
                 <div class="ui labeled search focus">
                     <div class="ui icon fluid input">
@@ -285,11 +317,26 @@ let search = function() {
                 </div>
             </div>
             <div class="ui eight wide column">
-                <div class="ui middle aligned divided list"></div>
+                <div class="ui right labeled left icon action input">
+                    <i class="star icon"></i>
+                    <input type="text" placeholder="0" disabled="disabled" class="count">
+                    <button class="ui icon button direction">
+                        <i class="sort content descending icon"></i>
+                    </button>
+                </div>
+                <button class="ui labeled icon button fetch">
+                    <i class="refresh icon"></i>Actualiser
+                </button>
+                <button class="ui labeled icon button remove">
+                    <i class="trash icon"></i>Supprimer
+                </button>
+
+                <div class="ui middle aligned divided list">
+                    <div class="basic center aligned segment"></div>
+                </div>
             </div>
         </div>
     `;
-
 }
 
 // Helpers
@@ -2154,19 +2201,20 @@ let chapters = [
         steps: [
             {
                 title: "Rechercher un repository github",
-                description: "Effectuer un appel ajax vers <code>https://api.github.com/search/repositories?q=</code> avec <a target=\"blank\" href=\"http://api.jquery.com/jquery.ajax/\">jQuery</a> à l'appui sur entrée dans <code>.search input</code> en indiquant comme paramètre <code>q=</code> la recherche saisie.<br><br>Afficher les trois premiers résultats dans <code>.results</code> chacun sous la forme <code>&lt;span class=\"result\"&gt;{full_name}&lt;/span&gt;</code> (<i>et ajouter la classe <code>visible</code> à <code>.results</code> pour le révéler</i>).",
-                excerpt: "Ajax est une technologie utilisée pour requêter un serveur de façon asynchrone. <a target=\"_blank\" href=\"http://api.jquery.com/jquery.ajax/\">jQuery l'a simplifiée et popularisée</a>. Pour effectuer une requête vers un serveur, deux informations sont nécessaires, son adresse <code>http://..</code> et l'action à réaliser, <code>GET</code> (<i>lecture</i>), <code>POST</code> (<i>création</i>), <code>PUT</code> (<i>modification</i>) ou <code>DELETE</code> (<i>suppression</i>).<br><br>Une requête ajax prend également une fonction en paramètre et l'invoquera lorsque le serveur aura répondu.",
-                solved: "/* à ajouter avant le script principal<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js\"&gt;&lt;/script&gt;<br>*/<br>var $search = $('.search');<br>var $input = $search.find('input');<br>var $results = $search.find('.results');<br><br>$input.on('keypress', function(event) {<br>  if(event.keyCode !== 13 || !$input.val()) {<br>    return<br>  }<br><br>  $.ajax('https://api.github.com/search/repositories?q=' + $input.val())<br>  .then((data) => {<br>    $results.html('').toggleClass('visible', data.items.length > 0);<br><br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      $results.append('&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;');<br>    }<br>  });<br>});",
+                description: "Effectuer un appel ajax vers <code>https://api.github.com/search/repositories?access_token={token}&q={query}</code> à l'appui sur entrée dans <code>.search input</code> en indiquant comme {query} la recherche saisie.<br><br>Afficher les trois premiers résultats dans <code>.results</code> chacun sous la forme <code>&lt;span class=\"result\"&gt;{full_name}&lt;/span&gt;</code> (<i>et ajouter la classe <code>visible</code> à <code>.results</code> pour le révéler</i>).",
+                excerpt: "Pour accèder à l'api de github, il est préférable de créer une clé (<i>ou token</i>), pour ce faire aller dans <code>Github > Settings > Personnal Access Token</code> puis <code>Generate new token</code>. Ce token est à ajouter à l'url <code>https://api.github.com/..?access_token={token}&q={query}</code>.<br><br>Il est possible d'effectuer une requête ajax à l'aide des objets <a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest\">xhr</a>, <a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch\">fetch</a> ou <a target=\"_blank\" href=\"http://api.jquery.com/jquery.ajax/\">jQuery.ajax</a>. Ajax est une technologie utilisée pour requêter un serveur de façon asynchrone. Pour effectuer une requête vers un serveur, trois informations sont nécessaires, son adresse <code>http://..</code>, l'action à réaliser, <code>GET</code> (<i>lecture</i>), <code>POST</code> (<i>création</i>), <code>PUT</code> (<i>modification</i>) ou <code>DELETE</code> (<i>suppression</i>) et la fonction à invoquer lorsque le serveur aura répondu.",
+                solved: "/* remplacer {token} par le token github généré */<br><br>/* --------------------- xhr --------------------- */<br><br>var search = document.querySelector('.search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>var ajax = function(method, url, fn) {<br>  var xhr = new XMLHttpRequest();<br>  xhr.addEventListener('load', function() {<br>    if (xhr.readyState === 4) {<br>      fn(JSON.parse(xhr.response));<br>    }<br>  });<br>  xhr.open(method, url);<br>  xhr.send();<br>}<br><br>input.addEventListener('keypress', function(event) {<br>  if(event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  ajax('GET', 'https://api.github.com/search/repositories?access_token={token}&q=' + input.value, function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br><br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});<br><br>/* -------------------- fetch -------------------- */<br><br>var search = document.querySelector('.search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>input.addEventListener('keypress', function(event) {<br>  if(event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  fetch('https://api.github.com/search/repositories?access_token={token}&q=' + input.value)<br>  .then(function(response) {<br>    return response.json();<br>  })<br>  .then(function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br>      for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});",
                 dom: function() {
                     return search.bind(search);
                 },
                 answer: function() {
                     var input = document.querySelector('.search input');
+                    var promise = httpWait();
 
                     input.value = 'hetic';
                     keypress(input, 13);
 
-                    return ajaxWait().then(function() {
+                    return promise.then(function(value) {
                         var results = document.querySelectorAll('.search .result');
                         if (results.length !== 3)
                             this.warn = this.warn || "Des résultats doivent apparaitre dans <code>.results</code> et être limités à 3";
@@ -2178,14 +2226,15 @@ let chapters = [
             }, 
             {
                 title: "Afficher un indicateur de chargement",
-                description: "Ajouter la classe <code>loading</code> sur <code>.search</code> lorsque l'appel ajax est lancé, la retirée lorsque le serveur répond.",
-                solved: "var $search = $('.search');<br>var $input = $search.find('input');<br>var $results = $search.find('.results');<br><br>$input.on('keypress', function(event) {<br>  if(event.keyCode !== 13 || !$input.val()) {<br>    return<br>  }<br><br>  $search.addClass('loading');<br><br>  $.ajax('https://api.github.com/search/repositories?q=' + $input.val())<br>  .then((data) => {<br>    $search.removeClass('loading');<br><br>    $results.html('').toggleClass('visible', data.items.length > 0);<br><br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      $results.append('&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;');<br>    }<br>  });<br>});",
+                description: "Ajouter la classe <code>loading</code> sur <code>.search</code> lorsque l'appel ajax est lancé, la retirer lorsque le serveur répond.",
+                solved: "var search = document.querySelector('.favorites .search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  search.classList.add('loading');<br><br>  fetch('https://api.github.com/search/repositories?access_token={token}&q=' + input.value)<br>  .then(function(response) {<br>    search.classList.remove('loading');<br>    return response.json();<br>  })<br>  .then(function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});",
                 dom: function() {
                     return search.bind(search);
                 },
                 answer: function() {
                     var search = document.querySelector('.search');
                     var input = search.querySelector('input');
+                    var promise = httpWait();
 
                     input.value = 'hetic';
                     keypress(input, 13);
@@ -2193,7 +2242,7 @@ let chapters = [
                     if (elHasClass(search, 'loading') !== true)
                         this.warn = this.warn || "La classe <code>loading</code> n'est pas ajoutée lors de l'appel au serveur";
 
-                    return ajaxWait().then(function() {
+                    return promise.then(function() {
                         if (elHasClass(search, 'loading') !== false)
                             this.warn = this.warn || "La classe <code>loading</code> n'est pas retirée après la réponse du serveur";
 
@@ -2206,131 +2255,268 @@ let chapters = [
                 }
             },
             {
-                title: "Mémoriser une liste de favoris",
-                description: "Au clic sur un résultat, l'ajouter sous la forme <code>&lt;a class=\"item\" href=\"{html_url}\"&gt;&lt;i class=\"github icon\"&gt;&lt;/i&gt;{full_name}&lt;/a&gt;</code> à <code>.list</code>. Plusieurs éléments peuvent ainsi être ajoutées, comme dans une liste de favoris.",
-                solved: "var $search = $('.search');<br>var $input = $search.find('input');<br>var $results = $search.find('.results');<br>var $list = $('.list');<br><br>var repositories = [];<br>var favorites = [];<br><br>$search.on('click', 'span', function() {<br>  var repository = repositories[$(this).index()];<br>  favorites.push(repository);<br><br>  $results.html('').removeClass('visible');<br><br>  $list.html('');<br>  for (var i = 0; i < favorites.length; i++) {<br>    $list.append('&lt;a class=\"item\" href=\"' + favorites[i].html_url + '\"&gt;&lt;i class=\"github icon\"&gt;&lt;/i&gt;' + favorites[i].full_name + '&lt;/a&gt;');<br>  }<br>});<br><br>$input.on('keypress', function(event) {<br>  if(event.keyCode !== 13 || !$input.val()) {<br>    return<br>  }<br><br>  $search.addClass('loading');<br><br>  $.ajax('https://api.github.com/search/repositories?q=' + $input.val())<br>  .then((data) => {<br>    repositories = data.items;<br><br>    $search.removeClass('loading');<br><br>    $results.html('').toggleClass('visible', data.items.length > 0);<br><br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      $results.append('&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;');<br>    }<br>  });<br>});",
+                title: "Afficher la liste des favoris",
+                description: "Effectuer un appel ajax vers <code>https://api.github.com/user/starred</code> (<i>avec un access_token</i>) au clic sur <code>.fetch</code> (<i>le bouton Actualiser</i>).<br><br>Afficher les résultats dans <code>.list</code> chacun sous la forme <code>&lt;div class=\"item ui checkbox\"&gt;&lt;input type=\"checkbox\" id=\"{full_name}\"&gt;&lt;label for=\"{full_name}\"&gt;{full_name}&lt;/label&gt;&lt;/div&gt;</code>. Afficher le nombre total de résultats dans <code>.count</code>.",
+                solved: "var search = document.querySelector('.favorites .search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  search.classList.add('loading');<br><br>  fetch('https://api.github.com/search/repositories?access_token={token}&q=' + input.value)<br>  .then(function(response) {<br>    search.classList.remove('loading');<br>    return response.json();<br>  })<br>  .then(function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});<br><br>var list = document.querySelector('.list');<br>var refresh = document.querySelector('.fetch');<br>var count = document.querySelector('.count');<br><br>var render = function() {<br>  fetch('https://api.github.com/user/starred?access_token={token}')<br>  .then(function(response) {<br>    return response.json();<br>  })<br>  .then(function(starred) {<br>    count.value = starred.length;<br>    list.innerHTML = '';<br>    for (var i = 0; i < starred.length; i++) {<br>      list.innerHTML += '&lt;div class=\"item ui checkbox\"&gt;&lt;input type=\"checkbox\" id=\"' + starred[i].full_name + '\"&gt;&lt;label for=\"' + starred[i].full_name + '\"&gt;' + starred[i].full_name + '&lt;/label&gt;&lt;/div&gt;';<br>    }<br>  });<br>}<br><br>refresh.addEventListener('click', render);",
+                excerpt: "Pour accéder aux repositories favoris, github requiert des autorisations supplémentaires. Dans l'écran <code>Personnal Access Tokens</code> il est nécessaire d'ajouter le scope <code>repo</code> au token précédemment créé.",
                 dom: function() {
                     return search.bind(search);
                 },
                 answer: function() {
-                    var search = document.querySelector('.search');
-                    var input = search.querySelector('input');
+                    var refresh = document.querySelector('.fetch');
+                    var promise = httpWait();
 
-                    input.value = 'hetic';
-                    keypress(input, 13);
+                    refresh.click();
 
-                    return ajaxWait().then(function() {
-                        var results = document.querySelectorAll('.search .result');
-                        if (results.length !== 3)
-                            this.warn = this.warn || "Des résultats doivent apparaitre dans <code>.results</code> et être limités à 3";
+                    return promise.then(function() {
+                        var count = document.querySelector('.count');
+                        var items = document.querySelectorAll('.list .item');
 
-                        var list = document.querySelectorAll('.list .item');
-                        if (list.length !== 0)
-                            this.warn = this.warn || "La liste des favoris doit être vide tant qu'aucun résultat n'a été cliqué";
-
-                        var result = results[0].innerHTML;
-                        results[0].click();
-                        
-                        list = document.querySelectorAll('.list .item');
-                        if (list.length !== 1)
-                            this.warn = this.warn || "La liste des favoris doit contenir le résultat cliqué";
-
-                        if (elContains(list[0], result) !== true)
-                            this.warn = this.warn || "Le favoris doit avoir le même nom que le résultat de recherche";
-
-                        if (!list[0] || list[0].href !== `https://github.com/${result}`)
-                            this.warn = this.warn || "Le favoris doit avoir un lien vers le repository github";
+                        if (count.value === "" || +count.value !== items.length)
+                            this.warn = this.warn || "Le compte de <code>.count</code> et le nombre d'items dans <code>.list</code> doit être le même.";
 
                         return !this.warn;
                     }.bind(this));
                 }
             },
             {
-                title: "Stocker la liste de favoris sur un serveur",
-                description: "À chaque ajout de favoris, mémoriser la liste avec un appel ajax <code>POST</code> vers <code>http://myjson.com/api</code>.",
-                excerpt: "Lors d'appels <code>POST</code> et <code>PUT</code>, il est également possible d'envoyer un body sous forme de texte ou de <code>JSON</code> au serveur pour enregistrer des données.",
-                solved: "var $search = $('.search');<br>var $input = $search.find('input');<br>var $results = $search.find('.results');<br>var $list = $('.list');<br><br>var repositories = [];<br>var favorites = [];<br><br>$search.on('click', 'span', function() {<br>  var repository = repositories[$(this).index()];<br>  favorites.push(repository);<br><br>  $results.html('').removeClass('visible');<br><br>  $.ajax({<br>    method: 'post',<br>    url: 'https://api.myjson.com/bins', <br>    data: JSON.stringify({items: favorites}),<br>    contentType: 'application/json',<br>    dataType: 'json',<br>  })<br>  .then(function(data) {<br>    $list.html('');<br>    for (var i = 0; i < favorites.length; i++) {<br>      $list.append('&lt;a class=\"item\" href=\"' + favorites[i].html_url + '\"&gt;&lt;i class=\"github icon\"&gt;&lt;/i&gt;' + favorites[i].full_name + '&lt;/a&gt;');<br>    }<br>  });<br>});<br><br>$input.on('keypress', function(event) {<br>  if(event.keyCode !== 13 || !$input.val()) {<br>    return<br>  }<br><br>  $search.addClass('loading');<br><br>  $.ajax('https://api.github.com/search/repositories?q=' + $input.val())<br>  .then((data) => {<br>    repositories = data.items;<br><br>    $search.removeClass('loading');<br><br>    $results.html('').toggleClass('visible', data.items.length > 0);<br><br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      $results.append('&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;');<br>    }<br>  });<br>});",
+                title: "Afficher un indicateur de chargement",
+                description: "Ajouter la classe <code>loading</code> sur <code>.fetch</code> lorsque l'appel ajax est lancé, la retirer lorsque le serveur répond.",
+                solved: "var search = document.querySelector('.favorites .search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  search.classList.add('loading');<br><br>  fetch('https://api.github.com/search/repositories?access_token={token}&q=' + input.value)<br>  .then(function(response) {<br>    search.classList.remove('loading');<br>    return response.json();<br>  })<br>  .then(function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});<br><br>var list = document.querySelector('.list');<br>var refresh = document.querySelector('.fetch');<br>var count = document.querySelector('.count');<br><br>var render = function() {<br>  return fetch('https://api.github.com/user/starred?access_token={token}')<br>  .then(function(response) {<br>    return response.json();<br>  })<br>  .then(function(starred) {<br>    count.value = starred.length;<br>    list.innerHTML = '';<br>    for (var i = 0; i < starred.length; i++) {<br>      list.innerHTML += '&lt;div class=\"item ui checkbox\"&gt;&lt;input type=\"checkbox\" id=\"' + starred[i].full_name + '\"&gt;&lt;label for=\"' + starred[i].full_name + '\"&gt;' + starred[i].full_name + '&lt;/label&gt;&lt;/div&gt;';<br>    }<br>  });<br>}<br><br>refresh.addEventListener('click', function() {<br>  refresh.classList.add('loading');<br><br>  render().then(function() {<br>    refresh.classList.remove('loading');<br>  });<br>});",
+                excerpt: "Une <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise\">promesse</a> est le résultat futur d'une action asynchrone. Les promesses sont souvent utilisées pour chainer plusieurs appels ajax ou s'abonner au résultat qu'elles renveront lorsque le serveur aura répondu. Les objets <a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch\">fetch</a> et <a target=\"_blank\" href=\"http://api.jquery.com/jquery.ajax/\">jQuery.ajax</a> proposent de récupérer la réponse du serveur avec une promesse.<pre><code>fetch('https://api.github.com/..')<br>.then(function(response) {<br>  return response.json();<br>})<br>.then(function(data) {<br>  console.log(data);<br>});</code></pre>La méthode <code>then</code> permet de s'abonner au résultat futur, et sera invoquée une seule fois lorsque le serveur aura répondu. Il est possible de retourner une promesse à l'intérieur d'une méthode <code>then</code> et d'ainsi chainer les promesses. La méthode <code>catch</code> permet de capturer les erreurs levées par n'importe laquelle des promesses de la chaine.",
                 dom: function() {
                     return search.bind(search);
                 },
                 answer: function() {
-                    var search = document.querySelector('.search');
-                    var input = search.querySelector('input');
+                    var refresh = document.querySelector('.fetch');
+                    var promise = httpWait();
 
-                    input.value = 'hetic';
-                    keypress(input, 13);
+                    refresh.click();
 
-                    return ajaxWait().then(function() {
-                        var results = document.querySelectorAll('.search .result');
-                        if (results.length !== 3)
-                            this.warn = this.warn || "Des résultats doivent apparaitre dans <code>.results</code> et être limités à 3";
+                    if (elHasClass(refresh, 'loading') !== true)
+                        this.warn = this.warn || "La classe <code>loading</code> n'est pas ajoutée lors de l'appel au serveur";
 
-                        var result = results[0].innerHTML;
-                        results[0].click();
-                        
-                        return ajaxWait();
-                    }.bind(this))
-                    .then(function(fetched) {
-                        var list = document.querySelectorAll('.list .item');
+                    return promise.then(function() {
+                        var count = document.querySelector('.count');
+                        var items = document.querySelectorAll('.list .item');
 
-                        if (list.length !== 1)
-                            this.warn = this.warn || "La liste des favoris doit contenir le résultat cliqué";
+                        if (+count.value !== items.length)
+                            this.warn = this.warn || "Le compte de <code>.count</code> et le nombre d'items dans <code>.list</code> doit être le même.";
 
-                        if (!fetched || fetched.url.indexOf('https://api.myjson.com/bins') === -1)
-                            this.warn = this.warn || "Un POST vers <code>https://api.myjson.com/bins</code> doit être effectué";
+                        if (elHasClass(refresh, 'loading') !== false)
+                            this.warn = this.warn || "La classe <code>loading</code> n'est pas retirée après la réponse du serveur";
 
                         return !this.warn;
                     }.bind(this));
                 }
             },
             {
-                title: "Mettre à jour la liste des favoris sur un serveur",
-                description: "À l'ajout du premier favoris, créer la liste vers <code>http://myjson.com/api</code> avec <code>POST</code>, puis, à chaque nouvel ajout, modifier cette liste avec <code>PUT</code>.",
-                excerpt: "Par convention, <code>POST</code> retourne un id qu'il est ensuite possible d'ajouter à l'adresse <code>http://../id</code> et d'utiliser avec <code>GET</code> et <code>PUT</code> pour accéder à l'enregistrement créé et le modifier. Cette convention est définie en détails par le style d'architecture REST.",
-                solved: "var $search = $('.search');<br>var $input = $search.find('input');<br>var $results = $search.find('.results');<br>var $list = $('.list');<br><br>var repositories = [];<br>var favorites = [];<br>var uri;<br><br>$search.on('click', 'span', function() {<br>  var repository = repositories[$(this).index()];<br>  favorites.push(repository);<br><br>  $results.html('').removeClass('visible');<br><br>  $.ajax({<br>    method: uri ? 'put' : 'post',<br>    url: uri ? uri : 'https://api.myjson.com/bins', <br>    data: JSON.stringify({items: favorites}),<br>    contentType: 'application/json',<br>    dataType: 'json',<br>  })<br>  .then(function(data) {<br>    if (data.uri) {<br>      uri = data.uri;<br>    }<br><br>    $list.html('');<br>    for (var i = 0; i < favorites.length; i++) {<br>      $list.append('&lt;a class=\"item\" href=\"' + favorites[i].html_url + '\"&gt;&lt;i class=\"github icon\"&gt;&lt;/i&gt;' + favorites[i].full_name + '&lt;/a&gt;');<br>    }<br>  });<br>});<br><br>$input.on('keypress', function(event) {<br>  if(event.keyCode !== 13 || !$input.val()) {<br>    return<br>  }<br><br>  $search.addClass('loading');<br><br>  $.ajax('https://api.github.com/search/repositories?q=' + $input.val())<br>  .then((data) => {<br>    repositories = data.items;<br><br>    $search.removeClass('loading');<br><br>    $results.html('').toggleClass('visible', data.items.length > 0);<br><br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      $results.append('&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;');<br>    }<br>  });<br>});",
+                title: "Ajouter un favoris",
+                description: "Au clic sur un résultat <code>.result</code> (<i>après une recherche</i>), effectuer un appel ajax <code>https://api.github.com/user/starred/{full_name}</code> avec la méthode <code>PUT</code> pour l'ajouter aux favoris. Mettre à jour la liste de favoris en fonction.",
+                excerpt: "Attention, les réponses github ont un cache de plusieurs dizaines de secondes, le navigateur mémorise la dernière réponse et la retourne à chaque appel avant que ce laps ne soit écoulé. <code>https://api.github.com/..?bust=' + Date.now()</code> le force a appeler le serveur, en lui faisant croire qu'il s'agit d'une nouvelle route pour qu'il ignore son cache.<br><br>Lors d'appels <code>POST</code> et <code>PUT</code>, il est également possible d'envoyer un body sous forme de texte ou de <code>JSON</code> au serveur pour enregistrer des informations.",
+                solved: "var search = document.querySelector('.favorites .search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  search.classList.add('loading');<br><br>  fetch('https://api.github.com/search/repositories?access_token={token}&q=' + input.value)<br>  .then(function(response) {<br>    search.classList.remove('loading');<br>    return response.json();<br>  })<br>  .then(function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});<br><br>results.addEventListener('click', function(event) {<br>  if (!event.target.matches('.result')) {<br>    return;<br>  }<br>  results.classList.remove('visible');<br>  fetch('https://api.github.com/user/starred/' + event.target.innerHTML + '?access_token={token}', {<br>    method: 'PUT'<br>  }).then(render);<br>});<br><br>var list = document.querySelector('.list');<br>var refresh = document.querySelector('.fetch');<br>var count = document.querySelector('.count');<br><br>var render = function() {<br>  return fetch('https://api.github.com/user/starred?access_token={token}&bust=' + Date.now())<br>  .then(function(response) {<br>    return response.json();<br>  })<br>  .then(function(starred) {<br>    count.value = starred.length;<br>    list.innerHTML = '';<br>    for (var i = 0; i < starred.length; i++) {<br>      list.innerHTML += '&lt;div class=\"item ui checkbox\"&gt;&lt;input type=\"checkbox\" id=\"' + starred[i].full_name + '\"&gt;&lt;label for=\"' + starred[i].full_name + '\"&gt;' + starred[i].full_name + '&lt;/label&gt;&lt;/div&gt;';<br>    }<br>  });<br>}<br><br>refresh.addEventListener('click', function() {<br>  refresh.classList.add('loading');<br><br>  render().then(function() {<br>    refresh.classList.remove('loading');<br>  });<br>});",
                 dom: function() {
                     return search.bind(search);
                 },
                 answer: function() {
-                    var search = document.querySelector('.search');
-                    var input = search.querySelector('input');
+                    var refresh = document.querySelector('.fetch');
+                    var initialCount = 0;
+                    var promise = httpWait();
+                    var token, added;
 
-                    input.value = 'hetic';
-                    keypress(input, 13);
+                    refresh.click();
 
-                    return ajaxWait().then(function() {
-                        var results = document.querySelectorAll('.search .result');
-                        if (results.length !== 3)
-                            this.warn = this.warn || "Des résultats doivent apparaitre dans <code>.results</code> et être limités à 3";
+                    return promise.then(function(url) {
+                        token = getParameterByName(url, 'access_token');
 
-                        var result = results[0].innerHTML;
-                        results[0].click();
-                        
-                        return ajaxWait();
-                    }.bind(this))
-                    .then(function(fetched) {
-                        var list = document.querySelectorAll('.list .item');
-                        if (!fetched || fetched.url.indexOf('https://api.myjson.com/bins') === -1 || fetched.type !== 'POST')
-                            this.warn = this.warn || "Un POST vers <code>https://api.myjson.com/bins</code> doit être effectué";
+                        promise = httpWait();
 
-                        input.value = 'hetic';
+                        var search = document.querySelector('.search');
+                        var input = search.querySelector('input');
+
+                        input.value = 'beatles';
                         keypress(input, 13);
 
-                        return ajaxWait();
+                        return promise;
                     }.bind(this))
                     .then(function() {
                         var results = document.querySelectorAll('.search .result');
-                        results[1].click();
+                        if (results.length !== 3)
+                            this.warn = this.warn || "Des résultats doivent apparaitre dans <code>.results</code> et être limités à 3";
 
-                        return ajaxWait();
+                        added = results[0];
+
+                        return fetch('https://api.github.com/user/starred/' + added.innerHTML + '?access_token=' + token, {
+                            method: 'DELETE'
+                        });
                     }.bind(this))
-                    .then(function(fetched) {
-                        var list = document.querySelectorAll('.list .item');
-                        if (list.length !== 2)
-                            this.warn = this.warn || "La liste des favoris doit contenir les deux résultats cliqués";
+                    .then(function() {
+                        promise = httpWait();
+                        refresh.click();
+                        return promise;
+                    }.bind(this))
+                    .then(function() {
+                        var items = document.querySelectorAll('.list .item');
+                        initialCount = +(document.querySelector('.count').value);
 
-                        if (!fetched || fetched.url.indexOf('https://api.myjson.com/bins') === -1 || fetched.type !== 'PUT')
-                            this.warn = this.warn || "Un PUT vers <code>https://api.myjson.com/bins</code> doit être effectué";
+                        if (initialCount !== items.length)
+                            this.warn = this.warn || "Le compte de <code>.count</code> et le nombre d'items dans <code>.list</code> doit être le même.";
+
+                        promise = httpWait();
+
+                        added.click();
+                        
+                        return promise;
+                    }.bind(this))
+                    .then(function() {
+                        var count = +(document.querySelector('.count').value);
+
+                        if (count !== initialCount + 1)
+                            this.warn = this.warn || "Le compte de <code>.count</code> doit être mis à jour à l'ajout d'un favoris.";
+                    }.bind(this))
+                    .then(function() {
+                        return fetch('https://api.github.com/user/starred/' + added.innerHTML + '?access_token=' + token, {
+                            method: 'DELETE'
+                        });
+                    }.bind(this))
+                    .then(function() {
+                        return !this.warn;
+                    }.bind(this));
+                }
+            },
+            {
+                title: "Trier les favoris",
+                description: "Au clic sur <code>.direction</code> modifier l'ordre de tri des favoris en rejouant la requête ajax de listing avec le paramètre d'url <code>direction</code> (<i>asc/desc</i>). Mettre à jour la liste de favoris en fonction.",
+                solved: "var search = document.querySelector('.favorites .search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  search.classList.add('loading');<br><br>  fetch('https://api.github.com/search/repositories?access_token={token}&q=' + input.value)<br>  .then(function(response) {<br>    search.classList.remove('loading');<br>    return response.json();<br>  })<br>  .then(function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});<br><br>results.addEventListener('click', function(event) {<br>  if (!event.target.matches('.result')) {<br>    return;<br>  }<br>  results.classList.remove('visible');<br>  fetch('https://api.github.com/user/starred/' + event.target.innerHTML + '?access_token={token}', {<br>    method: 'PUT'<br>  }).then(render);<br>});<br><br>var list = document.querySelector('.list');<br>var refresh = document.querySelector('.fetch');<br>var count = document.querySelector('.count');<br><br>var direction = 'desc';<br>var render = function() {<br>  return fetch('https://api.github.com/user/starred?access_token={token}&bust=' + Date.now() + '&direction=' + direction)<br>  .then(function(response) {<br>    return response.json();<br>  })<br>  .then(function(starred) {<br>    count.value = starred.length;<br>    list.innerHTML = '';<br>    for (var i = 0; i < starred.length; i++) {<br>      list.innerHTML += '&lt;div class=\"item ui checkbox\"&gt;&lt;input type=\"checkbox\" id=\"' + starred[i].full_name + '\"&gt;&lt;label for=\"' + starred[i].full_name + '\"&gt;' + starred[i].full_name + '&lt;/label&gt;&lt;/div&gt;';<br>    }<br>  });<br>}<br><br>refresh.addEventListener('click', function() {<br>  refresh.classList.add('loading');<br><br>  render().then(function() {<br>    refresh.classList.remove('loading');<br>  });<br>});<br><br>document.querySelector('.direction').addEventListener('click', function() {<br>  var i = this.querySelector('i');<br>  i.classList.toggle('ascending');<br>  i.classList.toggle('descending');<br>  direction = (direction === 'desc') ? 'asc' : 'desc';<br><br>  this.classList.add('loading');<br>  render().then(function() {<br>    this.classList.remove('loading');<br>  }.bind(this));<br>});",
+                dom: function() {
+                    return search.bind(search);
+                },
+                answer: function() {
+                    var refresh = document.querySelector('.fetch');
+                    var direction = document.querySelector('.direction');
+                    var promise = httpWait();
+
+                    refresh.click();
+
+                    return promise.then(function() {
+                        var count = document.querySelector('.count');
+                        var items = document.querySelectorAll('.list .item');
+
+                        if (+count.value !== items.length)
+                            this.warn = this.warn || "Le compte de <code>.count</code> et le nombre d'items dans <code>.list</code> doit être le même.";
+
+                        promise = httpWait();
+
+                        direction.click();
+
+                        return promise;
+                    }.bind(this))
+                    .then(function(url) {
+                        var dir = getParameterByName(url, 'direction');
+
+                        if (dir !== 'asc')
+                            this.warn = this.warn || "Au premier clic sur <code>.direction</code> le sens doit être <code>asc</code>.";
+
+                        var items = document.querySelectorAll('.list .item');
+
+                        promise = httpWait();
+
+                        direction.click();
+
+                        return promise;
+                    }.bind(this))
+                    .then(function(url) {
+                        var dir = getParameterByName(url, 'direction');
+
+                        if (dir !== 'desc')
+                            this.warn = this.warn || "Au second clic sur <code>.direction</code> le sens doit être <code>desc</code>.";
+
+                        return !this.warn;
+                    }.bind(this));
+                }
+            },
+            {
+                title: "Supprimer des favoris",
+                description: "Lorsque des <code>checkbox</code> sont cochées, au clic sur <code>.remove</code> effectuer un appel ajax <code>https://api.github.com/user/starred/{full_name}</code> avec la méthode <code>DELETE</code> pour supprimer ces favoris. Mettre à jour la liste de favoris en fonction.",
+                excerpt: "La méthode <code>DELETE</code> permet de supprimer une resource à la fois.",
+                solved: "var search = document.querySelector('.favorites .search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  search.classList.add('loading');<br><br>  fetch('https://api.github.com/search/repositories?access_token={token}&q=' + input.value)<br>  .then(function(response) {<br>    search.classList.remove('loading');<br>    return response.json();<br>  })<br>  .then(function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});<br><br>results.addEventListener('click', function(event) {<br>  if (!event.target.matches('.result')) {<br>    return;<br>  }<br>  results.classList.remove('visible');<br>  fetch('https://api.github.com/user/starred/' + event.target.innerHTML + '?access_token={token}', {<br>    method: 'PUT'<br>  }).then(render);<br>});<br><br>var list = document.querySelector('.list');<br>var refresh = document.querySelector('.fetch');<br>var count = document.querySelector('.count');<br><br>var direction = 'desc';<br>var render = function() {<br>  return fetch('https://api.github.com/user/starred?access_token={token}&bust=' + Date.now() + '&direction=' + direction)<br>  .then(function(response) {<br>    return response.json();<br>  })<br>  .then(function(starred) {<br>    count.value = starred.length;<br>    list.innerHTML = '';<br>    for (var i = 0; i < starred.length; i++) {<br>      list.innerHTML += '&lt;div class=\"item ui checkbox\"&gt;&lt;input type=\"checkbox\" id=\"' + starred[i].full_name + '\"&gt;&lt;label for=\"' + starred[i].full_name + '\"&gt;' + starred[i].full_name + '&lt;/label&gt;&lt;/div&gt;';<br>    }<br>  });<br>}<br><br>refresh.addEventListener('click', function() {<br>  refresh.classList.add('loading');<br><br>  render().then(function() {<br>    refresh.classList.remove('loading');<br>  });<br>});<br><br>document.querySelector('.direction').addEventListener('click', function() {<br>  var i = this.querySelector('i');<br>  i.classList.toggle('ascending');<br>  i.classList.toggle('descending');<br>  direction = (direction === 'desc') ? 'asc' : 'desc';<br><br>  this.classList.add('loading');<br>  render().then(function() {<br>    this.classList.remove('loading');<br>  }.bind(this));<br>});<br><br>var remove = document.querySelector('.remove');<br>remove.addEventListener('click', function(event) {<br>  remove.classList.add('loading');<br><br>  var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');<br>  var promises = [];<br>  for (var i = 0; i < checkboxes.length; i++) {<br>    var promise = fetch('https://api.github.com/user/starred/' + checkboxes[i].id + '?access_token={token}', {<br>      method: 'DELETE'<br>    });<br>    promises.push(promise);<br>  }<br><br>  Promise.all(promises)<br>  .then(render)<br>  .then(function() {<br>    remove.classList.remove('loading');<br>  });<br>});",
+                dom: function() {
+                    return search.bind(search);
+                },
+                answer: function() {
+                    var refresh = document.querySelector('.fetch');
+                    var initialCount = 0;
+                    var promise = httpWait();
+                    var token, added;
+
+                    refresh.click();
+
+                    return promise.then(function(url) {
+                        token = getParameterByName(url, 'access_token');
+
+                        promise = httpWait();
+
+                        var search = document.querySelector('.search');
+                        var input = search.querySelector('input');
+
+                        input.value = 'beatles';
+                        keypress(input, 13);
+
+                        return promise;
+                    }.bind(this))
+                    .then(function() {
+                        var results = document.querySelectorAll('.search .result');
+                        if (results.length !== 3)
+                            this.warn = this.warn || "Des résultats doivent apparaitre dans <code>.results</code> et être limités à 3";
+
+                        added = results[0];
+
+                        return fetch('https://api.github.com/user/starred/' + added.innerHTML + '?access_token=' + token, {
+                            method: 'DELETE'
+                        });
+                    }.bind(this))
+                    .then(function() {
+                        promise = httpWait();
+                        refresh.click();
+                        return promise;
+                    }.bind(this))
+                    .then(function() {
+                        var items = document.querySelectorAll('.list .item');
+                        initialCount = +(document.querySelector('.count').value);
+
+                        if (initialCount !== items.length)
+                            this.warn = this.warn || "Le compte de <code>.count</code> et le nombre d'items dans <code>.list</code> doit être le même.";
+
+                        promise = httpWait();
+
+                        added.click();
+                        
+                        return promise;
+                    }.bind(this))
+                    .then(function() {
+                        var count = +(document.querySelector('.count').value);
+
+                        if (count !== initialCount + 1)
+                            this.warn = this.warn || "Le compte de <code>.count</code> doit être mis à jour à l'ajout d'un favoris.";
+                    }.bind(this))
+                    .then(function() {
+                        var checkbox = document.querySelector('input[id="' + added.innerHTML + '"]');
+                        if (!checkbox)
+                            this.warn = this.warn || "Une checkbox avec l'id ajouté doit être présente dans les favoris.";
+                        else
+                            checkbox.checked = true;
+
+                        promise = httpWait();
+
+                        var remove = document.querySelector('.remove');
+                        remove.click();
+                        return promise;
+                    }.bind(this))
+                    .then(function() {
+                        var count = +(document.querySelector('.count').value);
+
+                        if (count !== initialCount)
+                            this.warn = this.warn || "Le compte de <code>.count</code> doit être mis à jour à la suppression d'un favoris.";
 
                         return !this.warn;
                     }.bind(this));
@@ -2339,7 +2525,7 @@ let chapters = [
         ]
     }, /* {
         title: "Super pouvoirs du navigateur",
-        description: "Promesse, storage, canvas, etc.",
+        description: "Storage, canvas, etc.",
         color: "pink",
         steps: [
 

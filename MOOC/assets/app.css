@@ -337,3 +337,17 @@ h3 a {
 .connectfour td.red { background-color: #DB2B1E; }
 .connectfour td.victory { border: 5px solid white; }
 .connectfour table:after { content: ''; position: absolute; bottom: -10px; left: -15px; right: -15px; height: 10px; background: #1E84D6; }
+
+.favorites .ui.button {
+    margin-bottom: 0.75em;
+}
+.favorites .action.input {
+    margin: 0 .25em 0 0;
+}
+.favorites .action.input input {
+    width: 6rem;
+}
+.favorites .ui.checkbox input + label {
+    cursor: pointer;
+    user-select: none;
+}
