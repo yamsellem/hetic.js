@@ -2842,18 +2842,15 @@ let stepper = function(el, data, methods) {
                 }
             },
             divulge: function() {
-                let done = this.methods.isDone(step);
-                if (done && stepContent.solved) {
-                    el.querySelector('[data-hook=divulge]').innerHTML = `
-                        <a class="ui ${chapterContent.color} ribbon label">
-                            <i class="bug icon"></i>Solution
-                        </a>
-                        <p><pre><code class="hidden">${stepContent.solved}</code></pre></p>`;
+                el.querySelector('[data-hook=divulge]').innerHTML = `
+                    <a class="ui ${chapterContent.color} ribbon label">
+                        <i class="bug icon"></i>Solution
+                    </a>
+                    <p><pre><code class="hidden">${stepContent.solved}</code></pre></p>`;
 
-                    el.querySelector('[data-hook=divulge] .ribbon').addEventListener('click', function() {
-                        this.parentNode.querySelector('code').classList.toggle('hidden');
-                    });
-                }
+                el.querySelector('[data-hook=divulge] .ribbon').addEventListener('click', function() {
+                    this.parentNode.querySelector('code').classList.toggle('hidden');
+                });
             }
         }
     }
