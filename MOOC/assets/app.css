@@ -131,10 +131,7 @@ h3 a {
     color: #DB2B1E;
 }
 
-.stepper .ui.card.h-colored > .content:first-child li:first-child,
-.stepper .ui.card.h-colored > .content:first-child li.active,
-.stepper .ui.card.h-colored > .content:first-child li.complete,
-.stepper .ui.card.h-colored > .content:first-child li.complete + li {
+.stepper .ui.card.h-colored > .content:first-child li {
     cursor: pointer;
 }
 

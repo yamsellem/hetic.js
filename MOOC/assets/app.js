@@ -2746,8 +2746,7 @@ let stepper = function(el, data, methods) {
             lis = el.querySelectorAll('ul.h-steps li');
             for (let _step = 0; _step < lis.length; _step++) {
                 lis[_step].addEventListener('click', function() {
-                    if (_step + 1 <= completion[chapter] + 1)
-                        jump(_step + 1);
+                    jump(_step + 1);
                 });
             }
         },
