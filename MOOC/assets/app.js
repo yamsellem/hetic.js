@@ -271,7 +271,7 @@ let httpWait = function(url) {
 
         XMLHttpRequest.prototype.open = function() {
             this.addEventListener('readystatechange', function(event) {
-                if (event.target.readyState !== 4) 
+                if (event.target.readyState !== 4)
                     return;
 
                 // await for xhr listeners to be called
@@ -786,6 +786,9 @@ let chapters = [
                 dom: function() {
                     return board.bind(board, cartman);
                 },
+                warn: function() {
+                    return "Le premier <code>li</code> doit avoir la classe <code>cadmiumyellow</code>";
+                },
                 answer: function() {
                     let li = document.querySelector('.board li');
                     return li.classList.contains('cadmiumyellow');
@@ -798,6 +801,9 @@ let chapters = [
                 solved: "var lis = document.querySelectorAll('.board li.braken');<br>for (var i = 0; i < lis.length; i++) {<br>  lis[i].className = 'candyapplered';<br>}",
                 dom: function() {
                     return board.bind(board, cartman);
+                },
+                warn: function() {
+                    return "Aucun <code>li</code> ne doit avoir la classe <code>braken</code> et dix <code>li</code> doivent avoir la classe <code>candyapplered</code>";
                 },
                 answer: function() {
                     let braken = document.querySelectorAll('.board li.braken');
@@ -813,6 +819,9 @@ let chapters = [
                 dom: function() {
                     return board.bind(board, cartman);
                 },
+                warn: function() {
+                    return "Au clic sur le premier <code>li.cadmiumyellow</code> sa classe doit être remplacée par <code>bondiblue</code>";
+                },
                 answer: function() {
                     let li = document.querySelector('.board li.cadmiumyellow');
                     let basic = li.className === 'cadmiumyellow';
@@ -827,6 +836,9 @@ let chapters = [
                 dom: function() {
                     return board.bind(board, cartman);
                 },
+                warn: function() {
+                    return "Au clic sur le premier <code>li.candyapplered</code> les seize <code>li</code> doivent avoir la classe <code>candyapplered</code>";
+                },
                 answer: function() {
                     let li = document.querySelector('.board li.candyapplered');
                     li.click();
@@ -840,6 +852,9 @@ let chapters = [
                 solved: "var lis = document.querySelectorAll('.board li.champagne');<br>for (var i = 0; i < lis.length; i++) {<br>  var li = lis[i];<br>  li.addEventListener('click', function() {<br>    this.className = 'braken';<br>  });<br>}",
                 dom: function() {
                     return board.bind(board, cartman);
+                },
+                warn: function() {
+                    return "Au clic sur les <code>li.champagne</code>, l'un puis l'autre, ils doivent tous deux avoir la classe <code>braken</code>";
                 },
                 answer: function() {
                     let lis = document.querySelectorAll('.board li.champagne');
@@ -860,6 +875,9 @@ let chapters = [
                 solved: "var lib = document.querySelector('.board li.braken');<br>var lic = document.querySelector('.board li.champagne');<br><br>var toggle = function(li) {<br>  if (li.className === 'champagne') {<br>    li.className = 'braken';<br>  } else {<br>    li.className = 'champagne';<br>  }<br>}<br><br>lib.addEventListener('click', function() {<br>  toggle(lib);<br>  toggle(lic);<br>});<br><br>lic.addEventListener('click', function() {<br>  toggle(lib);<br>  toggle(lic);<br>});",
                 dom: function() {
                     return board.bind(board, kenny);
+                },
+                warn: function() {
+                    return "Au clic sur le premier <code>li.braken</code>, il doit avoir la classe <code>champagne</code> et le premier <code>li.champagne</code> doit avoir la classe <code>braken</code>. Au clic suivant, ces deux <code>li</code> retrouvent leurs classes de départ. Et ainsi de suite";
                 },
                 answer: function() {
                     let lib = document.querySelector('.board li.braken');
@@ -887,6 +905,9 @@ let chapters = [
                 dom: function() {
                     return board.bind(board, kenny);
                 },
+                warn: function() {
+                    return "Au clic sur le premier <code>li.champagne</code>, rien ne se produit. Mais après trois clics répétés, ce <code>li</code> doit avoir la classe <code>braken</code>. Au quatrième clic, il doit conserver cette nouvelle classe";
+                },
                 answer: function() {
                     let li = document.querySelector('.board li.champagne');
 
@@ -909,15 +930,18 @@ let chapters = [
                 dom: function() {
                     return board.bind(board, kenny);
                 },
+                warn: function() {
+                    return "Au clic sur un <code>li.braken</code> rien ne se produit. Mais après trois clics répétés, ce <code>li</code> doit avoir la classe <code>braken</code>. Au quatrième clic, il doit conserver cette nouvelle classe";
+                },
                 answer: function() {
                     let lis = document.querySelectorAll('.board li.braken');
 
                     let basic = true;
-                    basic = basic && lis[0].className === 'braken';
-                    lis[0].click();
-                    lis[0].click();
-                    lis[0].click();
-                    return lis[0].className === 'champagne';
+                    basic = basic && lis[1].className === 'braken';
+                    lis[1].click();
+                    lis[1].click();
+                    lis[1].click();
+                    return lis[1].className === 'champagne';
                 }
             },
             {
@@ -927,6 +951,9 @@ let chapters = [
                 solved: "var ul = document.querySelector('.board');<br>ul.innerHTML += '&lt;li&gt;&lt;/li&gt;&lt;li class=\"darkgreen\"&gt;&lt;/li&gt;&lt;li class=\"darkgreen\"&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;';",
                 dom: function() {
                     return board.bind(board, kyle.slice(0, 12));
+                },
+                warn: function() {
+                    return "Quatre <code>li</code> doivent être ajoutés à la suite de ceux déjà présents dans <code>ul.board</code>";
                 },
                 answer: function() {
                     let basic = true;
@@ -949,6 +976,9 @@ let chapters = [
                 dom: function() {
                     return board.bind(board, kyle.slice(0, 8).concat(kyle.slice(12, 16)));
                 },
+                warn: function() {
+                    return "Quatre <code>li</code> doivent être ajoutés après le huitième <code>li</code> de <code>ul.board</code>";
+                },
                 answer: function() {
                     let basic = true;
                     let lis = document.querySelectorAll('.board li');
@@ -966,6 +996,9 @@ let chapters = [
                 solved: "var memo;<br>var lis = document.querySelectorAll('.board li');<br><br>for (let i = 0; i < lis.length; i++) {<br>  let li = lis[i];<br>  li.addEventListener('click', function() {<br>    if (!memo) {<br>      memo = li;<br>    } else {<br>      var className = memo.className;<br>      memo.className = li.className;<br>      li.className = className;<br>      memo = undefined;<br>    }<br>  });<br>}",
                 dom: function() {
                     return board.bind(board, kyle);
+                },
+                warn: function() {
+                    return "Au clic sur le premier <code>li</code> et le second, leurs classes doivent être interverties. Puis, au clic du second et du troisième <code>li</code>, leurs classes doivent être interverties également";
                 },
                 answer: function() {
                     let basic = true;
@@ -989,6 +1022,9 @@ let chapters = [
                 solved: "var value = 0;<br>var lis = document.querySelectorAll('.board li');<br>for (var i = 0; i < lis.length; i++) {<br>  var li = lis[i];<br>  li.addEventListener('click', function() {<br>    if (!this.dataset.value) {<br>      this.dataset.value = value++;<br>    }<br>  });<br>}",
                 dom: function() {
                     return board.bind(board, kyle);
+                },
+                warn: function() {
+                    return "Au clic sur le premier <code>li</code> il doit avoir un attribut <code>data-value</code> égal à zéro. Au clic sur un autre <code>li</code>, il doit avoir un attribut <code>data-value</code> égal à un. Et ainsi de suite. Au clic sur un élément ayant déjà un <code>data-value</code> celui-ci ne change pas";
                 },
                 answer: function() {
                     let lis = document.querySelectorAll('.board li');
@@ -1159,7 +1195,7 @@ let chapters = [
                     lis = document.querySelectorAll('.todos ul li');
                     if (lis.length !== 2)
                         this.warn = this.warn || "À l'appel de la méthode <code>render</code>, les deux <code>li</code> doivent être créés de nouveau et remplacer ceux du <code>.todos ul</code>";
-                    
+
                     return !this.warn;
                 }
             },
@@ -1370,7 +1406,7 @@ let chapters = [
 
                     if (equals({a: 7, e: 5}, count('Andouille pork chop picanha pancetta landjaeger brisket.')) !== true)
                         this.warn = this.warn || "La fonction <code>count('Andouille pork chop picanha pancetta landjaeger brisket.')</code> doit retourner <code>{a: 7, e: 5}</code>";
-                    
+
                     return !this.warn;
                 }
             },
@@ -1384,7 +1420,7 @@ let chapters = [
                         left: {value: 3, left: {value: 1}, right: {value: 6}},
                         right: {value: 11, left: {value:9, right: {value: 10}}, right: {value: 14}}
                     };
-                    
+
                     if (search(tree, 3) !== true)
                         this.warn = this.warn || "La fonction <code>search(tree, 3)</code> doit retourner <code>true</code>";
                     if (search(tree, 14) !== true)
@@ -1430,7 +1466,7 @@ let chapters = [
                         this.warn = this.warn || "Après un clic sur suivant, le premier <code>li</code> ne doit plus avoir la classe <code>visible</code>";
                     if (elHasClass(lis[1], 'visible') !== true)
                         this.warn = this.warn || "Après un clic sur suivant, le second <code>li</code> doit avoir la classe <code>visible</code>";
-                    
+
                     return !this.warn;
                 }
             },
@@ -1495,7 +1531,7 @@ let chapters = [
                         this.warn = this.warn || "Après un clic sur suivant, précédent, suivant, le premier <code>li</code> ne doit plus avoir la classe <code>visible</code>";
                     if (elHasClass(lis[1], 'visible') !== true)
                         this.warn = this.warn || "Après un clic sur suivant, précédent, suivant, le second <code>li</code> doit avoir la classe <code>visible</code>";
-                    
+
                     return !this.warn;
                 }
             },
@@ -1808,7 +1844,7 @@ let chapters = [
                         google.maps.event.trigger(map, 'click');
                         if (elContains(document.querySelector('.gm-style-iw div div'), 'Le Pont des Arts') !== false)
                             this.warn = this.warn || "Au clic sur la carte, le popin doit être masqué";
-                        
+
                         return !this.warn;
                     }.bind(this));
                 }
@@ -1902,7 +1938,7 @@ let chapters = [
                         .then(function(geoloc) {
                             if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: geoloc.coords.latitude, lng: geoloc.coords.longitude}) !== true)
                                 this.warn = this.warn || "Après une recherche sur « ici », le marqueur doit être positionné proche de la position de l'utilisateur";
-                            
+
                             return !this.warn;
                         }.bind(this));
                     }.bind(this));
@@ -2223,7 +2259,7 @@ let chapters = [
                         return !this.warn;
                     }.bind(this));
                 }
-            }, 
+            },
             {
                 title: "Afficher un indicateur de chargement",
                 description: "Ajouter la classe <code>loading</code> sur <code>.search</code> lorsque l'appel ajax est lancé, la retirer lorsque le serveur répond.",
@@ -2365,7 +2401,7 @@ let chapters = [
                         promise = httpWait();
 
                         added.click();
-                        
+
                         return promise;
                     }.bind(this))
                     .then(function() {
@@ -2490,7 +2526,7 @@ let chapters = [
                         promise = httpWait();
 
                         added.click();
-                        
+
                         return promise;
                     }.bind(this))
                     .then(function() {
@@ -2561,7 +2597,7 @@ let digest = function(el, data, methods) {
                         <span>${score}</span>
                     </div>
                 </div>
-                
+
                 <div class="ui stackable two column grid"></div>
             </div>`;
 
