@@ -339,6 +339,42 @@ let search = function() {
     `;
 }
 
+// Might
+
+let might = function() {
+    var tiles = [
+        '', '', '', '', '', '',
+        '', '', '', '', '', '',
+        'peon', '', '', 'peon', '', 'peon',
+        'peon', 'block', '', 'peon', 'peon', 'peon',
+        'attack', 'peon', 'peon', '', 'peon', 'peon',
+        'peon', 'peon', '', '', 'peon', '',
+        '', '', '', '', '', '',
+        '', '', '', '', '', ''
+    ];
+
+    var html = '<div class="might">';
+    for (var x = 0; x < 8; x++) {
+        if (x === 0)
+            html += '<table class="active" data-p="1"><thead><th class="floating ui pink label">2 ♥♥</th><thead>';
+        else if (x === 4)
+            html += '<table data-p="2"><thead><th class="floating ui pink label">0 ♥♥</th><thead>';
+
+        html += '<tr>';
+        for (var y = 0; y < 6; y++) {
+            var clazz = tiles[x*6+y];
+            html += `<td class="${clazz}" data-x="${x<4 ? 4-x%4 : x%4+1}" data-y="${y+1}" data-p="${x<4 ? 1: 2}"></td>`;
+        }
+        html += '</tr>';
+
+        if (x === 3 || x === 7)
+            html += '</table>';
+    }
+
+    html += '</div>';
+    return html;
+}
+
 // Helpers
 
 let keypress = function(el, key) {
@@ -2559,21 +2595,228 @@ let chapters = [
                 }
             }
         ]
-    }, /* {
-        title: "Super pouvoirs du navigateur",
-        description: "Storage, canvas, etc.",
+    }, {
+        title: "La programmation objet",
+        description: "La programmation orientée objet propose de définir un ensemble de concepts, les classes, dont il est possible de manipuler des exemplaires, les objets. JavaScript est un langage à prototype (contrairement aux langages objets classiques, des attributs peuvent être ajoutés aux objets, même si la classe ne les déclare pas).<br><br>Ce chapitre présente la réalisation (corsée) d'un puzzle rpg au tour par tour.",
         color: "pink",
         steps: [
+            {
+                title: "Créer une classe",
+                description: "Créer une classe <code>Player</code> dont chaque instance à un <code>name</code> et représente la <code>table</code> avec le data attribute <code>data-p</code>.",
+                excerpt: "Il est possible (et souvent souhaitable) de structurer un programme à l'aide de composants au comportement clairement défini. Une classe est un modèle (comme un moule à pâtisserie) qui définit un ensemble d'attributs (la taille, les fruits utilisés) et de méthodes (découper, manger). <pre><code>var Player = function(name) {<br>  this.name = name;<br>}<br>var player = new Player(1);</code></pre>Par convention les classes commencent par une majuscule et les variables / instances par une minuscules.",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>};",
+                dom: function() {
+                    return might.bind(might);
+                },
+                answer: function() {
+                    var player = new Player(1);
+                    if (player.name !== 1)
+                        this.warn = this.warn || "L'attribut <code>name</code> de la classe <code>Player</code> doit être initialisé avec son premier paramètre de constructeur.";
 
-        ]
-    }, {
-        title: "Applications",
-        description: "React, Vue, Backbone et Webpack",
-        color: "olive",
-        steps: [
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Modifier le constructeur d'une classe",
+                description: "Modifier le constructeur de la classe <code>Player</code>, afin que le <code>name</code> passé en paramètre soit utilisé également pour initialiser l'attribut <code>table</code> avec la <code>table[data-p=..]</code> du nom du joueur (1 ou 2).",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};",
+                dom: function() {
+                    return might.bind(might);
+                },
+                answer: function() {
+                    var player = new Player(1);
+                    if (player.table.querySelectorAll('td').length !== 24)
+                        this.warn = this.warn || "L'attribut <code>table</code> de la classe <code>Player</code> doit être initialisé avec son premier paramètre de constructeur.";
 
+                    return !this.warn;
+                }
+            }, {
+                title: "Modifier le prototype d'une classe",
+                description: "Modifier le prototype de la classe <code>Player</code>, en lui ajoutant la méthode <code>get(x, y)</code> pour récupérer un <code>td</code> par x,y contenus dans <code>data-x</code> et <code>data-y</code>.",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"][data-p=\"' + this.name + '\"]') || {};<br>  }<br>};",
+                dom: function() {
+                    return might.bind(might);
+                },
+                answer: function() {
+                    var player = new Player(1);
+                    if (player.get(1, 1).className !== 'peon')
+                        this.warn = this.warn || "La case 1,1 du joueur 1 contient la classe <code>peon</code>. La méthode <code>new Player(1).get(1, 1)</code> doit retourner ce <code>td</code>.";
+                    if (player.get(1, 2).className !== 'block')
+                        this.warn = this.warn || "La case 1,2 du joueur 1 contient la classe <code>block</code>. La méthode <code>new Player(1).get(1, 2)</code> doit retourner ce <code>td</code>.";
+
+                    return !this.warn;
+                }
+            }, {
+                title: "Modifier le prototype d'une classe",
+                description: "Modifier le prototype de la classe <code>Player</code>, en lui ajoutant la méthode <code>set(x, y, className)</code> pour modifier la classe d'un <code>td</code> par x,y,className.",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"][data-p=\"' + this.name + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  }<br>};",
+                dom: function() {
+                    return might.bind(might);
+                },
+                answer: function() {
+                    var player = new Player(1);
+                    if (player.get(1, 1).className !== 'peon')
+                        this.warn = this.warn || "La case 1,1 du joueur 1 contient la classe <code>peon</code>. La méthode <code>new Player(1).get(1, 1)</code> doit retourner ce <code>td</code>.";
+
+                    player.set(1, 2, 'peon');
+                    if (player.get(1, 2).className !== 'peon')
+                        this.warn = this.warn || "La case 1,2 du joueur 1 ne contient pas la classe <code>peon</code>. La méthode <code>new Player(1).set(1, 2, 'peon')</code> doit lui ajouter.";
+
+                    return !this.warn;
+                }
+            }, {
+                title: "Modifier le prototype d'une classe",
+                description: "Modifier le prototype de la classe <code>Player</code>, en lui ajoutant la méthode <code>free(y)</code> qui retourne la première ligne disponible pour cette colonne ou <code>undefined</code> sinon.",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"][data-p=\"' + this.name + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(y) {<br>    for (var i = 1; i <= 4; i++) {<br>      var td = this.get(i, y);<br>      if (!td.className) {<br>        return i;<br>      }<br>    }<br>  }<br>};",
+                dom: function() {
+                    return might.bind(might);
+                },
+                answer: function() {
+                    var player = new Player(1);
+                    if (player.free(1) !== 3)
+                        this.warn = this.warn || "La colonne 1 est occupée jusqu'en case 3, la méthode <code>free(1)</code> doit retourner <code>3</code>.";
+
+                    if (player.free(2) !== 2)
+                        this.warn = this.warn || "La colonne 2 est occupée jusqu'en case 2, la méthode <code>free(2)</code> doit retourner <code>2</code>.";
+
+                    if (player.free(3) !== 1)
+                        this.warn = this.warn || "La colonne 3 est inoccupée, la méthode <code>free(3)</code> doit retourner <code>1</code>.";
+
+                    return !this.warn;
+                }
+            }, {
+                title: "Modifier le prototype d'une classe",
+                description: "Modifier le prototype de la classe <code>Player</code>, en lui ajoutant la méthode <code>last(y)</code> qui retourne l'indice de la dernière ligne occupée pour cette colonne.",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"][data-p=\"' + this.name + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(y) {<br>    for (var i = 1; i <= 4; i++) {<br>      var td = this.get(i, y);<br>      if (!td.className) {<br>        return i;<br>      }<br>    }<br>  },<br>  last: function(y) {<br>    var i = this.free(y);<br>    if (i) {<br>      return i - 1;<br>    } else {<br>      return 4;<br>    }<br>  }<br>};",
+                dom: function() {
+                    return might.bind(might);
+                },
+                answer: function() {
+                    var player = new Player(1);
+                    if (player.last(3) !== 0)
+                        this.warn = this.warn || "La colonne 3 est inoccupée, la méthode <code>last(3)</code> doit retourner <code>0</code>.";
+
+                    if (player.last(4) !== 2)
+                        this.warn = this.warn || "La colonne 4 est occupée jusqu'en case 2, la méthode <code>last(4)</code> doit retourner <code>2</code>.";
+
+                    if (player.last(5) !== 1)
+                        this.warn = this.warn || "La colonne 5 est occupée jusqu'en case 1, la méthode <code>last(5)</code> doit retourner <code>1</code>.";
+
+                    return !this.warn;
+                }
+            }, {
+                title: "Commencer la partie",
+                description: "Ajouter un écouteur d'événement sur tous les <code>td</code>, et, au clic sur l'un d'entre eux, récupérer le dernier <code>td</code> avec une classe de sa colonne (à l'aide de <code>product.last(y)</code>) et mémoriser sa position dans un attribut <code>memo</code> au format <code>{x:.., y:..}</code> dans un dictionnaire <code>game</code>.",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"][data-p=\"' + this.name + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(y) {<br>    for (var i = 1; i <= 4; i++) {<br>      var td = this.get(i, y);<br>      if (!td.className) {<br>        return i;<br>      }<br>    }<br>  },<br>  last: function(y) {<br>    var i = this.free(y);<br>    if (i) {<br>      return i - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  className: function(x, y) {<br>    return this.get(x, y).className;<br>  }<br>};<br><br>var player1 = new Player(1);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(to) {<br>    var x = this.player.last(to.dataset.y);<br>    if (x) {<br>      this.memo = {x: x, y: +to.dataset.y, className: this.player.className(x, +to.dataset.y)};<br>    }<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    game.select(this);<br>  });<br>}",
+                dom: function() {
+                    return might.bind(might);
+                },
+                answer: function() {
+                    var player = new Player(1);
+                    player.get(1, 4).click();
+                    if (game.memo.x !== 2 || game.memo.y !== 4)
+                        this.warn = this.warn || "Au clic sur le <code>td</code> en case 1,4 <code>game.memo</code> doit être initialisée à <code>{x: 2, y: 4}</code> car il s'agit de la dernière case avec une classe de cette colonne.";
+
+                    return !this.warn;
+                }
+            }, {
+                title: "Déplacer un péon",
+                description: "Lors d'un clic sur une colonne occupée, puis sur autre un colonne, le <code>memo</code> (c'est à dire la dernière case occupée de la colonne du premier clic), est déplacé vers la première case libre de la seconde colonne cliquée. Si les deux colonnes sont identiques, rien ne se passe. Si la seconde colonne n'a plus d'espace libre, rien ne se passe non plus.",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"][data-p=\"' + this.name + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(y) {<br>    for (var i = 1; i <= 4; i++) {<br>      var td = this.get(i, y);<br>      if (!td.className) {<br>        return i;<br>      }<br>    }<br>  },<br>  last: function(y) {<br>    var i = this.free(y);<br>    if (i) {<br>      return i - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  className: function(x, y) {<br>    return this.get(x, y).className;<br>  }<br>};<br><br>var player1 = new Player(1);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(to) {<br>    var x = this.player.last(to.dataset.y);<br>    if (x) {<br>      this.memo = {x: x, y: +to.dataset.y, className: this.player.className(x, +to.dataset.y)};<br>    }<br>  },<br>  move: function(to) {<br>    if (+to.dataset.y === this.memo.y)<br>      return;<br><br>    var x = this.player.free(to.dataset.y);<br>    if (x) {<br>      this.player.set(x, to.dataset.y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br>    }<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    if (game.memo) {<br>      game.move(this);<br>    } else if (this.className) {<br>      game.select(this);<br>    }<br>  });<br>}",
+                dom: function() {
+                    return might.bind(might);
+                },
+                answer: function() {
+                    var player = new Player(1);
+                    player.get(1, 5).click();
+                    player.get(1, 3).click();
+                    if (player.get(1, 3).className !== 'peon' || player.get(1, 5).className !== '')
+                        this.warn = this.warn || "Au clic sur le <code>td</code> en case 1,5 puis 1,3 leur classes doivent s'intervertir.";
+
+                    player.get(1, 3).click();
+                    player.get(1, 4).click();
+                    if (player.get(3, 4).className !== 'peon' || player.get(1, 3).className !== '')
+                        this.warn = this.warn || "Au clic sur le <code>td</code> en case 1,5 puis 1,4 la colonne 3 doit contenir 3 péons.";
+
+                    return !this.warn;
+                }
+            }, {
+                title: "Gérer le tour des joueurs",
+                description: "Lors du déplacement d'une case, diminuer le nombre de coups du joueur en cours de 1. Si ce nombre tombe à 0, supprimer la classe <code>active</code> de sa <code>table</code> et l'ajouter à la <code>table</code> de l'autre joueur. Les méthodes pour effectuer ces modifications peuvent être ajoutées à la classe <code>Player</code>. Modifier le compteur de tour dans le <code>th</code> de la <code>table</code> des joueurs. Lorsque ce n'est pas son tour, les <code>td</code> de la <code>table</code> d'un joueur ne doivent pas être cliquable.",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  life: '♥♥',<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"][data-p=\"' + this.name + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(y) {<br>    for (var i = 1; i <= 4; i++) {<br>      var td = this.get(i, y);<br>      if (!td.className) {<br>        return i;<br>      }<br>    }<br>  },<br>  last: function(y) {<br>    var i = this.free(y);<br>    if (i) {<br>      return i - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  className: function(x, y) {<br>    return this.get(x, y).className;<br>  },<br>  title: function(moves) {<br>    this.table.querySelector('th').innerHTML = moves + ' ' + this.life;<br>  },<br>  stop: function() {<br>    this.table.classList.remove('active');<br>  },<br>  start: function() {<br>    this.table.classList.add('active');<br>  }<br>};<br><br>var player1 = new Player(1);<br>var player2 = new Player(2);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(to) {<br>    var x = this.player.last(to.dataset.y);<br>    if (x) {<br>      this.memo = {x: x, y: +to.dataset.y, className: this.player.className(x, +to.dataset.y)};<br>    }<br>  },<br>  move: function(to) {<br>    if (+to.dataset.y === this.memo.y)<br>      return;<br><br>    var x = this.player.free(to.dataset.y);<br>    if (x) {<br>      this.player.set(x, to.dataset.y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br><br>      this.moves--;<br>      this.player.title(this.moves);<br>      if (this.moves === 0) {<br>        this.player.stop();<br><br>        this.player = this.opponent();<br>        this.player.start();<br>        this.moves = 2;<br>        this.player.title(this.moves);<br>      }<br>    }<br>  },<br>  opponent: function() {<br>    return this.player === player1 ? player2 : player1;<br>  },<br>  isActivePlayer(playerName) {<br>    return this.player.name === playerName;<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    if (!game.isActivePlayer(+this.dataset.p)) {<br>      return;<br>    }<br><br>    if (game.memo) {<br>      game.move(this);<br>    } else if (this.className) {<br>      game.select(this);<br>    }<br>  });<br>}",
+                dom: function() {
+                    return might.bind(might);
+                },
+                answer: function() {
+                    var player = new Player(1);
+                    player.get(1, 5).click();
+                    player.get(1, 3).click();
+                    if (player.table.querySelector('th').innerHTML !== '1 ♥♥')
+                        this.warn = this.warn || "Après 1 déplacement, le compteur du joueur 1 doit indiquer 1 ♥♥.";
+
+                    player.get(1, 3).click();
+                    player.get(1, 4).click();
+                    if (player.table.querySelector('th').innerHTML !== '0 ♥♥')
+                        this.warn = this.warn || "Après 2 déplacement, le compteur du joueur 1 doit indiquer 0 ♥♥.";
+
+                    var opponent = new Player(2);
+                    opponent.get(1, 3).click();
+                    opponent.get(1, 4).click();
+                    if (opponent.get(1, 3).className !== '' || opponent.get(1, 4).className !== 'peon')
+                        this.warn = this.warn || "Au clic sur le <code>td</code> en case 1,3 puis 1,2 du joueur 2 la colonne 2 doit contenir 3 péons.";
+
+                    if (opponent.table.querySelector('th').innerHTML !== '1 ♥♥')
+                        this.warn = this.warn || "Après 1 déplacement, le compteur du joueur 2 doit indiquer 1 ♥♥.";
+
+                    return !this.warn;
+                }
+            }, {
+                title: "La tête brûlée",
+                description: "Lorsque 3 péons sont dans la même colonnes, ils sont supprimés et une unique tête brûlée (un <code>td.attack</code>) les remplace en début de colonne.",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  life: '♥♥',<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"][data-p=\"' + this.name + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(y) {<br>    for (var i = 1; i <= 4; i++) {<br>      var td = this.get(i, y);<br>      if (!td.className) {<br>        return i;<br>      }<br>    }<br>  },<br>  last: function(y) {<br>    var i = this.free(y);<br>    if (i) {<br>      return i - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  className: function(x, y) {<br>    return this.get(x, y).className;<br>  },<br>  title: function(moves) {<br>    this.table.querySelector('th').innerHTML = moves + ' ' + this.life;<br>  },<br>  stop: function() {<br>    this.table.classList.remove('active');<br>  },<br>  start: function() {<br>    this.table.classList.add('active');<br>  },<br>  column: function(y) {<br>    var x = this.last(y);<br>    var td1 = (x === 3) ? this.get(1, y) : this.get(2, y);<br>    var td2 = (x === 3) ? this.get(2, y) : this.get(3, y);<br>    var td3 = (x === 3) ? this.get(3, y) : this.get(4, y);<br>    if (td1.className === 'peon' && td1.className === td2.className && td2.className === td3.className) {<br>      td1.className = 'attack';<br>      td2.className = td3.className = '';<br>    }<br>  }<br>};<br><br>var player1 = new Player(1);<br>var player2 = new Player(2);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(to) {<br>    var x = this.player.last(to.dataset.y);<br>    if (x) {<br>      this.memo = {<br>        x: x,<br>        y: +to.dataset.y,<br>        className: this.player.className(x, +to.dataset.y)<br>      };<br>    }<br>  },<br>  move: function(to) {<br>    if (+to.dataset.y === this.memo.y)<br>      return;<br><br>    var x = this.player.free(to.dataset.y);<br>    if (x) {<br>      this.player.set(x, to.dataset.y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br><br>      this.player.column(to.dataset.y)<br><br>      this.moves--;<br>      this.player.title(this.moves);<br>      if (this.moves === 0) {<br>        this.player.stop();<br><br>        this.player = this.opponent();<br>        this.player.start();<br>        this.moves = 2;<br>        this.player.title(this.moves);<br>      }<br>    }<br>  },<br>  opponent: function() {<br>    return this.player === player1 ? player2 : player1;<br>  },<br>  isActivePlayer(playerName) {<br>    return this.player.name === playerName;<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    if (!game.isActivePlayer(+this.dataset.p)) {<br>      return;<br>    }<br><br>    if (game.memo) {<br>      game.move(this);<br>    } else if (this.className) {<br>      game.select(this);<br>    }<br>  });<br>}",
+                dom: function() {
+                    return might.bind(might);
+                },
+                answer: function() {
+                    var player = new Player(1);
+                    player.get(1, 5).click();
+                    player.get(1, 4).click();
+                    if (player.get(1, 4).className !== 'attack')
+                        this.warn = this.warn || "Après 1 déplacement d'un <code>td</code> en 1,4 les 3 péons doivent se transformer en une tête brûlée.";
+
+                    return !this.warn;
+                }
+            }, {
+                title: "L'attaque de la tête brûlée",
+                description: "Au clic sur une tête brûlée, celle-ci disparait et diminue d'un point le nombre de ♥ de l'adversaire. Si l'adversaire n'a plus de ♥, un x est affiché à la place et la partie prend fin (plus aucune case n'est cliquable).",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  life: '♥♥',<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"][data-p=\"' + this.name + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(y) {<br>    for (var i = 1; i <= 4; i++) {<br>      var td = this.get(i, y);<br>      if (!td.className) {<br>        return i;<br>      }<br>    }<br>  },<br>  last: function(y) {<br>    var i = this.free(y);<br>    if (i) {<br>      return i - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  className: function(x, y) {<br>    return this.get(x, y).className;<br>  },<br>  setClassName: function(x, y, className) {<br>    this.get(x, y).className = className;<br>  },<br>  title: function(moves) {<br>    this.table.querySelector('th').innerHTML = moves + ' ' + this.life;<br>  },<br>  stop: function() {<br>    this.table.classList.remove('active');<br>  },<br>  start: function() {<br>    this.table.classList.add('active');<br>  },<br>  column: function(y) {<br>    var x = this.last(y);<br>    var td1 = (x === 3) ? this.get(1, y) : this.get(2, y);<br>    var td2 = (x === 3) ? this.get(2, y) : this.get(3, y);<br>    var td3 = (x === 3) ? this.get(3, y) : this.get(4, y);<br>    if (td1.className === 'peon' && td1.className === td2.className && td2.className === td3.className) {<br>      td1.className = 'attack';<br>      td2.className = td3.className = '';<br>    }<br>  },<br>  smash: function(y) {<br>    for (var i = 2; i < 4; i++) {<br>      this.setClassName(i-1, y, this.className(i, y));<br>    }<br>    this.setClassName(4, y, '');<br>  },<br>  hurt: function() {<br>    if (this.life === '♥♥')<br>      this.life = '♥';<br>    else<br>      this.life = 'x';<br>  },<br>  dead: function() {<br>    return this.life === 'x';<br>  }<br>};<br><br>var player1 = new Player(1);<br>var player2 = new Player(2);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(to) {<br>    if (to.className === 'attack') {<br>      this.player.smash(to.dataset.y);<br><br>      this.opponent().hurt();<br>      this.opponent().title(this.moves - 1);<br>      if (this.opponent().dead()) {<br>        this.player.stop();<br>        this.player.name = '-- end game --';<br>      } else {<br>        this.next();<br>      }<br>    }<br><br>    var x = this.player.last(to.dataset.y);<br>    if (x) {<br>      this.memo = {<br>        x: x,<br>        y: +to.dataset.y,<br>        className: this.player.className(x, +to.dataset.y)<br>      };<br>    }<br>  },<br>  move: function(to) {<br>    if (+to.dataset.y === this.memo.y)<br>      return;<br><br>    var x = this.player.free(to.dataset.y);<br>    if (x) {<br>      this.player.set(x, to.dataset.y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br><br>      this.player.column(to.dataset.y)<br>      this.next();<br>    }<br>  },<br>  next: function() {<br>    this.moves--;<br>    this.player.title(this.moves);<br>    if (this.moves === 0) {<br>      this.player.stop();<br><br>      this.player = this.opponent();<br>      this.player.start();<br>      this.moves = 2;<br>      this.player.title(this.moves);<br>    }<br>  },<br>  opponent: function() {<br>    return this.player === player1 ? player2 : player1;<br>  },<br>  isActivePlayer(playerName) {<br>    return this.player.name === playerName;<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    if (!game.isActivePlayer(+this.dataset.p)) {<br>      return;<br>    }<br><br>    if (game.memo) {<br>      game.move(this);<br>    } else if (this.className) {<br>      game.select(this);<br>    }<br>  });<br>}",
+                dom: function() {
+                    return might.bind(might);
+                },
+                answer: function() {
+                    var player = new Player(1);
+                    player.get(1, 5).click();
+                    player.get(1, 4).click();
+                    player.get(1, 1).click();
+                    player.get(1, 6).click();
+
+                    var opponent = new Player(2);
+                    opponent.get(1, 2).click();
+                    opponent.get(1, 3).click();
+                    opponent.get(1, 3).click();
+                    opponent.get(1, 2).click();
+
+                    player.get(1, 4).click();
+                    player.get(1, 6).click();
+
+                    if (opponent.table.querySelector('th').innerHTML !== '0 x')
+                        this.warn = this.warn || "Après 2 attaques, le compteur du joueur 2 doit indiquer 0 x.";
+
+                    return !this.warn;
+                }
+            }
         ]
-    }*/
+    }
 ];
 
 let digest = function(el, data, methods) {
@@ -2841,15 +3084,17 @@ let stepper = function(el, data, methods) {
                 }
             },
             divulge: function() {
-                el.querySelector('[data-hook=divulge]').innerHTML = `
-                    <a class="ui ${chapterContent.color} ribbon label">
-                        <i class="bug icon"></i>Solution
-                    </a>
-                    <p><pre><code class="hidden">${stepContent.solved}</code></pre></p>`;
+                if (stepContent.solved) {
+                    el.querySelector('[data-hook=divulge]').innerHTML = `
+                        <a class="ui ${chapterContent.color} ribbon label">
+                            <i class="bug icon"></i>Solution
+                        </a>
+                        <p><pre><code class="hidden">${stepContent.solved}</code></pre></p>`;
 
-                el.querySelector('[data-hook=divulge] .ribbon').addEventListener('click', function() {
-                    this.parentNode.querySelector('code').classList.toggle('hidden');
-                });
+                    el.querySelector('[data-hook=divulge] .ribbon').addEventListener('click', function() {
+                        this.parentNode.querySelector('code').classList.toggle('hidden');
+                    });
+                }
             }
         }
     }
