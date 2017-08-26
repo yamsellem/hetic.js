@@ -101,7 +101,7 @@ h3 a {
 .ui.card.h-grey > .content:first-child { background-color: #767676; }
 .ui.card.h-pink > .content:first-child { background-color: #DF3A9B; }
 .ui.card.h-orange > .content:first-child { background-color: #F27200; }
-.ui.card.h-olive > .content:first-child { background-color: #B6CD00; }
+.ui.card.h-teal > .content:first-child { background-color: #00b5ad; }
 
 .ui.card.h-colored > .content:first-child > .header {
     color: white;

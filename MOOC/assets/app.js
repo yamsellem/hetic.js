@@ -135,7 +135,7 @@ let sliding = function() {
                 <li class="square7"></li>
                 <li class="square8"></li>
             </ul>
-            <button class="ui red button">Mélanger</button>
+            <button class="ui pink button">Mélanger</button>
         </div>
     `;
 }
@@ -184,7 +184,7 @@ let booking = function() {
     return `
         <div class="booking">
             <div class="ui stackable grid">
-                <div class="sixteen wide orange center aligned column">
+                <div class="sixteen wide yellow center aligned column">
                     <h4 class="ui header">
                         <i class="plane icon"></i>
                         <div class="content">Réserver un vol</div>
@@ -356,9 +356,9 @@ let might = function() {
     var html = '<div class="might">';
     for (var y = 0; y < 8; y++) {
         if (y === 0)
-            html += '<table class="active" data-p="1"><thead><th class="floating ui pink label">2 ♥♥</th></thead><tbody>';
+            html += '<table class="active" data-p="1"><thead><th class="floating ui teal label">2 ♥♥</th></thead><tbody>';
         else if (y === 4)
-            html += '<table data-p="2"><thead><th class="floating ui pink label">0 ♥♥</th></thead><tbody>';
+            html += '<table data-p="2"><thead><th class="floating ui teal label">0 ♥♥</th></thead><tbody>';
 
         html += '<tr>';
         for (var x = 0; x < 6; x++) {
@@ -427,7 +427,7 @@ let getClassNames = function(selector) {
 
 let chapters = [
     {
-        title: "Bases du langage",
+        title: "Bases du langage, opérations",
         description: "JavaScript est un langage de programmation dynamique, principalement utilisé dans les navigateurs web pour interagir avec l'utilisateur, modifier l'état de la page et communiquer avec un serveur de façon asynchrone. Depuis peu, il est aussi utilisé côté serveur à l'aide d'environnements d'exécution (<i>comme Node.js</i>).<br><br>Ce chapitre présente les bases du language, les variables (<i>nombres, chaines de caractères, etc</i>), les opérations (<i>addition, concaténation</i>), les conditions et le boucles.",
         color: "green",
         steps: [
@@ -497,7 +497,14 @@ let chapters = [
                 answer: function() {
                     return secret === this.secret();
                 }
-            },
+            }
+        ]
+    },
+    {
+        title: "Bases du langage, conditions et boucles",
+        description: "JavaScript est un langage de programmation dynamique, principalement utilisé dans les navigateurs web pour interagir avec l'utilisateur, modifier l'état de la page et communiquer avec un serveur de façon asynchrone. Depuis peu, il est aussi utilisé côté serveur à l'aide d'environnements d'exécution (<i>comme Node.js</i>).<br><br>Ce chapitre présente les bases du language, les variables (<i>nombres, chaines de caractères, etc</i>), les opérations (<i>addition, concaténation</i>), les conditions et le boucles.",
+        color: "green",
+        steps: [
             {
                 title: "Retourner le plus grand de deux nombres",
                 description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur du plus grand nombre parmi <code>x</code> et <code>y</code> (<i>déclarées par ce tutoriel</i>).",
@@ -652,7 +659,14 @@ let chapters = [
                 answer: function() {
                     return secret === this.secret();
                 }
-            },
+            }
+        ]
+    },
+    {
+        title: "Bases du langage, tableaux",
+        description: "JavaScript est un langage de programmation dynamique, principalement utilisé dans les navigateurs web pour interagir avec l'utilisateur, modifier l'état de la page et communiquer avec un serveur de façon asynchrone. Depuis peu, il est aussi utilisé côté serveur à l'aide d'environnements d'exécution (<i>comme Node.js</i>).<br><br>Ce chapitre présente les bases du language, les variables (<i>nombres, chaines de caractères, etc</i>), les opérations (<i>addition, concaténation</i>), les conditions et le boucles.",
+        color: "green",
+        steps: [
             {
                 title: "Créer un tableau",
                 description: "Créer une variable nommée <code>secret</code> de type tableau et lui ajouter les valeurs de <code>x</code> et de <code>y</code> (<i>déclarées par ce tutoriel</i>).",
@@ -748,7 +762,14 @@ let chapters = [
                 answer: function() {
                     return secret === this.secret();
                 }
-            },
+            }
+        ]
+    },
+    {
+        title: "Bases du langage, dictionnaires",
+        description: "JavaScript est un langage de programmation dynamique, principalement utilisé dans les navigateurs web pour interagir avec l'utilisateur, modifier l'état de la page et communiquer avec un serveur de façon asynchrone. Depuis peu, il est aussi utilisé côté serveur à l'aide d'environnements d'exécution (<i>comme Node.js</i>).<br><br>Ce chapitre présente les bases du language, les variables (<i>nombres, chaines de caractères, etc</i>), les opérations (<i>addition, concaténation</i>), les conditions et le boucles.",
+        color: "green",
+        steps: [
             {
                 title: "Créer un dictionnaire (ou un objet littéral)",
                 description: "Créer une variable nommée <code>secret</code> de type dictionnaire avec deux clés, <code>min</code> et <code>max</code>, ayant pour valeur le minimum et le maximum des valeurs <code>x</code> et <code>y</code> (<i>ex. 7, 5 -> {min: 5, max: 7} — déclarées par ce tutoriel</i>).",
@@ -1076,258 +1097,173 @@ let chapters = [
             }
         ]
     }, {
-        title: "Composant | Todolist",
-        description: "Pour faciliter la réalisation d'applications et leur maintenance, plusieurs approches MV* (<i>modèle, vue & co</i>) ont vu le jour ces dernières années. Un modèle stocke l'état de l'application (<i>ex. les articles dans un panier</i>). Les vues affichent les informations issues d'un ou plusieurs modèles, modifient ceux-ci, et se rafraichissent.<br><br>Ce chapitre présente la réalisation d'une liste de tâches pas à pas. Il propose dans un premier temps de manipuler le DOM de façon classique, puis, dans un second temps, d'utiliser une approche MV*.",
-        color: "violet",
+        title: "Dates",
+        description: "Les dates sont des types natifs comme les nombres ou les chaines de caractères. Chaque date représente un instant du calendrier, précis à la miliseconde près. Les langages de programmation ne facilitent pas forcément la comparaison de dates, leur formatage ou la gestion de différents fuseaux horaires.<br><br>Ce chapitre présente la manipulation de dates avec la librairie moment — qui en facilite grandement l'usage.",
+        color: "yellow",
         steps: [
             {
-                title: "Ajouter un todo",
-                description: "Ajouter un <code>li</code> au <code>.todos ul</code> existant à chaque appui sur entrée dans le champ de formulaire. Ce nouveau <code>li</code> à pour texte la valeur saisie dans le champ de formulaire.",
-                excerpt: "Un écouteur d'événement reçoit en premier paramètre l'événement qui l'a déclenché. s'il s'agit d'un événement clavier <code>keypress</code> celui indique via <code>event.keyCode</code> quelle touche a été saisie, et via <code>event.target.value</code> quelle est la valeur actuelle du champ de formulaire.<br><br><strong>Exemple</strong> : <pre><code>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) { <br>  console.log(event.keyCode, event.target.value); <br>});</code></pre> affiche ces deux informations à chaque saisie dans le premier <code>input</code> de la page.",
-                solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    var ul = document.querySelector('.todos ul');<br>    ul.innerHTML = '&lt;li class=\"item\"&gt;&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value + '&lt;/li&gt;';<br>  }<br>});",
+                title: "Formatter des dates",
+                description: "Mettre en forme les dates saisies dans <code>.from input</code> et <code>.to input</code> de façon a ce qu'elles s'affichent dans <code>.from .formatted</code> et <code>.to .formatted</code> sous le format « JANV. 10 » (<i>premières initiales du mois, suivies du jour, avec la locale française</i>).",
+                excerpt: "La librairie <a target=\"_blank\" href=\"http://momentjs.com/\">moment</a> permet de manipuler facilement des dates, et, notamment, de les mettre en forme en fonction de la locale.",
+                solved: "/* à ajouter avant le script principal<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js\"&gt;&lt;/script&gt;<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/fr.js\"&gt;&lt;/script&gt;<br>*/<br>document.querySelector('.booking .from input').addEventListener('change', function() {<br>  var date = moment(this.value);<br>  document.querySelector('.from .formatted').innerHTML = date.format('MMM').toUpperCase() + ' ' + date.format('D');<br>});<br><br>document.querySelector('.booking .to input').addEventListener('change', function() {<br>  var date = moment(this.value);<br>  document.querySelector('.to .formatted').innerHTML = date.format('MMM').toUpperCase() + ' ' + date.format('D');<br>});",
                 dom: function() {
-                    return todolist.bind(todolist);
+                    return booking.bind(booking);
                 },
                 answer: function() {
-                    let input = document.querySelector('input');
+                    var from = {
+                        input: document.querySelector('.from input'),
+                        formatted: document.querySelector('.from .formatted')
+                    }
+                    var to = {
+                        input: document.querySelector('.to input'),
+                        formatted: document.querySelector('.to .formatted')
+                    }
 
-                    input.value = 'apple';
-                    keypress(input, 13);
+                    from.input.value = '2017-01-24';
+                    change(from.input);
 
-                    let lis = document.querySelectorAll('.todos ul li');
+                    to.input.value = '2017-01-26';
+                    change(to.input);
 
-                    if (lis.length !== 1)
-                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, un <code>li</code> doit être créé dans le <code>.todos ul</code>";
-                    if (elContains(lis[0], 'apple') !== true)
-                        this.warn = this.warn || "Le <code>li</code> doit contenir le mot saisi dans l'input";
-
+                    if (elContains(from.formatted, 'JANV. 24') !== true)
+                        this.warn = this.warn || "La date affichée dans <code>.from .formatted</code> doit être égale à JANV. 24, lorsque la date saisie est le 24 janvier";
+                    if (elContains(to.formatted, 'JANV. 26') !== true)
+                        this.warn = this.warn || "La date affichée dans <code>.to .formatted</code> doit être égale à JANV. 26, lorsque la date saisie est le 26 janvier";
                     return !this.warn;
                 }
             },
             {
-                title: "Ajouter plusieurs todos",
-                description: "Si le champ de formulaire est vide, aucun <code>li</code> ne doit être créé. Et, losqu'un <code>li</code> est créé, le champ de formulaire doit être vidé.",
-                solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    var ul = document.querySelector('.todos ul');<br>    ul.innerHTML += '&lt;li class=\"item\"&gt;&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value + '&lt;/li&gt;';<br>    event.target.value ='';<br>  }<br>});",
+                title: "Limiter les dates",
+                description: "Si la date de retour saisie est antérieure ou égale à la date de l'aller, elle est par défaut 1 jour après l'aller (<i>l'aller est le 12 janvier, la date de retour doit être le 13 janvier au plus tôt</i>).",
+                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>});",
                 dom: function() {
-                    return todolist.bind(todolist);
+                    return booking.bind(booking);
                 },
                 answer: function() {
-                    let input = document.querySelector('input');
-                    input.value = '';
-                    keypress(input, 13);
+                    var from = {
+                        input: document.querySelector('.from input'),
+                        formatted: document.querySelector('.from .formatted')
+                    }
+                    var to = {
+                        input: document.querySelector('.to input'),
+                        formatted: document.querySelector('.to .formatted')
+                    }
 
-                    input.value = 'apple';
-                    keypress(input, 13);
+                    from.input.value = '2017-01-24';
+                    change(from.input);
 
-                    input.value = 'pear';
-                    keypress(input, 13);
+                    to.input.value = '2017-01-24';
+                    change(to.input);
 
-                    let lis = document.querySelectorAll('.todos ul li');
-
-                    if (input.value !== '')
-                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, l'input doit être vidé";
-                    if (lis.length !== 2)
-                        this.warn = this.warn || "À la saisie d'un mot vide, puis d'entrée, aucun <code>li</code> ne doit être créé";
-                    if (elContains(lis[0], 'apple') !== true)
-                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, un <code>li</code> doit être créé";
-                    if (elContains(lis[1], 'pear') !== true)
-                        this.warn = this.warn || "À la saisie d'un second mot, puis d'entrée, un second <code>li</code> doit être créé";
-
+                    if (elContains(from.formatted, 'JANV. 24') !== true)
+                        this.warn = this.warn || "La date affichée dans <code>.from .formatted</code> doit être égale à JANV. 24, lorsque la date saisie est le 24 janvier";
+                    if (elContains(to.formatted, 'JANV. 25') !== true)
+                        this.warn = this.warn || "La date affichée dans <code>.to .formatted</code> doit être égale à JANV. 25, lorsque la date de l'aller est le 24 janvier et que la date saisie lui est antérieure";
+                    if (to.input.value !== '2017-01-25')
+                        this.warn = this.warn || "La date de l'input <code>.to</code> doit être égale au 25 janvier, lorsque la date de l'aller est le 24 janvier et que la date saisie lui est antérieure";
                     return !this.warn;
                 }
             },
             {
-                title: "Supprimer des todos",
-                description: "Lorsqu'un <code>li</code> est ajouté au <code>.todos ul</code> existant, son texte est préfixé par <code>&lt;i class=\"remove icon\"&gt;&lt;/i&gt;</code>. Cette balise fait apparaitre une croix devant son nom. Au clic sur cette croix, le <code>li</code> doit être supprimé.",
-                excerpt: "À la création d'un élément dans le DOM, il est possible d'ajouter un écouteur d'événement sur un de ses sous éléments, ou sur lui même.",
-                solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    var ul = document.querySelector('.todos ul');<br>    var li = document.createElement('li');<br>    li.className = 'item';<br>    li.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value;<br>    li.querySelector('i').addEventListener('click', function() {<br>      li.remove();<br>    });<br>    ul.appendChild(li);<br>    event.target.value = '';<br>  }<br>});",
+                title: "Compter le nombre de jours de voyage",
+                description: "Pour chaque jour de voyage, compter 40€, et afficher le total dans <code>.price</code>.",
+                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = to.value.diff(from.value, 'days') + 1;<br>  document.querySelector('.price').innerHTML = 40 * days + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});",
                 dom: function() {
-                    return todolist.bind(todolist);
+                    return booking.bind(booking);
                 },
                 answer: function() {
-                    let input = document.querySelector('input');
-                    input.value = 'apple';
-                    keypress(input, 13);
+                    var from = {
+                        input: document.querySelector('.from input'),
+                        formatted: document.querySelector('.from .formatted')
+                    }
+                    var to = {
+                        input: document.querySelector('.to input'),
+                        formatted: document.querySelector('.to .formatted')
+                    }
 
-                    input.value = 'pear';
-                    keypress(input, 13);
+                    from.input.value = '2017-01-24';
+                    change(from.input);
 
-                    let remove = document.querySelector('.todos ul .remove.icon');
-                    remove.click();
+                    to.input.value = '2017-01-27';
+                    change(to.input);
 
-                    let lis = document.querySelectorAll('.todos ul li');
-
-                    if (lis.length !== 1)
-                        this.warn = this.warn || "Après l'ajout d'un <code>li</code> un clic sur la croix du premier doit le supprimer";
-                    if (elContains(lis[0], 'pear') !== true)
-                        this.warn = this.warn || "Après l'ajout de deux <code>li</code> un clic sur la croix du premier ne doit laisser que le second dans la liste";
-
+                    if (elContains(document.querySelector('.price'), '160€') !== true)
+                        this.warn = "Le prix doit être de 160€ pour un voyage du 24 au 27 janvier";
                     return !this.warn;
                 }
             },
             {
-                title: "Cocher les todos",
-                description: "Lorsqu'un <code>li</code> est cliqué, la classe <code>done</code> doit lui être ajoutée. S'il est cliqué de nouveau, cette classe est supprimée.",
-                solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    var ul = document.querySelector('.todos ul');<br>    var li = document.createElement('li');<br>    li.className = 'item';<br>    li.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value;<br>    li.querySelector('i').addEventListener('click', function() {<br>      li.remove();<br>    });<br>    li.addEventListener('click', function() {<br>        li.classList.toggle('done');<br>    });<br>    ul.appendChild(li);<br>    event.target.value = '';<br>  }<br>});",
+                title: "Multiplier par le nombre de voyageurs",
+                description: "Pour chaque voyageur, multiplier le prix (<i>un voyage à 80€ coûtera 240€ pour 3 voyageurs</i>).",
+                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br>var passengers = 1;<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = to.value.diff(from.value, 'days') + 1;<br>  document.querySelector('.price').innerHTML = 40 * days * passengers + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});<br><br>document.querySelector('select').addEventListener('change', function() {<br>  passengers = this.value;<br>  total();<br>});",
                 dom: function() {
-                    return todolist.bind(todolist);
+                    return booking.bind(booking);
                 },
                 answer: function() {
-                    let input = document.querySelector('input');
-                    input.value = 'apple';
-                    keypress(input, 13);
+                    var from = {
+                        input: document.querySelector('.from input'),
+                        formatted: document.querySelector('.from .formatted')
+                    }
+                    var to = {
+                        input: document.querySelector('.to input'),
+                        formatted: document.querySelector('.to .formatted')
+                    }
 
-                    input.value = 'pear';
-                    keypress(input, 13);
+                    from.input.value = '2017-01-24';
+                    change(from.input);
 
-                    let lis = document.querySelectorAll('.todos ul li');
+                    to.input.value = '2017-01-27';
+                    change(to.input);
 
-                    if (lis.length !== 2)
-                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, à deux reprises, deux <code>li</code> doivent être créés dans le <code>.todos ul</code>";
+                    var select = document.querySelector('select');
+                    select.value = 3;
+                    change(select);
 
-                    lis[0].click(); lis[0].click(); lis[0].click();
-                    lis[1].click(); lis[1].click();
-
-                    lis = document.querySelectorAll('.todos ul li');
-
-                    if (elContains(lis[0], 'apple') !== true)
-                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, un <code>li</code> doit être créé";
-                    if (elContains(lis[1], 'pear') !== true )
-                        this.warn = this.warn || "À la saisie d'un second mot, puis d'entrée, un second <code>li</code> doit être créé";
-
-                    if (lis[0].classList.contains('done') !== true)
-                        this.warn = this.warn || "Après avoir été cliqué trois fois, le premier <code>li</code> doit avoir la classe <code>done</code>";
-                    if (lis[1].classList.contains('done') !== false)
-                        this.warn = this.warn || "Après avoir été cliqué deux fois, le second <code>li</code> ne doit pas avoir la classe <code>done</code>";
-
+                    if (elContains(document.querySelector('.price'), '480€') !== true)
+                        this.warn = "Le prix doit être de 160€ pour un voyage du 24 au 27 janvier pour 3 voyageurs";
                     return !this.warn;
                 }
             },
             {
-                title: "Séparer le modèle de la vue",
-                description: "Créer une variable <code>todos</code> pour stocker l'état du composant (<i>combien d'éléments, lesquels sont cochés, etc</i>). À chaque modification de cette variable, appeller une méthode <code>render</code> charger de mettre à jour l'affichage.",
-                excerpt: "Au lieu d'ajouter directement les <code>li</code> au DOM, créer un tableau <code>todos</code> et une méthode <code>render</code>. À chaque appui sur entrée dans le champ de formulaire, ajouter un object <code>{name: event.target.value, done: false}</code> au tableau <code>todos</code> et déclencher la méthode <code>render</code>. Le rôle de cette méthode est de vider le contenu du <code>ul</code> à chaque fois, et de parcourir le tableau <code>todos</code> afin de générer autant de <code>li</code> qu'il y a d'éléments dans le tableau. <br><br>Au lieu de modifier le DOM lors des événements (<i>clic sur la croix ou clic sur le nom du todo</i>), c'est l'élément du tableau qui est modifié et la méthode <code>render</code> qui est appellée de nouveau. Ce découpage sépare le modèle (<i>les données</i>) de la vue (<i>l'affichage</i>) et va simplifier les opérations suivantes. Supprimer et afficher de nouveaux tous les éléments n'est pas coûteux en terme de performance, tant que leur nombre n'est pas très grand.",
-                solved: "var todos = [];<br>var render = function() {<br>  var ul = document.querySelector('.todos ul');<br>  ul.innerHTML = '';<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br><br>    let li = document.createElement('li');<br>    li.classList.add('item');<br>    li.classList.toggle('done', todo.done);<br>    li.innerHTML = todo.name;<br><br>    li.querySelector('i').addEventListener('click', function() {<br>      todos.splice(i, 1);<br>      render();<br>    });<br>    li.addEventListener('click', function() {<br>      todo.done = !todo.done;<br>      render();<br>    });<br><br>    ul.appendChild(li);<br>  }<br>}<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});",
+                title: "Décompter les weekends",
+                description: "Les samedis et dimanches ne sont pas facturés (<i>vendredi, samedi, dimanche coûtera 40€ — 1 jour —, vendredi, samedi, dimanche, lundi coûtera 80€ — 2 jours —, du lundi au lundi deux semaines après, coûtera 840€ — 11 jours</i>).",
+                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br>var passengers = 1;<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = 0;<br>  var clone = from.value.clone();<br>  while (clone.isSameOrBefore(to.value)) {<br>    if (clone.day() !== 6 && clone.day() !== 0)<br>      days++;<br>    clone.add(1, 'days');<br>  }<br><br>  document.querySelector('.price').innerHTML = 40 * days * passengers + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});<br><br>document.querySelector('select').addEventListener('change', function() {<br>  passengers = this.value;<br>  total();<br>});",
                 dom: function() {
-                    return todolist.bind(todolist);
+                    return booking.bind(booking);
                 },
                 answer: function() {
-                    let input = document.querySelector('input');
-                    input.value = 'apple';
-                    keypress(input, 13);
+                    var from = {
+                        input: document.querySelector('.from input'),
+                        formatted: document.querySelector('.from .formatted')
+                    }
+                    var to = {
+                        input: document.querySelector('.to input'),
+                        formatted: document.querySelector('.to .formatted')
+                    }
 
-                    input.value = 'pear';
-                    keypress(input, 13);
+                    from.input.value = '2017-01-27';
+                    change(from.input);
 
-                    let lis = document.querySelectorAll('.todos ul li');
-                    if (lis.length !== 2)
-                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, à deux reprises, deux <code>li</code> doivent être créés dans le <code>.todos ul</code>";
+                    to.input.value = '2017-01-30';
+                    change(to.input);
 
-                    let ul = document.querySelector('.todos ul');
-                    ul.innerHTML += '<li class="item done"><i class="remove icon"></i>banana</li>';
+                    var select = document.querySelector('select');
+                    select.value = 2;
+                    change(select);
 
-                    render && render();
+                    var basic = true;
+                    basic = basic && elContains(document.querySelector('.price'), '160€');
+                    if (elContains(document.querySelector('.price'), '160€') !== true)
+                        this.warn = this.warn || "Le prix doit être de 160€ pour un voyage de 4 jours incluant samedi et dimanche pour 2 voyageurs";
 
-                    lis = document.querySelectorAll('.todos ul li');
-                    if (lis.length !== 2)
-                        this.warn = this.warn || "À l'appel de la méthode <code>render</code>, les deux <code>li</code> doivent être créés de nouveau et remplacer ceux du <code>.todos ul</code>";
+                    from.input.value = '2017-01-13';
+                    change(from.input);
 
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Compter les todos",
-                description: "À chaque création d'un todo, le texte de <code>.filter-todo</code> doit afficher le nombre total de todo non cochés (<i>sans le classe <code>done</code></i>). Le texte de <code>.filter-done</code> affiche quant à lui, le nombre total de todo cochés (<i>avec la classe <code>done</code></i>). Penser au pluriel pour « 0 fait », « 1 fait » et « 2 faits ».",
-                solved: "var todos = [];<br>var render = function() {<br>  var ul = document.querySelector('.todos ul');<br>  ul.innerHTML = '';<br>  var todoCount = 0, doneCount = 0;<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br><br>    if (todo.done)<br>      doneCount++;<br>    else<br>      todoCount++;<br><br>    let li = document.createElement('li');<br>    li.classList.add('item');<br>    li.classList.toggle('done', todo.done);<br>    li.innerHTML = todo.name;<br><br>    li.querySelector('i').addEventListener('click', function() {<br>      todos.splice(i, 1);<br>      render();<br>    });<br>    li.addEventListener('click', function() {<br>      todo.done = !todo.done;<br>      render();<br>    });<br><br>    ul.appendChild(li);<br>  }<br><br>  document.querySelector('.filter-todo').innerHTML = todoCount + ' à faire';<br>  document.querySelector('.filter-done').innerHTML = doneCount + (doneCount > 1 ? ' faits' : ' fait');<br>}<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});",
-                dom: function() {
-                    return todolist.bind(todolist);
-                },
-                answer: function() {
-                    let input = document.querySelector('input');
-                    input.value = 'apple';
-                    keypress(input, 13);
+                    to.input.value = '2017-01-30';
+                    change(to.input);
 
-                    input.value = 'pear';
-                    keypress(input, 13);
-
-                    let lis = document.querySelectorAll('.todos ul li');
-                    let todoCount = document.querySelector('.filter-todo');
-                    let doneCount = document.querySelector('.filter-done');
-
-                    if (elContains(todoCount, '2 à faire') !== true)
-                        this.warn = this.warn || "Après la création de 2 todos, le compte todo doit indiquer « 2 à faire »"
-                    if (elContains(doneCount, '0 fait') !== true)
-                        this.warn = this.warn || "Après la création de 2 todos, le compte done doit indiquer « 0 fait »"
-
-                    lis[0].click();
-                    lis = document.querySelectorAll('.todos ul li');
-                    if (elContains(todoCount, '1 à faire') !== true)
-                        this.warn = this.warn || "Après la création de 2 todos et le clic sur l'un des deux, le compte todo doit indiquer « 1 à faire »"
-                    if (elContains(doneCount, '1 fait') !== true)
-                        this.warn = this.warn || "Après la création de 2 todos et le clic sur l'un des deux, le compte done doit indiquer « 1 fait »"
-
-                    lis[1].click();
-                    lis = document.querySelectorAll('.todos ul li');
-                    if (elContains(todoCount, '0 à faire') !== true)
-                        this.warn = this.warn || "Après la création de 2 todos et le clic sur les deux, le compte todo doit indiquer « 0 à faire »"
-                    if (elContains(doneCount, '2 faits') !== true)
-                        this.warn = this.warn || "Après la création de 2 todos et le clic sur les deux, le compte done doit indiquer « 2 faits »"
-
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Filtrer les todos",
-                description: "Au clic sur <code>.filter-done</code> cet élément récupère la classe <code>active</code> et seuls les todos terminés sont affichés. Idem pour <code>.filter-todo</code>. Seul un de ces deux boutons peut être actif à la fois. Cliquer sur un bouton actif le désactive (<i>et affiche ainsi tous les todos</i>). Plutôt que se baser sur le DOM pour savoir quel filtre est activé, utiliser une variable à 3 états, et modifier la méthode <code>render</code> pour la mise à jour de la classe <code>active</code> sur les boutons.",
-                solved: "var todos = [];<br>var state = 'all';<br>var render = function() {<br>  var ul = document.querySelector('.todos ul');<br>  ul.innerHTML = '';<br>  var todoCount = 0, doneCount = 0;<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br><br>    if (todo.done)<br>      doneCount++;<br>    else<br>      todoCount++;<br><br>    if (state !== 'all') {<br>      if ((state === 'todo' && todo.done) || (state === 'done' && !todo.done)) {<br>        continue;<br>      }<br>    }<br><br>    let li = document.createElement('li');<br>    li.classList.add('item');<br>    li.classList.toggle('done', todo.done);<br>    li.innerHTML = todo.name;<br><br>    li.querySelector('i').addEventListener('click', function() {<br>      todos.splice(i, 1);<br>      render();<br>    });<br>    li.addEventListener('click', function() {<br>      todo.done = !todo.done;<br>      render();<br>    });<br><br>    ul.appendChild(li);<br>  }<br><br>  document.querySelector('.filter-todo').innerHTML = todoCount + ' à faire';<br>  document.querySelector('.filter-done').innerHTML = doneCount + (doneCount > 1 ? ' faits' : ' fait');<br><br>  document.querySelector('.filter-todo').classList.toggle('active', state === 'todo');<br>  document.querySelector('.filter-done').classList.toggle('active', state === 'done');<br>}<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});<br><br>document.querySelector('.filter-todo').addEventListener('click', function() {<br>  if (state !== 'todo')<br>    state = 'todo';<br>  else<br>    state = 'all';<br>  render();<br>});<br><br>document.querySelector('.filter-done').addEventListener('click', function() {<br>  if (state !== 'done')<br>    state = 'done';<br>  else<br>    state = 'all';<br>  render();<br>});",
-                dom: function() {
-                    return todolist.bind(todolist);
-                },
-                answer: function() {
-                    let input = document.querySelector('input');
-                    input.value = 'apple';
-                    keypress(input, 13);
-
-                    input.value = 'pear';
-                    keypress(input, 13);
-
-                    input.value = 'banana';
-                    keypress(input, 13);
-
-                    let lis = document.querySelectorAll('.todos ul li');
-                    let todoCount = document.querySelector('.filter-todo');
-                    let doneCount = document.querySelector('.filter-done');
-
-                    lis[1].click();
-
-                    if (lis.length !== 3)
-                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, à trois reprises, trois <code>li</code> doivent être créés dans le <code>.todos ul</code>";
-                    if (elContains(todoCount, '2 à faire') !== true)
-                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, le compte todo doit indiquer « 2 à faire »";
-                    if (elContains(doneCount, '1 fait') !== true)
-                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, le compte done doit indiquer « 1 fait »";
-
-                    todoCount.click();
-                    lis = document.querySelectorAll('.todos ul li');
-                    if (lis.length !== 2)
-                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 2 à faire » seuls les deux todos concernés sont affichés";
-
-                    todoCount.click();
-                    lis = document.querySelectorAll('.todos ul li');
-                    if (lis.length !== 3)
-                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 2 à faire » à deux reprises, tous les todos sont affichés";
-
-                    doneCount.click();
-                    lis = document.querySelectorAll('.todos ul li');
-                    if (lis.length !== 1)
-                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » seul le todo concerné est affiché";
-                    if (elContains(lis[0], 'pear') !== true)
-                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » ce todo contient toujours la valeur d'origine";
-                    if (elContains(todoCount, '2 à faire') !== true)
-                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » le compte todo doit indiquer « 2 à faire »";
-                    if (elContains(doneCount, '1 fait') !== true)
-                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » le compte done doit indiquer « 1 fait »"
-
+                    if (elContains(document.querySelector('.price'), '960€') !== true)
+                        this.warn = this.warn || "Le prix doit être de 960€ pour un voyage de 18 jours incluant 3 samedis et dimanches pour 2 voyageurs";
                     return !this.warn;
                 }
             }
@@ -1335,7 +1271,7 @@ let chapters = [
     }, {
         title: "Fonctions",
         description: "Une fonction est un sous programme qui peut être appelé par du code externe (<i>ou interne, en cas d'appels récursifs</i>). Comme une boucle conditionnelle, une fonction est composée d'une liste d'opérations (<i>délimitées entre accolades</i>), il est possible de lui fournir des arguments et elle peut retourner un résultat. Les fonctions sont des citoyens de première classe en JavaScript (<i>des variables comme les autres</i>).<br><br>Ce chapitre présente la déclaration et l'usage des fonctions, de leurs paramètres et valeur de retour.",
-        color: "orange",
+        color: "yellow",
         steps: [
             {
                 title: "Identifier un nombre positif",
@@ -1692,126 +1628,259 @@ let chapters = [
             }
         ]
     }, {
-        title: "Puzzle | Taquin",
-        description: "Un taquin est ce puzzle en plastique à résoudre du bout des pouces. Une pièce peut être glissée horizontalement ou verticalement pour venir prendre la place de l'espace libre (<i>un libre pour neuf cases sur les versions simples</i>).<br><br>Ce chapitre présente la réalisation (<i>corsée</i>) d'un taquin pas à pas.",
-        color: "red",
+        title: "Composant | Todolist",
+        description: "Pour faciliter la réalisation d'applications et leur maintenance, plusieurs approches MV* (<i>modèle, vue & co</i>) ont vu le jour ces dernières années. Un modèle stocke l'état de l'application (<i>ex. les articles dans un panier</i>). Les vues affichent les informations issues d'un ou plusieurs modèles, modifient ceux-ci, et se rafraichissent.<br><br>Ce chapitre présente la réalisation d'une liste de tâches pas à pas. Il propose dans un premier temps de manipuler le DOM de façon classique, puis, dans un second temps, d'utiliser une approche MV*.",
+        color: "violet",
         steps: [
             {
-                title: "Mélanger les cases",
-                description: "Mélanger les 9 <code>li</code> du puzzle listés dans <code>.sliding ul</code> au clic sur le bouton « mélanger ».",
-                excerpt: "La méthode <code>Math.floor(Math.random() * 9)</code> retourne un nombre aléatoire entre 0 et 8.",
-                solved: "var shuffle = function(o){<br>  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);<br>  return o;<br>}<br><br>var render = function(matrix) {<br>  var ul = document.querySelector('.sliding ul');<br>  ul.innerHTML = '';<br><br>  var squares = [].concat(matrix[0], matrix[1], matrix[2])<br>  for (var square of squares) {<br>    var li = document.createElement('li');<br>    li.className = 'square' + square;<br>    ul.appendChild(li);<br>  }<br>}<br><br>document.querySelector('.sliding button').addEventListener('click', function() {<br>  var squares = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8]);<br>  var matrix = [<br>    [squares[0], squares[1], squares[2]],<br>    [squares[3], squares[4], squares[5]],<br>    [squares[6], squares[7], squares[8]]<br>  ];<br>  render(matrix);<br>});",
+                title: "Ajouter un todo",
+                description: "Ajouter un <code>li</code> au <code>.todos ul</code> existant à chaque appui sur entrée dans le champ de formulaire. Ce nouveau <code>li</code> à pour texte la valeur saisie dans le champ de formulaire.",
+                excerpt: "Un écouteur d'événement reçoit en premier paramètre l'événement qui l'a déclenché. s'il s'agit d'un événement clavier <code>keypress</code> celui indique via <code>event.keyCode</code> quelle touche a été saisie, et via <code>event.target.value</code> quelle est la valeur actuelle du champ de formulaire.<br><br><strong>Exemple</strong> : <pre><code>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) { <br>  console.log(event.keyCode, event.target.value); <br>});</code></pre> affiche ces deux informations à chaque saisie dans le premier <code>input</code> de la page.",
+                solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    var ul = document.querySelector('.todos ul');<br>    ul.innerHTML = '&lt;li class=\"item\"&gt;&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value + '&lt;/li&gt;';<br>  }<br>});",
                 dom: function() {
-                    return sliding.bind(sliding);
+                    return todolist.bind(todolist);
                 },
                 answer: function() {
-                    let classNames = getClassNames('.sliding li');
+                    let input = document.querySelector('input');
 
-                    if (classNames.length !== 9)
-                        this.warn = this.warn || "Le puzzle doit contenir 9 <code>li</code>";
-                    if (equals(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']) !== true)
-                        this.warn = this.warn || "Les cases doivent être dans l'ordre avant le mélange";
+                    input.value = 'apple';
+                    keypress(input, 13);
 
-                    let button = document.querySelector('.sliding button');
-                    button.click();
+                    let lis = document.querySelectorAll('.todos ul li');
 
-                    classNames = getClassNames('.sliding li');
-                    if (classNames.length !== 9)
-                        this.warn = this.warn || "Le puzzle doit contenir 9 <code>li</code>";
-                    if (equals(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']) !== false)
-                        this.warn = this.warn || "Les cases doivent être dans le désordre après le mélange";
-                    if (equalsContent(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']) !== true)
-                        this.warn = this.warn || "Les cases doivent toutes être présentes, sans doublon";
+                    if (lis.length !== 1)
+                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, un <code>li</code> doit être créé dans le <code>.todos ul</code>";
+                    if (elContains(lis[0], 'apple') !== true)
+                        this.warn = this.warn || "Le <code>li</code> doit contenir le mot saisi dans l'input";
 
                     return !this.warn;
                 }
             },
             {
-                title: "Gérer le déplacement horizontal d'une case",
-                description: "Au clic sur une case, celle-ci doit être intervertie avec la case vide <code>.square0</code> à condition que l'une et l'autre soit à côté (<i>et pas en diagonale</i>).",
-                excerpt: "Stocker l'état du puzzle dans une variable (<i>une matrice de préférence — un tableau de tableaux, 3 lignes, 3 colonnes</i>), et trouver une façon condensée pour lister quelles cases sont accessibles à partir d'une autre case. Se concentrer pour l'instant sur les mouvements horizontaux.",
-                solved: "var shuffle = function(o){<br>  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);<br>  return o;<br>}<br><br>var render = function(matrix) {<br>  var ul = document.querySelector('.sliding ul');<br>  ul.innerHTML = '';<br><br>  var squares = [].concat(matrix[0], matrix[1], matrix[2])<br>  for (var square of squares) {<br>    var li = document.createElement('li');<br>    li.className = 'square' + square;<br>    li.setAttribute('data-id', square);<br>    li.addEventListener('click', function() {<br>      move(matrix, parseInt(this.getAttribute('data-id')));<br>    });<br>    ul.appendChild(li);<br>  }<br>}<br>var move = function(matrix, square) {<br>  if (square === 0)<br>    return false;<br>  if (matrix[0][0] === square)<br>    canToggle(matrix, [0, 0], [[0, 1]]);<br>  else if (matrix[0][1] === square)<br>    canToggle(matrix, [0, 1], [[0, 0], [0, 2]]);<br>  else if (matrix[0][2] === square)<br>    canToggle(matrix, [0, 2], [[0, 1]]);<br>  else if (matrix[1][0] === square)<br>    canToggle(matrix, [1, 0], [[1, 1]]);<br>  else if (matrix[1][1] === square)<br>    canToggle(matrix, [1, 1], [[1, 0], [1, 2]]);<br>  else if (matrix[1][2] === square)<br>    canToggle(matrix, [1, 2], [[1, 1]]);<br>  else if (matrix[2][0] === square)<br>    canToggle(matrix, [2, 0], [[2, 1]]);<br>  else if (matrix[2][1] === square)<br>    canToggle(matrix, [2, 1], [[2, 0], [2, 2]]);<br>  else if (matrix[2][2] === square)<br>    canToggle(matrix, [2, 2], [[2, 1]]);<br>}<br>var canToggle = function(matrix, from, combinaisons) {<br>  for (var c of combinaisons) {<br>    if (matrix[c[0]][c[1]] === 0) {<br>      toggle(matrix, [from[0], from[1]], [c[0], c[1]]);<br>      break;<br>    }<br>  }<br>}<br>var toggle = function(matrix, from, to) {<br>  var memo = matrix[from[0]][from[1]];<br>  matrix[from[0]][from[1]] = matrix[to[0]][to[1]];<br>  matrix[to[0]][to[1]] = memo;<br>  render(matrix);<br>}<br><br>document.querySelector('.sliding button').addEventListener('click', function() {<br>  var squares = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8]);<br>  var matrix = [<br>    [squares[0], squares[1], squares[2]],<br>    [squares[3], squares[4], squares[5]],<br>    [squares[6], squares[7], squares[8]]<br>  ];<br>  render(matrix);<br>});",
+                title: "Ajouter plusieurs todos",
+                description: "Si le champ de formulaire est vide, aucun <code>li</code> ne doit être créé. Et, losqu'un <code>li</code> est créé, le champ de formulaire doit être vidé.",
+                solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    var ul = document.querySelector('.todos ul');<br>    ul.innerHTML += '&lt;li class=\"item\"&gt;&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value + '&lt;/li&gt;';<br>    event.target.value ='';<br>  }<br>});",
                 dom: function() {
-                    return sliding.bind(sliding);
+                    return todolist.bind(todolist);
                 },
                 answer: function() {
-                    let button = document.querySelector('.sliding button');
-                    button.click();
+                    let input = document.querySelector('input');
+                    input.value = '';
+                    keypress(input, 13);
 
-                    // click on possible
-                    let classNames = getClassNames('.sliding li');
-                    let expected = classNames.slice(0);
-                    let position = classNames.indexOf('square0') + 1;
-                    let toPosition;
-                    if ([1, 2, 4, 5, 7, 8].indexOf(position) !== -1) {
-                        toPosition = position + 1;
-                    } else {
-                        toPosition = position - 1;
-                    }
-                    document.querySelector(`.sliding li:nth-child(${toPosition})`).click();
-                    let memo = expected[position - 1];
-                    expected[position - 1] = expected[toPosition - 1];
-                    expected[toPosition - 1] = memo;
+                    input.value = 'apple';
+                    keypress(input, 13);
 
-                    classNames = getClassNames('.sliding li');
+                    input.value = 'pear';
+                    keypress(input, 13);
 
-                    let basic = true;
-                    basic = basic && equals(expected, classNames);
+                    let lis = document.querySelectorAll('.todos ul li');
 
-                    // click on empty
-                    expected = classNames.slice(0);
-                    position = classNames.indexOf('square0') + 1;
-                    document.querySelector(`.sliding li:nth-child(${position})`).click();
-                    classNames = getClassNames('.sliding li');
-                    basic = basic && equals(expected, classNames);
+                    if (input.value !== '')
+                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, l'input doit être vidé";
+                    if (lis.length !== 2)
+                        this.warn = this.warn || "À la saisie d'un mot vide, puis d'entrée, aucun <code>li</code> ne doit être créé";
+                    if (elContains(lis[0], 'apple') !== true)
+                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, un <code>li</code> doit être créé";
+                    if (elContains(lis[1], 'pear') !== true)
+                        this.warn = this.warn || "À la saisie d'un second mot, puis d'entrée, un second <code>li</code> doit être créé";
 
-                    // click on impossible
-                    expected = classNames.slice(0);
-                    position = classNames.indexOf('square0');
-                    position = ((position + 4) % 9) + 1;
-                    document.querySelector(`.sliding li:nth-child(${position})`).click();
-                    classNames = getClassNames('.sliding li');
-                    basic = basic && equals(expected, classNames);
-
-                    if (!basic)
-                        this.warn = "Le déplacement horizontal d'une case doit fonctionner";
-                    return basic;
+                    return !this.warn;
                 }
             },
             {
-                title: "Gérer le déplacement vertical d'une case",
-                description: "Au clic sur une case, celle-ci doit être intervertie avec la case vide <code>.square0</code> à condition que l'une et l'autre soit à côté (<i>et pas en diagonale</i>).",
-                solved: "var shuffle = function(o){<br>  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);<br>  return o;<br>}<br><br>var render = function(matrix) {<br>  var ul = document.querySelector('.sliding ul');<br>  ul.innerHTML = '';<br><br>  var squares = [].concat(matrix[0], matrix[1], matrix[2])<br>  for (var square of squares) {<br>    var li = document.createElement('li');<br>    li.className = 'square' + square;<br>    li.setAttribute('data-id', square);<br>    li.addEventListener('click', function() {<br>      move(matrix, parseInt(this.getAttribute('data-id')));<br>    });<br>    ul.appendChild(li);<br>  }<br>}<br>var move = function(matrix, square) {<br>  if (square === 0)<br>    return false;<br>  if (matrix[0][0] === square)<br>    canToggle(matrix, [0, 0], [[0, 1], [1, 0]]);<br>  else if (matrix[0][1] === square)<br>    canToggle(matrix, [0, 1], [[0, 0], [1, 1], [0, 2]]);<br>  else if (matrix[0][2] === square)<br>    canToggle(matrix, [0, 2], [[0, 1], [1, 2]]);<br>  else if (matrix[1][0] === square)<br>    canToggle(matrix, [1, 0], [[0, 0], [1, 1], [2, 0]]);<br>  else if (matrix[1][1] === square)<br>    canToggle(matrix, [1, 1], [[0, 1], [1, 0], [1, 2], [2, 1]]);<br>  else if (matrix[1][2] === square)<br>    canToggle(matrix, [1, 2], [[0, 2], [1, 1], [2, 2]]);<br>  else if (matrix[2][0] === square)<br>    canToggle(matrix, [2, 0], [[1, 0], [2, 1]]);<br>  else if (matrix[2][1] === square)<br>    canToggle(matrix, [2, 1], [[2, 0], [1, 1], [2, 2]]);<br>  else if (matrix[2][2] === square)<br>    canToggle(matrix, [2, 2], [[2, 1], [1, 2]]);<br>}<br>var canToggle = function(matrix, from, combinaisons) {<br>  for (var c of combinaisons) {<br>    if (matrix[c[0]][c[1]] === 0) {<br>      toggle(matrix, [from[0], from[1]], [c[0], c[1]]);<br>      break;<br>    }<br>  }<br>}<br>var toggle = function(matrix, from, to) {<br>  var memo = matrix[from[0]][from[1]];<br>  matrix[from[0]][from[1]] = matrix[to[0]][to[1]];<br>  matrix[to[0]][to[1]] = memo;<br>  render(matrix);<br>}<br><br>document.querySelector('.sliding button').addEventListener('click', function() {<br>  var squares = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8]);<br>  var matrix = [<br>    [squares[0], squares[1], squares[2]],<br>    [squares[3], squares[4], squares[5]],<br>    [squares[6], squares[7], squares[8]]<br>  ];<br>  render(matrix);<br>});",
+                title: "Supprimer des todos",
+                description: "Lorsqu'un <code>li</code> est ajouté au <code>.todos ul</code> existant, son texte est préfixé par <code>&lt;i class=\"remove icon\"&gt;&lt;/i&gt;</code>. Cette balise fait apparaitre une croix devant son nom. Au clic sur cette croix, le <code>li</code> doit être supprimé.",
+                excerpt: "À la création d'un élément dans le DOM, il est possible d'ajouter un écouteur d'événement sur un de ses sous éléments, ou sur lui même.",
+                solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    var ul = document.querySelector('.todos ul');<br>    var li = document.createElement('li');<br>    li.className = 'item';<br>    li.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value;<br>    li.querySelector('i').addEventListener('click', function() {<br>      li.remove();<br>    });<br>    ul.appendChild(li);<br>    event.target.value = '';<br>  }<br>});",
                 dom: function() {
-                    return sliding.bind(sliding);
+                    return todolist.bind(todolist);
                 },
                 answer: function() {
-                    let button = document.querySelector('.sliding button');
-                    button.click();
+                    let input = document.querySelector('input');
+                    input.value = 'apple';
+                    keypress(input, 13);
 
-                    // click on possible
-                    let classNames = getClassNames('.sliding li');
-                    let expected = classNames.slice(0);
-                    let position = classNames.indexOf('square0') + 1;
-                    let toPosition;
-                    if ([1, 2, 3, 4, 5, 6].indexOf(position) !== -1) {
-                        toPosition = position + 3;
-                    } else {
-                        toPosition = position - 3;
-                    }
-                    document.querySelector(`.sliding li:nth-child(${toPosition})`).click();
-                    let memo = expected[position - 1];
-                    expected[position - 1] = expected[toPosition - 1];
-                    expected[toPosition - 1] = memo;
+                    input.value = 'pear';
+                    keypress(input, 13);
 
-                    classNames = getClassNames('.sliding li');
+                    let remove = document.querySelector('.todos ul .remove.icon');
+                    remove.click();
 
-                    let basic = true;
-                    basic = basic && equals(expected, classNames);
+                    let lis = document.querySelectorAll('.todos ul li');
 
-                    if (!basic)
-                        this.warn = "Le déplacement vertical d'une case doit fonctionner";
-                    return basic;
+                    if (lis.length !== 1)
+                        this.warn = this.warn || "Après l'ajout d'un <code>li</code> un clic sur la croix du premier doit le supprimer";
+                    if (elContains(lis[0], 'pear') !== true)
+                        this.warn = this.warn || "Après l'ajout de deux <code>li</code> un clic sur la croix du premier ne doit laisser que le second dans la liste";
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Cocher les todos",
+                description: "Lorsqu'un <code>li</code> est cliqué, la classe <code>done</code> doit lui être ajoutée. S'il est cliqué de nouveau, cette classe est supprimée.",
+                solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    var ul = document.querySelector('.todos ul');<br>    var li = document.createElement('li');<br>    li.className = 'item';<br>    li.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value;<br>    li.querySelector('i').addEventListener('click', function() {<br>      li.remove();<br>    });<br>    li.addEventListener('click', function() {<br>        li.classList.toggle('done');<br>    });<br>    ul.appendChild(li);<br>    event.target.value = '';<br>  }<br>});",
+                dom: function() {
+                    return todolist.bind(todolist);
+                },
+                answer: function() {
+                    let input = document.querySelector('input');
+                    input.value = 'apple';
+                    keypress(input, 13);
+
+                    input.value = 'pear';
+                    keypress(input, 13);
+
+                    let lis = document.querySelectorAll('.todos ul li');
+
+                    if (lis.length !== 2)
+                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, à deux reprises, deux <code>li</code> doivent être créés dans le <code>.todos ul</code>";
+
+                    lis[0].click(); lis[0].click(); lis[0].click();
+                    lis[1].click(); lis[1].click();
+
+                    lis = document.querySelectorAll('.todos ul li');
+
+                    if (elContains(lis[0], 'apple') !== true)
+                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, un <code>li</code> doit être créé";
+                    if (elContains(lis[1], 'pear') !== true )
+                        this.warn = this.warn || "À la saisie d'un second mot, puis d'entrée, un second <code>li</code> doit être créé";
+
+                    if (lis[0].classList.contains('done') !== true)
+                        this.warn = this.warn || "Après avoir été cliqué trois fois, le premier <code>li</code> doit avoir la classe <code>done</code>";
+                    if (lis[1].classList.contains('done') !== false)
+                        this.warn = this.warn || "Après avoir été cliqué deux fois, le second <code>li</code> ne doit pas avoir la classe <code>done</code>";
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Séparer le modèle de la vue",
+                description: "Créer une variable <code>todos</code> pour stocker l'état du composant (<i>combien d'éléments, lesquels sont cochés, etc</i>). À chaque modification de cette variable, appeller une méthode <code>render</code> charger de mettre à jour l'affichage.",
+                excerpt: "Au lieu d'ajouter directement les <code>li</code> au DOM, créer un tableau <code>todos</code> et une méthode <code>render</code>. À chaque appui sur entrée dans le champ de formulaire, ajouter un object <code>{name: event.target.value, done: false}</code> au tableau <code>todos</code> et déclencher la méthode <code>render</code>. Le rôle de cette méthode est de vider le contenu du <code>ul</code> à chaque fois, et de parcourir le tableau <code>todos</code> afin de générer autant de <code>li</code> qu'il y a d'éléments dans le tableau. <br><br>Au lieu de modifier le DOM lors des événements (<i>clic sur la croix ou clic sur le nom du todo</i>), c'est l'élément du tableau qui est modifié et la méthode <code>render</code> qui est appellée de nouveau. Ce découpage sépare le modèle (<i>les données</i>) de la vue (<i>l'affichage</i>) et va simplifier les opérations suivantes. Supprimer et afficher de nouveaux tous les éléments n'est pas coûteux en terme de performance, tant que leur nombre n'est pas très grand.",
+                solved: "var todos = [];<br>var render = function() {<br>  var ul = document.querySelector('.todos ul');<br>  ul.innerHTML = '';<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br><br>    let li = document.createElement('li');<br>    li.classList.add('item');<br>    li.classList.toggle('done', todo.done);<br>    li.innerHTML = todo.name;<br><br>    li.querySelector('i').addEventListener('click', function() {<br>      todos.splice(i, 1);<br>      render();<br>    });<br>    li.addEventListener('click', function() {<br>      todo.done = !todo.done;<br>      render();<br>    });<br><br>    ul.appendChild(li);<br>  }<br>}<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});",
+                dom: function() {
+                    return todolist.bind(todolist);
+                },
+                answer: function() {
+                    let input = document.querySelector('input');
+                    input.value = 'apple';
+                    keypress(input, 13);
+
+                    input.value = 'pear';
+                    keypress(input, 13);
+
+                    let lis = document.querySelectorAll('.todos ul li');
+                    if (lis.length !== 2)
+                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, à deux reprises, deux <code>li</code> doivent être créés dans le <code>.todos ul</code>";
+
+                    let ul = document.querySelector('.todos ul');
+                    ul.innerHTML += '<li class="item done"><i class="remove icon"></i>banana</li>';
+
+                    render && render();
+
+                    lis = document.querySelectorAll('.todos ul li');
+                    if (lis.length !== 2)
+                        this.warn = this.warn || "À l'appel de la méthode <code>render</code>, les deux <code>li</code> doivent être créés de nouveau et remplacer ceux du <code>.todos ul</code>";
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Compter les todos",
+                description: "À chaque création d'un todo, le texte de <code>.filter-todo</code> doit afficher le nombre total de todo non cochés (<i>sans le classe <code>done</code></i>). Le texte de <code>.filter-done</code> affiche quant à lui, le nombre total de todo cochés (<i>avec la classe <code>done</code></i>). Penser au pluriel pour « 0 fait », « 1 fait » et « 2 faits ».",
+                solved: "var todos = [];<br>var render = function() {<br>  var ul = document.querySelector('.todos ul');<br>  ul.innerHTML = '';<br>  var todoCount = 0, doneCount = 0;<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br><br>    if (todo.done)<br>      doneCount++;<br>    else<br>      todoCount++;<br><br>    let li = document.createElement('li');<br>    li.classList.add('item');<br>    li.classList.toggle('done', todo.done);<br>    li.innerHTML = todo.name;<br><br>    li.querySelector('i').addEventListener('click', function() {<br>      todos.splice(i, 1);<br>      render();<br>    });<br>    li.addEventListener('click', function() {<br>      todo.done = !todo.done;<br>      render();<br>    });<br><br>    ul.appendChild(li);<br>  }<br><br>  document.querySelector('.filter-todo').innerHTML = todoCount + ' à faire';<br>  document.querySelector('.filter-done').innerHTML = doneCount + (doneCount > 1 ? ' faits' : ' fait');<br>}<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});",
+                dom: function() {
+                    return todolist.bind(todolist);
+                },
+                answer: function() {
+                    let input = document.querySelector('input');
+                    input.value = 'apple';
+                    keypress(input, 13);
+
+                    input.value = 'pear';
+                    keypress(input, 13);
+
+                    let lis = document.querySelectorAll('.todos ul li');
+                    let todoCount = document.querySelector('.filter-todo');
+                    let doneCount = document.querySelector('.filter-done');
+
+                    if (elContains(todoCount, '2 à faire') !== true)
+                        this.warn = this.warn || "Après la création de 2 todos, le compte todo doit indiquer « 2 à faire »"
+                    if (elContains(doneCount, '0 fait') !== true)
+                        this.warn = this.warn || "Après la création de 2 todos, le compte done doit indiquer « 0 fait »"
+
+                    lis[0].click();
+                    lis = document.querySelectorAll('.todos ul li');
+                    if (elContains(todoCount, '1 à faire') !== true)
+                        this.warn = this.warn || "Après la création de 2 todos et le clic sur l'un des deux, le compte todo doit indiquer « 1 à faire »"
+                    if (elContains(doneCount, '1 fait') !== true)
+                        this.warn = this.warn || "Après la création de 2 todos et le clic sur l'un des deux, le compte done doit indiquer « 1 fait »"
+
+                    lis[1].click();
+                    lis = document.querySelectorAll('.todos ul li');
+                    if (elContains(todoCount, '0 à faire') !== true)
+                        this.warn = this.warn || "Après la création de 2 todos et le clic sur les deux, le compte todo doit indiquer « 0 à faire »"
+                    if (elContains(doneCount, '2 faits') !== true)
+                        this.warn = this.warn || "Après la création de 2 todos et le clic sur les deux, le compte done doit indiquer « 2 faits »"
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Filtrer les todos",
+                description: "Au clic sur <code>.filter-done</code> cet élément récupère la classe <code>active</code> et seuls les todos terminés sont affichés. Idem pour <code>.filter-todo</code>. Seul un de ces deux boutons peut être actif à la fois. Cliquer sur un bouton actif le désactive (<i>et affiche ainsi tous les todos</i>). Plutôt que se baser sur le DOM pour savoir quel filtre est activé, utiliser une variable à 3 états, et modifier la méthode <code>render</code> pour la mise à jour de la classe <code>active</code> sur les boutons.",
+                solved: "var todos = [];<br>var state = 'all';<br>var render = function() {<br>  var ul = document.querySelector('.todos ul');<br>  ul.innerHTML = '';<br>  var todoCount = 0, doneCount = 0;<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br><br>    if (todo.done)<br>      doneCount++;<br>    else<br>      todoCount++;<br><br>    if (state !== 'all') {<br>      if ((state === 'todo' && todo.done) || (state === 'done' && !todo.done)) {<br>        continue;<br>      }<br>    }<br><br>    let li = document.createElement('li');<br>    li.classList.add('item');<br>    li.classList.toggle('done', todo.done);<br>    li.innerHTML = todo.name;<br><br>    li.querySelector('i').addEventListener('click', function() {<br>      todos.splice(i, 1);<br>      render();<br>    });<br>    li.addEventListener('click', function() {<br>      todo.done = !todo.done;<br>      render();<br>    });<br><br>    ul.appendChild(li);<br>  }<br><br>  document.querySelector('.filter-todo').innerHTML = todoCount + ' à faire';<br>  document.querySelector('.filter-done').innerHTML = doneCount + (doneCount > 1 ? ' faits' : ' fait');<br><br>  document.querySelector('.filter-todo').classList.toggle('active', state === 'todo');<br>  document.querySelector('.filter-done').classList.toggle('active', state === 'done');<br>}<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});<br><br>document.querySelector('.filter-todo').addEventListener('click', function() {<br>  if (state !== 'todo')<br>    state = 'todo';<br>  else<br>    state = 'all';<br>  render();<br>});<br><br>document.querySelector('.filter-done').addEventListener('click', function() {<br>  if (state !== 'done')<br>    state = 'done';<br>  else<br>    state = 'all';<br>  render();<br>});",
+                dom: function() {
+                    return todolist.bind(todolist);
+                },
+                answer: function() {
+                    let input = document.querySelector('input');
+                    input.value = 'apple';
+                    keypress(input, 13);
+
+                    input.value = 'pear';
+                    keypress(input, 13);
+
+                    input.value = 'banana';
+                    keypress(input, 13);
+
+                    let lis = document.querySelectorAll('.todos ul li');
+                    let todoCount = document.querySelector('.filter-todo');
+                    let doneCount = document.querySelector('.filter-done');
+
+                    lis[1].click();
+
+                    if (lis.length !== 3)
+                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, à trois reprises, trois <code>li</code> doivent être créés dans le <code>.todos ul</code>";
+                    if (elContains(todoCount, '2 à faire') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, le compte todo doit indiquer « 2 à faire »";
+                    if (elContains(doneCount, '1 fait') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, le compte done doit indiquer « 1 fait »";
+
+                    todoCount.click();
+                    lis = document.querySelectorAll('.todos ul li');
+                    if (lis.length !== 2)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 2 à faire » seuls les deux todos concernés sont affichés";
+
+                    todoCount.click();
+                    lis = document.querySelectorAll('.todos ul li');
+                    if (lis.length !== 3)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 2 à faire » à deux reprises, tous les todos sont affichés";
+
+                    doneCount.click();
+                    lis = document.querySelectorAll('.todos ul li');
+                    if (lis.length !== 1)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » seul le todo concerné est affiché";
+                    if (elContains(lis[0], 'pear') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » ce todo contient toujours la valeur d'origine";
+                    if (elContains(todoCount, '2 à faire') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » le compte todo doit indiquer « 2 à faire »";
+                    if (elContains(doneCount, '1 fait') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » le compte done doit indiquer « 1 fait »"
+
+                    return !this.warn;
                 }
             }
         ]
@@ -1982,294 +2051,9 @@ let chapters = [
             }
         ]
     }, {
-        title: "Dates",
-        description: "Les dates sont des types natifs comme les nombres ou les chaines de caractères. Chaque date représente un instant du calendrier, précis à la miliseconde près. Les langages de programmation ne facilitent pas forcément la comparaison de dates, leur formatage ou la gestion de différents fuseaux horaires.<br><br>Ce chapitre présente la manipulation de dates avec la librairie moment — qui en facilite grandement l'usage.",
-        color: "orange",
-        steps: [
-            {
-                title: "Formatter des dates",
-                description: "Mettre en forme les dates saisies dans <code>.from input</code> et <code>.to input</code> de façon a ce qu'elles s'affichent dans <code>.from .formatted</code> et <code>.to .formatted</code> sous le format « JANV. 10 » (<i>premières initiales du mois, suivies du jour, avec la locale française</i>).",
-                excerpt: "La librairie <a target=\"_blank\" href=\"http://momentjs.com/\">moment</a> permet de manipuler facilement des dates, et, notamment, de les mettre en forme en fonction de la locale.",
-                solved: "/* à ajouter avant le script principal<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js\"&gt;&lt;/script&gt;<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/fr.js\"&gt;&lt;/script&gt;<br>*/<br>document.querySelector('.booking .from input').addEventListener('change', function() {<br>  var date = moment(this.value);<br>  document.querySelector('.from .formatted').innerHTML = date.format('MMM').toUpperCase() + ' ' + date.format('D');<br>});<br><br>document.querySelector('.booking .to input').addEventListener('change', function() {<br>  var date = moment(this.value);<br>  document.querySelector('.to .formatted').innerHTML = date.format('MMM').toUpperCase() + ' ' + date.format('D');<br>});",
-                dom: function() {
-                    return booking.bind(booking);
-                },
-                answer: function() {
-                    var from = {
-                        input: document.querySelector('.from input'),
-                        formatted: document.querySelector('.from .formatted')
-                    }
-                    var to = {
-                        input: document.querySelector('.to input'),
-                        formatted: document.querySelector('.to .formatted')
-                    }
-
-                    from.input.value = '2017-01-24';
-                    change(from.input);
-
-                    to.input.value = '2017-01-26';
-                    change(to.input);
-
-                    if (elContains(from.formatted, 'JANV. 24') !== true)
-                        this.warn = this.warn || "La date affichée dans <code>.from .formatted</code> doit être égale à JANV. 24, lorsque la date saisie est le 24 janvier";
-                    if (elContains(to.formatted, 'JANV. 26') !== true)
-                        this.warn = this.warn || "La date affichée dans <code>.to .formatted</code> doit être égale à JANV. 26, lorsque la date saisie est le 26 janvier";
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Limiter les dates",
-                description: "Si la date de retour saisie est antérieure ou égale à la date de l'aller, elle est par défaut 1 jour après l'aller (<i>l'aller est le 12 janvier, la date de retour doit être le 13 janvier au plus tôt</i>).",
-                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>});",
-                dom: function() {
-                    return booking.bind(booking);
-                },
-                answer: function() {
-                    var from = {
-                        input: document.querySelector('.from input'),
-                        formatted: document.querySelector('.from .formatted')
-                    }
-                    var to = {
-                        input: document.querySelector('.to input'),
-                        formatted: document.querySelector('.to .formatted')
-                    }
-
-                    from.input.value = '2017-01-24';
-                    change(from.input);
-
-                    to.input.value = '2017-01-24';
-                    change(to.input);
-
-                    if (elContains(from.formatted, 'JANV. 24') !== true)
-                        this.warn = this.warn || "La date affichée dans <code>.from .formatted</code> doit être égale à JANV. 24, lorsque la date saisie est le 24 janvier";
-                    if (elContains(to.formatted, 'JANV. 25') !== true)
-                        this.warn = this.warn || "La date affichée dans <code>.to .formatted</code> doit être égale à JANV. 25, lorsque la date de l'aller est le 24 janvier et que la date saisie lui est antérieure";
-                    if (to.input.value !== '2017-01-25')
-                        this.warn = this.warn || "La date de l'input <code>.to</code> doit être égale au 25 janvier, lorsque la date de l'aller est le 24 janvier et que la date saisie lui est antérieure";
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Compter le nombre de jours de voyage",
-                description: "Pour chaque jour de voyage, compter 40€, et afficher le total dans <code>.price</code>.",
-                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = to.value.diff(from.value, 'days') + 1;<br>  document.querySelector('.price').innerHTML = 40 * days + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});",
-                dom: function() {
-                    return booking.bind(booking);
-                },
-                answer: function() {
-                    var from = {
-                        input: document.querySelector('.from input'),
-                        formatted: document.querySelector('.from .formatted')
-                    }
-                    var to = {
-                        input: document.querySelector('.to input'),
-                        formatted: document.querySelector('.to .formatted')
-                    }
-
-                    from.input.value = '2017-01-24';
-                    change(from.input);
-
-                    to.input.value = '2017-01-27';
-                    change(to.input);
-
-                    if (elContains(document.querySelector('.price'), '160€') !== true)
-                        this.warn = "Le prix doit être de 160€ pour un voyage du 24 au 27 janvier";
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Multiplier par le nombre de voyageurs",
-                description: "Pour chaque voyageur, multiplier le prix (<i>un voyage à 80€ coûtera 240€ pour 3 voyageurs</i>).",
-                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br>var passengers = 1;<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = to.value.diff(from.value, 'days') + 1;<br>  document.querySelector('.price').innerHTML = 40 * days * passengers + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});<br><br>document.querySelector('select').addEventListener('change', function() {<br>  passengers = this.value;<br>  total();<br>});",
-                dom: function() {
-                    return booking.bind(booking);
-                },
-                answer: function() {
-                    var from = {
-                        input: document.querySelector('.from input'),
-                        formatted: document.querySelector('.from .formatted')
-                    }
-                    var to = {
-                        input: document.querySelector('.to input'),
-                        formatted: document.querySelector('.to .formatted')
-                    }
-
-                    from.input.value = '2017-01-24';
-                    change(from.input);
-
-                    to.input.value = '2017-01-27';
-                    change(to.input);
-
-                    var select = document.querySelector('select');
-                    select.value = 3;
-                    change(select);
-
-                    if (elContains(document.querySelector('.price'), '480€') !== true)
-                        this.warn = "Le prix doit être de 160€ pour un voyage du 24 au 27 janvier pour 3 voyageurs";
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Décompter les weekends",
-                description: "Les samedis et dimanches ne sont pas facturés (<i>vendredi, samedi, dimanche coûtera 40€ — 1 jour —, vendredi, samedi, dimanche, lundi coûtera 80€ — 2 jours —, du lundi au lundi deux semaines après, coûtera 840€ — 11 jours</i>).",
-                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br>var passengers = 1;<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = 0;<br>  var clone = from.value.clone();<br>  while (clone.isSameOrBefore(to.value)) {<br>    if (clone.day() !== 6 && clone.day() !== 0)<br>      days++;<br>    clone.add(1, 'days');<br>  }<br><br>  document.querySelector('.price').innerHTML = 40 * days * passengers + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});<br><br>document.querySelector('select').addEventListener('change', function() {<br>  passengers = this.value;<br>  total();<br>});",
-                dom: function() {
-                    return booking.bind(booking);
-                },
-                answer: function() {
-                    var from = {
-                        input: document.querySelector('.from input'),
-                        formatted: document.querySelector('.from .formatted')
-                    }
-                    var to = {
-                        input: document.querySelector('.to input'),
-                        formatted: document.querySelector('.to .formatted')
-                    }
-
-                    from.input.value = '2017-01-27';
-                    change(from.input);
-
-                    to.input.value = '2017-01-30';
-                    change(to.input);
-
-                    var select = document.querySelector('select');
-                    select.value = 2;
-                    change(select);
-
-                    var basic = true;
-                    basic = basic && elContains(document.querySelector('.price'), '160€');
-                    if (elContains(document.querySelector('.price'), '160€') !== true)
-                        this.warn = this.warn || "Le prix doit être de 160€ pour un voyage de 4 jours incluant samedi et dimanche pour 2 voyageurs";
-
-                    from.input.value = '2017-01-13';
-                    change(from.input);
-
-                    to.input.value = '2017-01-30';
-                    change(to.input);
-
-                    if (elContains(document.querySelector('.price'), '960€') !== true)
-                        this.warn = this.warn || "Le prix doit être de 960€ pour un voyage de 18 jours incluant 3 samedis et dimanches pour 2 voyageurs";
-                    return !this.warn;
-                }
-            }
-        ]
-    }, {
-        title: "Puzzle | Puissance 4",
-        description: "Un puissance 4 est un puzzle pour 2 joueurs (<i>l'un jaune, l'autre rouge</i>) jouant à tour de rôle un jeton dans une des 7 colonnes disponibles. Chaque jeton s'empile aux jetons précédement joués dans cette colonne. Le premier joueur à aligner 4 jetons, horizontalement, verticalement ou en diagonale gagne.<br><br>Ce chapitre présente la réalisation (<i>corsée</i>) d'un puissance 4 pas à pas.",
-        color: "red",
-        steps: [
-            {
-                title: "Générer une table de jeu",
-                description: "Dans la <code>table</code> générer 6 lignes <code>tr</code> avec chacune 7 colonnes <code>td</code> afin de créer le plateau de jeu.",
-                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br>render();",
-                dom: function() {
-                    return connectfour.bind(connectfour);
-                },
-                answer: function() {
-                    if (document.querySelectorAll('table tr').length !== 6)
-                        this.warn = this.warn || "La table doit contenir 6 <code>tr</code>";
-                    if (document.querySelectorAll('table tr td').length !== 42)
-                        this.warn = this.warn || "La table doit contenir 42 <code>td</code>";
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Ajouter un jeton alternativement jaune puis rouge",
-                description: "Au clic sur n'importe quel <code>td</code> d'une colonne, ajouter au <code>td</code> en pied de cette colonne la classe <code>yellow</code> ou <code>red</code> alternativement (<i>si il n'a pas de classe</i>). Au fur et à mesure des clics, les jetons s'empilent ainsi les uns sur les autres. Si une colonne est remplie, elle ne reçoit plus de jeton au clic.",
-                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      if (column)<br>        td.className = column;<br><br>      td.addEventListener('click', function(e) {<br>        var index = Array.prototype.indexOf.call(this.parentElement.children, this);<br>        for (var i = 5; i >= 0; i--) {<br>          if (!grid[i][index]) {<br>            color = (color === 'yellow' ? 'red' : 'yellow');<br>            grid[i][index] = color;<br>            break;<br>          } else continue;<br>        }<br>        render();<br>      });<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br>render();",
-                dom: function() {
-                    return connectfour.bind(connectfour);
-                },
-                answer: function() {
-                    var cell = function(tr, td) {
-                        return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
-                    }
-
-                    cell(1, 1).click();
-                    cell(1, 1).click();
-                    cell(1, 1).click();
-                    cell(1, 2).click();
-
-                    if (elHasClass(cell(6, 1), 'yellow') !== true)
-                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la première case de cette colonne doit être jaune";
-                    if (elHasClass(cell(5, 1), 'red') !== true)
-                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la deuxième case de cette colonne doit être rouge";
-                    if (elHasClass(cell(4, 1), 'yellow') !== true)
-                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la troisième case de cette colonne doit être jaune";
-                    if (elHasClass(cell(6, 2), 'red') !== true)
-                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la quatrième case de cette colonne doit être rouge";
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Combinaison horizontale gagnante",
-                description: "Lorsque 4 jetons consécutifs de la même couleur sont alignés horizontalement, leur ajouter la classe <code>victory</code>. Les clics suivants sur la table n'ajoutent plus de jetons.",
-                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var winner = false;<br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      if (column)<br>        td.className = column;<br><br>      td.addEventListener('click', function(e) {<br>        if (winner)<br>          return;<br><br>        var index = Array.prototype.indexOf.call(this.parentElement.children, this);<br>        for (var i = 5; i >= 0; i--) {<br>          if (!grid[i][index]) {<br>            color = (color === 'yellow' ? 'red' : 'yellow');<br>            grid[i][index] = color;<br>            break;<br>          } else continue;<br>        }<br><br>        winner = wins(grid);<br>        if (winner) {<br>          for (var i = 0; i < winner.length; i++) {<br>            var position = winner[i].split('-');<br>            grid[position[0]][position[1]] += ' victory';<br>          }<br>        }<br>        render();<br>      });<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br><br>var wins = function() {<br>  return horizontalWinner(grid);<br>};<br><br>var horizontalWinner = function() {<br>  var player, positions;<br>  for (var row = 5; row >= 0; row--) {<br>    positions = []<br>    for (var column = 0; column < 7; column++) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>render();",
-                dom: function() {
-                    return connectfour.bind(connectfour);
-                },
-                answer: function() {
-                    var cell = function(tr, td) {
-                        return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
-                    }
-
-                    cell(1, 2).click(); cell(1, 3).click();
-                    cell(1, 4).click(); cell(1, 5).click();
-                    cell(1, 2).click(); cell(1, 1).click();
-                    cell(1, 3).click(); cell(1, 6).click();
-                    cell(1, 1).click(); cell(1, 1).click();
-                    cell(1, 4).click(); cell(1, 4).click();
-
-                    var basic = true;
-                    basic = basic && elHasClass(cell(5, 1), 'victory');
-                    basic = basic && elHasClass(cell(5, 2), 'victory');
-                    basic = basic && elHasClass(cell(5, 3), 'victory');
-                    basic = basic && elHasClass(cell(5, 4), 'victory');
-                    basic = basic && !elHasClass(cell(4, 4), 'red');
-
-                    if (!basic)
-                        this.warn = "Les combinaisons horizontales gagnantes doivent fonctionner";
-                    return basic;
-                }
-            },
-            {
-                title: "Combinaison verticale gagnante",
-                description: "Faire de même lorsque 4 jetons sont alignés verticalement.",
-                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var winner = false;<br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      if (column)<br>        td.className = column;<br><br>      td.addEventListener('click', function(e) {<br>        if (winner)<br>          return;<br><br>        var index = Array.prototype.indexOf.call(this.parentElement.children, this);<br>        for (var i = 5; i >= 0; i--) {<br>          if (!grid[i][index]) {<br>            color = (color === 'yellow' ? 'red' : 'yellow');<br>            grid[i][index] = color;<br>            break;<br>          } else continue;<br>        }<br><br>        winner = wins(grid);<br>        if (winner) {<br>          for (var i = 0; i < winner.length; i++) {<br>            var position = winner[i].split('-');<br>            grid[position[0]][position[1]] += ' victory';<br>          }<br>        }<br>        render();<br>      });<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br><br>var wins = function() {<br>  return verticalWinner(grid) || horizontalWinner(grid);<br>};<br><br>var verticalWinner = function() {<br>  var player, positions;<br>  for (var column = 0; column < 7; column++) {<br>    positions = [];<br>    for (var row = 5; row >= 0; row--) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>var horizontalWinner = function() {<br>  var player, positions;<br>  for (var row = 5; row >= 0; row--) {<br>    positions = []<br>    for (var column = 0; column < 7; column++) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>render();",
-                dom: function() {
-                    return connectfour.bind(connectfour);
-                },
-                answer: function() {
-                    var cell = function(tr, td) {
-                        return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
-                    }
-
-                    cell(1, 4).click(); cell(1, 4).click();
-                    cell(1, 1).click(); cell(1, 2).click();
-                    cell(1, 1).click(); cell(1, 2).click();
-                    cell(1, 1).click(); cell(1, 2).click();
-                    cell(1, 1).click(); cell(1, 2).click();
-
-                    var basic = true;
-                    basic = basic && elHasClass(cell(6, 1), 'victory');
-                    basic = basic && elHasClass(cell(5, 1), 'victory');
-                    basic = basic && elHasClass(cell(4, 1), 'victory');
-                    basic = basic && elHasClass(cell(3, 1), 'victory');
-                    basic = basic && !elHasClass(cell(6, 2), 'victory');
-                    basic = basic && !elHasClass(cell(5, 2), 'victory');
-                    basic = basic && elHasClass(cell(4, 2), 'red');
-                    basic = basic && !elHasClass(cell(3, 2), 'red');
-
-                    if (!basic)
-                        this.warn = "Les combinaisons verticales gagnantes doivent fonctionner";
-                    return basic;
-                }
-            }
-        ]
-    }, {
         title: "Ajax",
         description: "Une application web peut poser des questions à un serveur distant ; vérifier si une carte bleue est valide et réagir en fonction. Ajax — basé sur le protocole HTTP — est une option pour ce faire. Le navigateur émet une requête et attend une réponse du serveur. Cette requête est asynchrone, elle ne bloque pas le navigateur, qui peut continuer à interagir avec l'utilisateur, et sera notifié lors du retour du serveur.<br><br>Ce chapitre présente ajax pas à pas.",
-        color: "grey",
+        color: "teal",
         steps: [
             {
                 title: "Rechercher un repository github",
@@ -2598,7 +2382,7 @@ let chapters = [
     }, {
         title: "La programmation objet",
         description: "La programmation orientée objet propose de définir un ensemble de concepts, les classes, dont il est possible de manipuler des exemplaires, les objets. JavaScript est un langage à prototype (contrairement aux langages objets classiques, des attributs peuvent être ajoutés aux objets, même si la classe ne les déclare pas).<br><br>Ce chapitre présente la réalisation (corsée) d'un puzzle rpg au tour par tour.",
-        color: "pink",
+        color: "teal",
         steps: [
             {
                 title: "Créer une classe",
@@ -2872,6 +2656,243 @@ let chapters = [
                 }
             }
         ]
+    }, {
+        title: "Puzzle | Taquin",
+        description: "Un taquin est ce puzzle en plastique à résoudre du bout des pouces. Une pièce peut être glissée horizontalement ou verticalement pour venir prendre la place de l'espace libre (<i>un libre pour neuf cases sur les versions simples</i>).<br><br>Ce chapitre présente la réalisation (<i>corsée</i>) d'un taquin pas à pas.",
+        color: "pink",
+        steps: [
+            {
+                title: "Mélanger les cases",
+                description: "Mélanger les 9 <code>li</code> du puzzle listés dans <code>.sliding ul</code> au clic sur le bouton « mélanger ».",
+                excerpt: "La méthode <code>Math.floor(Math.random() * 9)</code> retourne un nombre aléatoire entre 0 et 8.",
+                solved: "var shuffle = function(o){<br>  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);<br>  return o;<br>}<br><br>var render = function(matrix) {<br>  var ul = document.querySelector('.sliding ul');<br>  ul.innerHTML = '';<br><br>  var squares = [].concat(matrix[0], matrix[1], matrix[2])<br>  for (var square of squares) {<br>    var li = document.createElement('li');<br>    li.className = 'square' + square;<br>    ul.appendChild(li);<br>  }<br>}<br><br>document.querySelector('.sliding button').addEventListener('click', function() {<br>  var squares = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8]);<br>  var matrix = [<br>    [squares[0], squares[1], squares[2]],<br>    [squares[3], squares[4], squares[5]],<br>    [squares[6], squares[7], squares[8]]<br>  ];<br>  render(matrix);<br>});",
+                dom: function() {
+                    return sliding.bind(sliding);
+                },
+                answer: function() {
+                    let classNames = getClassNames('.sliding li');
+
+                    if (classNames.length !== 9)
+                        this.warn = this.warn || "Le puzzle doit contenir 9 <code>li</code>";
+                    if (equals(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']) !== true)
+                        this.warn = this.warn || "Les cases doivent être dans l'ordre avant le mélange";
+
+                    let button = document.querySelector('.sliding button');
+                    button.click();
+
+                    classNames = getClassNames('.sliding li');
+                    if (classNames.length !== 9)
+                        this.warn = this.warn || "Le puzzle doit contenir 9 <code>li</code>";
+                    if (equals(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']) !== false)
+                        this.warn = this.warn || "Les cases doivent être dans le désordre après le mélange";
+                    if (equalsContent(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']) !== true)
+                        this.warn = this.warn || "Les cases doivent toutes être présentes, sans doublon";
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Gérer le déplacement horizontal d'une case",
+                description: "Au clic sur une case, celle-ci doit être intervertie avec la case vide <code>.square0</code> à condition que l'une et l'autre soit à côté (<i>et pas en diagonale</i>).",
+                excerpt: "Stocker l'état du puzzle dans une variable (<i>une matrice de préférence — un tableau de tableaux, 3 lignes, 3 colonnes</i>), et trouver une façon condensée pour lister quelles cases sont accessibles à partir d'une autre case. Se concentrer pour l'instant sur les mouvements horizontaux.",
+                solved: "var shuffle = function(o){<br>  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);<br>  return o;<br>}<br><br>var render = function(matrix) {<br>  var ul = document.querySelector('.sliding ul');<br>  ul.innerHTML = '';<br><br>  var squares = [].concat(matrix[0], matrix[1], matrix[2])<br>  for (var square of squares) {<br>    var li = document.createElement('li');<br>    li.className = 'square' + square;<br>    li.setAttribute('data-id', square);<br>    li.addEventListener('click', function() {<br>      move(matrix, parseInt(this.getAttribute('data-id')));<br>    });<br>    ul.appendChild(li);<br>  }<br>}<br>var move = function(matrix, square) {<br>  if (square === 0)<br>    return false;<br>  if (matrix[0][0] === square)<br>    canToggle(matrix, [0, 0], [[0, 1]]);<br>  else if (matrix[0][1] === square)<br>    canToggle(matrix, [0, 1], [[0, 0], [0, 2]]);<br>  else if (matrix[0][2] === square)<br>    canToggle(matrix, [0, 2], [[0, 1]]);<br>  else if (matrix[1][0] === square)<br>    canToggle(matrix, [1, 0], [[1, 1]]);<br>  else if (matrix[1][1] === square)<br>    canToggle(matrix, [1, 1], [[1, 0], [1, 2]]);<br>  else if (matrix[1][2] === square)<br>    canToggle(matrix, [1, 2], [[1, 1]]);<br>  else if (matrix[2][0] === square)<br>    canToggle(matrix, [2, 0], [[2, 1]]);<br>  else if (matrix[2][1] === square)<br>    canToggle(matrix, [2, 1], [[2, 0], [2, 2]]);<br>  else if (matrix[2][2] === square)<br>    canToggle(matrix, [2, 2], [[2, 1]]);<br>}<br>var canToggle = function(matrix, from, combinaisons) {<br>  for (var c of combinaisons) {<br>    if (matrix[c[0]][c[1]] === 0) {<br>      toggle(matrix, [from[0], from[1]], [c[0], c[1]]);<br>      break;<br>    }<br>  }<br>}<br>var toggle = function(matrix, from, to) {<br>  var memo = matrix[from[0]][from[1]];<br>  matrix[from[0]][from[1]] = matrix[to[0]][to[1]];<br>  matrix[to[0]][to[1]] = memo;<br>  render(matrix);<br>}<br><br>document.querySelector('.sliding button').addEventListener('click', function() {<br>  var squares = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8]);<br>  var matrix = [<br>    [squares[0], squares[1], squares[2]],<br>    [squares[3], squares[4], squares[5]],<br>    [squares[6], squares[7], squares[8]]<br>  ];<br>  render(matrix);<br>});",
+                dom: function() {
+                    return sliding.bind(sliding);
+                },
+                answer: function() {
+                    let button = document.querySelector('.sliding button');
+                    button.click();
+
+                    // click on possible
+                    let classNames = getClassNames('.sliding li');
+                    let expected = classNames.slice(0);
+                    let position = classNames.indexOf('square0') + 1;
+                    let toPosition;
+                    if ([1, 2, 4, 5, 7, 8].indexOf(position) !== -1) {
+                        toPosition = position + 1;
+                    } else {
+                        toPosition = position - 1;
+                    }
+                    document.querySelector(`.sliding li:nth-child(${toPosition})`).click();
+                    let memo = expected[position - 1];
+                    expected[position - 1] = expected[toPosition - 1];
+                    expected[toPosition - 1] = memo;
+
+                    classNames = getClassNames('.sliding li');
+
+                    let basic = true;
+                    basic = basic && equals(expected, classNames);
+
+                    // click on empty
+                    expected = classNames.slice(0);
+                    position = classNames.indexOf('square0') + 1;
+                    document.querySelector(`.sliding li:nth-child(${position})`).click();
+                    classNames = getClassNames('.sliding li');
+                    basic = basic && equals(expected, classNames);
+
+                    // click on impossible
+                    expected = classNames.slice(0);
+                    position = classNames.indexOf('square0');
+                    position = ((position + 4) % 9) + 1;
+                    document.querySelector(`.sliding li:nth-child(${position})`).click();
+                    classNames = getClassNames('.sliding li');
+                    basic = basic && equals(expected, classNames);
+
+                    if (!basic)
+                        this.warn = "Le déplacement horizontal d'une case doit fonctionner";
+                    return basic;
+                }
+            },
+            {
+                title: "Gérer le déplacement vertical d'une case",
+                description: "Au clic sur une case, celle-ci doit être intervertie avec la case vide <code>.square0</code> à condition que l'une et l'autre soit à côté (<i>et pas en diagonale</i>).",
+                solved: "var shuffle = function(o){<br>  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);<br>  return o;<br>}<br><br>var render = function(matrix) {<br>  var ul = document.querySelector('.sliding ul');<br>  ul.innerHTML = '';<br><br>  var squares = [].concat(matrix[0], matrix[1], matrix[2])<br>  for (var square of squares) {<br>    var li = document.createElement('li');<br>    li.className = 'square' + square;<br>    li.setAttribute('data-id', square);<br>    li.addEventListener('click', function() {<br>      move(matrix, parseInt(this.getAttribute('data-id')));<br>    });<br>    ul.appendChild(li);<br>  }<br>}<br>var move = function(matrix, square) {<br>  if (square === 0)<br>    return false;<br>  if (matrix[0][0] === square)<br>    canToggle(matrix, [0, 0], [[0, 1], [1, 0]]);<br>  else if (matrix[0][1] === square)<br>    canToggle(matrix, [0, 1], [[0, 0], [1, 1], [0, 2]]);<br>  else if (matrix[0][2] === square)<br>    canToggle(matrix, [0, 2], [[0, 1], [1, 2]]);<br>  else if (matrix[1][0] === square)<br>    canToggle(matrix, [1, 0], [[0, 0], [1, 1], [2, 0]]);<br>  else if (matrix[1][1] === square)<br>    canToggle(matrix, [1, 1], [[0, 1], [1, 0], [1, 2], [2, 1]]);<br>  else if (matrix[1][2] === square)<br>    canToggle(matrix, [1, 2], [[0, 2], [1, 1], [2, 2]]);<br>  else if (matrix[2][0] === square)<br>    canToggle(matrix, [2, 0], [[1, 0], [2, 1]]);<br>  else if (matrix[2][1] === square)<br>    canToggle(matrix, [2, 1], [[2, 0], [1, 1], [2, 2]]);<br>  else if (matrix[2][2] === square)<br>    canToggle(matrix, [2, 2], [[2, 1], [1, 2]]);<br>}<br>var canToggle = function(matrix, from, combinaisons) {<br>  for (var c of combinaisons) {<br>    if (matrix[c[0]][c[1]] === 0) {<br>      toggle(matrix, [from[0], from[1]], [c[0], c[1]]);<br>      break;<br>    }<br>  }<br>}<br>var toggle = function(matrix, from, to) {<br>  var memo = matrix[from[0]][from[1]];<br>  matrix[from[0]][from[1]] = matrix[to[0]][to[1]];<br>  matrix[to[0]][to[1]] = memo;<br>  render(matrix);<br>}<br><br>document.querySelector('.sliding button').addEventListener('click', function() {<br>  var squares = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8]);<br>  var matrix = [<br>    [squares[0], squares[1], squares[2]],<br>    [squares[3], squares[4], squares[5]],<br>    [squares[6], squares[7], squares[8]]<br>  ];<br>  render(matrix);<br>});",
+                dom: function() {
+                    return sliding.bind(sliding);
+                },
+                answer: function() {
+                    let button = document.querySelector('.sliding button');
+                    button.click();
+
+                    // click on possible
+                    let classNames = getClassNames('.sliding li');
+                    let expected = classNames.slice(0);
+                    let position = classNames.indexOf('square0') + 1;
+                    let toPosition;
+                    if ([1, 2, 3, 4, 5, 6].indexOf(position) !== -1) {
+                        toPosition = position + 3;
+                    } else {
+                        toPosition = position - 3;
+                    }
+                    document.querySelector(`.sliding li:nth-child(${toPosition})`).click();
+                    let memo = expected[position - 1];
+                    expected[position - 1] = expected[toPosition - 1];
+                    expected[toPosition - 1] = memo;
+
+                    classNames = getClassNames('.sliding li');
+
+                    let basic = true;
+                    basic = basic && equals(expected, classNames);
+
+                    if (!basic)
+                        this.warn = "Le déplacement vertical d'une case doit fonctionner";
+                    return basic;
+                }
+            }
+        ]
+    }, {
+        title: "Puzzle | Puissance 4",
+        description: "Un puissance 4 est un puzzle pour 2 joueurs (<i>l'un jaune, l'autre rouge</i>) jouant à tour de rôle un jeton dans une des 7 colonnes disponibles. Chaque jeton s'empile aux jetons précédement joués dans cette colonne. Le premier joueur à aligner 4 jetons, horizontalement, verticalement ou en diagonale gagne.<br><br>Ce chapitre présente la réalisation (<i>corsée</i>) d'un puissance 4 pas à pas.",
+        color: "pink",
+        steps: [
+            {
+                title: "Générer une table de jeu",
+                description: "Dans la <code>table</code> générer 6 lignes <code>tr</code> avec chacune 7 colonnes <code>td</code> afin de créer le plateau de jeu.",
+                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br>render();",
+                dom: function() {
+                    return connectfour.bind(connectfour);
+                },
+                answer: function() {
+                    if (document.querySelectorAll('table tr').length !== 6)
+                        this.warn = this.warn || "La table doit contenir 6 <code>tr</code>";
+                    if (document.querySelectorAll('table tr td').length !== 42)
+                        this.warn = this.warn || "La table doit contenir 42 <code>td</code>";
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Ajouter un jeton alternativement jaune puis rouge",
+                description: "Au clic sur n'importe quel <code>td</code> d'une colonne, ajouter au <code>td</code> en pied de cette colonne la classe <code>yellow</code> ou <code>red</code> alternativement (<i>si il n'a pas de classe</i>). Au fur et à mesure des clics, les jetons s'empilent ainsi les uns sur les autres. Si une colonne est remplie, elle ne reçoit plus de jeton au clic.",
+                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      if (column)<br>        td.className = column;<br><br>      td.addEventListener('click', function(e) {<br>        var index = Array.prototype.indexOf.call(this.parentElement.children, this);<br>        for (var i = 5; i >= 0; i--) {<br>          if (!grid[i][index]) {<br>            color = (color === 'yellow' ? 'red' : 'yellow');<br>            grid[i][index] = color;<br>            break;<br>          } else continue;<br>        }<br>        render();<br>      });<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br>render();",
+                dom: function() {
+                    return connectfour.bind(connectfour);
+                },
+                answer: function() {
+                    var cell = function(tr, td) {
+                        return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
+                    }
+
+                    cell(1, 1).click();
+                    cell(1, 1).click();
+                    cell(1, 1).click();
+                    cell(1, 2).click();
+
+                    if (elHasClass(cell(6, 1), 'yellow') !== true)
+                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la première case de cette colonne doit être jaune";
+                    if (elHasClass(cell(5, 1), 'red') !== true)
+                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la deuxième case de cette colonne doit être rouge";
+                    if (elHasClass(cell(4, 1), 'yellow') !== true)
+                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la troisième case de cette colonne doit être jaune";
+                    if (elHasClass(cell(6, 2), 'red') !== true)
+                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la quatrième case de cette colonne doit être rouge";
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Combinaison horizontale gagnante",
+                description: "Lorsque 4 jetons consécutifs de la même couleur sont alignés horizontalement, leur ajouter la classe <code>victory</code>. Les clics suivants sur la table n'ajoutent plus de jetons.",
+                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var winner = false;<br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      if (column)<br>        td.className = column;<br><br>      td.addEventListener('click', function(e) {<br>        if (winner)<br>          return;<br><br>        var index = Array.prototype.indexOf.call(this.parentElement.children, this);<br>        for (var i = 5; i >= 0; i--) {<br>          if (!grid[i][index]) {<br>            color = (color === 'yellow' ? 'red' : 'yellow');<br>            grid[i][index] = color;<br>            break;<br>          } else continue;<br>        }<br><br>        winner = wins(grid);<br>        if (winner) {<br>          for (var i = 0; i < winner.length; i++) {<br>            var position = winner[i].split('-');<br>            grid[position[0]][position[1]] += ' victory';<br>          }<br>        }<br>        render();<br>      });<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br><br>var wins = function() {<br>  return horizontalWinner(grid);<br>};<br><br>var horizontalWinner = function() {<br>  var player, positions;<br>  for (var row = 5; row >= 0; row--) {<br>    positions = []<br>    for (var column = 0; column < 7; column++) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>render();",
+                dom: function() {
+                    return connectfour.bind(connectfour);
+                },
+                answer: function() {
+                    var cell = function(tr, td) {
+                        return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
+                    }
+
+                    cell(1, 2).click(); cell(1, 3).click();
+                    cell(1, 4).click(); cell(1, 5).click();
+                    cell(1, 2).click(); cell(1, 1).click();
+                    cell(1, 3).click(); cell(1, 6).click();
+                    cell(1, 1).click(); cell(1, 1).click();
+                    cell(1, 4).click(); cell(1, 4).click();
+
+                    var basic = true;
+                    basic = basic && elHasClass(cell(5, 1), 'victory');
+                    basic = basic && elHasClass(cell(5, 2), 'victory');
+                    basic = basic && elHasClass(cell(5, 3), 'victory');
+                    basic = basic && elHasClass(cell(5, 4), 'victory');
+                    basic = basic && !elHasClass(cell(4, 4), 'red');
+
+                    if (!basic)
+                        this.warn = "Les combinaisons horizontales gagnantes doivent fonctionner";
+                    return basic;
+                }
+            },
+            {
+                title: "Combinaison verticale gagnante",
+                description: "Faire de même lorsque 4 jetons sont alignés verticalement.",
+                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var winner = false;<br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      if (column)<br>        td.className = column;<br><br>      td.addEventListener('click', function(e) {<br>        if (winner)<br>          return;<br><br>        var index = Array.prototype.indexOf.call(this.parentElement.children, this);<br>        for (var i = 5; i >= 0; i--) {<br>          if (!grid[i][index]) {<br>            color = (color === 'yellow' ? 'red' : 'yellow');<br>            grid[i][index] = color;<br>            break;<br>          } else continue;<br>        }<br><br>        winner = wins(grid);<br>        if (winner) {<br>          for (var i = 0; i < winner.length; i++) {<br>            var position = winner[i].split('-');<br>            grid[position[0]][position[1]] += ' victory';<br>          }<br>        }<br>        render();<br>      });<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br><br>var wins = function() {<br>  return verticalWinner(grid) || horizontalWinner(grid);<br>};<br><br>var verticalWinner = function() {<br>  var player, positions;<br>  for (var column = 0; column < 7; column++) {<br>    positions = [];<br>    for (var row = 5; row >= 0; row--) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>var horizontalWinner = function() {<br>  var player, positions;<br>  for (var row = 5; row >= 0; row--) {<br>    positions = []<br>    for (var column = 0; column < 7; column++) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>render();",
+                dom: function() {
+                    return connectfour.bind(connectfour);
+                },
+                answer: function() {
+                    var cell = function(tr, td) {
+                        return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
+                    }
+
+                    cell(1, 4).click(); cell(1, 4).click();
+                    cell(1, 1).click(); cell(1, 2).click();
+                    cell(1, 1).click(); cell(1, 2).click();
+                    cell(1, 1).click(); cell(1, 2).click();
+                    cell(1, 1).click(); cell(1, 2).click();
+
+                    var basic = true;
+                    basic = basic && elHasClass(cell(6, 1), 'victory');
+                    basic = basic && elHasClass(cell(5, 1), 'victory');
+                    basic = basic && elHasClass(cell(4, 1), 'victory');
+                    basic = basic && elHasClass(cell(3, 1), 'victory');
+                    basic = basic && !elHasClass(cell(6, 2), 'victory');
+                    basic = basic && !elHasClass(cell(5, 2), 'victory');
+                    basic = basic && elHasClass(cell(4, 2), 'red');
+                    basic = basic && !elHasClass(cell(3, 2), 'red');
+
+                    if (!basic)
+                        this.warn = "Les combinaisons verticales gagnantes doivent fonctionner";
+                    return basic;
+                }
+            }
+        ]
     }
 ];
 
@@ -3008,12 +3029,12 @@ let stepper = function(el, data, methods) {
                                     <div class="eight wide tablet eleven wide computer column">
                                         <span class="hidden" data-hook="error"><i class="remove circle icon"></i><span data-hook="error-label"></span></span>
                                     </div>
-                                    <div class="eight wide tablet five wide computer column">
-                                        <button class="ui right labeled right floated icon ${chapterContent.color} disabled button" data-hook="next">
+                                    <div class="eight wide tablet five wide computer right aligned column">
+                                        <button class="ui ${chapterContent.color} button" data-hook="validate">Vérifier</button>
+                                        <button class="ui right labeled icon ${chapterContent.color} disabled button" data-hook="next">
                                             <i class="right arrow icon"></i>
                                             <span>${labelNext}</span>
                                         </button>
-                                        <button class="ui right floated ${chapterContent.color} button" data-hook="validate">Vérifier</button>
                                     </div>
                                 </div>
                             </div>
