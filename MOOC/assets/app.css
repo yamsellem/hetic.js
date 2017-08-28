@@ -46,12 +46,16 @@ li {
 h1.ui.header {
     margin-bottom: 0;
 }
-h3.ui.header {
+h2.ui.header {
     margin-top: 0;
+    font-size: 1.28571429rem;
+}
+h2 a {
+    color: #767676;
 }
 
-h3 a {
-    color: #767676;
+h3 {
+    color: rgba(0,0,0,.68) !important;
 }
 
 .hidden {
@@ -84,6 +88,14 @@ h3 a {
     margin-right: .5rem;
 }
 
+.ui.ribbon.label {
+    left: calc(-1rem - 1em);
+    margin-right: -1em;
+}
+.ui.ribbon.label:after {
+    border-width: 0 1em 1em 0;
+}
+
 .ui.card.h-colored {
     border-radius: none;
     box-shadow: none;
@@ -92,6 +104,20 @@ h3 a {
 
 .ui.card.h-colored > .content:first-child {
     flex-grow: 0;
+}
+.ui.card > .content {
+    text-align: justify;
+}
+.ui.card > .content .description {
+    font-size: 1.05em
+}
+.ui.card > .content .description ul {
+    margin: 0 0 .5em;
+    padding-left: 1.3em;
+    list-style-type: circle;
+}
+.ui.card > .content .description li {
+    display: list-item;
 }
 
 .ui.card.h-green > .content:first-child { background-color: #28BA27; }
@@ -108,11 +134,24 @@ h3 a {
 }
 
 .ui.card.h-colored > .content:first-child li {
+    height: 8px;
+    width: 8px;
+    border-radius: 0;
+    margin-right: 7px;
+    transform: rotate(45deg);
+    position: relative;
+    top: -1px;
+
+    border: 2px solid rgba(255,255,255,0.3);
+    margin-right: 6px;
+}
+.ui.card.h-colored > .content:first-child li.course {
     height: 10px;
     width: 10px;
-    border: 2px solid rgba(255,255,255,0.3);
+    transform: none;
+    top: 0;
+
     border-radius: 10px;
-    margin-right: 5px;
 }
 
 .ui.card.h-colored > .content:first-child li:first-child {
@@ -129,6 +168,26 @@ h3 a {
 }
 .ui.card > .extra {
     color: #DB2B1E;
+}
+
+@media only screen and (min-width: 768px) {
+    .ui.fluid.container {
+        width: auto!important;
+        margin-left: 1em!important;
+        margin-right: 1em!important;
+    }
+}
+@media only screen and (min-width: 992px) {
+    .stepper {
+        max-width: 933px;
+        margin: auto;
+    }
+}
+@media only screen and (max-width: 767px) {
+    .ui.stackable.grid>.column:not(.row) {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
 }
 
 .stepper .ui.card.h-colored > .content:first-child li {

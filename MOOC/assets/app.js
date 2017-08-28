@@ -3,13 +3,25 @@
 // anonymous function wrapper to avoid let declaration collision in user code
 (function() {
 
-/*! highlight.js v9.9.0 */
-!function(e){var n="object"==typeof window&&window||"object"==typeof self&&self;"undefined"!=typeof exports?e(exports):n&&(n.hljs=e({}),"function"==typeof define&&define.amd&&define([],function(){return n.hljs}))}(function(e){function n(e){return e.replace(/[&<>]/gm,function(e){return I[e]})}function t(e){return e.nodeName.toLowerCase()}function r(e,n){var t=e&&e.exec(n);return t&&0===t.index}function i(e){return k.test(e)}function a(e){var n,t,r,a,o=e.className+" ";if(o+=e.parentNode?e.parentNode.className:"",t=B.exec(o))return R(t[1])?t[1]:"no-highlight";for(o=o.split(/\s+/),n=0,r=o.length;r>n;n++)if(a=o[n],i(a)||R(a))return a}function o(e,n){var t,r={};for(t in e)r[t]=e[t];if(n)for(t in n)r[t]=n[t];return r}function u(e){var n=[];return function r(e,i){for(var a=e.firstChild;a;a=a.nextSibling)3===a.nodeType?i+=a.nodeValue.length:1===a.nodeType&&(n.push({event:"start",offset:i,node:a}),i=r(a,i),t(a).match(/br|hr|img|input/)||n.push({event:"stop",offset:i,node:a}));return i}(e,0),n}function c(e,r,i){function a(){return e.length&&r.length?e[0].offset!==r[0].offset?e[0].offset<r[0].offset?e:r:"start"===r[0].event?e:r:e.length?e:r}function o(e){function r(e){return" "+e.nodeName+'="'+n(e.value)+'"'}l+="<"+t(e)+w.map.call(e.attributes,r).join("")+">"}function u(e){l+="</"+t(e)+">"}function c(e){("start"===e.event?o:u)(e.node)}for(var s=0,l="",f=[];e.length||r.length;){var g=a();if(l+=n(i.substring(s,g[0].offset)),s=g[0].offset,g===e){f.reverse().forEach(u);do c(g.splice(0,1)[0]),g=a();while(g===e&&g.length&&g[0].offset===s);f.reverse().forEach(o)}else"start"===g[0].event?f.push(g[0].node):f.pop(),c(g.splice(0,1)[0])}return l+n(i.substr(s))}function s(e){function n(e){return e&&e.source||e}function t(t,r){return new RegExp(n(t),"m"+(e.cI?"i":"")+(r?"g":""))}function r(i,a){if(!i.compiled){if(i.compiled=!0,i.k=i.k||i.bK,i.k){var u={},c=function(n,t){e.cI&&(t=t.toLowerCase()),t.split(" ").forEach(function(e){var t=e.split("|");u[t[0]]=[n,t[1]?Number(t[1]):1]})};"string"==typeof i.k?c("keyword",i.k):E(i.k).forEach(function(e){c(e,i.k[e])}),i.k=u}i.lR=t(i.l||/\w+/,!0),a&&(i.bK&&(i.b="\\b("+i.bK.split(" ").join("|")+")\\b"),i.b||(i.b=/\B|\b/),i.bR=t(i.b),i.e||i.eW||(i.e=/\B|\b/),i.e&&(i.eR=t(i.e)),i.tE=n(i.e)||"",i.eW&&a.tE&&(i.tE+=(i.e?"|":"")+a.tE)),i.i&&(i.iR=t(i.i)),null==i.r&&(i.r=1),i.c||(i.c=[]);var s=[];i.c.forEach(function(e){e.v?e.v.forEach(function(n){s.push(o(e,n))}):s.push("self"===e?i:e)}),i.c=s,i.c.forEach(function(e){r(e,i)}),i.starts&&r(i.starts,a);var l=i.c.map(function(e){return e.bK?"\\.?("+e.b+")\\.?":e.b}).concat([i.tE,i.i]).map(n).filter(Boolean);i.t=l.length?t(l.join("|"),!0):{exec:function(){return null}}}}r(e)}function l(e,t,i,a){function o(e,n){var t,i;for(t=0,i=n.c.length;i>t;t++)if(r(n.c[t].bR,e))return n.c[t]}function u(e,n){if(r(e.eR,n)){for(;e.endsParent&&e.parent;)e=e.parent;return e}return e.eW?u(e.parent,n):void 0}function c(e,n){return!i&&r(n.iR,e)}function g(e,n){var t=N.cI?n[0].toLowerCase():n[0];return e.k.hasOwnProperty(t)&&e.k[t]}function h(e,n,t,r){var i=r?"":y.classPrefix,a='<span class="'+i,o=t?"":C;return a+=e+'">',a+n+o}function p(){var e,t,r,i;if(!E.k)return n(B);for(i="",t=0,E.lR.lastIndex=0,r=E.lR.exec(B);r;)i+=n(B.substring(t,r.index)),e=g(E,r),e?(M+=e[1],i+=h(e[0],n(r[0]))):i+=n(r[0]),t=E.lR.lastIndex,r=E.lR.exec(B);return i+n(B.substr(t))}function d(){var e="string"==typeof E.sL;if(e&&!x[E.sL])return n(B);var t=e?l(E.sL,B,!0,L[E.sL]):f(B,E.sL.length?E.sL:void 0);return E.r>0&&(M+=t.r),e&&(L[E.sL]=t.top),h(t.language,t.value,!1,!0)}function b(){k+=null!=E.sL?d():p(),B=""}function v(e){k+=e.cN?h(e.cN,"",!0):"",E=Object.create(e,{parent:{value:E}})}function m(e,n){if(B+=e,null==n)return b(),0;var t=o(n,E);if(t)return t.skip?B+=n:(t.eB&&(B+=n),b(),t.rB||t.eB||(B=n)),v(t,n),t.rB?0:n.length;var r=u(E,n);if(r){var i=E;i.skip?B+=n:(i.rE||i.eE||(B+=n),b(),i.eE&&(B=n));do E.cN&&(k+=C),E.skip||(M+=E.r),E=E.parent;while(E!==r.parent);return r.starts&&v(r.starts,""),i.rE?0:n.length}if(c(n,E))throw new Error('Illegal lexeme "'+n+'" for mode "'+(E.cN||"<unnamed>")+'"');return B+=n,n.length||1}var N=R(e);if(!N)throw new Error('Unknown language: "'+e+'"');s(N);var w,E=a||N,L={},k="";for(w=E;w!==N;w=w.parent)w.cN&&(k=h(w.cN,"",!0)+k);var B="",M=0;try{for(var I,j,O=0;;){if(E.t.lastIndex=O,I=E.t.exec(t),!I)break;j=m(t.substring(O,I.index),I[0]),O=I.index+j}for(m(t.substr(O)),w=E;w.parent;w=w.parent)w.cN&&(k+=C);return{r:M,value:k,language:e,top:E}}catch(T){if(T.message&&-1!==T.message.indexOf("Illegal"))return{r:0,value:n(t)};throw T}}function f(e,t){t=t||y.languages||E(x);var r={r:0,value:n(e)},i=r;return t.filter(R).forEach(function(n){var t=l(n,e,!1);t.language=n,t.r>i.r&&(i=t),t.r>r.r&&(i=r,r=t)}),i.language&&(r.second_best=i),r}function g(e){return y.tabReplace||y.useBR?e.replace(M,function(e,n){return y.useBR&&"\n"===e?"<br>":y.tabReplace?n.replace(/\t/g,y.tabReplace):void 0}):e}function h(e,n,t){var r=n?L[n]:t,i=[e.trim()];return e.match(/\bhljs\b/)||i.push("hljs"),-1===e.indexOf(r)&&i.push(r),i.join(" ").trim()}function p(e){var n,t,r,o,s,p=a(e);i(p)||(y.useBR?(n=document.createElementNS("http://www.w3.org/1999/xhtml","div"),n.innerHTML=e.innerHTML.replace(/\n/g,"").replace(/<br[ \/]*>/g,"\n")):n=e,s=n.textContent,r=p?l(p,s,!0):f(s),t=u(n),t.length&&(o=document.createElementNS("http://www.w3.org/1999/xhtml","div"),o.innerHTML=r.value,r.value=c(t,u(o),s)),r.value=g(r.value),e.innerHTML=r.value,e.className=h(e.className,p,r.language),e.result={language:r.language,re:r.r},r.second_best&&(e.second_best={language:r.second_best.language,re:r.second_best.r}))}function d(e){y=o(y,e)}function b(){if(!b.called){b.called=!0;var e=document.querySelectorAll("pre code");w.forEach.call(e,p)}}function v(){addEventListener("DOMContentLoaded",b,!1),addEventListener("load",b,!1)}function m(n,t){var r=x[n]=t(e);r.aliases&&r.aliases.forEach(function(e){L[e]=n})}function N(){return E(x)}function R(e){return e=(e||"").toLowerCase(),x[e]||x[L[e]]}var w=[],E=Object.keys,x={},L={},k=/^(no-?highlight|plain|text)$/i,B=/\blang(?:uage)?-([\w-]+)\b/i,M=/((^(<[^>]+>|\t|)+|(?:\n)))/gm,C="</span>",y={classPrefix:"hljs-",tabReplace:null,useBR:!1,languages:void 0},I={"&":"&amp;","<":"&lt;",">":"&gt;"};return e.highlight=l,e.highlightAuto=f,e.fixMarkup=g,e.highlightBlock=p,e.configure=d,e.initHighlighting=b,e.initHighlightingOnLoad=v,e.registerLanguage=m,e.listLanguages=N,e.getLanguage=R,e.inherit=o,e.IR="[a-zA-Z]\\w*",e.UIR="[a-zA-Z_]\\w*",e.NR="\\b\\d+(\\.\\d+)?",e.CNR="(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)",e.BNR="\\b(0b[01]+)",e.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|-|-=|/=|/|:|;|<<|<<=|<=|<|===|==|=|>>>=|>>=|>=|>>>|>>|>|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~",e.BE={b:"\\\\[\\s\\S]",r:0},e.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[e.BE]},e.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[e.BE]},e.PWM={b:/\b(a|an|the|are|I'm|isn't|don't|doesn't|won't|but|just|should|pretty|simply|enough|gonna|going|wtf|so|such|will|you|your|like)\b/},e.C=function(n,t,r){var i=e.inherit({cN:"comment",b:n,e:t,c:[]},r||{});return i.c.push(e.PWM),i.c.push({cN:"doctag",b:"(?:TODO|FIXME|NOTE|BUG|XXX):",r:0}),i},e.CLCM=e.C("//","$"),e.CBCM=e.C("/\\*","\\*/"),e.HCM=e.C("#","$"),e.NM={cN:"number",b:e.NR,r:0},e.CNM={cN:"number",b:e.CNR,r:0},e.BNM={cN:"number",b:e.BNR,r:0},e.CSSNM={cN:"number",b:e.NR+"(%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc|px|deg|grad|rad|turn|s|ms|Hz|kHz|dpi|dpcm|dppx)?",r:0},e.RM={cN:"regexp",b:/\//,e:/\/[gimuy]*/,i:/\n/,c:[e.BE,{b:/\[/,e:/\]/,r:0,c:[e.BE]}]},e.TM={cN:"title",b:e.IR,r:0},e.UTM={cN:"title",b:e.UIR,r:0},e.METHOD_GUARD={b:"\\.\\s*"+e.UIR,r:0},e});hljs.registerLanguage("xml",function(s){var e="[A-Za-z0-9\\._:-]+",t={eW:!0,i:/</,r:0,c:[{cN:"attr",b:e,r:0},{b:/=\s*/,r:0,c:[{cN:"string",endsParent:!0,v:[{b:/"/,e:/"/},{b:/'/,e:/'/},{b:/[^\s"'=<>`]+/}]}]}]};return{aliases:["html","xhtml","rss","atom","xjb","xsd","xsl","plist"],cI:!0,c:[{cN:"meta",b:"<!DOCTYPE",e:">",r:10,c:[{b:"\\[",e:"\\]"}]},s.C("<!--","-->",{r:10}),{b:"<\\!\\[CDATA\\[",e:"\\]\\]>",r:10},{b:/<\?(php)?/,e:/\?>/,sL:"php",c:[{b:"/\\*",e:"\\*/",skip:!0}]},{cN:"tag",b:"<style(?=\\s|>|$)",e:">",k:{name:"style"},c:[t],starts:{e:"</style>",rE:!0,sL:["css","xml"]}},{cN:"tag",b:"<script(?=\\s|>|$)",e:">",k:{name:"script"},c:[t],starts:{e:"</script>",rE:!0,sL:["actionscript","javascript","handlebars","xml"]}},{cN:"meta",v:[{b:/<\?xml/,e:/\?>/,r:10},{b:/<\?\w+/,e:/\?>/}]},{cN:"tag",b:"</?",e:"/?>",c:[{cN:"name",b:/[^\/><\s]+/,r:0},t]}]}});hljs.registerLanguage("javascript",function(e){var r="[A-Za-z$_][0-9A-Za-z$_]*",t={keyword:"in of if for while finally var new function do return void else break catch instanceof with throw case default try this switch continue typeof delete let yield const export super debugger as async await static import from as",literal:"true false null undefined NaN Infinity",built_in:"eval isFinite isNaN parseFloat parseInt decodeURI decodeURIComponent encodeURI encodeURIComponent escape unescape Object Function Boolean Error EvalError InternalError RangeError ReferenceError StopIteration SyntaxError TypeError URIError Number Math Date String RegExp Array Float32Array Float64Array Int16Array Int32Array Int8Array Uint16Array Uint32Array Uint8Array Uint8ClampedArray ArrayBuffer DataView JSON Intl arguments require module console window document Symbol Set Map WeakSet WeakMap Proxy Reflect Promise"},a={cN:"number",v:[{b:"\\b(0[bB][01]+)"},{b:"\\b(0[oO][0-7]+)"},{b:e.CNR}],r:0},n={cN:"subst",b:"\\$\\{",e:"\\}",k:t,c:[]},c={cN:"string",b:"`",e:"`",c:[e.BE,n]};n.c=[e.ASM,e.QSM,c,a,e.RM];var s=n.c.concat([e.CBCM,e.CLCM]);return{aliases:["js","jsx"],k:t,c:[{cN:"meta",r:10,b:/^\s*['"]use (strict|asm)['"]/},{cN:"meta",b:/^#!/,e:/$/},e.ASM,e.QSM,c,e.CLCM,e.CBCM,a,{b:/[{,]\s*/,r:0,c:[{b:r+"\\s*:",rB:!0,r:0,c:[{cN:"attr",b:r,r:0}]}]},{b:"("+e.RSR+"|\\b(case|return|throw)\\b)\\s*",k:"return throw case",c:[e.CLCM,e.CBCM,e.RM,{cN:"function",b:"(\\(.*?\\)|"+r+")\\s*=>",rB:!0,e:"\\s*=>",c:[{cN:"params",v:[{b:r},{b:/\(\s*\)/},{b:/\(/,e:/\)/,eB:!0,eE:!0,k:t,c:s}]}]},{b:/</,e:/(\/\w+|\w+\/)>/,sL:"xml",c:[{b:/<\w+\s*\/>/,skip:!0},{b:/<\w+/,e:/(\/\w+|\w+\/)>/,skip:!0,c:[{b:/<\w+\s*\/>/,skip:!0},"self"]}]}],r:0},{cN:"function",bK:"function",e:/\{/,eE:!0,c:[e.inherit(e.TM,{b:r}),{cN:"params",b:/\(/,e:/\)/,eB:!0,eE:!0,c:s}],i:/\[|%/},{b:/\$[(.]/},e.METHOD_GUARD,{cN:"class",bK:"class",e:/[{;=]/,eE:!0,i:/[:"\[\]]/,c:[{bK:"extends"},e.UTM]},{bK:"constructor",e:/\{/,eE:!0}],i:/#(?!!)/}});
+/*! highlight.js v9.12.0 */
+!function(e){var n="object"==typeof window&&window||"object"==typeof self&&self;"undefined"!=typeof exports?e(exports):n&&(n.hljs=e({}),"function"==typeof define&&define.amd&&define([],function(){return n.hljs}))}(function(e){function n(e){return e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}function t(e){return e.nodeName.toLowerCase()}function r(e,n){var t=e&&e.exec(n);return t&&0===t.index}function a(e){return k.test(e)}function i(e){var n,t,r,i,o=e.className+" ";if(o+=e.parentNode?e.parentNode.className:"",t=B.exec(o))return w(t[1])?t[1]:"no-highlight";for(o=o.split(/\s+/),n=0,r=o.length;r>n;n++)if(i=o[n],a(i)||w(i))return i}function o(e){var n,t={},r=Array.prototype.slice.call(arguments,1);for(n in e)t[n]=e[n];return r.forEach(function(e){for(n in e)t[n]=e[n]}),t}function u(e){var n=[];return function r(e,a){for(var i=e.firstChild;i;i=i.nextSibling)3===i.nodeType?a+=i.nodeValue.length:1===i.nodeType&&(n.push({event:"start",offset:a,node:i}),a=r(i,a),t(i).match(/br|hr|img|input/)||n.push({event:"stop",offset:a,node:i}));return a}(e,0),n}function c(e,r,a){function i(){return e.length&&r.length?e[0].offset!==r[0].offset?e[0].offset<r[0].offset?e:r:"start"===r[0].event?e:r:e.length?e:r}function o(e){function r(e){return" "+e.nodeName+'="'+n(e.value).replace('"',"&quot;")+'"'}s+="<"+t(e)+E.map.call(e.attributes,r).join("")+">"}function u(e){s+="</"+t(e)+">"}function c(e){("start"===e.event?o:u)(e.node)}for(var l=0,s="",f=[];e.length||r.length;){var g=i();if(s+=n(a.substring(l,g[0].offset)),l=g[0].offset,g===e){f.reverse().forEach(u);do c(g.splice(0,1)[0]),g=i();while(g===e&&g.length&&g[0].offset===l);f.reverse().forEach(o)}else"start"===g[0].event?f.push(g[0].node):f.pop(),c(g.splice(0,1)[0])}return s+n(a.substr(l))}function l(e){return e.v&&!e.cached_variants&&(e.cached_variants=e.v.map(function(n){return o(e,{v:null},n)})),e.cached_variants||e.eW&&[o(e)]||[e]}function s(e){function n(e){return e&&e.source||e}function t(t,r){return new RegExp(n(t),"m"+(e.cI?"i":"")+(r?"g":""))}function r(a,i){if(!a.compiled){if(a.compiled=!0,a.k=a.k||a.bK,a.k){var o={},u=function(n,t){e.cI&&(t=t.toLowerCase()),t.split(" ").forEach(function(e){var t=e.split("|");o[t[0]]=[n,t[1]?Number(t[1]):1]})};"string"==typeof a.k?u("keyword",a.k):x(a.k).forEach(function(e){u(e,a.k[e])}),a.k=o}a.lR=t(a.l||/\w+/,!0),i&&(a.bK&&(a.b="\\b("+a.bK.split(" ").join("|")+")\\b"),a.b||(a.b=/\B|\b/),a.bR=t(a.b),a.e||a.eW||(a.e=/\B|\b/),a.e&&(a.eR=t(a.e)),a.tE=n(a.e)||"",a.eW&&i.tE&&(a.tE+=(a.e?"|":"")+i.tE)),a.i&&(a.iR=t(a.i)),null==a.r&&(a.r=1),a.c||(a.c=[]),a.c=Array.prototype.concat.apply([],a.c.map(function(e){return l("self"===e?a:e)})),a.c.forEach(function(e){r(e,a)}),a.starts&&r(a.starts,i);var c=a.c.map(function(e){return e.bK?"\\.?("+e.b+")\\.?":e.b}).concat([a.tE,a.i]).map(n).filter(Boolean);a.t=c.length?t(c.join("|"),!0):{exec:function(){return null}}}}r(e)}function f(e,t,a,i){function o(e,n){var t,a;for(t=0,a=n.c.length;a>t;t++)if(r(n.c[t].bR,e))return n.c[t]}function u(e,n){if(r(e.eR,n)){for(;e.endsParent&&e.parent;)e=e.parent;return e}return e.eW?u(e.parent,n):void 0}function c(e,n){return!a&&r(n.iR,e)}function l(e,n){var t=N.cI?n[0].toLowerCase():n[0];return e.k.hasOwnProperty(t)&&e.k[t]}function p(e,n,t,r){var a=r?"":I.classPrefix,i='<span class="'+a,o=t?"":C;return i+=e+'">',i+n+o}function h(){var e,t,r,a;if(!E.k)return n(k);for(a="",t=0,E.lR.lastIndex=0,r=E.lR.exec(k);r;)a+=n(k.substring(t,r.index)),e=l(E,r),e?(B+=e[1],a+=p(e[0],n(r[0]))):a+=n(r[0]),t=E.lR.lastIndex,r=E.lR.exec(k);return a+n(k.substr(t))}function d(){var e="string"==typeof E.sL;if(e&&!y[E.sL])return n(k);var t=e?f(E.sL,k,!0,x[E.sL]):g(k,E.sL.length?E.sL:void 0);return E.r>0&&(B+=t.r),e&&(x[E.sL]=t.top),p(t.language,t.value,!1,!0)}function b(){L+=null!=E.sL?d():h(),k=""}function v(e){L+=e.cN?p(e.cN,"",!0):"",E=Object.create(e,{parent:{value:E}})}function m(e,n){if(k+=e,null==n)return b(),0;var t=o(n,E);if(t)return t.skip?k+=n:(t.eB&&(k+=n),b(),t.rB||t.eB||(k=n)),v(t,n),t.rB?0:n.length;var r=u(E,n);if(r){var a=E;a.skip?k+=n:(a.rE||a.eE||(k+=n),b(),a.eE&&(k=n));do E.cN&&(L+=C),E.skip||(B+=E.r),E=E.parent;while(E!==r.parent);return r.starts&&v(r.starts,""),a.rE?0:n.length}if(c(n,E))throw new Error('Illegal lexeme "'+n+'" for mode "'+(E.cN||"<unnamed>")+'"');return k+=n,n.length||1}var N=w(e);if(!N)throw new Error('Unknown language: "'+e+'"');s(N);var R,E=i||N,x={},L="";for(R=E;R!==N;R=R.parent)R.cN&&(L=p(R.cN,"",!0)+L);var k="",B=0;try{for(var M,j,O=0;;){if(E.t.lastIndex=O,M=E.t.exec(t),!M)break;j=m(t.substring(O,M.index),M[0]),O=M.index+j}for(m(t.substr(O)),R=E;R.parent;R=R.parent)R.cN&&(L+=C);return{r:B,value:L,language:e,top:E}}catch(T){if(T.message&&-1!==T.message.indexOf("Illegal"))return{r:0,value:n(t)};throw T}}function g(e,t){t=t||I.languages||x(y);var r={r:0,value:n(e)},a=r;return t.filter(w).forEach(function(n){var t=f(n,e,!1);t.language=n,t.r>a.r&&(a=t),t.r>r.r&&(a=r,r=t)}),a.language&&(r.second_best=a),r}function p(e){return I.tabReplace||I.useBR?e.replace(M,function(e,n){return I.useBR&&"\n"===e?"<br>":I.tabReplace?n.replace(/\t/g,I.tabReplace):""}):e}function h(e,n,t){var r=n?L[n]:t,a=[e.trim()];return e.match(/\bhljs\b/)||a.push("hljs"),-1===e.indexOf(r)&&a.push(r),a.join(" ").trim()}function d(e){var n,t,r,o,l,s=i(e);a(s)||(I.useBR?(n=document.createElementNS("http://www.w3.org/1999/xhtml","div"),n.innerHTML=e.innerHTML.replace(/\n/g,"").replace(/<br[ \/]*>/g,"\n")):n=e,l=n.textContent,r=s?f(s,l,!0):g(l),t=u(n),t.length&&(o=document.createElementNS("http://www.w3.org/1999/xhtml","div"),o.innerHTML=r.value,r.value=c(t,u(o),l)),r.value=p(r.value),e.innerHTML=r.value,e.className=h(e.className,s,r.language),e.result={language:r.language,re:r.r},r.second_best&&(e.second_best={language:r.second_best.language,re:r.second_best.r}))}function b(e){I=o(I,e)}function v(){if(!v.called){v.called=!0;var e=document.querySelectorAll("pre code");E.forEach.call(e,d)}}function m(){addEventListener("DOMContentLoaded",v,!1),addEventListener("load",v,!1)}function N(n,t){var r=y[n]=t(e);r.aliases&&r.aliases.forEach(function(e){L[e]=n})}function R(){return x(y)}function w(e){return e=(e||"").toLowerCase(),y[e]||y[L[e]]}var E=[],x=Object.keys,y={},L={},k=/^(no-?highlight|plain|text)$/i,B=/\blang(?:uage)?-([\w-]+)\b/i,M=/((^(<[^>]+>|\t|)+|(?:\n)))/gm,C="</span>",I={classPrefix:"hljs-",tabReplace:null,useBR:!1,languages:void 0};return e.highlight=f,e.highlightAuto=g,e.fixMarkup=p,e.highlightBlock=d,e.configure=b,e.initHighlighting=v,e.initHighlightingOnLoad=m,e.registerLanguage=N,e.listLanguages=R,e.getLanguage=w,e.inherit=o,e.IR="[a-zA-Z]\\w*",e.UIR="[a-zA-Z_]\\w*",e.NR="\\b\\d+(\\.\\d+)?",e.CNR="(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)",e.BNR="\\b(0b[01]+)",e.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|-|-=|/=|/|:|;|<<|<<=|<=|<|===|==|=|>>>=|>>=|>=|>>>|>>|>|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~",e.BE={b:"\\\\[\\s\\S]",r:0},e.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[e.BE]},e.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[e.BE]},e.PWM={b:/\b(a|an|the|are|I'm|isn't|don't|doesn't|won't|but|just|should|pretty|simply|enough|gonna|going|wtf|so|such|will|you|your|they|like|more)\b/},e.C=function(n,t,r){var a=e.inherit({cN:"comment",b:n,e:t,c:[]},r||{});return a.c.push(e.PWM),a.c.push({cN:"doctag",b:"(?:TODO|FIXME|NOTE|BUG|XXX):",r:0}),a},e.CLCM=e.C("//","$"),e.CBCM=e.C("/\\*","\\*/"),e.HCM=e.C("#","$"),e.NM={cN:"number",b:e.NR,r:0},e.CNM={cN:"number",b:e.CNR,r:0},e.BNM={cN:"number",b:e.BNR,r:0},e.CSSNM={cN:"number",b:e.NR+"(%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc|px|deg|grad|rad|turn|s|ms|Hz|kHz|dpi|dpcm|dppx)?",r:0},e.RM={cN:"regexp",b:/\//,e:/\/[gimuy]*/,i:/\n/,c:[e.BE,{b:/\[/,e:/\]/,r:0,c:[e.BE]}]},e.TM={cN:"title",b:e.IR,r:0},e.UTM={cN:"title",b:e.UIR,r:0},e.METHOD_GUARD={b:"\\.\\s*"+e.UIR,r:0},e});hljs.registerLanguage("javascript",function(e){var r="[A-Za-z$_][0-9A-Za-z$_]*",t={keyword:"in of if for while finally var new function do return void else break catch instanceof with throw case default try this switch continue typeof delete let yield const export super debugger as async await static import from as",literal:"true false null undefined NaN Infinity",built_in:"eval isFinite isNaN parseFloat parseInt decodeURI decodeURIComponent encodeURI encodeURIComponent escape unescape Object Function Boolean Error EvalError InternalError RangeError ReferenceError StopIteration SyntaxError TypeError URIError Number Math Date String RegExp Array Float32Array Float64Array Int16Array Int32Array Int8Array Uint16Array Uint32Array Uint8Array Uint8ClampedArray ArrayBuffer DataView JSON Intl arguments require module console window document Symbol Set Map WeakSet WeakMap Proxy Reflect Promise"},a={cN:"number",v:[{b:"\\b(0[bB][01]+)"},{b:"\\b(0[oO][0-7]+)"},{b:e.CNR}],r:0},n={cN:"subst",b:"\\$\\{",e:"\\}",k:t,c:[]},c={cN:"string",b:"`",e:"`",c:[e.BE,n]};n.c=[e.ASM,e.QSM,c,a,e.RM];var s=n.c.concat([e.CBCM,e.CLCM]);return{aliases:["js","jsx"],k:t,c:[{cN:"meta",r:10,b:/^\s*['"]use (strict|asm)['"]/},{cN:"meta",b:/^#!/,e:/$/},e.ASM,e.QSM,c,e.CLCM,e.CBCM,a,{b:/[{,]\s*/,r:0,c:[{b:r+"\\s*:",rB:!0,r:0,c:[{cN:"attr",b:r,r:0}]}]},{b:"("+e.RSR+"|\\b(case|return|throw)\\b)\\s*",k:"return throw case",c:[e.CLCM,e.CBCM,e.RM,{cN:"function",b:"(\\(.*?\\)|"+r+")\\s*=>",rB:!0,e:"\\s*=>",c:[{cN:"params",v:[{b:r},{b:/\(\s*\)/},{b:/\(/,e:/\)/,eB:!0,eE:!0,k:t,c:s}]}]},{b:/</,e:/(\/\w+|\w+\/)>/,sL:"xml",c:[{b:/<\w+\s*\/>/,skip:!0},{b:/<\w+/,e:/(\/\w+|\w+\/)>/,skip:!0,c:[{b:/<\w+\s*\/>/,skip:!0},"self"]}]}],r:0},{cN:"function",bK:"function",e:/\{/,eE:!0,c:[e.inherit(e.TM,{b:r}),{cN:"params",b:/\(/,e:/\)/,eB:!0,eE:!0,c:s}],i:/\[|%/},{b:/\$[(.]/},e.METHOD_GUARD,{cN:"class",bK:"class",e:/[{;=]/,eE:!0,i:/[:"\[\]]/,c:[{bK:"extends"},e.UTM]},{bK:"constructor",e:/\{/,eE:!0}],i:/#(?!!)/}});hljs.registerLanguage("json",function(e){var i={literal:"true false null"},n=[e.QSM,e.CNM],r={e:",",eW:!0,eE:!0,c:n,k:i},t={b:"{",e:"}",c:[{cN:"attr",b:/"/,e:/"/,c:[e.BE],i:"\\n"},e.inherit(r,{b:/:/})],i:"\\S"},c={b:"\\[",e:"\\]",c:[e.inherit(r)],i:"\\S"};return n.splice(n.length,0,t,c),{c:n,k:i,i:"\\S"}});hljs.registerLanguage("xml",function(s){var e="[A-Za-z0-9\\._:-]+",t={eW:!0,i:/</,r:0,c:[{cN:"attr",b:e,r:0},{b:/=\s*/,r:0,c:[{cN:"string",endsParent:!0,v:[{b:/"/,e:/"/},{b:/'/,e:/'/},{b:/[^\s"'=<>`]+/}]}]}]};return{aliases:["html","xhtml","rss","atom","xjb","xsd","xsl","plist"],cI:!0,c:[{cN:"meta",b:"<!DOCTYPE",e:">",r:10,c:[{b:"\\[",e:"\\]"}]},s.C("<!--","-->",{r:10}),{b:"<\\!\\[CDATA\\[",e:"\\]\\]>",r:10},{b:/<\?(php)?/,e:/\?>/,sL:"php",c:[{b:"/\\*",e:"\\*/",skip:!0}]},{cN:"tag",b:"<style(?=\\s|>|$)",e:">",k:{name:"style"},c:[t],starts:{e:"</style>",rE:!0,sL:["css","xml"]}},{cN:"tag",b:"<script(?=\\s|>|$)",e:">",k:{name:"script"},c:[t],starts:{e:"</script>",rE:!0,sL:["actionscript","javascript","handlebars","xml"]}},{cN:"meta",v:[{b:/<\?xml/,e:/\?>/,r:10},{b:/<\?\w+/,e:/\?>/}]},{cN:"tag",b:"</?",e:"/?>",c:[{cN:"name",b:/[^\/><\s]+/,r:0},t]}]}});
+
+/*! marked.js 0.3.6 */
+ (function(){function e(e){this.tokens=[],this.tokens.links={},this.options=e||a.defaults,this.rules=p.normal,this.options.gfm&&(this.options.tables?this.rules=p.tables:this.rules=p.gfm)}function t(e,t){if(this.options=t||a.defaults,this.links=e,this.rules=u.normal,this.renderer=this.options.renderer||new n,this.renderer.options=this.options,!this.links)throw new Error("Tokens array requires a `links` property.");this.options.gfm?this.options.breaks?this.rules=u.breaks:this.rules=u.gfm:this.options.pedantic&&(this.rules=u.pedantic)}function n(e){this.options=e||{}}function r(e){this.tokens=[],this.token=null,this.options=e||a.defaults,this.options.renderer=this.options.renderer||new n,this.renderer=this.options.renderer,this.renderer.options=this.options}function s(e,t){return e.replace(t?/&/g:/&(?!#?\w+;)/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}function i(e){return e.replace(/&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/g,function(e,t){return t=t.toLowerCase(),"colon"===t?":":"#"===t.charAt(0)?"x"===t.charAt(1)?String.fromCharCode(parseInt(t.substring(2),16)):String.fromCharCode(+t.substring(1)):""})}function l(e,t){return e=e.source,t=t||"",function n(r,s){return r?(s=s.source||s,s=s.replace(/(^|[^\[])\^/g,"$1"),e=e.replace(r,s),n):new RegExp(e,t)}}function o(){}function h(e){for(var t,n,r=1;r<arguments.length;r++){t=arguments[r];for(n in t)Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n])}return e}function a(t,n,i){if(i||"function"==typeof n){i||(i=n,n=null),n=h({},a.defaults,n||{});var l,o,p=n.highlight,u=0;try{l=e.lex(t,n)}catch(c){return i(c)}o=l.length;var g=function(e){if(e)return n.highlight=p,i(e);var t;try{t=r.parse(l,n)}catch(s){e=s}return n.highlight=p,e?i(e):i(null,t)};if(!p||p.length<3)return g();if(delete n.highlight,!o)return g();for(;u<l.length;u++)!function(e){return"code"!==e.type?--o||g():p(e.text,e.lang,function(t,n){return t?g(t):null==n||n===e.text?--o||g():(e.text=n,e.escaped=!0,void(--o||g()))})}(l[u])}else try{return n&&(n=h({},a.defaults,n)),r.parse(e.lex(t,n),n)}catch(c){if(c.message+="\nPlease report this to https://github.com/chjj/marked.",(n||a.defaults).silent)return"<p>An error occured:</p><pre>"+s(c.message+"",!0)+"</pre>";throw c}}var p={newline:/^\n+/,code:/^( {4}[^\n]+\n*)+/,fences:o,hr:/^( *[-*_]){3,} *(?:\n+|$)/,heading:/^ *(#{1,6}) *([^\n]+?) *#* *(?:\n+|$)/,nptable:o,lheading:/^([^\n]+)\n *(=|-){2,} *(?:\n+|$)/,blockquote:/^( *>[^\n]+(\n(?!def)[^\n]+)*\n*)+/,list:/^( *)(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,html:/^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,def:/^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n+|$)/,table:o,paragraph:/^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def))+)\n*/,text:/^[^\n]+/};p.bullet=/(?:[*+-]|\d+\.)/,p.item=/^( *)(bull) [^\n]*(?:\n(?!\1bull )[^\n]*)*/,p.item=l(p.item,"gm")(/bull/g,p.bullet)(),p.list=l(p.list)(/bull/g,p.bullet)("hr","\\n+(?=\\1?(?:[-*_] *){3,}(?:\\n+|$))")("def","\\n+(?="+p.def.source+")")(),p.blockquote=l(p.blockquote)("def",p.def)(),p._tag="(?!(?:a|em|strong|small|s|cite|q|dfn|abbr|data|time|code|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo|span|br|wbr|ins|del|img)\\b)\\w+(?!:/|[^\\w\\s@]*@)\\b",p.html=l(p.html)("comment",/<!--[\s\S]*?-->/)("closed",/<(tag)[\s\S]+?<\/\1>/)("closing",/<tag(?:"[^"]*"|'[^']*'|[^'">])*?>/)(/tag/g,p._tag)(),p.paragraph=l(p.paragraph)("hr",p.hr)("heading",p.heading)("lheading",p.lheading)("blockquote",p.blockquote)("tag","<"+p._tag)("def",p.def)(),p.normal=h({},p),p.gfm=h({},p.normal,{fences:/^ *(`{3,}|~{3,})[ \.]*(\S+)? *\n([\s\S]*?)\s*\1 *(?:\n+|$)/,paragraph:/^/,heading:/^ *(#{1,6}) +([^\n]+?) *#* *(?:\n+|$)/}),p.gfm.paragraph=l(p.paragraph)("(?!","(?!"+p.gfm.fences.source.replace("\\1","\\2")+"|"+p.list.source.replace("\\1","\\3")+"|")(),p.tables=h({},p.gfm,{nptable:/^ *(\S.*\|.*)\n *([-:]+ *\|[-| :]*)\n((?:.*\|.*(?:\n|$))*)\n*/,table:/^ *\|(.+)\n *\|( *[-:]+[-| :]*)\n((?: *\|.*(?:\n|$))*)\n*/}),e.rules=p,e.lex=function(t,n){var r=new e(n);return r.lex(t)},e.prototype.lex=function(e){return e=e.replace(/\r\n|\r/g,"\n").replace(/\t/g,"    ").replace(/\u00a0/g," ").replace(/\u2424/g,"\n"),this.token(e,!0)},e.prototype.token=function(e,t,n){for(var r,s,i,l,o,h,a,u,c,e=e.replace(/^ +$/gm,"");e;)if((i=this.rules.newline.exec(e))&&(e=e.substring(i[0].length),i[0].length>1&&this.tokens.push({type:"space"})),i=this.rules.code.exec(e))e=e.substring(i[0].length),i=i[0].replace(/^ {4}/gm,""),this.tokens.push({type:"code",text:this.options.pedantic?i:i.replace(/\n+$/,"")});else if(i=this.rules.fences.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"code",lang:i[2],text:i[3]||""});else if(i=this.rules.heading.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"heading",depth:i[1].length,text:i[2]});else if(t&&(i=this.rules.nptable.exec(e))){for(e=e.substring(i[0].length),h={type:"table",header:i[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:i[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:i[3].replace(/\n$/,"").split("\n")},u=0;u<h.align.length;u++)/^ *-+: *$/.test(h.align[u])?h.align[u]="right":/^ *:-+: *$/.test(h.align[u])?h.align[u]="center":/^ *:-+ *$/.test(h.align[u])?h.align[u]="left":h.align[u]=null;for(u=0;u<h.cells.length;u++)h.cells[u]=h.cells[u].split(/ *\| */);this.tokens.push(h)}else if(i=this.rules.lheading.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"heading",depth:"="===i[2]?1:2,text:i[1]});else if(i=this.rules.hr.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"hr"});else if(i=this.rules.blockquote.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"blockquote_start"}),i=i[0].replace(/^ *> ?/gm,""),this.token(i,t,!0),this.tokens.push({type:"blockquote_end"});else if(i=this.rules.list.exec(e)){for(e=e.substring(i[0].length),l=i[2],this.tokens.push({type:"list_start",ordered:l.length>1}),i=i[0].match(this.rules.item),r=!1,c=i.length,u=0;c>u;u++)h=i[u],a=h.length,h=h.replace(/^ *([*+-]|\d+\.) +/,""),~h.indexOf("\n ")&&(a-=h.length,h=this.options.pedantic?h.replace(/^ {1,4}/gm,""):h.replace(new RegExp("^ {1,"+a+"}","gm"),"")),this.options.smartLists&&u!==c-1&&(o=p.bullet.exec(i[u+1])[0],l===o||l.length>1&&o.length>1||(e=i.slice(u+1).join("\n")+e,u=c-1)),s=r||/\n\n(?!\s*$)/.test(h),u!==c-1&&(r="\n"===h.charAt(h.length-1),s||(s=r)),this.tokens.push({type:s?"loose_item_start":"list_item_start"}),this.token(h,!1,n),this.tokens.push({type:"list_item_end"});this.tokens.push({type:"list_end"})}else if(i=this.rules.html.exec(e))e=e.substring(i[0].length),this.tokens.push({type:this.options.sanitize?"paragraph":"html",pre:!this.options.sanitizer&&("pre"===i[1]||"script"===i[1]||"style"===i[1]),text:i[0]});else if(!n&&t&&(i=this.rules.def.exec(e)))e=e.substring(i[0].length),this.tokens.links[i[1].toLowerCase()]={href:i[2],title:i[3]};else if(t&&(i=this.rules.table.exec(e))){for(e=e.substring(i[0].length),h={type:"table",header:i[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:i[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:i[3].replace(/(?: *\| *)?\n$/,"").split("\n")},u=0;u<h.align.length;u++)/^ *-+: *$/.test(h.align[u])?h.align[u]="right":/^ *:-+: *$/.test(h.align[u])?h.align[u]="center":/^ *:-+ *$/.test(h.align[u])?h.align[u]="left":h.align[u]=null;for(u=0;u<h.cells.length;u++)h.cells[u]=h.cells[u].replace(/^ *\| *| *\| *$/g,"").split(/ *\| */);this.tokens.push(h)}else if(t&&(i=this.rules.paragraph.exec(e)))e=e.substring(i[0].length),this.tokens.push({type:"paragraph",text:"\n"===i[1].charAt(i[1].length-1)?i[1].slice(0,-1):i[1]});else if(i=this.rules.text.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"text",text:i[0]});else if(e)throw new Error("Infinite loop on byte: "+e.charCodeAt(0));return this.tokens};var u={escape:/^\\([\\`*{}\[\]()#+\-.!_>])/,autolink:/^<([^ >]+(@|:\/)[^ >]+)>/,url:o,tag:/^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,link:/^!?\[(inside)\]\(href\)/,reflink:/^!?\[(inside)\]\s*\[([^\]]*)\]/,nolink:/^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,strong:/^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,em:/^\b_((?:[^_]|__)+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,code:/^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/,br:/^ {2,}\n(?!\s*$)/,del:o,text:/^[\s\S]+?(?=[\\<!\[_*`]| {2,}\n|$)/};u._inside=/(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/,u._href=/\s*<?([\s\S]*?)>?(?:\s+['"]([\s\S]*?)['"])?\s*/,u.link=l(u.link)("inside",u._inside)("href",u._href)(),u.reflink=l(u.reflink)("inside",u._inside)(),u.normal=h({},u),u.pedantic=h({},u.normal,{strong:/^__(?=\S)([\s\S]*?\S)__(?!_)|^\*\*(?=\S)([\s\S]*?\S)\*\*(?!\*)/,em:/^_(?=\S)([\s\S]*?\S)_(?!_)|^\*(?=\S)([\s\S]*?\S)\*(?!\*)/}),u.gfm=h({},u.normal,{escape:l(u.escape)("])","~|])")(),url:/^(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/,del:/^~~(?=\S)([\s\S]*?\S)~~/,text:l(u.text)("]|","~]|")("|","|https?://|")()}),u.breaks=h({},u.gfm,{br:l(u.br)("{2,}","*")(),text:l(u.gfm.text)("{2,}","*")()}),t.rules=u,t.output=function(e,n,r){var s=new t(n,r);return s.output(e)},t.prototype.output=function(e){for(var t,n,r,i,l="";e;)if(i=this.rules.escape.exec(e))e=e.substring(i[0].length),l+=i[1];else if(i=this.rules.autolink.exec(e))e=e.substring(i[0].length),"@"===i[2]?(n=":"===i[1].charAt(6)?this.mangle(i[1].substring(7)):this.mangle(i[1]),r=this.mangle("mailto:")+n):(n=s(i[1]),r=n),l+=this.renderer.link(r,null,n);else if(this.inLink||!(i=this.rules.url.exec(e))){if(i=this.rules.tag.exec(e))!this.inLink&&/^<a /i.test(i[0])?this.inLink=!0:this.inLink&&/^<\/a>/i.test(i[0])&&(this.inLink=!1),e=e.substring(i[0].length),l+=this.options.sanitize?this.options.sanitizer?this.options.sanitizer(i[0]):s(i[0]):i[0];else if(i=this.rules.link.exec(e))e=e.substring(i[0].length),this.inLink=!0,l+=this.outputLink(i,{href:i[2],title:i[3]}),this.inLink=!1;else if((i=this.rules.reflink.exec(e))||(i=this.rules.nolink.exec(e))){if(e=e.substring(i[0].length),t=(i[2]||i[1]).replace(/\s+/g," "),t=this.links[t.toLowerCase()],!t||!t.href){l+=i[0].charAt(0),e=i[0].substring(1)+e;continue}this.inLink=!0,l+=this.outputLink(i,t),this.inLink=!1}else if(i=this.rules.strong.exec(e))e=e.substring(i[0].length),l+=this.renderer.strong(this.output(i[2]||i[1]));else if(i=this.rules.em.exec(e))e=e.substring(i[0].length),l+=this.renderer.em(this.output(i[2]||i[1]));else if(i=this.rules.code.exec(e))e=e.substring(i[0].length),l+=this.renderer.codespan(s(i[2],!0));else if(i=this.rules.br.exec(e))e=e.substring(i[0].length),l+=this.renderer.br();else if(i=this.rules.del.exec(e))e=e.substring(i[0].length),l+=this.renderer.del(this.output(i[1]));else if(i=this.rules.text.exec(e))e=e.substring(i[0].length),l+=this.renderer.text(s(this.smartypants(i[0])));else if(e)throw new Error("Infinite loop on byte: "+e.charCodeAt(0))}else e=e.substring(i[0].length),n=s(i[1]),r=n,l+=this.renderer.link(r,null,n);return l},t.prototype.outputLink=function(e,t){var n=s(t.href),r=t.title?s(t.title):null;return"!"!==e[0].charAt(0)?this.renderer.link(n,r,this.output(e[1])):this.renderer.image(n,r,s(e[1]))},t.prototype.smartypants=function(e){return this.options.smartypants?e.replace(/---/g,"—").replace(/--/g,"–").replace(/(^|[-\u2014\/(\[{"\s])'/g,"$1‘").replace(/'/g,"’").replace(/(^|[-\u2014\/(\[{\u2018\s])"/g,"$1“").replace(/"/g,"”").replace(/\.{3}/g,"…"):e},t.prototype.mangle=function(e){if(!this.options.mangle)return e;for(var t,n="",r=e.length,s=0;r>s;s++)t=e.charCodeAt(s),Math.random()>.5&&(t="x"+t.toString(16)),n+="&#"+t+";";return n},n.prototype.code=function(e,t,n){if(this.options.highlight){var r=this.options.highlight(e,t);null!=r&&r!==e&&(n=!0,e=r)}return t?'<pre><code class="'+this.options.langPrefix+s(t,!0)+'">'+(n?e:s(e,!0))+"\n</code></pre>\n":"<pre><code>"+(n?e:s(e,!0))+"\n</code></pre>"},n.prototype.blockquote=function(e){return"<blockquote>\n"+e+"</blockquote>\n"},n.prototype.html=function(e){return e},n.prototype.heading=function(e,t,n){return"<h"+t+' id="'+this.options.headerPrefix+n.toLowerCase().replace(/[^\w]+/g,"-")+'">'+e+"</h"+t+">\n"},n.prototype.hr=function(){return this.options.xhtml?"<hr/>\n":"<hr>\n"},n.prototype.list=function(e,t){var n=t?"ol":"ul";return"<"+n+">\n"+e+"</"+n+">\n"},n.prototype.listitem=function(e){return"<li>"+e+"</li>\n"},n.prototype.paragraph=function(e){return"<p>"+e+"</p>\n"},n.prototype.table=function(e,t){return"<table>\n<thead>\n"+e+"</thead>\n<tbody>\n"+t+"</tbody>\n</table>\n"},n.prototype.tablerow=function(e){return"<tr>\n"+e+"</tr>\n"},n.prototype.tablecell=function(e,t){var n=t.header?"th":"td",r=t.align?"<"+n+' style="text-align:'+t.align+'">':"<"+n+">";return r+e+"</"+n+">\n"},n.prototype.strong=function(e){return"<strong>"+e+"</strong>"},n.prototype.em=function(e){return"<em>"+e+"</em>"},n.prototype.codespan=function(e){return"<code>"+e+"</code>"},n.prototype.br=function(){return this.options.xhtml?"<br/>":"<br>"},n.prototype.del=function(e){return"<del>"+e+"</del>"},n.prototype.link=function(e,t,n){if(this.options.sanitize){try{var r=decodeURIComponent(i(e)).replace(/[^\w:]/g,"").toLowerCase()}catch(s){return""}if(0===r.indexOf("javascript:")||0===r.indexOf("vbscript:"))return""}var l='<a href="'+e+'"';return t&&(l+=' title="'+t+'"'),l+=">"+n+"</a>"},n.prototype.image=function(e,t,n){var r='<img src="'+e+'" alt="'+n+'"';return t&&(r+=' title="'+t+'"'),r+=this.options.xhtml?"/>":">"},n.prototype.text=function(e){return e},r.parse=function(e,t,n){var s=new r(t,n);return s.parse(e)},r.prototype.parse=function(e){this.inline=new t(e.links,this.options,this.renderer),this.tokens=e.reverse();for(var n="";this.next();)n+=this.tok();return n},r.prototype.next=function(){return this.token=this.tokens.pop()},r.prototype.peek=function(){return this.tokens[this.tokens.length-1]||0},r.prototype.parseText=function(){for(var e=this.token.text;"text"===this.peek().type;)e+="\n"+this.next().text;return this.inline.output(e)},r.prototype.tok=function(){switch(this.token.type){case"space":return"";case"hr":return this.renderer.hr();case"heading":return this.renderer.heading(this.inline.output(this.token.text),this.token.depth,this.token.text);case"code":return this.renderer.code(this.token.text,this.token.lang,this.token.escaped);case"table":var e,t,n,r,s,i="",l="";for(n="",e=0;e<this.token.header.length;e++)r={header:!0,align:this.token.align[e]},n+=this.renderer.tablecell(this.inline.output(this.token.header[e]),{header:!0,align:this.token.align[e]});for(i+=this.renderer.tablerow(n),e=0;e<this.token.cells.length;e++){for(t=this.token.cells[e],n="",s=0;s<t.length;s++)n+=this.renderer.tablecell(this.inline.output(t[s]),{header:!1,align:this.token.align[s]});l+=this.renderer.tablerow(n)}return this.renderer.table(i,l);case"blockquote_start":for(var l="";"blockquote_end"!==this.next().type;)l+=this.tok();return this.renderer.blockquote(l);case"list_start":for(var l="",o=this.token.ordered;"list_end"!==this.next().type;)l+=this.tok();return this.renderer.list(l,o);case"list_item_start":for(var l="";"list_item_end"!==this.next().type;)l+="text"===this.token.type?this.parseText():this.tok();return this.renderer.listitem(l);case"loose_item_start":for(var l="";"list_item_end"!==this.next().type;)l+=this.tok();return this.renderer.listitem(l);case"html":var h=this.token.pre||this.options.pedantic?this.token.text:this.inline.output(this.token.text);return this.renderer.html(h);case"paragraph":return this.renderer.paragraph(this.inline.output(this.token.text));case"text":return this.renderer.paragraph(this.parseText())}},o.exec=o,a.options=a.setOptions=function(e){return h(a.defaults,e),a},a.defaults={gfm:!0,tables:!0,breaks:!1,pedantic:!1,sanitize:!1,sanitizer:null,mangle:!0,smartLists:!1,silent:!1,highlight:null,langPrefix:"lang-",smartypants:!1,headerPrefix:"",renderer:new n,xhtml:!1},a.Parser=r,a.parser=r.parse,a.Renderer=n,a.Lexer=e,a.lexer=e.lex,a.InlineLexer=t,a.inlineLexer=t.output,a.parse=a,"undefined"!=typeof module&&"object"==typeof exports?module.exports=a:"function"==typeof define&&define.amd?define(function(){return a}):this.marked=a}).call(function(){return this||("undefined"!=typeof window?window:global)}());
+
+marked.setOptions({
+    highlight: function (code) {
+        return hljs.highlightAuto(code).value;
+    }
+});
+
+/*! dedent-js 1.0.1 */
+function dedent(a){let b=[],c='string'==typeof a?[a]:a.slice();c[c.length-1]=c[c.length-1].replace(/\r?\n([\t ]*)$/,'');for(let d=0;d<c.length;d++){let e;(e=c[d].match(/\n[\t ]+/g))&&b.push(...e)}if(b.length){let d=Math.min(...b.map(f=>f.length-1)),e=new RegExp(`\n[\t ]{${d}}`,'g');for(let f=0;f<c.length;f++)c[f]=c[f].replace(e,'\n')}return c[0]=c[0].replace(/^\r?\n/,''),c[0]}
 
 // Body
 
 document.body.innerHTML = `
-<div id="app" class="ui container">
+<div id="app" class="ui fluid container">
     <div data-hook="view"></div>
 </div>
 `;
@@ -427,14 +439,116 @@ let getClassNames = function(selector) {
 
 let chapters = [
     {
-        title: "Bases du langage, opérations",
-        description: "JavaScript est un langage de programmation dynamique, principalement utilisé dans les navigateurs web pour interagir avec l'utilisateur, modifier l'état de la page et communiquer avec un serveur de façon asynchrone. Depuis peu, il est aussi utilisé côté serveur à l'aide d'environnements d'exécution (<i>comme Node.js</i>).<br><br>Ce chapitre présente les bases du language, les variables (<i>nombres, chaines de caractères, etc</i>), les opérations (<i>addition, concaténation</i>), les conditions et le boucles.",
+        title: "Le langage du web",
+        description: "JavaScript est un langage de programmation notamment utilisé pour réaliser des applications web dynamiques et des applications mobiles et desktop natives.<br><br>Ce chapitre présente l'histoire du langage et ses grands principes.",
         color: "green",
         steps: [
             {
-                title: "Initialiser une variable",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur numérique <code>12</code>",
-                excerpt: "Une variable est un symbole qui associe un nom à une valeur stockée en mémoire. Le nom doit être unique. La valeur peut être de plusieurs types.<br><br>JavaScript est un langage typé dynamiquement, toutes les variables sont définies avec le mot clé <code>var</code> et le moteur d'exécution se charge de leur affecter le type adéquat (<i>type qui peut évoluer dans le temps</i>). Le langage propose trois types primitifs — nombre, chaine de caractères et booléen — et deux types composites — objet et tableau.<br><br><strong>Exemple</strong> : l'instruction <code>var value = 5;</code> déclare la variable <code>value</code> et lui affecte la valeur numérique <code>5</code> (<i>le point virgule en fin de chaque ligne est optionnel</i>).",
+                title: "Historique",
+                course: true,
+                description: `
+                    Connu aussi sous le nom d'ECMAScript (le standard qui le sous-tend), JavaScript est un langage de programmation dynamique, principalement utilisé dans les navigateurs web pour interagir avec l'utilisateur, modifier l'état de la page et communiquer avec un serveur de façon asynchrone. Depuis peu, il est aussi utilisé côté serveur à l'aide d'environnements d'exécution (comme Node.js).
+
+                    * 1995 — Création du langage JavaScript dans le navigateur Netscape par Brendan Eich
+                    * 1996 — Apparition dans Internet Explorer 3 aux côté des CSS (Cascading Style Sheets)
+                    * 1997 — Standardisation du langage via la norme ECMAScript
+                    * 1999 — Microsoft crée le précurseur d'Ajax pour appeler un serveur de façon asynchrone
+                    * 2006 — La librairie jQuery standardise la manipulation cross-browser des pages
+                    * 2008 — Popularisation de l'architecture REST (Representational State Transfer)
+                    * 2009 — Sortie du navigateur Google Chrome équipé de V8, axé sur les performances
+                    * 2009 — Usage du moteur d'exécution V8 pour créer un serveur d'application, Node.js
+                    * 2010 — Démocratisation des RIA (Rich Internet Application) JavaScript succédant à Flash
+                    * 2012 — Démocratisation des outils de développement web (Require.js, Grunt, Bower)
+                    * 2014 — Standardisation de HTML5
+                    * 2015 — Standardisation de ECMAScript 6
+
+                    À son apparition, JavaScript ajouta une pointe de vie aux sites internet. Il fût possible de naviguer au sein d'un carrousel d'images sans quitter la page ou de valider un formulaire avant de l'envoyer. L'arrivée de moteurs d'exécution performants, V8 en tête, changea la donne. D'un langage d'appoint, JavaScript allait devenir le langage du web.
+
+                    Une grande majorité des sites internet a désormais recours à lui. Il joue de plus en plus un rôle de chef d'orchestre, gérant toutes les problématiques d'un site internet. Il permet également de construire des applications mobiles (Mozilla développe même un système d'exploitation dont les applications sont développées en JavaScript) des jeux vidéos et des applications de bureau (l'application de streaming musical Spotify et l'éditeur de code Atom).
+                `
+            },
+            {
+                title: "Principe",
+                course: true,
+                description: `
+                    L'usage classique de JavaScript se fait au sein d'une page HTML. Cette dernière est composé de deux parties, une en-tête — la balise [\`<head>\`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head) — et un contenu — la balise [\`<body>\`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body). Son entête peut contenir des liens vers d'autres ressources nécessaires à la page, comme des fichiers CSS et/ou JS.
+
+                    À la saisie d'une URL dans un navigateur web, celui-ci se connecte à un serveur et télécharge les données transmises par ce serveur — par exemple, un fichier HTML. Si ce fichier référence des ressources dans son entête, elles sont téléchargées automatiquement.
+
+                    Le CSS permet de mettre en forme le contenu d'un fichier HTML (couleurs, organisation, effets au survol, etc). Il est inséré à l'aide de la balise [\`<link>\`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link).
+
+                    Le JS permet de rendre dynamique le contenu d'un fichier HTML (action lors d'un clic, notification utilisateur lors d'une action, etc). Il est inséré à l'aide de la balise [\`<script>\`](https://developer.mozilla.org/en/docs/Web/HTML/Element/script)
+
+                    Les premières applications web étaient statiques, et nombreuses sont celles qui le sont encore. Une application statique a le fonctionnement suivant :
+                    * l'utilisateur saisit une adresse dans son navigateur (ou clique sur le résultat d'un moteur de recherche)
+                    * le navigateur se connecte à un serveur et récupère la page concernée
+                    * le navigateur télécharge les ressources listées dans l'entête de la page
+                    * le navigateur efface la page précédente et affiche la nouvelle page, la met en forme avec le CSS et exécute le JS de son entête
+                    * si l'utilisateur clique sur un lien [\`<a>\`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) de la page, ces étapes reprennent à l'étape 2
+                `
+            },
+            {
+                title: 'Principe (suite)',
+                course: true,
+                description: `
+                    Les applications web dynamiques — ou RIA (Rich Internet Application) — sont apparues plus tard, d'abord avec Flash, ensuite avec JavaScript. Une application dynamique a le même fonctionnement qu'une application statique à la différence qu'elle est en mesure :
+                    * d'écouter des événements utilisateurs plus variés qu'un clic sur un lien, par exemple, la saisie d'un champ de formulaire, le glisser déposer d'une image, l'appui sur une touche
+                    * de modifier une partie de la page sans la recharger en entier
+                    * de requêter un serveur
+
+                    L'ambition des RIA est de reproduire l'expérience utilisateur des applications de bureau, comme un client mail ou un traitement de texte, dont l'interaction utilisateur est suivie presque instantanément de son effet — en supprimant le rechargement classique du web.
+
+                    Les RIA accompagnent l'émergence des applications mobile : toute l'interface est embarquée par l'utilisateur. Plusieurs interfaces (application, site web, dispositif embarqué) requêtent un même serveur et affichent les données chacune à leur façon.
+
+                    **Une page HTML5** :
+
+                        <!doctype html>
+                        <html>
+                            <head>
+                                <link href="style.css" rel="stylesheet">
+                                <script src="application.js"></script>
+                            </head>
+                            <body>
+                                <p>Hey Jude</p>
+                            </body>
+                        </html>
+                `
+            }
+        ]
+    }, {
+        title: "Variables et opérations",
+        description: "JavaScript est un langage de script au typage dynamique.<br><br>Ce chapitre présente les bases du langage avec les variables (<i>nombres, chaines de caractères, etc</i>) et les opérations (<i>addition, concaténation</i>).",
+        color: "green",
+        steps: [
+            {
+                course: true,
+                description: `
+                    JavaScript est un langage de script au typage dynamique. C'est un langage orienté objet à prototype qui supporte la programmation impérative et fonctionnelle (ses fonctions sont des citoyens de première classe). Sa syntaxe est héritée du C tandis que sa sémantique est inspirée par Smalltalk et Lisp.
+
+                    ### Les variables
+
+                    Une variable est un symbole qui associe un nom à une valeur stockée en mémoire. Le nom doit être unique. La valeur peut être de plusieurs types.
+
+                    JavaScript est un langage typé dynamiquement, toutes les variables sont définies avec le mot clé \`var\` et le moteur d'exécution se charge de leur affecter le type adéquat (type qui peut évoluer dans le temps). Le langage propose trois types primitifs — [\`Boolean\`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean), [\`Number\`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) et [\`String\`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) — et deux types composites — [\`Object\`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) et [\`Array\`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
+
+                    ### Les variables de type primitif
+
+                    Les chaînes de caractères (String), peuvent être déclarées à l'aide de guillemets simples \`''\` ou doubles \`""\`.
+                    Les nombres (Number), représentent des entiers ou des flottants. L'entier maximum représentable est 2<sup>53</sup>-1 et le minimum -1*(2<sup>53</sup>-1). La précision des flottants suit la même règle (ils sont représentés de la même façon en mémoire), avec 16 bits (un nombre avec 2 chiffres avant la virgule peut en compter jusqu'à 14 après).
+
+                    Les booléens (Boolean), représentent l'une des deux valeurs \`true\` ou \`false\`.
+
+                    **Déclaration de trois variables primitives :**
+
+                        var name = 'Paul';
+                        var age = 72;
+                        var guitar = true;
+                `
+            },
+            {
+                title: "Initialiser une variable (de type nombre)",
+                description: "Déclarer une variable nommée <code>secret</code> et lui affecter la valeur numérique <code>12</code>",
+                excerpt: "Une variable est un symbole qui associe un nom à une valeur stockée en mémoire. Le nom doit être unique. La valeur peut être de plusieurs types.<br><br><strong>Exemple</strong> : l'instruction <code>var value = 5;</code> déclare la variable <code>value</code> et lui affecte la valeur numérique <code>5</code> (<i>le point virgule en fin de chaque ligne est optionnel</i>).",
                 solved: "var secret = 12;",
                 warn: "La variable <code>secret</code> doit être déclarée et initialisée à <code>12</code>",
                 answer: function() {
@@ -442,9 +556,49 @@ let chapters = [
                 }
             },
             {
+                title: "Initialiser une variable (de type chaîne de caractères)",
+                description: "Déclarer une variable nommée <code>secret</code> et lui affecter la valeur <code>'lorem ipsum'</code>",
+                solved: "var secret = 'lorem ipsum';",
+                warn: "La variable <code>secret</code> doit être déclarée et initialisée à <code>'lorem ipsum'</code>",
+                answer: function() {
+                    return secret === 'lorem ipsum';
+                }
+            },
+            {
+                title: "Initialiser une variable (de type booléen)",
+                description: "Déclarer une variable nommée <code>secret</code> et lui affecter la valeur <code>true</code>",
+                solved: "var secret = true;",
+                warn: "La variable <code>secret</code> doit être déclarée et initialisée à <code>true</code>",
+                answer: function() {
+                    return secret === true;
+                }
+            },
+            {
+                title: "Les opérateurs",
+                course: true,
+                description: `
+                    Un opérateur est un symbole qui représente une action. Il permet d'opérer sur deux valeurs, les additionner, les soustraire ou autre. Tous les opérateurs ne s'appliquent pas à tous les types de valeurs.
+
+                    **Opérations sur des variables primitives :**
+
+                        22 + 10 * 5;
+                        → 72
+
+                        'Paul' + ' ' + 'McCartney';
+                        → 'Paul McCartney'
+
+                        22 % 6;
+                        → 4
+
+                    L'opérateur mathématiques \`+\` additionne les nombres et concatène les chaînes de caractères (les ajoute bout à bout).
+
+                    Les opérateurs mathématiques \`-\`, \`*\`, \`/\`, \`%\` s'appliquent aux nombres uniquement. Les opérations mathématiques sont effectuées de gauche à droite, la multiplication, la division et le modulo (reste de la division euclidienne) ont la priorité sur l'addition et la soustraction. Pour modifier l'ordre, il est possible d'utiliser des parenthèses.
+                `
+            },
+            {
                 title: "Additionner deux nombres",
                 description: "Créer une variable nommée <code>secret</code> et lui affecter la somme des variables numériques <code>x</code> et <code>y</code> (<i>déclarées par ce tutoriel</i>).",
-                excerpt: "Un opérateur est un symbole qui représente une action. Il permet de modifier la valeur des variables. Tous les opérateurs ne s'appliquent pas à tous les types de variables.<br><br>L'opérateur mathématiques <code>+</code> additionne les nombres et concatène les chaines de caractères (<i>les ajoute bout à bout</i>).<br><br>Les opérateurs mathématiques <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code> s'appliquent aux nombres uniquement. Les opérations mathématiques sont effectuées de gauche à droite, la multiplication, la division et le modulo ont la priorité sur l'addition et la soustraction. Pour modifier l'ordre, il est possible d'utiliser des parenthèses. <br><br><strong>Exemple</strong> : l'instruction <code>var value = 5 + 10;</code> déclare la variable <code>value</code> et lui affecte le résultat de l'opération, <code>15</code>.",
+                excerpt: "Un opérateur est un symbole qui représente une action. Il permet d'opérer sur deux valeurs, les additionner, les soustraire ou autre. Une variable peut être affectée du résultat d'un opérateur.<br><br><strong>Exemple</strong> : l'instruction <code>var value = 5 + 10;</code> déclare la variable <code>value</code> et lui affecte le résultat de l'opération, <code>15</code>.",
                 solved: "var secret = x + y;",
                 init: function() {
                     window.x = this.x = random();
@@ -499,16 +653,46 @@ let chapters = [
                 }
             }
         ]
-    },
-    {
-        title: "Bases du langage, conditions et boucles",
-        description: "JavaScript est un langage de programmation dynamique, principalement utilisé dans les navigateurs web pour interagir avec l'utilisateur, modifier l'état de la page et communiquer avec un serveur de façon asynchrone. Depuis peu, il est aussi utilisé côté serveur à l'aide d'environnements d'exécution (<i>comme Node.js</i>).<br><br>Ce chapitre présente les bases du language, les variables (<i>nombres, chaines de caractères, etc</i>), les opérations (<i>addition, concaténation</i>), les conditions et le boucles.",
+    }, {
+        title: "Conditions et boucles",
+        description: "Les algorithmes ont recours aux expressions conditionnelles afin d'effectuer une opération dans certaines circonstances.<br><br>Ce chapitre présente les bases du langage avec les conditions et le boucles.",
         color: "green",
         steps: [
             {
+                title: "Les expressions conditionnelles",
+                course: true,
+                description: `
+                    Les algorithmes ont recours aux expressions conditionnelles afin d'effectuer une opération (ou plusieurs) uniquement dans certaines circonstances ou bien répéter une opération (ou plusieurs) tant qu'une circonstance est vérifiée.
+
+                    Les expressions conditionnelles s'appuient sur des opérateurs mathématiques (applicables aux valeurs numériques) \`>\`, \`>=\`, \`<\`, \`<=\` qui testent si la première valeur est supérieure, supérieure ou égale, inférieure, inférieure ou égale à la seconde. Des opérateurs d'équivalence (applicables à tout type de valeur) \`==\`, \`!=\`, \`===\` et \`!==\` testent si deux valeurs sont égales/différentes qu'importe leur type ou égales/différentes et de même type.
+
+                    **Opérations conditionnelles, \`// permet d'ajouter un commentaire\` :**
+
+                         5  >   5; // → false
+                         5  >=  5; // → true
+                        '5' ==  5; // → true
+                        '5' !=  5; // → false
+                        '5' === 5; // → false
+                        '5' !== 5; // → true
+                         5  === 5; // → true
+
+                    L'expression conditionnelle \`if\` effectue une opération si sa condition est vérifiée (égale à\`true\`). L'expression facultative \`else\` effectue une opération dans le cas inverse.
+
+                    **Expression conditionnelle if :**
+
+                        if (song == 'A little help from my friend') {
+                          singer = 'Paul';
+                        } else {
+                          singer = 'John';
+                        }
+
+                    Les opérations conditionnées par une de ces expressions sont encadrées par des accolades ouvrantes \`{\` et fermantes \`}\`. Les accolades sont facultatives si elles concernent une seule opération.
+                `
+            },
+            {
                 title: "Retourner le plus grand de deux nombres",
                 description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur du plus grand nombre parmi <code>x</code> et <code>y</code> (<i>déclarées par ce tutoriel</i>).",
-                excerpt: "L'objet <code>Math</code> dispose également d'autres fonctionnalités pour identifier les maximum, minimum, sinus, etc. Il est également possible d'écrire une condition qui vérifie lequel des nombres est le plus grand avec <code>if</code>. L'expression conditionnelle <code>if</code> effectue une opération si sa condition est vérifiée (<i>égale à true</i>). L'expression facultative <code>else</code> effectue une opération dans le cas inverse.<br><br><strong>Exemple</strong> : <pre><code>if (value > 10) {<br>  console.log('value is greater than 10');<br>} else {<br>  ...<br>}</code></pre> affiche le texte dans la console du navigateur si la variable value est supérieure à 10. Les accolades délimitent le code à exécuter si la condition est vérifiée, il est préférable de sauter une ligne entre chaque instruction pour la lisibilité.",
+                excerpt: "L'objet <code>Math</code> dispose également d'autres fonctionnalités pour identifier les maximum, minimum, sinus, etc. Il est également possible d'écrire une condition qui vérifie lequel de deux nombres est le plus grand avec <code>if</code>.",
                 solved: "var secret = Math.max(x, y);",
                 init: function() {
                     window.x = this.x = random();
@@ -546,7 +730,7 @@ let chapters = [
             {
                 title: "Initialiser un booléen",
                 description: "Créer une variable nommée <code>secret</code> et lui affecter <code>true</code> si la somme de <code>x</code> et <code>y</code> (<i>déclarées par ce tutoriel</i>) est supérieure à 100, <code>false</code> sinon.",
-                excerpt: "En plus des nombres et des chaines de caractères, le language dispose de booléens, des variables dont la valeur est <code>true</code> ou <code>false</code>. Les conditions et les boucles sont basées sur des tests booléens (<i>faits par le navigateur</i>).",
+                excerpt: "En plus des nombres et des chaines de caractères, le langage dispose de booléens, des variables dont la valeur est <code>true</code> ou <code>false</code>. Les conditions et les boucles sont basées sur des tests booléens (<i>faits par le navigateur</i>).",
                 solved: "var secret = x + y > 100;",
                 init: function() {
                     window.x = this.x = randomize(30, 40, 50);
@@ -561,6 +745,31 @@ let chapters = [
                 answer: function() {
                     return secret === this.secret();
                 }
+            },
+            {
+                title: "Les opérateurs booléens",
+                course: true,
+                description: `
+                    Les opérateurs booléens \`||\` et \`&&\` représentent \`ou\` et \`et\`. L'opérateur \`||\` retourne \`true\` si l'un de ces membres est évalué à \`true\`. L'opérateur \`&&\` retourne \`true\` si tous ses membres sont évalués à \`true\`. En cas contraire, ces opérateurs retournent \`false\`.
+
+                    L'opérateur \`||\` évalue ses membres un à un jusqu'à trouver une valeur évaluée à \`true\`, il arrête d'évaluer ses membres dès qu'il en a trouvé une. L'opérateur \`&&\` évalue ses membres un à un tant qu'il trouve une valeur évaluée à \`true\`, il arrête d'évaluer ses membres dès qu'il en a trouvé une \`false\`.
+
+                    S'ils trouvent une valeur évaluée à \`true\`, ces opérateurs retourne la valeur évaluée.
+
+                    **Opérateurs booléens et évaluation :**
+
+                        false || true;
+                        → true
+
+                        false && true;
+                        → false
+
+                        false || 5;
+                        → 5
+
+                        false && 5;
+                        → false
+                `
             },
             {
                 title: "Effectuer deux conditions simultanées",
@@ -598,6 +807,40 @@ let chapters = [
                 answer: function() {
                     return secret === this.secret();
                 }
+            },
+            {
+                title: "L'expressions de boucle for",
+                course: true,
+                description: `
+                    L'expression conditionnelle de boucle \`for\` effectue une opération tant que sa condition est vérifiée (égale à \`true\`). Cette expression est originale : elle se définit en trois parties facultatives, d'abord une initialisation, ensuite une condition, enfin une opération finale. L'initialisation est effectuée au premier pas de boucle, ensuite, tant que la condition n'est pas vérifiée, la ou les opérations sont évaluées, puis l'opération finale est évaluée à son tour.
+
+                    **Opération conditionnelle for :**
+
+                        var notes = '';
+                        for (var instruments = 0; instruments < 4; instruments++) {
+                            notes = notes + '♬';
+                        }
+
+                        → '♬♬♬♬' // after the for loop, notes has been updated four times
+
+                    Il est tout à fait possible d'itérer en sens inverse. Il suffit pour cela de modifier l'initialisation, d'inverser la condition et de modifier l'opération finale afin de décrémenter à chaque tour de boucle. Des itérations plus évoluées sont également imaginables (2 à 2, etc).
+
+                    Les opérateurs \`++\` et \`--\` sont couramment utilisés dans les boucles. Ils incrémentent (plus 1) ou décrémentent (moins 1) la valeur d'une variable numérique. Ils peuvent être utilisés avant et après une variable. Avant, la valeur est modifiée puis retournée, après, la valeur est retournée puis modifiée.
+
+                    Les opérateurs \`+=\`, \`-=\`, \`*=\` et \`/=\` quant à eux modifient la valeur d'une variable numérique à partir de sa valeur actuelle.
+
+                    **Opérateurs raccourcis :**
+
+                        var instruments = 2;
+                        ++instruments;
+                        → 3
+
+                        instruments++; // return instruments' value before adding 1, but the variable is incremented
+                        → 3
+
+                        instruments += 2;
+                        → 6
+                `
             },
             {
                 title: "Effectuer une boucle",
@@ -659,18 +902,73 @@ let chapters = [
                 answer: function() {
                     return secret === this.secret();
                 }
+            },
+            {
+                title: "L'expression de boucle while",
+                course: true,
+                description: `
+                    L'expression conditionnelle de boucle \`while\` effectue une opérateur tant que sa condition est vérifiée (égale à \`true\`). Il est également possible d'utiliser le mot clé do afin d'effectuer l'opération une première fois avant d'itérer.
+
+                    **Opération conditionnelle while :**
+
+                        while (albums < 12)
+                          albums = albums + 1;
+
+                        do {
+                          albums++;
+                        } while (albums < 12)
+                `
+            },
+            {
+                title: "L'expression conditionnelle switch",
+                course: true,
+                description: `
+                    L'expression conditionnelle switch effectue l'opération relative à l'une de ces conditions case si la valeur est strictement égale, ===, ou sa condition default si aucune condition n'est respectée. Le mot clé break termine les opérations d'une condition.
+
+                    **Expressions conditionnelles switch :**
+
+                        switch (name) {
+                            case 'Paul': instrument = 'bass'; break;
+                            case 'John':
+                            case 'George': instrument = 'guitar'; break;
+                            case 'Ringo': instrument = 'drums'; break;
+                            default: instrument = 'cymbal';
+                        }
+                `
             }
         ]
-    },
-    {
-        title: "Bases du langage, tableaux",
-        description: "JavaScript est un langage de programmation dynamique, principalement utilisé dans les navigateurs web pour interagir avec l'utilisateur, modifier l'état de la page et communiquer avec un serveur de façon asynchrone. Depuis peu, il est aussi utilisé côté serveur à l'aide d'environnements d'exécution (<i>comme Node.js</i>).<br><br>Ce chapitre présente les bases du language, les variables (<i>nombres, chaines de caractères, etc</i>), les opérations (<i>addition, concaténation</i>), les conditions et le boucles.",
+    }, {
+        title: "Tableaux",
+        description: "Les tableaux (Array), représentent une liste ordonnée de valeurs (qu'importe leur type).<br><br>Ce chapitre présente les bases du langage avec les tableaux.",
         color: "green",
         steps: [
             {
+                title: "Les tableaux",
+                course: true,
+                description: `
+                    Les tableaux (Array), représentent une liste ordonnée de valeurs (qu'importe leur type).
+
+                    **Déclaration d'un tableau :**
+
+                        var beatles = ['paul', 'john', 'george', 'ringo'];
+
+                    Les variables primitives, lorsqu'elles sont modifiées voient leur valeur remplacée, là où les variables composites peuvent être modifiées partiellement. Et, contrairement aux variables primitives, il est possible d'itérer sur les variables composites (de récupérer une à une les valeurs listées dans un tableau, pour les additioner par exemple).
+
+                    Il est possible de manipuler les tableaux par index, mais cela peut s'avérer délicat pour certaines opérations, par exemple ajouter un élément au début du tableau demande de déplacer tous les éléments existants et supprimer un élément de décaler les éléments suivants afin de combler le « vide » ainsi créé.
+
+                    Les éléments d'un tableaux sont ajoutés de façon consécutive et leur premier index est zéro.
+
+                    **Modification manuelle d'un tableau :**
+
+                        var beatles = ['paul', 'john'];
+                        beatles[3] = 'ringo';
+                        → ['paul', 'john', undefined, 'ringo']
+                `
+            },
+            {
                 title: "Créer un tableau",
                 description: "Créer une variable nommée <code>secret</code> de type tableau et lui ajouter les valeurs de <code>x</code> et de <code>y</code> (<i>déclarées par ce tutoriel</i>).",
-                excerpt: "Les tableaux représentent une liste ordonnée de variables (qu'importe leur type). La propriété <code>length</code> permet de connaitre le nombre d'éléments d'un tableau. Les crochets <code>[ ]</code> permettent d'accèder à un élément par index (<i>l'index des tableaux commence à zéro</i>).<br><br>Manipuler les tableaux par index est délicat. Ajouter un élément au début du tableau demande de déplacer tous les éléments existants et supprimer un élément de décaler les éléments suivants afin de combler le « vide » ainsi créé. Ces opérations sont falitées par les méthodes <code>push</code> (<i>ajoute un élément à la fin</i>), <code>pop</code> (<i>supprime le dernier élément</i>), <code>indexOf</code> (<i>retourne la position d'un élément ou -1 s'il n'est pas présent</i>) et bien d'autres.<br><br><strong>Exemple</strong> : <pre><code>var items = ['paul', 'john'];<br>items.push('ringo');<br>console.log(items.length, items[2]);</code></pre> affiche la taille du tableau, <code>3</code>, et son 3iem élément, (<i>ajouté par <code>push</code></i>), c'est à dire <code>'ringo'</code>. ",
+                excerpt: "Les tableaux représentent une liste ordonnée de variables (qu'importe leur type). La propriété <code>length</code> permet de connaitre le nombre d'éléments d'un tableau. Les crochets <code>[ ]</code> permettent d'accèder à un élément par index (<i>l'index des tableaux commence à zéro</i>).",
                 solved: "var secret = [x, y];",
                 init: function() {
                     window.x = this.x = random(1, 10);
@@ -685,6 +983,47 @@ let chapters = [
                 answer: function() {
                     return equals(secret, this.secret());
                 }
+            },
+            {
+                title: "Attributs et méthodes des tableaux",
+                course: true,
+                description: `
+                    Afin de faciliter les opérations, des attributs et des méthodes sont proposés par le langage sur les tableaux. Chaque tableau dispose ainsi d'un attribut \`length\` indiquant son nombre d'éléments et de méthodes :
+
+                    * \`push(element1, …, elementN)\` ajoute des éléments en dernière position
+                    * \`unshift(element1, …, elementN)\` ajoute des éléments en première position
+                    * \`pop()\` supprime le dernier élément
+                    * \`shift()\` supprime le premier élément
+                    * \`sort()\` trie les éléments (par défaut dans l'ordre croissant)
+                    * \`indexOf(element)\` recherche la position d'un élément
+                    * \`splice(start, deleteCount)\` supprime des éléments
+                    * \`reverse()\` inverse l'ordre des éléments, le premier devenant le dernier, et ainsi de suite
+                    * \`join()\` crée une chaîne de caractère en concaténant tous les éléments
+                    * \`contat(array1, …, arrayN)\` concatène des tableaux à la suite
+
+                    **Attributs et méthodes des tableaux :**
+
+                        var beatles = ['paul', 'john', 'george', 'ringo'];
+                        beatles.length;
+                        → 4
+
+                        beatles.push('brian');
+                        → 'paul', 'john', 'george', 'ringo', 'brian'
+
+                        beatles.shift();
+                        → 'john', 'george', 'ringo', 'brian'
+
+                        beatles.indexOf('ringo');
+                        → 2
+
+                        beatles.splice(1, 2);
+                        → 'john', 'brian'
+
+                        beatles.sort();
+                        → 'brian', 'john'
+
+                    Les méthodes disponibles sur les tableaux sont fournies par le langage. Il est également possible d'écrire ses propres méthodes.
+                `
             },
             {
                 title: "Concaténer deux tableaux",
@@ -705,6 +1044,47 @@ let chapters = [
                 answer: function() {
                     return equals(secret, this.secret());
                 }
+            },
+            {
+                title: "Itérer sur un tableau",
+                course: true,
+                description: `
+                    Il existe plusieurs façon d'itérer sur un tableau. La boucle \`for\` classique et l'expression conditionnelle \`for..in\` permettent d'itérer sur les éléments d'un tableau un à un. Il est alors possible de récupérer l'élément du tableau situé à cette position à l'aide de cet index, \`array[index]\`.
+
+                    **Boucle for sur un tableau :**
+
+                        var beatles = ['paul', 'john', 'george', 'ringo'];
+
+                        var everyone = '';
+                        for (var i = 0; i < beatles.length; i++) {
+                          everyone += i + ' -> ' + beatles[i] + ', ';
+                        }
+
+                        → 0 -> paul, 1 -> john, 2 -> george, 3-> ringo,
+
+                    L'opération entre accolades va être effectuée tant que la condition de sortie de boucle (\`i < beatles.length\`) est égale à \`true\`, 4 fois dans le cas présent.
+
+                    * D'abord \`i\` est initialisé à \`0\`, la condition de sortie de boucle n'est pas vérifiée pour \`i\` égal \`0\` (tant que \`i < 4\`, la boucle continue)
+                    * l'opération entre accolades est effectuée une première fois
+                    * l'opération finale est effectuée, \`i++\`, i est désormais égal à 1, la condition de sortie de boucle n'est pas vérifiée pour \`i\` égal \`1\`
+                    * l'opération entre accolades est effectuée une deuxième fois
+                    * ainsi de suite jusqu'à ce que \`i\` égal \`4\`, à ce moment, la condition de sortie de boucle est vérifée, la boucle s'arrête (l'opération de boucle n'est plus effectuée) et passe à l'opération suivante (le code après l'accolade de fin \`}\`)
+
+                    La variable \`i\` est couramment utilisée pour maintenir la position actuelle de la boucle (i est un diminutif d'index).
+
+                    **Boucle for..in sur un tableau :**
+
+                        var beatles = ['paul', 'john', 'george', 'ringo'];
+
+                        var everyone = '';
+                        for (var i in beatles) {
+                          everyone += i + ' -> ' + beatles[i] + ', ';
+                        }
+
+                        → 0 -> paul, 1 -> john, 2 -> george, 3-> ringo,
+
+                    Cette version est une alternative à la boucle classique, il existe de nombreuses manières d'itérer sur des tableaux.
+                `
             },
             {
                 title: "Modifier un tableau",
@@ -764,12 +1144,63 @@ let chapters = [
                 }
             }
         ]
-    },
-    {
-        title: "Bases du langage, dictionnaires",
-        description: "JavaScript est un langage de programmation dynamique, principalement utilisé dans les navigateurs web pour interagir avec l'utilisateur, modifier l'état de la page et communiquer avec un serveur de façon asynchrone. Depuis peu, il est aussi utilisé côté serveur à l'aide d'environnements d'exécution (<i>comme Node.js</i>).<br><br>Ce chapitre présente les bases du language, les variables (<i>nombres, chaines de caractères, etc</i>), les opérations (<i>addition, concaténation</i>), les conditions et le boucles.",
+    }, {
+        title: "Dictionnaires",
+        description: "Les objets littéraux (Object) ou dictionnaire, représentent une suite de paires clé - valeur séparées par une virgule.<br><br>Ce chapitre présente les bases du langage avec les dictionnaires.",
         color: "green",
         steps: [
+            {
+                title: "Les dictionnaires",
+                course: true,
+                description: `
+                    Les objets littéraux (Object) ou dictionnaire, représentent une suite de paires clé - valeur séparées par une virgule. Chacune des valeurs ainsi listées peut être d'une type primitif ou composite.
+
+                    **Déclaration d'un dictionnaire :**
+
+                        var paul = {
+                          name: 'Paul',
+                          age: 72,
+                          guitar: true
+                        };
+
+                        var beatles = ['paul', 'john', 'george', 'ringo'];
+
+                    Les attributs des objets littéraux peuvent être ajoutés, modifiés et même supprimés. Il en va de même des éléments des tableaux.
+
+                    **Ajout et modification d'attributs d'un dictionnaire :**
+
+                        var paul = {
+                          name: 'Paul',
+                          age: 72,
+                          guitar: true
+                        };
+
+                        paul.guitar = false;
+                        paul.bass = true;
+
+                        delete paul.age;
+                        → {name: 'Paul', guitar: false, bass: true}
+
+                    Itérer sur un objet littéral retourne ses attributs un à un. Il est alors possible de récupérer la valeur de chacun d'entre eux.
+
+                    **Boucle for..in sur un dictionnaire :**
+
+                        var paul = {
+                          name: 'Paul',
+                          age: 72,
+                          guitar: true
+                        };
+
+                        var profil = '';
+                        for (var attribute in paul) {
+                          profil += attribute + ' -> ' + paul[attribute] +  ', ';
+                        }
+
+                        → name -> paul, age -> 72, guitar -> true,
+
+                    Contrairement aux tableaux ou l'ordre d'itération est normé, l'ordre d'itération sur les attributs d'un objet littéral n'est pas garanti. La majorité des implémentations (des navigateurs) itèrent sur les attributs selon l'ordre dans lequel ils ont été définis, mais pas toutes.
+                `
+            },
             {
                 title: "Créer un dictionnaire (ou un objet littéral)",
                 description: "Créer une variable nommée <code>secret</code> de type dictionnaire avec deux clés, <code>min</code> et <code>max</code>, ayant pour valeur le minimum et le maximum des valeurs <code>x</code> et <code>y</code> (<i>ex. 7, 5 -> {min: 5, max: 7} — déclarées par ce tutoriel</i>).",
@@ -832,9 +1263,153 @@ let chapters = [
         ]
     }, {
         title: "Le DOM",
-        description: "Les fonctionnalités principales de JavaScript dans le navigateur sont d'écouter les actions utilisateur et de modifier dynamiquement la page. Pour ce faire, il propose une structure arborescente, le DOM (<i>Document Object Model</i>), représentant le contenu de la page accessible via la variable globale <code>document</code>.<br><br>Ce chapitre présente les accès aux noeuds du DOM (<i>à l'aide de sélecteurs CSS</i>) et les écouteurs d'événements (<i>comme les clics ou les appuis de touches</i>).",
+        description: "JavaScript permet d'écouter les actions utilisateur et de modifier dynamiquement la page à l'aide d'une structure arborescente : le DOM.<br><br>Ce chapitre présente les accès au DOM (<i>sélecteurs CSS</i>) et les écouteurs d'événements (<i>clics ou appuis de touches</i>).",
         color: "yellow",
         steps: [
+            {
+                title: "Le navigateur",
+                course: true,
+                description: `
+                    L'environnement classique d'exécution de JavaScript est le navigateur web. Un navigateur est une application qui récupère, affiche les ressources d'Internet et permet de naviguer parmi elles. Il en existe de très nombreux ([Chrome](http://www.google.com/chrome/), [Firefox](https://www.mozilla.org/en-US/firefox/new/), [Edge](https://www.microsoft.com/en-us/windows/microsoft-edge), [Opera](http://www.opera.com/), [Safari](https://www.apple.com/safari/) pour ne citer qu'eux) et chacun d'entre eux à son propre moteur d'exécution. Chaque navigateur interprète donc le HTML, le CSS et le JS à sa manière.
+
+                    Ces dernières années ont vu l'intensification de deux mouvements concomitants, d'un côté la normalisation des navigateurs avec la convergence vers un rendu standard des pages et, d'un autre, l'ajout de nouvelles fonctionnalités aux langages du web, HTML5, CSS3 et ES6 (ECMAScript 6, la dernière version de la spécification JavaScript) intégrées au fur et à mesure par les navigateurs (des sites, comme [caniuse.com](http://caniuse.com/) listent la compatibilité des navigateurs avec ces standards).
+
+                    ### Le DOM
+
+                    Les fonctionnalités principales de JavaScript dans le navigateur sont d'écouter les actions utilisateur et de modifier dynamiquement la page. Pour ce faire, il manipule une structure arborescente, le DOM (Document Object Model), représentant le contenu de la page.
+
+                    Le DOM a pour noeud racine la balise \`<html>\` dotée de deux noeuds enfants \`<head>\` et \`<body>\`. Chacun de ces noeuds à également des noeuds imbriqués. Il est alors possible d'écouter les événements sur un noeud particulier et de modifier la page en conséquence. Ces noeuds sont accessibles via la variable globale \`document\`.
+
+                    **Cliquer sur la page remplace tout le contenu du body par un message :**
+
+                        var el = document.body;
+                        el.addEventListener('click', function(){
+                          el.innerHTML = 'You have just clicked on the HTML body';
+                        });
+                `
+            },
+            {
+                title: "Les balises HTML",
+                course: true,
+                description: `
+                    Le DOM peut être composé de nombreuses balises afin d'indiquer la sémantique des informations qu'il affiche (en voici une courte sélection) :
+
+                    * \`<p>\` affiche un paragraphe de texte
+                    * \`<ul>\` affiche une liste dont chaque élément est affiché dans un \`<li>\`
+                    * \`<a>\` affiche un lien vers une autre page
+                    * \`<img>\` affiche une image
+                    * \`<table>\` affiche un tableau, dont chaque ligne est affichée dans un \`<tr>\` et chaque colonne dans un \`<td>\`
+                    * \`<form>\` affiche un formulaire dont les champs de saisi sont affichés dans des \`<input>\` et validé par un \`<button type="submit">\`
+                    * \`<h1>\`, \`<h2>\`, …, \`<h6>\` affichent des titres par ordre d'importance (h1 étant le plus important)
+
+                    **Une page HTML5 et de nombreuses balises :**
+
+                        <!doctype html>
+                        <html>
+                          <head></head>
+                          <body>
+                            <h1>Hey Jude</h1>
+                            <p>"Hey Jude" is a song by the English rock band <a href="http://www.thebeatles.com">the Beatles</a></p>
+                            <ul id="musicians">
+                              <li>Paul McCartney – lead vocal, piano, bass </li>
+                              <li>John Lennon – backing vocal, acoustic guitar</li>
+                              <li>George Harrison – backing vocal, lead guitar </li>
+                              <li>Ringo Starr – backing vocal, drums, tambourine</li>
+                            </ul>
+
+                            <img src="http://www.thebeatles.com/Hey_Jude.jpg"/>
+                            <table>
+                              <tr class="release">
+                                <td>26 August 1968</td>
+                                <td class="place">United States</td>
+                              </tr>
+                              <tr class="release">
+                                <td>30 August 1968</td>
+                                <td class="place">United Kingdom</td>
+                              </tr>
+
+                              <form>
+                                <input name="email">
+                                <button type="submit">
+                              </form>
+
+                          </body>
+                        </html>
+
+                    La majorité des balises peuvent s'imbriquer les unes dans les autres. Les balises disposent couramment d'attributs optionnels, la balise \`<a>\` indique le lien vers lequel elle redirige avec l'attribut \`href\`, la balise \`<img>\` indique l'image qu'elle affiche avec l'attribut \`src\`, sa longueur (\`width\`) et largeur (\`height\`), etc. Toutes les balises disposent des attributs \`id\` — l'identifiant unique de cette balise — et \`class\` — la famille de cette balise.
+
+                    Chaque balise dispose d'un CSS par défaut qu'il est possible de modifier. Au delà de la mise en forme graphique, le véritable intérêt de l'usage des balises est de communiquer au navigateur l'importance et le rôle de chaque élément de la page. Ces informations sont utilisées notamment par les moteurs de recherche ([Google](https://google.com), [Yahoo](https://yahoo.com), [DuckDuckGo](https://duckduckgo.com/) et bien d'autres) pour référencer les sites internet. À la saisie de mots clés, ces moteurs listent par ordre d'importance les sites qu'ils estiment les plus pertinents en partie via leur sémantique.
+
+                    Une [liste complète des balises](https://developer.mozilla.org/en/docs/Web/HTML/Element) et de leurs attributs est disponible pour plus de détails.
+                `
+            },
+            {
+                title: "Les sélecteurs CSS",
+                course: true,
+                description: `
+                    Afin d'écouter les actions utilisateur ou de modifier dynamiquement la page, il est possible de cibler une ou plusieurs balises HTML. Ce ciblage est réalisé à l'aide de sélecteurs CSS, une syntaxe particulière utilisée par les feuilles de style CSS lors de la définition de la mise en page. Cette syntaxe permet de cibler :
+
+                    * un type : \`'ul'\` sélectionne tous les \`<ul>\`
+                    * une famille : \`'.release'\` sélectionne tous les éléments dotés de la classe release
+                    * un identifiant : \`'#musicians'\` sélectionne l'élément avec l'identifiant musicians
+                    * un attribut : \`'[name=email]'\` sélectionne les éléments avec attribut \`name\` égal email
+                    * un enfant : \`'li img'\` sélectionne toutes les \`<img>\` dont un parent est un \`<li>\`
+                    et \`'li > img'\` sélectionne les \`<img>\` dont le parent immédiat est un \`<li>\`
+                    * un voisin : \`'h1 + p'\` sélectionne les \`<p>\` dont le voisin précédent est un \`<h1>\`
+                    * une combinaison : \`'tr.release td'\` sélectionne les \`<td>\` enfants \`<tr>\` dotés de la classe release
+
+                    Deux méthodes sont disponibles sur l'objet document pour effectuer une sélection, \`querySelector\` retourne le premier élément qui correspond et \`querySelectorAll\` retourne tous les éléments qui correspondent.
+
+                    **Sélecteurs CSS basés sur la page HTML de l'exemple précédent :**
+
+                    \`\`\`javascript
+                    document.querySelector('#musicians');
+                    // → <ul>..</ul>
+
+                    document.querySelectorAll('li');
+                    // → [<li>..</li>, <li>..</li>, <li>..</li>, <li>..</li>]
+
+                    document.querySelectorAll('tr.release');
+                    // → [<tr>..</tr>, <tr>..</tr>]
+                    \`\`\`
+
+                    Les sélecteurs CSS fonctionnent en cascade ; les éléments sont sélectionnés en descendant l'arborescence, des noeuds parents vers les noeuds enfants, en d'autres termes, il est impossible de remonter l'arbre du DOM à l'aide d'un sélecteur.
+
+                    Dans une feuille de style CSS il n'existe pas d'alternative à cette logique, la mise en forme du contenu doit se faire en respectant ces règles. En JS, ceci dit, une fois un élément sélectionné, l'objet Element qui le représente permet d'effectuer des opérations avancées, notamment :
+
+                    * accéder à ses attributs (méthode \`getAttribute\`)
+                    * accéder à ses noeuds enfants (attribut \`children\`)
+                    * accéder à son noeud parent (attribut \`parentNode\`)
+                    * effectuer un sélecteur CSS à l'intérieur de ce noeud (méthodes \`querySelector\`)
+                    * s'abonner aux actions utilisateur (méthode \`addEventListener\`)
+                    * modifier ses classes CSS (attribut \`classList\`)
+                    * modifier son contenu HTML (attribut \`innerHTML\` ou \`value\`)
+                    * se supprimer du DOM (méthode \`remove\`)
+
+                    **Manipulations du DOM basées sur la page HTML de l'exemple précédent :**
+
+                    \`\`\`javascript
+                    var img = document.querySelector('img');
+                    img.getAttribute('src');
+                    → 'http://www.thebeatles.com/Hey_Jude.jpg'
+
+                    var input = document.querySelector('input[name=email]');
+                    input.parentNode;
+                    // → <form>..</form>
+
+                    var table = document.querySelector('table');
+                    var tds = table.querySelectorAll('td.place');
+                    tds;
+                    // → [<td>..</td>, <td>..</td>]
+
+                    for (var i = 0; i < tds.length; i++) {
+                      tds[i].remove();
+                    }
+                    \`\`\`
+
+                    Une [liste complète des sélecteurs CSS](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Getting_Started/Selectors) est disponible pour plus de détails.
+                `
+            },
             {
                 title: "Sélectionner un élément",
                 description: "Ajouter la classe <code>cadmiumyellow</code> au premier <code>li</code> contenu dans <code>ul.board</code>.",
@@ -867,6 +1442,66 @@ let chapters = [
                     let candyapplered = document.querySelectorAll('.board li.candyapplered');
                     return braken.length === 0 && candyapplered.length === 10;
                 }
+            },
+            {
+                title: "Modifier dynamiquement le DOM",
+                course: true,
+                description: `
+                    Une fois un \`Element\` récupéré à l'aide d'un sélecteur CSS, il est possible de consulter son état et son contenu HTML, et de les modifier. Ainsi :
+                    * l'attribut \`classList\` permet d'ajouter une classe avec \`add\`, de la supprimer avec \`remove\`, et de l'inverser avec \`toggle\` (ajout si absent, suppression sinon)
+                    * l'attribut \`innerHTML\` est une chaîne de caractères représentant le contenu du noeud. Si elle est modifiée, elle sera transformée automatiquement en noeuds et ajoutée au DOM
+                    * l'attribut \`value\` représente la valeur d'un champ de saisie
+
+                    Le type de l'élément (\`ul\`, \`table\`, etc) et son identifiant ne sont pas modifiables.
+
+                    **Manipulations du DOM d'un élément :**
+
+                    \`\`\`javascript
+                    document.querySelector('tr').classList.remove('release');
+
+                    document.querySelector('p').innerHTML;
+                    → '<p>Hey Jude is a song by the English rock band <a href="http://www.thebeatles.com">the Beatles</a></p>'
+
+                    document.querySelector('p').innerHTML = '<p>Live performance footage <a href=".."><img src=".."></a></p>';
+                    \`\`\`
+
+                    Une documentation détaillée est disponible pour [classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList) et [innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) pour plus de détails.
+                `
+            },
+            {
+                title: "Capturer les actions utilisateur",
+                course: true,
+                description: `
+                    Lorsqu'un utilisateur clique sur un bouton ou un lien, lorsqu'il saisit quelque chose au clavier, lorsqu'il déplace la souris ou redimensionne la fenêtre, le navigateur émet des événements. Ces événements sont déclenchés sur la balise HTML ou l'action a eu lieue puis sur chaque élément parent de cette balise. Le terme « bubble » est souvent utilisé pour imager cette propagation qui remonte comme une bulle de savon.
+
+                    L'objet \`Event\` qui représente cette action utilisateur peut être capturé directement sur un \`Element\` cible ou sur un de ces parents. En voici les principaux :
+                    * souris : \`click\`, \`dblclick\`, \`mouseover\`, \`mouseleave\`, \`drag\`, \`dragend\`, notifient, entre autres, un clic, un double clic, le survol d'un élément, le fait que la souris quitte un élément ou le glisser déposer d'un élément
+                    * clavier : \`keydown\`, \`keyup\`, notifient, entre autres, quelle touche a été appuyée ou relâchée (avec un code pour identifier la touche, voir la liste des codes pour plus de détails)
+                    * souris ou clavier : \`focus\`, \`blur\`, \`change\`, \`submit\`, notifient, entre autres, la sélection d'un élément, sa désélection, la modification d'une valeur (très utilisés pour les champ de saisie) et la soumission d'un formulaire
+                    * document : \`resize\`, \`scroll\`, notifient, entre autres, le redimensionnement de la fenêtre ou le défilement de la page vers le haut ou le bas
+
+                    S'abonner à ces événements, à l'aide de la méthode addEventListener, permet d'effectuer un traitement lorsqu'ils se produisent. Il est également possible de stopper leur propagation, avec \`stopPropagation\`, afin de limiter l'effet de l'événement à ce noeud du DOM, ou d'annuler leur effet avec \`preventDefault\`.
+
+                    **Abonnement aux événements du DOM :**
+
+                        var input = document.querySelector('input');
+                        input.addEventListener('change', function() {
+                          console.log(input.value); // displays input content on value change
+                        });
+
+                        input.addEventListener('keydown', function(event) {
+                          if (event.which === 107)
+                            event.preventDefault(); // ignores '+' key
+                        });
+
+                        input.addEventListener('blur', function(event) {
+                          // keep first 10 characters on input leave
+                          if (input.value.length > 10)
+                            input.value = input.value.substring(0, 10);
+                        });
+
+                    Une [liste complète des événements](https://developer.mozilla.org/en-US/docs/Web/Events) est disponible pour plus de détails.
+                `
             },
             {
                 title: "Écouter un événement",
@@ -1094,6 +1729,47 @@ let chapters = [
                         lis[4].dataset.value === "1" &&
                         lis[6].dataset.value === "2";
                 }
+            },
+            {
+                title: "Les variables globales du navigateur",
+                course: true,
+                description: `
+                    Avant d'exécuter les scripts JS d'une page HTML, le navigateur déclare des variables globales, les rendant ainsi accessibles à tous les scripts de la page :
+
+                    * \`window\` liste les propriétés de la fenêtre du navigateur, comme sa largeur, sa longueur etc. Par convention, toutes les variables globales sont stockées dans \`window\`, il est possible d'y accéder ainsi \`window.document\` ou directement document
+                    * \`document\` est le point d'entrée pour accéder au contenu de la page HTML (le DOM), de le modifier et de s'abonner à ses événements (clic utilisateur, saisie de formulaire, etc)
+                    * \`console\`, la console de débogage du navigateur, il est ainsi possible d'écrire des trace lors de l'exécution d'un programme pour analyser d'où provient un problème
+                    * \`Math\`, des fonctions mathématiques avancées, comme sinus, cosinus, etc
+                    * \`Date\`, des fonctions calendaires de gestion du temps et de la date
+                    * \`Boolean\`, \`Number\`, \`String\`, \`Object\`, \`Array\` et \`Function\` les types de variables
+                    * \`RegExp\`, des fonctions pour manipuler des expressions régulières
+                    * \`XMLHttpRequest\`, nommé également Ajax, des fonctions pour requêter un serveur
+
+                    **Variables globales du navigateur :**
+
+                        Math.sqrt(9);
+                        → 3
+
+                        new Date().getHours();
+                        → 10
+
+                        console.log('Hey Jude');
+                        → 'Hey Jude'
+                `
+            },
+            {
+                title: "Les outils de développement du navigateur",
+                course: true,
+                description: `
+                    Chaque navigateur dispose d'outils dédiés aux développeurs permettant d'analyser le fonctionnement du site affiché. Bien qu'ils diffèrent pour chaque navigateur, les classiques du genre sont :
+
+                    * « Elements » donne accès au contenu de la page HTML et permet de sélectionner visuellement des noeuds, de les modifier ou de modifier leur CSS, voire, de les supprimer
+                    * « Network » liste tous les appels réseaux effectués par la page HTML et ses différentes ressources. Le type de chaque ressource est indiqué (image, script, etc), son poids, le temps observé pour la télécharger ou le code d'erreur si sa récupération a échoué.
+                    * « Sources » donne accès au contenu des scripts JS, permet de les modifier ou d'y ajouter des points d'arrêt afin de les déboguer. Ainsi, au rechargement de la page, ou dès qu'une action se produit, si la ligne où est posé le point d'arrêt est exécutée par le navigateur, celui-ci se met en pause et bascule dans un mode pas à pas. Il est alors possible d'exécuter le script ligne après ligne, d'entrer dans les méthodes et de consulter la valeur des variables.
+                    * « Console » permet d'exécuter du JS sur la page actuelle à des fins de test, par exemple.
+                    * « Profile » permet d'analyser la performance de la page et les étapes qui lui sont les plus coûteuses lors de l'affichage de ces différentes balises.
+                    * « Resources » donne accès aux mécanismes de stockage du navigateur, cookies et local storage, notamment. Ces mécanismes permettent de conserver des informations en mémoire lors de la navigation d'un utilisateur, lorsqu'il se connecte, par exemple, afin de ne pas lui demander son mot de passe à chaque fois qu'il recharge la page. De manière générale, le cache navigateur permet d'économiser le rechargement d'informations du serveur que le navigateur sait valide pour une durée.
+                `
             }
         ]
     }, {
@@ -1270,9 +1946,83 @@ let chapters = [
         ]
     }, {
         title: "Fonctions",
-        description: "Une fonction est un sous programme qui peut être appelé par du code externe (<i>ou interne, en cas d'appels récursifs</i>). Comme une boucle conditionnelle, une fonction est composée d'une liste d'opérations (<i>délimitées entre accolades</i>), il est possible de lui fournir des arguments et elle peut retourner un résultat. Les fonctions sont des citoyens de première classe en JavaScript (<i>des variables comme les autres</i>).<br><br>Ce chapitre présente la déclaration et l'usage des fonctions, de leurs paramètres et valeur de retour.",
+        description: "Une fonction est un sous programme qui peut être appelé par du code externe, l'utilisation de fonctions permet de structurer un programme..<br><br>Ce chapitre présente la déclaration et l'usage des fonctions, de leurs paramètres et valeur de retour.",
         color: "yellow",
         steps: [
+            {
+                course: true,
+                description: `
+                    Une fonction est un sous programme qui peut être appelé par du code externe (ou interne, en cas d'appels récursifs). Comme une boucle conditionnelle, une fonction est composée d'une liste d'opérations (délimitées entre accolades). Le mot clé \`function\` permet de déclarer une fonction, il est possible de lui fournir des arguments et elle peut retourner une valeur avec le mot clé \`return\`.
+
+                    **Une fonction avec 1 argument qui retourne true si son argument est pair :**
+
+                        var isOdd = function(value) {
+                          return value % 2 === 0;
+                        }
+
+                        isOdd(17);
+                        → false
+
+                        isOdd(12);
+                        → true
+
+                    L'utilisation de fonctions permet de structurer un programme. Au lieu de lister toutes les opérations d'un programme les unes à la suite des autres, il est préférable de regrouper les opérations en plusieurs fonctions correspondant à des parties clairement identifiées du programme.
+
+                    **Imbrication de fonctions :**
+
+                        var squareOdd = function(number) {
+                          var odd = isOdd(number);
+                          if (odd)
+                            return number * number;
+                          else
+                            return -1;
+                        }
+
+                        squareOdd(17);
+                        → -1
+
+                        squareOdd(12);
+                        → 144
+                `
+            },
+            {
+                course: true,
+                description: `
+                    Déclarer une fonction (avec le mot clé var) ne l'exécute pas, pour l'exécuter il est nécessaire de l'appeler à l'aide de parenthèses (via lesquelles des paramètres peuvent être transmis). Si la fonction retourne un résultat, il est possible de récupérer ce dernier dans une variable.
+
+                    Les fonctions sont des citoyens de première classe, c'est à dire qu'elles sont manipulées comme toute autre variable (ce qui n'est pas le cas de tous les langages). Il est ainsi possible que le résultat ou les paramètres d'une fonction soient une fonction.
+
+                    **Fonction dont un des arguments est une fonction :**
+
+                        var squareConditional = function(number, condition) {
+                          if (condition(number))
+                            return number * number;
+                          else
+                            return number;
+                        }
+
+                        var isEven = function(value) {
+                          return value % 2 === 1;
+                        }
+
+                        squareConditional(17, isEven);
+                        → 289
+
+                    Il est ainsi possible d'écrire des fonctions s'appelant elles-mêmes, des fonctions récursives.
+
+                    **Fonction récursive :**
+
+                        var power = function(number, exponent) {
+                          if (exponent === 0)
+                            return 1;
+                          else
+                            return number + power(number, exponent - 1);
+                        }
+
+                        power(3, 2);
+                        → 9
+                `
+            },
             {
                 title: "Identifier un nombre positif",
                 description: "Créer une fonction nommée <code>positive</code> qui prend un paramètre et retourne <code>true</code> si celui-ci est supérieur ou égal à zéro, <code>false</code> sinon.",
@@ -1405,6 +2155,64 @@ let chapters = [
                         this.warn = this.warn || "La fonction <code>search(tree, 2)</code> doit retourner <code>false</code>";
                     return !this.warn;
                 }
+            },
+            {
+                title: "La portée des variables",
+                course: true,
+                description: `
+                    Les variables déclarées à l'intérieur d'une fonction ne sont pas accessibles à l'extérieur mais le contraire est vrai. La portée, ou scope, des variables est ainsi déterminée par la fonction qui la déclare, toutes les fonctions exécutée à l'intérieur de cette dernière peuvent y accéder, les autres n'y ont pas accès.
+
+                    Déclarer une variable du même nom qu'une fonction appelante crée bien une nouvelle variable sans modifier l'autre.
+
+                    **Portée des variables :**
+
+                        var value = 10;
+                        var by = 2;
+
+                        var multiply = function(value) {
+                          var result = value * by;
+                          return result;
+                        }
+
+                        multiply(15);
+                        → 30
+
+                        value;
+                        → 10
+
+                        result;
+                        → undefined
+
+                    Dans cet exemple, la fonction \`multiply\` déclare la variable \`value\` (c'est un de ces paramètres) elle ignore donc la variable du même nom déclarée plus haut. Cependant, comme elle ne déclare pas de variable \`by\` elle peut manipuler celle qui est déclarée plus haut. La variable \`result\` qu'elle déclare n'est pas accessible à l'extérieur.
+                `
+            },
+            {
+                title: "Passage de paramètre par valeur et par référence",
+                course: true,
+                description: `
+                    Fournir un entier ou une chaîne de caractère à une fonction ne permet pas de modifier ce dernier. En effet, les variables de types simples sont passés par valeur. Ceci dit, cela est possible avec les variables de types composites (objets et tableaux).
+
+                    **Passage de paramètre par valeur et par référence :**
+
+                        var multiply = function(value) {
+                            value = value * 2;
+                        };
+
+                        var count = 10;
+                        multiply(count);
+                        count;
+                        → 10
+
+
+                        var multiply = function(obj) {
+                            obj.value = obj.value * 2;
+                        };
+
+                        var count = {value: 10};
+                        multiply(count);
+                        count;
+                        → {value: 20}
+                `
             }
         ]
     }, {
@@ -2898,7 +3706,6 @@ let chapters = [
 
 let digest = function(el, data, methods) {
     let completion = data.completion;
-    let score = data.score;
 
     let enter = methods.enter;
 
@@ -2906,31 +3713,26 @@ let digest = function(el, data, methods) {
         render: function() {
             el.innerHTML = `
             <div class="digest">
-                <h1 class="ui grey header">JavaScript</h1>
-                <h3 class="ui grey header">Le langage du web</h3>
-                <div class="ui top right attached medium labels">
-                    <a target="_blank" href="https://goo.gl/QbZSn8" class="ui basic label">
-                        Cours
-                    </a>
-                    <div class="ui basic label">
-                        <i class="trophy icon"></i>
-                        <span>${score}</span>
+                <div class="ui centered grid">
+                    <div class="fifteen wide computer sixteen wide tablet column">
+                        <h1 class="ui grey header">JavaScript</h1>
+                        <h2 class="ui grey header">Le langage du web</h2>
                     </div>
                 </div>
-
-                <div class="ui stackable two column grid"></div>
+                <div class="ui stackable center aligned grid" data-hook="cards"></div>
             </div>`;
 
-            let grid = el.querySelector('.grid');
+            let grid = el.querySelector('[data-hook="cards"]');
 
             for (let chapter = 0; chapter < chapters.length; chapter++) {
                 let chapterContent = chapters[chapter];
                 let div = document.createElement('div');
-                div.className = 'column';
+                div.className = 'five wide computer height wide tablet column';
 
                 let lis = '';
                 for (let step = 0; step < chapterContent.steps.length; step++) {
-                    let className = this.methods.isDone(step + 1, chapter + 1) ? 'complete' : '';
+                    let className = this.methods.isDone(step + 1, chapter + 1) ? 'complete ' : '';
+                    className += this.methods.isCourse(step + 1, chapter + 1) ? 'course ' : '';
                     lis += `<li class="${className}"></li>`;
                 }
 
@@ -2940,7 +3742,7 @@ let digest = function(el, data, methods) {
                         <ul>${lis}</ul>
                     </div>
                     <div class="content">
-                        <a class="header" data-hook="enter">${chapterContent.title}</a>
+                        <h3 class="header">${chapterContent.title}</h3>
                         <div class="description">${chapterContent.description}</div>
                     </div>
                     <div class="extra content">
@@ -2961,7 +3763,10 @@ let digest = function(el, data, methods) {
         },
         methods: {
             isDone: function(step, chapter) {
-                return completion[chapter] >= step;
+                return completion[chapter] && completion[chapter][step];
+            },
+            isCourse: function(step, chapter) {
+                return chapters[chapter - 1].steps[step - 1].course;
             }
         }
     }
@@ -2969,7 +3774,6 @@ let digest = function(el, data, methods) {
 
 let stepper = function(el, data, methods) {
     let completion = data.completion;
-    let score = data.score;
     let chapter = data.chapter;
     let step = data.step;
 
@@ -2986,27 +3790,21 @@ let stepper = function(el, data, methods) {
         render: function() {
             let excerptHidden = !stepContent.excerpt ? 'hidden' : '';
             let labelNext = !this.methods.isLast(step) ? 'Étape suivante' : (!this.methods.isLatest(chapter, step) ? `Chapitre ${chapter+1}` : 'Chapitres');
+            let description = stepContent.course ? marked(dedent(stepContent.description)) : `<p>${stepContent.description}</p>`;
+            let title = !stepContent.title ? '' : `<h3 class="header">${stepContent.title}</h3>`;
 
             let lis = '';
             for (let _step = 0; _step < chapterContent.steps.length; _step++) {
                 let className = '';
                 className += this.methods.isDone(_step + 1) ? 'complete ' : '';
                 className += this.methods.isActive(_step + 1) ? 'active ' : '';
+                className += this.methods.isCourse(_step + 1) ? 'course ' : '';
                 lis += `<li class="${className}"></li>`;
             }
 
             el.innerHTML = `
             <div class="stepper">
-                <h3 class="ui grey header"><a href="" data-hook="leave"><i class="arrow left icon"></i>${chapterContent.title}</a></h3>
-                <div class="ui top right attached medium labels">
-                    <a target="_blank" href="https://goo.gl/QbZSn8" class="ui basic label">
-                        Cours
-                    </a>
-                    <div class="ui basic label">
-                        <i class="trophy icon"></i>
-                        <span>${score}</span>
-                    </div>
-                </div>
+                <h2 class="ui grey header"><a href="" data-hook="leave"><i class="arrow left icon"></i>${chapterContent.title}</a></h2>
 
                 <div class="ui stackable one column grid">
                     <div class="column">
@@ -3015,8 +3813,8 @@ let stepper = function(el, data, methods) {
                                 <ul class="h-steps">${lis}</ul>
                             </div>
                             <div class="content">
-                                <div class="header">${stepContent.title}</div>
-                                <div class="description"><p>${stepContent.description}</p></div>
+                                ${title}
+                                <div class="description">${description}</div>
                                 <div class="dom" data-hook="dom"></div>
                                 <div data-hook="divulge"></div>
                                 <div class="ui piled segment ${chapterContent.color} ${excerptHidden}">
@@ -3051,6 +3849,9 @@ let stepper = function(el, data, methods) {
             });
 
             el.querySelector('[data-hook=next]').addEventListener('click', function() {
+                if (stepContent.course)
+                    completed(chapter, step);
+
                 if (this.methods.isLatest(chapter, step))
                     leave();
                 else if (this.methods.isLast(step))
@@ -3069,10 +3870,16 @@ let stepper = function(el, data, methods) {
                     jump(_step + 1);
                 });
             }
+
+            if (stepContent.course) {
+                el.querySelector('[data-hook=validate]').classList.add('hidden');
+                el.querySelector('[data-hook=next]').classList.toggle('disabled');
+                stepContent.description
+            }
         },
         methods: {
             isDone: function(_step) {
-                return completion[chapter] >= _step;
+                return completion[chapter] && completion[chapter][_step];
             },
             isActive: function(_step) {
                 return step === _step;
@@ -3082,6 +3889,9 @@ let stepper = function(el, data, methods) {
             },
             isLatest: function(_chapter, _step) {
                 return chapterContent.steps.length === _step && chapters.length === _chapter;
+            },
+            isCourse: function(_step) {
+                return chapterContent.steps[_step - 1].course;
             },
             validate: function() {
                 this.methods.renderDom.call(this, true);
@@ -3106,8 +3916,10 @@ let stepper = function(el, data, methods) {
                     if (!complete)
                         el.querySelector('[data-hook=error-label]').innerHTML = warn;
 
-                    if (complete && (!completion[chapter] || completion[chapter] <= step))
+                    if (complete) {
                         completed(chapter, step);
+                        el.querySelector(`.h-steps li:nth-child(${step})`).classList.toggle('complete');
+                    }
 
                     this.methods.renderDom.call(this);
                 }.bind(this));
@@ -3183,8 +3995,7 @@ let app = {
         chapter: null,
         step: null,
         digest: true,
-        completion: {},
-        score: 0
+        completion: {}
     },
     render: function() {
         let methods = {};
@@ -3201,7 +4012,7 @@ let app = {
         enter: function(chapter) {
             this.data.digest = false;
             this.data.chapter = chapter;
-            this.data.step = Math.min((this.data.completion[chapter] || 0) + 1, chapters[chapter - 1].steps.length);
+            this.data.step = Math.min(Math.max.apply(null, Object.keys(this.data.completion[chapter] || {0: true})) + 1, chapters[chapter - 1].steps.length);
 
             this.methods.updateProgress.call(this);
         },
@@ -3229,11 +4040,10 @@ let app = {
             this.methods.updateProgress.call(this);
         },
         completed: function(chapter, step) {
-            this.data.completion[chapter] = step;
-            app.data.score = 0;
-            for (let chapter in app.data.completion) {
-                app.data.score += app.data.completion[chapter];
-            }
+            if (!this.data.completion[chapter])
+                this.data.completion[chapter] = {};
+
+            this.data.completion[chapter][step] = true;
 
             localStorage.setItem('completion', JSON.stringify(this.data.completion));
         },
@@ -3247,10 +4057,6 @@ let app = {
 
 if (localStorage.getItem('completion')) {
     app.data.completion = JSON.parse(localStorage.getItem('completion'));
-    app.data.score = 0;
-    for (let chapter in app.data.completion) {
-        app.data.score += app.data.completion[chapter];
-    }
 }
 if (localStorage.getItem('chapter') && localStorage.getItem('step')) {
     app.data.chapter = +localStorage.getItem('chapter');
