@@ -108,6 +108,9 @@ h3 {
 .ui.card > .content {
     text-align: justify;
 }
+.ui.card > .content .error-content {
+    text-align: left;
+}
 .ui.card > .content .description {
     font-size: 1.05em
 }
@@ -154,14 +157,12 @@ h3 {
     border-radius: 10px;
 }
 
-.ui.card.h-colored > .content:first-child li:first-child {
-    border: 2px solid white;
-}
 .ui.card.h-colored > .content:first-child li.active {
     height: 14px;
     width: 14px;
     position: relative;
     top: 2px;
+    border: 2px solid white;
 }
 .ui.card.h-colored > .content:first-child li.complete {
     background-color: white;
@@ -187,6 +188,10 @@ h3 {
     .ui.stackable.grid>.column:not(.row) {
         padding-left: 0 !important;
         padding-right: 0 !important;
+    }
+    .extra.content>.ui.stackable.grid>.column:not(.row) {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
     }
 }
 
@@ -423,6 +428,7 @@ h3 {
 .might table .ui.floating.label {
     top: -0.2em;
     left: 103%;
+    text-align: center;
 }
 .might table.active td {
     cursor: pointer;

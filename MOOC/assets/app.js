@@ -4,7 +4,7 @@
 (function() {
 
 /*! highlight.js v9.12.0 */
-!function(e){var n="object"==typeof window&&window||"object"==typeof self&&self;"undefined"!=typeof exports?e(exports):n&&(n.hljs=e({}),"function"==typeof define&&define.amd&&define([],function(){return n.hljs}))}(function(e){function n(e){return e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}function t(e){return e.nodeName.toLowerCase()}function r(e,n){var t=e&&e.exec(n);return t&&0===t.index}function a(e){return k.test(e)}function i(e){var n,t,r,i,o=e.className+" ";if(o+=e.parentNode?e.parentNode.className:"",t=B.exec(o))return w(t[1])?t[1]:"no-highlight";for(o=o.split(/\s+/),n=0,r=o.length;r>n;n++)if(i=o[n],a(i)||w(i))return i}function o(e){var n,t={},r=Array.prototype.slice.call(arguments,1);for(n in e)t[n]=e[n];return r.forEach(function(e){for(n in e)t[n]=e[n]}),t}function u(e){var n=[];return function r(e,a){for(var i=e.firstChild;i;i=i.nextSibling)3===i.nodeType?a+=i.nodeValue.length:1===i.nodeType&&(n.push({event:"start",offset:a,node:i}),a=r(i,a),t(i).match(/br|hr|img|input/)||n.push({event:"stop",offset:a,node:i}));return a}(e,0),n}function c(e,r,a){function i(){return e.length&&r.length?e[0].offset!==r[0].offset?e[0].offset<r[0].offset?e:r:"start"===r[0].event?e:r:e.length?e:r}function o(e){function r(e){return" "+e.nodeName+'="'+n(e.value).replace('"',"&quot;")+'"'}s+="<"+t(e)+E.map.call(e.attributes,r).join("")+">"}function u(e){s+="</"+t(e)+">"}function c(e){("start"===e.event?o:u)(e.node)}for(var l=0,s="",f=[];e.length||r.length;){var g=i();if(s+=n(a.substring(l,g[0].offset)),l=g[0].offset,g===e){f.reverse().forEach(u);do c(g.splice(0,1)[0]),g=i();while(g===e&&g.length&&g[0].offset===l);f.reverse().forEach(o)}else"start"===g[0].event?f.push(g[0].node):f.pop(),c(g.splice(0,1)[0])}return s+n(a.substr(l))}function l(e){return e.v&&!e.cached_variants&&(e.cached_variants=e.v.map(function(n){return o(e,{v:null},n)})),e.cached_variants||e.eW&&[o(e)]||[e]}function s(e){function n(e){return e&&e.source||e}function t(t,r){return new RegExp(n(t),"m"+(e.cI?"i":"")+(r?"g":""))}function r(a,i){if(!a.compiled){if(a.compiled=!0,a.k=a.k||a.bK,a.k){var o={},u=function(n,t){e.cI&&(t=t.toLowerCase()),t.split(" ").forEach(function(e){var t=e.split("|");o[t[0]]=[n,t[1]?Number(t[1]):1]})};"string"==typeof a.k?u("keyword",a.k):x(a.k).forEach(function(e){u(e,a.k[e])}),a.k=o}a.lR=t(a.l||/\w+/,!0),i&&(a.bK&&(a.b="\\b("+a.bK.split(" ").join("|")+")\\b"),a.b||(a.b=/\B|\b/),a.bR=t(a.b),a.e||a.eW||(a.e=/\B|\b/),a.e&&(a.eR=t(a.e)),a.tE=n(a.e)||"",a.eW&&i.tE&&(a.tE+=(a.e?"|":"")+i.tE)),a.i&&(a.iR=t(a.i)),null==a.r&&(a.r=1),a.c||(a.c=[]),a.c=Array.prototype.concat.apply([],a.c.map(function(e){return l("self"===e?a:e)})),a.c.forEach(function(e){r(e,a)}),a.starts&&r(a.starts,i);var c=a.c.map(function(e){return e.bK?"\\.?("+e.b+")\\.?":e.b}).concat([a.tE,a.i]).map(n).filter(Boolean);a.t=c.length?t(c.join("|"),!0):{exec:function(){return null}}}}r(e)}function f(e,t,a,i){function o(e,n){var t,a;for(t=0,a=n.c.length;a>t;t++)if(r(n.c[t].bR,e))return n.c[t]}function u(e,n){if(r(e.eR,n)){for(;e.endsParent&&e.parent;)e=e.parent;return e}return e.eW?u(e.parent,n):void 0}function c(e,n){return!a&&r(n.iR,e)}function l(e,n){var t=N.cI?n[0].toLowerCase():n[0];return e.k.hasOwnProperty(t)&&e.k[t]}function p(e,n,t,r){var a=r?"":I.classPrefix,i='<span class="'+a,o=t?"":C;return i+=e+'">',i+n+o}function h(){var e,t,r,a;if(!E.k)return n(k);for(a="",t=0,E.lR.lastIndex=0,r=E.lR.exec(k);r;)a+=n(k.substring(t,r.index)),e=l(E,r),e?(B+=e[1],a+=p(e[0],n(r[0]))):a+=n(r[0]),t=E.lR.lastIndex,r=E.lR.exec(k);return a+n(k.substr(t))}function d(){var e="string"==typeof E.sL;if(e&&!y[E.sL])return n(k);var t=e?f(E.sL,k,!0,x[E.sL]):g(k,E.sL.length?E.sL:void 0);return E.r>0&&(B+=t.r),e&&(x[E.sL]=t.top),p(t.language,t.value,!1,!0)}function b(){L+=null!=E.sL?d():h(),k=""}function v(e){L+=e.cN?p(e.cN,"",!0):"",E=Object.create(e,{parent:{value:E}})}function m(e,n){if(k+=e,null==n)return b(),0;var t=o(n,E);if(t)return t.skip?k+=n:(t.eB&&(k+=n),b(),t.rB||t.eB||(k=n)),v(t,n),t.rB?0:n.length;var r=u(E,n);if(r){var a=E;a.skip?k+=n:(a.rE||a.eE||(k+=n),b(),a.eE&&(k=n));do E.cN&&(L+=C),E.skip||(B+=E.r),E=E.parent;while(E!==r.parent);return r.starts&&v(r.starts,""),a.rE?0:n.length}if(c(n,E))throw new Error('Illegal lexeme "'+n+'" for mode "'+(E.cN||"<unnamed>")+'"');return k+=n,n.length||1}var N=w(e);if(!N)throw new Error('Unknown language: "'+e+'"');s(N);var R,E=i||N,x={},L="";for(R=E;R!==N;R=R.parent)R.cN&&(L=p(R.cN,"",!0)+L);var k="",B=0;try{for(var M,j,O=0;;){if(E.t.lastIndex=O,M=E.t.exec(t),!M)break;j=m(t.substring(O,M.index),M[0]),O=M.index+j}for(m(t.substr(O)),R=E;R.parent;R=R.parent)R.cN&&(L+=C);return{r:B,value:L,language:e,top:E}}catch(T){if(T.message&&-1!==T.message.indexOf("Illegal"))return{r:0,value:n(t)};throw T}}function g(e,t){t=t||I.languages||x(y);var r={r:0,value:n(e)},a=r;return t.filter(w).forEach(function(n){var t=f(n,e,!1);t.language=n,t.r>a.r&&(a=t),t.r>r.r&&(a=r,r=t)}),a.language&&(r.second_best=a),r}function p(e){return I.tabReplace||I.useBR?e.replace(M,function(e,n){return I.useBR&&"\n"===e?"<br>":I.tabReplace?n.replace(/\t/g,I.tabReplace):""}):e}function h(e,n,t){var r=n?L[n]:t,a=[e.trim()];return e.match(/\bhljs\b/)||a.push("hljs"),-1===e.indexOf(r)&&a.push(r),a.join(" ").trim()}function d(e){var n,t,r,o,l,s=i(e);a(s)||(I.useBR?(n=document.createElementNS("http://www.w3.org/1999/xhtml","div"),n.innerHTML=e.innerHTML.replace(/\n/g,"").replace(/<br[ \/]*>/g,"\n")):n=e,l=n.textContent,r=s?f(s,l,!0):g(l),t=u(n),t.length&&(o=document.createElementNS("http://www.w3.org/1999/xhtml","div"),o.innerHTML=r.value,r.value=c(t,u(o),l)),r.value=p(r.value),e.innerHTML=r.value,e.className=h(e.className,s,r.language),e.result={language:r.language,re:r.r},r.second_best&&(e.second_best={language:r.second_best.language,re:r.second_best.r}))}function b(e){I=o(I,e)}function v(){if(!v.called){v.called=!0;var e=document.querySelectorAll("pre code");E.forEach.call(e,d)}}function m(){addEventListener("DOMContentLoaded",v,!1),addEventListener("load",v,!1)}function N(n,t){var r=y[n]=t(e);r.aliases&&r.aliases.forEach(function(e){L[e]=n})}function R(){return x(y)}function w(e){return e=(e||"").toLowerCase(),y[e]||y[L[e]]}var E=[],x=Object.keys,y={},L={},k=/^(no-?highlight|plain|text)$/i,B=/\blang(?:uage)?-([\w-]+)\b/i,M=/((^(<[^>]+>|\t|)+|(?:\n)))/gm,C="</span>",I={classPrefix:"hljs-",tabReplace:null,useBR:!1,languages:void 0};return e.highlight=f,e.highlightAuto=g,e.fixMarkup=p,e.highlightBlock=d,e.configure=b,e.initHighlighting=v,e.initHighlightingOnLoad=m,e.registerLanguage=N,e.listLanguages=R,e.getLanguage=w,e.inherit=o,e.IR="[a-zA-Z]\\w*",e.UIR="[a-zA-Z_]\\w*",e.NR="\\b\\d+(\\.\\d+)?",e.CNR="(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)",e.BNR="\\b(0b[01]+)",e.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|-|-=|/=|/|:|;|<<|<<=|<=|<|===|==|=|>>>=|>>=|>=|>>>|>>|>|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~",e.BE={b:"\\\\[\\s\\S]",r:0},e.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[e.BE]},e.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[e.BE]},e.PWM={b:/\b(a|an|the|are|I'm|isn't|don't|doesn't|won't|but|just|should|pretty|simply|enough|gonna|going|wtf|so|such|will|you|your|they|like|more)\b/},e.C=function(n,t,r){var a=e.inherit({cN:"comment",b:n,e:t,c:[]},r||{});return a.c.push(e.PWM),a.c.push({cN:"doctag",b:"(?:TODO|FIXME|NOTE|BUG|XXX):",r:0}),a},e.CLCM=e.C("//","$"),e.CBCM=e.C("/\\*","\\*/"),e.HCM=e.C("#","$"),e.NM={cN:"number",b:e.NR,r:0},e.CNM={cN:"number",b:e.CNR,r:0},e.BNM={cN:"number",b:e.BNR,r:0},e.CSSNM={cN:"number",b:e.NR+"(%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc|px|deg|grad|rad|turn|s|ms|Hz|kHz|dpi|dpcm|dppx)?",r:0},e.RM={cN:"regexp",b:/\//,e:/\/[gimuy]*/,i:/\n/,c:[e.BE,{b:/\[/,e:/\]/,r:0,c:[e.BE]}]},e.TM={cN:"title",b:e.IR,r:0},e.UTM={cN:"title",b:e.UIR,r:0},e.METHOD_GUARD={b:"\\.\\s*"+e.UIR,r:0},e});hljs.registerLanguage("javascript",function(e){var r="[A-Za-z$_][0-9A-Za-z$_]*",t={keyword:"in of if for while finally var new function do return void else break catch instanceof with throw case default try this switch continue typeof delete let yield const export super debugger as async await static import from as",literal:"true false null undefined NaN Infinity",built_in:"eval isFinite isNaN parseFloat parseInt decodeURI decodeURIComponent encodeURI encodeURIComponent escape unescape Object Function Boolean Error EvalError InternalError RangeError ReferenceError StopIteration SyntaxError TypeError URIError Number Math Date String RegExp Array Float32Array Float64Array Int16Array Int32Array Int8Array Uint16Array Uint32Array Uint8Array Uint8ClampedArray ArrayBuffer DataView JSON Intl arguments require module console window document Symbol Set Map WeakSet WeakMap Proxy Reflect Promise"},a={cN:"number",v:[{b:"\\b(0[bB][01]+)"},{b:"\\b(0[oO][0-7]+)"},{b:e.CNR}],r:0},n={cN:"subst",b:"\\$\\{",e:"\\}",k:t,c:[]},c={cN:"string",b:"`",e:"`",c:[e.BE,n]};n.c=[e.ASM,e.QSM,c,a,e.RM];var s=n.c.concat([e.CBCM,e.CLCM]);return{aliases:["js","jsx"],k:t,c:[{cN:"meta",r:10,b:/^\s*['"]use (strict|asm)['"]/},{cN:"meta",b:/^#!/,e:/$/},e.ASM,e.QSM,c,e.CLCM,e.CBCM,a,{b:/[{,]\s*/,r:0,c:[{b:r+"\\s*:",rB:!0,r:0,c:[{cN:"attr",b:r,r:0}]}]},{b:"("+e.RSR+"|\\b(case|return|throw)\\b)\\s*",k:"return throw case",c:[e.CLCM,e.CBCM,e.RM,{cN:"function",b:"(\\(.*?\\)|"+r+")\\s*=>",rB:!0,e:"\\s*=>",c:[{cN:"params",v:[{b:r},{b:/\(\s*\)/},{b:/\(/,e:/\)/,eB:!0,eE:!0,k:t,c:s}]}]},{b:/</,e:/(\/\w+|\w+\/)>/,sL:"xml",c:[{b:/<\w+\s*\/>/,skip:!0},{b:/<\w+/,e:/(\/\w+|\w+\/)>/,skip:!0,c:[{b:/<\w+\s*\/>/,skip:!0},"self"]}]}],r:0},{cN:"function",bK:"function",e:/\{/,eE:!0,c:[e.inherit(e.TM,{b:r}),{cN:"params",b:/\(/,e:/\)/,eB:!0,eE:!0,c:s}],i:/\[|%/},{b:/\$[(.]/},e.METHOD_GUARD,{cN:"class",bK:"class",e:/[{;=]/,eE:!0,i:/[:"\[\]]/,c:[{bK:"extends"},e.UTM]},{bK:"constructor",e:/\{/,eE:!0}],i:/#(?!!)/}});hljs.registerLanguage("json",function(e){var i={literal:"true false null"},n=[e.QSM,e.CNM],r={e:",",eW:!0,eE:!0,c:n,k:i},t={b:"{",e:"}",c:[{cN:"attr",b:/"/,e:/"/,c:[e.BE],i:"\\n"},e.inherit(r,{b:/:/})],i:"\\S"},c={b:"\\[",e:"\\]",c:[e.inherit(r)],i:"\\S"};return n.splice(n.length,0,t,c),{c:n,k:i,i:"\\S"}});hljs.registerLanguage("xml",function(s){var e="[A-Za-z0-9\\._:-]+",t={eW:!0,i:/</,r:0,c:[{cN:"attr",b:e,r:0},{b:/=\s*/,r:0,c:[{cN:"string",endsParent:!0,v:[{b:/"/,e:/"/},{b:/'/,e:/'/},{b:/[^\s"'=<>`]+/}]}]}]};return{aliases:["html","xhtml","rss","atom","xjb","xsd","xsl","plist"],cI:!0,c:[{cN:"meta",b:"<!DOCTYPE",e:">",r:10,c:[{b:"\\[",e:"\\]"}]},s.C("<!--","-->",{r:10}),{b:"<\\!\\[CDATA\\[",e:"\\]\\]>",r:10},{b:/<\?(php)?/,e:/\?>/,sL:"php",c:[{b:"/\\*",e:"\\*/",skip:!0}]},{cN:"tag",b:"<style(?=\\s|>|$)",e:">",k:{name:"style"},c:[t],starts:{e:"</style>",rE:!0,sL:["css","xml"]}},{cN:"tag",b:"<script(?=\\s|>|$)",e:">",k:{name:"script"},c:[t],starts:{e:"</script>",rE:!0,sL:["actionscript","javascript","handlebars","xml"]}},{cN:"meta",v:[{b:/<\?xml/,e:/\?>/,r:10},{b:/<\?\w+/,e:/\?>/}]},{cN:"tag",b:"</?",e:"/?>",c:[{cN:"name",b:/[^\/><\s]+/,r:0},t]}]}});
+!function(e){var n="object"==typeof window&&window||"object"==typeof self&&self;"undefined"!=typeof exports?e(exports):n&&(n.hljs=e({}),"function"==typeof define&&define.amd&&define([],function(){return n.hljs}))}(function(e){function n(e){return e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}function t(e){return e.nodeName.toLowerCase()}function r(e,n){var t=e&&e.exec(n);return t&&0===t.index}function a(e){return k.test(e)}function i(e){var n,t,r,i,o=e.className+" ";if(o+=e.parentNode?e.parentNode.className:"",t=B.exec(o))return w(t[1])?t[1]:"no-highlight";for(o=o.split(/\s+/),n=0,r=o.length;r>n;n++)if(i=o[n],a(i)||w(i))return i}function o(e){var n,t={},r=Array.prototype.slice.call(arguments,1);for(n in e)t[n]=e[n];return r.forEach(function(e){for(n in e)t[n]=e[n]}),t}function u(e){var n=[];return function r(e,a){for(var i=e.firstChild;i;i=i.nextSibling)3===i.nodeType?a+=i.nodeValue.length:1===i.nodeType&&(n.push({event:"start",offset:a,node:i}),a=r(i,a),t(i).match(/br|hr|img|input/)||n.push({event:"stop",offset:a,node:i}));return a}(e,0),n}function c(e,r,a){function i(){return e.length&&r.length?e[0].offset!==r[0].offset?e[0].offset<r[0].offset?e:r:"start"===r[0].event?e:r:e.length?e:r}function o(e){function r(e){return" "+e.nodeName+'="'+n(e.value).replace('"',"&quot;")+'"'}s+="<"+t(e)+E.map.call(e.attributes,r).join("")+">"}function u(e){s+="</"+t(e)+">"}function c(e){("start"===e.event?o:u)(e.node)}for(var l=0,s="",f=[];e.length||r.length;){var g=i();if(s+=n(a.substring(l,g[0].offset)),l=g[0].offset,g===e){f.reverse().forEach(u);do c(g.splice(0,1)[0]),g=i();while(g===e&&g.length&&g[0].offset===l);f.reverse().forEach(o)}else"start"===g[0].event?f.push(g[0].node):f.pop(),c(g.splice(0,1)[0])}return s+n(a.substr(l))}function l(e){return e.v&&!e.cached_variants&&(e.cached_variants=e.v.map(function(n){return o(e,{v:null},n)})),e.cached_variants||e.eW&&[o(e)]||[e]}function s(e){function n(e){return e&&e.source||e}function t(t,r){return new RegExp(n(t),"m"+(e.cI?"i":"")+(r?"g":""))}function r(a,i){if(!a.compiled){if(a.compiled=!0,a.k=a.k||a.bK,a.k){var o={},u=function(n,t){e.cI&&(t=t.toLowerCase()),t.split(" ").forEach(function(e){var t=e.split("|");o[t[0]]=[n,t[1]?Number(t[1]):1]})};"string"==typeof a.k?u("keyword",a.k):x(a.k).forEach(function(e){u(e,a.k[e])}),a.k=o}a.lR=t(a.l||/\w+/,!0),i&&(a.bK&&(a.b="\\b("+a.bK.split(" ").join("|")+")\\b"),a.b||(a.b=/\B|\b/),a.bR=t(a.b),a.e||a.eW||(a.e=/\B|\b/),a.e&&(a.eR=t(a.e)),a.tE=n(a.e)||"",a.eW&&i.tE&&(a.tE+=(a.e?"|":"")+i.tE)),a.i&&(a.iR=t(a.i)),null==a.r&&(a.r=1),a.c||(a.c=[]),a.c=Array.prototype.concat.apply([],a.c.map(function(e){return l("self"===e?a:e)})),a.c.forEach(function(e){r(e,a)}),a.starts&&r(a.starts,i);var c=a.c.map(function(e){return e.bK?"\\.?("+e.b+")\\.?":e.b}).concat([a.tE,a.i]).map(n).filter(Boolean);a.t=c.length?t(c.join("|"),!0):{exec:function(){return null}}}}r(e)}function f(e,t,a,i){function o(e,n){var t,a;for(t=0,a=n.c.length;a>t;t++)if(r(n.c[t].bR,e))return n.c[t]}function u(e,n){if(r(e.eR,n)){for(;e.endsParent&&e.parent;)e=e.parent;return e}return e.eW?u(e.parent,n):void 0}function c(e,n){return!a&&r(n.iR,e)}function l(e,n){var t=N.cI?n[0].toLowerCase():n[0];return e.k.hasOwnProperty(t)&&e.k[t]}function p(e,n,t,r){var a=r?"":I.classPrefix,i='<span class="'+a,o=t?"":C;return i+=e+'">',i+n+o}function h(){var e,t,r,a;if(!E.k)return n(k);for(a="",t=0,E.lR.lastIndex=0,r=E.lR.exec(k);r;)a+=n(k.substring(t,r.index)),e=l(E,r),e?(B+=e[1],a+=p(e[0],n(r[0]))):a+=n(r[0]),t=E.lR.lastIndex,r=E.lR.exec(k);return a+n(k.substr(t))}function d(){var e="string"==typeof E.sL;if(e&&!y[E.sL])return n(k);var t=e?f(E.sL,k,!0,x[E.sL]):g(k,E.sL.length?E.sL:void 0);return E.r>0&&(B+=t.r),e&&(x[E.sL]=t.top),p(t.language,t.value,!1,!0)}function b(){L+=null!=E.sL?d():h(),k=""}function v(e){L+=e.cN?p(e.cN,"",!0):"",E=Object.create(e,{parent:{value:E}})}function m(e,n){if(k+=e,null==n)return b(),0;var t=o(n,E);if(t)return t.skip?k+=n:(t.eB&&(k+=n),b(),t.rB||t.eB||(k=n)),v(t,n),t.rB?0:n.length;var r=u(E,n);if(r){var a=E;a.skip?k+=n:(a.rE||a.eE||(k+=n),b(),a.eE&&(k=n));do E.cN&&(L+=C),E.skip||(B+=E.r),E=E.parent;while(E!==r.parent);return r.starts&&v(r.starts,""),a.rE?0:n.length}if(c(n,E))throw new Error('Illegal lexeme "'+n+'" for mode "'+(E.cN||"<unnamed>")+'"');return k+=n,n.length||1}var N=w(e);if(!N)throw new Error('Unknown language: "'+e+'"');s(N);var R,E=i||N,x={},L="";for(R=E;R!==N;R=R.parent)R.cN&&(L=p(R.cN,"",!0)+L);var k="",B=0;try{for(var M,j,O=0;;){if(E.t.lastIndex=O,M=E.t.exec(t),!M)break;j=m(t.substring(O,M.index),M[0]),O=M.index+j}for(m(t.substr(O)),R=E;R.parent;R=R.parent)R.cN&&(L+=C);return{r:B,value:L,language:e,top:E}}catch(T){if(T.message&&-1!==T.message.indexOf("Illegal"))return{r:0,value:n(t)};throw T}}function g(e,t){t=t||I.languages||x(y);var r={r:0,value:n(e)},a=r;return t.filter(w).forEach(function(n){var t=f(n,e,!1);t.language=n,t.r>a.r&&(a=t),t.r>r.r&&(a=r,r=t)}),a.language&&(r.second_best=a),r}function p(e){return I.tabReplace||I.useBR?e.replace(M,function(e,n){return I.useBR&&"\n"===e?"<br>":I.tabReplace?n.replace(/\t/g,I.tabReplace):""}):e}function h(e,n,t){var r=n?L[n]:t,a=[e.trim()];return e.match(/\bhljs\b/)||a.push("hljs"),-1===e.indexOf(r)&&a.push(r),a.join(" ").trim()}function d(e){var n,t,r,o,l,s=i(e);a(s)||(I.useBR?(n=document.createElementNS("http://www.w3.org/1999/xhtml","div"),n.innerHTML=e.innerHTML.replace(/\n/g,"").replace(/<br[ \/]*>/g,"\n")):n=e,l=n.textContent,r=s?f(s,l,!0):g(l),t=u(n),t.length&&(o=document.createElementNS("http://www.w3.org/1999/xhtml","div"),o.innerHTML=r.value,r.value=c(t,u(o),l)),r.value=p(r.value),e.innerHTML=r.value,e.className=h(e.className,s,r.language),e.result={language:r.language,re:r.r},r.second_best&&(e.second_best={language:r.second_best.language,re:r.second_best.r}))}function b(e){I=o(I,e)}function v(){if(!v.called){v.called=!0;var e=document.querySelectorAll("pre code");E.forEach.call(e,d)}}function m(){addEventListener("DOMContentLoaded",v,!1),addEventListener("load",v,!1)}function N(n,t){var r=y[n]=t(e);r.aliases&&r.aliases.forEach(function(e){L[e]=n})}function R(){return x(y)}function w(e){return e=(e||"").toLowerCase(),y[e]||y[L[e]]}var E=[],x=Object.keys,y={},L={},k=/^(no-?highlight|plain|text)$/i,B=/\blang(?:uage)?-([\w-]+)\b/i,M=/((^(<[^>]+>|\t|)+|(?:\n)))/gm,C="</span>",I={classPrefix:"hljs-",tabReplace:null,useBR:!1,languages:void 0};return e.highlight=f,e.highlightAuto=g,e.fixMarkup=p,e.highlightBlock=d,e.configure=b,e.initHighlighting=v,e.initHighlightingOnLoad=m,e.registerLanguage=N,e.listLanguages=R,e.getLanguage=w,e.inherit=o,e.IR="[a-zA-Z]\\w*",e.UIR="[a-zA-Z_]\\w*",e.NR="\\b\\d+(\\.\\d+)?",e.CNR="(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)",e.BNR="\\b(0b[01]+)",e.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|-|-=|/=|/|:|;|<<|<<=|<=|<|===|==|=|>>>=|>>=|>=|>>>|>>|>|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~",e.BE={b:"\\\\[\\s\\S]",r:0},e.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[e.BE]},e.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[e.BE]},e.PWM={b:/\b(a|an|the|are|I'm|isn't|don't|doesn't|won't|but|just|should|pretty|simply|enough|gonna|going|wtf|so|such|will|you|your|they|like|more)\b/},e.C=function(n,t,r){var a=e.inherit({cN:"comment",b:n,e:t,c:[]},r||{});return a.c.push(e.PWM),a.c.push({cN:"doctag",b:"(?:TODO|FIXME|NOTE|BUG|XXX):",r:0}),a},e.CLCM=e.C("//","$"),e.CBCM=e.C("/\\*","\\*/"),e.HCM=e.C("#","$"),e.NM={cN:"number",b:e.NR,r:0},e.CNM={cN:"number",b:e.CNR,r:0},e.BNM={cN:"number",b:e.BNR,r:0},e.CSSNM={cN:"number",b:e.NR+"(%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc|px|deg|grad|rad|turn|s|ms|Hz|kHz|dpi|dpcm|dppx)?",r:0},e.RM={cN:"regexp",b:/\//,e:/\/[gimuy]*/,i:/\n/,c:[e.BE,{b:/\[/,e:/\]/,r:0,c:[e.BE]}]},e.TM={cN:"title",b:e.IR,r:0},e.UTM={cN:"title",b:e.UIR,r:0},e.METHOD_GUARD={b:"\\.\\s*"+e.UIR,r:0},e});hljs.registerLanguage("json",function(e){var i={literal:"true false null"},n=[e.QSM,e.CNM],r={e:",",eW:!0,eE:!0,c:n,k:i},t={b:"{",e:"}",c:[{cN:"attr",b:/"/,e:/"/,c:[e.BE],i:"\\n"},e.inherit(r,{b:/:/})],i:"\\S"},c={b:"\\[",e:"\\]",c:[e.inherit(r)],i:"\\S"};return n.splice(n.length,0,t,c),{c:n,k:i,i:"\\S"}});hljs.registerLanguage("http",function(e){var t="HTTP/[0-9\\.]+";return{aliases:["https"],i:"\\S",c:[{b:"^"+t,e:"$",c:[{cN:"number",b:"\\b\\d{3}\\b"}]},{b:"^[A-Z]+ (.*?) "+t+"$",rB:!0,e:"$",c:[{cN:"string",b:" ",e:" ",eB:!0,eE:!0},{b:t},{cN:"keyword",b:"[A-Z]+"}]},{cN:"attribute",b:"^\\w",e:": ",eE:!0,i:"\\n|\\s|=",starts:{e:"$",r:0}},{b:"\\n\\n",starts:{sL:[],eW:!0}}]}});hljs.registerLanguage("javascript",function(e){var r="[A-Za-z$_][0-9A-Za-z$_]*",t={keyword:"in of if for while finally var new function do return void else break catch instanceof with throw case default try this switch continue typeof delete let yield const export super debugger as async await static import from as",literal:"true false null undefined NaN Infinity",built_in:"eval isFinite isNaN parseFloat parseInt decodeURI decodeURIComponent encodeURI encodeURIComponent escape unescape Object Function Boolean Error EvalError InternalError RangeError ReferenceError StopIteration SyntaxError TypeError URIError Number Math Date String RegExp Array Float32Array Float64Array Int16Array Int32Array Int8Array Uint16Array Uint32Array Uint8Array Uint8ClampedArray ArrayBuffer DataView JSON Intl arguments require module console window document Symbol Set Map WeakSet WeakMap Proxy Reflect Promise"},a={cN:"number",v:[{b:"\\b(0[bB][01]+)"},{b:"\\b(0[oO][0-7]+)"},{b:e.CNR}],r:0},n={cN:"subst",b:"\\$\\{",e:"\\}",k:t,c:[]},c={cN:"string",b:"`",e:"`",c:[e.BE,n]};n.c=[e.ASM,e.QSM,c,a,e.RM];var s=n.c.concat([e.CBCM,e.CLCM]);return{aliases:["js","jsx"],k:t,c:[{cN:"meta",r:10,b:/^\s*['"]use (strict|asm)['"]/},{cN:"meta",b:/^#!/,e:/$/},e.ASM,e.QSM,c,e.CLCM,e.CBCM,a,{b:/[{,]\s*/,r:0,c:[{b:r+"\\s*:",rB:!0,r:0,c:[{cN:"attr",b:r,r:0}]}]},{b:"("+e.RSR+"|\\b(case|return|throw)\\b)\\s*",k:"return throw case",c:[e.CLCM,e.CBCM,e.RM,{cN:"function",b:"(\\(.*?\\)|"+r+")\\s*=>",rB:!0,e:"\\s*=>",c:[{cN:"params",v:[{b:r},{b:/\(\s*\)/},{b:/\(/,e:/\)/,eB:!0,eE:!0,k:t,c:s}]}]},{b:/</,e:/(\/\w+|\w+\/)>/,sL:"xml",c:[{b:/<\w+\s*\/>/,skip:!0},{b:/<\w+/,e:/(\/\w+|\w+\/)>/,skip:!0,c:[{b:/<\w+\s*\/>/,skip:!0},"self"]}]}],r:0},{cN:"function",bK:"function",e:/\{/,eE:!0,c:[e.inherit(e.TM,{b:r}),{cN:"params",b:/\(/,e:/\)/,eB:!0,eE:!0,c:s}],i:/\[|%/},{b:/\$[(.]/},e.METHOD_GUARD,{cN:"class",bK:"class",e:/[{;=]/,eE:!0,i:/[:"\[\]]/,c:[{bK:"extends"},e.UTM]},{bK:"constructor",e:/\{/,eE:!0}],i:/#(?!!)/}});hljs.registerLanguage("xml",function(s){var e="[A-Za-z0-9\\._:-]+",t={eW:!0,i:/</,r:0,c:[{cN:"attr",b:e,r:0},{b:/=\s*/,r:0,c:[{cN:"string",endsParent:!0,v:[{b:/"/,e:/"/},{b:/'/,e:/'/},{b:/[^\s"'=<>`]+/}]}]}]};return{aliases:["html","xhtml","rss","atom","xjb","xsd","xsl","plist"],cI:!0,c:[{cN:"meta",b:"<!DOCTYPE",e:">",r:10,c:[{b:"\\[",e:"\\]"}]},s.C("<!--","-->",{r:10}),{b:"<\\!\\[CDATA\\[",e:"\\]\\]>",r:10},{b:/<\?(php)?/,e:/\?>/,sL:"php",c:[{b:"/\\*",e:"\\*/",skip:!0}]},{cN:"tag",b:"<style(?=\\s|>|$)",e:">",k:{name:"style"},c:[t],starts:{e:"</style>",rE:!0,sL:["css","xml"]}},{cN:"tag",b:"<script(?=\\s|>|$)",e:">",k:{name:"script"},c:[t],starts:{e:"</script>",rE:!0,sL:["actionscript","javascript","handlebars","xml"]}},{cN:"meta",v:[{b:/<\?xml/,e:/\?>/,r:10},{b:/<\?\w+/,e:/\?>/}]},{cN:"tag",b:"</?",e:"/?>",c:[{cN:"name",b:/[^\/><\s]+/,r:0},t]}]}});
 
 /*! marked.js 0.3.6 */
  (function(){function e(e){this.tokens=[],this.tokens.links={},this.options=e||a.defaults,this.rules=p.normal,this.options.gfm&&(this.options.tables?this.rules=p.tables:this.rules=p.gfm)}function t(e,t){if(this.options=t||a.defaults,this.links=e,this.rules=u.normal,this.renderer=this.options.renderer||new n,this.renderer.options=this.options,!this.links)throw new Error("Tokens array requires a `links` property.");this.options.gfm?this.options.breaks?this.rules=u.breaks:this.rules=u.gfm:this.options.pedantic&&(this.rules=u.pedantic)}function n(e){this.options=e||{}}function r(e){this.tokens=[],this.token=null,this.options=e||a.defaults,this.options.renderer=this.options.renderer||new n,this.renderer=this.options.renderer,this.renderer.options=this.options}function s(e,t){return e.replace(t?/&/g:/&(?!#?\w+;)/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}function i(e){return e.replace(/&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/g,function(e,t){return t=t.toLowerCase(),"colon"===t?":":"#"===t.charAt(0)?"x"===t.charAt(1)?String.fromCharCode(parseInt(t.substring(2),16)):String.fromCharCode(+t.substring(1)):""})}function l(e,t){return e=e.source,t=t||"",function n(r,s){return r?(s=s.source||s,s=s.replace(/(^|[^\[])\^/g,"$1"),e=e.replace(r,s),n):new RegExp(e,t)}}function o(){}function h(e){for(var t,n,r=1;r<arguments.length;r++){t=arguments[r];for(n in t)Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n])}return e}function a(t,n,i){if(i||"function"==typeof n){i||(i=n,n=null),n=h({},a.defaults,n||{});var l,o,p=n.highlight,u=0;try{l=e.lex(t,n)}catch(c){return i(c)}o=l.length;var g=function(e){if(e)return n.highlight=p,i(e);var t;try{t=r.parse(l,n)}catch(s){e=s}return n.highlight=p,e?i(e):i(null,t)};if(!p||p.length<3)return g();if(delete n.highlight,!o)return g();for(;u<l.length;u++)!function(e){return"code"!==e.type?--o||g():p(e.text,e.lang,function(t,n){return t?g(t):null==n||n===e.text?--o||g():(e.text=n,e.escaped=!0,void(--o||g()))})}(l[u])}else try{return n&&(n=h({},a.defaults,n)),r.parse(e.lex(t,n),n)}catch(c){if(c.message+="\nPlease report this to https://github.com/chjj/marked.",(n||a.defaults).silent)return"<p>An error occured:</p><pre>"+s(c.message+"",!0)+"</pre>";throw c}}var p={newline:/^\n+/,code:/^( {4}[^\n]+\n*)+/,fences:o,hr:/^( *[-*_]){3,} *(?:\n+|$)/,heading:/^ *(#{1,6}) *([^\n]+?) *#* *(?:\n+|$)/,nptable:o,lheading:/^([^\n]+)\n *(=|-){2,} *(?:\n+|$)/,blockquote:/^( *>[^\n]+(\n(?!def)[^\n]+)*\n*)+/,list:/^( *)(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,html:/^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,def:/^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n+|$)/,table:o,paragraph:/^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def))+)\n*/,text:/^[^\n]+/};p.bullet=/(?:[*+-]|\d+\.)/,p.item=/^( *)(bull) [^\n]*(?:\n(?!\1bull )[^\n]*)*/,p.item=l(p.item,"gm")(/bull/g,p.bullet)(),p.list=l(p.list)(/bull/g,p.bullet)("hr","\\n+(?=\\1?(?:[-*_] *){3,}(?:\\n+|$))")("def","\\n+(?="+p.def.source+")")(),p.blockquote=l(p.blockquote)("def",p.def)(),p._tag="(?!(?:a|em|strong|small|s|cite|q|dfn|abbr|data|time|code|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo|span|br|wbr|ins|del|img)\\b)\\w+(?!:/|[^\\w\\s@]*@)\\b",p.html=l(p.html)("comment",/<!--[\s\S]*?-->/)("closed",/<(tag)[\s\S]+?<\/\1>/)("closing",/<tag(?:"[^"]*"|'[^']*'|[^'">])*?>/)(/tag/g,p._tag)(),p.paragraph=l(p.paragraph)("hr",p.hr)("heading",p.heading)("lheading",p.lheading)("blockquote",p.blockquote)("tag","<"+p._tag)("def",p.def)(),p.normal=h({},p),p.gfm=h({},p.normal,{fences:/^ *(`{3,}|~{3,})[ \.]*(\S+)? *\n([\s\S]*?)\s*\1 *(?:\n+|$)/,paragraph:/^/,heading:/^ *(#{1,6}) +([^\n]+?) *#* *(?:\n+|$)/}),p.gfm.paragraph=l(p.paragraph)("(?!","(?!"+p.gfm.fences.source.replace("\\1","\\2")+"|"+p.list.source.replace("\\1","\\3")+"|")(),p.tables=h({},p.gfm,{nptable:/^ *(\S.*\|.*)\n *([-:]+ *\|[-| :]*)\n((?:.*\|.*(?:\n|$))*)\n*/,table:/^ *\|(.+)\n *\|( *[-:]+[-| :]*)\n((?: *\|.*(?:\n|$))*)\n*/}),e.rules=p,e.lex=function(t,n){var r=new e(n);return r.lex(t)},e.prototype.lex=function(e){return e=e.replace(/\r\n|\r/g,"\n").replace(/\t/g,"    ").replace(/\u00a0/g," ").replace(/\u2424/g,"\n"),this.token(e,!0)},e.prototype.token=function(e,t,n){for(var r,s,i,l,o,h,a,u,c,e=e.replace(/^ +$/gm,"");e;)if((i=this.rules.newline.exec(e))&&(e=e.substring(i[0].length),i[0].length>1&&this.tokens.push({type:"space"})),i=this.rules.code.exec(e))e=e.substring(i[0].length),i=i[0].replace(/^ {4}/gm,""),this.tokens.push({type:"code",text:this.options.pedantic?i:i.replace(/\n+$/,"")});else if(i=this.rules.fences.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"code",lang:i[2],text:i[3]||""});else if(i=this.rules.heading.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"heading",depth:i[1].length,text:i[2]});else if(t&&(i=this.rules.nptable.exec(e))){for(e=e.substring(i[0].length),h={type:"table",header:i[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:i[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:i[3].replace(/\n$/,"").split("\n")},u=0;u<h.align.length;u++)/^ *-+: *$/.test(h.align[u])?h.align[u]="right":/^ *:-+: *$/.test(h.align[u])?h.align[u]="center":/^ *:-+ *$/.test(h.align[u])?h.align[u]="left":h.align[u]=null;for(u=0;u<h.cells.length;u++)h.cells[u]=h.cells[u].split(/ *\| */);this.tokens.push(h)}else if(i=this.rules.lheading.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"heading",depth:"="===i[2]?1:2,text:i[1]});else if(i=this.rules.hr.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"hr"});else if(i=this.rules.blockquote.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"blockquote_start"}),i=i[0].replace(/^ *> ?/gm,""),this.token(i,t,!0),this.tokens.push({type:"blockquote_end"});else if(i=this.rules.list.exec(e)){for(e=e.substring(i[0].length),l=i[2],this.tokens.push({type:"list_start",ordered:l.length>1}),i=i[0].match(this.rules.item),r=!1,c=i.length,u=0;c>u;u++)h=i[u],a=h.length,h=h.replace(/^ *([*+-]|\d+\.) +/,""),~h.indexOf("\n ")&&(a-=h.length,h=this.options.pedantic?h.replace(/^ {1,4}/gm,""):h.replace(new RegExp("^ {1,"+a+"}","gm"),"")),this.options.smartLists&&u!==c-1&&(o=p.bullet.exec(i[u+1])[0],l===o||l.length>1&&o.length>1||(e=i.slice(u+1).join("\n")+e,u=c-1)),s=r||/\n\n(?!\s*$)/.test(h),u!==c-1&&(r="\n"===h.charAt(h.length-1),s||(s=r)),this.tokens.push({type:s?"loose_item_start":"list_item_start"}),this.token(h,!1,n),this.tokens.push({type:"list_item_end"});this.tokens.push({type:"list_end"})}else if(i=this.rules.html.exec(e))e=e.substring(i[0].length),this.tokens.push({type:this.options.sanitize?"paragraph":"html",pre:!this.options.sanitizer&&("pre"===i[1]||"script"===i[1]||"style"===i[1]),text:i[0]});else if(!n&&t&&(i=this.rules.def.exec(e)))e=e.substring(i[0].length),this.tokens.links[i[1].toLowerCase()]={href:i[2],title:i[3]};else if(t&&(i=this.rules.table.exec(e))){for(e=e.substring(i[0].length),h={type:"table",header:i[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:i[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:i[3].replace(/(?: *\| *)?\n$/,"").split("\n")},u=0;u<h.align.length;u++)/^ *-+: *$/.test(h.align[u])?h.align[u]="right":/^ *:-+: *$/.test(h.align[u])?h.align[u]="center":/^ *:-+ *$/.test(h.align[u])?h.align[u]="left":h.align[u]=null;for(u=0;u<h.cells.length;u++)h.cells[u]=h.cells[u].replace(/^ *\| *| *\| *$/g,"").split(/ *\| */);this.tokens.push(h)}else if(t&&(i=this.rules.paragraph.exec(e)))e=e.substring(i[0].length),this.tokens.push({type:"paragraph",text:"\n"===i[1].charAt(i[1].length-1)?i[1].slice(0,-1):i[1]});else if(i=this.rules.text.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"text",text:i[0]});else if(e)throw new Error("Infinite loop on byte: "+e.charCodeAt(0));return this.tokens};var u={escape:/^\\([\\`*{}\[\]()#+\-.!_>])/,autolink:/^<([^ >]+(@|:\/)[^ >]+)>/,url:o,tag:/^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,link:/^!?\[(inside)\]\(href\)/,reflink:/^!?\[(inside)\]\s*\[([^\]]*)\]/,nolink:/^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,strong:/^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,em:/^\b_((?:[^_]|__)+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,code:/^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/,br:/^ {2,}\n(?!\s*$)/,del:o,text:/^[\s\S]+?(?=[\\<!\[_*`]| {2,}\n|$)/};u._inside=/(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/,u._href=/\s*<?([\s\S]*?)>?(?:\s+['"]([\s\S]*?)['"])?\s*/,u.link=l(u.link)("inside",u._inside)("href",u._href)(),u.reflink=l(u.reflink)("inside",u._inside)(),u.normal=h({},u),u.pedantic=h({},u.normal,{strong:/^__(?=\S)([\s\S]*?\S)__(?!_)|^\*\*(?=\S)([\s\S]*?\S)\*\*(?!\*)/,em:/^_(?=\S)([\s\S]*?\S)_(?!_)|^\*(?=\S)([\s\S]*?\S)\*(?!\*)/}),u.gfm=h({},u.normal,{escape:l(u.escape)("])","~|])")(),url:/^(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/,del:/^~~(?=\S)([\s\S]*?\S)~~/,text:l(u.text)("]|","~]|")("|","|https?://|")()}),u.breaks=h({},u.gfm,{br:l(u.br)("{2,}","*")(),text:l(u.gfm.text)("{2,}","*")()}),t.rules=u,t.output=function(e,n,r){var s=new t(n,r);return s.output(e)},t.prototype.output=function(e){for(var t,n,r,i,l="";e;)if(i=this.rules.escape.exec(e))e=e.substring(i[0].length),l+=i[1];else if(i=this.rules.autolink.exec(e))e=e.substring(i[0].length),"@"===i[2]?(n=":"===i[1].charAt(6)?this.mangle(i[1].substring(7)):this.mangle(i[1]),r=this.mangle("mailto:")+n):(n=s(i[1]),r=n),l+=this.renderer.link(r,null,n);else if(this.inLink||!(i=this.rules.url.exec(e))){if(i=this.rules.tag.exec(e))!this.inLink&&/^<a /i.test(i[0])?this.inLink=!0:this.inLink&&/^<\/a>/i.test(i[0])&&(this.inLink=!1),e=e.substring(i[0].length),l+=this.options.sanitize?this.options.sanitizer?this.options.sanitizer(i[0]):s(i[0]):i[0];else if(i=this.rules.link.exec(e))e=e.substring(i[0].length),this.inLink=!0,l+=this.outputLink(i,{href:i[2],title:i[3]}),this.inLink=!1;else if((i=this.rules.reflink.exec(e))||(i=this.rules.nolink.exec(e))){if(e=e.substring(i[0].length),t=(i[2]||i[1]).replace(/\s+/g," "),t=this.links[t.toLowerCase()],!t||!t.href){l+=i[0].charAt(0),e=i[0].substring(1)+e;continue}this.inLink=!0,l+=this.outputLink(i,t),this.inLink=!1}else if(i=this.rules.strong.exec(e))e=e.substring(i[0].length),l+=this.renderer.strong(this.output(i[2]||i[1]));else if(i=this.rules.em.exec(e))e=e.substring(i[0].length),l+=this.renderer.em(this.output(i[2]||i[1]));else if(i=this.rules.code.exec(e))e=e.substring(i[0].length),l+=this.renderer.codespan(s(i[2],!0));else if(i=this.rules.br.exec(e))e=e.substring(i[0].length),l+=this.renderer.br();else if(i=this.rules.del.exec(e))e=e.substring(i[0].length),l+=this.renderer.del(this.output(i[1]));else if(i=this.rules.text.exec(e))e=e.substring(i[0].length),l+=this.renderer.text(s(this.smartypants(i[0])));else if(e)throw new Error("Infinite loop on byte: "+e.charCodeAt(0))}else e=e.substring(i[0].length),n=s(i[1]),r=n,l+=this.renderer.link(r,null,n);return l},t.prototype.outputLink=function(e,t){var n=s(t.href),r=t.title?s(t.title):null;return"!"!==e[0].charAt(0)?this.renderer.link(n,r,this.output(e[1])):this.renderer.image(n,r,s(e[1]))},t.prototype.smartypants=function(e){return this.options.smartypants?e.replace(/---/g,"—").replace(/--/g,"–").replace(/(^|[-\u2014\/(\[{"\s])'/g,"$1‘").replace(/'/g,"’").replace(/(^|[-\u2014\/(\[{\u2018\s])"/g,"$1“").replace(/"/g,"”").replace(/\.{3}/g,"…"):e},t.prototype.mangle=function(e){if(!this.options.mangle)return e;for(var t,n="",r=e.length,s=0;r>s;s++)t=e.charCodeAt(s),Math.random()>.5&&(t="x"+t.toString(16)),n+="&#"+t+";";return n},n.prototype.code=function(e,t,n){if(this.options.highlight){var r=this.options.highlight(e,t);null!=r&&r!==e&&(n=!0,e=r)}return t?'<pre><code class="'+this.options.langPrefix+s(t,!0)+'">'+(n?e:s(e,!0))+"\n</code></pre>\n":"<pre><code>"+(n?e:s(e,!0))+"\n</code></pre>"},n.prototype.blockquote=function(e){return"<blockquote>\n"+e+"</blockquote>\n"},n.prototype.html=function(e){return e},n.prototype.heading=function(e,t,n){return"<h"+t+' id="'+this.options.headerPrefix+n.toLowerCase().replace(/[^\w]+/g,"-")+'">'+e+"</h"+t+">\n"},n.prototype.hr=function(){return this.options.xhtml?"<hr/>\n":"<hr>\n"},n.prototype.list=function(e,t){var n=t?"ol":"ul";return"<"+n+">\n"+e+"</"+n+">\n"},n.prototype.listitem=function(e){return"<li>"+e+"</li>\n"},n.prototype.paragraph=function(e){return"<p>"+e+"</p>\n"},n.prototype.table=function(e,t){return"<table>\n<thead>\n"+e+"</thead>\n<tbody>\n"+t+"</tbody>\n</table>\n"},n.prototype.tablerow=function(e){return"<tr>\n"+e+"</tr>\n"},n.prototype.tablecell=function(e,t){var n=t.header?"th":"td",r=t.align?"<"+n+' style="text-align:'+t.align+'">':"<"+n+">";return r+e+"</"+n+">\n"},n.prototype.strong=function(e){return"<strong>"+e+"</strong>"},n.prototype.em=function(e){return"<em>"+e+"</em>"},n.prototype.codespan=function(e){return"<code>"+e+"</code>"},n.prototype.br=function(){return this.options.xhtml?"<br/>":"<br>"},n.prototype.del=function(e){return"<del>"+e+"</del>"},n.prototype.link=function(e,t,n){if(this.options.sanitize){try{var r=decodeURIComponent(i(e)).replace(/[^\w:]/g,"").toLowerCase()}catch(s){return""}if(0===r.indexOf("javascript:")||0===r.indexOf("vbscript:"))return""}var l='<a href="'+e+'"';return t&&(l+=' title="'+t+'"'),l+=">"+n+"</a>"},n.prototype.image=function(e,t,n){var r='<img src="'+e+'" alt="'+n+'"';return t&&(r+=' title="'+t+'"'),r+=this.options.xhtml?"/>":">"},n.prototype.text=function(e){return e},r.parse=function(e,t,n){var s=new r(t,n);return s.parse(e)},r.prototype.parse=function(e){this.inline=new t(e.links,this.options,this.renderer),this.tokens=e.reverse();for(var n="";this.next();)n+=this.tok();return n},r.prototype.next=function(){return this.token=this.tokens.pop()},r.prototype.peek=function(){return this.tokens[this.tokens.length-1]||0},r.prototype.parseText=function(){for(var e=this.token.text;"text"===this.peek().type;)e+="\n"+this.next().text;return this.inline.output(e)},r.prototype.tok=function(){switch(this.token.type){case"space":return"";case"hr":return this.renderer.hr();case"heading":return this.renderer.heading(this.inline.output(this.token.text),this.token.depth,this.token.text);case"code":return this.renderer.code(this.token.text,this.token.lang,this.token.escaped);case"table":var e,t,n,r,s,i="",l="";for(n="",e=0;e<this.token.header.length;e++)r={header:!0,align:this.token.align[e]},n+=this.renderer.tablecell(this.inline.output(this.token.header[e]),{header:!0,align:this.token.align[e]});for(i+=this.renderer.tablerow(n),e=0;e<this.token.cells.length;e++){for(t=this.token.cells[e],n="",s=0;s<t.length;s++)n+=this.renderer.tablecell(this.inline.output(t[s]),{header:!1,align:this.token.align[s]});l+=this.renderer.tablerow(n)}return this.renderer.table(i,l);case"blockquote_start":for(var l="";"blockquote_end"!==this.next().type;)l+=this.tok();return this.renderer.blockquote(l);case"list_start":for(var l="",o=this.token.ordered;"list_end"!==this.next().type;)l+=this.tok();return this.renderer.list(l,o);case"list_item_start":for(var l="";"list_item_end"!==this.next().type;)l+="text"===this.token.type?this.parseText():this.tok();return this.renderer.listitem(l);case"loose_item_start":for(var l="";"list_item_end"!==this.next().type;)l+=this.tok();return this.renderer.listitem(l);case"html":var h=this.token.pre||this.options.pedantic?this.token.text:this.inline.output(this.token.text);return this.renderer.html(h);case"paragraph":return this.renderer.paragraph(this.inline.output(this.token.text));case"text":return this.renderer.paragraph(this.parseText())}},o.exec=o,a.options=a.setOptions=function(e){return h(a.defaults,e),a},a.defaults={gfm:!0,tables:!0,breaks:!1,pedantic:!1,sanitize:!1,sanitizer:null,mangle:!0,smartLists:!1,silent:!1,highlight:null,langPrefix:"lang-",smartypants:!1,headerPrefix:"",renderer:new n,xhtml:!1},a.Parser=r,a.parser=r.parse,a.Renderer=n,a.Lexer=e,a.lexer=e.lex,a.InlineLexer=t,a.inlineLexer=t.output,a.parse=a,"undefined"!=typeof module&&"object"==typeof exports?module.exports=a:"function"==typeof define&&define.amd?define(function(){return a}):this.marked=a}).call(function(){return this||("undefined"!=typeof window?window:global)}());
@@ -447,7 +447,7 @@ let chapters = [
                 title: "Historique",
                 course: true,
                 description: `
-                    Connu aussi sous le nom d'ECMAScript (le standard qui le sous-tend), JavaScript est un langage de programmation dynamique, principalement utilisé dans les navigateurs web pour interagir avec l'utilisateur, modifier l'état de la page et communiquer avec un serveur de façon asynchrone. Depuis peu, il est aussi utilisé côté serveur à l'aide d'environnements d'exécution (comme Node.js).
+                    Connu aussi sous le nom d'ECMAScript (le standard qui le sous-tend), JavaScript est un langage de programmation dynamique, principalement utilisé dans les navigateurs web pour interagir avec l'utilisateur, modifier l'état de la page et communiquer avec un serveur de façon asynchrone. Depuis peu, il est aussi utilisé côté serveur à l'aide d'environnements d'exécution (comme [Node.js](https://nodejs.org)).
 
                     * 1995 — Création du langage JavaScript dans le navigateur Netscape par Brendan Eich
                     * 1996 — Apparition dans Internet Explorer 3 aux côté des CSS (Cascading Style Sheets)
@@ -461,21 +461,22 @@ let chapters = [
                     * 2012 — Démocratisation des outils de développement web (Require.js, Grunt, Bower)
                     * 2014 — Standardisation de HTML5
                     * 2015 — Standardisation de ECMAScript 6
+                    * 2016 — Standardisation de ECMAScript 7, également nommé ES2016
 
                     À son apparition, JavaScript ajouta une pointe de vie aux sites internet. Il fût possible de naviguer au sein d'un carrousel d'images sans quitter la page ou de valider un formulaire avant de l'envoyer. L'arrivée de moteurs d'exécution performants, V8 en tête, changea la donne. D'un langage d'appoint, JavaScript allait devenir le langage du web.
 
-                    Une grande majorité des sites internet a désormais recours à lui. Il joue de plus en plus un rôle de chef d'orchestre, gérant toutes les problématiques d'un site internet. Il permet également de construire des applications mobiles (Mozilla développe même un système d'exploitation dont les applications sont développées en JavaScript) des jeux vidéos et des applications de bureau (l'application de streaming musical Spotify et l'éditeur de code Atom).
+                    Une grande majorité des sites internet a désormais recours à lui. Il joue de plus en plus un rôle de chef d'orchestre, gérant toutes les problématiques d'un site internet. Il permet également de construire des applications mobiles (Mozilla a même tenté de développer un système d'exploitation aux applications natives réalisées uniquement en JavaScript) des jeux vidéos et des applications de bureau (l'application de streaming musical Spotify et l'éditeur de code Atom, par exemple).
                 `
             },
             {
                 title: "Principe",
                 course: true,
                 description: `
-                    L'usage classique de JavaScript se fait au sein d'une page HTML. Cette dernière est composé de deux parties, une en-tête — la balise [\`<head>\`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head) — et un contenu — la balise [\`<body>\`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body). Son entête peut contenir des liens vers d'autres ressources nécessaires à la page, comme des fichiers CSS et/ou JS.
+                    L'usage classique de JavaScript se fait au sein d'une page HTML. Cette dernière est composé de deux parties, une en-tête — la balise [\`<head>\`](https://developer.mozilla.org/en/docs/Web/HTML/Element/head) — et un contenu — la balise [\`<body>\`](https://developer.mozilla.org/en/docs/Web/HTML/Element/body). Son entête peut contenir des liens vers d'autres ressources nécessaires à la page, comme des fichiers CSS et/ou JS.
 
                     À la saisie d'une URL dans un navigateur web, celui-ci se connecte à un serveur et télécharge les données transmises par ce serveur — par exemple, un fichier HTML. Si ce fichier référence des ressources dans son entête, elles sont téléchargées automatiquement.
 
-                    Le CSS permet de mettre en forme le contenu d'un fichier HTML (couleurs, organisation, effets au survol, etc). Il est inséré à l'aide de la balise [\`<link>\`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link).
+                    Le CSS permet de mettre en forme le contenu d'un fichier HTML (couleurs, organisation, effets au survol, etc). Il est inséré à l'aide de la balise [\`<link>\`](https://developer.mozilla.org/en/docs/Web/HTML/Element/link).
 
                     Le JS permet de rendre dynamique le contenu d'un fichier HTML (action lors d'un clic, notification utilisateur lors d'une action, etc). Il est inséré à l'aide de la balise [\`<script>\`](https://developer.mozilla.org/en/docs/Web/HTML/Element/script)
 
@@ -484,7 +485,7 @@ let chapters = [
                     * le navigateur se connecte à un serveur et récupère la page concernée
                     * le navigateur télécharge les ressources listées dans l'entête de la page
                     * le navigateur efface la page précédente et affiche la nouvelle page, la met en forme avec le CSS et exécute le JS de son entête
-                    * si l'utilisateur clique sur un lien [\`<a>\`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) de la page, ces étapes reprennent à l'étape 2
+                    * si l'utilisateur clique sur un lien [\`<a>\`](https://developer.mozilla.org/en/docs/Web/HTML/Element/a) de la page, ces étapes reprennent à l'étape 2
                 `
             },
             {
@@ -529,7 +530,7 @@ let chapters = [
 
                     Une variable est un symbole qui associe un nom à une valeur stockée en mémoire. Le nom doit être unique. La valeur peut être de plusieurs types.
 
-                    JavaScript est un langage typé dynamiquement, toutes les variables sont définies avec le mot clé \`var\` et le moteur d'exécution se charge de leur affecter le type adéquat (type qui peut évoluer dans le temps). Le langage propose trois types primitifs — [\`Boolean\`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean), [\`Number\`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number) et [\`String\`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) — et deux types composites — [\`Object\`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) et [\`Array\`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
+                    JavaScript est un langage typé dynamiquement, toutes les variables sont définies avec le mot clé \`var\` et le moteur d'exécution se charge de leur affecter le type adéquat (type qui peut évoluer dans le temps). Le langage propose trois types primitifs — [\`Boolean\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Boolean), [\`Number\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Number) et [\`String\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String) — et deux types composites — [\`Object\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object) et [\`Array\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array).
 
                     ### Les variables de type primitif
 
@@ -692,8 +693,8 @@ let chapters = [
             {
                 title: "Retourner le plus grand de deux nombres",
                 description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur du plus grand nombre parmi <code>x</code> et <code>y</code> (<i>déclarées par ce tutoriel</i>).",
-                excerpt: "L'objet <code>Math</code> dispose également d'autres fonctionnalités pour identifier les maximum, minimum, sinus, etc. Il est également possible d'écrire une condition qui vérifie lequel de deux nombres est le plus grand avec <code>if</code>.",
-                solved: "var secret = Math.max(x, y);",
+                excerpt: "Il est égalemen d'écrire une condition qui vérifie lequel de deux nombres est le plus grand avec <code>if</code>. Ou, à la place d'utiliser <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math\"><code>Math</code></a>, celui-ci dispose de fonctionnalités pour identifier les maximum, minimum, sinus, etc.",
+                solved: "var secret;<br>if (x > y) {<br>  secret = x;<br>} else {<br>  secret = y;<br>}<br><br>/* or, instead */<br><br>var secret = Math.max(x, y);",
                 init: function() {
                     window.x = this.x = random();
                     window.y = this.y = random();
@@ -821,6 +822,7 @@ let chapters = [
                             notes = notes + '♬';
                         }
 
+                        notes;
                         → '♬♬♬♬' // after the for loop, notes has been updated four times
 
                     Il est tout à fait possible d'itérer en sens inverse. Il suffit pour cela de modifier l'initialisation, d'inverser la condition et de modifier l'opération finale afin de décrémenter à chaque tour de boucle. Des itérations plus évoluées sont également imaginables (2 à 2, etc).
@@ -907,7 +909,7 @@ let chapters = [
                 title: "L'expression de boucle while",
                 course: true,
                 description: `
-                    L'expression conditionnelle de boucle \`while\` effectue une opérateur tant que sa condition est vérifiée (égale à \`true\`). Il est également possible d'utiliser le mot clé do afin d'effectuer l'opération une première fois avant d'itérer.
+                    L'expression conditionnelle de boucle \`while\` effectue une opération tant que sa condition est vérifiée (égale à \`true\`). Il est également possible d'utiliser le mot clé \`do\` afin d'effectuer l'opération une première fois avant d'itérer.
 
                     **Opération conditionnelle while :**
 
@@ -923,9 +925,11 @@ let chapters = [
                 title: "L'expression conditionnelle switch",
                 course: true,
                 description: `
-                    L'expression conditionnelle switch effectue l'opération relative à l'une de ces conditions case si la valeur est strictement égale, ===, ou sa condition default si aucune condition n'est respectée. Le mot clé break termine les opérations d'une condition.
+                    L'expression conditionnelle \`switch\` effectue l'opération relative à l'une de ces conditions case si la valeur est strictement égale, ===, ou sa condition default si aucune condition n'est respectée. Le mot clé \`break\` termine les opérations d'une condition.
 
                     **Expressions conditionnelles switch :**
+
+                        var instrument;
 
                         switch (name) {
                             case 'Paul': instrument = 'bass'; break;
@@ -938,7 +942,7 @@ let chapters = [
             }
         ]
     }, {
-        title: "Tableaux",
+        title: "Les tableaux",
         description: "Les tableaux (Array), représentent une liste ordonnée de valeurs (qu'importe leur type).<br><br>Ce chapitre présente les bases du langage avec les tableaux.",
         color: "green",
         steps: [
@@ -958,10 +962,12 @@ let chapters = [
 
                     Les éléments d'un tableaux sont ajoutés de façon consécutive et leur premier index est zéro.
 
-                    **Modification manuelle d'un tableau :**
+                    **Modification d'un tableau par index :**
 
                         var beatles = ['paul', 'john'];
                         beatles[3] = 'ringo';
+
+                        beatles;
                         → ['paul', 'john', undefined, 'ringo']
                 `
             },
@@ -1008,15 +1014,18 @@ let chapters = [
                         → 4
 
                         beatles.push('brian');
+                        beatles;
                         → 'paul', 'john', 'george', 'ringo', 'brian'
 
                         beatles.shift();
+                        beatles;
                         → 'john', 'george', 'ringo', 'brian'
 
                         beatles.indexOf('ringo');
                         → 2
 
                         beatles.splice(1, 2);
+                        beatles;
                         → 'john', 'brian'
 
                         beatles.sort();
@@ -1060,7 +1069,8 @@ let chapters = [
                           everyone += i + ' -> ' + beatles[i] + ', ';
                         }
 
-                        → 0 -> paul, 1 -> john, 2 -> george, 3-> ringo,
+                        everyone;
+                        → '0 -> paul, 1 -> john, 2 -> george, 3-> ringo, '
 
                     L'opération entre accolades va être effectuée tant que la condition de sortie de boucle (\`i < beatles.length\`) est égale à \`true\`, 4 fois dans le cas présent.
 
@@ -1081,7 +1091,8 @@ let chapters = [
                           everyone += i + ' -> ' + beatles[i] + ', ';
                         }
 
-                        → 0 -> paul, 1 -> john, 2 -> george, 3-> ringo,
+                        everyone;
+                        → '0 -> paul, 1 -> john, 2 -> george, 3-> ringo, '
 
                     Cette version est une alternative à la boucle classique, il existe de nombreuses manières d'itérer sur des tableaux.
                 `
@@ -1145,7 +1156,7 @@ let chapters = [
             }
         ]
     }, {
-        title: "Dictionnaires",
+        title: "Les dictionnaires",
         description: "Les objets littéraux (Object) ou dictionnaire, représentent une suite de paires clé - valeur séparées par une virgule.<br><br>Ce chapitre présente les bases du langage avec les dictionnaires.",
         color: "green",
         steps: [
@@ -1163,46 +1174,35 @@ let chapters = [
                           guitar: true
                         };
 
-                        var beatles = ['paul', 'john', 'george', 'ringo'];
-
                     Les attributs des objets littéraux peuvent être ajoutés, modifiés et même supprimés. Il en va de même des éléments des tableaux.
 
                     **Ajout et modification d'attributs d'un dictionnaire :**
-
-                        var paul = {
-                          name: 'Paul',
-                          age: 72,
-                          guitar: true
-                        };
 
                         paul.guitar = false;
                         paul.bass = true;
 
                         delete paul.age;
+
+                        paul;
                         → {name: 'Paul', guitar: false, bass: true}
 
                     Itérer sur un objet littéral retourne ses attributs un à un. Il est alors possible de récupérer la valeur de chacun d'entre eux.
 
                     **Boucle for..in sur un dictionnaire :**
 
-                        var paul = {
-                          name: 'Paul',
-                          age: 72,
-                          guitar: true
-                        };
-
                         var profil = '';
                         for (var attribute in paul) {
                           profil += attribute + ' -> ' + paul[attribute] +  ', ';
                         }
 
-                        → name -> paul, age -> 72, guitar -> true,
+                        profil;
+                        → 'name -> paul, age -> 72, guitar -> true, '
 
                     Contrairement aux tableaux ou l'ordre d'itération est normé, l'ordre d'itération sur les attributs d'un objet littéral n'est pas garanti. La majorité des implémentations (des navigateurs) itèrent sur les attributs selon l'ordre dans lequel ils ont été définis, mais pas toutes.
                 `
             },
             {
-                title: "Créer un dictionnaire (ou un objet littéral)",
+                title: "Créer un dictionnaire",
                 description: "Créer une variable nommée <code>secret</code> de type dictionnaire avec deux clés, <code>min</code> et <code>max</code>, ayant pour valeur le minimum et le maximum des valeurs <code>x</code> et <code>y</code> (<i>ex. 7, 5 -> {min: 5, max: 7} — déclarées par ce tutoriel</i>).",
                 excerpt: "Les objets littéraux (<i> ou dictionnaires</i>), représentent une suite de paires clé - valeur séparées par une virgule. Chacune des valeurs ainsi listées peut être d'une type primitif ou composite.<br><br><strong>Exemple</strong> : <code>var obj = { age: 27, name: 'paul' }</code> déclare un objet littéral avec deux clés, la première ayant pour valeur un nombre, la seconde, une chaine de caractères. Ainsi <code>obj.age</code> retourne <code>27</code> et <code>obj.name</code> retourne <code>'paul'</code>. Ces valeurs peuvent être modifiées comme elles sont accédées, <code>obj.age = 32</code>.",
                 solved: "var secret = {};<br>if (x < y) {<br>  secret.min = x;<br>  secret.max = y;<br>} else {<br>  secret.min = y;<br>  secret.max = x;<br>}",
@@ -1221,15 +1221,17 @@ let chapters = [
                 }
             },
             {
-                title: "Créer un dictionnaire",
-                description: "Créer une variable nommée <code>secret</code> de type dictionnaire avec deux clés, <code>min</code> et <code>max</code>, ayant pour valeur le minimum et le maximum des dictionnaires <code>x</code> et <code>y</code> (<i>déclarées par ce tutoriel</i>) ayant chacun une clé <code>min</code> et <code>max</code> (<i>ex. {min: 1, max: 7}, {min: 4, max: 12} -> {min: 1, max: 12}</i>).",
-                solved: "var secret = {};<br>if (x.min < y.min) {<br>  secret.min = x.min;<br>} else {<br>  secret.min = y.min;<br>}<br>if (x.max > y.max) {<br>  secret.max = x.max;<br>} else {<br>  secret.max = y.max;<br>}",
+                title: "Parcourir un dictionnaire",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter le maximum de la propriété <code>age</code> des variables <code>x</code> et <code>y</code> (<i>ex. {age: 7}, {age: 5} -> 7 — déclarées par ce tutoriel</i>).",
+                solved: "var secret = Math.max(x.age, y.age);",
                 init: function() {
-                    window.x = this.x = {min: random(1, 24), max: random(25, 40)};
-                    window.y = this.y = {min: random(1, 24), max: random(25, 40)};
+                    this.x = {age: random(1, 50)};
+                    window.x = Object.assign({}, this.x);
+                    this.y = {age: random(1, 50)};
+                    window.y = Object.assign({}, this.y);
                 },
                 secret: function() {
-                    return {min: Math.min(this.x.min, this.y.min), max: Math.max(this.x.max, this.y.max)};
+                    return Math.max(this.x.age, this.y.age);
                 },
                 warn: function() {
                     return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + JSON.stringify(this.secret()) + "</code>";
@@ -1239,19 +1241,53 @@ let chapters = [
                 }
             },
             {
-                title: "Filter un dictionnaire",
-                description: "Créer une variable nommée <code>secret</code> de type dictionnaire avec les clés de <code>x</code> dont les clés égale à la valeur de <code>y</code> ont été retirées (<i>ex. 2, {a: 1, b: 2} -> {a: 1} — déclarées par ce tutoriel</i>).",
-                solved: "var secret = {};<br>for (var key in x) {<br>  if (x[key] !== y) {<br>    secret[key] = x[key];<br>  }<br>}",
+                title: "Utiliser un dictionnaire pour structurer des données",
+                description: "Créer une variable nommée <code>secret</code> de type dictionnaire, avec cinq clés, <code>a</code>, <code>e</code>, <code>i</code>, <code>o</code> et <code>u</code> et y stocker le nombre de chacune de ces voyelles dans la chaîne de caratères déclarée par la variable <code>x</code> (<i>ex. 'hello' -> {a:0, e:1, i:0, o: 1, u:0} — déclarée par ce tutoriel</i>).",
+                solved: "var secret = {a:0, e:0, i:0, o:0, u:0};<br>for (var i = 0; i < x.length; i++) {<br>  switch(x[i].toLowerCase()) {<br>    case 'a': secret.a++; break;<br>    case 'e': secret.e++; break;<br>    case 'i': secret.i++; break;<br>    case 'o': secret.o++; break;<br>    case 'u': secret.u++; break;<br>  }<br>}",
                 init: function() {
-                    window.x = this.x = {a: random(1, 3), b: random(1, 3), c: random(1, 3), d: random(1, 3), e: random(1, 3), f: random(1, 3)};
-                    window.y = this.y = randomize(this.x.a, this.x.b, this.x.c, this.x.d, this.x.e, this.x.f);
+                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
                 },
                 secret: function() {
-                    let result = {};
-                    Object.keys(this.x).forEach(function(key) {
-                        if (this.x[key] !== this.y) result[key] = this.x[key];
-                    }.bind(this));
+                    var result = {a:0, e:0, i:0, o:0, u:0};
+                    for (var i = 0; i < this.x.length; i++) {
+                        switch(this.x[i].toLowerCase()) {
+                            case 'a': result.a++; break;
+                            case 'e': result.e++; break;
+                            case 'i': result.i++; break;
+                            case 'o': result.o++; break;
+                            case 'u': result.u++; break;
+                        }
+                    }
                     return result;
+                },
+                warn: function() {
+                    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + JSON.stringify(this.secret()) + "</code>";
+                },
+                answer: function() {
+                    return equals(secret, this.secret());
+                }
+            },
+            {
+                title: "Filtrer un dictionnaire",
+                description: "Créer une variable nommée <code>secret</code> de type dictionnaire, avec les attributs du dictionnaire déclarés par la variable <code>x</code> dont les attributs listés dans le tableau déclaré par la variable <code>y</code> ont été supprimés (<i>ex. {paul:true, john:true, george:true}, ['paul', 'ringo'] -> {john:true, george:true} — déclarée par ce tutoriel</i>).",
+                solved: "var secret = x;<br>for (let i = 0; i < this.y.length; i++)<br>  delete secret[this.y[i]];",
+                init: function() {
+                    this.x = {yellow: true, green: true, blue: true, violet: true, red: true, orange: true};
+                    window.x = Object.assign({}, this.x);
+
+                    let keys = Object.keys(this.x);
+                    let first = randomize.apply(null, keys);
+                    keys.splice(keys.indexOf(first), 1);
+                    let second = randomize.apply(null, keys);
+                    this.y = [first, second];
+                    window.y = this.y.slice(0);
+                },
+                secret: function() {
+                    let x = Object.assign({}, this.x);
+                    for (let i = 0; i < this.y.length; i++)
+                        delete x[this.y[i]];
+
+                    return x;
                 },
                 warn: function() {
                     return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + JSON.stringify(this.secret()) + "</code>";
@@ -1407,7 +1443,7 @@ let chapters = [
                     }
                     \`\`\`
 
-                    Une [liste complète des sélecteurs CSS](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Getting_Started/Selectors) est disponible pour plus de détails.
+                    Une [liste complète des sélecteurs CSS](https://developer.mozilla.org/en/docs/Web/Guide/CSS/Getting_Started/Selectors) est disponible pour plus de détails.
                 `
             },
             {
@@ -1465,7 +1501,7 @@ let chapters = [
                     document.querySelector('p').innerHTML = '<p>Live performance footage <a href=".."><img src=".."></a></p>';
                     \`\`\`
 
-                    Une documentation détaillée est disponible pour [classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList) et [innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML) pour plus de détails.
+                    Une documentation détaillée est disponible pour [classList](https://developer.mozilla.org/en/docs/Web/API/Element/classList) et [innerHTML](https://developer.mozilla.org/en/docs/Web/API/Element/innerHTML) pour plus de détails.
                 `
             },
             {
@@ -1500,7 +1536,7 @@ let chapters = [
                             input.value = input.value.substring(0, 10);
                         });
 
-                    Une [liste complète des événements](https://developer.mozilla.org/en-US/docs/Web/Events) est disponible pour plus de détails.
+                    Une [liste complète des événements](https://developer.mozilla.org/en/docs/Web/Events) est disponible pour plus de détails.
                 `
             },
             {
@@ -1773,15 +1809,306 @@ let chapters = [
             }
         ]
     }, {
-        title: "Dates",
-        description: "Les dates sont des types natifs comme les nombres ou les chaines de caractères. Chaque date représente un instant du calendrier, précis à la miliseconde près. Les langages de programmation ne facilitent pas forcément la comparaison de dates, leur formatage ou la gestion de différents fuseaux horaires.<br><br>Ce chapitre présente la manipulation de dates avec la librairie moment — qui en facilite grandement l'usage.",
+        title: "Les erreurs",
+        description: "Lorsqu'une opération échoue l'exécution du code s'interrompt et la console du navigateur indique l'erreur qui s'est produite et en explique les causes.<br><br>Ce chapitre présente les erreurs et la façon de les interpréter pour débogger et améliorer un programme.",
+        color: "grey",
+        steps: [
+            {
+                course: true,
+                description: `
+                    JavaScript est un langage interprété, le navigateur l'exécute, une ligne après l'autre de gauche à droite. Si une opération venait à échouer (si sa syntaxe est incorrecte ou si une opération n'est pas valide, par exemple), l'exécution du code s'interrompt et les lignes suivantes sont ignorées. La console du navigateur, si elle est affichée, indique l'erreur qui s'est produite et en explique les causes.
+
+                    ### Variables indéfinies
+
+                    Une des erreurs les plus courantes est l'accès à une variable non définie.
+
+                    **Erreur d'accès à des variables ou attributs non définis :**
+
+                        submarine;
+                        → Uncaught ReferenceError: submarine is not defined
+
+                        var submarine;
+                        → undefined
+
+                        submarine.length;
+                        → Uncaught TypeError: Cannot read property 'length' of undefined
+
+                        submarine.surface();
+                        → Uncaught TypeError: submarine.surface is not a function
+
+                        submarine = {};
+                        submarine.deepness;
+                        → undefined
+                `
+            },
+            {
+                course: true,
+                description: `
+                    Tant qu'une variable n'a pas été définie avec le mot clé \`var\` il est impossible d'y faire référence (puisqu'elle n'existe pas encore). Une fois qu'une variable a été définie, il est possible d'y faire référence, cependant, tant qu'aucune valeur ne lui a été affectée, il est impossible d'accéder à un de ces attributs. En effet, une variable définie mais non initialisée se voit affectée la valeur \`undefined\`, et cette valeur particulière du langage n'autorise pas l'accès à un attribut.
+
+                    Une fois une variable définie puis initialisée à une valeur, il est alors possible d'accéder à n'importe lequel de ses attributs, même un attribut non défini. Accéder à un attribut existant retournera sa valeur, accéder à un attribut non défini retournera \`undefined\`. Cela fonctionne également s'il s'agit d'un type simple, un nombre par exemple. La seule erreur qui puisse encore se produire lorsqu'une variable est définie et initialisée est l'exécution d'une fonction qui n'en est pas une. Accéder à un attribut à l'aide de deux parenthèses, comme si l'on souhaitait exécuter une fonction, alors que l'attribut est \`undefined\` ou défini à un autre type qu'une fonction retournera une erreur.
+
+                    Pour éviter qu'un programme soit interrompu de cette façon, il suffit de vérifier l'existence d'une variable, d'un attribut ou d'une fonction avant d'y accéder en cas de doute sur la question.
+
+                    **Vérification de définition d'une variable avant accès :**
+
+                        if (!submarine)
+                          submarine = {};
+
+                        if (submarine.deepness)
+                          submarine.deepness += 2;
+
+                    Utiliser une expression conditionnelle avec seulement un nom de variable est un raccourci usuel permettant de vérifier qu'une variable est définie — c'est à dire, que sa valeur est bien différente de \`null\`, \`undefined\`, \`NaN\`, chaîne vide (\`""\`), \`0\` ou \`false\`. Pour vérifier l'inverse, c'est à dire que sa valeur n'est pas définie, il faut la préfixer d'un point d'exclamation, \`!submarine\`.
+
+                    Attention, toutefois, si la variable testée n'a pas été déclarée (avec le mot clé \`var\`), une erreur aura lieue. Ces vérifications ne fonctionnent que sur des variables déjà déclarées.
+
+                    Dernier point, le nom des variables est sensible à la casse, \`submarine\` et \`Submarine\` sont deux variables différentes.
+                `
+            },
+            {
+                course: true,
+                description: `
+                    ### Signes englobants
+
+                    Une cause d'erreur potentielle est l'utilisation d'un signe ouvrant sans son homologue fermant. Toute parenthèse ouvrante doit être fermée, c'est également le cas pour les accolades, les tableaux et les guillemets délimitant les chaînes de caractères. Dans le cas contraire, l'erreur \`Unexpected token\` sera levée par le navigateur.
+
+                    ### Opérations absurdes
+
+                    Le langage est très permissif. Une chaîne de caractère peut être multiplié avec une entier, une division par zéro peut avoir lieue, les tableaux peuvent se voir ajouter des attributs ou changer de taille sans que le navigateur ne lève d'erreur.
+
+                    Pour ces cas de figure, le langage prévoit plusieurs possibilités. Une opération mathématique au résultat indéterminable, vaudra \`NaN\`, pour « Not a Number ».
+
+                    **Opérations entre types différents :**
+
+                        "yellow" - 2;
+                        → NaN
+
+                        "yellow" + 2;
+                        → "yellow2"
+
+                        NaN == NaN; // NaN is the only value that is unequal to itself
+                        → false
+
+                        Number.isNaN(NaN); // a method exists to test if a value equals NaN
+                        → true
+
+                        2 / 0;
+                        → Infinity
+
+                        2 / 0 == Infinity;
+                        → true
+
+                        var beatles = [];
+                        beatles.length = 2;
+                        beatles;
+                        → [undefined, undefined]
+
+                    Réaliser de telles opérations est souvent du à une erreur de logique, plus qu'à une volonté. Pour éviter d'y être confronté, il est possible de tester le type des variables avant de les manipuler avec l'opérateur \`typeof\`.
+
+                    **L'opérateur typeof :**
+
+                        typeof "12";
+                        → 'string'
+
+                        typeof 12;
+                        → 'number'
+
+                        typeof []; // similar to typeof {}
+                        → 'object'
+                `
+            }, {
+                course: true,
+                description: `
+                    ### Anticiper les erreurs
+
+                    La meilleure solution pour éviter de tels blocages d'un programme, est de le tester au préalable. Il existe plusieurs solutions pour ce faire, il est envisageable de vérifier manuellement chaque fonctionnalité, pourtant, au fur et à mesure du développement, cela devient fastidieux. Il est possible d'automatiser ces vérifications à l'aide de tests unitaires. Ces tests sont une suite d'opérations qui vérifient individuellement chaque partie d'un programme. Si tous les tests d'un programme sont positifs et que leur couverture fonctionnelles est suffisante, des tests manuels ne sont plus nécessaires. Ce sujet est abordé en détail dans un chapitre suivant.
+
+                    Il y a des situations où il n'est pas possible de prévenir les erreurs, ou d'autres où il est souhaitable qu'une erreur se produise, afin d'agir en conséquence. Pour ces circonstances, les erreurs peuvent être capturées.
+
+                    **Capture d'une erreur si la méthode n'existe pas ou lève une erreur :**
+
+                        try {
+                          submarine.immerse();
+                        } catch(error) {
+                          // handle a ReferenceError
+                        }
+
+                    Les mot clé \`try\` permet de créer un bloc capturant les erreurs. Si une erreur se produit dans ce bloc, les opérations suivantes du bloc sont ignorées et le contenu du bloc \`catch\` est exécuté. Puis le programme continue l'exécution des opérations situées à l'extérieur du bloc \`try\` / \`catch\` ; l'erreur n'interrompt donc pas son exécution. Si la variable retournée par le \`catch\` est de type \`Error\`, elle est composé des attributs \`name\`, \`message\` et \`stack\`. Le premier la nomme, le second décrit l'erreur et le dernier donne la stacktrace ou pile d'erreur, c'est à dire la ligne du fichier où elle s'est produit, la ligne qui a déclenché cette ligne, la ligne qui a déclenché celle-ci, ainsi de suite jusqu'au premier appel ayant déclenché ce code. Analyser cette pile permet souvent de mieux comprendre d'où provient l'erreur.
+
+                    Il est possible de créer ses propres erreurs, mais il est souvent plus souhaitable de retourner une valeur d'erreur (\`-1\` par exemple) ou de ne pas effectuer le traitement puisque l'oubli de capturer une erreur interrompt l'exécution du programme si elle se produit. Lever une erreur contraint tous les utilisateurs de cette fonction à capturer les erreurs potentielles et à agir en conséquence. Cela introduit une certaine lourdeur dans le code.
+
+                    **Lever une erreur simple :**
+
+                        if (!submarine) {
+                          throw 'submarine is required';
+                        }
+                `
+            },
+            {
+                course: true,
+                description: `
+                    ### Lever des erreurs
+
+                    Les erreurs peuvent être de n'importe quel type, chaîne de caractères, objet (y compris entier et booléen, mais cela n'a pas vraiment d'utilité). Par convention, un objet littéral dotés des attributs \`name\` et \`message\` est utilisé.
+
+                    **Lever une erreur composite :**
+
+                        function AuthorizationError(message) {
+                           this.message = message;
+                           this.name = 'AuthorizationException';
+                        }
+
+                        // every code summoning this one, should try/catch ReferenceError
+                        if (!submarine.immerse())
+                          throw new AuthorizationError('Immersion failed');
+
+                    Par simplicité, de nombreuses fonctions retournent \`-1\` ou \`undefined\` plutôt que de lever des erreurs quand elles n'ont pas trouvé ce qu'elles cherchaient.
+
+                    **Lever une erreur composite :**
+
+                        var notFound = 'yellow'.indexOf('x'); // notFound == -1
+
+                    ### Le mode strict
+
+                    Puisque le langage est interprété, tant qu'une partie du programme n'a jamais été exécutée, il est impossible d'être sûr qu'elle fonctionne. Afin de réduire les risques d'erreur de saisie, il est possible d'indiquer au navigateur de lever une \`SyntaxError\` avant d'exécuter le programme si certaines conditions ne sont pas remplies.
+
+                    **Activer le mode strict :**
+
+                        "use strict";
+                        var color = "yellow";
+
+                    Pour activer le mode strict il suffit d'ajouter la chaîne de caractères \`"use strict"\` en début de fichier. Ainsi, le navigateur est informé qu'il peut refuser certains types d'opérations considérées comme non conformes. Par exemple, la déclaration de deux attributs de même nom dans un objet. Ce mode strict est très utilisé et c'est une bonne idée de faire de même.
+                `
+            }
+        ]
+    }, {
+        title: "La boucle d'événement",
+        description: "En JavaScript, une seule opération a lieu à un instant donné. Si plusieurs opérations devaient avoir lieu simultanément, elles sont mises dans une file d'attente et exécutées les unes après les autres.<br><br>Ce chapitre présente le concept de la boucle d'événement et son fonctionnement.",
+        color: "grey",
+        steps: [
+            {
+                course: true,
+                description: `
+                    En JavaScript, les opérations concurrentes sont gérées via une [boucle d'événement, ou event loop](https://developer.mozilla.org/en/docs/Web/JavaScript/EventLoop). Il s'agit d'un modèle simple pour le développeur : une seule opération a lieu à un instant donné. Si plusieurs opérations devaient avoir lieu simultanément, elles sont mises dans une file d'attente et exécutées les unes après les autres.
+
+                    **Deux écouteurs attachés au même événement :**
+
+                        var el = document.body;
+                        el.addEventListener('click', function(){
+                          el.style.backgroundColor = 'Purple';
+                        });
+                        el.addEventListener('click', function(){
+                          el.style.backgroundColor = 'Yellow';
+                        });
+
+                    Dans cet exemple, la couleur de fond de la page passera d'abord en violet avant de devenir jaune (trop rapidement pour être perçu à l'oeil nu). Les deux fonctions sont déclenchées simultanément par un clic de l'utilisateur, mais le navigateur exécute d'abord la première qu'il connaît avant d'effectuer la seconde.
+
+                    Lorsqu'une fonction est exécutée, aucun autre code ne peut l'être parallèlement, tant que celle-ci n'a pas terminée son exécution — et rien n'est donc en mesure de modifier les variables que la fonction manipule, elle est le seul maître à bord.
+
+                    Ceci dit, si une fonction demande un long temps de traitement, cela délaie le traitement de tous les autres événements, notamment les actions utilisateur ; les clics ou défilements de la page n'auront donc lieu qu'après que cette longue fonction se soit terminée.
+
+                `
+            },
+            {
+                title: "Les fonctions asynchrones",
+                course: true,
+                description: `
+                    Les fonctions peuvent être utilisées de deux façons : synchrones et asynchrones. Les premières réalisent un traitement et renvoient immédiatement leur résultat. Les secondes sont mémorisées et déclenchées plus tard par un événement (et nommée \`callback\`).
+                    Une fonction peut être utilisée des deux façons, comme ci-dessous.
+
+                    **Une fonction utilisée de façon synchrone et asynchrone :**
+
+                        var el = document.body;
+                        el.addEventListener('click', function(){
+                          setBackground('Purple');
+                        });
+
+                        var setBackground = function(color) {
+                          el.style.backgroundColor = color;
+                        };
+                        setBackground('Yellow');
+
+                    Dans cet exemple, la couleur de fond de la page passe au jaune. Si l'utilisateur clique sur le \`body\`, elle passera alors au violet. Tout le code synchrone est exécuté immédiatement, le code asynchrone ne se déclenchera qu'à l'événement clic. Les opérations suivant la fonction asynchrone sont exécutées immédiatement.
+                `
+            },
+            {
+                course: true,
+                description: `
+                    Des fonctions asynchrones peuvent être utilisées également pour des temporisations ; effectuer telle action dans une seconde, ou telle autre toutes les cinq secondes.
+
+                    **Temporisations :**
+
+                        var el = document.body;
+                        el.style.backgroundColor = 'Yellow';
+
+                        setTimeout(function() {
+                          el.style.backgroundColor = 'Purple';
+                        }, 1000);
+
+                        setInterval(function() {
+                          el.innerHTML += 'again';
+                        }, 5000); // milliseconds
+
+                    Dans cet exemple, la couleur de fond de la page passe au jaune. Puis, au bout d'une seconde, elle passe au violet. Enfin, toutes les cinq secondes, le mot « again » est ajouté au contenu du body. [Deux directives](https://developer.mozilla.org/en/Add-ons/SDK/High-Level_APIs/timers) du langage \`setTimeout\` et \`setInterval\` sont utilisées pour ce faire. Ces temporisations sont très utilises pour réaliser des effets, par exemple déplacer progressivement un élément de la page, ou le faire disparaître petit à petit.
+
+                    Qu'il s'agisse d'événements utilisateur ou de temporisation, si une fonction est appelée alors qu'une autre n'a pas fini son exécution, elle est ajouté dans la file d'attente de l'event loop. Il se peut que d'autres fonctions y soient déjà en attente ; la dernière fonction ajoutée ne s'exécutera que quand toutes les autres de la file d'attente auront été traitées.
+                `
+            }
+        ]
+    }, {
+        title: "Les dates",
+        description: "Les dates sont des types natifs comme les nombres ou les chaines de caractères, elles permettent de manipuler le calendrier grégorien.<br><br>Ce chapitre présente la manipulation de dates avec la librairie moment — qui en facilite grandement l'usage.",
         color: "yellow",
         steps: [
+            {
+                title: "Les librairies",
+                course: true,
+                description: `
+                    JavaScript est le langage doté du plus grand répertoire de librairies open source. Une librairie est un ensemble de fichiers mis à disposition (souvent gratuitement) répondant à un ou plusieurs problèmes. Les librairies sont couramment accompagnées d'un mode d'emploi et d'une liste de versions (la version 1.0 à telles fonctionnalités, la 1.1 ajoute celle-ci, la 2.0 remplace celle-là par celle-ci, etc).
+
+                    La librairie la plus connue du langage est [jQuery](http://jquery.com/) (abrégée $). Cette librairie a été développée dès 2006 pour faciliter l'usage de JavaScript ; à cette époque les navigateurs fonctionnaient tous très différemment les uns des autres et il était nécessaire de réaliser une version d'un programme distincte pour chacun d'entre eux. En proposant une façon normalisée d'utiliser les navigateurs, et en simplifiant l'usage d'Ajax (détaillé plus loin), jQuery a offert la possibilité de réaliser une unique version d'un programme compatible avec tous les navigateurs ; et à ainsi fait de JavaScript le langage célèbre qu'il est aujourd'hui.
+
+                    Il existe de très nombreuses librairies et une communauté active les améliore quotidiennement. Il est courant de s'appuyer sur ces librairies pour profiter de l'expérience de la communauté et pour gagner du temps à ne pas réinventer la roue. Il est toutefois souvent sage de tester plusieurs librairies répondant au même problème afin de choisir la plus appropriée à un problème donné.
+
+                    Parmi les librairies les plus utilisés, [moment](http://momentjs.com/) simplifie grandement la manipulation de dates et de calendrier
+                `
+            },
+            {
+                title: 'La librairie moment',
+                course: true,
+                description: `
+                    Une date représente un instant du calendrier — précis à la miliseconde près en JavaScript — et les langages de programmation ne facilitent pas forcément la comparaison de dates, leur formatage ou la gestion de différents fuseaux horaires. L'objectif de moment est de simplifier ces opérations.
+
+                    Bien qu'elles soient constituées de nombreux fichiers, les librairies sont souvent rendues disponibles sous la forme d'un seul fichier par soucis de simplicité d'usage. Il suffit alors d'importer ce script dans la page avant ses propres scripts et le tour est joué. Les libraires exposent souvent une variable globale donnant accès à leurs différentes fonctionnalités. Pour la librarie moment, un unique fichier [\`moment.js\`](http://momentjs.com/downloads/moment.js) ou [\`moment.min.js\`](http://momentjs.com/downloads/moment.js) (version minifiée).
+
+                    **Manipulation de dates natives au langage :**
+
+                        new Date(1964, 11, 17); // accepts only one format
+                        → Thu Dec 17 1964 00:00:00 GMT+0100 (CET)
+
+                        moment('17121964', 'DDMMYYYY').toDate(); // accepts configurable formats
+                        → Thu Dec 17 1964 00:00:00 GMT+0100 (CET)
+
+                    En plus de faciliter la création de dates, et d'utiliser une numérotation de mois commençant à 1 (contrairement aux dates natives qui commencent à 0, ou décembre est donc égal à 11), moment, permet de modifier facilement des dates (ajouter un jour, une semaine, le premier lundi du mois) et de les formater.
+
+                    **Manipulation de dates avec moment :**
+
+                        /* import this in the HTML <head> before the code */
+                        /* <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script> */
+
+                        var release = moment('17121964', 'DDMMYYYY');
+                        release.add(2, 'weeks');
+                        release.format('dddd, Do of MMM YYYY')
+                        → 'Thursday, 31st of Dec 1964'
+
+                    Sa simplicité d'usage est telle, qu'il est rarement nécessaire d'utiliser à nouveau l'objet Date.
+                `
+            },
             {
                 title: "Formatter des dates",
                 description: "Mettre en forme les dates saisies dans <code>.from input</code> et <code>.to input</code> de façon a ce qu'elles s'affichent dans <code>.from .formatted</code> et <code>.to .formatted</code> sous le format « JANV. 10 » (<i>premières initiales du mois, suivies du jour, avec la locale française</i>).",
                 excerpt: "La librairie <a target=\"_blank\" href=\"http://momentjs.com/\">moment</a> permet de manipuler facilement des dates, et, notamment, de les mettre en forme en fonction de la locale.",
-                solved: "/* à ajouter avant le script principal<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js\"&gt;&lt;/script&gt;<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/fr.js\"&gt;&lt;/script&gt;<br>*/<br>document.querySelector('.booking .from input').addEventListener('change', function() {<br>  var date = moment(this.value);<br>  document.querySelector('.from .formatted').innerHTML = date.format('MMM').toUpperCase() + ' ' + date.format('D');<br>});<br><br>document.querySelector('.booking .to input').addEventListener('change', function() {<br>  var date = moment(this.value);<br>  document.querySelector('.to .formatted').innerHTML = date.format('MMM').toUpperCase() + ' ' + date.format('D');<br>});",
+                solved: "/* import this in the HTML <head> before the code<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js\"&gt;&lt;/script&gt;<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/fr.js\"&gt;&lt;/script&gt;<br>*/<br>document.querySelector('.booking .from input').addEventListener('change', function() {<br>  var date = moment(this.value);<br>  document.querySelector('.from .formatted').innerHTML = date.format('MMM').toUpperCase() + ' ' + date.format('D');<br>});<br><br>document.querySelector('.booking .to input').addEventListener('change', function() {<br>  var date = moment(this.value);<br>  document.querySelector('.to .formatted').innerHTML = date.format('MMM').toUpperCase() + ' ' + date.format('D');<br>});",
                 dom: function() {
                     return booking.bind(booking);
                 },
@@ -1945,7 +2272,7 @@ let chapters = [
             }
         ]
     }, {
-        title: "Fonctions",
+        title: "Les fonctions",
         description: "Une fonction est un sous programme qui peut être appelé par du code externe, l'utilisation de fonctions permet de structurer un programme..<br><br>Ce chapitre présente la déclaration et l'usage des fonctions, de leurs paramètres et valeur de retour.",
         color: "yellow",
         steps: [
@@ -2217,7 +2544,7 @@ let chapters = [
         ]
     }, {
         title: "Composant | Carrousel",
-        description: "Un carrousel est une liste dont un seul élément est visible et dont la navigation de l'un à l'autre de ses éléments s'effectue à l'aide de flèches « précédente » et « suivante » situées de part et d'autre du contenu. Il est souvent utilisé pour afficher une image plein cadre, et naviguer parmi un catalogue de photos.<br><br>Ce chapitre présente la réalisation d'un carrousel pas à pas.",
+        description: "Un carrousel est une liste (d'images en général) dont un seul élément est visible et dont la navigation de d'un élément à l'autre s'effectue via des flèches « précédente » et « suivante » situées de part et d'autre du contenu.<br><br>Ce chapitre présente la réalisation d'un carrousel pas à pas.",
         color: "violet",
         steps: [
             {
@@ -2436,8 +2763,174 @@ let chapters = [
             }
         ]
     }, {
+        title: "Composant | Carte",
+        description: "Les cartes affichent les rues, les adresses, les itinéraires et les points d'intérêt, très utiles sur mobile. À l'aide de la géolocalisation (gps et wifi notamment>), elles peuvent également afficher la position de l'utilisateur.<br><br>Ce chapitre présente l'utilisation des cartes google pas à pas.",
+        color: "violet",
+        steps: [
+            {
+                title: "Afficher une carte",
+                description: "Créer une variable <code>map</code> et l'initialiser avec une carte de <a target=\"_blank\" href=\"https://developers.google.com/maps/\">la librairie google maps</a>. L'afficher dans la balise <code>.map</code>, la centrer sur Paris (<i>lat: 48.86, lng: 2.35</i>) et zoomer x12.",
+                excerpt: "<strong>Ne pas utiliser la propriété <code>async</code> du script ni son <code>callback</code></strong>. Bien qu'il s'agisse de la méthode classique pour manipuler une carte google (<i>l'affichage de la carte ne bloque pas le chargement du reste de la page</i>), cette méthode n'est pas compatible avec ce tutoriel. Sans callback, le script de la librairie doit être avant le script qui l'utilise, et ce dernier n'a pas besoin d'une fonction englobante (<i>puisque la page est bloquée tant que google maps n'est pas chargé</i>), et peut être directement déclaré <code>var map = new google.maps.Map(..)</code>.<br><br>Il est possible d'obtenir une clé d'usage via la documentation (<i>les librairies ont courament des clés afin d'effectuer un suivi / limite d'usage</i>).",
+                solved: "/* à ajouter avant le script principal<br>&lt;script src=\"https://maps.googleapis.com/maps/api/js?key=\"&gt;&lt;/script&gt;<br>*/<br>var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});",
+                dom: function() {
+                    return maps.bind(maps);
+                },
+                answer: function() {
+                    if (!map)
+                        return;
+
+                    return mapsWait().then(function() {
+                        if (near({lat: map.center.lat(), lng: map.center.lng()}, {lat: 48.86, lng: 2.35}) !== true)
+                            this.warn = this.warn || "Le centre le carte doit être positionné proche de <code>{lat: 48.86, lng: 2.35}</code>";
+                        if (map.zoom !== 12)
+                            this.warn = this.warn || "Le zoom de la carte doit être égal à <code>12</code>";
+                        return !this.warn;
+                    }.bind(this));
+                }
+            },
+            {
+                title: "Ajouter un point d'intérêt",
+                description: "Créer une variable <code>marker</code> et l'initialiser avec un marqueur de carte (<i>le célèbre pin rouge</i>) aux coordonnées du pont des arts de Paris.",
+                solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});",
+                dom: function() {
+                    return maps.bind(maps);
+                },
+                answer: function() {
+                    if (!map || !marker)
+                        return;
+
+                    return mapsWait().then(function() {
+                        if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
+                            this.warn = this.warn || "Le marqueur doit être positionné proche de <code>{lat: 48.8583, lng: 2.3353}</code>";
+                        return !this.warn;
+                    }.bind(this));
+                }
+            },
+            {
+                title: "Ajouter une popin au clic sur un point d'intérêt",
+                description: "Afficher « Le Pont des Arts » dans une <code>infowindow</code> au clic sur le point d'intérêt. Cette fenêtre doit se fermer au clic sur la carte.",
+                solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});<br><br>var infowindow = new google.maps.InfoWindow({<br>  content: 'Le Pont des Arts'<br>});<br><br>marker.addListener('click', function() {<br>  infowindow.open(map, marker);<br>});<br><br>map.addListener('click', function() {<br>  infowindow.close();<br>});",
+                dom: function() {
+                    return maps.bind(maps, true);
+                },
+                answer: function() {
+                    if (!map || !marker)
+                        return;
+
+                    return mapsWait().then(function() {
+                        google.maps.event.trigger(marker, 'click');
+
+                        let basic = true;
+                        if (elContains(document.querySelector('.gm-style-iw div div'), 'Le Pont des Arts') !== true)
+                            this.warn = this.warn || "Le popin doit afficher « Le Pont des Arts »";
+
+                        google.maps.event.trigger(map, 'click');
+                        if (elContains(document.querySelector('.gm-style-iw div div'), 'Le Pont des Arts') !== false)
+                            this.warn = this.warn || "Au clic sur la carte, le popin doit être masqué";
+
+                        return !this.warn;
+                    }.bind(this));
+                }
+            },
+            {
+                title: "Déplacer le marqueur à l'adresse recherchée",
+                description: "Lorsqu'une adresse est saisie dans <code>.places input</code> suivi de la touche entrée, le marqueur actuel est déplacé vers l'adresse ainsi recherchée et la carte est centrée sur ce point.",
+                excerpt: "La librairie offre un géocodeur pour transformer une adresse en coordonnées latitude, longitude.",
+                solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});<br><br>var infowindow = new google.maps.InfoWindow({<br>  content: 'Le Pont des Arts'<br>});<br><br>marker.addListener('click', function() {<br>  infowindow.open(map, marker);<br>});<br><br>map.addListener('click', function() {<br>  infowindow.close();<br>});<br><br>geocoder = new google.maps.Geocoder();<br>document.querySelector('.places input').addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13)<br>    return;<br><br>  geocoder.geocode({'address': event.target.value}, function(results, status) {<br>    if (status !== google.maps.GeocoderStatus.OK)<br>      return;<br><br>    map.setCenter(results[0].geometry.location);<br>    marker.setPosition(results[0].geometry.location);<br>  });<br>});",
+                dom: function() {
+                    return maps.bind(maps, true);
+                },
+                answer: function() {
+                    if (!map || !marker)
+                        return;
+
+                    return mapsWait().then(function() {
+                        let input = document.querySelector('.places input');
+
+                        if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
+                            this.warn = this.warn || "Le marqueur doit être positionné proche de <code>{lat: 48.8583, lng: 2.3353}</code>";
+
+                        input.value = '29 Rue des Trois Frères';
+                        keypress(input, 13);
+
+                        return Promise
+                        .resolve()
+                        .then(function() {
+                            // wait for the geocoder
+                            return new Promise(function(res, rej) { setTimeout(res, 100); });
+                        })
+                        .then(function() {
+                            if (near( {lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8848, lng: 2.3407}) !== true)
+                                this.warn = this.warn || "Après une recherche sur « 29 Rue des Trois Frères », la marqueur doit être positionné proche de <code>{lat: 48.8848, lng: 2.3407}</code>";
+                            if (near({lat: map.center.lat(), lng: map.center.lng()}, {lat: 48.8848, lng: 2.3407}) !== true)
+                                this.warn = this.warn || "Après une recherche sur « 29 Rue des Trois Frères », la carte doit être centrée proche de <code>{lat: 48.8848, lng: 2.3407}</code>";
+
+                            input.value = '13 Boulevard Garibaldi';
+                            keypress(input, 13);
+                        }.bind(this))
+                        .then(function() {
+                            // wait for the geocoder
+                            return new Promise(function(res, rej) { setTimeout(res, 100); });
+                        })
+                        .then(function() {
+                            if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8476, lng: 2.3036}) !== true)
+                                this.warn = this.warn || "Après une recherche sur « 13 Boulevard Garibaldi », le marqueur doit être positionné proche de <code>{lat: 48.8476, lng: 2.3036}</code>";
+
+                            if (near({lat: map.center.lat(), lng: map.center.lng()}, {lat: 48.8476, lng: 2.3036}) !== true)
+                                this.warn = this.warn || "Après une recherche sur « 13 Boulevard Garibaldi », le carte doit être centrée proche de <code>{lat: 48.8476, lng: 2.3036}</code>";
+
+                            return !this.warn;
+                        }.bind(this));
+                    }.bind(this));
+                }
+            },
+            {
+                title: "Déplacer le marqueur à l'adresse de l'utilisateur",
+                description: "Lorsque l'adresse saisie est « ici », le navigateur est géolocalisé et sa position est affichée sur la carte.",
+                excerpt: "Le navigateur est en mesure d'acèder à <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/API/Geolocation/Using_geolocation\">sa position géographique</a>, cepdendant, il a besoin de l'autorisation de l'utilisateur pour ce faire.",
+                solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});<br><br>var infowindow = new google.maps.InfoWindow({<br>  content: 'Le Pont des Arts'<br>});<br><br>marker.addListener('click', function() {<br>  infowindow.open(map, marker);<br>});<br><br>map.addListener('click', function() {<br>  infowindow.close();<br>});<br><br>geocoder = new google.maps.Geocoder();<br>document.querySelector('.places input').addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13)<br>    return;<br><br>  if (event.target.value === 'ici') {<br>    return navigator.geolocation.getCurrentPosition(function(position) {<br>      map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude});<br>      marker.setPosition({lat: position.coords.latitude, lng: position.coords.longitude});<br>    });<br>  }<br><br>  geocoder.geocode({'address': event.target.value}, function(results, status) {<br>    if (status !== google.maps.GeocoderStatus.OK)<br>      return;<br><br>    map.setCenter(results[0].geometry.location);<br>    marker.setPosition(results[0].geometry.location);<br>  });<br>});",
+                dom: function() {
+                    return maps.bind(maps, true);
+                },
+                answer: function() {
+                    if (!map || !marker)
+                        return;
+
+                    return mapsWait().then(function() {
+                        let input = document.querySelector('.places input');
+
+                        if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
+                            this.warn = this.warn || "Le marqueur doit être positionné proche de <code>{lat: 48.8583, lng: 2.3353}</code>";
+
+                        input.value = 'ici';
+                        keypress(input, 13);
+
+                        return Promise
+                        .resolve()
+                        .then(function() {
+                            return new Promise(function(res, rej) {
+                                navigator.geolocation.getCurrentPosition(function(geoloc) {
+                                    res(geoloc);
+                                });
+                            });
+                        })
+                        .then(function(geoloc) {
+                            // wait for the marker
+                            return new Promise(function(res, rej) { setTimeout(function() { res(geoloc); }, 100); });
+                        })
+                        .then(function(geoloc) {
+                            if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: geoloc.coords.latitude, lng: geoloc.coords.longitude}) !== true)
+                                this.warn = this.warn || "Après une recherche sur « ici », le marqueur doit être positionné proche de la position de l'utilisateur";
+
+                            return !this.warn;
+                        }.bind(this));
+                    }.bind(this));
+                }
+            }
+        ]
+    },  {
         title: "Composant | Todolist",
-        description: "Pour faciliter la réalisation d'applications et leur maintenance, plusieurs approches MV* (<i>modèle, vue & co</i>) ont vu le jour ces dernières années. Un modèle stocke l'état de l'application (<i>ex. les articles dans un panier</i>). Les vues affichent les informations issues d'un ou plusieurs modèles, modifient ceux-ci, et se rafraichissent.<br><br>Ce chapitre présente la réalisation d'une liste de tâches pas à pas. Il propose dans un premier temps de manipuler le DOM de façon classique, puis, dans un second temps, d'utiliser une approche MV*.",
+        description: "Les approches MV* (modèle, vue & co) facilite la création d'applications et leur maintenance. Un modèle stocke l'état de l'application (ex. un panier). Les vues affichent les informations d'un modèle et le modifient.<br><br>Ce chapitre présente la réalisation d'une liste de tâches pas à pas avec une approche MV*.",
         color: "violet",
         steps: [
             {
@@ -2693,180 +3186,207 @@ let chapters = [
             }
         ]
     }, {
-        title: "Composant | Carte",
-        description: "Les cartes sont devenues une des fonctionnalités clés des navigateurs web, notamment sur mobile. Elle affichent les rues, les adresses, les itinéraires et les points d'intérêt (<i>restaurants, cinémas, métros, gares & co</i>). À l'aide de géolocalisation (<i>gps et wifi notamment</i>), elles peuvent également afficher la position de l'utilisateur.<br><br>Ce chapitre présente l'utilisation des cartes google pas à pas.",
-        color: "violet",
-        steps: [
-            {
-                title: "Afficher une carte",
-                description: "Créer une variable <code>map</code> et l'initialiser avec une carte de <a target=\"_blank\" href=\"https://developers.google.com/maps/\">la librairie google maps</a>. L'afficher dans la balise <code>.map</code>, la centrer sur Paris (<i>lat: 48.86, lng: 2.35</i>) et zoomer x12.",
-                excerpt: "<strong>Ne pas utiliser la propriété <code>async</code> du script ni son <code>callback</code></strong>. Bien qu'il s'agisse de la méthode classique pour manipuler une carte google (<i>l'affichage de la carte ne bloque pas le chargement du reste de la page</i>), cette méthode n'est pas compatible avec ce tutoriel. Sans callback, le script de la librairie doit être avant le script qui l'utilise, et ce dernier n'a pas besoin d'une fonction englobante (<i>puisque la page est bloquée tant que google maps n'est pas chargé</i>), et peut être directement déclaré <code>var map = new google.maps.Map(..)</code>.<br><br>Il est possible d'obtenir une clé d'usage via la documentation (<i>les librairies ont courament des clés afin d'effectuer un suivi / limite d'usage</i>).",
-                solved: "/* à ajouter avant le script principal<br>&lt;script src=\"https://maps.googleapis.com/maps/api/js?key=\"&gt;&lt;/script&gt;<br>*/<br>var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});",
-                dom: function() {
-                    return maps.bind(maps);
-                },
-                answer: function() {
-                    if (!map)
-                        return;
-
-                    return mapsWait().then(function() {
-                        if (near({lat: map.center.lat(), lng: map.center.lng()}, {lat: 48.86, lng: 2.35}) !== true)
-                            this.warn = this.warn || "Le centre le carte doit être positionné proche de <code>{lat: 48.86, lng: 2.35}</code>";
-                        if (map.zoom !== 12)
-                            this.warn = this.warn || "Le zoom de la carte doit être égal à <code>12</code>";
-                        return !this.warn;
-                    }.bind(this));
-                }
-            },
-            {
-                title: "Ajouter un point d'intérêt",
-                description: "Créer une variable <code>marker</code> et l'initialiser avec un marqueur de carte (<i>le célèbre pin rouge</i>) aux coordonnées du pont des arts de Paris.",
-                solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});",
-                dom: function() {
-                    return maps.bind(maps);
-                },
-                answer: function() {
-                    if (!map || !marker)
-                        return;
-
-                    return mapsWait().then(function() {
-                        if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
-                            this.warn = this.warn || "Le marqueur doit être positionné proche de <code>{lat: 48.8583, lng: 2.3353}</code>";
-                        return !this.warn;
-                    }.bind(this));
-                }
-            },
-            {
-                title: "Ajouter une popin au clic sur un point d'intérêt",
-                description: "Afficher « Le Pont des Arts » dans une <code>infowindow</code> au clic sur le point d'intérêt. Cette fenêtre doit se fermer au clic sur la carte.",
-                solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});<br><br>var infowindow = new google.maps.InfoWindow({<br>  content: 'Le Pont des Arts'<br>});<br><br>marker.addListener('click', function() {<br>  infowindow.open(map, marker);<br>});<br><br>map.addListener('click', function() {<br>  infowindow.close();<br>});",
-                dom: function() {
-                    return maps.bind(maps, true);
-                },
-                answer: function() {
-                    if (!map || !marker)
-                        return;
-
-                    return mapsWait().then(function() {
-                        google.maps.event.trigger(marker, 'click');
-
-                        let basic = true;
-                        if (elContains(document.querySelector('.gm-style-iw div div'), 'Le Pont des Arts') !== true)
-                            this.warn = this.warn || "Le popin doit afficher « Le Pont des Arts »";
-
-                        google.maps.event.trigger(map, 'click');
-                        if (elContains(document.querySelector('.gm-style-iw div div'), 'Le Pont des Arts') !== false)
-                            this.warn = this.warn || "Au clic sur la carte, le popin doit être masqué";
-
-                        return !this.warn;
-                    }.bind(this));
-                }
-            },
-            {
-                title: "Déplacer le marqueur à l'adresse recherchée",
-                description: "Lorsqu'une adresse est saisie dans <code>.places input</code> suivi de la touche entrée, le marqueur actuel est déplacé vers l'adresse ainsi recherchée et la carte est centrée sur ce point.",
-                excerpt: "La librairie offre un géocodeur pour transformer une adresse en coordonnées latitude, longitude.",
-                solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});<br><br>var infowindow = new google.maps.InfoWindow({<br>  content: 'Le Pont des Arts'<br>});<br><br>marker.addListener('click', function() {<br>  infowindow.open(map, marker);<br>});<br><br>map.addListener('click', function() {<br>  infowindow.close();<br>});<br><br>geocoder = new google.maps.Geocoder();<br>document.querySelector('.places input').addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13)<br>    return;<br><br>  geocoder.geocode({'address': event.target.value}, function(results, status) {<br>    if (status !== google.maps.GeocoderStatus.OK)<br>      return;<br><br>    map.setCenter(results[0].geometry.location);<br>    marker.setPosition(results[0].geometry.location);<br>  });<br>});",
-                dom: function() {
-                    return maps.bind(maps, true);
-                },
-                answer: function() {
-                    if (!map || !marker)
-                        return;
-
-                    return mapsWait().then(function() {
-                        let input = document.querySelector('.places input');
-
-                        if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
-                            this.warn = this.warn || "Le marqueur doit être positionné proche de <code>{lat: 48.8583, lng: 2.3353}</code>";
-
-                        input.value = '29 Rue des Trois Frères';
-                        keypress(input, 13);
-
-                        return Promise
-                        .resolve()
-                        .then(function() {
-                            // wait for the geocoder
-                            return new Promise(function(res, rej) { setTimeout(res, 100); });
-                        })
-                        .then(function() {
-                            if (near( {lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8848, lng: 2.3407}) !== true)
-                                this.warn = this.warn || "Après une recherche sur « 29 Rue des Trois Frères », la marqueur doit être positionné proche de <code>{lat: 48.8848, lng: 2.3407}</code>";
-                            if (near({lat: map.center.lat(), lng: map.center.lng()}, {lat: 48.8848, lng: 2.3407}) !== true)
-                                this.warn = this.warn || "Après une recherche sur « 29 Rue des Trois Frères », la carte doit être centrée proche de <code>{lat: 48.8848, lng: 2.3407}</code>";
-
-                            input.value = '13 Boulevard Garibaldi';
-                            keypress(input, 13);
-                        }.bind(this))
-                        .then(function() {
-                            // wait for the geocoder
-                            return new Promise(function(res, rej) { setTimeout(res, 100); });
-                        })
-                        .then(function() {
-                            if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8476, lng: 2.3036}) !== true)
-                                this.warn = this.warn || "Après une recherche sur « 13 Boulevard Garibaldi », le marqueur doit être positionné proche de <code>{lat: 48.8476, lng: 2.3036}</code>";
-
-                            if (near({lat: map.center.lat(), lng: map.center.lng()}, {lat: 48.8476, lng: 2.3036}) !== true)
-                                this.warn = this.warn || "Après une recherche sur « 13 Boulevard Garibaldi », le carte doit être centrée proche de <code>{lat: 48.8476, lng: 2.3036}</code>";
-
-                            return !this.warn;
-                        }.bind(this));
-                    }.bind(this));
-                }
-            },
-            {
-                title: "Déplacer le marqueur à l'adresse de l'utilisateur",
-                description: "Lorsque l'adresse saisie est « ici », le navigateur est géolocalisé et sa position est affichée sur la carte.",
-                excerpt: "Le navigateur est en mesure d'acèder à <a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/Using_geolocation\">sa position géographique</a>, cepdendant, il a besoin de l'autorisation de l'utilisateur pour ce faire.",
-                solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});<br><br>var infowindow = new google.maps.InfoWindow({<br>  content: 'Le Pont des Arts'<br>});<br><br>marker.addListener('click', function() {<br>  infowindow.open(map, marker);<br>});<br><br>map.addListener('click', function() {<br>  infowindow.close();<br>});<br><br>geocoder = new google.maps.Geocoder();<br>document.querySelector('.places input').addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13)<br>    return;<br><br>  if (event.target.value === 'ici') {<br>    return navigator.geolocation.getCurrentPosition(function(position) {<br>      map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude});<br>      marker.setPosition({lat: position.coords.latitude, lng: position.coords.longitude});<br>    });<br>  }<br><br>  geocoder.geocode({'address': event.target.value}, function(results, status) {<br>    if (status !== google.maps.GeocoderStatus.OK)<br>      return;<br><br>    map.setCenter(results[0].geometry.location);<br>    marker.setPosition(results[0].geometry.location);<br>  });<br>});",
-                dom: function() {
-                    return maps.bind(maps, true);
-                },
-                answer: function() {
-                    if (!map || !marker)
-                        return;
-
-                    return mapsWait().then(function() {
-                        let input = document.querySelector('.places input');
-
-                        if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
-                            this.warn = this.warn || "Le marqueur doit être positionné proche de <code>{lat: 48.8583, lng: 2.3353}</code>";
-
-                        input.value = 'ici';
-                        keypress(input, 13);
-
-                        return Promise
-                        .resolve()
-                        .then(function() {
-                            return new Promise(function(res, rej) {
-                                navigator.geolocation.getCurrentPosition(function(geoloc) {
-                                    res(geoloc);
-                                });
-                            });
-                        })
-                        .then(function(geoloc) {
-                            // wait for the marker
-                            return new Promise(function(res, rej) { setTimeout(function() { res(geoloc); }, 100); });
-                        })
-                        .then(function(geoloc) {
-                            if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: geoloc.coords.latitude, lng: geoloc.coords.longitude}) !== true)
-                                this.warn = this.warn || "Après une recherche sur « ici », le marqueur doit être positionné proche de la position de l'utilisateur";
-
-                            return !this.warn;
-                        }.bind(this));
-                    }.bind(this));
-                }
-            }
-        ]
-    }, {
         title: "Ajax",
-        description: "Une application web peut poser des questions à un serveur distant ; vérifier si une carte bleue est valide et réagir en fonction. Ajax — basé sur le protocole HTTP — est une option pour ce faire. Le navigateur émet une requête et attend une réponse du serveur. Cette requête est asynchrone, elle ne bloque pas le navigateur, qui peut continuer à interagir avec l'utilisateur, et sera notifié lors du retour du serveur.<br><br>Ce chapitre présente ajax pas à pas.",
+        description: "Ajax — basé sur le protocole HTTP — permet à un navigateur d'émettre une requête et d'attendre une réponse d'un serveur distant. Cette requête est asynchrone, elle ne bloque pas le navigateur, qui sera notifié lors du retour du serveur.<br><br>Ce chapitre présente ajax pas à pas.",
         color: "teal",
         steps: [
             {
+                course: true,
+                description: `
+                    En plus de permettre d'écouter les actions utilisateur et de modifier dynamiquement la page, JavaScript a une troisième fonctionnalité principale : la possibilité de requêter un serveur. Ainsi, une application web peut poser des questions à un serveur distant ; demander quels sont les produits dans le panier de l'utilisateur, vérifier si la carte bleue qu'il vient de saisir est valide, et réagir en fonction.
+
+                    Un serveur est une machine qui exécute du code distant, souvent associé à une base de données, et agit comme référentiel. Il gère l'authentification (login / mot de passe) et l'autorisation (données privées, cartes bleues, préférences, etc.). Les applications web reposent courament sur des contacts réguliers à un serveur car elles ne sont pas en position de connaître et mémoriser ces données par elles-mêmes. Une application web agit comme la vitrine d'un serveur web.
+
+                    Ajax (Asynchronous JavaScript and XML) est la technologie utilisée pour ce faire. Elle repose sur l'objet \`XMLHttpRequest\` qui permet de se connecter à un serveur, de lui envoyer des données et d'en recevoir en retour. Elle utilise le protocole [\`HTTP\`](https://developer.mozilla.org/en/docs/Web/HTTP) ; le navigateur émet une requête et attend une réponse du serveur. Cette requête est asynchrone, elle ne bloque pas le navigateur, qui peut continuer à interagir avec l'utilisateur, et sera notifié lors du retour du serveur.
+
+                    À l'origine, cette technologie était utilisée avec XML (Extensible Markup Language), un format de représentation des données proche du HTML, mais ce format a été supplanté par JSON (JavaScript Object Notation), un format basé sur un sous ensemble de JavaScript et donc très facile à manipuler par ce dernier.
+                `
+            },
+            {
+                title: "Les requêtes",
+                course: true,
+                description: `
+                    Une requête HTTP est envoyée par le navigateur au serveur (et uniquement dans ce sens, un serveur ne peut pas requêter un client). Elle est composée de plusieurs éléments :
+
+                    * un verbe qui représente l'action demandée au serveur, GET (lecture), POST (création), PUT (modification), DELETE (suppression)
+                    * une URI (Uniform Resource Locator) qui représente l'adresse d'une ressource sur le serveur, http://www.thebeatles.com/news. Cela peut être une page, une image, un fichier JS ou CSS, etc.
+                    * des headers qui représentent l'en-tête de l'échange HTTP, sous la forme d'une liste de clé: valeur, ils permettent de décrire les attentes du navigateur, le format de la réponse (XML ou JSON) notamment
+                    * un body qui représente les données envoyées par le navigateur au serveur (pour les actions de création et de modification)
+
+                    Chaque URI, peut voir son adresse complétée d'un query string. Il s'agit de paramètres optionnels qui agissent comme un filtre. Ils permettent entre autre de paginer (afficher la page 2 des résultats) ou d'effectuer une recherche (n'afficher que les articles dont le nom contient un certain texte).
+
+                    Ils sont construits ainsi \`?terme=valeur&terme2=valeur2\`
+
+                    Ils commencent par un point d'interrogation, \`?\`, chaque terme est séparé par une esperluette, \`&\`, et sa valeur est définie avec égal, \`=\`. Ce qui peut donner l'URI suivante \`http://www.thebeatles.com/news?page=2&year=2014\`.
+                `
+            },
+            {
+                title: "Les réponses",
+                course: true,
+                description: `
+                    Une réponse HTTP est envoyée par le serveur au navigateur pour chaque requête. Elle est composé de plusieurs éléments :
+
+                    * un statut qui indique l'état de la réponse, 200 (tout est ok), 300 (la réponse se trouve à une autre adresse), 400 (la requête du navigateur est invalide), 500 (le serveur a échoué à traiter la requête). Ces code peuvent être affinés par famille, 404 signifie par exemple que la requête navigateur est invalide car aucune ressource n'existe à cette adresse
+                    * des headers qui représente l'en-tête de la réponse
+                    * un body qui représente les données retournées au navigateur
+
+                    **Requêtes HTTP et réponses :**
+
+                    \`\`\`HTTP
+                    GET http://www.thebeatles.com
+                    → 200
+                    → Content-Type: text/html
+                    → "<html>..</html>"
+
+                    GET http://www.thebeatles.com/image/revolver.jpg
+                    → 200
+                    → Content-Type: image/jpeg
+                    → binary data..
+
+                    GET http://www.thebeatles.com/script/jquery.js
+                    → 200
+                    → Content-Type: text/script
+                    → "(function(a,b){..});"
+
+                    POST http://www.thebeatles.com/subscribe {"email": "contact@mail.com"}
+                    → 201
+                    → Content-Type: application/json
+                    → {"email": "contact@gmail.com", subscribe: true}
+                    \`\`\`
+                `
+            },
+            {
+                title: 'Effectuer une requête xhr',
+                course: true,
+                description: `
+                    L'objet \`XMLHttpRequest\` permet d'effectuer des requêtes HTTP dans le navigateur. Il dispose de nombreuses méthodes afin d'indiquer le verbe, la ressource, les headers, le body et de s'abonner à la réponse du serveur.
+
+                    **Requête ajax GET :**
+
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('GET', 'http://www.thebeatles.com/news', true);
+                        xhr.setRequestHeader('Content-Type', 'application/json');
+
+                        xhr.onload = function() {
+                          var status = xhr.status;
+                          var body = JSON.parse(xhr.responseText);
+
+                          /* use body as a classic dictionnary */
+                        }
+                        xhr.send();
+
+                    La méthode \`open\` de cet objet permet de configurer la requête, d'abord le verbe, ensuite l'URI et enfin un booléen indiquant qu'il s'agit d'une requête asynchrone. Les requêtes synchrones sont dépréciées dans les navigateurs modernes. Bloquer le code en attendant la réponse du serveur est considéré comment nuisant grandement à l'expérience utilisateur (puisque cela revient à blqouer complétement le navigateur tant que le serveur n'a pas répondu).
+
+                    La méthode \`onload\` permet de s'abonner à la réponse du serveur. Dès que celle-ci advient, la méthode est exécutée et les attributs \`responseText\` et \`status\` de la requête sont disponibles.  Afin de transformer la réponse obtenue en objet JavaScript, il est possible d'utiliser la méthode \`parse\` de la variable globale JSON.
+
+                    La méthode \`send\` permet d'effectuer l'appel.
+
+                    **Requêtes ajax POST :**
+
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST", "http://www.thebeatles.com/subscribe", true);
+                        xhr.setRequestHeader("Content-Type", "application/json");
+
+                        xhr.onload = function() {
+                          var body = JSON.parse(xhr.responseText);
+                          var status = xhr.status;
+                        }
+                        xhr.send(JSON.stringify({name:"contact@mail.com"}));
+
+                    La même logique s'applique lors de l'envoi de données au serveur, seule le verbe utilisé change et la méthode send peut alors recevoir une chaîne de caractère à transmettre au serveur. Ici aussi, le recours à JSON permet de transformer un objet JavaScript pour le transmettre au format texte au serveur.
+                `
+            },
+            {
+                title: "Effectuer une requête fetch",
+                course: true,
+                description: `
+                    L'objet [\`fetch\`](https://developer.mozilla.org/en/docs/Web/API/Fetch_API) a été ajouté récemment aux navigateurs dans l'optique de simplifier les requêtes Ajax. Comme certains navigateurs ne le supportent pas, il peut être nécessaire [d'ajouter un polyfill](https://github.github.io/fetch/) pour ajouter cette fonctionnalité à ces anciens navigateurs. Fetch présentes deux différences majeures par rapport à \`xhr\` :
+
+                    * il retourne un [stream](https://developer.mozilla.org/en/docs/Web/API/ReadableStream) plutôt qu'une réponse immédiate
+                    * il fonctionne avec [des promesses](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise), à la place de callback
+
+                    **Requête fetch GET :**
+
+                        fetch('http://www.thebeatles.com/news')
+                        .then(function(response) {
+                            return response.json();
+                        })
+                        .then(function(body) {
+                            /* use body as a classic dictionnary */
+                        });
+
+                    **Requête fetch POST :**
+
+                        fetch('http://www.thebeatles.com/subscribe', {
+                            method: 'POST',
+                            json: JSON.stringify({name:"contact@mail.com"})
+                        }).then(function(response) {
+                            return response.json();
+                        })
+                        .then(function(body) {
+                            /* use body as a classic dictionnary */
+                        });
+
+                    L'objet \`response\` est de stype [\`stream\`](https://developer.mozilla.org/en/docs/Web/API/ReadableStream), celui-ci représente un flux de données. Il permet de choisir comment les données d'un serveur doivent être consommées. Avec l'appel \`response.json()\` le flux est lu en entier et retourné au format JSON. Si la requête retourne un fichier volumineux, il est possible de le lire morceau après morceau afin de ne pas télécharger l'intégralité de celui-ci dans la mémoire du navigateur.
+                `
+            },
+            {
+                title: "Les promesses",
+                course: true,
+                description: `
+                    L'objet [\`Promise\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise) a été inventé par jQuery avant d'être introduit en natif dans le langage. Il représente la réussite éventuelle, ou l'échec éventuel, d'une opération asynchrone et sa valeur de retour. Comme un callback traditionnel, il permet de s'abonner à cette réussite avec une fonction ou un échec avec une autre fonction dont l'une des deux sera invoquée à la résolution de l'opération asynchrone.
+
+                    Très utilisées pour les appels serveur — l'application récupère la main et peut effectuer d'autres opérations en attendant la réponse — les promesses peuvent également servir à ordonner des opérations asynchrones de tout genre plus facilement.
+
+                    Comme \`fetch\` et les \`stream\`, son support est encore partiel sur les navigateurs et il est parfois nécessaire d'ajouter [un polyfill](https://github.com/taylorhakes/promise-polyfill) pour ce faire.
+
+                    Une promesse propose deux méthodes pour s'abonner à son futur résultat, \`then\` et \`catch\`. La première permet de s'abonner au succès de l'appel, la second à son échec. La spécification A+ détaille ce fonctionnement, notamment :
+
+                    * les promesse sont thenable, il est possible de chaîner plusieurs \`then\` qui attendront que le précédent soit résolu avant de se résoudre elles-mêmes avec son résultat
+                    * un \`catch\` en bout de chaîne capture toutes les erreurs pouvant se produire sur la chaîne, et celle-ci est intérompue dès qu'une erreur se produit
+
+                    **Création d'une promesse, résolue si l'utilisateur clique sur le &lt;body&gt; en moins de 5 secondes :**
+
+                        var clicked = new Promise(function(resolve, reject) {
+                            setTimeout(reject, 5000);
+
+                            var start = new Date();
+                            document.body.addEventListener('click', function(e) {
+                                var end = new Date();
+                                resolve(end.getTime() - start.getTime());
+                            });
+                        });
+
+                    Les promesses A+ intégrées au langage (norme respectée par jQuery depuis sa version 3.0) prennent deux fonctions en paramètres, \`resolve\` et \`reject\`. L'une de ces deux fonctions — et une seule des deux — doit être appelée lorsque l'opération asynchrone encapsulée est terminée, \`resolve\` si c'est avec succès, \`reject\` sinon.
+
+                    Une promesse ne peut être résolue qu'une fois. Dans cet exemple, soit l'utilisateur clique sur le \`body\` dans les 5 secondes, et la promesse est un succès, soit, ce n'est pas le cas, et le timeout déclenche un échec. Bien que l'utilisateur puisse cliquer à nouveau sur le body, seul le premier appel de la méthode \`resolve\` ou \`reject\` résoudra la promesse, les suivants sont ignorés. Une fois dans un état, succès ou échec, une promesse ne peut plus en changer.
+
+                    Une fois cette promesse créée, le code qui l'utilise s'abonne à son résultat futur. Avec \`then\` il indique quelles opérations suivront cette opération quand elle sera terminée avec succès. Avec \`catch\`, quelles opérations suivront si elle se termine en erreur.
+
+                    **Abonnement à une promesse :**
+
+                        clicked.then(function(time) {
+                            console.log(time);
+                        });
+
+                        clicked.then(function(time) {
+                            return (time < 1000)
+                        }).then(function(quick) {
+                            if (quick)
+                                console.log('quick click');
+                        }).catch(console.error);
+
+                    Une promesse peut avoir plusieurs souscriptions. Il est même possible de s'abonner alors qu'elle est déjà résolue, le \`then\` ou le \`catch\` étant alors immédiatement invoqués.
+
+                    Les \`then\` sont chaînables, un \`then\` peut retourner une valeur ou une promesse. S'il retourne une promesse, le \`then\` suivant attendra le succès de cette promesse avant de s'exécuter à son tour. Le \`catch\` capture les erreurs (\`throw\` ou \`reject\`). Si un \`then\` est placé après lui, il reprendra la main une fois l'erreur gérée par le \`catch\`.
+
+                    Ici, à titre d'exemple, si le temps de clic est inférieur à une seconde, un résultat est retourné, capturé à son tour par une nouvelle promesse qui reçoit le résultat de celle qui l'a précédé. Un exemple plus courant, est celui ou un appel asynchrone est retourné, dont le résultat est passé au \`then\` suivant quand l'appel succède ou échoue.
+                `
+            },
+            {
                 title: "Rechercher un repository github",
                 description: "Effectuer un appel ajax vers <code>https://api.github.com/search/repositories?access_token={token}&q={query}</code> à l'appui sur entrée dans <code>.search input</code> en indiquant comme {query} la recherche saisie.<br><br>Afficher les trois premiers résultats dans <code>.results</code> chacun sous la forme <code>&lt;span class=\"result\"&gt;{full_name}&lt;/span&gt;</code> (<i>et ajouter la classe <code>visible</code> à <code>.results</code> pour le révéler</i>).",
-                excerpt: "Pour accèder à l'api de github, il est préférable de créer une clé (<i>ou token</i>), pour ce faire aller dans <code>Github > Settings > Personnal Access Token</code> puis <code>Generate new token</code>. Ce token est à ajouter à l'url <code>https://api.github.com/..?access_token={token}&q={query}</code>.<br><br>Il est possible d'effectuer une requête ajax à l'aide des objets <a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest\">xhr</a>, <a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch\">fetch</a> ou <a target=\"_blank\" href=\"http://api.jquery.com/jquery.ajax/\">jQuery.ajax</a>. Ajax est une technologie utilisée pour requêter un serveur de façon asynchrone. Pour effectuer une requête vers un serveur, trois informations sont nécessaires, son adresse <code>http://..</code>, l'action à réaliser, <code>GET</code> (<i>lecture</i>), <code>POST</code> (<i>création</i>), <code>PUT</code> (<i>modification</i>) ou <code>DELETE</code> (<i>suppression</i>) et la fonction à invoquer lorsque le serveur aura répondu.",
+                excerpt: "Pour accèder à l'api de github, il est préférable de créer une clé (<i>ou token</i>), pour ce faire aller dans <code>Github > Settings > Personnal Access Token</code> puis <code>Generate new token</code>. Ce token est à ajouter à l'url <code>https://api.github.com/..?access_token={token}&q={query}</code>.<br><br>Il est possible d'effectuer une requête ajax à l'aide des objets <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest\">xhr</a>, <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/API/Fetch_API/Using_Fetch\">fetch</a> ou <a target=\"_blank\" href=\"http://api.jquery.com/jquery.ajax/\">jQuery.ajax</a>. Ajax est une technologie utilisée pour requêter un serveur de façon asynchrone. Pour effectuer une requête vers un serveur, trois informations sont nécessaires, son adresse <code>http://..</code>, l'action à réaliser, <code>GET</code> (<i>lecture</i>), <code>POST</code> (<i>création</i>), <code>PUT</code> (<i>modification</i>) ou <code>DELETE</code> (<i>suppression</i>) et la fonction à invoquer lorsque le serveur aura répondu.",
                 solved: "/* remplacer {token} par le token github généré */<br><br>/* --------------------- xhr --------------------- */<br><br>var search = document.querySelector('.search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>var ajax = function(method, url, fn) {<br>  var xhr = new XMLHttpRequest();<br>  xhr.addEventListener('load', function() {<br>    if (xhr.readyState === 4) {<br>      fn(JSON.parse(xhr.response));<br>    }<br>  });<br>  xhr.open(method, url);<br>  xhr.send();<br>}<br><br>input.addEventListener('keypress', function(event) {<br>  if(event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  ajax('GET', 'https://api.github.com/search/repositories?access_token={token}&q=' + input.value, function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br><br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});<br><br>/* -------------------- fetch -------------------- */<br><br>var search = document.querySelector('.search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>input.addEventListener('keypress', function(event) {<br>  if(event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  fetch('https://api.github.com/search/repositories?access_token={token}&q=' + input.value)<br>  .then(function(response) {<br>    return response.json();<br>  })<br>  .then(function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br>      for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});",
                 dom: function() {
                     return search.bind(search);
@@ -2947,7 +3467,7 @@ let chapters = [
                 title: "Afficher un indicateur de chargement",
                 description: "Ajouter la classe <code>loading</code> sur <code>.fetch</code> lorsque l'appel ajax est lancé, la retirer lorsque le serveur répond.",
                 solved: "var search = document.querySelector('.favorites .search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  search.classList.add('loading');<br><br>  fetch('https://api.github.com/search/repositories?access_token={token}&q=' + input.value)<br>  .then(function(response) {<br>    search.classList.remove('loading');<br>    return response.json();<br>  })<br>  .then(function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});<br><br>var list = document.querySelector('.list');<br>var refresh = document.querySelector('.fetch');<br>var count = document.querySelector('.count');<br><br>var render = function() {<br>  return fetch('https://api.github.com/user/starred?access_token={token}')<br>  .then(function(response) {<br>    return response.json();<br>  })<br>  .then(function(starred) {<br>    count.value = starred.length;<br>    list.innerHTML = '';<br>    for (var i = 0; i < starred.length; i++) {<br>      list.innerHTML += '&lt;div class=\"item ui checkbox\"&gt;&lt;input type=\"checkbox\" id=\"' + starred[i].full_name + '\"&gt;&lt;label for=\"' + starred[i].full_name + '\"&gt;' + starred[i].full_name + '&lt;/label&gt;&lt;/div&gt;';<br>    }<br>  });<br>}<br><br>refresh.addEventListener('click', function() {<br>  refresh.classList.add('loading');<br><br>  render().then(function() {<br>    refresh.classList.remove('loading');<br>  });<br>});",
-                excerpt: "Une <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise\">promesse</a> est le résultat futur d'une action asynchrone. Les promesses sont souvent utilisées pour chainer plusieurs appels ajax ou s'abonner au résultat qu'elles renveront lorsque le serveur aura répondu. Les objets <a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch\">fetch</a> et <a target=\"_blank\" href=\"http://api.jquery.com/jquery.ajax/\">jQuery.ajax</a> proposent de récupérer la réponse du serveur avec une promesse.<pre><code>fetch('https://api.github.com/..')<br>.then(function(response) {<br>  return response.json();<br>})<br>.then(function(data) {<br>  console.log(data);<br>});</code></pre>La méthode <code>then</code> permet de s'abonner au résultat futur, et sera invoquée une seule fois lorsque le serveur aura répondu. Il est possible de retourner une promesse à l'intérieur d'une méthode <code>then</code> et d'ainsi chainer les promesses. La méthode <code>catch</code> permet de capturer les erreurs levées par n'importe laquelle des promesses de la chaine.",
+                excerpt: "Une <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise\">promesse</a> est le résultat futur d'une action asynchrone. Les promesses sont souvent utilisées pour chainer plusieurs appels ajax ou s'abonner au résultat qu'elles renveront lorsque le serveur aura répondu. Les objets <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/API/Fetch_API/Using_Fetch\">fetch</a> et <a target=\"_blank\" href=\"http://api.jquery.com/jquery.ajax/\">jQuery.ajax</a> proposent de récupérer la réponse du serveur avec une promesse.<pre><code>fetch('https://api.github.com/..')<br>.then(function(response) {<br>  return response.json();<br>})<br>.then(function(data) {<br>  console.log(data);<br>});</code></pre>La méthode <code>then</code> permet de s'abonner au résultat futur, et sera invoquée une seule fois lorsque le serveur aura répondu. Il est possible de retourner une promesse à l'intérieur d'une méthode <code>then</code> et d'ainsi chainer les promesses. La méthode <code>catch</code> permet de capturer les erreurs levées par n'importe laquelle des promesses de la chaine.",
                 dom: function() {
                     return search.bind(search);
                 },
@@ -3185,13 +3705,225 @@ let chapters = [
                         return !this.warn;
                     }.bind(this));
                 }
+            },
+            {
+                title: "L'architecture REST",
+                course: true,
+                description: `
+                    Depuis plusieurs années, un style d'architecture de conception des applications réseau s'est démocratisé, REST (Representational State Transfer). Basé sur HTTP, il reprend ses composants et propose de les utiliser d'une façon normée.
+
+                    Pour les URI, elles y représentent une ressource du système (un utilisateur, un produit), avec une adresse pour les lister (ex. /products) et une autre pour en lire ou modifier une seule (ex. /products/17, ou 17 est l'identifiant du produit).
+
+                    Pour les verbes, GET y est utilisé pour obtenir la représentation d'une ressource ou de plusieurs (en fonction de l'URI utilisée) ; POST pour créer une ressource ; PUT pour la modifier ; et DELETE pour la supprimer. POST peut également être utilisé pour tous accès non idempotents (avec effet de bord, ex. débiter un compte et en créditer un autre via un seul appel d'URI).
+
+                    **Requêtes REST et réponses :**
+
+                    \`\`\`HTTP
+                    GET http://www.thebeatles.com/musicians
+                    → 200
+                    → [{"id":1,"name":'Paul'}, {"id":2,"name":'John'}, {"id":3,"name":'George'}, {"id":4,"name":'Ringo'}]
+
+                    GET http://www.thebeatles.com/musicians/2
+                    → 200
+                    → {"id":2,"name":'John'}
+
+                    PUT http://www.thebeatles.com/musicians/2 {"id": 2,"name":'John Lennon'}
+                    → 200
+                    → {"id":2,"name":'John Lennon'}
+
+                    POST http://www.thebeatles.com/musicians {"name":'Brian Epstein'}
+                    → 201
+                    → {"id":5,"name":'Brian Epstein'}
+                    \`\`\`
+
+                    Les statuts HTTP (200, 400, etc) sont également utilisés d'une façon normée.
+
+                    La communication ainsi normée ne fait l'objet d'aucune sauvegarde du contexte des clients sur le serveur (architecture stateless). Chaque requête client contient toutes les informations nécessaires à son traitement par le serveur. Par exemple, si un utilisateur est logué au système, il doit fournir avec chaque requête la preuve de sa connexion (ex. un cookie), et le serveur vérifiera à chaque fois la validité de cette information.
+
+                    Un cookie est un header comme les autres, à un détail près : lorsque le navigateur en reçoit un d'un serveur, il le stocke automatiquement et le retransmet au serveur pour toutes les requêtes suivantes.
+
+                    [L'excellent cookbook de Subbu Allamaraju](https://books.google.fr/books?id=LDuzpQlVuG4C&printsec=frontcover#v=onepage&q&f=false) est disponible pour approfondir le sujet.
+                `
+            },
+            {
+                title: "Les méandres du réseau",
+                course: true,
+                description: `
+                    Un navigateur peut effectuer plusieurs requêtes simultanées (puisqu'aucune d'entre elles ne bloque l'exécution du code), certains points sont à considérer :
+
+                    * la bande passante est limitée, le nombre d'informations que peut transmettre et recevoir un navigateur web dépend du réseau sur lequel se trouve l'utilisateur (le wifi d'une bibliothèque) et de son usage de sa propre connexion (écoute de musique en streaming en simultané). Ainsi, il est souvent judicieux de récupérer les données par tranche (20 articles par 20) et d'économiser la bande passante en requêtant seulement le nécessaire, surtout sur mobile
+                    * la patience de l'utilisateur à ses limites, une page trop longue à charger incitera l'utilisateur à abandonner et aller ailleurs. Le plus judicieux étant de limiter la durée d'une requête, et en cas de timeout (durée écoulée sans succès), de proposer à l'utilisateur de réessayer
+
+                    **Requêtes ajax avec timeout :**
+
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("GET", "http://www.thebeatles.com/news", true);
+                        xhr.timeout = 5; // in seconds
+
+                        xhr.ontimeout = function() {
+                          document.querySelector('#message').innerHTML = "Can you please retry?";
+                        }
+                        xhr.send();
+
+                    Pour des raisons de sécurité, JavaScript bloque l'accès à des ressources d'un autre domaine (accéder à http://www.ledzeppelin.com/ à partir de http://www.thebeatles.com n'est pas possible par défaut). Deux solutions existent pour ce faire, soit ajouter des headers particuliers à chaque requêtes et modifier le serveur afin qu'il les accepte (CORS), soit, plus simplement, utiliser un reverse proxy (un serveur HTTP particulier) sur le même domaine que les fichiers JS. Dans cette seconde solution, le navigateur effectue chacune de ses requêtes sur la même base d'URL, et donc le même domaine, et le reverse proxy fait suivre la requête sur un autre domaine, récupère le résultat et le transmet au navigateur. C'est un contournement du problème couramment utilisé. [Apache](https://httpd.apache.org/) et [Nginx](https://nginx.org/en/) sont des outils populaires pour cet usage.
+                `
+            },
+            {
+                course: true,
+                description: `
+                    Avec Ajax les échanges client serveur sont à sens unique : les clients connaissent le serveur et interagissent avec lui. D'autres modèles se sont développés pour des usages particuliers.
+
+                    ### Les web sockets
+
+                    Les web sockets permettent d'établir un canal full duplex avec un serveur et d'obtenir ainsi un échange temps réel avec ce dernier. Ce mode de communication est souvent utilisé pour les jeux multijoueurs ou les conversations : lorsqu'un utilisateur effectue une action (poster un message, déplacer un personnage, etc) le serveur envoie immédiatement l'information à tous les autres clients. Les utilisateurs sont synchronisés les uns aux autres.
+
+                    Une librairie populaire pour mettre en place ce mode de communication est socket.io. Elle gère également des modes dégradés si le client n'est pas en mesure d'ouvrir un socket. Elle effectuera, par exemple, du long polling (plusieurs requêtes http classiques à intervalle régulier) en cas de problème d'établissement du socket. La fonctionnalité — au délai réseau près — restant inchangé.
+
+                    ### Les notifications
+
+                    Apparues sur les smartphones, les notifications sont ces bulles numérotés apparaissant sur les icônes des applications pour indiquer que quelque chose attend l'utilisateur (un message reçu, une mise à jour disponible, etc).
+
+                    Chaque fournisseur de système d'exploitation propose sa propre solution, l'idée générale est la suivante, un socket est ouvert par le téléphone sur un unique serveur. Ce dernier reçoit des informations de serveurs tierces (mail, sncf, airbnb, etc) et notifie les applications du téléphone, les applications n'ont pas besoin d'être ouvertes pour être notifiées, et elles ne vérifient jamais directement l'état de ces notifications (si chaque application maintenait un socket, cela aurait un gros impact sur la batterie).
+                `
+            },
+            {
+                title: "Offline",
+                course: true,
+                description: `
+                    Échanger des informations avec un serveur est crucial pour une application, cela permet de vérifier les identifiants des utilisateurs, de leur donner accès à leur messages et historique, de leur permettre d'interagir les uns avec les autres, etc.
+
+                    Seulement, les connections internet ne sont pas toujours stables, et, dans certaines zones géographiques, rares, lentes ou très limitées. Pour tenir compte de cette problématique, apparues entre autre avec les smartphones et leur usage important de données, un mode offline a commencé à voir le jour.
+
+                    Le mode offline existe sous diverses formes, par exemple :
+
+                    * synchroniser une playlist Spotify ou Deezer sur un téléphone pour l'écouter dans le métro, ce qui copie les titres sur le téléphone et les crypte afin que seule l'application en question puisse y accéder (le titre ne pouvant ainsi pas être donné à un ami)
+                    * synchroniser un document Google Drive ou Dropbox pour continuer sa rédaction hors ligne et, lorsque le réseau se présente de nouveau, sauvegarder les modifications
+                    * synchroniser une carte Google Maps ou Citymapper et utiliser le GPS d'un téléphone à l'étranger (le GPS n'utilise pas le forfait de l'abonné, il reste gratuit à l'étranger)
+                    * synchroniser des articles Instapaper ou Pocket pour les lire dans le métro
+
+                    Développer un mode offline nécessite deux choses, la connaissance de l'état actuel du navigateur — [les événements online et offline](https://developer.mozilla.org/en/docs/Online_and_offline_events) permettent de s'y abonner — et la possibilité de sauvegarder des données locale au navigateur — le local storage vu précédemment peut être utilisé à cet effet.
+                `
             }
         ]
     }, {
         title: "La programmation objet",
-        description: "La programmation orientée objet propose de définir un ensemble de concepts, les classes, dont il est possible de manipuler des exemplaires, les objets. JavaScript est un langage à prototype (contrairement aux langages objets classiques, des attributs peuvent être ajoutés aux objets, même si la classe ne les déclare pas).<br><br>Ce chapitre présente la réalisation (corsée) d'un puzzle rpg au tour par tour.",
+        description: "La programmation orientée objet propose de définir un ensemble de concepts, les classes, dont il est possible de manipuler des exemplaires, les objets, dans le but de structurer un programme.<br><br>Ce chapitre présente la réalisation (<i>corsée</i>) d'un puzzle rpg au tour par tour.",
         color: "teal",
         steps: [
+            {
+                course: true,
+                description: `
+                    Il est possible (et souvent souhaitable) de structurer un programme à l'aide de composants au comportement clairement défini. La programmation orientée objet propose ainsi, dans de nombreux langages, de définir un ensemble de concepts, les classes, dont il est possible de manipuler des exemplaires, les objets.
+
+                    **Utilisation de classes et d'objets :**
+
+                        var release = new Date(1964, 11, 17);
+                        → Thu Dec 17 1964 00:00:00 GMT+0100 (CET)
+
+                        Math.max(5, 10);
+                        → 10
+
+                    Il a été question de plusieurs classes jusqu'ici, \`Math\`, \`Date\`, \`Element\`, \`RegExp\` respectant une convention de nommage : leur initiale est en majuscule. Certaines de ces classes peuvent être instanciées, comme Date dont il est possible d'obtenir des exemplaires avec l'opérateur \`new\`. D'autres offrent surtout des méthodes statiques, comme Math dont il est impossible d'obtenir une instance.
+
+                    Une classe est un modèle (comme un moule à pâtisserie) qui définit un ensemble d'attributs (la taille, les fruits utilisés) et de méthodes (découper, manger). Une instance est un exemplaire d'une classe (un gâteau aux poires, une tarte aux pommes, etc). Il est ainsi possible de créer autant d'objets d'une classe que souhaité avec pour chacun d'entre eux ses attributs propres et ses opérations basés sur le modèle de la classe.
+
+                    **Création et comparaison de deux dates :**
+
+                        var release = new Date(1946, 0, 1);
+                        → Tue Jan 01 1946 00:00:00 GMT+0100
+
+                        var peace = new Date(1945, 8, 2);
+                        → Sun Sep 02 1945 00:00:00 GMT+0200 (CEST)
+
+                        release.getTime() > peace.getTime();
+                        → true
+                `
+            },
+            {
+                course: true,
+                description: `
+                    JavaScript est un langage à prototype (contrairement aux langages objets classiques, des attributs peuvent être ajoutés aux objets, même si la classe ne les déclare pas). Une classe est déclarée comme une fonction classique (par convention, avec son initiale en majuscule), et, à ce moment là, il s'agit d'une fonction comme les autres. Ce qui la distingue, c'est que pour l'invoquer, au lieu d'utiliser \`()\`, le mot clé \`new\` est utilisé. Alors, et contrairement à une fonction classique, son code est invoqué avec en variable le mot clé \`this\` faisant référence à l'objet qui est créé.
+
+                    **Création de classes et d'objets :**
+
+                        var Pie = function(fruits, pieces) {
+                          this.fruits = fruits;
+                          this.pieces = pieces;
+                        }
+
+                        var applePie = new Pie('apple', 8);
+                        applePie.fruits;
+                        → 'apple'
+
+                        var cheeseCake = new Pie('cheese', 6);
+                        cheeseCake.fruits;
+                        → 'cheese'
+
+                    Ainsi, à chaque usage du mot clé \`new\` un nouvel object de la classe est créé disposant d'un attribut \`fruits\` qui lui est propre. Il est possible d'ajouter du comportement à ces objets.
+
+                    **Ajout de méthodes à une classe :**
+
+                        Pie.prototype.eat = function() {
+                          if (this.pieces >= 1)
+                            this.pieces--;
+                        }
+
+                        var applePie = new Pie('apple', 8);
+                        applePie.eat();
+                        applePie.eat();
+                        applePie.pieces;
+                        → 6
+
+                    Les objets encapsulent leurs données et exposent leurs opérations. [L'encapsulation](https://developer.mozilla.org/en/docs/Glossary/Encapsulation), qui consiste à ne rendre disponible aux utilisateurs d'un objet qu'une partie de celui-ci, permet de garantir la cohérence de cet objet.
+                `
+            },
+            {
+                course: true,
+                description: `
+                    Certains langages disposent de mécanismes pour rendre certains attributs ou méthodes d'un objet inaccessibles de l'extérieur, ce n'est pas le cas de JavaScript. Quels qu'ils soient, tous les attributs et toutes les méthodes sont accessibles à tout le monde. Pour parer cette limitation, une norme de nommage a vu le jour, et propose de préfixer les attributs et méthodes protégés d'un underscore.
+
+                    **Légende ajout d'attribut privé (par convention) :**
+
+                        var Pie = function(fruits, pieces) {
+                          this._fruits = fruits;
+                          this._pieces = pieces;
+                        }
+
+                        Pie.prototype.eat = function() {
+                          if (this._pieces >= 1)
+                            this._pieces--;
+                        }
+
+                        Pie.prototype.getPieces = function() {
+                          return this._pieces;
+                          // returns a copy (simple type are passed by value)
+                          // if it it an array, create a copy: array.slice()
+                          // with a dictionnary, create a copy: JSON.parse(JSON.stringify({..}))
+                        }
+
+                        var applePie = new Pie('apple', 8);
+                        var pieces = applePie.getPieces();
+                        pieces;
+                        → 8
+
+                        pieces = 7;
+                        applePie.getPieces();
+                        → 8
+
+                    Dans cet exemple, les attributes \`_fruits\` et \`_pieces\` sont déclarés internes. Une méthodes \`getPieces\` est fournie pour y accéder, et elle renvoie une valeur non modifiable. C'est ici que brille l'intérêt des classes, la logique de calcul est masquée (décrémenter les nombre de parts à chaque fois qu'un gourmand en mange une) et la cohérence des données est assurée (le nombres de parts restantes n'est modifiée qu'ici) et tous les objets instanciés à partir de cette classe disposent du même contrat de fonctionnement.
+
+                    Bien entendu, l'attribut \`_pieces\` reste accessible de l'extérieur, et, si il est modifié par quelqu'un d'autre, les données de l'objet deviennent incohérentes (son nommage averti qu'il ne faut pas le modifier ainsi).
+
+                    Dans un registre similaire, il est possible d'ajouter dynamiquement, et individuellement, des attributs dans un objet non prévu par sa classe.
+
+                    **Ajout dynamique d'attributs à un objet :**
+
+                        var cheeseCake = new Pie('cheese');
+                        cheeseCake.flavour = 'lemon';
+                        cheeseCake.flavour;
+                        → 'lemon'
+                `
+            },
             {
                 title: "Créer une classe",
                 description: "Créer une classe <code>Player</code> avec un attribut <code>name</code>, de façon à ce que <code>new Player(1)</code> crée un objet avec l'attrbut <code>name</code> initialisé à <code>1</code>.",
@@ -3465,8 +4197,244 @@ let chapters = [
             }
         ]
     }, {
+        title: "Les expressions régulières",
+        description: "Les expressions régulières sont des expressions rationnelles permettant de reconnaître un motif (<i>pattern</i>) dans un texte de façon plus fine qu'une recherche classique de caratère.<br><br>Ce chapitre présente les expressions régulières.",
+        color: "teal",
+        steps: [
+            {
+                title: "",
+                course: true,
+                description: `
+                    Les expressions régulières sont des expressions rationnelles permettant de reconnaître un motif (pattern) dans un texte. Il existe deux méthodes pour les exprimer, l'une avec l'objet RegExp, l'autre avec deux « / » remplaçant les guillemets d'une chaîne de caractères. En plus du pattern à matcher, des flags (ou indicateurs) peuvent être indiqués pour préciser ce pattern.
+
+                    **Création d'expressions régulières :**
+
+                        /pattern/flags
+                        new RegExp(pattern[, flags])
+
+                    L'utilisation la plus simple d'une expression régulière est équivalente à la méthode indexOf des String recherchant la première occurrence d'un pattern dans un texte.
+
+                    **Expressions régulières, usage simple, équivalent à indexOf :**
+
+                        'we all live in a yellow submarine'.indexOf('in')
+                        → 12
+
+                        /in/.test('we all live in a yellow submarine')
+                        → true
+
+                        'we all live in a yellow submarine'.match(/in/)
+                        → ['in']
+
+                    De nombreux caractères spéciaux permettent de rechercher des patterns plus élaborés :
+
+                    * « ? » indique que le caractère précédent est présent 0 ou 1 fois
+                    * « + » indique que le caractère précédent peut être répété 1 fois ou plus
+                    * « * » indique que le caractère précédent peut être répété 0 fois ou plus
+                    * « . » est un joker remplaçant n'importe quel caractère
+                    * « | » sépare deux alternatives possibles d'expressions régulière
+                    * « ( » et « ) » forme un groupe sur lequel les autres caractères spéciaux s'appliquent
+                    * « { » et « } » indique que le caractère précédent doit être répété un certain nombre de fois
+                    * « ^ » indique que le pattern doit commencer par le caractère qui suit
+                    * « $ » indique que le pattern doit se conclure par le caractère qui suit
+
+                    **Expressions régulières avec caractères spéciaux :**
+
+                        'we all live in a yellow submarine'.match(/sub.*in/)
+                        → ['submarin']
+
+                        'we all live in a yellow submarine'.match(/s.b.a.i.e/)
+                        → ['submarin']
+
+                        'we all live in a yellow submarine'.match(/l{2}/)
+                        → ['ll']
+
+                    Par défaut, la recherche du pattern s'effectue uniquement sur la première occurrence de celui-ci et en respectant la casse (majuscule et minuscule sont différentes). Les flags qu'il est possible d'indiquer à l'expression permettent de modifier cela :
+
+                    * « g » indique de chercher pour toutes les occurrences du pattern
+                    * « i » indique d'être insensible à la casse
+
+                    **Expressions régulières avec flags :**
+
+                        'we all live in a yellow submarine'.match(/in/g)
+                        → ['in', 'in']
+
+                        'we all live in a yellow submarine'.match(/l/g)
+                        → ['l', 'l', 'l', 'l', 'l']
+
+                        'we all live in a yellow submarine'.match(/SU./i)
+                        → ['sub']
+
+                    Une documentation détaillée est disponible sur les [RegExp](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/RegExp) pour plus de détails.
+                `
+            }
+        ]
+    }, {
+        title: "Prototype, héritage, contexte",
+        description: "Les classes JavaScript repose sur une chaîne de prototypes. Cela offre plus de richesse que dans d'autres approches plus tradiotnnelles, mais implique également certaines contraintes.<br><br>Ce chapitre approfondit la programmation objet.",
+        color: "grey",
+        steps: [
+            {
+                title: "Classes et comparaison d'objets",
+                course: true,
+                description: `
+                    Lorsque deux objets sont comparés, ce n'est pas la valeur de leurs attributs qui est comparée, mais la référence des objets ; à la création d'un objet, une zone mémoire lui est réservée par le navigateur pour le stocker. Deux objets au contenu identique ne sont donc pas égaux car ils sont alloués à différents endroits en mémoire. Pour que deux objet soient égaux, il faut qu'il s'agisse du même objet (la comparaison d'objets littéraux ou de tableau fonctionne de la même façon).
+
+                    **Comparaison d'objets :**
+
+                        var applePie = new Pie('apple', 8);
+                        var bigApplePie = new Pie('apple', 12);
+
+                        applePie === bigApplePie;
+                        → false
+
+                        applePie === applePie;
+                        → true
+
+                        applePie._fruits === bigApplePie._fruits
+                        && applePie._pieces === bigApplePie._pieces
+                        && ...; // compare every attribute to verify that objets are equal
+                        → true
+
+                    ### Méthodes statiques de classes
+
+                    Enfin, il est également possible d'ajouter des méthodes statiques de classe, c'est à dire des méthodes ne s'appliquant pas à un objet particulier, mais à la classe elle-même. Ce qui est le cas pour la classe \`Math\`, par exemple, dont toutes les méthodes sont des méthodes de classe ; calculer le sinus d'un angle ou maximum de deux nombres ne concerne que les paramètres de la fonction.
+
+                    **Méthode statique de classe :**
+
+                        Pie.favoriteFavour = function() {
+                          return 'lemon';
+                        }
+
+                        Pie.favoriteFavour();
+                        → 'lemon'
+
+                    L'usage de telles fonctions est souvent utile, comme dans le cas de \`Math\`, pour regrouper des méthodes relatives aux mêmes types de traitement qui ne nécessitent pas d'objets.
+                `
+            },
+            {
+                title: "La chaîne de prototypes",
+                course: true,
+                description: `
+                    Chaque objet encapsule un autre objet qui est son prototype. Ce prototype encapsule un autre objet qui est son prototype, et ainsi de suite jusqu'à ce qu'un objet ainsi encapsulé soit \`null\`. Par définition, \`null\` n'a pas de prototype et agit comme le dernier maillon de la chaîne de prototypes.
+
+                    Lorsqu'un attribut est accédé sur un objet, si cet attribut n'est pas trouvé sur l'objet lui-même, le navigateur le cherche sur son prototype, puis sur le prototype de son prototype, etc. S'il n'est trouvé nulle part, sa valeur est \`undefined\`. Lorsqu'un attribut est modifié sur un objet, c'est directement sur l'objet qu'il l'est, la chaîne de prototype n'est pas parcourue.
+
+                    **Création d'une classe basée sur le prototype d'une autre classe :**
+
+                        var Cake = function(fruits, iceCream) {
+                          Pie.call(this, fruits, 20); // Cake is a sub-class of Pie
+                          this.iceCream = iceCream;
+                        };
+
+                        Cake.prototype = Object.create(Pie.prototype);
+
+                        var chocolateCake = new Cake('nuts', 'vanilla');
+                        chocolateCake._fruits;
+                        → 'nuts'
+                        chocolateCake.iceCream;
+                        → 'vanilla'
+                        chocolateCake.tea;
+                        → undefined
+                `
+            },
+            {
+                title: "L'héritage",
+                course: true,
+                description: `
+                    La chaîne de prototypes permet de créer des relations d'héritage entre objets. Ainsi, une classe récupère les attributs et le comportement de la classe dont elle hérite et elle peut y apporter des modifications pour l'usage de ses propres objets. Dans le cas précédent, la classe \`Cake\` hérite de la classe \`Pie\`, lui ajoute l'attribut \`iceCream\` et fixe le nombre de part à 20. Tous les gâteaux de ce type seront des tartes un peu spéciales, forcément composées de 20 parts à partager et accompagnées d'une boule de glace.
+
+                    Lorsqu'une classe hérite d'une autre, elle peut redéfinir certaines de ces méthodes.
+
+                    **Redéfinition d'une méthode dans une classe fille :**
+
+                        Cake.prototype.eat = function() {
+                          if (this._pieces > 1)
+                            this._pieces -= 2; // pieces are serve two by two
+                        }
+                `
+            },
+            {
+                title: "Le contexte",
+                course: true,
+                description: `
+                    Chaque object dispose de son propre contexte, accessible et modifiable via son attribut \`this\`. Une des difficultés du langage est que ce contexte change si une autre fonction est invoquée au sein d'une fonction de cet objet.
+
+                    **Problème du contexte relatif à la dernière fonction :**
+
+                        Pie.prototype.display = function() {
+                          console.log(this.fruits);
+                        });
+
+                        Pie.prototype.displayLater = function() {
+                          setTimeout(function() {
+                            console.log(this.fruits);
+                          }, 10);
+                        });
+
+                        var applePie = new Pie('apple', 8);
+                        applePie.display();
+                        → 8
+
+                        applePie.displayLater();
+                        → undefined
+
+                    La fonction anonyme déclarée dans le \`setTimeout\` reçoit comme contexte le \`this\` relatif à l'invocation de ce timeout. Dans le cas d'un event listener, le \`this\` sera relatif à l'élément de la page ayant reçu le clic, par exemple. Dans certaines circonstances, cela peut être utile, dans d'autres, comme dans celles présentées ici, cela complique les choses.
+
+                    Pour parer ce problème, il est possible de forcer le contexte d'une fonction à l'aide de la méthode \`bind\`.
+
+                    **Légende modification du contexte d'une fonction :**
+
+                        Pie.prototype.displayLater = function() {
+                          var fn = function() {
+                            console.log(this.fruits);
+                          }.bind(this);
+
+                          setTimeout(fn, 10);
+                        });
+
+                        applePie.displayLater();
+                        → 8
+
+                    Ainsi, la fonction déclarée dans le setTimeout ne s'exécute plus avec le contexte du timeout, mais avec celui de l'objet.
+                    Il existe deux autres méthodes souvent utilisées pour invoquer une méthode avec un contexte prédéfini : call et apply.
+
+                    **Modification du contexte d'une fonction :**
+
+                        var multiply = function(by) {
+                          var result = this.value * by;
+                          return result;
+                        }
+
+                        var ten = {value: 10};
+                        var Money = function(value) {
+                          this.value = value;
+                        };
+                        var twelve = new Money(12);
+
+                        multiply.call(ten, 2); // or multiply.apply(ten, [2]);
+                        → 20
+
+                        multiply.call(twelve, 2); // or multiply.apply(twelve, [2]);
+                        → 24
+
+                    Ces deux méthodes ont la même logique, elles invoquent une fonction en lui donnant son contexte (premier paramètre d'appel) et ses paramètres d'exécution (second paramètre et suivants). La méthode \`call\` transmet ces paramètres d'exécution les uns après les autres, la méthode \`apply\` les transmet sous la forme d'un tableau (pense-bête apply, array).
+                `
+            },
+            {
+                title: "La gestion de la mémoire",
+                course: true,
+                description: `
+                    JavaScript dispose d'une garbage collection, c'est à dire d'un mécanisme libérant automatiquement la mémoire utilisée par des objets, les littéraux et les tableaux qui ne sont plus utilisés. Il passe à fréquence régulière et remet cette mémoire à disposition.
+
+                    Tant qu'un objet est référencé (stocké dans une variable, dans un tableau, etc), il est maintenu en mémoire. Déclarer un tableau à la racine d'un script — pour le rendre accessible à tous les fonctions de ce script, par exemple — l'expose à ne jamais être retiré de la mémoire.
+
+                    La mémoire du navigateur n'est pas infinie, lorsqu'un programme est très gourmand, il risque de ralentir de la navigateur, et, avec le temps, de bloquer la page. Déclarer les variables dans les fonctions ou objets qui les utilisent limitent ce genre de problèmes. I de grandes quantités de données sont à manipuler, intégrer un système de plafond pour supprimer les données les plus anciennes lorsqu'une limite est atteinte, pour empêcher le programme de croître en mémoire indéfiniment.
+                `
+            }
+        ]
+    }, {
         title: "Puzzle | Taquin",
-        description: "Un taquin est ce puzzle en plastique à résoudre du bout des pouces. Une pièce peut être glissée horizontalement ou verticalement pour venir prendre la place de l'espace libre (<i>un libre pour neuf cases sur les versions simples</i>).<br><br>Ce chapitre présente la réalisation (<i>corsée</i>) d'un taquin pas à pas.",
+        description: "Un taquin est ce puzzle en plastique à résoudre du bout des pouces. Une pièce peut être glissée horizontalement ou verticalement pour venir prendre la place de l'espace libre.<br><br>Ce chapitre présente la réalisation (<i>corsée</i>) d'un taquin pas à pas.",
         color: "pink",
         steps: [
             {
@@ -3590,7 +4558,7 @@ let chapters = [
         ]
     }, {
         title: "Puzzle | Puissance 4",
-        description: "Un puissance 4 est un puzzle pour 2 joueurs (<i>l'un jaune, l'autre rouge</i>) jouant à tour de rôle un jeton dans une des 7 colonnes disponibles. Chaque jeton s'empile aux jetons précédement joués dans cette colonne. Le premier joueur à aligner 4 jetons, horizontalement, verticalement ou en diagonale gagne.<br><br>Ce chapitre présente la réalisation (<i>corsée</i>) d'un puissance 4 pas à pas.",
+        description: "Un puissance 4 est un puzzle pour 2 joueurs jouant à tour de rôle un jeton dans une colonne. Chaque jeton s'empile aux jetons précédement, le premier joueur à en aligner 4 remporte la partie.<br><br>Ce chapitre présente la réalisation (<i>corsée</i>) d'un puissance 4 pas à pas.",
         color: "pink",
         steps: [
             {
@@ -3699,6 +4667,555 @@ let chapters = [
                         this.warn = "Les combinaisons verticales gagnantes doivent fonctionner";
                     return basic;
                 }
+            }
+        ]
+    }, {
+        title: "Les applications",
+        description: "Angular, Backbone, React, Vue, la liste des librairies JavaScript facilitant la construction d'applications n'en finit pas de s'allonger. <br><br>Ce chapitre approfondit les problématiques sous-jacentes de ces outils.",
+        color: "grey",
+        steps: [
+            {
+                course: true,
+                description: `
+                    JavaScript donne accès à tout ce qui a lieu dans le navigateur, les actions utilisateurs, la barre d'adresse, l'historique, le contenu de la page, il n'en fallait pas moins pour qu'il devienne, au fil des années, le moteur des sites internet, leur chef d'orchestre.
+
+                    Dès les débuts de jQuery, et la possibilité de développer un programme unique compatibles tous navigateurs, il ne manquait qu'une chose à son essor : la rapidité des navigateurs.
+
+                    Google lors du développement de Gmail en 2007 saisit cette limitation technique et se donna pour mission de la lever avec Chrome, un navigateur survitaminé, qui, fin 2008 allait changer la donne. Les voix de nombreux cerveaux de la société s'exprimèrent dans [un long comic book](http://blogoscoped.com/google-chrome/) pour présenter le virage qu'avait pris internet : les pages web étaient devenues des applications. Ils abordèrent alors en détail les questions et les problématiques que ce changement introduisait, et proposèrent un nouveau navigateur pour y répondre.
+
+                    Ce qui a changé, et qui demanda de repenser fondamentalement les navigateurs, c'est l'omniprésence de JavaScript. Dès lors la guerre des navigateurs se déclara et les lança dans une course à la puissance. Rétrospectivement, en à peine une année, de nouvelles frontières avaient été tracées, de nouvelles applications virent le jour, et de nombreux outils commencèrent à apparaître pour en faciliter le développement.
+
+                    [Angular](https://angularjs.org/), [Backbone](http://backbonejs.org/), [Batman](http://batmanjs.org/), [Ember](http://emberjs.com/), [Knockout](http://knockoutjs.com/), [React](https://facebook.github.io/react/), [Riot](http://riotjs.com/), [Vue](http://vuejs.org/), la liste des librairies JavaScript facilitant la construction d'applications n'en finit pas de s'allonger. Cette profusion de librairie montrent deux choses, tout d'abord la vitalité de la communauté JavaScript et son profond besoin d'outils pour accélérer le développement, ensuite la diversité des approches envisageables sur cette nouvelle plateforme qu'est devenue le web.
+                `
+            },
+            {
+                course: true,
+                description: `
+                    Ces outils cherchent à répondre à quatre questions :
+
+                    * comment découper et organiser une application en composants
+                    * comment gérer le templating d'une application (la découpe en plusieurs HTML à trous)
+                    * comment accéder aux données d'un serveur (Ajax et consort)
+                    * comment gérer la navigation de l'utilisateur dans plusieurs pages côté client
+
+                    ### Les limitations de jQuery et la naissance de la première génération de librairies MV*
+
+                    La profusion de ces librairies au détriment de jQuery s'explique facilement. La doyenne des librairie n'a pas été conçue pour construire des applications, elle l'a été pour offrir une façon normalisée d'utiliser les navigateurs.
+
+                    Développer une application avec jQuery pose rapidement des problèmes d'organisation du code, les composants chargés d'écouter les actions utilisateur peuvent émettre des requêtes Ajax et modifier la barre d'adresse. Bien sur, il est possible de définir des conventions pour structurer les choses, pour éviter le code spaghetti. Pourtant il est souvent plus simple de s'appuyer sur une structure plus robuste proposée par une librairie open source.
+
+                    Backbone fut l'une des premières à voir le jour, et, via l'introduction de quatre classes, proposa une structure simple pour développer des applications jQuery. Toute sa logique est basé sur l'usage de jQuery mais en séparant les responsabilités de l'application afin de la rendre plus facile à appréhender et à maintenir.
+
+                    Ces quatre classes sont :
+
+                    * \`View\`, une vue, c'est à dire un bout de HTML (disposé dans la page à l'aide d'une template), sur lequel il est possible de positionner des écouteurs d'événements et dont le contenu est modifiable. Chaque partie du HTML de la page est géré par une vue différente, le header est une vue, les menus sont des vues, le footer également, et, chaque vue n'accède qu'à son HTML. Ainsi, tout ce qui a lieu dans une partie du site, est régenté par ce composant. Ce qui simplifie grandement sa modification
+                    * \`Model\` et \`Collection\`, un modèle de donnée et une liste de modèles, c'est à dire l'état de l'application (ex. le nom et le prénom de l'utilisateur, les articles dans un panier). La vue affiche des informations mais elle ne les manipule pas, toutes les données récupérées du serveur et toutes les données saisies par l'utilisateur sont stockées dans des modèles. Ceux-ci connaissent les règles de cohérence, de validation (interdit au moins de 16 ans, etc)
+                    * \`Router\`, un aiguilleur modifiant les vues affichées à l'écran en fonction de l'adresse saisie par l'utilisateur. L'adresse de la page peut-être modifiée par le programme en fonction des actions de l'utilisateur. Ainsi, si l'utilisateur filtre les résultats d'une recherche par type, ce type peut être ajouté à la barre d'adresse. Lorsque l'utilisateur rafraîchit la page ou qu'il partage son adresse, le routeur est alors en mesure de choisir les vues à afficher et de leur indiquer dans quel état exact elles doivent se positionner.
+                `
+            },
+            {
+                title: "Le templating",
+                course: true,
+                description: `
+                    Le templating est un procédé qui vise à créer des templates (des textes à trous) qu'il est possible de renseigner en leur appliquant des objets dotés des mêmes propriétés ; cela s'avère très pratique pour construire des pages HTML avec des listes d'éléments, par exemple des résultats de recherche avec le même format, mais au données différentes.
+
+                    La librairie [mustache](https://github.com/janl/mustache.js) permet de manipuler des templates qu'il est possible de renseigner avec des objets aux attributs correspondant.
+
+                    **Manipulation de templates :**
+
+                    \`\`\`javascript
+                    var template = '<h1>Hello {{name}}</h1>';
+                    Mustache.render(template, {name: 'Paul'});
+                    → '<h1>Hello Paul</h1>'
+
+                    Mustache.render(template, {name: 'John'});
+                    → '<h1>Hello John</h1>'
+                    \`\`\`
+
+                    Cette librairie est très utilisée lors de la construction d'une partie de la page HTML en JavaScript. Certains blocs de la page sont enregistrés sous la forme de templates (la page de profil utilisateur) et complétées à l'aide de données dynamiques.
+
+                    La librairie [handlebars](http://handlebarsjs.com/) est une des plus populaires pour le templating, elle est fortement inspirée de mustache.
+                `
+            },
+            {
+                course: true,
+                description: `
+                    ### Deuxième génération de librairies MV*
+
+                    Certaines librairies ont une approche diamétralement opposée, elles font le choix de ne pas avoir recours à jQuery et de ne manipuler ni templates ni DOM. Cette deuxième génération de librairies, initiée par Angular et prolongée par de nombreuses autres, propose de masquer le DOM au maximum au développeur et de gérer automatiquement l'ajout de template HTML dans la page pour lui. Ces librairies de deuxième génération ont recours à divers procédés.
+
+                    Le problème qu'elles cherchent à résoudre est la profusion d'événements et la difficulté de maintenir une application dans un état cohérent.
+                    Il n'est pas rare qu'une librairie de première génération — où la gestion complète du DOM est laissée au développeur — réagisse à un événement en modifiant le contenu d'une partie de la page, puis une autre partie, puis à nouveau car ces deux parties dépendent l'une de l'autre. l'ordre d'affichage des éléments, la complexité d'imbrication de plusieurs d'entre eux et la richesse de navigation dans une application peuvent rendre difficile une gestion manuelle du changement d'état de chaque composant les uns par rapport aux autres.
+
+
+                    Les librairies de deuxième génération ont souvent recours (de façon masquée pour le développeur) à une boucle d'événement qui synchronise l'état des différents composants et orchestre leur affichage en fonction de leur dépendance les uns des autres. Le développeur n'est presque plus confronté au DOM, il manipule alors des templates HTML et des valeurs et indique que pour tel événement, ces valeurs ont changées, à charge de la librairie de mettre à jour la page.
+
+                    ### Troisième génération de librairies MV*
+
+                    Des librairies de troisième génération ont commencées à voir le jour dans ce même esprit, mais, en plus d'abstraire la gestion du DOM pour le développeur, elles ont introduit un DOM virtuel. Cette idée remarquable consiste à maintenir (de façon masquée pour le développeur) une copie du DOM avant d'effectuer des modifications et de repérer, après les avoir effectuées, quelles parties de cette copie ont été modifiées pour, enfin, mettre uniquement à jour le DOM sur ces différences.
+
+                    Cette troisième génération, initiée par React, a introduit également la notion d'état de l'application. Toutes les valeurs qui conditionnent l'affichage d'une page dans son état actuel sont identifiées, et l'application change en fonction de cet état. Si bien qu'à la saisie d'une adresse particulière, il suffit d'initialiser cet état correspondant, pour que toute l'application s'affiche de la même façon.
+
+                    Il existe de nombreux dérivés de ces concepts, et chaque génération à ses avantages, la première étant la seule à être compatible avec les centaines de plugins jQuery, que les seconde et troisième génération ne peuvent utiliser (ou difficilement).
+                `
+            }
+        ]
+    }, {
+        title: "ES6",
+        description: "Chaque année, les navigateurs intègrent les dernières nouveautés de JavaScript. La norme ECMAScript dispose d'ailleurs désormais d'un versionning annuel annoncant ces nouvelles fonctionnalités.<br><br>Ce chapitre présente les nouveatés principales de ES5 et ES6.",
+        color: "grey",
+        steps: [
+            {
+                course: true,
+                description: `
+                    Ces dernières années, de nombreuses améliorations ont été intégrées à JavaScript. En juin 2015, ES6 (ECMAScript 6) a été publié et est progressivement supporté par les navigateurs. Avant lui, ES5 avait déjà initié en 2009 ce mouvement de mise à jour du langage resté stationaire depuis 1999.
+
+                    ### ES5
+
+                    Les modifications les plus importantes [introduites par ES5](http://kangax.github.io/compat-table/es5/) — et supporté par tous les navigateurs modernes — portent sur les tableaux. Notamment, l'ajout des méthodes \`map\`, \`reduce\`, \`filter\`, \`forEach\`, \`every\`, \`some\` et \`indexOf\` (et la méthode \`bind\` ajoutée aux fonctions).
+
+                    La méthode [\`map\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/map) crée, à partir d'un tableau, un nouveau tableau du même nombre d'éléments, en modifiant chacun des éléments de départ via la fonction fournie.
+
+                    **Méthode array.map :**
+
+                        [1, 2, 3].map(function(number) {
+                          return number * 2;
+                        });
+                        → [2, 4, 6]
+
+                    La méthode [\`filter\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) crée, à partir d'un tableau, un nouveau tableau, en ne conservant que les éléments passant le test de la fonction fournie.
+
+                    **Méthode array.filter :**
+
+                        [1, 2, 3].filter(function(number) {
+                          return number > 1;
+                        });
+                        → [2, 3]
+
+                    La méthode [\`forEach\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) permet d'itérer sur un tableau, c'est une alternative à la boucle for.
+
+                    **Méthode array.forEach :**
+
+                        var sum = 0;
+                        [1, 2, 3].forEach(function(number) {
+                          sum += number;
+                        });
+                        sum;
+                        → 6
+
+                    La méthode [\`reduce\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce) retourne, à partir d'un tableau, une valeur qui peut accumuler chacun des éléments de départ via la fonction fournie.
+
+                    **Méthode array.reduce :**
+
+                        [1, 2, 3].reduce(function(memo, number) {
+                          return memo + number;
+                        }, 0);
+                        → 6
+
+                    Les méthodes [\`every\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/every) et [\`some\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/some) retournent, à partir d'un tableau, un booléen indiquant si tous les éléments de départ passent le test de la fonction fournie (\`every\`) ou certains d'entre eux (\`some\`).
+
+                    **Méthodes array.every et array.some :**
+
+                        [1, 2, 3].every(function(number) {
+                          return number > 2;
+                        });
+                        → false
+
+                        [1, 2, 3].some(function(number) {
+                          return number > 2;
+                        });
+                        → true
+                `
+            },
+            {
+                title: "ES6",
+                course: true,
+                description: `
+                    Davantage encore de modifications ont été introduites par ES6 — certaines non supportées par certains navigateurs modernes. Pour les utiliser partout, des polyfill comme Babel, permettent de transpiler (transformer) du code moderne en code compatible tous navigateur, offrant ainsi l'usage des dernières avancées du langage, sans nécessiter l'attente de leur intégration dans tous les navigateurs.
+
+                    ### Les classes
+
+                    Le mot clé \`class\` permet de déclarer des classes et de s'abstraire de l'usage du prototype (qui est toujours utilisé en coulisses). La méthode \`constructor\` stocke le code d'initialisation de l'instance de cette classe. Et le mot clé \`static\` permet de créer des méthodes statiques de classe.
+
+                    **Class, constructor et méthodes statiques :**
+
+                        class Pie {
+                          constructor(fruits, pieces) {
+                            this.fruits = fruits;
+                            this.pieces = pieces;
+                          }
+                          eat() {
+                            if (this.pieces >= 1)
+                              this.pieces--;
+                          }
+                          static favoriteFavour() {
+                            return 'lemon';
+                          }
+                        }
+
+                        var pie = new Pie('apple', 8);
+                        pie.fruits;
+                        → 'apple'
+
+                        Pie.favoriteFavour();
+                        → 'lemon'
+
+                    L'héritage est simplifié avec l'apparition du mot clé \`extends\` et de la méthode \`super\`. Cette dernière fait référence à la méthode (ou au constructeur) du même nom de la classe parent.
+
+                    **Héritage avec extends et super :**
+
+                        class Cake extends Pie {
+                          constructor(fruits, pieces, iceCream) {
+                            super(fruits, 20);
+                            this.iceCream = iceCream;
+                          }
+                        }
+
+                        var chocolateCake = new Cake('nuts', 'vanilla');
+
+                    Attention, les mots clés \`function\` disparaissent de la déclaration des méthodes, ainsi que les virgules séparant deux déclarations.
+                `
+            },
+            {
+                title: "Fat arrows",
+                course: true,
+                description: `
+                    L'opérateur \`=>\`, nommé fat arrow, est un raccourci pour déclarer des fonctions. Si une seule opération est effectuée, les accolades peuvent être omises et le mot clé \`return\` est automatique.
+
+                    **Raccourci fat arrow :**
+
+                        var isOdd = (value) => {
+                          return value % 2 === 0;
+                        }
+                        // alternative declaration
+                        var isOdd = (value) => value % 2 === 0;
+
+                        isOdd(17);
+                        → false
+
+                        isOdd(12);
+                        → true
+
+                    L'opérateur \`=>\` dispose également d'un second intérêt, il \`bind\` le \`this\` du contexte actuel à la fonction invoquée. Plus besoin, donc, de le réaliser soi-même.
+
+                    **Raccourci fat arrow et bind automatique de this :**
+
+                        class Pie {
+                          displayLater() {
+                            var fn = () => {
+                              console.log(15);
+                            };
+
+                            setTimeout(fn, 10);
+                          }
+                        };
+
+                        var applePie = new Pie();
+                        applePie.displayLater();
+                `
+            },
+            {
+                title: "Template strings",
+                course: true,
+                description: `
+                    L'usage du guillemet inversé \` permet de déclarer des templates.
+
+                    **Template strings :**
+
+                        var name = 'Paul', time = 'today';
+                        \`Hello \${name}, how are you \${time}?\`
+                        → "Hello Paul, how are you today?"
+
+                    Ces templates permettent d'écrire des chaînes sur plusieurs lignes (impossibles avec les guillemets simples et doubles), et d'injecter des valeurs de variables avec la syntaxe \`\${variable}\`.
+                `
+            },
+            {
+                title: "Déclaration de variables, let, var et const",
+                course: true,
+                description: `
+                    Deux nouveaux mots clés permettent de déclarer des variables, \`const\` et \`let\`. Le premier permet de déclarer une constante, une variable qui n'acceptera qu'une seule assignation. Les constantes doivent être assignées à leur déclaration et une erreur est levée si une autre valeur leur est assignée par la suite.
+
+                    Le mot clé \`let\` est une réponse aux problèmes posés par la portée de \`var\`. En effet, ce dernier déclare une variable relative à la dernière fonction encapsulante. Cela pose de nombreux problèmes avec les boucles.
+
+                    Le mot clé \`let\` règle ce problème en limitant sa portée à la boucle dans laquelle il se trouve. Ainsi déclarer une variable dans une boucle \`for\` limite sa portée à cette boucle et les fonctions asynchrones invoquées à l'intérieur de cette boucle disposent de la bonne valeur de cette variable, et non de la dernière valeur qu'elle aura reçu.
+
+                    **Scope de var et de let :**
+
+                        for (var i = 0; i < 5; i++)
+                            setTimeout(() => { console.log(i); }, 20);
+                        → 5, 5, 5, 5, 5
+
+                        for (let i = 0; i < 5; i++)
+                            setTimeout(() => { console.log(i); }, 20);
+                        → 0, 1, 2, 3, 4
+
+                    Remplacer \`var\` par \`let\` lors de l'écriture d'un programme est une idée généralement encouragée par la communauté.
+                `
+            },
+            {
+                title: "Les modules",
+                course: true,
+                description: `
+                    La gestion des modules est également intégrée au langage avec les mots clé \`import\` et \`export\`. Le premier permet d'importer un module, le second permet de déclarer un module avec une variable, un objet, des fonctions qui seront visibles lors de son import par un autre module.
+
+                    Cette syntaxe est très proche de celle proposée par AMD et CommonJS.
+
+                    **Export et import de modules :**
+
+                        // saved in numbers.js
+                        export default {
+                          isOdd: function(value) {
+                            return value % 2 === 0;
+                          },
+                          isEven: function(value) {
+                            return value % 2 === 1;
+                          }
+                        }
+
+                        // saved in another file, in the same folder
+                        import numbers from './numbers.js';
+
+                        number.isOdd(17);
+                        → true
+                        number.isEven(17);
+                        → false
+
+                    L'export et l'import de modules sont très flexibles, et plusieurs autres fonctionnalités sont également proposées par ES6. [Des listes sont disponibles](https://github.com/lukehoban/es6features) pour approfondir le sujet.
+
+                    À nouveau, ces fonctionnalités ne sont pas toutes supportées par tous les navigateurs actuels et l'usage d'un polyfill est nécessaire pour s'assurer qu'une application fonctionnera sur chacun d'entre eux.
+                `
+            }
+        ]
+    }, {
+        title: "La qualité logicielle",
+        description: "Une application peut facilement devenir un musée, où chaque pièce, chaque mécanisme, se retrouve derrière une vitrine, rouillé, isolé, par peur qu'à la moindre manipulation, il tombe en miettes.<br><br>Ce chapitre présente des méthodes pour assurer une bonne qualité logicielle.",
+        color: "grey",
+        steps: [
+            {
+                course: true,
+                description: `
+                    Une application peut facilement devenir un musée, où chaque pièce, chaque mécanisme, se retrouve derrière une vitrine, rouillé, isolé, par peur qu'à la moindre manipulation, il tombe en miettes. Manquer de maîtrise sur le comportement des fonctionnalités d'une application peut impliquer des mois, des années de travail pour une modification bénigne, voire l'impossibilité totale de changer les choses.
+
+                    Réfléchir en amont à la qualité d'une application et adopter une méthode au fil de son développement permet de s'assurer qu'elle restera facile à modifier dans le temps et qu'un oeil extérieur ne tombera pas de sa chaise en jetant à un oeil à son code.
+
+                    Il existe de nombreuses approches à la question, voici des pistes populaires :
+
+                    * tester manuellement devient rapidement humainement impossible et sujet à erreur
+                    * pour chaque fonctionnalité, écrire des tests automatisés pour vérifier son fonctionnement
+                    * pour chaque bug, écrire un test automatisé reproduisant le problème et le faire passer
+                    * vérifier le fonctionnement de tous les tests après chaque modification du code, pour s'assurer qu'aucune régression n'a été introduite par celui-ci
+                    * écrire quelques tests d'intégration (boite noire) pour vérifier des parcours utilisateur
+
+                    Et une sélection de valeurs issues du manifeste agile et de l'extrême programming :
+
+                    * découper l'application en sous parties et produire une version fonctionnelle rapidement intégrant le strict nécessaire puis ajouter d'autres fonctionnalités au fur et à mesure
+                    * trouver une solution plus simple que le problème, se focaliser sur un problème spécifique
+                    * développer les points complexes en binôme et faire des revues de code sinon
+                    * échouer rapidement, s'attaquer aux questions difficile la tête la première pour vérifier leur faisabilité, ou la nécessité de s'y prendre autrement
+                `
+            }, {
+                course: true,
+                description: `
+                    ### Les tests unitaires
+
+                    Développer des tests unitaires requiert l'usage d'une librairie dédiée à ce effet. Il en existe de nombreuses, et il en existe de plusieurs familles. Tout d'abord, il y a les runner, des librairies qui gèrent l'exécution et le résultat d'une série de tests, sans offrir d'outils pour effectuer de vérification. Ensuite, il y a les asserter, des librairies qui vérifie si le résultat d'une opération est bien tel qu'attendu. Enfin, il y les mocker, ceux permettant de simuler du comportement, très utilisé pour isoler un composant en configurant tous ceux avec lesquels il communique pour qu'ils fonctionnent d'une manière bien précise.
+
+                    **Tests unitaires :**
+
+                        // "assert" comes from chai library (asserter)
+                        var assert = chai.assert;
+
+                        // "describe" and "it" come from mocha library (runner)
+                        describe('Array indexOf', function() {
+                          it('should return -1 when the value is not present', function () {
+                            assert.equal([1,2,3].indexOf(5), -1);
+                          });
+
+                          it('should return index when the value is present', function () {
+                            assert.equal([1,2,3].indexOf(1), 0);
+                          });
+                        });
+
+                    Pour exécuter ces tests, il est nécessaire d'installer [mocha](https://mochajs.org/) et [chai](http://chaijs.com/), puis, via la ligne de commande d'exécuter la commande \`mocha **/*.js\`. Un résultat visuel sera alors affiché au fur et à mesure de l'exécution des tests indiquant leur résultat.
+
+                    **Résultat des tests :**
+
+                        Array indexOf
+                          ✓ should return -1 when the value is not present
+                          ✗ should return index when the value is present
+                              AssertionError: expected 0, actual 1
+                              at array.test.js:10:12
+
+                          1 passing (22ms)
+                          1 failing
+
+                    Le résultat d'une exécution de tests distingues les tests ayant réussis et ceux ayant échoués. Pour ces derniers, la valeur attendue et celle obtenue sont indiqués, en quoi elle diffèrent et à quelles ligne du test.
+
+                    ### Les tests d'intégration
+
+                    Une autre famille de tests utilisés avec plus de modération est celle des tests boite noire, ou d'intégration. Ils sont constitués d'un navigateur headless (sans affichage utilisateur) dont le but est de simuler les actions d'un internaute (ex. saisir identifiant et mot de passe, valider une commande, etc). [Casper](http://casperjs.org/) et [Nightmare](http://www.nightmarejs.org/) sont deux bonnes réponses à cette problématique.
+                `
+            },
+            {
+                title: "Extreme Programming",
+                course: true,
+                description: `
+                    Extreme programming (xp) est une suite de retours d'expérience sur le métier de développeur qui proposent un ensemble de valeurs et de pratiques. En voici quelques-unes.
+
+                    ### Refactoring
+
+                    Plutôt que de considérer qu'un code qui fonctionne ne doit plus être modifié, le refactoring propose de le remanier régulièrement sans modifier son comportement, afin d'en améliorer la facilité d'accès et l'éventuelle modification future.
+
+                    ### Pair programming
+
+                    Travailler en binôme plutôt que seul devant son écran est souvent très instructif. L'un des deux au clavier, pendant que l'autre relit le code et suggère les prochaines étapes ou certaines améliorations. Ne pas avoir le clavier entre les mains permet aussi d'avoir plus de recul. Un autre format souvent pratiqué par les équipes est la revue de code (ou code review) qui consiste à demander une relecture par un autre dévelopeur de chaque nouvelle fonctionnalité.
+
+                    ### Collective ownership
+
+                    L'équipe est collectivement responsable du code, chaque développeur peut modifier toutes ses portions même celles qu'il n'a pas écrite lui-même. En cas de coup dur en production, l'équipe se sert les coudes et ne rejete pas la faute sur une personne en particulier. Si une personne venait à quitter l'équipe, les autres sont en mesure de continuer à travailler sans perdre le contrôle sur une partie du code.
+
+                    ### Feedback
+
+                    Plus rapidement l'équipe est informée qu'une régression a été introduite dans le code, plus rapidement elle sera en mesure de la corriger. Les tests ont donc nature a été joué rapidement, notamment à l'aide d'une intégration continue qui, à chaque modification, les lance et notifie l'équipe en cas de test en erreur.
+
+                    Si une personne est mal à l'aise à cause d'une situation, elle peut en discuter ouvertement avec les personnes concernées, de façon constructive et bienveillante — rien ne dit que la ou les personnes incriminées l'ont vexé volontairement.
+
+                    ### Courage
+
+                    De nombreuses choses demandent beaucoup de temps, d'attention, et de persévérance, et il est souvent tentant de faire au plus vite pour passer à autre chose, ou de ne pas se tourner vers les autres pour décoincer une situation. Faire preuve de courage en s'attaquant patiemment à un gros problème ou en faisant le maximum preuve de diplomatie porte souvent ses fruits.
+                `
+            }
+        ]
+    }, {
+        title: "Caches et storages",
+        description: "Accélérer la vitesse d'affichage d'un site web est toujours une question importante. Les navigateur et le réseau internet prévoient des outils pour ce faire.<br><br>Ce chapitre présente les mécanisme de cache et de storage des navigateurs et du réseau.",
+        color: "grey",
+        steps: [
+            {
+                course: true,
+                description: `
+                    Le temps que l'utilisateur met à récupérer une application est un critère fondamental. Si l'attente dépasse quelques secondes, il aura l'impression qu'elle ne fonctionne pas et quittera la page.
+
+                    Ce temps est déterminé par plusieurs critères :
+
+                    * le temps pour résoudre le nom de domaine (~10ms via DNS, Domain Name System)
+                    * le temps de télécharger l'application (plus le poids de celle-ci est élevé, plus ce sera long)
+                    * le temps de latence, c'est à dire le temps que la requête arrive au serveur hébergeant le site et le temps que celui-ci réponde (~150ms pour qu'une requête traverse l'atlantique)
+                    * le nombre de requêtes nécessaires à la récupération de l'application (chacune d'entre elles à un coût d'établissement et une latence)
+
+                    Pour diminuer ce temps, il est donc nécessaire de :
+
+                    * diminuer la taille d'une application en minifiant ses sources (grâce à un outil)
+                    * diminuer la latence en hébergeant l'application proche de la localisation de l'utilisateur
+                    * diminuer le nombre de requêtes en regroupant les fichiers
+                    * diminuer le nombre de requêtes en utilisant le cache réseau et le cache navigateur
+                `
+            },
+            {
+                title: "Les caches",
+                course: true,
+                description: `
+                    Losqu'une ressource est accédé par un navigateur, celui-ci va d'abord vérifier s'il n'en dispose pas déjà d'une copie en cache. En effet, lorsqu'un serveur communique un fichier à un navigateur, il indique sa durée de vie (via le header \`Expires\` et une date d'expiration dans le futur). L'onglet Network du navigateur indique quelles ressources ont été récupérées sur le serveur et quelles autres étaient déjà en cache (statut 304), et jusqu'à quand.
+
+                    Il est courant de mettre en cache tous les scripts, toutes les images et tous les styles. Ainsi, un utilisateur utilisant pour la seconde fois une application n'aura presqu'aucune donnée à télécharger avant que la page ne s'affiche.
+
+                    Les différents équipements sur lesquels véhiculent ces données stockent également une copie en cache si elle est indiquée comme telle — profitant ainsi aux proches sur le réseau.
+                    Les caches peuvent poser un problème si l'on souhaite remplacer la version d'une application qui a été sauvegardée sur le navigateur de l'utilisateur. Il n'est décemment pas possible de lui demander de vider son cache manuellement. Pour ce faire, les fichiers sont souvent suffixés par une date (app.20160110.js par exemple), ainsi, si une nouvelle version est livrée, il suffit de lui donner une date différente pour que le navigateur de l'utilisateur détecte qu'il ne l'a pas en cache et récupère une copie fraîche.
+
+                    Les CDN (Content Delivery Network) sont des machines réparties sur le territoire dupliquant les mêmes fichiers pour les servir le plus rapidement possible aux navigateurs. Il est possible d'en louer pour ses propres usages ([Akamai](https://www.akamai.com/) ou [CloudFront](http://aws.amazon.com/cloudfront), par exemple). Les librairies populaires sont quant à elles disponible sur [cdnjs](https://cdnjs.com/).
+                `
+            },
+            {
+                title: "Le local storage",
+                course: true,
+                description: `
+                    Depuis peu, les navigateurs embarque une base de données simplifiée pour conserver des données entre deux pages du même site ou entre plusieurs sessions du même utilisateur (une session s'achève quand la page est fermée).
+
+                    **Sauvegarde et accès au local storage :**
+
+                        localStorage.setItem('beatles', ['Paul', 'John', 'George', 'Ringo']);
+                        localStorage.getItem('submarine');
+                        → 'Paul,John,George,Ringo'
+
+                    Les données y sont stockées sous la forme clé valeur. Clé et valeur sous la forme de chaînes de caractères (un object devra donc être \`stringify\` avant d'y être stocké).
+
+                    Une documentation détaillée est disponible sur le [local storage](https://developer.mozilla.org/en/docs/Web/API/Window/localStorage) pour plus de détails.
+                `
+            }
+        ]
+    }, {
+        title: "Les modules",
+        description: "Les applications JavaScript font souvent des dixaines de millier de lignes. Il est donc nécessaire de les découper en flusieurs fichiers ou modules.<br><br>Ce chapitre présente les modules et les différents outils associés.",
+        color: "grey",
+        steps: [
+            {
+                title: "La modularité",
+                course: true,
+                description: `
+                    Il est impensable d'écrire une application complexe dans un seul fichier JavaScript. Au delà d'une centaine de ligne, un fichier devient difficile à lire et à maintenir. Il est donc nécessaire de découper une application en plusieurs parties, souvent nommées modules.
+
+                    Une solution naïve consiste à importer chaque fichier ainsi créé dans la page HTML en respectant un ordre précis, puisque certains d'entre eux peuvent dépendre d'autres.
+
+                    Une solution viable consiste à isoler chaque classe ou composant d'une application dans un fichier et de rendre cette classe ou composant accessibles aux autres via un registre. Le chapitre B aborde ce sujet plus en détails.
+                `
+            },
+            {
+                course: true,
+                description: `
+                    Découper une application en plusieurs composants facilite sa compréhension, sa maintenance, et ses tests. L'option standard de découpe est l'ajout de plusieurs balises \`<script>\` dans un fichier HTML, les unes à la suite des autres. Dans l'ordre d'exécution. La première créant des composants utilisable par les suivantes et ainsi de suite.
+
+                    Cela présente trois défauts majeurs :
+
+                    * pour partager une variable entre deux \`<script>\` il est nécessaire de l'ajouter dans le namespace global, c'est à dire d'en faire un attribut de \`window\`. En plus de créer rapidement un sac de noeud (nommer de façon unique chaque variable est sujet à erreur), cela contraint à partager tous les composants les uns avec les autres, alors que certains d'entre eux ne devraient être accessibles qu'à un ou deux autres.
+                    * l'ordre d'ajout est important, chaque composant doit être ajouté dans le fichier HTML avant ceux qui l'utilise et en cas de changement, il faut réordonner le tout.
+                    * pour livrer ces composants, il sera nécessaire de rassembler tous les composants dans un fichier minifié, une manipulation manuelle.
+
+                    Des gestionnaires de modules sont apparus pour faciliter cette tâche. Ils proposent de répartir un module par fichier puis offrent la possibilité de charger un module dans d'autres. Ils proposent enfin de créer un livrable minifié automatiquement. Le doyen d'entre eux se nomme [require](http://requirejs.org/), et ses camarades sont [browserify](http://browserify.org/), [webpack](https://webpack.js.org/) et [system](https://github.com/systemjs/systemjs). Le plus prometteur d'entre eux, étant [l'intégration au langage des modules](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Statements/import).
+
+                    En effet, le langage intégrera bientôt cette possibilité — une demande forte des développeurs — et remplacera les gestionnaires de modules à terme. En attendant que ce soit le cas, ces outils utilisent la future syntaxe afin de permettre, quand tous les navigateurs l'auront intégré, de ne pas avoir à modifier le code (ou très peu) d'une application ainsi découpée en composants.
+
+                    **Export et import de modules :**
+
+                        // saved in numbers.js
+                        module.exports = {
+                          isOdd: function(value) {
+                            return value % 2 === 0;
+                          },
+                          isEven: function(value) {
+                            return value % 2 === 1;
+                          }
+                        }
+
+                        // saved in another file, in the same folder
+                        var numbers = require('./numbers.js');
+
+                        number.isOdd(17);
+                        → true
+                        number.isEven(17);
+                        → false
+                `
+            },
+            {
+                course: true,
+                description: `
+                    Il existe deux formats principaux de définition de modules, [AMD](https://webpack.github.io/docs/amd.html) et [CommonJS](https://webpack.js.org/api/module-methods/#commonjs). Le second (celui illustré ci-dessus) a été retenu dans Node.js puis par la norme ECMAScript 6, et tous les gestionnaires de modules permettent de l'utiliser.
+
+                    L'usage de ces gestionnaires est relativement simple. Un fichier de configuration indique quel fichier est le point d'entrée de l'application et comment doit s'appeler le bundle, le fichier minifé, regroupant tous les composants.
+
+                    **Configuration de webpack, fichier webpack.config.js :**
+
+                        {
+                            entry: "./app.js",
+                            output: {
+                                path: __dirname + "/dist",
+                                filename: "bundle.js"
+                            }
+                        }
+
+                    Ensuite, chaque composant isolé dans son propre fichier, peut accéder aux autres modules à l'aide de la méthode \`require('path')\` en indiquant le chemin relatif du fichier à accéder à partir de son propre chemin. Enfin, ce composant peut exposer des variables et des fonctions aux autres en utilisant \`module.exports\` (comme une fonction utilise un \`return\`).
+
+                    Ces gestionnaire offre des outils pour faciliter le développement (pour générer le bundle à chaque modification par exemple) puis permet de générer le livrable, un fichier minifié.
+                `
             }
         ]
     }
@@ -3825,7 +5342,7 @@ let stepper = function(el, data, methods) {
                             <div class="extra content">
                                 <div class="ui stackable grid">
                                     <div class="eight wide tablet eleven wide computer column">
-                                        <span class="hidden" data-hook="error"><i class="remove circle icon"></i><span data-hook="error-label"></span></span>
+                                        <span class="hidden error-content" data-hook="error"><i class="remove circle icon"></i><span data-hook="error-label"></span></span>
                                     </div>
                                     <div class="eight wide tablet five wide computer right aligned column">
                                         <button class="ui ${chapterContent.color} button" data-hook="validate">Vérifier</button>
@@ -3918,7 +5435,7 @@ let stepper = function(el, data, methods) {
 
                     if (complete) {
                         completed(chapter, step);
-                        el.querySelector(`.h-steps li:nth-child(${step})`).classList.toggle('complete');
+                        el.querySelector(`.h-steps li:nth-child(${step})`).classList.add('complete');
                     }
 
                     this.methods.renderDom.call(this);
@@ -3978,7 +5495,7 @@ let stepper = function(el, data, methods) {
                         <a class="ui ${chapterContent.color} ribbon label">
                             <i class="bug icon"></i>Solution
                         </a>
-                        <p><pre><code class="hidden">${stepContent.solved}</code></pre></p>`;
+                        <p><pre><code class="hidden javascript">${stepContent.solved}</code></pre></p>`;
 
                     el.querySelector('[data-hook=divulge] .ribbon').addEventListener('click', function() {
                         this.parentNode.querySelector('code').classList.toggle('hidden');
