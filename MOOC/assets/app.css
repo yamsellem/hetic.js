@@ -106,9 +106,13 @@ h3 {
 .h-glossary .ui.tabular.menu .active.item {
     background: none;
     border: none;
+    font-size: 18px;
+    color: #767676;
 }
 .h-glossary .ui.tabular.menu .item:not(.active) {
     cursor: pointer;
+    font-size: 18px;
+    color: #767676;
 }
 .h-glossary .ui.tabular.menu + .content p {
     margin-bottom: 0;
@@ -123,6 +127,7 @@ h3 {
     .h-glossary .ui.tabular.menu .item {
         flex-direction: column;
         text-align: center;
+        font-size: 14px !important;
     }
     .ui.stackable.grid {
         margin-left: -1rem!important;
