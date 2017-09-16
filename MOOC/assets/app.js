@@ -5858,6 +5858,9 @@ let stepper = function(el, data, methods) {
                 el.querySelector('[data-hook=next]').classList.toggle('disabled');
                 stepContent.description
             }
+
+            this.methods.reset.call(this);
+            this.methods.glossary.call(this);
         },
         methods: {
             isDone: function(_step) {
@@ -5915,8 +5918,6 @@ let stepper = function(el, data, methods) {
                 this.methods.reload.call(this, noWarning);
                 this.methods.divulge.call(this);
                 this.methods.highlight.call(this);
-                this.methods.reset.call(this);
-                this.methods.glossary.call(this);
             },
             warn: function() {
                 let warning = 'Réponse incorrecte';

@@ -421,7 +421,7 @@ h3 {
     box-shadow: 0 1px 3px 0 #D4D4D5, 0 0 0 1px #D4D4D5;
 }
 .booking .ui.grey.card .content {
-    padding: 0;
+    padding: 0 1em;
 }
 .booking .ui.grey.card .header {
     line-height: 70px;
