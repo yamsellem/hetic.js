@@ -69,20 +69,66 @@ h3 {
 
 .top.right.attached.labels {
     position: absolute;
+    right: -1px;
+    top: -20px;
+    z-index: 2;
+}
+.top.right.attached.labels .ui.basic.button {
+    margin: 0;
+}
+.top.right.attached.labels .ui.basic.button.active {
+    background: white !important;
+}
+
+.h-glossary {
+    position: absolute;
+    z-index: 1;
+    top: -17px;
+    bottom: 0;
     right: 0;
-    top: 0;
+    left: 0;
+    background: #EDEFF0;
 }
-.top.right.attached.labels .ui.basic.label {
+.h-glossary .ui.card {
+    border-radius: 0;
+    min-height: 100%;
+    box-shadow: none;
+}
+.h-glossary .ui.card .content {
+    box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+    border-radius: 0 !important;
+}
+.h-glossary .ui.tabular.menu {
+    justify-content: center;
+    height: 55px;
+    background: #EDEFF0;
+}
+.h-glossary .ui.tabular.menu .active.item {
     background: none;
-    border-radius: .3rem;
-    color: #767676;
+    border: none;
 }
-.top.right.attached.labels .ui.basic.label:last-child {
-    margin-right: 0;
+.h-glossary .ui.tabular.menu .item:not(.active) {
+    cursor: pointer;
 }
-.top.right.attached.labels .ui.basic.label > .icon {
-    margin: 0 .5em 0 0;
-    color: #767676;
+.h-glossary .ui.tabular.menu + .content p {
+    margin-bottom: 0;
+}
+.h-glossary .ui.tabular.menu + .content pre {
+    margin-top: 0;
+}
+@media only screen and (max-width: 767px) {
+    .h-glossary .ui.tabular.menu {
+        height: auto;
+    }
+    .h-glossary .ui.tabular.menu .item {
+        flex-direction: column;
+        text-align: center;
+    }
+    .ui.stackable.grid {
+        margin-left: -1rem!important;
+        margin-right: -1rem!important;
+        padding: 0 1rem;
+    }
 }
 
 .ui.header .icon:only-child {
@@ -171,11 +217,12 @@ h3 {
 .ui.card.h-colored > .content:first-child ul + .ui.button {
     transition: background-color 0.5s;
     position: absolute;
-    right: 6px;
-    top: 6px;
+    right: 9px;
+    top: 9px;
 }
 .ui.card.h-colored > .content:first-child ul + .ui.button.red {
-    backgroud-color: #DB2B1E
+    background: #DB2B1E;
+    box-shadow: 0 0 0 2px white inset!important;
 }
 .ui.card > .extra {
     color: #DB2B1E;
