@@ -23,6 +23,7 @@ code.no-highlight {
     font-weight: normal;
     padding: 1px 6px;
     vertical-align: baseline;
+    white-space: pre;
 }
 
 code.hljs { display: inline; padding:.4em }
@@ -30,7 +31,7 @@ pre > code.hljs { display: block; }
 
 body {
     background-color: #EDEFF0;
-    margin-top: 20px;
+    padding-top: 20px;
 }
 
 ul {
@@ -166,6 +167,15 @@ h3 {
 }
 .ui.card.h-colored > .content:first-child li.complete {
     background-color: white;
+}
+.ui.card.h-colored > .content:first-child ul + .ui.button {
+    transition: background-color 0.5s;
+    position: absolute;
+    right: 6px;
+    top: 6px;
+}
+.ui.card.h-colored > .content:first-child ul + .ui.button.red {
+    backgroud-color: #DB2B1E
 }
 .ui.card > .extra {
     color: #DB2B1E;

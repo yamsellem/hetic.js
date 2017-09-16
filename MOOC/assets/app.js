@@ -47,6 +47,10 @@ let equalsContent = function(a, b) {
     return JSON.stringify(a.slice(0).sort()) === JSON.stringify(b.slice(0).sort());
 }
 
+let basicWarn = function(actual, expected) {
+    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(actual) + "</code> et non la résultat attendu, <code>" + expected + "</code>";
+}
+
 // DOM
 
 let cartman = [
@@ -609,7 +613,7 @@ let chapters = [
                     return this.x + this.y;
                 },
                 warn: function() {
-                    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + this.secret() + "</code>";
+                    return basicWarn(secret, this.secret());
                 },
                 answer: function() {
                     return secret === this.secret();
@@ -628,7 +632,7 @@ let chapters = [
                     return this.x + ' ' + this.y;
                 },
                 warn: function() {
-                    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + this.secret() + "</code>";
+                    return basicWarn(secret, this.secret());
                 },
                 answer: function() {
                     return secret === this.secret();
@@ -647,7 +651,7 @@ let chapters = [
                     return parseInt(this.x / this.y, 10);
                 },
                 warn: function() {
-                    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + this.secret() + "</code>";
+                    return basicWarn(secret, this.secret());
                 },
                 answer: function() {
                     return secret === this.secret();
@@ -703,7 +707,7 @@ let chapters = [
                     return Math.max(this.x, this.y);
                 },
                 warn: function() {
-                    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + this.secret() + "</code>";
+                    return basicWarn(secret, this.secret());
                 },
                 answer: function() {
                     return secret === this.secret();
@@ -722,7 +726,7 @@ let chapters = [
                     return this.x.length > this.y.length ? this.x : this.y;
                 },
                 warn: function() {
-                    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + this.secret() + "</code>";
+                    return basicWarn(secret, this.secret());
                 },
                 answer: function() {
                     return secret === this.secret();
@@ -741,7 +745,7 @@ let chapters = [
                     return this.x + this.y > 100;
                 },
                 warn: function() {
-                    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + this.secret() + "</code>";
+                    return basicWarn(secret, this.secret());
                 },
                 answer: function() {
                     return secret === this.secret();
@@ -785,7 +789,7 @@ let chapters = [
                     return this.x > 10 && this.y > 10;
                 },
                 warn: function() {
-                    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + this.secret() + "</code>";
+                    return basicWarn(secret, this.secret());
                 },
                 answer: function() {
                     return secret === this.secret();
@@ -803,7 +807,7 @@ let chapters = [
                     return this.x > 10 || this.y > 10;
                 },
                 warn: function() {
-                    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + this.secret() + "</code>";
+                    return basicWarn(secret, this.secret());
                 },
                 answer: function() {
                     return secret === this.secret();
@@ -860,7 +864,7 @@ let chapters = [
                     return result;
                 },
                 warn: function() {
-                    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + this.secret() + "</code>";
+                    return basicWarn(secret, this.secret());
                 },
                 answer: function() {
                     return secret === this.secret();
@@ -878,7 +882,7 @@ let chapters = [
                     return this.x.replace(/[e]+/g, '');
                 },
                 warn: function() {
-                    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + this.secret() + "</code>";
+                    return basicWarn(secret, this.secret());
                 },
                 answer: function() {
                     return secret === this.secret();
@@ -899,7 +903,7 @@ let chapters = [
                     return result;
                 },
                 warn: function() {
-                    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + this.secret() + "</code>";
+                    return basicWarn(secret, this.secret());
                 },
                 answer: function() {
                     return secret === this.secret();
@@ -984,7 +988,7 @@ let chapters = [
                     return [this.x, this.y];
                 },
                 warn: function() {
-                    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + this.secret() + "</code>";
+                    return basicWarn(secret, this.secret());
                 },
                 answer: function() {
                     return equals(secret, this.secret());
@@ -1048,7 +1052,7 @@ let chapters = [
                     return [].concat(this.x, this.y);
                 },
                 warn: function() {
-                    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + this.secret() + "</code>";
+                    return basicWarn(secret, this.secret());
                 },
                 answer: function() {
                     return equals(secret, this.secret());
@@ -1110,7 +1114,7 @@ let chapters = [
                     return this.x.map(function(item) { return item * 2; });
                 },
                 warn: function() {
-                    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + this.secret() + "</code>";
+                    return basicWarn(secret, this.secret());
                 },
                 answer: function() {
                     return equals(secret, this.secret());
@@ -1148,7 +1152,7 @@ let chapters = [
                     return this.x.reduce(function(memo, value) { return memo + value; }, 0);
                 },
                 warn: function() {
-                    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + this.secret() + "</code>";
+                    return basicWarn(secret, this.secret());
                 },
                 answer: function() {
                     return secret === this.secret();
@@ -2930,7 +2934,7 @@ let chapters = [
         ]
     },  {
         title: "Composant | Todolist",
-        description: "Les approches MV* (modèle, vue & co) facilite la création d'applications et leur maintenance. Un modèle stocke l'état de l'application (ex. un panier). Les vues affichent les informations d'un modèle et le modifient.<br><br>Ce chapitre présente la réalisation d'une liste de tâches pas à pas avec une approche MV*.",
+        description: "Les approches MV* (modèle, vue & co) structurent les applications. Un modèle stocke l'état de l'application (ex. un panier). Les vues affichent les informations d'un modèle et le modifient.<br><br>Ce chapitre présente la réalisation d'une liste de tâches pas à pas avec une approche MV*.",
         color: "violet",
         steps: [
             {
@@ -4214,7 +4218,7 @@ let chapters = [
 
                     L'utilisation la plus simple d'une expression régulière est équivalente à la méthode indexOf des String recherchant la première occurrence d'un pattern dans un texte.
 
-                    **Expressions régulières, usage simple, équivalent à indexOf :**
+                    **Expressions régulières, usage simple (équivalent à indexOf) :**
 
                         'we all live in a yellow submarine'.indexOf('in')
                         → 12
@@ -4236,7 +4240,11 @@ let chapters = [
                     * « { » et « } » indique que le caractère précédent doit être répété un certain nombre de fois
                     * « ^ » indique que le pattern doit commencer par le caractère qui suit
                     * « $ » indique que le pattern doit se conclure par le caractère qui suit
-
+                `
+            },
+            {
+                course: true,
+                description: `
                     **Expressions régulières avec caractères spéciaux :**
 
                         'we all live in a yellow submarine'.match(/sub.*in/)
@@ -4248,10 +4256,13 @@ let chapters = [
                         'we all live in a yellow submarine'.match(/l{2}/)
                         → ['ll']
 
+                        'we all live in a yellow submarine'.replace(/l/, '')
+                        → 'we al live in a yellow submarine'
+
                     Par défaut, la recherche du pattern s'effectue uniquement sur la première occurrence de celui-ci et en respectant la casse (majuscule et minuscule sont différentes). Les flags qu'il est possible d'indiquer à l'expression permettent de modifier cela :
 
                     * « g » indique de chercher pour toutes les occurrences du pattern
-                    * « i » indique d'être insensible à la casse
+                    * « i » indique d'être insensible à la casse (majuscules / miniscules)
 
                     **Expressions régulières avec flags :**
 
@@ -4264,8 +4275,133 @@ let chapters = [
                         'we all live in a yellow submarine'.match(/SU./i)
                         → ['sub']
 
-                    Une documentation détaillée est disponible sur les [RegExp](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/RegExp) pour plus de détails.
+                        'we all live in a yellow submarine'.replace(/l/g, '')
+                        → 'we a ive in a yeow submarine'
+
+                    Une documentation détaillée est disponible sur les [RegExp](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/RegExp) pour plus de détails. Et [un excellent outil](https://regex101.com/) en ligne pour les tester et mieux les appréhender.
                 `
+            },
+            {
+                title: "Supprimer toutes les occurences d'une lettre",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de <code>x</code> (<i>déclarée par ce tutoriel</i>) dont toutes les lettres <code>e</code> ont été retirées.",
+                solved: "var secret = x.replace(/e/ig, '');",
+                init: function() {
+                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                },
+                secret: function() {
+                    return this.x.replace(/e/ig, '');
+                },
+                warn: function() {
+                    return basicWarn(secret, this.secret());
+                },
+                answer: function() {
+                    return secret === this.secret();
+                }
+            },
+            {
+                title: "Identifier si une chaine de caractères contient un pattern",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter <code>true</code> si la valeur de <code>x</code> (<i>déclarée par ce tutoriel</i>) contient la pattern <code>en.</code> ou <code>.</code> correspond à un caractère quelconque. Lui affecter <code>false</code> sinon.",
+                solved: "var secret = /en./i.test(x);",
+                init: function() {
+                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                },
+                secret: function() {
+                    return /en./i.test(this.x);
+                },
+                warn: function() {
+                    return basicWarn(secret, this.secret());
+                },
+                answer: function() {
+                    return secret === this.secret();
+                }
+            },
+            {
+                title: "Identifier combien de fois une chaine de caractères contient un pattern",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter le compte de <code>e</code> contenus dans la chaine de caractères déclarée par <code>x</code> (<i>déclarée par ce tutoriel</i>).",
+                solved: "var match = x.match(/e/ig);<br>var secret = !match ? 0 : match.length;",
+                init: function() {
+                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                },
+                secret: function() {
+                    var match = this.x.match(/e/ig);
+                    return !match ? 0 : match.length;
+                },
+                warn: function() {
+                    return basicWarn(secret, this.secret());
+                },
+                answer: function() {
+                    return secret === this.secret();
+                }
+            },
+            {
+                title: "Déclarer un pattern dynamique",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter <code>true</code> si le pattern déclaré par <code>y</code> est contenu dans la valeur de <code>x</code> (<i>déclarées par ce tutoriel</i>).",
+                solved: "var secret = new RegExp(y).test(x);",
+                init: function() {
+                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                    window.y = this.y = randomize("en.", "e.*d", "e?t")
+                },
+                secret: function() {
+                    return new RegExp(this.y).test(this.x);
+                },
+                warn: function() {
+                    return basicWarn(secret, this.secret());
+                },
+                answer: function() {
+                    return secret === this.secret();
+                }
+            },
+            {
+                title: "Déclarer un pattern conditonnel",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de <code>x</code> (<i>déclarée par ce tutoriel</i>) dont tous les <code>to</code>, <code>at</code>, <code>in</code> et <code>is</code> ont été retirés (de préférence, avec une seule expression régulière).",
+                solved: "var secret = x.replace(/(to|at|in|is)/ig, '');",
+                init: function() {
+                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                },
+                secret: function() {
+                    return this.x.replace(/(to|at|in|is)/g, '');
+                },
+                warn: function() {
+                    return basicWarn(secret, this.secret());
+                },
+                answer: function() {
+                    return secret === this.secret();
+                }
+            },
+            {
+                title: "Déclarer un pattern avec des groupes",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de <code>x</code> (<i>déclarée par ce tutoriel</i>) dont chaque <code>e</code> a été remplacé par <code>-e-</code> à condition qu'il soit précédé et suivi d'une lettre (et pas d'une espace — de préférence, avec une seule expression régulière).",
+                solved: "var secret = x.replace(/(\w)e(\w)/ig, '$1-e-$2');",
+                init: function() {
+                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                },
+                secret: function() {
+                    return this.x.replace(/(\w)e(\w)/ig, '$1-e-$2');
+                },
+                warn: function() {
+                    return basicWarn(secret, this.secret());
+                },
+                answer: function() {
+                    return secret === this.secret();
+                }
+            },
+            {
+                title: "Déclarer un pattern non glouton",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter le compte de <code><strong>...</strong></code> contenus dans la chaine de caractères déclarée par <code>x</code> (<i>déclarée par ce tutoriel</i>) ou <code>...</code> correspond à un ou plusieurs caractères quelconques.",
+                solved: "var match = x.match(/&lt;strong&gt;.*?&lt;\\/strong&gt;/g);<br>var secret = !match ? 0 : match.length;",
+                init: function() {
+                    window.x = this.x = randomize("I used to <strong>get</strong> mad at my school (No I <strong>can't</strong> complain)", "Lucy in the <strong>sky</strong> with <strong>diamonds</strong>", "And in the end, the love you <strong>take</strong> is equal to the love you <strong>make</strong>", "Sit <strong>back</strong> and let the evening <strong>go</strong>");
+                },
+                secret: function() {
+                    var match = this.x.match(/<strong>.*?<\/strong>/g);
+                    return !match ? 0 : match.length;
+                },
+                warn: function() {
+                    return basicWarn(secret, this.secret());
+                },
+                answer: function() {
+                    return secret === this.secret();
+                }
             }
         ]
     }, {
@@ -4988,7 +5124,7 @@ let chapters = [
         ]
     }, {
         title: "La qualité logicielle",
-        description: "Une application peut facilement devenir un musée, où chaque pièce, chaque mécanisme, se retrouve derrière une vitrine, rouillé, isolé, par peur qu'à la moindre manipulation, il tombe en miettes.<br><br>Ce chapitre présente des méthodes pour assurer une bonne qualité logicielle.",
+        description: "Une application peut devenir un musée, où chaque pièce, chaque mécanisme, se retrouve derrière une vitrine, rouillé, isolé, par peur qu'à la moindre manipulation, il tombe en miettes.<br><br>Ce chapitre présente des méthodes pour assurer une bonne qualité logicielle.",
         color: "grey",
         steps: [
             {
@@ -5299,6 +5435,7 @@ let stepper = function(el, data, methods) {
     let completed = methods.completed;
     let nextChapter = methods.nextChapter;
     let nextStep = methods.nextStep;
+    let resetChapter = methods.resetChapter;
 
     let chapterContent = chapters[chapter - 1];
     let stepContent = chapters[chapter - 1].steps[step - 1];
@@ -5328,6 +5465,7 @@ let stepper = function(el, data, methods) {
                         <div class="ui fluid card h-colored h-${chapterContent.color}">
                             <div class="content">
                                 <ul class="h-steps">${lis}</ul>
+                                <button class="ui inverted basic right floated button" data-hook="reset">Réinitialiser</button>
                             </div>
                             <div class="content">
                                 ${title}
@@ -5449,6 +5587,7 @@ let stepper = function(el, data, methods) {
                 this.methods.reload.call(this, noWarning);
                 this.methods.divulge.call(this);
                 this.methods.highlight.call(this);
+                this.methods.reset.call(this);
             },
             warn: function() {
                 let warning = 'Réponse incorrecte';
@@ -5501,6 +5640,24 @@ let stepper = function(el, data, methods) {
                         this.parentNode.querySelector('code').classList.toggle('hidden');
                     });
                 }
+            },
+            reset: function() {
+                el.querySelector('[data-hook=reset]').addEventListener('click', function() {
+                    if (this.classList.contains('red')) {
+                        resetChapter(chapter);
+                        jump(1);
+                    } else {
+                        this.classList.remove('inverted', 'basic');
+                        this.classList.add('red');
+                        this.innerHTML = 'Réinitialiser ce chapitre ?';
+
+                        setTimeout(function() {
+                            this.classList.add('inverted', 'basic');
+                            this.classList.remove('red');
+                            this.innerHTML = 'Réinitialiser';
+                        }.bind(this), 3000);
+                    }
+                });
             }
         }
     }
@@ -5568,6 +5725,10 @@ let app = {
             this.data.step ? localStorage.setItem('step', this.data.step) : localStorage.removeItem('step');
             this.data.chapter ?  localStorage.setItem('chapter', this.data.chapter) : localStorage.removeItem('chapter');
             this.render();
+        },
+        resetChapter: function(chapter) {
+            this.data.completion[chapter] = {};
+            localStorage.setItem('completion', JSON.stringify(this.data.completion));
         }
     }
 }
