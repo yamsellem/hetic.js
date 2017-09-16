@@ -5686,7 +5686,7 @@ let app = {
         enter: function(chapter) {
             this.data.digest = false;
             this.data.chapter = chapter;
-            this.data.step = Math.min(Math.max.apply(null, Object.keys(this.data.completion[chapter] || {0: true})) + 1, chapters[chapter - 1].steps.length);
+            this.data.step = Math.min(Math.max.apply(null, Object.keys(Object.assign({0: true}, this.data.completion[chapter]))) + 1, chapters[chapter - 1].steps.length);
 
             this.methods.updateProgress.call(this);
         },
@@ -5727,7 +5727,7 @@ let app = {
             this.render();
         },
         resetChapter: function(chapter) {
-            this.data.completion[chapter] = {};
+            delete this.data.completion[chapter];
             localStorage.setItem('completion', JSON.stringify(this.data.completion));
         }
     }
