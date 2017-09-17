@@ -4,7 +4,7 @@
 (function() {
 
 /*! highlight.js v9.12.0 */
-!function(e){var n="object"==typeof window&&window||"object"==typeof self&&self;"undefined"!=typeof exports?e(exports):n&&(n.hljs=e({}),"function"==typeof define&&define.amd&&define([],function(){return n.hljs}))}(function(e){function n(e){return e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}function t(e){return e.nodeName.toLowerCase()}function r(e,n){var t=e&&e.exec(n);return t&&0===t.index}function a(e){return k.test(e)}function i(e){var n,t,r,i,o=e.className+" ";if(o+=e.parentNode?e.parentNode.className:"",t=B.exec(o))return w(t[1])?t[1]:"no-highlight";for(o=o.split(/\s+/),n=0,r=o.length;r>n;n++)if(i=o[n],a(i)||w(i))return i}function o(e){var n,t={},r=Array.prototype.slice.call(arguments,1);for(n in e)t[n]=e[n];return r.forEach(function(e){for(n in e)t[n]=e[n]}),t}function u(e){var n=[];return function r(e,a){for(var i=e.firstChild;i;i=i.nextSibling)3===i.nodeType?a+=i.nodeValue.length:1===i.nodeType&&(n.push({event:"start",offset:a,node:i}),a=r(i,a),t(i).match(/br|hr|img|input/)||n.push({event:"stop",offset:a,node:i}));return a}(e,0),n}function c(e,r,a){function i(){return e.length&&r.length?e[0].offset!==r[0].offset?e[0].offset<r[0].offset?e:r:"start"===r[0].event?e:r:e.length?e:r}function o(e){function r(e){return" "+e.nodeName+'="'+n(e.value).replace('"',"&quot;")+'"'}s+="<"+t(e)+E.map.call(e.attributes,r).join("")+">"}function u(e){s+="</"+t(e)+">"}function c(e){("start"===e.event?o:u)(e.node)}for(var l=0,s="",f=[];e.length||r.length;){var g=i();if(s+=n(a.substring(l,g[0].offset)),l=g[0].offset,g===e){f.reverse().forEach(u);do c(g.splice(0,1)[0]),g=i();while(g===e&&g.length&&g[0].offset===l);f.reverse().forEach(o)}else"start"===g[0].event?f.push(g[0].node):f.pop(),c(g.splice(0,1)[0])}return s+n(a.substr(l))}function l(e){return e.v&&!e.cached_variants&&(e.cached_variants=e.v.map(function(n){return o(e,{v:null},n)})),e.cached_variants||e.eW&&[o(e)]||[e]}function s(e){function n(e){return e&&e.source||e}function t(t,r){return new RegExp(n(t),"m"+(e.cI?"i":"")+(r?"g":""))}function r(a,i){if(!a.compiled){if(a.compiled=!0,a.k=a.k||a.bK,a.k){var o={},u=function(n,t){e.cI&&(t=t.toLowerCase()),t.split(" ").forEach(function(e){var t=e.split("|");o[t[0]]=[n,t[1]?Number(t[1]):1]})};"string"==typeof a.k?u("keyword",a.k):x(a.k).forEach(function(e){u(e,a.k[e])}),a.k=o}a.lR=t(a.l||/\w+/,!0),i&&(a.bK&&(a.b="\\b("+a.bK.split(" ").join("|")+")\\b"),a.b||(a.b=/\B|\b/),a.bR=t(a.b),a.e||a.eW||(a.e=/\B|\b/),a.e&&(a.eR=t(a.e)),a.tE=n(a.e)||"",a.eW&&i.tE&&(a.tE+=(a.e?"|":"")+i.tE)),a.i&&(a.iR=t(a.i)),null==a.r&&(a.r=1),a.c||(a.c=[]),a.c=Array.prototype.concat.apply([],a.c.map(function(e){return l("self"===e?a:e)})),a.c.forEach(function(e){r(e,a)}),a.starts&&r(a.starts,i);var c=a.c.map(function(e){return e.bK?"\\.?("+e.b+")\\.?":e.b}).concat([a.tE,a.i]).map(n).filter(Boolean);a.t=c.length?t(c.join("|"),!0):{exec:function(){return null}}}}r(e)}function f(e,t,a,i){function o(e,n){var t,a;for(t=0,a=n.c.length;a>t;t++)if(r(n.c[t].bR,e))return n.c[t]}function u(e,n){if(r(e.eR,n)){for(;e.endsParent&&e.parent;)e=e.parent;return e}return e.eW?u(e.parent,n):void 0}function c(e,n){return!a&&r(n.iR,e)}function l(e,n){var t=N.cI?n[0].toLowerCase():n[0];return e.k.hasOwnProperty(t)&&e.k[t]}function p(e,n,t,r){var a=r?"":I.classPrefix,i='<span class="'+a,o=t?"":C;return i+=e+'">',i+n+o}function h(){var e,t,r,a;if(!E.k)return n(k);for(a="",t=0,E.lR.lastIndex=0,r=E.lR.exec(k);r;)a+=n(k.substring(t,r.index)),e=l(E,r),e?(B+=e[1],a+=p(e[0],n(r[0]))):a+=n(r[0]),t=E.lR.lastIndex,r=E.lR.exec(k);return a+n(k.substr(t))}function d(){var e="string"==typeof E.sL;if(e&&!y[E.sL])return n(k);var t=e?f(E.sL,k,!0,x[E.sL]):g(k,E.sL.length?E.sL:void 0);return E.r>0&&(B+=t.r),e&&(x[E.sL]=t.top),p(t.language,t.value,!1,!0)}function b(){L+=null!=E.sL?d():h(),k=""}function v(e){L+=e.cN?p(e.cN,"",!0):"",E=Object.create(e,{parent:{value:E}})}function m(e,n){if(k+=e,null==n)return b(),0;var t=o(n,E);if(t)return t.skip?k+=n:(t.eB&&(k+=n),b(),t.rB||t.eB||(k=n)),v(t,n),t.rB?0:n.length;var r=u(E,n);if(r){var a=E;a.skip?k+=n:(a.rE||a.eE||(k+=n),b(),a.eE&&(k=n));do E.cN&&(L+=C),E.skip||(B+=E.r),E=E.parent;while(E!==r.parent);return r.starts&&v(r.starts,""),a.rE?0:n.length}if(c(n,E))throw new Error('Illegal lexeme "'+n+'" for mode "'+(E.cN||"<unnamed>")+'"');return k+=n,n.length||1}var N=w(e);if(!N)throw new Error('Unknown language: "'+e+'"');s(N);var R,E=i||N,x={},L="";for(R=E;R!==N;R=R.parent)R.cN&&(L=p(R.cN,"",!0)+L);var k="",B=0;try{for(var M,j,O=0;;){if(E.t.lastIndex=O,M=E.t.exec(t),!M)break;j=m(t.substring(O,M.index),M[0]),O=M.index+j}for(m(t.substr(O)),R=E;R.parent;R=R.parent)R.cN&&(L+=C);return{r:B,value:L,language:e,top:E}}catch(T){if(T.message&&-1!==T.message.indexOf("Illegal"))return{r:0,value:n(t)};throw T}}function g(e,t){t=t||I.languages||x(y);var r={r:0,value:n(e)},a=r;return t.filter(w).forEach(function(n){var t=f(n,e,!1);t.language=n,t.r>a.r&&(a=t),t.r>r.r&&(a=r,r=t)}),a.language&&(r.second_best=a),r}function p(e){return I.tabReplace||I.useBR?e.replace(M,function(e,n){return I.useBR&&"\n"===e?"<br>":I.tabReplace?n.replace(/\t/g,I.tabReplace):""}):e}function h(e,n,t){var r=n?L[n]:t,a=[e.trim()];return e.match(/\bhljs\b/)||a.push("hljs"),-1===e.indexOf(r)&&a.push(r),a.join(" ").trim()}function d(e){var n,t,r,o,l,s=i(e);a(s)||(I.useBR?(n=document.createElementNS("http://www.w3.org/1999/xhtml","div"),n.innerHTML=e.innerHTML.replace(/\n/g,"").replace(/<br[ \/]*>/g,"\n")):n=e,l=n.textContent,r=s?f(s,l,!0):g(l),t=u(n),t.length&&(o=document.createElementNS("http://www.w3.org/1999/xhtml","div"),o.innerHTML=r.value,r.value=c(t,u(o),l)),r.value=p(r.value),e.innerHTML=r.value,e.className=h(e.className,s,r.language),e.result={language:r.language,re:r.r},r.second_best&&(e.second_best={language:r.second_best.language,re:r.second_best.r}))}function b(e){I=o(I,e)}function v(){if(!v.called){v.called=!0;var e=document.querySelectorAll("pre code");E.forEach.call(e,d)}}function m(){addEventListener("DOMContentLoaded",v,!1),addEventListener("load",v,!1)}function N(n,t){var r=y[n]=t(e);r.aliases&&r.aliases.forEach(function(e){L[e]=n})}function R(){return x(y)}function w(e){return e=(e||"").toLowerCase(),y[e]||y[L[e]]}var E=[],x=Object.keys,y={},L={},k=/^(no-?highlight|plain|text)$/i,B=/\blang(?:uage)?-([\w-]+)\b/i,M=/((^(<[^>]+>|\t|)+|(?:\n)))/gm,C="</span>",I={classPrefix:"hljs-",tabReplace:null,useBR:!1,languages:void 0};return e.highlight=f,e.highlightAuto=g,e.fixMarkup=p,e.highlightBlock=d,e.configure=b,e.initHighlighting=v,e.initHighlightingOnLoad=m,e.registerLanguage=N,e.listLanguages=R,e.getLanguage=w,e.inherit=o,e.IR="[a-zA-Z]\\w*",e.UIR="[a-zA-Z_]\\w*",e.NR="\\b\\d+(\\.\\d+)?",e.CNR="(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)",e.BNR="\\b(0b[01]+)",e.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|-|-=|/=|/|:|;|<<|<<=|<=|<|===|==|=|>>>=|>>=|>=|>>>|>>|>|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~",e.BE={b:"\\\\[\\s\\S]",r:0},e.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[e.BE]},e.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[e.BE]},e.PWM={b:/\b(a|an|the|are|I'm|isn't|don't|doesn't|won't|but|just|should|pretty|simply|enough|gonna|going|wtf|so|such|will|you|your|they|like|more)\b/},e.C=function(n,t,r){var a=e.inherit({cN:"comment",b:n,e:t,c:[]},r||{});return a.c.push(e.PWM),a.c.push({cN:"doctag",b:"(?:TODO|FIXME|NOTE|BUG|XXX):",r:0}),a},e.CLCM=e.C("//","$"),e.CBCM=e.C("/\\*","\\*/"),e.HCM=e.C("#","$"),e.NM={cN:"number",b:e.NR,r:0},e.CNM={cN:"number",b:e.CNR,r:0},e.BNM={cN:"number",b:e.BNR,r:0},e.CSSNM={cN:"number",b:e.NR+"(%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc|px|deg|grad|rad|turn|s|ms|Hz|kHz|dpi|dpcm|dppx)?",r:0},e.RM={cN:"regexp",b:/\//,e:/\/[gimuy]*/,i:/\n/,c:[e.BE,{b:/\[/,e:/\]/,r:0,c:[e.BE]}]},e.TM={cN:"title",b:e.IR,r:0},e.UTM={cN:"title",b:e.UIR,r:0},e.METHOD_GUARD={b:"\\.\\s*"+e.UIR,r:0},e});hljs.registerLanguage("json",function(e){var i={literal:"true false null"},n=[e.QSM,e.CNM],r={e:",",eW:!0,eE:!0,c:n,k:i},t={b:"{",e:"}",c:[{cN:"attr",b:/"/,e:/"/,c:[e.BE],i:"\\n"},e.inherit(r,{b:/:/})],i:"\\S"},c={b:"\\[",e:"\\]",c:[e.inherit(r)],i:"\\S"};return n.splice(n.length,0,t,c),{c:n,k:i,i:"\\S"}});hljs.registerLanguage("http",function(e){var t="HTTP/[0-9\\.]+";return{aliases:["https"],i:"\\S",c:[{b:"^"+t,e:"$",c:[{cN:"number",b:"\\b\\d{3}\\b"}]},{b:"^[A-Z]+ (.*?) "+t+"$",rB:!0,e:"$",c:[{cN:"string",b:" ",e:" ",eB:!0,eE:!0},{b:t},{cN:"keyword",b:"[A-Z]+"}]},{cN:"attribute",b:"^\\w",e:": ",eE:!0,i:"\\n|\\s|=",starts:{e:"$",r:0}},{b:"\\n\\n",starts:{sL:[],eW:!0}}]}});hljs.registerLanguage("javascript",function(e){var r="[A-Za-z$_][0-9A-Za-z$_]*",t={keyword:"in of if for while finally var new function do return void else break catch instanceof with throw case default try this switch continue typeof delete let yield const export super debugger as async await static import from as",literal:"true false null undefined NaN Infinity",built_in:"eval isFinite isNaN parseFloat parseInt decodeURI decodeURIComponent encodeURI encodeURIComponent escape unescape Object Function Boolean Error EvalError InternalError RangeError ReferenceError StopIteration SyntaxError TypeError URIError Number Math Date String RegExp Array Float32Array Float64Array Int16Array Int32Array Int8Array Uint16Array Uint32Array Uint8Array Uint8ClampedArray ArrayBuffer DataView JSON Intl arguments require module console window document Symbol Set Map WeakSet WeakMap Proxy Reflect Promise"},a={cN:"number",v:[{b:"\\b(0[bB][01]+)"},{b:"\\b(0[oO][0-7]+)"},{b:e.CNR}],r:0},n={cN:"subst",b:"\\$\\{",e:"\\}",k:t,c:[]},c={cN:"string",b:"`",e:"`",c:[e.BE,n]};n.c=[e.ASM,e.QSM,c,a,e.RM];var s=n.c.concat([e.CBCM,e.CLCM]);return{aliases:["js","jsx"],k:t,c:[{cN:"meta",r:10,b:/^\s*['"]use (strict|asm)['"]/},{cN:"meta",b:/^#!/,e:/$/},e.ASM,e.QSM,c,e.CLCM,e.CBCM,a,{b:/[{,]\s*/,r:0,c:[{b:r+"\\s*:",rB:!0,r:0,c:[{cN:"attr",b:r,r:0}]}]},{b:"("+e.RSR+"|\\b(case|return|throw)\\b)\\s*",k:"return throw case",c:[e.CLCM,e.CBCM,e.RM,{cN:"function",b:"(\\(.*?\\)|"+r+")\\s*=>",rB:!0,e:"\\s*=>",c:[{cN:"params",v:[{b:r},{b:/\(\s*\)/},{b:/\(/,e:/\)/,eB:!0,eE:!0,k:t,c:s}]}]},{b:/</,e:/(\/\w+|\w+\/)>/,sL:"xml",c:[{b:/<\w+\s*\/>/,skip:!0},{b:/<\w+/,e:/(\/\w+|\w+\/)>/,skip:!0,c:[{b:/<\w+\s*\/>/,skip:!0},"self"]}]}],r:0},{cN:"function",bK:"function",e:/\{/,eE:!0,c:[e.inherit(e.TM,{b:r}),{cN:"params",b:/\(/,e:/\)/,eB:!0,eE:!0,c:s}],i:/\[|%/},{b:/\$[(.]/},e.METHOD_GUARD,{cN:"class",bK:"class",e:/[{;=]/,eE:!0,i:/[:"\[\]]/,c:[{bK:"extends"},e.UTM]},{bK:"constructor",e:/\{/,eE:!0}],i:/#(?!!)/}});hljs.registerLanguage("xml",function(s){var e="[A-Za-z0-9\\._:-]+",t={eW:!0,i:/</,r:0,c:[{cN:"attr",b:e,r:0},{b:/=\s*/,r:0,c:[{cN:"string",endsParent:!0,v:[{b:/"/,e:/"/},{b:/'/,e:/'/},{b:/[^\s"'=<>`]+/}]}]}]};return{aliases:["html","xhtml","rss","atom","xjb","xsd","xsl","plist"],cI:!0,c:[{cN:"meta",b:"<!DOCTYPE",e:">",r:10,c:[{b:"\\[",e:"\\]"}]},s.C("<!--","-->",{r:10}),{b:"<\\!\\[CDATA\\[",e:"\\]\\]>",r:10},{b:/<\?(php)?/,e:/\?>/,sL:"php",c:[{b:"/\\*",e:"\\*/",skip:!0}]},{cN:"tag",b:"<style(?=\\s|>|$)",e:">",k:{name:"style"},c:[t],starts:{e:"</style>",rE:!0,sL:["css","xml"]}},{cN:"tag",b:"<script(?=\\s|>|$)",e:">",k:{name:"script"},c:[t],starts:{e:"</script>",rE:!0,sL:["actionscript","javascript","handlebars","xml"]}},{cN:"meta",v:[{b:/<\?xml/,e:/\?>/,r:10},{b:/<\?\w+/,e:/\?>/}]},{cN:"tag",b:"</?",e:"/?>",c:[{cN:"name",b:/[^\/><\s]+/,r:0},t]}]}});
+!function(e){var n="object"==typeof window&&window||"object"==typeof self&&self;"undefined"!=typeof exports?e(exports):n&&(n.hljs=e({}),"function"==typeof define&&define.amd&&define([],function(){return n.hljs}))}(function(e){function n(e){return e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}function t(e){return e.nodeName.toLowerCase()}function r(e,n){var t=e&&e.exec(n);return t&&0===t.index}function a(e){return k.test(e)}function i(e){var n,t,r,i,o=e.className+" ";if(o+=e.parentNode?e.parentNode.className:"",t=B.exec(o))return w(t[1])?t[1]:"no-highlight";for(o=o.split(/\s+/),n=0,r=o.length;r>n;n++)if(i=o[n],a(i)||w(i))return i}function o(e){var n,t={},r=Array.prototype.slice.call(arguments,1);for(n in e)t[n]=e[n];return r.forEach(function(e){for(n in e)t[n]=e[n]}),t}function u(e){var n=[];return function r(e,a){for(var i=e.firstChild;i;i=i.nextSibling)3===i.nodeType?a+=i.nodeValue.length:1===i.nodeType&&(n.push({event:"start",offset:a,node:i}),a=r(i,a),t(i).match(/br|hr|img|input/)||n.push({event:"stop",offset:a,node:i}));return a}(e,0),n}function c(e,r,a){function i(){return e.length&&r.length?e[0].offset!==r[0].offset?e[0].offset<r[0].offset?e:r:"start"===r[0].event?e:r:e.length?e:r}function o(e){function r(e){return" "+e.nodeName+'="'+n(e.value).replace('"',"&quot;")+'"'}s+="<"+t(e)+E.map.call(e.attributes,r).join("")+">"}function u(e){s+="</"+t(e)+">"}function c(e){("start"===e.event?o:u)(e.node)}for(var l=0,s="",f=[];e.length||r.length;){var g=i();if(s+=n(a.substring(l,g[0].offset)),l=g[0].offset,g===e){f.reverse().forEach(u);do c(g.splice(0,1)[0]),g=i();while(g===e&&g.length&&g[0].offset===l);f.reverse().forEach(o)}else"start"===g[0].event?f.push(g[0].node):f.pop(),c(g.splice(0,1)[0])}return s+n(a.substr(l))}function l(e){return e.v&&!e.cached_variants&&(e.cached_variants=e.v.map(function(n){return o(e,{v:null},n)})),e.cached_variants||e.eW&&[o(e)]||[e]}function s(e){function n(e){return e&&e.source||e}function t(t,r){return new RegExp(n(t),"m"+(e.cI?"i":"")+(r?"g":""))}function r(a,i){if(!a.compiled){if(a.compiled=!0,a.k=a.k||a.bK,a.k){var o={},u=function(n,t){e.cI&&(t=t.toLowerCase()),t.split(" ").forEach(function(e){var t=e.split("|");o[t[0]]=[n,t[1]?Number(t[1]):1]})};"string"==typeof a.k?u("keyword",a.k):x(a.k).forEach(function(e){u(e,a.k[e])}),a.k=o}a.lR=t(a.l||/\w+/,!0),i&&(a.bK&&(a.b="\\b("+a.bK.split(" ").join("|")+")\\b"),a.b||(a.b=/\B|\b/),a.bR=t(a.b),a.e||a.eW||(a.e=/\B|\b/),a.e&&(a.eR=t(a.e)),a.tE=n(a.e)||"",a.eW&&i.tE&&(a.tE+=(a.e?"|":"")+i.tE)),a.i&&(a.iR=t(a.i)),null==a.r&&(a.r=1),a.c||(a.c=[]),a.c=Array.prototype.concat.apply([],a.c.map(function(e){return l("self"===e?a:e)})),a.c.forEach(function(e){r(e,a)}),a.starts&&r(a.starts,i);var c=a.c.map(function(e){return e.bK?"\\.?("+e.b+")\\.?":e.b}).concat([a.tE,a.i]).map(n).filter(Boolean);a.t=c.length?t(c.join("|"),!0):{exec:function(){return null}}}}r(e)}function f(e,t,a,i){function o(e,n){var t,a;for(t=0,a=n.c.length;a>t;t++)if(r(n.c[t].bR,e))return n.c[t]}function u(e,n){if(r(e.eR,n)){for(;e.endsParent&&e.parent;)e=e.parent;return e}return e.eW?u(e.parent,n):void 0}function c(e,n){return!a&&r(n.iR,e)}function l(e,n){var t=N.cI?n[0].toLowerCase():n[0];return e.k.hasOwnProperty(t)&&e.k[t]}function p(e,n,t,r){var a=r?"":I.classPrefix,i='<span class="'+a,o=t?"":C;return i+=e+'">',i+n+o}function h(){var e,t,r,a;if(!E.k)return n(k);for(a="",t=0,E.lR.lastIndex=0,r=E.lR.exec(k);r;)a+=n(k.substring(t,r.index)),e=l(E,r),e?(B+=e[1],a+=p(e[0],n(r[0]))):a+=n(r[0]),t=E.lR.lastIndex,r=E.lR.exec(k);return a+n(k.substr(t))}function d(){var e="string"==typeof E.sL;if(e&&!y[E.sL])return n(k);var t=e?f(E.sL,k,!0,x[E.sL]):g(k,E.sL.length?E.sL:void 0);return E.r>0&&(B+=t.r),e&&(x[E.sL]=t.top),p(t.language,t.value,!1,!0)}function b(){L+=null!=E.sL?d():h(),k=""}function v(e){L+=e.cN?p(e.cN,"",!0):"",E=Object.create(e,{parent:{value:E}})}function m(e,n){if(k+=e,null==n)return b(),0;var t=o(n,E);if(t)return t.skip?k+=n:(t.eB&&(k+=n),b(),t.rB||t.eB||(k=n)),v(t,n),t.rB?0:n.length;var r=u(E,n);if(r){var a=E;a.skip?k+=n:(a.rE||a.eE||(k+=n),b(),a.eE&&(k=n));do E.cN&&(L+=C),E.skip||(B+=E.r),E=E.parent;while(E!==r.parent);return r.starts&&v(r.starts,""),a.rE?0:n.length}if(c(n,E))throw new Error('Illegal lexeme "'+n+'" for mode "'+(E.cN||"<unnamed>")+'"');return k+=n,n.length||1}var N=w(e);if(!N)throw new Error('Unknown language: "'+e+'"');s(N);var R,E=i||N,x={},L="";for(R=E;R!==N;R=R.parent)R.cN&&(L=p(R.cN,"",!0)+L);var k="",B=0;try{for(var M,j,O=0;;){if(E.t.lastIndex=O,M=E.t.exec(t),!M)break;j=m(t.substring(O,M.index),M[0]),O=M.index+j}for(m(t.substr(O)),R=E;R.parent;R=R.parent)R.cN&&(L+=C);return{r:B,value:L,language:e,top:E}}catch(T){if(T.message&&-1!==T.message.indexOf("Illegal"))return{r:0,value:n(t)};throw T}}function g(e,t){t=t||I.languages||x(y);var r={r:0,value:n(e)},a=r;return t.filter(w).forEach(function(n){var t=f(n,e,!1);t.language=n,t.r>a.r&&(a=t),t.r>r.r&&(a=r,r=t)}),a.language&&(r.second_best=a),r}function p(e){return I.tabReplace||I.useBR?e.replace(M,function(e,n){return I.useBR&&"\n"===e?"<br>":I.tabReplace?n.replace(/\t/g,I.tabReplace):""}):e}function h(e,n,t){var r=n?L[n]:t,a=[e.trim()];return e.match(/\bhljs\b/)||a.push("hljs"),-1===e.indexOf(r)&&a.push(r),a.join(" ").trim()}function d(e){var n,t,r,o,l,s=i(e);a(s)||(I.useBR?(n=document.createElementNS("http://www.w3.org/1999/xhtml","div"),n.innerHTML=e.innerHTML.replace(/\n/g,"").replace(/<br[ \/]*>/g,"\n")):n=e,l=n.textContent,r=s?f(s,l,!0):g(l),t=u(n),t.length&&(o=document.createElementNS("http://www.w3.org/1999/xhtml","div"),o.innerHTML=r.value,r.value=c(t,u(o),l)),r.value=p(r.value),e.innerHTML=r.value,e.className=h(e.className,s,r.language),e.result={language:r.language,re:r.r},r.second_best&&(e.second_best={language:r.second_best.language,re:r.second_best.r}))}function b(e){I=o(I,e)}function v(){if(!v.called){v.called=!0;var e=document.querySelectorAll("pre code");E.forEach.call(e,d)}}function m(){addEventListener("DOMContentLoaded",v,!1),addEventListener("load",v,!1)}function N(n,t){var r=y[n]=t(e);r.aliases&&r.aliases.forEach(function(e){L[e]=n})}function R(){return x(y)}function w(e){return e=(e||"").toLowerCase(),y[e]||y[L[e]]}var E=[],x=Object.keys,y={},L={},k=/^(no-?highlight|plain|text)$/i,B=/\blang(?:uage)?-([\w-]+)\b/i,M=/((^(<[^>]+>|\t|)+|(?:\n)))/gm,C="</span>",I={classPrefix:"hljs-",tabReplace:null,useBR:!1,languages:void 0};return e.highlight=f,e.highlightAuto=g,e.fixMarkup=p,e.highlightBlock=d,e.configure=b,e.initHighlighting=v,e.initHighlightingOnLoad=m,e.registerLanguage=N,e.listLanguages=R,e.getLanguage=w,e.inherit=o,e.IR="[a-zA-Z]\\w*",e.UIR="[a-zA-Z_]\\w*",e.NR="\\b\\d+(\\.\\d+)?",e.CNR="(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)",e.BNR="\\b(0b[01]+)",e.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|-|-=|/=|/|:|;|<<|<<=|<=|<|===|==|=|>>>=|>>=|>=|>>>|>>|>|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~",e.BE={b:"\\\\[\\s\\S]",r:0},e.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[e.BE]},e.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[e.BE]},e.PWM={b:/\b(a|an|the|are|I'm|isn't|don't|doesn't|won't|but|just|should|pretty|simply|enough|gonna|going|wtf|so|such|will|you|your|they|like|more)\b/},e.C=function(n,t,r){var a=e.inherit({cN:"comment",b:n,e:t,c:[]},r||{});return a.c.push(e.PWM),a.c.push({cN:"doctag",b:"(?:TODO|FIXME|NOTE|BUG|XXX):",r:0}),a},e.CLCM=e.C("//","$"),e.CBCM=e.C("/\\*","\\*/"),e.HCM=e.C("#","$"),e.NM={cN:"number",b:e.NR,r:0},e.CNM={cN:"number",b:e.CNR,r:0},e.BNM={cN:"number",b:e.BNR,r:0},e.CSSNM={cN:"number",b:e.NR+"(%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc|px|deg|grad|rad|turn|s|ms|Hz|kHz|dpi|dpcm|dppx)?",r:0},e.RM={cN:"regexp",b:/\//,e:/\/[gimuy]*/,i:/\n/,c:[e.BE,{b:/\[/,e:/\]/,r:0,c:[e.BE]}]},e.TM={cN:"title",b:e.IR,r:0},e.UTM={cN:"title",b:e.UIR,r:0},e.METHOD_GUARD={b:"\\.\\s*"+e.UIR,r:0},e});hljs.registerLanguage("css",function(e){var c="[a-zA-Z-][a-zA-Z0-9_-]*",t={b:/[A-Z\_\.\-]+\s*:/,rB:!0,e:";",eW:!0,c:[{cN:"attribute",b:/\S/,e:":",eE:!0,starts:{eW:!0,eE:!0,c:[{b:/[\w-]+\(/,rB:!0,c:[{cN:"built_in",b:/[\w-]+/},{b:/\(/,e:/\)/,c:[e.ASM,e.QSM]}]},e.CSSNM,e.QSM,e.ASM,e.CBCM,{cN:"number",b:"#[0-9A-Fa-f]+"},{cN:"meta",b:"!important"}]}}]};return{cI:!0,i:/[=\/|'\$]/,c:[e.CBCM,{cN:"selector-id",b:/#[A-Za-z0-9_-]+/},{cN:"selector-class",b:/\.[A-Za-z0-9_-]+/},{cN:"selector-attr",b:/\[/,e:/\]/,i:"$"},{cN:"selector-pseudo",b:/:(:)?[a-zA-Z0-9\_\-\+\(\)"'.]+/},{b:"@(font-face|page)",l:"[a-z-]+",k:"font-face page"},{b:"@",e:"[{;]",i:/:/,c:[{cN:"keyword",b:/\w+/},{b:/\s/,eW:!0,eE:!0,r:0,c:[e.ASM,e.QSM,e.CSSNM]}]},{cN:"selector-tag",b:c,r:0},{b:"{",e:"}",i:/\S/,c:[e.CBCM,t]}]}});hljs.registerLanguage("http",function(e){var t="HTTP/[0-9\\.]+";return{aliases:["https"],i:"\\S",c:[{b:"^"+t,e:"$",c:[{cN:"number",b:"\\b\\d{3}\\b"}]},{b:"^[A-Z]+ (.*?) "+t+"$",rB:!0,e:"$",c:[{cN:"string",b:" ",e:" ",eB:!0,eE:!0},{b:t},{cN:"keyword",b:"[A-Z]+"}]},{cN:"attribute",b:"^\\w",e:": ",eE:!0,i:"\\n|\\s|=",starts:{e:"$",r:0}},{b:"\\n\\n",starts:{sL:[],eW:!0}}]}});hljs.registerLanguage("javascript",function(e){var r="[A-Za-z$_][0-9A-Za-z$_]*",t={keyword:"in of if for while finally var new function do return void else break catch instanceof with throw case default try this switch continue typeof delete let yield const export super debugger as async await static import from as",literal:"true false null undefined NaN Infinity",built_in:"eval isFinite isNaN parseFloat parseInt decodeURI decodeURIComponent encodeURI encodeURIComponent escape unescape Object Function Boolean Error EvalError InternalError RangeError ReferenceError StopIteration SyntaxError TypeError URIError Number Math Date String RegExp Array Float32Array Float64Array Int16Array Int32Array Int8Array Uint16Array Uint32Array Uint8Array Uint8ClampedArray ArrayBuffer DataView JSON Intl arguments require module console window document Symbol Set Map WeakSet WeakMap Proxy Reflect Promise"},a={cN:"number",v:[{b:"\\b(0[bB][01]+)"},{b:"\\b(0[oO][0-7]+)"},{b:e.CNR}],r:0},n={cN:"subst",b:"\\$\\{",e:"\\}",k:t,c:[]},c={cN:"string",b:"`",e:"`",c:[e.BE,n]};n.c=[e.ASM,e.QSM,c,a,e.RM];var s=n.c.concat([e.CBCM,e.CLCM]);return{aliases:["js","jsx"],k:t,c:[{cN:"meta",r:10,b:/^\s*['"]use (strict|asm)['"]/},{cN:"meta",b:/^#!/,e:/$/},e.ASM,e.QSM,c,e.CLCM,e.CBCM,a,{b:/[{,]\s*/,r:0,c:[{b:r+"\\s*:",rB:!0,r:0,c:[{cN:"attr",b:r,r:0}]}]},{b:"("+e.RSR+"|\\b(case|return|throw)\\b)\\s*",k:"return throw case",c:[e.CLCM,e.CBCM,e.RM,{cN:"function",b:"(\\(.*?\\)|"+r+")\\s*=>",rB:!0,e:"\\s*=>",c:[{cN:"params",v:[{b:r},{b:/\(\s*\)/},{b:/\(/,e:/\)/,eB:!0,eE:!0,k:t,c:s}]}]},{b:/</,e:/(\/\w+|\w+\/)>/,sL:"xml",c:[{b:/<\w+\s*\/>/,skip:!0},{b:/<\w+/,e:/(\/\w+|\w+\/)>/,skip:!0,c:[{b:/<\w+\s*\/>/,skip:!0},"self"]}]}],r:0},{cN:"function",bK:"function",e:/\{/,eE:!0,c:[e.inherit(e.TM,{b:r}),{cN:"params",b:/\(/,e:/\)/,eB:!0,eE:!0,c:s}],i:/\[|%/},{b:/\$[(.]/},e.METHOD_GUARD,{cN:"class",bK:"class",e:/[{;=]/,eE:!0,i:/[:"\[\]]/,c:[{bK:"extends"},e.UTM]},{bK:"constructor",e:/\{/,eE:!0}],i:/#(?!!)/}});hljs.registerLanguage("xml",function(s){var e="[A-Za-z0-9\\._:-]+",t={eW:!0,i:/</,r:0,c:[{cN:"attr",b:e,r:0},{b:/=\s*/,r:0,c:[{cN:"string",endsParent:!0,v:[{b:/"/,e:/"/},{b:/'/,e:/'/},{b:/[^\s"'=<>`]+/}]}]}]};return{aliases:["html","xhtml","rss","atom","xjb","xsd","xsl","plist"],cI:!0,c:[{cN:"meta",b:"<!DOCTYPE",e:">",r:10,c:[{b:"\\[",e:"\\]"}]},s.C("<!--","-->",{r:10}),{b:"<\\!\\[CDATA\\[",e:"\\]\\]>",r:10},{b:/<\?(php)?/,e:/\?>/,sL:"php",c:[{b:"/\\*",e:"\\*/",skip:!0}]},{cN:"tag",b:"<style(?=\\s|>|$)",e:">",k:{name:"style"},c:[t],starts:{e:"</style>",rE:!0,sL:["css","xml"]}},{cN:"tag",b:"<script(?=\\s|>|$)",e:">",k:{name:"script"},c:[t],starts:{e:"</script>",rE:!0,sL:["actionscript","javascript","handlebars","xml"]}},{cN:"meta",v:[{b:/<\?xml/,e:/\?>/,r:10},{b:/<\?\w+/,e:/\?>/}]},{cN:"tag",b:"</?",e:"/?>",c:[{cN:"name",b:/[^\/><\s]+/,r:0},t]}]}});hljs.registerLanguage("json",function(e){var i={literal:"true false null"},n=[e.QSM,e.CNM],r={e:",",eW:!0,eE:!0,c:n,k:i},t={b:"{",e:"}",c:[{cN:"attr",b:/"/,e:/"/,c:[e.BE],i:"\\n"},e.inherit(r,{b:/:/})],i:"\\S"},c={b:"\\[",e:"\\]",c:[e.inherit(r)],i:"\\S"};return n.splice(n.length,0,t,c),{c:n,k:i,i:"\\S"}});
 
 /*! marked.js 0.3.6 */
  (function(){function e(e){this.tokens=[],this.tokens.links={},this.options=e||a.defaults,this.rules=p.normal,this.options.gfm&&(this.options.tables?this.rules=p.tables:this.rules=p.gfm)}function t(e,t){if(this.options=t||a.defaults,this.links=e,this.rules=u.normal,this.renderer=this.options.renderer||new n,this.renderer.options=this.options,!this.links)throw new Error("Tokens array requires a `links` property.");this.options.gfm?this.options.breaks?this.rules=u.breaks:this.rules=u.gfm:this.options.pedantic&&(this.rules=u.pedantic)}function n(e){this.options=e||{}}function r(e){this.tokens=[],this.token=null,this.options=e||a.defaults,this.options.renderer=this.options.renderer||new n,this.renderer=this.options.renderer,this.renderer.options=this.options}function s(e,t){return e.replace(t?/&/g:/&(?!#?\w+;)/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}function i(e){return e.replace(/&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/g,function(e,t){return t=t.toLowerCase(),"colon"===t?":":"#"===t.charAt(0)?"x"===t.charAt(1)?String.fromCharCode(parseInt(t.substring(2),16)):String.fromCharCode(+t.substring(1)):""})}function l(e,t){return e=e.source,t=t||"",function n(r,s){return r?(s=s.source||s,s=s.replace(/(^|[^\[])\^/g,"$1"),e=e.replace(r,s),n):new RegExp(e,t)}}function o(){}function h(e){for(var t,n,r=1;r<arguments.length;r++){t=arguments[r];for(n in t)Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n])}return e}function a(t,n,i){if(i||"function"==typeof n){i||(i=n,n=null),n=h({},a.defaults,n||{});var l,o,p=n.highlight,u=0;try{l=e.lex(t,n)}catch(c){return i(c)}o=l.length;var g=function(e){if(e)return n.highlight=p,i(e);var t;try{t=r.parse(l,n)}catch(s){e=s}return n.highlight=p,e?i(e):i(null,t)};if(!p||p.length<3)return g();if(delete n.highlight,!o)return g();for(;u<l.length;u++)!function(e){return"code"!==e.type?--o||g():p(e.text,e.lang,function(t,n){return t?g(t):null==n||n===e.text?--o||g():(e.text=n,e.escaped=!0,void(--o||g()))})}(l[u])}else try{return n&&(n=h({},a.defaults,n)),r.parse(e.lex(t,n),n)}catch(c){if(c.message+="\nPlease report this to https://github.com/chjj/marked.",(n||a.defaults).silent)return"<p>An error occured:</p><pre>"+s(c.message+"",!0)+"</pre>";throw c}}var p={newline:/^\n+/,code:/^( {4}[^\n]+\n*)+/,fences:o,hr:/^( *[-*_]){3,} *(?:\n+|$)/,heading:/^ *(#{1,6}) *([^\n]+?) *#* *(?:\n+|$)/,nptable:o,lheading:/^([^\n]+)\n *(=|-){2,} *(?:\n+|$)/,blockquote:/^( *>[^\n]+(\n(?!def)[^\n]+)*\n*)+/,list:/^( *)(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,html:/^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,def:/^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n+|$)/,table:o,paragraph:/^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def))+)\n*/,text:/^[^\n]+/};p.bullet=/(?:[*+-]|\d+\.)/,p.item=/^( *)(bull) [^\n]*(?:\n(?!\1bull )[^\n]*)*/,p.item=l(p.item,"gm")(/bull/g,p.bullet)(),p.list=l(p.list)(/bull/g,p.bullet)("hr","\\n+(?=\\1?(?:[-*_] *){3,}(?:\\n+|$))")("def","\\n+(?="+p.def.source+")")(),p.blockquote=l(p.blockquote)("def",p.def)(),p._tag="(?!(?:a|em|strong|small|s|cite|q|dfn|abbr|data|time|code|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo|span|br|wbr|ins|del|img)\\b)\\w+(?!:/|[^\\w\\s@]*@)\\b",p.html=l(p.html)("comment",/<!--[\s\S]*?-->/)("closed",/<(tag)[\s\S]+?<\/\1>/)("closing",/<tag(?:"[^"]*"|'[^']*'|[^'">])*?>/)(/tag/g,p._tag)(),p.paragraph=l(p.paragraph)("hr",p.hr)("heading",p.heading)("lheading",p.lheading)("blockquote",p.blockquote)("tag","<"+p._tag)("def",p.def)(),p.normal=h({},p),p.gfm=h({},p.normal,{fences:/^ *(`{3,}|~{3,})[ \.]*(\S+)? *\n([\s\S]*?)\s*\1 *(?:\n+|$)/,paragraph:/^/,heading:/^ *(#{1,6}) +([^\n]+?) *#* *(?:\n+|$)/}),p.gfm.paragraph=l(p.paragraph)("(?!","(?!"+p.gfm.fences.source.replace("\\1","\\2")+"|"+p.list.source.replace("\\1","\\3")+"|")(),p.tables=h({},p.gfm,{nptable:/^ *(\S.*\|.*)\n *([-:]+ *\|[-| :]*)\n((?:.*\|.*(?:\n|$))*)\n*/,table:/^ *\|(.+)\n *\|( *[-:]+[-| :]*)\n((?: *\|.*(?:\n|$))*)\n*/}),e.rules=p,e.lex=function(t,n){var r=new e(n);return r.lex(t)},e.prototype.lex=function(e){return e=e.replace(/\r\n|\r/g,"\n").replace(/\t/g,"    ").replace(/\u00a0/g," ").replace(/\u2424/g,"\n"),this.token(e,!0)},e.prototype.token=function(e,t,n){for(var r,s,i,l,o,h,a,u,c,e=e.replace(/^ +$/gm,"");e;)if((i=this.rules.newline.exec(e))&&(e=e.substring(i[0].length),i[0].length>1&&this.tokens.push({type:"space"})),i=this.rules.code.exec(e))e=e.substring(i[0].length),i=i[0].replace(/^ {4}/gm,""),this.tokens.push({type:"code",text:this.options.pedantic?i:i.replace(/\n+$/,"")});else if(i=this.rules.fences.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"code",lang:i[2],text:i[3]||""});else if(i=this.rules.heading.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"heading",depth:i[1].length,text:i[2]});else if(t&&(i=this.rules.nptable.exec(e))){for(e=e.substring(i[0].length),h={type:"table",header:i[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:i[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:i[3].replace(/\n$/,"").split("\n")},u=0;u<h.align.length;u++)/^ *-+: *$/.test(h.align[u])?h.align[u]="right":/^ *:-+: *$/.test(h.align[u])?h.align[u]="center":/^ *:-+ *$/.test(h.align[u])?h.align[u]="left":h.align[u]=null;for(u=0;u<h.cells.length;u++)h.cells[u]=h.cells[u].split(/ *\| */);this.tokens.push(h)}else if(i=this.rules.lheading.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"heading",depth:"="===i[2]?1:2,text:i[1]});else if(i=this.rules.hr.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"hr"});else if(i=this.rules.blockquote.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"blockquote_start"}),i=i[0].replace(/^ *> ?/gm,""),this.token(i,t,!0),this.tokens.push({type:"blockquote_end"});else if(i=this.rules.list.exec(e)){for(e=e.substring(i[0].length),l=i[2],this.tokens.push({type:"list_start",ordered:l.length>1}),i=i[0].match(this.rules.item),r=!1,c=i.length,u=0;c>u;u++)h=i[u],a=h.length,h=h.replace(/^ *([*+-]|\d+\.) +/,""),~h.indexOf("\n ")&&(a-=h.length,h=this.options.pedantic?h.replace(/^ {1,4}/gm,""):h.replace(new RegExp("^ {1,"+a+"}","gm"),"")),this.options.smartLists&&u!==c-1&&(o=p.bullet.exec(i[u+1])[0],l===o||l.length>1&&o.length>1||(e=i.slice(u+1).join("\n")+e,u=c-1)),s=r||/\n\n(?!\s*$)/.test(h),u!==c-1&&(r="\n"===h.charAt(h.length-1),s||(s=r)),this.tokens.push({type:s?"loose_item_start":"list_item_start"}),this.token(h,!1,n),this.tokens.push({type:"list_item_end"});this.tokens.push({type:"list_end"})}else if(i=this.rules.html.exec(e))e=e.substring(i[0].length),this.tokens.push({type:this.options.sanitize?"paragraph":"html",pre:!this.options.sanitizer&&("pre"===i[1]||"script"===i[1]||"style"===i[1]),text:i[0]});else if(!n&&t&&(i=this.rules.def.exec(e)))e=e.substring(i[0].length),this.tokens.links[i[1].toLowerCase()]={href:i[2],title:i[3]};else if(t&&(i=this.rules.table.exec(e))){for(e=e.substring(i[0].length),h={type:"table",header:i[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:i[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:i[3].replace(/(?: *\| *)?\n$/,"").split("\n")},u=0;u<h.align.length;u++)/^ *-+: *$/.test(h.align[u])?h.align[u]="right":/^ *:-+: *$/.test(h.align[u])?h.align[u]="center":/^ *:-+ *$/.test(h.align[u])?h.align[u]="left":h.align[u]=null;for(u=0;u<h.cells.length;u++)h.cells[u]=h.cells[u].replace(/^ *\| *| *\| *$/g,"").split(/ *\| */);this.tokens.push(h)}else if(t&&(i=this.rules.paragraph.exec(e)))e=e.substring(i[0].length),this.tokens.push({type:"paragraph",text:"\n"===i[1].charAt(i[1].length-1)?i[1].slice(0,-1):i[1]});else if(i=this.rules.text.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"text",text:i[0]});else if(e)throw new Error("Infinite loop on byte: "+e.charCodeAt(0));return this.tokens};var u={escape:/^\\([\\`*{}\[\]()#+\-.!_>])/,autolink:/^<([^ >]+(@|:\/)[^ >]+)>/,url:o,tag:/^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,link:/^!?\[(inside)\]\(href\)/,reflink:/^!?\[(inside)\]\s*\[([^\]]*)\]/,nolink:/^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,strong:/^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,em:/^\b_((?:[^_]|__)+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,code:/^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/,br:/^ {2,}\n(?!\s*$)/,del:o,text:/^[\s\S]+?(?=[\\<!\[_*`]| {2,}\n|$)/};u._inside=/(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/,u._href=/\s*<?([\s\S]*?)>?(?:\s+['"]([\s\S]*?)['"])?\s*/,u.link=l(u.link)("inside",u._inside)("href",u._href)(),u.reflink=l(u.reflink)("inside",u._inside)(),u.normal=h({},u),u.pedantic=h({},u.normal,{strong:/^__(?=\S)([\s\S]*?\S)__(?!_)|^\*\*(?=\S)([\s\S]*?\S)\*\*(?!\*)/,em:/^_(?=\S)([\s\S]*?\S)_(?!_)|^\*(?=\S)([\s\S]*?\S)\*(?!\*)/}),u.gfm=h({},u.normal,{escape:l(u.escape)("])","~|])")(),url:/^(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/,del:/^~~(?=\S)([\s\S]*?\S)~~/,text:l(u.text)("]|","~]|")("|","|https?://|")()}),u.breaks=h({},u.gfm,{br:l(u.br)("{2,}","*")(),text:l(u.gfm.text)("{2,}","*")()}),t.rules=u,t.output=function(e,n,r){var s=new t(n,r);return s.output(e)},t.prototype.output=function(e){for(var t,n,r,i,l="";e;)if(i=this.rules.escape.exec(e))e=e.substring(i[0].length),l+=i[1];else if(i=this.rules.autolink.exec(e))e=e.substring(i[0].length),"@"===i[2]?(n=":"===i[1].charAt(6)?this.mangle(i[1].substring(7)):this.mangle(i[1]),r=this.mangle("mailto:")+n):(n=s(i[1]),r=n),l+=this.renderer.link(r,null,n);else if(this.inLink||!(i=this.rules.url.exec(e))){if(i=this.rules.tag.exec(e))!this.inLink&&/^<a /i.test(i[0])?this.inLink=!0:this.inLink&&/^<\/a>/i.test(i[0])&&(this.inLink=!1),e=e.substring(i[0].length),l+=this.options.sanitize?this.options.sanitizer?this.options.sanitizer(i[0]):s(i[0]):i[0];else if(i=this.rules.link.exec(e))e=e.substring(i[0].length),this.inLink=!0,l+=this.outputLink(i,{href:i[2],title:i[3]}),this.inLink=!1;else if((i=this.rules.reflink.exec(e))||(i=this.rules.nolink.exec(e))){if(e=e.substring(i[0].length),t=(i[2]||i[1]).replace(/\s+/g," "),t=this.links[t.toLowerCase()],!t||!t.href){l+=i[0].charAt(0),e=i[0].substring(1)+e;continue}this.inLink=!0,l+=this.outputLink(i,t),this.inLink=!1}else if(i=this.rules.strong.exec(e))e=e.substring(i[0].length),l+=this.renderer.strong(this.output(i[2]||i[1]));else if(i=this.rules.em.exec(e))e=e.substring(i[0].length),l+=this.renderer.em(this.output(i[2]||i[1]));else if(i=this.rules.code.exec(e))e=e.substring(i[0].length),l+=this.renderer.codespan(s(i[2],!0));else if(i=this.rules.br.exec(e))e=e.substring(i[0].length),l+=this.renderer.br();else if(i=this.rules.del.exec(e))e=e.substring(i[0].length),l+=this.renderer.del(this.output(i[1]));else if(i=this.rules.text.exec(e))e=e.substring(i[0].length),l+=this.renderer.text(s(this.smartypants(i[0])));else if(e)throw new Error("Infinite loop on byte: "+e.charCodeAt(0))}else e=e.substring(i[0].length),n=s(i[1]),r=n,l+=this.renderer.link(r,null,n);return l},t.prototype.outputLink=function(e,t){var n=s(t.href),r=t.title?s(t.title):null;return"!"!==e[0].charAt(0)?this.renderer.link(n,r,this.output(e[1])):this.renderer.image(n,r,s(e[1]))},t.prototype.smartypants=function(e){return this.options.smartypants?e.replace(/---/g,"—").replace(/--/g,"–").replace(/(^|[-\u2014\/(\[{"\s])'/g,"$1‘").replace(/'/g,"’").replace(/(^|[-\u2014\/(\[{\u2018\s])"/g,"$1“").replace(/"/g,"”").replace(/\.{3}/g,"…"):e},t.prototype.mangle=function(e){if(!this.options.mangle)return e;for(var t,n="",r=e.length,s=0;r>s;s++)t=e.charCodeAt(s),Math.random()>.5&&(t="x"+t.toString(16)),n+="&#"+t+";";return n},n.prototype.code=function(e,t,n){if(this.options.highlight){var r=this.options.highlight(e,t);null!=r&&r!==e&&(n=!0,e=r)}return t?'<pre><code class="'+this.options.langPrefix+s(t,!0)+'">'+(n?e:s(e,!0))+"\n</code></pre>\n":"<pre><code>"+(n?e:s(e,!0))+"\n</code></pre>"},n.prototype.blockquote=function(e){return"<blockquote>\n"+e+"</blockquote>\n"},n.prototype.html=function(e){return e},n.prototype.heading=function(e,t,n){return"<h"+t+' id="'+this.options.headerPrefix+n.toLowerCase().replace(/[^\w]+/g,"-")+'">'+e+"</h"+t+">\n"},n.prototype.hr=function(){return this.options.xhtml?"<hr/>\n":"<hr>\n"},n.prototype.list=function(e,t){var n=t?"ol":"ul";return"<"+n+">\n"+e+"</"+n+">\n"},n.prototype.listitem=function(e){return"<li>"+e+"</li>\n"},n.prototype.paragraph=function(e){return"<p>"+e+"</p>\n"},n.prototype.table=function(e,t){return"<table>\n<thead>\n"+e+"</thead>\n<tbody>\n"+t+"</tbody>\n</table>\n"},n.prototype.tablerow=function(e){return"<tr>\n"+e+"</tr>\n"},n.prototype.tablecell=function(e,t){var n=t.header?"th":"td",r=t.align?"<"+n+' style="text-align:'+t.align+'">':"<"+n+">";return r+e+"</"+n+">\n"},n.prototype.strong=function(e){return"<strong>"+e+"</strong>"},n.prototype.em=function(e){return"<em>"+e+"</em>"},n.prototype.codespan=function(e){return"<code>"+e+"</code>"},n.prototype.br=function(){return this.options.xhtml?"<br/>":"<br>"},n.prototype.del=function(e){return"<del>"+e+"</del>"},n.prototype.link=function(e,t,n){if(this.options.sanitize){try{var r=decodeURIComponent(i(e)).replace(/[^\w:]/g,"").toLowerCase()}catch(s){return""}if(0===r.indexOf("javascript:")||0===r.indexOf("vbscript:"))return""}var l='<a href="'+e+'"';return t&&(l+=' title="'+t+'"'),l+=">"+n+"</a>"},n.prototype.image=function(e,t,n){var r='<img src="'+e+'" alt="'+n+'"';return t&&(r+=' title="'+t+'"'),r+=this.options.xhtml?"/>":">"},n.prototype.text=function(e){return e},r.parse=function(e,t,n){var s=new r(t,n);return s.parse(e)},r.prototype.parse=function(e){this.inline=new t(e.links,this.options,this.renderer),this.tokens=e.reverse();for(var n="";this.next();)n+=this.tok();return n},r.prototype.next=function(){return this.token=this.tokens.pop()},r.prototype.peek=function(){return this.tokens[this.tokens.length-1]||0},r.prototype.parseText=function(){for(var e=this.token.text;"text"===this.peek().type;)e+="\n"+this.next().text;return this.inline.output(e)},r.prototype.tok=function(){switch(this.token.type){case"space":return"";case"hr":return this.renderer.hr();case"heading":return this.renderer.heading(this.inline.output(this.token.text),this.token.depth,this.token.text);case"code":return this.renderer.code(this.token.text,this.token.lang,this.token.escaped);case"table":var e,t,n,r,s,i="",l="";for(n="",e=0;e<this.token.header.length;e++)r={header:!0,align:this.token.align[e]},n+=this.renderer.tablecell(this.inline.output(this.token.header[e]),{header:!0,align:this.token.align[e]});for(i+=this.renderer.tablerow(n),e=0;e<this.token.cells.length;e++){for(t=this.token.cells[e],n="",s=0;s<t.length;s++)n+=this.renderer.tablecell(this.inline.output(t[s]),{header:!1,align:this.token.align[s]});l+=this.renderer.tablerow(n)}return this.renderer.table(i,l);case"blockquote_start":for(var l="";"blockquote_end"!==this.next().type;)l+=this.tok();return this.renderer.blockquote(l);case"list_start":for(var l="",o=this.token.ordered;"list_end"!==this.next().type;)l+=this.tok();return this.renderer.list(l,o);case"list_item_start":for(var l="";"list_item_end"!==this.next().type;)l+="text"===this.token.type?this.parseText():this.tok();return this.renderer.listitem(l);case"loose_item_start":for(var l="";"list_item_end"!==this.next().type;)l+=this.tok();return this.renderer.listitem(l);case"html":var h=this.token.pre||this.options.pedantic?this.token.text:this.inline.output(this.token.text);return this.renderer.html(h);case"paragraph":return this.renderer.paragraph(this.inline.output(this.token.text));case"text":return this.renderer.paragraph(this.parseText())}},o.exec=o,a.options=a.setOptions=function(e){return h(a.defaults,e),a},a.defaults={gfm:!0,tables:!0,breaks:!1,pedantic:!1,sanitize:!1,sanitizer:null,mangle:!0,smartLists:!1,silent:!1,highlight:null,langPrefix:"lang-",smartypants:!1,headerPrefix:"",renderer:new n,xhtml:!1},a.Parser=r,a.parser=r.parse,a.Renderer=n,a.Lexer=e,a.lexer=e.lex,a.InlineLexer=t,a.inlineLexer=t.output,a.parse=a,"undefined"!=typeof module&&"object"==typeof exports?module.exports=a:"function"==typeof define&&define.amd?define(function(){return a}):this.marked=a}).call(function(){return this||("undefined"!=typeof window?window:global)}());
@@ -869,7 +869,7 @@ let chapters = [
         ]
     }, {
         title: "Variables et opérations",
-        description: "JavaScript est un langage de script au typage dynamique.<br><br>Ce chapitre présente les bases du langage avec les variables (<i>nombres, chaines de caractères, etc</i>) et les opérations (<i>addition, concaténation</i>).",
+        description: "JavaScript est un langage de script au typage dynamique.<br><br>Ce chapitre présente les bases du langage avec les variables (nombres, chaines de caractères, etc) et les opérations (addition, concaténation).",
         color: "green",
         steps: [
             {
@@ -900,7 +900,7 @@ let chapters = [
             {
                 title: "Initialiser une variable (de type nombre)",
                 description: "Déclarer une variable nommée <code>secret</code> et lui affecter la valeur numérique <code>12</code>",
-                excerpt: "Une variable est un symbole qui associe un nom à une valeur stockée en mémoire. Le nom doit être unique. La valeur peut être de plusieurs types.<br><br><strong>Exemple</strong> : l'instruction <code>var value = 5;</code> déclare la variable <code>value</code> et lui affecte la valeur numérique <code>5</code> (<i>le point virgule en fin de chaque ligne est optionnel</i>).",
+                excerpt: "Une variable est un symbole qui associe un nom à une valeur stockée en mémoire. Le nom doit être unique. La valeur peut être de plusieurs types.<br><br><strong>Exemple</strong> : l'instruction <code>var value = 5;</code> déclare la variable <code>value</code> et lui affecte la valeur numérique <code>5</code> (le point virgule en fin de chaque ligne est optionnel).",
                 solved: "var secret = 12;",
                 warn: "La variable <code>secret</code> doit être déclarée et initialisée à <code>12</code>",
                 answer: function() {
@@ -949,7 +949,7 @@ let chapters = [
             },
             {
                 title: "Additionner deux nombres",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter la somme des variables numériques <code>x</code> et <code>y</code> (<i>déclarées par ce tutoriel</i>).",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter la somme des variables numériques <code>x</code> et <code>y</code> (déclarées par ce tutoriel).",
                 excerpt: "Un opérateur est un symbole qui représente une action. Il permet d'opérer sur deux valeurs, les additionner, les soustraire ou autre. Une variable peut être affectée du résultat d'un opérateur.<br><br><strong>Exemple</strong> : l'instruction <code>var value = 5 + 10;</code> déclare la variable <code>value</code> et lui affecte le résultat de l'opération, <code>15</code>.",
                 solved: "var secret = x + y;",
                 init: function() {
@@ -968,8 +968,8 @@ let chapters = [
             },
             {
                 title: "Concaténer deux chaines de caractères",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter la concaténation des variables <code>x</code> et <code>y</code> séparées d'un espace (<i>déclarées par ce tutoriel</i>).",
-                excerpt: "Ajouter une chaine de caractères à une autre avec l'opérateur <code>+</code> permet de les concaténer (<i>les mettre bout à bout</i>).<br><br>Pour ajouter un espace à une chaine existante, il est possible de créer une chaine composée uniquement d'un espace <code>' '</code>. Les chaines de caractères peuvent être déclarées à l'aide de guillemets simples <code>'lorem ipsum'</code> ou double <code>\"lorem ipsum bacon\"</code>.<br><br><strong>Exemple</strong> : <code>'lorem ' + 'ipsum'</code> crée la chaine <code>'lorem ipsum'</code>.",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter la concaténation des variables <code>x</code> et <code>y</code> séparées d'un espace (déclarées par ce tutoriel).",
+                excerpt: "Ajouter une chaine de caractères à une autre avec l'opérateur <code>+</code> permet de les concaténer (les mettre bout à bout).<br><br>Pour ajouter un espace à une chaine existante, il est possible de créer une chaine composée uniquement d'un espace <code>' '</code>. Les chaines de caractères peuvent être déclarées à l'aide de guillemets simples <code>'lorem ipsum'</code> ou double <code>\"lorem ipsum bacon\"</code>.<br><br><strong>Exemple</strong> : <code>'lorem ' + 'ipsum'</code> crée la chaine <code>'lorem ipsum'</code>.",
                 solved: "var secret = x + ' ' + y;",
                 init: function() {
                     window.x = this.x = randomize('purple', 'sapphire', 'blue', 'red');
@@ -987,8 +987,8 @@ let chapters = [
             },
             {
                 title: "Diviser deux nombres",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter le résultat de la division de la variables <code>x</code> par <code>y</code> (<i>déclarées par ce tutoriel</i>) arrondi à l'entier inférieur.",
-                excerpt: "Il est possible d'effectuer des arrondis avec la fonction <code>parseInt(value, 10)</code> ou <code>Math.floor(value)</code> (<i>founies par tous les navigateurs</i>).",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter le résultat de la division de la variables <code>x</code> par <code>y</code> (déclarées par ce tutoriel) arrondi à l'entier inférieur.",
+                excerpt: "Il est possible d'effectuer des arrondis avec la fonction <code>parseInt(value, 10)</code> ou <code>Math.floor(value)</code> (founies par tous les navigateurs).",
                 solved: "var secret = parseInt(x / y, 10);",
                 init: function() {
                     window.x = this.x = randomize(13, 23, 33, 43, 53);
@@ -1043,7 +1043,7 @@ let chapters = [
             },
             {
                 title: "Retourner le plus grand de deux nombres",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur du plus grand nombre parmi <code>x</code> et <code>y</code> (<i>déclarées par ce tutoriel</i>).",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur du plus grand nombre parmi <code>x</code> et <code>y</code> (déclarées par ce tutoriel).",
                 excerpt: "Il est égalemen d'écrire une condition qui vérifie lequel de deux nombres est le plus grand avec <code>if</code>. Ou, à la place d'utiliser <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math\"><code>Math</code></a>, celui-ci dispose de fonctionnalités pour identifier les maximum, minimum, sinus, etc.",
                 solved: "var secret;<br>if (x > y) {<br>  secret = x;<br>} else {<br>  secret = y;<br>}<br><br>/* or, instead */<br><br>var secret = Math.max(x, y);",
                 init: function() {
@@ -1062,8 +1062,8 @@ let chapters = [
             },
             {
                 title: "Retourner la plus grande de deux chaines",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de la chaîne de caractères la plus longue parmi <code>x</code> et <code>y</code> (<i>déclarées par ce tutoriel</i>).",
-                excerpt: "Les chaines de caractères sont des tableaux de caractères. Elles disposent donc d'un attribut <code>length</code> indiquant leur nombre d'éléments. Il est également possible d'accéder - comme pour un tableau - à un élément avec son index.<br><br><strong>Exemple</strong> : <code>'lorem ipsum'.length</code> retourne <code>11</code>, car la chaine est composée de 11 caractères. <code>'lorem ipsum'[3]</code> retourne <code>e</code>, car il s'agit du 4iem caractère de la chaine (<i>l'index des tableaux commence à zéro</i>).",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de la chaîne de caractères la plus longue parmi <code>x</code> et <code>y</code> (déclarées par ce tutoriel).",
+                excerpt: "Les chaines de caractères sont des tableaux de caractères. Elles disposent donc d'un attribut <code>length</code> indiquant leur nombre d'éléments. Il est également possible d'accéder - comme pour un tableau - à un élément avec son index.<br><br><strong>Exemple</strong> : <code>'lorem ipsum'.length</code> retourne <code>11</code>, car la chaine est composée de 11 caractères. <code>'lorem ipsum'[3]</code> retourne <code>e</code>, car il s'agit du 4iem caractère de la chaine (l'index des tableaux commence à zéro).",
                 solved: "var secret;<br>if (x.length > y.length) {<br>  secret = x;<br>} else {<br>  secret = y;<br>}",
                 init: function() {
                     window.x = this.x = randomize('purple', 'sapphire', 'blue', 'red');
@@ -1081,8 +1081,8 @@ let chapters = [
             },
             {
                 title: "Initialiser un booléen",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter <code>true</code> si la somme de <code>x</code> et <code>y</code> (<i>déclarées par ce tutoriel</i>) est supérieure à 100, <code>false</code> sinon.",
-                excerpt: "En plus des nombres et des chaines de caractères, le langage dispose de booléens, des variables dont la valeur est <code>true</code> ou <code>false</code>. Les conditions et les boucles sont basées sur des tests booléens (<i>faits par le navigateur</i>).",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter <code>true</code> si la somme de <code>x</code> et <code>y</code> (déclarées par ce tutoriel) est supérieure à 100, <code>false</code> sinon.",
+                excerpt: "En plus des nombres et des chaines de caractères, le langage dispose de booléens, des variables dont la valeur est <code>true</code> ou <code>false</code>. Les conditions et les boucles sont basées sur des tests booléens (faits par le navigateur).",
                 solved: "var secret = x + y > 100;",
                 init: function() {
                     window.x = this.x = randomize(30, 40, 50);
@@ -1125,7 +1125,7 @@ let chapters = [
             },
             {
                 title: "Effectuer deux conditions simultanées",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter <code>true</code> si <code>x</code> et <code>y</code> (<i>déclarées par ce tutoriel</i>) sont tous deux supérieurs à 10, <code>false</code> sinon.",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter <code>true</code> si <code>x</code> et <code>y</code> (déclarées par ce tutoriel) sont tous deux supérieurs à 10, <code>false</code> sinon.",
                 excerpt: "Les opérateurs et <code>&&</code> et ou <code>||</code> permettent de combiner des conditions.<br><br><strong>Exemple</strong> : <code>10 < 12 && 12 < 15</code> retourne <code>true</code> car les deux conditions sont vérifiées. <code>10 < 12 || 12 > 15</code> retourne <code>true</code> car une des deux conditions est vérifiée. <code>10 > 12 || 12 > 15</code> retourne <code>false</code> car aucune des deux conditions n'est vérifiée.",
                 solved: "var secret = x > 10 && y > 10;",
                 init: function() {
@@ -1144,7 +1144,7 @@ let chapters = [
             },
             {
                 title: "Effectuer une condition ou une autre",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter <code>true</code> si <code>x</code> ou <code>y</code> (<i>déclarées par ce tutoriel</i>) est supérieur à 10, <code>false</code> sinon.",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter <code>true</code> si <code>x</code> ou <code>y</code> (déclarées par ce tutoriel) est supérieur à 10, <code>false</code> sinon.",
                 solved: "var secret = x > 10 || y > 10;",
                 init: function() {
                     window.x = this.x = randomize(5, 9, 14, 18);
@@ -1197,8 +1197,8 @@ let chapters = [
             },
             {
                 title: "Effectuer une boucle",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de la chaîne <code>x</code> répétée autant de fois que la valeur numérique <code>y</code> (<i>ex. 3, skate -> skateskateskate — déclarées par ce tutoriel</i>)",
-                excerpt: "L'expression conditionnelle de boucle <code>for</code> effectue une opération tant que sa condition est vérifiée (<i>égale à true</i>). Cette expression est originale : elle se définit en trois parties facultatives, d'abord une initialisation, ensuite une condition, enfin une opération finale. L'initialisation est effectuée au premier pas de boucle, ensuite, tant que la condition n'est pas vérifiée, la ou les opérations sont évaluées, puis l'opération finale est évaluée à son tour.<br><br><strong>Exemple</strong> : <pre><code>for (var i = 0; i < 5; i++) {<br> console.log(i);<br>}</code></pre> affiche <code>0 1 2 3 4</code> dans la console du navigateur. Elle peut se lire ainsi : « Soit <code>i</code> initialisé à zéro, tant que <code>i</code> est inférieur à <code>5</code> effectuer les opérations suivantes. Après avoir effectué les opérations, ajouter <code>1</code> à <code>i</code>, puis recommencer ».",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de la chaîne <code>x</code> répétée autant de fois que la valeur numérique <code>y</code> (ex. 3, skate -> skateskateskate — déclarées par ce tutoriel)",
+                excerpt: "L'expression conditionnelle de boucle <code>for</code> effectue une opération tant que sa condition est vérifiée (égale à true). Cette expression est originale : elle se définit en trois parties facultatives, d'abord une initialisation, ensuite une condition, enfin une opération finale. L'initialisation est effectuée au premier pas de boucle, ensuite, tant que la condition n'est pas vérifiée, la ou les opérations sont évaluées, puis l'opération finale est évaluée à son tour.<br><br><strong>Exemple</strong> : <pre><code>for (var i = 0; i < 5; i++) {<br> console.log(i);<br>}</code></pre> affiche <code>0 1 2 3 4</code> dans la console du navigateur. Elle peut se lire ainsi : « Soit <code>i</code> initialisé à zéro, tant que <code>i</code> est inférieur à <code>5</code> effectuer les opérations suivantes. Après avoir effectué les opérations, ajouter <code>1</code> à <code>i</code>, puis recommencer ».",
                 solved: "var secret = '';<br>for (var i = 0; i < y; i++) {<br>  secret = secret + x;<br>}",
                 init: function() {
                     window.x = this.x = randomize('skate', 'rollers', 'submarine');
@@ -1219,7 +1219,7 @@ let chapters = [
             },
             {
                 title: "Effectuer une boucle",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de <code>x</code> (<i>déclarée par ce tutoriel</i>) dont tous les <code>e</code> ont été retirés.",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de <code>x</code> (déclarée par ce tutoriel) dont tous les <code>e</code> ont été retirés.",
                 excerpt: "Les condition et les boucles peuvent être imbriquées les unes dans les autres.",
                 solved: "var secret = '';<br>for (var i = 0; i < x.length; i++) {<br>  var char = x[i];<br>  if (char !== 'e') {<br>    secret = secret + char;<br>  }<br>}",
                 init: function() {
@@ -1237,7 +1237,7 @@ let chapters = [
             },
             {
                 title: "Effectuer une boucle et une condition",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de tous les nombres de 1 jusqu'à <code>x</code> (<i>déclarée par ce tutoriel</i>) sans les pairs (<i>ex. 7 -> 7 + 5 + 3 + 1</i>).",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de tous les nombres de 1 jusqu'à <code>x</code> (déclarée par ce tutoriel) sans les pairs (ex. 7 -> 7 + 5 + 3 + 1).",
                 solved: "var secret = 0;<br>for (var i = 1; i <= x; i++) {<br>  if (i % 2 === 1) {<br>    secret = secret + i;<br>  }<br>}",
                 init: function() {
                     window.x = this.x = random(5, 9);
@@ -1324,8 +1324,8 @@ let chapters = [
             },
             {
                 title: "Créer un tableau",
-                description: "Créer une variable nommée <code>secret</code> de type tableau et lui ajouter les valeurs de <code>x</code> et de <code>y</code> (<i>déclarées par ce tutoriel</i>).",
-                excerpt: "Les tableaux représentent une liste ordonnée de variables (qu'importe leur type). La propriété <code>length</code> permet de connaitre le nombre d'éléments d'un tableau. Les crochets <code>[ ]</code> permettent d'accèder à un élément par index (<i>l'index des tableaux commence à zéro</i>).",
+                description: "Créer une variable nommée <code>secret</code> de type tableau et lui ajouter les valeurs de <code>x</code> et de <code>y</code> (déclarées par ce tutoriel).",
+                excerpt: "Les tableaux représentent une liste ordonnée de variables (qu'importe leur type). La propriété <code>length</code> permet de connaitre le nombre d'éléments d'un tableau. Les crochets <code>[ ]</code> permettent d'accèder à un élément par index (l'index des tableaux commence à zéro).",
                 solved: "var secret = [x, y];",
                 init: function() {
                     window.x = this.x = random(1, 10);
@@ -1387,7 +1387,7 @@ let chapters = [
             },
             {
                 title: "Concaténer deux tableaux",
-                description: "Créer une variable nommée <code>secret</code> de type tableau et lui ajouter les valeurs de <code>x</code> (un tableau également) et de <code>y</code> (<i>déclarées par ce tutoriel</i>).",
+                description: "Créer une variable nommée <code>secret</code> de type tableau et lui ajouter les valeurs de <code>x</code> (un tableau également) et de <code>y</code> (déclarées par ce tutoriel).",
                 excerpt: "La méthode <code>concat</code> permet de rassembler un tableau à tableaux autres.",
                 solved: "var secret = [].concat(x, y);",
                 init: function() {
@@ -1450,7 +1450,7 @@ let chapters = [
             },
             {
                 title: "Modifier un tableau",
-                description: "Créer une variable nommée <code>secret</code> de type tableau avec toutes les valeurs du tableau <code>x</code> (<i>déclarée par ce tutoriel</i>) dont chaque valeur a été doublée (<i>ex. [1, 5, 7] -> [2, 10, 14]</i>).",
+                description: "Créer une variable nommée <code>secret</code> de type tableau avec toutes les valeurs du tableau <code>x</code> (déclarée par ce tutoriel) dont chaque valeur a été doublée (ex. [1, 5, 7] -> [2, 10, 14]).",
                 excerpt: "Les boucles <code>for</code> sont souvent utilisées pour parcourir un tableau et récupérer chacune de ses valeurs une à une.<br><br><strong>Exemple</strong> : <pre><code>for (var i = 0; i < items.length; i++) { <br>  console.log('value', items[i]); <br>}</code></pre> parcourt un tableau et affiche chacune de ses valeurs.",
                 solved: "var secret = [];<br>for (var i = 0; i < x.length; i++) {<br>  var value = x[i];<br>  secret.push(value * 2); <br>}",
                 init: function() {
@@ -1469,7 +1469,7 @@ let chapters = [
             },
             {
                 title: "Filtrer un tableau",
-                description: "Créer une variable nommée <code>secret</code> de type tableau avec toutes les valeurs du tableau <code>x</code> dont la valeur de <code>y</code> a été retirée (<i>ex. 3, [1, 3, 3, 1] -> [1, 1] — déclarées par ce tutoriel</i>).",
+                description: "Créer une variable nommée <code>secret</code> de type tableau avec toutes les valeurs du tableau <code>x</code> dont la valeur de <code>y</code> a été retirée (ex. 3, [1, 3, 3, 1] -> [1, 1] — déclarées par ce tutoriel).",
                 solved: "var secret = [];<br>for (var i = 0; i < x.length; i++) {<br>  if (x[i] !== y) {<br>    secret.push(x[i]);<br>  }<br>}",
                 init: function() {
                     this.x = [random(1, 3), random(1, 3), random(1, 3), ''+random(1, 3), random(1, 3), ''+random(1, 3), random(1, 3), ''+random(1, 3)];
@@ -1481,7 +1481,7 @@ let chapters = [
                     return this.x.filter(function(i) { return i !== y; });
                 },
                 warn: function() {
-                    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + this.secret() + "</code> (<i>attention, le tableau contient des entiers et des chaines de caractères</i>).";
+                    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + this.secret() + "</code> (attention, le tableau contient des entiers et des chaines de caractères).";
                 },
                 answer: function() {
                     return equals(secret, this.secret());
@@ -1489,7 +1489,7 @@ let chapters = [
             },
             {
                 title: "Réduire un tableau",
-                description: "Créer une variable nommée <code>secret</code> ayant pour la valeur la somme de toutes les valeur du tableau <code>x</code> (<i>ex. [1, 5, 7] -> 13 — déclarée par ce tutoriel</i>).",
+                description: "Créer une variable nommée <code>secret</code> ayant pour la valeur la somme de toutes les valeur du tableau <code>x</code> (ex. [1, 5, 7] -> 13 — déclarée par ce tutoriel).",
                 solved: "var secret = 0;<br>for (var i = 0; i < x.length; i++) {<br>  secret = secret + x[i];<br>}",
                 init: function() {
                     this.x = [random(1, 10), random(1, 10), random(1, 10), random(1, 10)];
@@ -1554,8 +1554,8 @@ let chapters = [
             },
             {
                 title: "Créer un dictionnaire",
-                description: "Créer une variable nommée <code>secret</code> de type dictionnaire avec deux clés, <code>min</code> et <code>max</code>, ayant pour valeur le minimum et le maximum des valeurs <code>x</code> et <code>y</code> (<i>ex. 7, 5 -> {min: 5, max: 7} — déclarées par ce tutoriel</i>).",
-                excerpt: "Les objets littéraux (<i> ou dictionnaires</i>), représentent une suite de paires clé - valeur séparées par une virgule. Chacune des valeurs ainsi listées peut être d'une type primitif ou composite.<br><br><strong>Exemple</strong> : <code>var obj = { age: 27, name: 'paul' }</code> déclare un objet littéral avec deux clés, la première ayant pour valeur un nombre, la seconde, une chaine de caractères. Ainsi <code>obj.age</code> retourne <code>27</code> et <code>obj.name</code> retourne <code>'paul'</code>. Ces valeurs peuvent être modifiées comme elles sont accédées, <code>obj.age = 32</code>.",
+                description: "Créer une variable nommée <code>secret</code> de type dictionnaire avec deux clés, <code>min</code> et <code>max</code>, ayant pour valeur le minimum et le maximum des valeurs <code>x</code> et <code>y</code> (ex. 7, 5 -> {min: 5, max: 7} — déclarées par ce tutoriel).",
+                excerpt: "Les objets littéraux ( ou dictionnaires), représentent une suite de paires clé - valeur séparées par une virgule. Chacune des valeurs ainsi listées peut être d'une type primitif ou composite.<br><br><strong>Exemple</strong> : <code>var obj = { age: 27, name: 'paul' }</code> déclare un objet littéral avec deux clés, la première ayant pour valeur un nombre, la seconde, une chaine de caractères. Ainsi <code>obj.age</code> retourne <code>27</code> et <code>obj.name</code> retourne <code>'paul'</code>. Ces valeurs peuvent être modifiées comme elles sont accédées, <code>obj.age = 32</code>.",
                 solved: "var secret = {};<br>if (x < y) {<br>  secret.min = x;<br>  secret.max = y;<br>} else {<br>  secret.min = y;<br>  secret.max = x;<br>}",
                 init: function() {
                     window.x = this.x = random(1, 50);
@@ -1573,7 +1573,7 @@ let chapters = [
             },
             {
                 title: "Parcourir un dictionnaire",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter le maximum de la propriété <code>age</code> des variables <code>x</code> et <code>y</code> (<i>ex. {age: 7}, {age: 5} -> 7 — déclarées par ce tutoriel</i>).",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter le maximum de la propriété <code>age</code> des variables <code>x</code> et <code>y</code> (ex. {age: 7}, {age: 5} -> 7 — déclarées par ce tutoriel).",
                 solved: "var secret = Math.max(x.age, y.age);",
                 init: function() {
                     this.x = {age: random(1, 50)};
@@ -1593,7 +1593,7 @@ let chapters = [
             },
             {
                 title: "Utiliser un dictionnaire pour structurer des données",
-                description: "Créer une variable nommée <code>secret</code> de type dictionnaire, avec cinq clés, <code>a</code>, <code>e</code>, <code>i</code>, <code>o</code> et <code>u</code> et y stocker le nombre de chacune de ces voyelles dans la chaîne de caratères déclarée par la variable <code>x</code> (<i>ex. 'hello' -> {a:0, e:1, i:0, o: 1, u:0} — déclarée par ce tutoriel</i>).",
+                description: "Créer une variable nommée <code>secret</code> de type dictionnaire, avec cinq clés, <code>a</code>, <code>e</code>, <code>i</code>, <code>o</code> et <code>u</code> et y stocker le nombre de chacune de ces voyelles dans la chaîne de caratères déclarée par la variable <code>x</code> (ex. 'hello' -> {a:0, e:1, i:0, o: 1, u:0} — déclarée par ce tutoriel).",
                 solved: "var secret = {a:0, e:0, i:0, o:0, u:0};<br>for (var i = 0; i < x.length; i++) {<br>  switch(x[i].toLowerCase()) {<br>    case 'a': secret.a++; break;<br>    case 'e': secret.e++; break;<br>    case 'i': secret.i++; break;<br>    case 'o': secret.o++; break;<br>    case 'u': secret.u++; break;<br>  }<br>}",
                 init: function() {
                     window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
@@ -1620,7 +1620,7 @@ let chapters = [
             },
             {
                 title: "Filtrer un dictionnaire",
-                description: "Créer une variable nommée <code>secret</code> de type dictionnaire, avec les attributs du dictionnaire déclarés par la variable <code>x</code> dont les attributs listés dans le tableau déclaré par la variable <code>y</code> ont été supprimés (<i>ex. {paul:true, john:true, george:true}, ['paul', 'ringo'] -> {john:true, george:true} — déclarée par ce tutoriel</i>).",
+                description: "Créer une variable nommée <code>secret</code> de type dictionnaire, avec les attributs du dictionnaire déclarés par la variable <code>x</code> dont les attributs listés dans le tableau déclaré par la variable <code>y</code> ont été supprimés (ex. {paul:true, john:true, george:true}, ['paul', 'ringo'] -> {john:true, george:true} — déclarée par ce tutoriel).",
                 solved: "var secret = x;<br>for (let i = 0; i < this.y.length; i++)<br>  delete secret[this.y[i]];",
                 init: function() {
                     this.x = {yellow: true, green: true, blue: true, violet: true, red: true, orange: true};
@@ -1649,8 +1649,255 @@ let chapters = [
             }
         ]
     }, {
+        title: "La boucle d'événement",
+        description: "En JavaScript, une seule opération a lieu à un instant donné. Si plusieurs opérations devaient avoir lieu simultanément, elles sont mises en file d'attente et exécutées les unes après les autres.<br><br>Ce chapitre présente le concept de la boucle d'événement et son fonctionnement.",
+        color: "green",
+        steps: [
+            {
+                course: true,
+                description: `
+                    En JavaScript, les opérations concurrentes sont gérées via une [boucle d'événement, ou event loop](https://developer.mozilla.org/en/docs/Web/JavaScript/EventLoop). Il s'agit d'un modèle simple pour le développeur : une seule opération a lieu à un instant donné. Si plusieurs opérations devaient avoir lieu simultanément, elles sont mises dans une file d'attente et exécutées les unes après les autres.
+
+                    **Deux écouteurs attachés au même événement :**
+
+                        var el = document.body;
+                        el.addEventListener('click', function(){
+                          el.style.backgroundColor = 'Purple';
+                        });
+                        el.addEventListener('click', function(){
+                          el.style.backgroundColor = 'Yellow';
+                        });
+
+                    Dans cet exemple, la couleur de fond de la page passera d'abord en violet avant de devenir jaune (trop rapidement pour être perçu à l'oeil nu). Les deux fonctions sont déclenchées simultanément par un clic de l'utilisateur, mais le navigateur exécute d'abord la première qu'il connaît avant d'effectuer la seconde.
+
+                    Lorsqu'une fonction est exécutée, aucun autre code ne peut l'être parallèlement, tant que celle-ci n'a pas terminée son exécution — et rien n'est donc en mesure de modifier les variables que la fonction manipule, elle est le seul maître à bord.
+
+                    Ceci dit, si une fonction demande un long temps de traitement, cela délaie le traitement de tous les autres événements, notamment les actions utilisateur ; les clics ou défilements de la page n'auront donc lieu qu'après que cette longue fonction se soit terminée.
+
+                `
+            },
+            {
+                title: "Les fonctions asynchrones",
+                course: true,
+                description: `
+                    Les fonctions peuvent être utilisées de deux façons : synchrones et asynchrones. Les premières réalisent un traitement et renvoient immédiatement leur résultat. Les secondes sont mémorisées et déclenchées plus tard par un événement (nommées \`callback\` par convention).
+                    Une fonction peut être utilisée des deux façons, comme ci-dessous.
+
+                    **Une fonction utilisée de façon synchrone et asynchrone :**
+
+                        var el = document.body;
+                        el.addEventListener('click', function(){
+                          setBackground('Purple');
+                        });
+
+                        var setBackground = function(color) {
+                          el.style.backgroundColor = color;
+                        };
+                        setBackground('Yellow');
+
+                    Dans cet exemple, la couleur de fond de la page passe au jaune. Si l'utilisateur clique sur le \`body\`, elle passera alors au violet. Tout le code synchrone est exécuté immédiatement, le code asynchrone ne se déclenchera qu'à l'événement clic. Les opérations suivant la fonction asynchrone sont exécutées immédiatement.
+                `
+            },
+            {
+                course: true,
+                description: `
+                    Des fonctions asynchrones peuvent être utilisées également pour des temporisations ; effectuer telle action dans une seconde, ou telle autre toutes les cinq secondes.
+
+                    **Temporisations :**
+
+                        var el = document.body;
+                        el.style.backgroundColor = 'Yellow';
+
+                        setTimeout(function() {
+                          el.style.backgroundColor = 'Purple';
+                        }, 1000);
+
+                        setInterval(function() {
+                          el.innerHTML += 'again';
+                        }, 5000); // milliseconds
+
+                    Dans cet exemple, la couleur de fond de la page passe au jaune. Puis, au bout d'une seconde, elle passe au violet. Enfin, toutes les cinq secondes, le mot « again » est ajouté au contenu du body. [Deux directives](https://developer.mozilla.org/en/Add-ons/SDK/High-Level_APIs/timers) du langage \`setTimeout\` et \`setInterval\` sont utilisées pour ce faire. Ces temporisations sont très utilises pour réaliser des effets, par exemple déplacer progressivement un élément de la page, ou le faire disparaître petit à petit.
+
+                    Qu'il s'agisse d'événements utilisateur ou de temporisation, si une fonction est appelée alors qu'une autre n'a pas fini son exécution, elle est ajouté dans la file d'attente de l'event loop. Il se peut que d'autres fonctions y soient déjà en attente ; la dernière fonction ajoutée ne s'exécutera que quand toutes les autres de la file d'attente auront été traitées.
+                `
+            }
+        ]
+    }, {
+        title: "Les erreurs",
+        description: "Lorsqu'une opération échoue l'exécution du code s'interrompt et la console du navigateur indique l'erreur qui s'est produite et en explique les causes.<br><br>Ce chapitre présente les erreurs et la façon de les interpréter pour débogger et améliorer un programme.",
+        color: "green",
+        steps: [
+            {
+                course: true,
+                description: `
+                    JavaScript est un langage interprété, le navigateur l'exécute, une ligne après l'autre de gauche à droite. Si une opération venait à échouer (si sa syntaxe est incorrecte ou si une opération n'est pas valide, par exemple), l'exécution du code s'interrompt et les lignes suivantes sont ignorées. La console du navigateur, si elle est affichée, indique l'erreur qui s'est produite et en explique les causes.
+
+                    ### Variables indéfinies
+
+                    Une des erreurs les plus courantes est l'accès à une variable non définie.
+
+                    **Erreur d'accès à des variables ou attributs non définis :**
+
+                        submarine;
+                        → Uncaught ReferenceError: submarine is not defined
+
+                        var submarine;
+                        → undefined
+
+                        submarine.length;
+                        → Uncaught TypeError: Cannot read property 'length' of undefined
+
+                        submarine.surface();
+                        → Uncaught TypeError: submarine.surface is not a function
+
+                        submarine = {};
+                        submarine.deepness;
+                        → undefined
+                `
+            },
+            {
+                course: true,
+                description: `
+                    Tant qu'une variable n'a pas été définie avec le mot clé \`var\` il est impossible d'y faire référence (puisqu'elle n'existe pas encore). Une fois qu'une variable a été définie, il est possible d'y faire référence, cependant, tant qu'aucune valeur ne lui a été affectée, il est impossible d'accéder à un de ces attributs. En effet, une variable définie mais non initialisée se voit affectée la valeur \`undefined\`, et cette valeur particulière du langage n'autorise pas l'accès à un attribut.
+
+                    Une fois une variable définie puis initialisée à une valeur, il est alors possible d'accéder à n'importe lequel de ses attributs, même un attribut non défini. Accéder à un attribut existant retournera sa valeur, accéder à un attribut non défini retournera \`undefined\`. Cela fonctionne également s'il s'agit d'un type simple, un nombre par exemple. La seule erreur qui puisse encore se produire lorsqu'une variable est définie et initialisée est l'exécution d'une fonction qui n'en est pas une. Accéder à un attribut à l'aide de deux parenthèses, comme si l'on souhaitait exécuter une fonction, alors que l'attribut est \`undefined\` ou défini à un autre type qu'une fonction retournera une erreur.
+
+                    Pour éviter qu'un programme soit interrompu de cette façon, il suffit de vérifier l'existence d'une variable, d'un attribut ou d'une fonction avant d'y accéder en cas de doute sur la question.
+
+                    **Vérification de définition d'une variable avant accès :**
+
+                        if (!submarine)
+                          submarine = {};
+
+                        if (submarine.deepness)
+                          submarine.deepness += 2;
+
+                    Utiliser une expression conditionnelle avec seulement un nom de variable est un raccourci usuel permettant de vérifier qu'une variable est définie — c'est à dire, que sa valeur est bien différente de \`null\`, \`undefined\`, \`NaN\`, chaîne vide (\`""\`), \`0\` ou \`false\`. Pour vérifier l'inverse, c'est à dire que sa valeur n'est pas définie, il faut la préfixer d'un point d'exclamation, \`!submarine\`.
+
+                    Attention, toutefois, si la variable testée n'a pas été déclarée (avec le mot clé \`var\`), une erreur aura lieue. Ces vérifications ne fonctionnent que sur des variables déjà déclarées.
+
+                    Dernier point, le nom des variables est sensible à la casse, \`submarine\` et \`Submarine\` sont deux variables différentes.
+                `
+            },
+            {
+                course: true,
+                description: `
+                    ### Signes englobants
+
+                    Une cause d'erreur potentielle est l'utilisation d'un signe ouvrant sans son homologue fermant. Toute parenthèse ouvrante doit être fermée, c'est également le cas pour les accolades, les tableaux et les guillemets délimitant les chaînes de caractères. Dans le cas contraire, l'erreur \`Unexpected token\` sera levée par le navigateur.
+
+                    ### Opérations absurdes
+
+                    Le langage est très permissif. Une chaîne de caractère peut être multiplié avec une entier, une division par zéro peut avoir lieue, les tableaux peuvent se voir ajouter des attributs ou changer de taille sans que le navigateur ne lève d'erreur.
+
+                    Pour ces cas de figure, le langage prévoit plusieurs possibilités. Une opération mathématique au résultat indéterminable, vaudra \`NaN\`, pour « Not a Number ».
+
+                    **Opérations entre types différents :**
+
+                        "yellow" - 2;
+                        → NaN
+
+                        "yellow" + 2;
+                        → "yellow2"
+
+                        NaN == NaN; // NaN is the only value that is unequal to itself
+                        → false
+
+                        Number.isNaN(NaN); // a method exists to test if a value equals NaN
+                        → true
+
+                        2 / 0;
+                        → Infinity
+
+                        2 / 0 == Infinity;
+                        → true
+
+                        var beatles = [];
+                        beatles.length = 2;
+                        beatles;
+                        → [undefined, undefined]
+
+                    Réaliser de telles opérations est souvent du à une erreur de logique, plus qu'à une volonté. Pour éviter d'y être confronté, il est possible de tester le type des variables avant de les manipuler avec l'opérateur \`typeof\`.
+
+                    **L'opérateur typeof :**
+
+                        typeof "12";
+                        → 'string'
+
+                        typeof 12;
+                        → 'number'
+
+                        typeof []; // similar to typeof {}
+                        → 'object'
+                `
+            }, {
+                course: true,
+                description: `
+                    ### Anticiper les erreurs
+
+                    La meilleure solution pour éviter de tels blocages d'un programme, est de le tester au préalable. Il existe plusieurs solutions pour ce faire, il est envisageable de vérifier manuellement chaque fonctionnalité, pourtant, au fur et à mesure du développement, cela devient fastidieux. Il est possible d'automatiser ces vérifications à l'aide de tests unitaires. Ces tests sont une suite d'opérations qui vérifient individuellement chaque partie d'un programme. Si tous les tests d'un programme sont positifs et que leur couverture fonctionnelles est suffisante, des tests manuels ne sont plus nécessaires. Ce sujet est abordé en détail dans un chapitre suivant.
+
+                    Il y a des situations où il n'est pas possible de prévenir les erreurs, ou d'autres où il est souhaitable qu'une erreur se produise, afin d'agir en conséquence. Pour ces circonstances, les erreurs peuvent être capturées.
+
+                    **Capture d'une erreur si la méthode n'existe pas ou lève une erreur :**
+
+                        try {
+                          submarine.immerse();
+                        } catch(error) {
+                          // handle a ReferenceError
+                        }
+
+                    Les mot clé \`try\` permet de créer un bloc capturant les erreurs. Si une erreur se produit dans ce bloc, les opérations suivantes du bloc sont ignorées et le contenu du bloc \`catch\` est exécuté. Puis le programme continue l'exécution des opérations situées à l'extérieur du bloc \`try\` / \`catch\` ; l'erreur n'interrompt donc pas son exécution. Si la variable retournée par le \`catch\` est de type \`Error\`, elle est composé des attributs \`name\`, \`message\` et \`stack\`. Le premier la nomme, le second décrit l'erreur et le dernier donne la stacktrace ou pile d'erreur, c'est à dire la ligne du fichier où elle s'est produit, la ligne qui a déclenché cette ligne, la ligne qui a déclenché celle-ci, ainsi de suite jusqu'au premier appel ayant déclenché ce code. Analyser cette pile permet souvent de mieux comprendre d'où provient l'erreur.
+
+                    Il est possible de créer ses propres erreurs, mais il est souvent plus souhaitable de retourner une valeur d'erreur (\`-1\` par exemple) ou de ne pas effectuer le traitement puisque l'oubli de capturer une erreur interrompt l'exécution du programme si elle se produit. Lever une erreur contraint tous les utilisateurs de cette fonction à capturer les erreurs potentielles et à agir en conséquence. Cela introduit une certaine lourdeur dans le code.
+
+                    **Lever une erreur simple :**
+
+                        if (!submarine) {
+                          throw 'submarine is required';
+                        }
+                `
+            },
+            {
+                course: true,
+                description: `
+                    ### Lever des erreurs
+
+                    Les erreurs peuvent être de n'importe quel type, chaîne de caractères, objet (y compris entier et booléen, mais cela n'a pas vraiment d'utilité). Par convention, un objet littéral dotés des attributs \`name\` et \`message\` est utilisé.
+
+                    **Lever une erreur composite :**
+
+                        function AuthorizationError(message) {
+                           this.message = message;
+                           this.name = 'AuthorizationException';
+                        }
+
+                        // every code summoning this one, should try/catch ReferenceError
+                        if (!submarine.immerse())
+                          throw new AuthorizationError('Immersion failed');
+
+                    Par simplicité, de nombreuses fonctions retournent \`-1\` ou \`undefined\` plutôt que de lever des erreurs quand elles n'ont pas trouvé ce qu'elles cherchaient.
+
+                    **Lever une erreur composite :**
+
+                        var notFound = 'yellow'.indexOf('x'); // notFound == -1
+
+                    ### Le mode strict
+
+                    Puisque le langage est interprété, tant qu'une partie du programme n'a jamais été exécutée, il est impossible d'être sûr qu'elle fonctionne. Afin de réduire les risques d'erreur de saisie, il est possible d'indiquer au navigateur de lever une \`SyntaxError\` avant d'exécuter le programme si certaines conditions ne sont pas remplies.
+
+                    **Activer le mode strict :**
+
+                        "use strict";
+                        var color = "yellow";
+
+                    Pour activer le mode strict il suffit d'ajouter la chaîne de caractères \`"use strict"\` en début de fichier. Ainsi, le navigateur est informé qu'il peut refuser certains types d'opérations considérées comme non conformes. Par exemple, la déclaration de deux attributs de même nom dans un objet. Ce mode strict est très utilisé et c'est une bonne idée de faire de même.
+                `
+            }
+        ]
+    }, {
         title: "Le DOM",
-        description: "JavaScript permet d'écouter les actions utilisateur et de modifier dynamiquement la page à l'aide d'une structure arborescente : le DOM.<br><br>Ce chapitre présente les accès au DOM (<i>sélecteurs CSS</i>) et les écouteurs d'événements (<i>clics ou appuis de touches</i>).",
+        description: "JavaScript permet d'écouter les actions utilisateur et de modifier dynamiquement la page à l'aide d'une structure arborescente : le DOM.<br><br>Ce chapitre présente les accès au DOM (sélecteurs CSS) et les écouteurs d'événements (clics ou appuis de touches).",
         color: "yellow",
         steps: [
             {
@@ -1927,7 +2174,7 @@ let chapters = [
             {
                 title: "Écouter plusieurs événements",
                 description: "Ajouter un écouteur d'événement sur tous les éléments dotés de la classe <code>champagne</code>, et, au clic, remplacer cette classe par <code>braken</code>.",
-                excerpt: "Le code déclaré dans la fonction d'un écouteur d'événement n'est excuté par le navigateur qu'on moment où l'événement se produit. Cela pose problème avec les boucles car elles modifient les variables <code>i</code> & co. et la valeur du code dans l'écouteur d'événement se retrouve être la dernière positionnée par la boucle.<br><br>Pour éviter cela, il est possible d'utiliser <code>this</code> dasn l'écouteur d'événement (<i>qui correspond à l'élément qui a été cliqué</i>) ou de déclarer toutes les variables de la boucles avec <code>let name</code> au lieu de <code>var name</code> (<i>leur portée est ainsi limitée à la boucle</i>) ou encore de créer une fonction qui encapsule le code déclenché par l'événement.<br><br>Ce problème tient à la portée des variables déclarées avec <code>var</code> qui est locale à la fonction qui l'encapsule, et non à la boucle qui l'encapsule.",
+                excerpt: "Le code déclaré dans la fonction d'un écouteur d'événement n'est excuté par le navigateur qu'on moment où l'événement se produit. Cela pose problème avec les boucles car elles modifient les variables <code>i</code> & co. et la valeur du code dans l'écouteur d'événement se retrouve être la dernière positionnée par la boucle.<br><br>Pour éviter cela, il est possible d'utiliser <code>this</code> dasn l'écouteur d'événement (qui correspond à l'élément qui a été cliqué) ou de déclarer toutes les variables de la boucles avec <code>let name</code> au lieu de <code>var name</code> (leur portée est ainsi limitée à la boucle) ou encore de créer une fonction qui encapsule le code déclenché par l'événement.<br><br>Ce problème tient à la portée des variables déclarées avec <code>var</code> qui est locale à la fonction qui l'encapsule, et non à la boucle qui l'encapsule.",
                 solved: "var lis = document.querySelectorAll('.board li.champagne');<br>for (var i = 0; i < lis.length; i++) {<br>  var li = lis[i];<br>  li.addEventListener('click', function() {<br>    this.className = 'braken';<br>  });<br>}",
                 dom: function() {
                     return board.bind(board, cartman);
@@ -1950,7 +2197,7 @@ let chapters = [
             {
                 title: "Écouter un événement",
                 description: "Ajouter un écouteur d'événement sur le premier élément doté de la classe <code>braken</code> et le premier doté de la classe <code>champagne</code>, et, au clic sur l'un des deux, intervertir leurs classes.",
-                excerpt: "Lorsque du code se retrouve dupliqué, il est possible de le rassembler au sein d'une fonction et d'appeller celle-ci plusieurs fois. Le mot clé <code>function</code> permet de déclarer un sous programme qui peut être appelé par du code externe (<i>ou s'appeller elle-même, en cas d'appels récursifs</i>). Comme une boucle conditionnelle, une fonction est composée d'une liste d'opérations (<i>délimitées entre accolades</i>), il est possible de lui fournir des arguments et elle peut retourner une valeur avec le mot clé <code>return</code>. Une fonction est variables comme les autres.<br><br><strong>Exemple</strong> : <pre><code>var double = function(value) { <br>  return value * 2; <br>}</code></pre> crée une fonction qui retourne le double d'un nombre. utilisée ainsi <code>double(12)</code> elle retourne <code>24</code>.",
+                excerpt: "Lorsque du code se retrouve dupliqué, il est possible de le rassembler au sein d'une fonction et d'appeller celle-ci plusieurs fois. Le mot clé <code>function</code> permet de déclarer un sous programme qui peut être appelé par du code externe (ou s'appeller elle-même, en cas d'appels récursifs). Comme une boucle conditionnelle, une fonction est composée d'une liste d'opérations (délimitées entre accolades), il est possible de lui fournir des arguments et elle peut retourner une valeur avec le mot clé <code>return</code>. Une fonction est variables comme les autres.<br><br><strong>Exemple</strong> : <pre><code>var double = function(value) { <br>  return value * 2; <br>}</code></pre> crée une fonction qui retourne le double d'un nombre. utilisée ainsi <code>double(12)</code> elle retourne <code>24</code>.",
                 solved: "var lib = document.querySelector('.board li.braken');<br>var lic = document.querySelector('.board li.champagne');<br><br>var toggle = function(li) {<br>  if (li.className === 'champagne') {<br>    li.className = 'braken';<br>  } else {<br>    li.className = 'champagne';<br>  }<br>}<br><br>lib.addEventListener('click', function() {<br>  toggle(lib);<br>  toggle(lic);<br>});<br><br>lic.addEventListener('click', function() {<br>  toggle(lib);<br>  toggle(lic);<br>});",
                 dom: function() {
                     return board.bind(board, kenny);
@@ -2160,253 +2407,6 @@ let chapters = [
             }
         ]
     }, {
-        title: "Les erreurs",
-        description: "Lorsqu'une opération échoue l'exécution du code s'interrompt et la console du navigateur indique l'erreur qui s'est produite et en explique les causes.<br><br>Ce chapitre présente les erreurs et la façon de les interpréter pour débogger et améliorer un programme.",
-        color: "grey",
-        steps: [
-            {
-                course: true,
-                description: `
-                    JavaScript est un langage interprété, le navigateur l'exécute, une ligne après l'autre de gauche à droite. Si une opération venait à échouer (si sa syntaxe est incorrecte ou si une opération n'est pas valide, par exemple), l'exécution du code s'interrompt et les lignes suivantes sont ignorées. La console du navigateur, si elle est affichée, indique l'erreur qui s'est produite et en explique les causes.
-
-                    ### Variables indéfinies
-
-                    Une des erreurs les plus courantes est l'accès à une variable non définie.
-
-                    **Erreur d'accès à des variables ou attributs non définis :**
-
-                        submarine;
-                        → Uncaught ReferenceError: submarine is not defined
-
-                        var submarine;
-                        → undefined
-
-                        submarine.length;
-                        → Uncaught TypeError: Cannot read property 'length' of undefined
-
-                        submarine.surface();
-                        → Uncaught TypeError: submarine.surface is not a function
-
-                        submarine = {};
-                        submarine.deepness;
-                        → undefined
-                `
-            },
-            {
-                course: true,
-                description: `
-                    Tant qu'une variable n'a pas été définie avec le mot clé \`var\` il est impossible d'y faire référence (puisqu'elle n'existe pas encore). Une fois qu'une variable a été définie, il est possible d'y faire référence, cependant, tant qu'aucune valeur ne lui a été affectée, il est impossible d'accéder à un de ces attributs. En effet, une variable définie mais non initialisée se voit affectée la valeur \`undefined\`, et cette valeur particulière du langage n'autorise pas l'accès à un attribut.
-
-                    Une fois une variable définie puis initialisée à une valeur, il est alors possible d'accéder à n'importe lequel de ses attributs, même un attribut non défini. Accéder à un attribut existant retournera sa valeur, accéder à un attribut non défini retournera \`undefined\`. Cela fonctionne également s'il s'agit d'un type simple, un nombre par exemple. La seule erreur qui puisse encore se produire lorsqu'une variable est définie et initialisée est l'exécution d'une fonction qui n'en est pas une. Accéder à un attribut à l'aide de deux parenthèses, comme si l'on souhaitait exécuter une fonction, alors que l'attribut est \`undefined\` ou défini à un autre type qu'une fonction retournera une erreur.
-
-                    Pour éviter qu'un programme soit interrompu de cette façon, il suffit de vérifier l'existence d'une variable, d'un attribut ou d'une fonction avant d'y accéder en cas de doute sur la question.
-
-                    **Vérification de définition d'une variable avant accès :**
-
-                        if (!submarine)
-                          submarine = {};
-
-                        if (submarine.deepness)
-                          submarine.deepness += 2;
-
-                    Utiliser une expression conditionnelle avec seulement un nom de variable est un raccourci usuel permettant de vérifier qu'une variable est définie — c'est à dire, que sa valeur est bien différente de \`null\`, \`undefined\`, \`NaN\`, chaîne vide (\`""\`), \`0\` ou \`false\`. Pour vérifier l'inverse, c'est à dire que sa valeur n'est pas définie, il faut la préfixer d'un point d'exclamation, \`!submarine\`.
-
-                    Attention, toutefois, si la variable testée n'a pas été déclarée (avec le mot clé \`var\`), une erreur aura lieue. Ces vérifications ne fonctionnent que sur des variables déjà déclarées.
-
-                    Dernier point, le nom des variables est sensible à la casse, \`submarine\` et \`Submarine\` sont deux variables différentes.
-                `
-            },
-            {
-                course: true,
-                description: `
-                    ### Signes englobants
-
-                    Une cause d'erreur potentielle est l'utilisation d'un signe ouvrant sans son homologue fermant. Toute parenthèse ouvrante doit être fermée, c'est également le cas pour les accolades, les tableaux et les guillemets délimitant les chaînes de caractères. Dans le cas contraire, l'erreur \`Unexpected token\` sera levée par le navigateur.
-
-                    ### Opérations absurdes
-
-                    Le langage est très permissif. Une chaîne de caractère peut être multiplié avec une entier, une division par zéro peut avoir lieue, les tableaux peuvent se voir ajouter des attributs ou changer de taille sans que le navigateur ne lève d'erreur.
-
-                    Pour ces cas de figure, le langage prévoit plusieurs possibilités. Une opération mathématique au résultat indéterminable, vaudra \`NaN\`, pour « Not a Number ».
-
-                    **Opérations entre types différents :**
-
-                        "yellow" - 2;
-                        → NaN
-
-                        "yellow" + 2;
-                        → "yellow2"
-
-                        NaN == NaN; // NaN is the only value that is unequal to itself
-                        → false
-
-                        Number.isNaN(NaN); // a method exists to test if a value equals NaN
-                        → true
-
-                        2 / 0;
-                        → Infinity
-
-                        2 / 0 == Infinity;
-                        → true
-
-                        var beatles = [];
-                        beatles.length = 2;
-                        beatles;
-                        → [undefined, undefined]
-
-                    Réaliser de telles opérations est souvent du à une erreur de logique, plus qu'à une volonté. Pour éviter d'y être confronté, il est possible de tester le type des variables avant de les manipuler avec l'opérateur \`typeof\`.
-
-                    **L'opérateur typeof :**
-
-                        typeof "12";
-                        → 'string'
-
-                        typeof 12;
-                        → 'number'
-
-                        typeof []; // similar to typeof {}
-                        → 'object'
-                `
-            }, {
-                course: true,
-                description: `
-                    ### Anticiper les erreurs
-
-                    La meilleure solution pour éviter de tels blocages d'un programme, est de le tester au préalable. Il existe plusieurs solutions pour ce faire, il est envisageable de vérifier manuellement chaque fonctionnalité, pourtant, au fur et à mesure du développement, cela devient fastidieux. Il est possible d'automatiser ces vérifications à l'aide de tests unitaires. Ces tests sont une suite d'opérations qui vérifient individuellement chaque partie d'un programme. Si tous les tests d'un programme sont positifs et que leur couverture fonctionnelles est suffisante, des tests manuels ne sont plus nécessaires. Ce sujet est abordé en détail dans un chapitre suivant.
-
-                    Il y a des situations où il n'est pas possible de prévenir les erreurs, ou d'autres où il est souhaitable qu'une erreur se produise, afin d'agir en conséquence. Pour ces circonstances, les erreurs peuvent être capturées.
-
-                    **Capture d'une erreur si la méthode n'existe pas ou lève une erreur :**
-
-                        try {
-                          submarine.immerse();
-                        } catch(error) {
-                          // handle a ReferenceError
-                        }
-
-                    Les mot clé \`try\` permet de créer un bloc capturant les erreurs. Si une erreur se produit dans ce bloc, les opérations suivantes du bloc sont ignorées et le contenu du bloc \`catch\` est exécuté. Puis le programme continue l'exécution des opérations situées à l'extérieur du bloc \`try\` / \`catch\` ; l'erreur n'interrompt donc pas son exécution. Si la variable retournée par le \`catch\` est de type \`Error\`, elle est composé des attributs \`name\`, \`message\` et \`stack\`. Le premier la nomme, le second décrit l'erreur et le dernier donne la stacktrace ou pile d'erreur, c'est à dire la ligne du fichier où elle s'est produit, la ligne qui a déclenché cette ligne, la ligne qui a déclenché celle-ci, ainsi de suite jusqu'au premier appel ayant déclenché ce code. Analyser cette pile permet souvent de mieux comprendre d'où provient l'erreur.
-
-                    Il est possible de créer ses propres erreurs, mais il est souvent plus souhaitable de retourner une valeur d'erreur (\`-1\` par exemple) ou de ne pas effectuer le traitement puisque l'oubli de capturer une erreur interrompt l'exécution du programme si elle se produit. Lever une erreur contraint tous les utilisateurs de cette fonction à capturer les erreurs potentielles et à agir en conséquence. Cela introduit une certaine lourdeur dans le code.
-
-                    **Lever une erreur simple :**
-
-                        if (!submarine) {
-                          throw 'submarine is required';
-                        }
-                `
-            },
-            {
-                course: true,
-                description: `
-                    ### Lever des erreurs
-
-                    Les erreurs peuvent être de n'importe quel type, chaîne de caractères, objet (y compris entier et booléen, mais cela n'a pas vraiment d'utilité). Par convention, un objet littéral dotés des attributs \`name\` et \`message\` est utilisé.
-
-                    **Lever une erreur composite :**
-
-                        function AuthorizationError(message) {
-                           this.message = message;
-                           this.name = 'AuthorizationException';
-                        }
-
-                        // every code summoning this one, should try/catch ReferenceError
-                        if (!submarine.immerse())
-                          throw new AuthorizationError('Immersion failed');
-
-                    Par simplicité, de nombreuses fonctions retournent \`-1\` ou \`undefined\` plutôt que de lever des erreurs quand elles n'ont pas trouvé ce qu'elles cherchaient.
-
-                    **Lever une erreur composite :**
-
-                        var notFound = 'yellow'.indexOf('x'); // notFound == -1
-
-                    ### Le mode strict
-
-                    Puisque le langage est interprété, tant qu'une partie du programme n'a jamais été exécutée, il est impossible d'être sûr qu'elle fonctionne. Afin de réduire les risques d'erreur de saisie, il est possible d'indiquer au navigateur de lever une \`SyntaxError\` avant d'exécuter le programme si certaines conditions ne sont pas remplies.
-
-                    **Activer le mode strict :**
-
-                        "use strict";
-                        var color = "yellow";
-
-                    Pour activer le mode strict il suffit d'ajouter la chaîne de caractères \`"use strict"\` en début de fichier. Ainsi, le navigateur est informé qu'il peut refuser certains types d'opérations considérées comme non conformes. Par exemple, la déclaration de deux attributs de même nom dans un objet. Ce mode strict est très utilisé et c'est une bonne idée de faire de même.
-                `
-            }
-        ]
-    }, {
-        title: "La boucle d'événement",
-        description: "En JavaScript, une seule opération a lieu à un instant donné. Si plusieurs opérations devaient avoir lieu simultanément, elles sont mises dans une file d'attente et exécutées les unes après les autres.<br><br>Ce chapitre présente le concept de la boucle d'événement et son fonctionnement.",
-        color: "grey",
-        steps: [
-            {
-                course: true,
-                description: `
-                    En JavaScript, les opérations concurrentes sont gérées via une [boucle d'événement, ou event loop](https://developer.mozilla.org/en/docs/Web/JavaScript/EventLoop). Il s'agit d'un modèle simple pour le développeur : une seule opération a lieu à un instant donné. Si plusieurs opérations devaient avoir lieu simultanément, elles sont mises dans une file d'attente et exécutées les unes après les autres.
-
-                    **Deux écouteurs attachés au même événement :**
-
-                        var el = document.body;
-                        el.addEventListener('click', function(){
-                          el.style.backgroundColor = 'Purple';
-                        });
-                        el.addEventListener('click', function(){
-                          el.style.backgroundColor = 'Yellow';
-                        });
-
-                    Dans cet exemple, la couleur de fond de la page passera d'abord en violet avant de devenir jaune (trop rapidement pour être perçu à l'oeil nu). Les deux fonctions sont déclenchées simultanément par un clic de l'utilisateur, mais le navigateur exécute d'abord la première qu'il connaît avant d'effectuer la seconde.
-
-                    Lorsqu'une fonction est exécutée, aucun autre code ne peut l'être parallèlement, tant que celle-ci n'a pas terminée son exécution — et rien n'est donc en mesure de modifier les variables que la fonction manipule, elle est le seul maître à bord.
-
-                    Ceci dit, si une fonction demande un long temps de traitement, cela délaie le traitement de tous les autres événements, notamment les actions utilisateur ; les clics ou défilements de la page n'auront donc lieu qu'après que cette longue fonction se soit terminée.
-
-                `
-            },
-            {
-                title: "Les fonctions asynchrones",
-                course: true,
-                description: `
-                    Les fonctions peuvent être utilisées de deux façons : synchrones et asynchrones. Les premières réalisent un traitement et renvoient immédiatement leur résultat. Les secondes sont mémorisées et déclenchées plus tard par un événement (et nommée \`callback\`).
-                    Une fonction peut être utilisée des deux façons, comme ci-dessous.
-
-                    **Une fonction utilisée de façon synchrone et asynchrone :**
-
-                        var el = document.body;
-                        el.addEventListener('click', function(){
-                          setBackground('Purple');
-                        });
-
-                        var setBackground = function(color) {
-                          el.style.backgroundColor = color;
-                        };
-                        setBackground('Yellow');
-
-                    Dans cet exemple, la couleur de fond de la page passe au jaune. Si l'utilisateur clique sur le \`body\`, elle passera alors au violet. Tout le code synchrone est exécuté immédiatement, le code asynchrone ne se déclenchera qu'à l'événement clic. Les opérations suivant la fonction asynchrone sont exécutées immédiatement.
-                `
-            },
-            {
-                course: true,
-                description: `
-                    Des fonctions asynchrones peuvent être utilisées également pour des temporisations ; effectuer telle action dans une seconde, ou telle autre toutes les cinq secondes.
-
-                    **Temporisations :**
-
-                        var el = document.body;
-                        el.style.backgroundColor = 'Yellow';
-
-                        setTimeout(function() {
-                          el.style.backgroundColor = 'Purple';
-                        }, 1000);
-
-                        setInterval(function() {
-                          el.innerHTML += 'again';
-                        }, 5000); // milliseconds
-
-                    Dans cet exemple, la couleur de fond de la page passe au jaune. Puis, au bout d'une seconde, elle passe au violet. Enfin, toutes les cinq secondes, le mot « again » est ajouté au contenu du body. [Deux directives](https://developer.mozilla.org/en/Add-ons/SDK/High-Level_APIs/timers) du langage \`setTimeout\` et \`setInterval\` sont utilisées pour ce faire. Ces temporisations sont très utilises pour réaliser des effets, par exemple déplacer progressivement un élément de la page, ou le faire disparaître petit à petit.
-
-                    Qu'il s'agisse d'événements utilisateur ou de temporisation, si une fonction est appelée alors qu'une autre n'a pas fini son exécution, elle est ajouté dans la file d'attente de l'event loop. Il se peut que d'autres fonctions y soient déjà en attente ; la dernière fonction ajoutée ne s'exécutera que quand toutes les autres de la file d'attente auront été traitées.
-                `
-            }
-        ]
-    }, {
         title: "Les dates",
         description: "Les dates sont des types natifs comme les nombres ou les chaines de caractères, elles permettent de manipuler le calendrier grégorien.<br><br>Ce chapitre présente la manipulation de dates avec la librairie moment — qui en facilite grandement l'usage.",
         color: "yellow",
@@ -2457,7 +2457,7 @@ let chapters = [
             },
             {
                 title: "Formatter des dates",
-                description: "Mettre en forme les dates saisies dans <code>.from input</code> et <code>.to input</code> de façon a ce qu'elles s'affichent dans <code>.from .formatted</code> et <code>.to .formatted</code> sous le format « JANV. 10 » (<i>premières initiales du mois, suivies du jour, avec la locale française</i>).",
+                description: "Mettre en forme les dates saisies dans <code>.from input</code> et <code>.to input</code> de façon a ce qu'elles s'affichent dans <code>.from .formatted</code> et <code>.to .formatted</code> sous le format « JANV. 10 » (premières initiales du mois, suivies du jour, avec la locale française).",
                 excerpt: "La librairie <a target=\"_blank\" href=\"http://momentjs.com/\">moment</a> permet de manipuler facilement des dates, et, notamment, de les mettre en forme en fonction de la locale.",
                 solved: "/* import this in the HTML <head> before the code<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js\"&gt;&lt;/script&gt;<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/fr.js\"&gt;&lt;/script&gt;<br>*/<br>document.querySelector('.booking .from input').addEventListener('change', function() {<br>  var date = moment(this.value);<br>  document.querySelector('.from .formatted').innerHTML = date.format('MMM').toUpperCase() + ' ' + date.format('D');<br>});<br><br>document.querySelector('.booking .to input').addEventListener('change', function() {<br>  var date = moment(this.value);<br>  document.querySelector('.to .formatted').innerHTML = date.format('MMM').toUpperCase() + ' ' + date.format('D');<br>});",
                 dom: function() {
@@ -2488,7 +2488,7 @@ let chapters = [
             },
             {
                 title: "Limiter les dates",
-                description: "Si la date de retour saisie est antérieure ou égale à la date de l'aller, elle est par défaut 1 jour après l'aller (<i>l'aller est le 12 janvier, la date de retour doit être le 13 janvier au plus tôt</i>).",
+                description: "Si la date de retour saisie est antérieure ou égale à la date de l'aller, elle est par défaut 1 jour après l'aller (l'aller est le 12 janvier, la date de retour doit être le 13 janvier au plus tôt).",
                 solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>});",
                 dom: function() {
                     return booking.bind(booking);
@@ -2548,7 +2548,7 @@ let chapters = [
             },
             {
                 title: "Multiplier par le nombre de voyageurs",
-                description: "Pour chaque voyageur, multiplier le prix (<i>un voyage à 80€ coûtera 240€ pour 3 voyageurs</i>).",
+                description: "Pour chaque voyageur, multiplier le prix (un voyage à 80€ coûtera 240€ pour 3 voyageurs).",
                 solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br>var passengers = 1;<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = to.value.diff(from.value, 'days') + 1;<br>  document.querySelector('.price').innerHTML = 40 * days * passengers + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});<br><br>document.querySelector('select').addEventListener('change', function() {<br>  passengers = this.value;<br>  total();<br>});",
                 dom: function() {
                     return booking.bind(booking);
@@ -2580,7 +2580,7 @@ let chapters = [
             },
             {
                 title: "Décompter les weekends",
-                description: "Les samedis et dimanches ne sont pas facturés (<i>vendredi, samedi, dimanche coûtera 40€ — 1 jour —, vendredi, samedi, dimanche, lundi coûtera 80€ — 2 jours —, du lundi au lundi deux semaines après, coûtera 840€ — 11 jours</i>).",
+                description: "Les samedis et dimanches ne sont pas facturés (vendredi, samedi, dimanche coûtera 40€ — 1 jour —, vendredi, samedi, dimanche, lundi coûtera 80€ — 2 jours —, du lundi au lundi deux semaines après, coûtera 840€ — 11 jours).",
                 solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br>var passengers = 1;<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = 0;<br>  var clone = from.value.clone();<br>  while (clone.isSameOrBefore(to.value)) {<br>    if (clone.day() !== 6 && clone.day() !== 0)<br>      days++;<br>    clone.add(1, 'days');<br>  }<br><br>  document.querySelector('.price').innerHTML = 40 * days * passengers + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});<br><br>document.querySelector('select').addEventListener('change', function() {<br>  passengers = this.value;<br>  total();<br>});",
                 dom: function() {
                     return booking.bind(booking);
@@ -2624,7 +2624,7 @@ let chapters = [
         ]
     }, {
         title: "Les fonctions",
-        description: "Une fonction est un sous programme qui peut être appelé par du code externe, l'utilisation de fonctions permet de structurer un programme..<br><br>Ce chapitre présente la déclaration et l'usage des fonctions, de leurs paramètres et valeur de retour.",
+        description: "Une fonction est un sous programme qui peut être appelé par du code externe, l'utilisation de fonctions permet de structurer un programme.<br><br>Ce chapitre présente la déclaration et l'usage des fonctions, de leurs paramètres et valeur de retour.",
         color: "yellow",
         steps: [
             {
@@ -2704,7 +2704,7 @@ let chapters = [
             {
                 title: "Identifier un nombre positif",
                 description: "Créer une fonction nommée <code>positive</code> qui prend un paramètre et retourne <code>true</code> si celui-ci est supérieur ou égal à zéro, <code>false</code> sinon.",
-                excerpt: "Une fonction est comme une usine, elle transforme quelque chose (<i>ses paramètres d'entrée</i>) en autre chose (<i>son paramètre de sortie</i>). L'utilisation de fonctions permet de structurer un programme. Au lieu de lister toutes les opérations d'un programme les unes à la suite des autres, il est préférable de regrouper les opérations en plusieurs fonctions correspondant à des parties clairement identifiées du programme.<br><br><strong>Exemple </strong>: <pre><code>var double = function(value) {<br>  return value * 2; <br>}</code></pre> déclare une variable <code>value</code> qui sera initialisée à une valeur à chaque appel de la fonction. Cette variable est locale à la fonction, elle n'existe pas à l'extérieur du code de celle-ci. Le mot clé <code>return</code> interrompt immédiatement la fonction et retourne le résultat au code appelant. <pre><code>var x = double(12);<br>x; /* 24 */<br>var y = double(7);<br>y; /* 14 */<br>var weird = double('hello');<br>weird; /* NaN */<br>value; /* undefined */<br></code></pre>",
+                excerpt: "Une fonction est comme une usine, elle transforme quelque chose (ses paramètres d'entrée) en autre chose (son paramètre de sortie). L'utilisation de fonctions permet de structurer un programme. Au lieu de lister toutes les opérations d'un programme les unes à la suite des autres, il est préférable de regrouper les opérations en plusieurs fonctions correspondant à des parties clairement identifiées du programme.<br><br><strong>Exemple </strong>: <pre><code>var double = function(value) {<br>  return value * 2; <br>}</code></pre> déclare une variable <code>value</code> qui sera initialisée à une valeur à chaque appel de la fonction. Cette variable est locale à la fonction, elle n'existe pas à l'extérieur du code de celle-ci. Le mot clé <code>return</code> interrompt immédiatement la fonction et retourne le résultat au code appelant. <pre><code>var x = double(12);<br>x; /* 24 */<br>var y = double(7);<br>y; /* 14 */<br>var weird = double('hello');<br>weird; /* NaN */<br>value; /* undefined */<br></code></pre>",
                 solved: "var positive = function(value) {<br>  return value >= 0;<br>};",
                 answer: function() {
                     let x = random();
@@ -2778,7 +2778,7 @@ let chapters = [
             {
                 title: "Calculer le maximum d'une série de nombres",
                 description: "Créer une fonction <code>max</code> qui prend un nombre quelconque de paramètres et retourne le nombre le plus élevé parmi eux. Si aucun paramètre n'est indiqué, elle retourne <code>-1</code>.",
-                excerpt: "Les fonctions disposent toutes d'un paramètre spécial <code>arguments</code> qui est un tableau listant tous les paramètres reçus par la fonction. Il est ainsi possible de créer des fonctions dotées d'un nombre indéterminé de paramètres (<i>et sans avoir besoin de nommer chacun d'entre eux</i>).<br><br><strong>Exemple </strong>: <pre><code>var sum = function() { <br>  var total = 0;<br>  for (var i = 0; i < arguments.length; i++) {<br>    total += arguments[i];<br>  }<br>  return total;<br>}</code></pre> crée une méthode calculant la somme d'un nombre quelconque de paramètres, par exemple <code>sum(5, 8, 13)</code> retourne <code>26</code>.",
+                excerpt: "Les fonctions disposent toutes d'un paramètre spécial <code>arguments</code> qui est un tableau listant tous les paramètres reçus par la fonction. Il est ainsi possible de créer des fonctions dotées d'un nombre indéterminé de paramètres (et sans avoir besoin de nommer chacun d'entre eux).<br><br><strong>Exemple </strong>: <pre><code>var sum = function() { <br>  var total = 0;<br>  for (var i = 0; i < arguments.length; i++) {<br>    total += arguments[i];<br>  }<br>  return total;<br>}</code></pre> crée une méthode calculant la somme d'un nombre quelconque de paramètres, par exemple <code>sum(5, 8, 13)</code> retourne <code>26</code>.",
                 solved: "var max = function() {<br>  if (arguments.length === 0)<br>    return -1;<br><br>  var result = arguments[0];<br>  for (var i = 1; i < arguments.length; i++) {<br>    if (arguments[i] > result) {<br>      result = arguments[i];<br>    }<br>  }<br>  return result;<br>};",
                 answer: function() {
                     if (max(5, 12) !== 12)
@@ -2795,7 +2795,7 @@ let chapters = [
             },
             {
                 title: "Compter le nombre de « a » et « e »",
-                description: "Créer une fonction <code>count</code> qui prend un paramètre et retourne un littéral indiquant le nombre de « a » et de « e » de cette chaine (<i>sous la forme <code>{a: 5, e: 7}</code></i>).",
+                description: "Créer une fonction <code>count</code> qui prend un paramètre et retourne un littéral indiquant le nombre de « a » et de « e » de cette chaine (sous la forme <code>{a: 5, e: 7}</code>).",
                 solved: "var text = 'Short ribs fatback pork chop turducken. Hamburger capicola turkey sausage tail leberkas ham andouille pork chop picanha pancetta landjaeger brisket. Ground round pork belly jowl pancetta frankfurter beef ribs ham cupim turkey tenderloin drumstick sausage shoulder. Pig cow short ribs tenderloin tongue pork belly.';<br>var count = function(text) {<br>  text = text.toLowerCase();<br>  var total = {a: 0, e: 0};<br>  for (var i = 0; i < text.length; i++) {<br>    var char = text.charAt(i);<br>    if (char === 'a')<br>      total.a++;<br>    else if (char === 'e')<br>      total.e++;<br>  };<br>  return total;<br>};",
                 answer: function() {
                     if (equals({a: 0, e: 0}, count('')) !== true)
@@ -2813,7 +2813,7 @@ let chapters = [
             {
                 title: "Rechercher dans un arbre binaire",
                 description: "Créer une fonction <code>search</code> qui prend deux paramètres, un arbre binaire et une valeur. Si la valeur est une des valeurs de l'arbre, la fonction retourne <code>true</code>, sinon elle retrourne <code>false</code>.",
-                excerpt: "<pre><code>var tree = {<br>  value: 8, <br>  left: {value: 3, left: {value: 1}, right: {value: 6}}, <br>  right: {value: 11, right: {value: 14}}<br>};<br><br>//       8<br>//    3 ─┴─ 11<br>// 1 ─┴─ 6   └─ 14</code></pre>Un arbre binaire dispose d'une racine, <code>8</code> (<i>ici</i>), celle-ci est dotée d'une noeud gauche, <code>3</code> et droit, <code>10</code>, qui, eux-mêmes peuvent disposer d'un noeud gauche et droit, et ainsi de suite. Un arbre binaire est trié de telle sorte que la noeud gauche d'une valeur lui est inférieur, <code>3 > 8</code> et que son noeud droit lui est supérieur, <code>8 < 10</code>. Et ceci récursivement, chaque noeud gauche inférieur à sa racine, chaque noeud droit supérieur à sa racine. Cette structure permet d'effectuer des recherches très efficaces (<i>peu de comparaison</i>) au sein d'un ensemble de valeurs.<br><br>La fonction à réaliser est une fonction récursive (<i>elle peut s'appeler elle-même</i>). Elle vérifie si la racine est égale, supérieure ou inférieure à la valeur recherchée. En cas d'égalité, elle retourne <code>true</code>, en cas d'infériorité, elle s'appelle elle-même avec le noeud gauche, en cas de supériorité, avec le noeud droit. Arrivée en fin d'arbre (<i>sur une feuille — un noeud sans noeud enfant</i>), elle retourne <code>false</code> si sa valeur n'est pas celle recherchée.",
+                excerpt: "<pre><code>var tree = {<br>  value: 8, <br>  left: {value: 3, left: {value: 1}, right: {value: 6}}, <br>  right: {value: 11, right: {value: 14}}<br>};<br><br>//       8<br>//    3 ─┴─ 11<br>// 1 ─┴─ 6   └─ 14</code></pre>Un arbre binaire dispose d'une racine, <code>8</code> (ici), celle-ci est dotée d'une noeud gauche, <code>3</code> et droit, <code>10</code>, qui, eux-mêmes peuvent disposer d'un noeud gauche et droit, et ainsi de suite. Un arbre binaire est trié de telle sorte que la noeud gauche d'une valeur lui est inférieur, <code>3 > 8</code> et que son noeud droit lui est supérieur, <code>8 < 10</code>. Et ceci récursivement, chaque noeud gauche inférieur à sa racine, chaque noeud droit supérieur à sa racine. Cette structure permet d'effectuer des recherches très efficaces (peu de comparaison) au sein d'un ensemble de valeurs.<br><br>La fonction à réaliser est une fonction récursive (elle peut s'appeler elle-même). Elle vérifie si la racine est égale, supérieure ou inférieure à la valeur recherchée. En cas d'égalité, elle retourne <code>true</code>, en cas d'infériorité, elle s'appelle elle-même avec le noeud gauche, en cas de supériorité, avec le noeud droit. Arrivée en fin d'arbre (sur une feuille — un noeud sans noeud enfant), elle retourne <code>false</code> si sa valeur n'est pas celle recherchée.",
                 solved: "var search = function(tree, value) {<br>  if (!tree)<br>    return false;<br>  else if (value === tree.value)<br>    return true;<br>  else if (value > tree.value)<br>    return search(tree.right, value);<br>  else<br>    return search(tree.left, value);<br>};",
                 answer: function() {
                     let tree = {value: 8,
@@ -2894,6 +2894,349 @@ let chapters = [
             }
         ]
     }, {
+        title: "Composant | Off-Canvas",
+        description: "Un off canvas est un menu caché à l'extérieur de l'écran qu'un bouton permet de révéler, il contient couramment les rubriques principales du site.<br><br>Ce chapitre présente les concepts d'un off canvas.",
+        color: "violet",
+        steps: [
+            {
+                course: true,
+                description: `
+                    Un off canvas est un menu caché à l'extérieur de l'écran qu'un bouton permet de révéler. Situé à gauche ou à droite d'une page, il contient couramment les rubriques principales du site et permet d'alléger la page en ne les affichant qu'à la demande. Un bouton « hamburger » est souvent utilisé pour indiquer la présence de ce type de menu.
+
+                    Pour arriver à ce résultat, une option consiste à ajouter le menu et le contenu dans un même bloc, le contenu occupe tout l'espace et le menu occupe une taille fixe, décalé sur le côté. Il reste à indiquer au bloc principal de cacher les contenus au delà de sa largeur maximale pour cacher le menu et éviter un ascenseur horizontal. Une translation peut alors être effectuée sur le bloc principal de la taille du menu afin de révéler ce dernier ou de le cacher à nouveau.
+
+                    Un bloc transparent peut être ajouté au dessus du bloc de contenu principal afin que seul le menu soit utilisable une fois ce dernier révélé ; un clic sur ce bloc transparent déclenchant la fermeture du menu. Ce comportement est optionnel.
+                `
+            },
+            {
+                course: true,
+                description: "L'animation est réalisée en CSS, avec <code>transition</code>. Le code est détaillé à l'étape d'après.",
+                dom: function() {
+                    return function() {
+                        setTimeout(function() {
+                            document.querySelector('.offcanvas .button').addEventListener('click', function() {
+                                document.querySelector('.offcanvas').classList.toggle('open');
+                            });
+                        });
+
+                        return `
+                            <p><strong>Démonstration (cliquer sur le menu hamburger) :</strong></p>
+
+                            <div class="offcanvas">
+                                <div class="ui secondary vertical menu">
+                                    <div class="item">
+                                        <div class="ui transparent icon input">
+                                            <input type="text" placeholder="Rechercher...">
+                                            <i class="search icon"></i>
+                                        </div>
+                                    </div>
+                                    <a class="item">À propos</a>
+                                    <a class="item">Équipe</a>
+                                    <a class="item">Solutions</a>
+                                    <a class="item">Support</a>
+                                </div>
+                                <div class="content">
+                                    <button class="ui icon large button">
+                                        <i class="sidebar icon"></i>
+                                    </button>
+                                    <p>canvas</p>
+                                </div>
+                            </div>
+                        `;
+                    }
+                }
+            },
+            {
+                course: true,
+                description: `
+                    Le code JS est très simple, il ajoute ou enlève une classe sur le bloc principal au clic sur le « hamburger » afin d'effectuer la translation.
+
+                        document.querySelector('.offcanvas .button').addEventListener('click', function() {
+                            document.querySelector('.offcanvas').classList.toggle('open');
+                        });
+
+                    Le code CSS décrit la majorité du comportement.
+
+                        .offcanvas {
+                            position: relative;
+                            overflow: hidden;
+                        }
+                        .offcanvas .menu {
+                            position: absolute;
+                            left: -150px;
+                            width: 150px;
+                            top: 0;
+                            bottom: 0;
+                        }
+                        .offcanvas .content, .offcanvas .menu {
+                            transition: transform 0.5s;
+                        }
+                        .offcanvas.open .content, .offcanvas.open .menu {
+                            transform: translate3d(150px, 0, 0);
+                        }
+                `
+            }
+        ]
+    }, {
+        title: "Composant | Carrousel",
+        description: "Un carrousel est une liste (d'images en général) dont une seule est visible et qu'il est possible de faire défiler via des flèches « précédente » et « suivante » situées de part et d'autre du contenu.<br><br>Ce chapitre présente la réalisation d'un carrousel pas à pas.",
+        color: "violet",
+        steps: [
+            {
+                course: true,
+                description: `
+                    Les carrousels sont des listes dont un seul item est visible et dont la navigation de l'un à l'autre des items s'effectue à l'aide de flèches « précédente » et « suivante » situées de part et d'autre du contenu.
+
+                    Pour arriver à ce résultat une option consiste à ajouter les blocs de contenu les uns à la suite des autres, et à n'afficher que le premier d'entre eux.
+
+                    Ensuite, pour basculer d'un élément à un autre, au clic sur une des flèches il est possible de masquer le premier contenu et d'afficher le second, puis de masquer le second et d'afficher le troisième, ainsi de suite.
+
+                    Une variable peut stocker la position actuelle, et, à chaque clic sur une flèche, être modifiée en même temps que le contenu affiché est remplacé par le suivant ou précédent.
+                `,
+                dom: function() {
+                    return function() {
+                        setTimeout(function() {
+                            var index = 0;
+                            var lis = document.querySelectorAll('.carousel li');
+                            document.querySelector('.prev').addEventListener('click', function() {
+                                lis[index].classList.remove('visible');
+                                index--;
+                                if (index < 0)
+                                    index = 4;
+
+                                lis[index].classList.add('visible');
+                            });
+
+                            document.querySelector('.next').addEventListener('click', function() {
+                                lis[index].classList.remove('visible');
+                                index++;
+                                if (index > 4)
+                                    index = 0;
+
+                                lis[index].classList.add('visible');
+                            });
+                        });
+
+                        return '<p><strong>Démonstration (cliquer sur les flêches) :</strong></p>' + carousel();
+                    }
+                }
+            },
+            {
+                title: "Naviguer au suivant",
+                description: "Lors du clic sur l'élément doté de la classe <code>next</code>, masquer le premier élément du carrousel et révéler le second.",
+                excerpt: "Les items du carrousel se situent dans la liste <code>.carousel > ul > li</code> et un seul d'entre eux à la classe <code>visible</code> (ainsi, les autres sont masqués). Retirer la classe <code>visible</code> d'un élément et l'ajouter à un autre, permet de masquer le premier et de révéler le second.<br><br><strong>Déclarer un écouteur d'événement sur la flêche de droite, et masquer le premier élément du carrousel </strong>: <pre><code>var next = document.querySelector('.next');<br>next.addEventListener('click', function() {<br>  var li = document.querySelector('.carousel > ul > li.visible');<br>  li.classList.remove('visible');<br>});</code></pre>",
+                solved: "var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br><br>elNext.addEventListener('click', function() {<br>  lis[0].classList.remove('visible');<br>  lis[1].classList.add('visible');<br>});",
+                dom: function() {
+                    return carousel.bind(carousel);
+                },
+                answer: function() {
+                    var elPrev = document.querySelector('.prev');
+                    var elNext = document.querySelector('.next');
+
+                    var lis = document.querySelectorAll('.carousel > ul > li');
+
+                    if (lis.length !== 5)
+                        this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
+                    if (elHasClass(lis[0], 'visible') !== true)
+                        this.warn = this.warn || "Le premier <code>li</code> doit avoir la classe <code>visible</code>";
+                    if (elHasClass(lis[1], 'visible') !== false)
+                        this.warn = this.warn || "Le second <code>li</code> ne doit avoir la classe <code>visible</code>";
+
+                    elNext.click();
+                    if (elHasClass(lis[0], 'visible') !== false)
+                        this.warn = this.warn || "Après un clic sur suivant, le premier <code>li</code> ne doit plus avoir la classe <code>visible</code>";
+                    if (elHasClass(lis[1], 'visible') !== true)
+                        this.warn = this.warn || "Après un clic sur suivant, le second <code>li</code> doit avoir la classe <code>visible</code>";
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Naviguer au suivant, sans dépasser le dernier",
+                description: "S'assurer que cliquer sur la flêche de droite permet de passer d'un élément au suivant, mais qu'une fois arrivé au dernier, n'a plus d'effet.",
+                solved: "var index = 0;<br>var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br><br>elNext.addEventListener('click', function() {<br>  lis[index].classList.remove('visible');<br>  index++;<br>  if (index > 4)<br>    index = 4;<br><br>  lis[index].classList.add('visible');<br>});",
+                dom: function() {
+                    return carousel.bind(carousel);
+                },
+                answer: function() {
+                    var elPrev = document.querySelector('.prev');
+                    var elNext = document.querySelector('.next');
+
+                    var lis = document.querySelectorAll('.carousel > ul > li');
+
+                    if (lis.length !== 5)
+                        this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
+                    if (elHasClass(lis[0], 'visible') !== true)
+                        this.warn = this.warn || "Le premier <code>li</code> doit avoir la classe <code>visible</code>";
+                    if (elHasClass(lis[1], 'visible') !== false)
+                        this.warn = this.warn || "Le second <code>li</code> ne doit avoir la classe <code>visible</code>";
+
+                    elNext.click(); elNext.click(); elNext.click(); elNext.click(); elNext.click();
+                    if (elHasClass(lis[1], 'visible') !== false)
+                        this.warn = this.warn || "Après quatre clic sur suivant, le premier <code>li</code> ne doit plus avoir la classe <code>visible</code>";
+                    if (elHasClass(lis[4], 'visible') !== true)
+                        this.warn = this.warn || "Après quatre clic sur suivant, le cinquième <code>li</code> doit avoir la classe <code>visible</code>";
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Naviguer au précédent",
+                description: "Appliquer le même fonctionnement à la flêche de gauche, dotée de la classe <code>prev</code>, cette fois-ci pour passer d'un élément à l'élément précédent, sans avoir d'effet sur le premier.",
+                excerpt: "Déclarer une variable <code>index</code> et l'utiliser pour mémoriser la position actuelle peut faciliter les choses. À chaque action utilisateur, le <code>li</code> à cet index peut être masqué et la position du suivant (ou précédent) peut être déduite à partir de cette variable (et non du DOM).",
+                solved: "var index = 0;<br>var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br>var elPrev = document.querySelector('.prev');<br><br>elPrev.addEventListener('click', function() {<br>  lis[index].classList.remove('visible');<br>  index--;<br>  if (index < 0)<br>    index = 0;<br><br>  lis[index].classList.add('visible');<br>});<br><br>elNext.addEventListener('click', function() {<br>  lis[index].classList.remove('visible');<br>  index++;<br>  if (index > 4)<br>    index = 4;<br><br>  lis[index].classList.add('visible');<br>});",
+                dom: function() {
+                    return carousel.bind(carousel);
+                },
+                answer: function() {
+                    var elPrev = document.querySelector('.prev');
+                    var elNext = document.querySelector('.next');
+
+                    var lis = document.querySelectorAll('.carousel > ul > li');
+
+                    if (lis.length !== 5)
+                        this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
+                    if (elHasClass(lis[0], 'visible') !== true)
+                        this.warn = this.warn || "Le premier <code>li</code> doit avoir la classe <code>visible</code>";
+                    if (elHasClass(lis[1], 'visible') !== false)
+                        this.warn = this.warn || "Le second <code>li</code> ne doit avoir la classe <code>visible</code>";
+
+                    elPrev.click();
+                    if (elHasClass(lis[0], 'visible') !== true)
+                        this.warn = this.warn || "Après un clic sur précédent, le premier <code>li</code> doit avoir la classe <code>visible</code>";
+                    if (elHasClass(lis[1], 'visible') !== false)
+                        this.warn = this.warn || "Après un clic sur précédent, le second <code>li</code> ne doit avoir la classe <code>visible</code>";
+
+                    elNext.click(); elNext.click(); elPrev.click();
+                    if (elHasClass(lis[0], 'visible') !== false)
+                        this.warn = this.warn || "Après un clic sur suivant, précédent, suivant, le premier <code>li</code> ne doit plus avoir la classe <code>visible</code>";
+                    if (elHasClass(lis[1], 'visible') !== true)
+                        this.warn = this.warn || "Après un clic sur suivant, précédent, suivant, le second <code>li</code> doit avoir la classe <code>visible</code>";
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Cacher les fléches de navigation",
+                description: "Lorsque le premier élément du carrousel est affiché, masquer la flêche de gauche, sur le dernier, cacher la flêche de droite. Ajouter la classe <code>hidden</code> à l'élément <code>next</code> ou <code>prev</code> permet de les masquer.",
+                excerpt: "Il est possible de regrouper le code de passage d'un élément au suivant (ou au précédent) dans une fonction <code>jump</code>. Cette fonction peut être dotée d'un paramètre d'entrée indiquant le prochain index (calculé par l'appelant), la fonction peut ainsi vérifier que l'index ne passe pas en dessous de <code>0</code> ou au dessus de <code>4</code>. Elle peut également se charger d'afficher / masquer les flêches de navigation.<br><br><strong>Exemple </strong>: <pre><code>var index =  0;<br>var jump = function(to) {<br>  /* retrait de la classe .visible du li actuel */<br>  /* modification de l'index */<br>  /* ajout de la classe .visible au li correspondant au nouvel index */<br>  /* affichage / masquage des flêches de navigation en fonction du nouvel index */<br>};<br><br>document.querySelector('.next').addEventListener('click', function() {<br>  jump(index + 1);<br>});</code></pre>",
+                solved: "var index = 0;<br>var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br>var elPrev = document.querySelector('.prev');<br><br>var navigation = function(index) {<br>  elPrev.classList.toggle('hidden', index === 0);<br>  elNext.classList.toggle('hidden', index === 4);<br>}<br><br>var jump = function(to) {<br>  lis[index].classList.remove('visible');<br>  index = to;<br>  if (index > 4)<br>    index = 4;<br>  if (index < 0)<br>    index = 0;<br>  lis[index].classList.add('visible');<br>  navigation(index);<br>}<br><br>elPrev.addEventListener('click', function() {<br>  jump(index - 1);<br>});<br><br>elNext.addEventListener('click', function() {<br>  jump(index + 1);<br>});<br><br>navigation(0);",
+                dom: function() {
+                    return carousel.bind(carousel);
+                },
+                answer: function() {
+                    var elPrev = document.querySelector('.prev');
+                    var elNext = document.querySelector('.next');
+
+                    var lis = document.querySelectorAll('.carousel > ul > li');
+
+                    if (lis.length !== 5)
+                        this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
+                    if (elHasClass(elPrev, 'hidden') !== true)
+                        this.warn = this.warn || "La flêche de gauche doit être masquée quand le premier élément est affiché";
+                    if (elHasClass(elNext, 'hidden') !== false)
+                        this.warn = this.warn || "La flêche de gauche doit être affichée quand le premier élément est affiché";
+
+                    elNext.click();
+                    if (elHasClass(elPrev, 'hidden') !== false)
+                        this.warn = this.warn || "La flêche de gauche doit être affichée quand le second élément est affiché";
+                    if (elHasClass(elNext, 'hidden') !== false)
+                        this.warn = this.warn || "La flêche de gauche doit être affichée quand le second élément est affiché";
+
+                    elNext.click(); elNext.click(); elNext.click();
+                    if (elHasClass(lis[4], 'visible') !== true)
+                        this.warn = this.warn || "Après quatre clic sur suivant, le cinquième <code>li</code> doit avoir la classe <code>visible</code>";
+                    if (elHasClass(elPrev, 'hidden') !== false)
+                        this.warn = this.warn || "La flêche de gauche doit être affichée quand le cinquième élément est affiché";
+                    if (elHasClass(elNext, 'hidden') !== true)
+                        this.warn = this.warn || "La flêche de gauche doit être masquée quand le cinquième élément est affiché";
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Afficher la position",
+                description: "Une liste d'indicateurs <code>.dots li</code> est disponible sous le carrousel. Ajouter la classe <code>active</code> à celui d'entre eux qui correspond à l'élément du carrousel affiché (le premier rond quand le premier élément est affiché, le second pour le second, etc). Mettre à jour cet indicateur lors du changement d'élément dans le carrousel.",
+                solved: "var index = 0;<br>var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br>var elPrev = document.querySelector('.prev');<br><br>var dots = document.querySelectorAll('.carousel .dots li');<br>var navigation = function(index) {<br>  elPrev.classList.toggle('hidden', index === 0);<br>  elNext.classList.toggle('hidden', index === 4);<br><br>  for (var i = 0; i < dots.length; i++) {<br>    dots[i].classList.remove('active');<br>  }<br>  dots[index].classList.add('active');<br>}<br><br>var jump = function(to) {<br>  lis[index].classList.remove('visible');<br>  index = to;<br>  if (index > 4)<br>    index = 4;<br>  if (index < 0)<br>    index = 0;<br>  lis[index].classList.add('visible');<br>  navigation(index);<br>}<br><br>elPrev.addEventListener('click', function() {<br>  jump(index - 1);<br>});<br><br>elNext.addEventListener('click', function() {<br>  jump(index + 1);<br>});<br><br>navigation(0);",
+                dom: function() {
+                    return carousel.bind(carousel, true);
+                },
+                answer: function() {
+                    var elPrev = document.querySelector('.prev');
+                    var elNext = document.querySelector('.next');
+
+                    var lis = document.querySelectorAll('.carousel > ul > li');
+                    var dots = document.querySelectorAll('.carousel .dots li');
+
+                    if (lis.length !== 5)
+                        this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
+                    if (elHasClass(dots[0], 'active') !== true)
+                        this.warn = this.warn || "Le premier indicateur doit avoir la classe <code>active</code> lorsque le premier élément est affiché";
+
+                    elNext.click();
+                    if (elHasClass(dots[0], 'active') !== false)
+                        this.warn = this.warn || "Après un clic sur suivant, le premier indicateur ne doit pas avoir la classe <code>active</code>";
+                    if (elHasClass(dots[1], 'active') !== true)
+                        this.warn = this.warn || "Après un clic sur suivant, le second indicateur doit avoir la classe <code>active</code>";
+
+                    elNext.click(); elNext.click(); elNext.click();
+                    if (elHasClass(lis[4], 'visible') !== true)
+                        this.warn = this.warn || "Après quatre clic sur suivant, le cinquième <code>li</code> doit avoir la classe <code>visible</code>";
+                    if (elHasClass(elPrev, 'hidden') !== false)
+                        this.warn = this.warn || "La flêche de gauche doit être affichée quand le cinquième élément est affiché";
+                    if (elHasClass(elNext, 'hidden') !== true)
+                        this.warn = this.warn || "La flêche de gauche doit être masquée quand le cinquième élément est affiché";
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Modifier la position",
+                description: "Cliquer sur l'un des ronds doit permettre de naviguer à l'élément du carrousel à la même position. Les flêches de navigation gauche ou droite sont masquées si il s'agit du premier ou dernier élément du carrousel (comme lors de la navigation manuelle de l'utilisateur).",
+                solved: "var index = 0;<br>var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br>var elPrev = document.querySelector('.prev');<br><br>var dots = document.querySelectorAll('.carousel .dots li');<br>var navigation = function(index) {<br>  elPrev.classList.toggle('hidden', index === 0);<br>  elNext.classList.toggle('hidden', index === 4);<br><br>  for (var i = 0; i < dots.length; i++) {<br>    dots[i].classList.remove('active');<br>  }<br>  dots[index].classList.add('active');<br>}<br><br>var jump = function(to) {<br>  lis[index].classList.remove('visible');<br>  index = to;<br>  if (index > 4)<br>    index = 4;<br>  if (index < 0)<br>    index = 0;<br>  lis[index].classList.add('visible');<br>  navigation(index);<br>}<br><br>elPrev.addEventListener('click', function() {<br>  jump(index - 1);<br>});<br><br>elNext.addEventListener('click', function() {<br>  jump(index + 1);<br>});<br><br>for (let i = 0; i < dots.length; i++) {<br>  dots[i].addEventListener('click', function() {<br>    jump(i);<br>  });<br>}<br><br>navigation(0);",
+                dom: function() {
+                    return carousel.bind(carousel, true);
+                },
+                answer: function() {
+                    var elPrev = document.querySelector('.prev');
+                    var elNext = document.querySelector('.next');
+
+                    var lis = document.querySelectorAll('.carousel > ul > li');
+                    var dots = document.querySelectorAll('.carousel .dots li');
+
+                    if (lis.length !== 5)
+                        this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
+                    if (elHasClass(dots[0], 'active') !== true)
+                        this.warn = this.warn || "Le premier indicateur doit avoir la classe <code>active</code> lorsque le premier élément est affiché";
+
+                    dots[2].click();
+                    if (elHasClass(dots[0], 'active') !== false)
+                        this.warn = this.warn || "Après un clic le troisième indicateur, le premier indicateur ne doit pas avoir la classe <code>active</code>";
+                    if (elHasClass(dots[2], 'active') !== true)
+                        this.warn = this.warn || "Après un clic le troisième indicateur, le troisième indicateur doit avoir la classe <code>active</code>";
+
+                    elNext.click();
+                    if (elHasClass(dots[2], 'active') !== false)
+                        this.warn = this.warn || "Après un clic le troisième indicateur puis sur suivant, le troisième indicateur ne doit pas avoir la classe <code>active</code>";
+                    if (elHasClass(dots[3], 'active') !== true)
+                        this.warn = this.warn || "Après un clic le troisième indicateur puis sur suivant, le quatrième indicateur doit avoir la classe <code>active</code>";
+
+                    dots[0].click();
+                    if (elHasClass(dots[3], 'active') !== false)
+                        this.warn = this.warn || "Après un clic le premier indicateur, le troisième indicateur ne doit pas avoir la classe <code>active</code>";
+                    if (elHasClass(dots[0], 'active') !== true)
+                        this.warn = this.warn || "Après un clic le premier indicateur, le premier indicateur doit avoir la classe <code>active</code>";
+
+                    if (elHasClass(elPrev, 'hidden') !== true)
+                        this.warn = this.warn || "La flêche de gauche doit être masquée quand le premier élément est affiché";
+                    if (elHasClass(elNext, 'hidden') !== false)
+                        this.warn = this.warn || "La flêche de gauche doit être affichée quand le premier élément est affiché";
+
+                    return !this.warn;
+                }
+            }
+        ]
+    }, {
         title: "Composant | Tooltip",
         description: "Un tooltip (ou infobulle), est une information contextuelle qui apparait au survol d'un élément, il est souvent utilisé pour donner plus de précisions sans surcharger l'interface.<br><br>Ce chapitre présente la réalisation d'un tooltip pas à pas.",
         color: "violet",
@@ -2923,7 +3266,7 @@ let chapters = [
                         });
 
                         return `
-                            <p><strong>Démonstration :</strong></p>
+                            <p><strong>Démonstration (survoler le label) :</strong></p>
 
                             <div class="tooltips">
                                 <span class="ui label" data-tooltip-demo="Tooltip droite">Est</span>
@@ -3041,273 +3384,14 @@ let chapters = [
             }
         ]
     }, {
-        title: "Composant | Carrousel",
-        description: "Un carrousel est une liste (d'images en général) dont un seul élément est visible et dont la navigation de d'un élément à l'autre s'effectue via des flèches « précédente » et « suivante » situées de part et d'autre du contenu.<br><br>Ce chapitre présente la réalisation d'un carrousel pas à pas.",
-        color: "violet",
-        steps: [
-            {
-                course: true,
-                description: `
-                    Les carrousels sont des listes dont un seul item est visible et dont la navigation de l'un à l'autre des items s'effectue à l'aide de flèches « précédente » et « suivante » situées de part et d'autre du contenu.
-
-                    Pour arriver à ce résultat une option consiste à ajouter les blocs de contenu les uns à la suite des autres, et à n'afficher que le premier d'entre eux.
-
-                    Ensuite, pour basculer d'un élément à un autre, au clic sur une des flèches il est possible de masquer le premier contenu et d'afficher le second, puis de masquer le second et d'afficher le troisième, ainsi de suite.
-
-                    Une variable peut stocker la position actuelle, et, à chaque clic sur une flèche, être modifiée en même temps que le contenu affiché est remplacé par le suivant ou précédent.
-                `,
-                dom: function() {
-                    return function() {
-                        setTimeout(function() {
-                            var index = 0;
-                            var lis = document.querySelectorAll('.carousel li');
-                            document.querySelector('.prev').addEventListener('click', function() {
-                                lis[index].classList.remove('visible');
-                                index--;
-                                if (index < 0)
-                                    index = 4;
-
-                                lis[index].classList.add('visible');
-                            });
-
-                            document.querySelector('.next').addEventListener('click', function() {
-                                lis[index].classList.remove('visible');
-                                index++;
-                                if (index > 4)
-                                    index = 0;
-
-                                lis[index].classList.add('visible');
-                            });
-                        });
-
-                        return '<p><strong>Démonstration :</strong></p>' + carousel();
-                    }
-                }
-            },
-            {
-                title: "Naviguer au suivant",
-                description: "Lors du clic sur l'élément doté de la classe <code>next</code>, masquer le premier élément du carrousel et révéler le second.",
-                excerpt: "Les items du carrousel se situent dans la liste <code>.carousel > ul > li</code> et un seul d'entre eux à la classe <code>visible</code> (<i>ainsi, les autres sont masqués</i>). Retirer la classe <code>visible</code> d'un élément et l'ajouter à un autre, permet de masquer le premier et de révéler le second.<br><br><strong>Déclarer un écouteur d'événement sur la flêche de droite, et masquer le premier élément du carrousel </strong>: <pre><code>var next = document.querySelector('.next');<br>next.addEventListener('click', function() {<br>  var li = document.querySelector('.carousel > ul > li.visible');<br>  li.classList.remove('visible');<br>});</code></pre>",
-                solved: "var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br><br>elNext.addEventListener('click', function() {<br>  lis[0].classList.remove('visible');<br>  lis[1].classList.add('visible');<br>});",
-                dom: function() {
-                    return carousel.bind(carousel);
-                },
-                answer: function() {
-                    var elPrev = document.querySelector('.prev');
-                    var elNext = document.querySelector('.next');
-
-                    var lis = document.querySelectorAll('.carousel > ul > li');
-
-                    if (lis.length !== 5)
-                        this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
-                    if (elHasClass(lis[0], 'visible') !== true)
-                        this.warn = this.warn || "Le premier <code>li</code> doit avoir la classe <code>visible</code>";
-                    if (elHasClass(lis[1], 'visible') !== false)
-                        this.warn = this.warn || "Le second <code>li</code> ne doit avoir la classe <code>visible</code>";
-
-                    elNext.click();
-                    if (elHasClass(lis[0], 'visible') !== false)
-                        this.warn = this.warn || "Après un clic sur suivant, le premier <code>li</code> ne doit plus avoir la classe <code>visible</code>";
-                    if (elHasClass(lis[1], 'visible') !== true)
-                        this.warn = this.warn || "Après un clic sur suivant, le second <code>li</code> doit avoir la classe <code>visible</code>";
-
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Naviguer au suivant, sans dépasser le dernier",
-                description: "S'assurer que cliquer sur la flêche de droite permet de passer d'un élément au suivant, mais qu'une fois arrivé au dernier, n'a plus d'effet.",
-                solved: "var index = 0;<br>var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br><br>elNext.addEventListener('click', function() {<br>  lis[index].classList.remove('visible');<br>  index++;<br>  if (index > 4)<br>    index = 4;<br><br>  lis[index].classList.add('visible');<br>});",
-                dom: function() {
-                    return carousel.bind(carousel);
-                },
-                answer: function() {
-                    var elPrev = document.querySelector('.prev');
-                    var elNext = document.querySelector('.next');
-
-                    var lis = document.querySelectorAll('.carousel > ul > li');
-
-                    if (lis.length !== 5)
-                        this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
-                    if (elHasClass(lis[0], 'visible') !== true)
-                        this.warn = this.warn || "Le premier <code>li</code> doit avoir la classe <code>visible</code>";
-                    if (elHasClass(lis[1], 'visible') !== false)
-                        this.warn = this.warn || "Le second <code>li</code> ne doit avoir la classe <code>visible</code>";
-
-                    elNext.click(); elNext.click(); elNext.click(); elNext.click(); elNext.click();
-                    if (elHasClass(lis[1], 'visible') !== false)
-                        this.warn = this.warn || "Après quatre clic sur suivant, le premier <code>li</code> ne doit plus avoir la classe <code>visible</code>";
-                    if (elHasClass(lis[4], 'visible') !== true)
-                        this.warn = this.warn || "Après quatre clic sur suivant, le cinquième <code>li</code> doit avoir la classe <code>visible</code>";
-
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Naviguer au précédent",
-                description: "Appliquer le même fonctionnement à la flêche de gauche, dotée de la classe <code>prev</code>, cette fois-ci pour passer d'un élément à l'élément précédent, sans avoir d'effet sur le premier.",
-                excerpt: "Déclarer une variable <code>index</code> et l'utiliser pour mémoriser la position actuelle peut faciliter les choses. À chaque action utilisateur, le <code>li</code> à cet index peut être masqué et la position du suivant (<i>ou précédent</i>) peut être déduite à partir de cette variable (<i>et non du DOM</i>).",
-                solved: "var index = 0;<br>var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br>var elPrev = document.querySelector('.prev');<br><br>elPrev.addEventListener('click', function() {<br>  lis[index].classList.remove('visible');<br>  index--;<br>  if (index < 0)<br>    index = 0;<br><br>  lis[index].classList.add('visible');<br>});<br><br>elNext.addEventListener('click', function() {<br>  lis[index].classList.remove('visible');<br>  index++;<br>  if (index > 4)<br>    index = 4;<br><br>  lis[index].classList.add('visible');<br>});",
-                dom: function() {
-                    return carousel.bind(carousel);
-                },
-                answer: function() {
-                    var elPrev = document.querySelector('.prev');
-                    var elNext = document.querySelector('.next');
-
-                    var lis = document.querySelectorAll('.carousel > ul > li');
-
-                    if (lis.length !== 5)
-                        this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
-                    if (elHasClass(lis[0], 'visible') !== true)
-                        this.warn = this.warn || "Le premier <code>li</code> doit avoir la classe <code>visible</code>";
-                    if (elHasClass(lis[1], 'visible') !== false)
-                        this.warn = this.warn || "Le second <code>li</code> ne doit avoir la classe <code>visible</code>";
-
-                    elPrev.click();
-                    if (elHasClass(lis[0], 'visible') !== true)
-                        this.warn = this.warn || "Après un clic sur précédent, le premier <code>li</code> doit avoir la classe <code>visible</code>";
-                    if (elHasClass(lis[1], 'visible') !== false)
-                        this.warn = this.warn || "Après un clic sur précédent, le second <code>li</code> ne doit avoir la classe <code>visible</code>";
-
-                    elNext.click(); elNext.click(); elPrev.click();
-                    if (elHasClass(lis[0], 'visible') !== false)
-                        this.warn = this.warn || "Après un clic sur suivant, précédent, suivant, le premier <code>li</code> ne doit plus avoir la classe <code>visible</code>";
-                    if (elHasClass(lis[1], 'visible') !== true)
-                        this.warn = this.warn || "Après un clic sur suivant, précédent, suivant, le second <code>li</code> doit avoir la classe <code>visible</code>";
-
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Cacher les fléches de navigation",
-                description: "Lorsque le premier élément du carrousel est affiché, masquer la flêche de gauche, sur le dernier, cacher la flêche de droite. Ajouter la classe <code>hidden</code> à l'élément <code>next</code> ou <code>prev</code> permet de les masquer.",
-                excerpt: "Il est possible de regrouper le code de passage d'un élément au suivant (<i>ou au précédent</i>) dans une fonction <code>jump</code>. Cette fonction peut être dotée d'un paramètre d'entrée indiquant le prochain index (<i>calculé par l'appelant</i>), la fonction peut ainsi vérifier que l'index ne passe pas en dessous de <code>0</code> ou au dessus de <code>4</code>. Elle peut également se charger d'afficher / masquer les flêches de navigation.<br><br><strong>Exemple </strong>: <pre><code>var index =  0;<br>var jump = function(to) {<br>  /* retrait de la classe .visible du li actuel */<br>  /* modification de l'index */<br>  /* ajout de la classe .visible au li correspondant au nouvel index */<br>  /* affichage / masquage des flêches de navigation en fonction du nouvel index */<br>};<br><br>document.querySelector('.next').addEventListener('click', function() {<br>  jump(index + 1);<br>});</code></pre>",
-                solved: "var index = 0;<br>var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br>var elPrev = document.querySelector('.prev');<br><br>var navigation = function(index) {<br>  elPrev.classList.toggle('hidden', index === 0);<br>  elNext.classList.toggle('hidden', index === 4);<br>}<br><br>var jump = function(to) {<br>  lis[index].classList.remove('visible');<br>  index = to;<br>  if (index > 4)<br>    index = 4;<br>  if (index < 0)<br>    index = 0;<br>  lis[index].classList.add('visible');<br>  navigation(index);<br>}<br><br>elPrev.addEventListener('click', function() {<br>  jump(index - 1);<br>});<br><br>elNext.addEventListener('click', function() {<br>  jump(index + 1);<br>});<br><br>navigation(0);",
-                dom: function() {
-                    return carousel.bind(carousel);
-                },
-                answer: function() {
-                    var elPrev = document.querySelector('.prev');
-                    var elNext = document.querySelector('.next');
-
-                    var lis = document.querySelectorAll('.carousel > ul > li');
-
-                    if (lis.length !== 5)
-                        this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
-                    if (elHasClass(elPrev, 'hidden') !== true)
-                        this.warn = this.warn || "La flêche de gauche doit être masquée quand le premier élément est affiché";
-                    if (elHasClass(elNext, 'hidden') !== false)
-                        this.warn = this.warn || "La flêche de gauche doit être affichée quand le premier élément est affiché";
-
-                    elNext.click();
-                    if (elHasClass(elPrev, 'hidden') !== false)
-                        this.warn = this.warn || "La flêche de gauche doit être affichée quand le second élément est affiché";
-                    if (elHasClass(elNext, 'hidden') !== false)
-                        this.warn = this.warn || "La flêche de gauche doit être affichée quand le second élément est affiché";
-
-                    elNext.click(); elNext.click(); elNext.click();
-                    if (elHasClass(lis[4], 'visible') !== true)
-                        this.warn = this.warn || "Après quatre clic sur suivant, le cinquième <code>li</code> doit avoir la classe <code>visible</code>";
-                    if (elHasClass(elPrev, 'hidden') !== false)
-                        this.warn = this.warn || "La flêche de gauche doit être affichée quand le cinquième élément est affiché";
-                    if (elHasClass(elNext, 'hidden') !== true)
-                        this.warn = this.warn || "La flêche de gauche doit être masquée quand le cinquième élément est affiché";
-
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Afficher la position",
-                description: "Une liste d'indicateurs <code>.dots li</code> est disponible sous le carrousel. Ajouter la classe <code>active</code> à celui d'entre eux qui correspond à l'élément du carrousel affiché (<i>le premier rond quand le premier élément est affiché, le second pour le second, etc</i>). Mettre à jour cet indicateur lors du changement d'élément dans le carrousel.",
-                solved: "var index = 0;<br>var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br>var elPrev = document.querySelector('.prev');<br><br>var dots = document.querySelectorAll('.carousel .dots li');<br>var navigation = function(index) {<br>  elPrev.classList.toggle('hidden', index === 0);<br>  elNext.classList.toggle('hidden', index === 4);<br><br>  for (var i = 0; i < dots.length; i++) {<br>    dots[i].classList.remove('active');<br>  }<br>  dots[index].classList.add('active');<br>}<br><br>var jump = function(to) {<br>  lis[index].classList.remove('visible');<br>  index = to;<br>  if (index > 4)<br>    index = 4;<br>  if (index < 0)<br>    index = 0;<br>  lis[index].classList.add('visible');<br>  navigation(index);<br>}<br><br>elPrev.addEventListener('click', function() {<br>  jump(index - 1);<br>});<br><br>elNext.addEventListener('click', function() {<br>  jump(index + 1);<br>});<br><br>navigation(0);",
-                dom: function() {
-                    return carousel.bind(carousel, true);
-                },
-                answer: function() {
-                    var elPrev = document.querySelector('.prev');
-                    var elNext = document.querySelector('.next');
-
-                    var lis = document.querySelectorAll('.carousel > ul > li');
-                    var dots = document.querySelectorAll('.carousel .dots li');
-
-                    if (lis.length !== 5)
-                        this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
-                    if (elHasClass(dots[0], 'active') !== true)
-                        this.warn = this.warn || "Le premier indicateur doit avoir la classe <code>active</code> lorsque le premier élément est affiché";
-
-                    elNext.click();
-                    if (elHasClass(dots[0], 'active') !== false)
-                        this.warn = this.warn || "Après un clic sur suivant, le premier indicateur ne doit pas avoir la classe <code>active</code>";
-                    if (elHasClass(dots[1], 'active') !== true)
-                        this.warn = this.warn || "Après un clic sur suivant, le second indicateur doit avoir la classe <code>active</code>";
-
-                    elNext.click(); elNext.click(); elNext.click();
-                    if (elHasClass(lis[4], 'visible') !== true)
-                        this.warn = this.warn || "Après quatre clic sur suivant, le cinquième <code>li</code> doit avoir la classe <code>visible</code>";
-                    if (elHasClass(elPrev, 'hidden') !== false)
-                        this.warn = this.warn || "La flêche de gauche doit être affichée quand le cinquième élément est affiché";
-                    if (elHasClass(elNext, 'hidden') !== true)
-                        this.warn = this.warn || "La flêche de gauche doit être masquée quand le cinquième élément est affiché";
-
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Modifier la position",
-                description: "Cliquer sur l'un des ronds doit permettre de naviguer à l'élément du carrousel à la même position. Les flêches de navigation gauche ou droite sont masquées si il s'agit du premier ou dernier élément du carrousel (<i>comme lors de la navigation manuelle de l'utilisateur</i>).",
-                solved: "var index = 0;<br>var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br>var elPrev = document.querySelector('.prev');<br><br>var dots = document.querySelectorAll('.carousel .dots li');<br>var navigation = function(index) {<br>  elPrev.classList.toggle('hidden', index === 0);<br>  elNext.classList.toggle('hidden', index === 4);<br><br>  for (var i = 0; i < dots.length; i++) {<br>    dots[i].classList.remove('active');<br>  }<br>  dots[index].classList.add('active');<br>}<br><br>var jump = function(to) {<br>  lis[index].classList.remove('visible');<br>  index = to;<br>  if (index > 4)<br>    index = 4;<br>  if (index < 0)<br>    index = 0;<br>  lis[index].classList.add('visible');<br>  navigation(index);<br>}<br><br>elPrev.addEventListener('click', function() {<br>  jump(index - 1);<br>});<br><br>elNext.addEventListener('click', function() {<br>  jump(index + 1);<br>});<br><br>for (let i = 0; i < dots.length; i++) {<br>  dots[i].addEventListener('click', function() {<br>    jump(i);<br>  });<br>}<br><br>navigation(0);",
-                dom: function() {
-                    return carousel.bind(carousel, true);
-                },
-                answer: function() {
-                    var elPrev = document.querySelector('.prev');
-                    var elNext = document.querySelector('.next');
-
-                    var lis = document.querySelectorAll('.carousel > ul > li');
-                    var dots = document.querySelectorAll('.carousel .dots li');
-
-                    if (lis.length !== 5)
-                        this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
-                    if (elHasClass(dots[0], 'active') !== true)
-                        this.warn = this.warn || "Le premier indicateur doit avoir la classe <code>active</code> lorsque le premier élément est affiché";
-
-                    dots[2].click();
-                    if (elHasClass(dots[0], 'active') !== false)
-                        this.warn = this.warn || "Après un clic le troisième indicateur, le premier indicateur ne doit pas avoir la classe <code>active</code>";
-                    if (elHasClass(dots[2], 'active') !== true)
-                        this.warn = this.warn || "Après un clic le troisième indicateur, le troisième indicateur doit avoir la classe <code>active</code>";
-
-                    elNext.click();
-                    if (elHasClass(dots[2], 'active') !== false)
-                        this.warn = this.warn || "Après un clic le troisième indicateur puis sur suivant, le troisième indicateur ne doit pas avoir la classe <code>active</code>";
-                    if (elHasClass(dots[3], 'active') !== true)
-                        this.warn = this.warn || "Après un clic le troisième indicateur puis sur suivant, le quatrième indicateur doit avoir la classe <code>active</code>";
-
-                    dots[0].click();
-                    if (elHasClass(dots[3], 'active') !== false)
-                        this.warn = this.warn || "Après un clic le premier indicateur, le troisième indicateur ne doit pas avoir la classe <code>active</code>";
-                    if (elHasClass(dots[0], 'active') !== true)
-                        this.warn = this.warn || "Après un clic le premier indicateur, le premier indicateur doit avoir la classe <code>active</code>";
-
-                    if (elHasClass(elPrev, 'hidden') !== true)
-                        this.warn = this.warn || "La flêche de gauche doit être masquée quand le premier élément est affiché";
-                    if (elHasClass(elNext, 'hidden') !== false)
-                        this.warn = this.warn || "La flêche de gauche doit être affichée quand le premier élément est affiché";
-
-                    return !this.warn;
-                }
-            }
-        ]
-    }, {
         title: "Composant | Carte",
         description: "Les cartes affichent les rues, les adresses, les itinéraires et les points d'intérêt, très utiles sur mobile. À l'aide de la géolocalisation (gps et wifi notamment>), elles peuvent également afficher la position de l'utilisateur.<br><br>Ce chapitre présente l'utilisation des cartes google pas à pas.",
         color: "violet",
         steps: [
             {
                 title: "Afficher une carte",
-                description: "Créer une variable <code>map</code> et l'initialiser avec une carte de <a target=\"_blank\" href=\"https://developers.google.com/maps/\">la librairie google maps</a>. L'afficher dans la balise <code>.map</code>, la centrer sur Paris (<i>lat: 48.86, lng: 2.35</i>) et zoomer x12.",
-                excerpt: "<strong>Ne pas utiliser la propriété <code>async</code> du script ni son <code>callback</code></strong>. Bien qu'il s'agisse de la méthode classique pour manipuler une carte google (<i>l'affichage de la carte ne bloque pas le chargement du reste de la page</i>), cette méthode n'est pas compatible avec ce tutoriel. Sans callback, le script de la librairie doit être avant le script qui l'utilise, et ce dernier n'a pas besoin d'une fonction englobante (<i>puisque la page est bloquée tant que google maps n'est pas chargé</i>), et peut être directement déclaré <code>var map = new google.maps.Map(..)</code>.<br><br>Il est possible d'obtenir une clé d'usage via la documentation (<i>les librairies ont courament des clés afin d'effectuer un suivi / limite d'usage</i>).",
+                description: "Créer une variable <code>map</code> et l'initialiser avec une carte de <a target=\"_blank\" href=\"https://developers.google.com/maps/\">la librairie google maps</a>. L'afficher dans la balise <code>.map</code>, la centrer sur Paris (lat: 48.86, lng: 2.35) et zoomer x12.",
+                excerpt: "<strong>Ne pas utiliser la propriété <code>async</code> du script ni son <code>callback</code></strong>. Bien qu'il s'agisse de la méthode classique pour manipuler une carte google (l'affichage de la carte ne bloque pas le chargement du reste de la page), cette méthode n'est pas compatible avec ce tutoriel. Sans callback, le script de la librairie doit être avant le script qui l'utilise, et ce dernier n'a pas besoin d'une fonction englobante (puisque la page est bloquée tant que google maps n'est pas chargé), et peut être directement déclaré <code>var map = new google.maps.Map(..)</code>.<br><br>Il est possible d'obtenir une clé d'usage via la documentation (les librairies ont courament des clés afin d'effectuer un suivi / limite d'usage).",
                 solved: "/* à ajouter avant le script principal<br>&lt;script src=\"https://maps.googleapis.com/maps/api/js?key=\"&gt;&lt;/script&gt;<br>*/<br>var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});",
                 dom: function() {
                     return maps.bind(maps);
@@ -3327,7 +3411,7 @@ let chapters = [
             },
             {
                 title: "Ajouter un point d'intérêt",
-                description: "Créer une variable <code>marker</code> et l'initialiser avec un marqueur de carte (<i>le célèbre pin rouge</i>) aux coordonnées du pont des arts de Paris.",
+                description: "Créer une variable <code>marker</code> et l'initialiser avec un marqueur de carte (le célèbre pin rouge) aux coordonnées du pont des arts de Paris.",
                 solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});",
                 dom: function() {
                     return maps.bind(maps);
@@ -3594,9 +3678,22 @@ let chapters = [
                 }
             },
             {
+                course: true,
+                description: `
+                    Ajouter directment les \`li\` au DOM pose un problème : le DOM constitue alors le modèle de l'application. Pour savoir si un \`li\` est \`done\` il est nécessaire de consulter le DOM, si un filtre doit être appliqué, il est nécessaire de parcourir le DOM à nouveau, etc.
+
+                    Pourtant, le DOM n'est pas la structure la plus simple pour effectuer des recherches, au contraire, effectuer de nombreuses opérations sur celui-ci peut s'avérer coûteux en performance.
+
+                    C'est pourquoi, il est souvent préférable, au lieu d'ajouter directement des \`li\` au DOM, d'ajouter des éléments à un tableau puis d'appeller une méthode <code>render</code> (par convention) dont le rôle est de vider le contenu du <code>ul</code> (ou autre), à chaque fois, et de parcourir le tableau afin de générer autant de \`li\` qu'il a d'éléments.
+
+                    Au lieu de modifier le DOM lors des événements (clic sur la croix ou clic sur le nom du todo), c'est l'élément du tableau qui est modifié et la méthode <code>render</code> qui est appellée de nouveau. Ce découpage sépare le modèle (les données) de la vue (l'affichage) et va simplifier les opérations suivantes.
+
+                    Ce déoupage est souvent nommé MV* pour modèle, vue & co. Car il existe de nombreuses façon d'organiser une application, mais ces deux concepts sont universels.
+                `
+            },
+            {
                 title: "Séparer le modèle de la vue",
-                description: "Créer une variable <code>todos</code> pour stocker l'état du composant (<i>combien d'éléments, lesquels sont cochés, etc</i>). À chaque modification de cette variable, appeller une méthode <code>render</code> charger de mettre à jour l'affichage.",
-                excerpt: "Au lieu d'ajouter directement les <code>li</code> au DOM, créer un tableau <code>todos</code> et une méthode <code>render</code>. À chaque appui sur entrée dans le champ de formulaire, ajouter un object <code>{name: event.target.value, done: false}</code> au tableau <code>todos</code> et déclencher la méthode <code>render</code>. Le rôle de cette méthode est de vider le contenu du <code>ul</code> à chaque fois, et de parcourir le tableau <code>todos</code> afin de générer autant de <code>li</code> qu'il y a d'éléments dans le tableau. <br><br>Au lieu de modifier le DOM lors des événements (<i>clic sur la croix ou clic sur le nom du todo</i>), c'est l'élément du tableau qui est modifié et la méthode <code>render</code> qui est appellée de nouveau. Ce découpage sépare le modèle (<i>les données</i>) de la vue (<i>l'affichage</i>) et va simplifier les opérations suivantes. Supprimer et afficher de nouveaux tous les éléments n'est pas coûteux en terme de performance, tant que leur nombre n'est pas très grand.",
+                description: "Créer une variable <code>todos</code> pour stocker l'état du composant (combien d'éléments, lesquels sont cochés, etc). À chaque appui sur entrée dans le champ de formulaire, ajouter un object <code>{name: event.target.value, done: false}</code> au tableau. À chaque modification de ce tableau, appeller une méthode <code>render</code> chargée de mettre à jour l'affichage.",
                 solved: "var todos = [];<br>var render = function() {<br>  var ul = document.querySelector('.todos ul');<br>  ul.innerHTML = '';<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br><br>    let li = document.createElement('li');<br>    li.classList.add('item');<br>    li.classList.toggle('done', todo.done);<br>    li.innerHTML = todo.name;<br><br>    li.querySelector('i').addEventListener('click', function() {<br>      todos.splice(i, 1);<br>      render();<br>    });<br>    li.addEventListener('click', function() {<br>      todo.done = !todo.done;<br>      render();<br>    });<br><br>    ul.appendChild(li);<br>  }<br>}<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});",
                 dom: function() {
                     return todolist.bind(todolist);
@@ -3627,7 +3724,7 @@ let chapters = [
             },
             {
                 title: "Compter les todos",
-                description: "À chaque création d'un todo, le texte de <code>.filter-todo</code> doit afficher le nombre total de todo non cochés (<i>sans le classe <code>done</code></i>). Le texte de <code>.filter-done</code> affiche quant à lui, le nombre total de todo cochés (<i>avec la classe <code>done</code></i>). Penser au pluriel pour « 0 fait », « 1 fait » et « 2 faits ».",
+                description: "À chaque création d'un todo, le texte de <code>.filter-todo</code> doit afficher le nombre total de todo non cochés (sans le classe <code>done</code>). Le texte de <code>.filter-done</code> affiche quant à lui, le nombre total de todo cochés (avec la classe <code>done</code>). Penser au pluriel pour « 0 fait », « 1 fait » et « 2 faits ».",
                 solved: "var todos = [];<br>var render = function() {<br>  var ul = document.querySelector('.todos ul');<br>  ul.innerHTML = '';<br>  var todoCount = 0, doneCount = 0;<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br><br>    if (todo.done)<br>      doneCount++;<br>    else<br>      todoCount++;<br><br>    let li = document.createElement('li');<br>    li.classList.add('item');<br>    li.classList.toggle('done', todo.done);<br>    li.innerHTML = todo.name;<br><br>    li.querySelector('i').addEventListener('click', function() {<br>      todos.splice(i, 1);<br>      render();<br>    });<br>    li.addEventListener('click', function() {<br>      todo.done = !todo.done;<br>      render();<br>    });<br><br>    ul.appendChild(li);<br>  }<br><br>  document.querySelector('.filter-todo').innerHTML = todoCount + ' à faire';<br>  document.querySelector('.filter-done').innerHTML = doneCount + (doneCount > 1 ? ' faits' : ' fait');<br>}<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});",
                 dom: function() {
                     return todolist.bind(todolist);
@@ -3668,7 +3765,7 @@ let chapters = [
             },
             {
                 title: "Filtrer les todos",
-                description: "Au clic sur <code>.filter-done</code> cet élément récupère la classe <code>active</code> et seuls les todos terminés sont affichés. Idem pour <code>.filter-todo</code>. Seul un de ces deux boutons peut être actif à la fois. Cliquer sur un bouton actif le désactive (<i>et affiche ainsi tous les todos</i>). Plutôt que se baser sur le DOM pour savoir quel filtre est activé, utiliser une variable à 3 états, et modifier la méthode <code>render</code> pour la mise à jour de la classe <code>active</code> sur les boutons.",
+                description: "Au clic sur <code>.filter-done</code> cet élément récupère la classe <code>active</code> et seuls les todos terminés sont affichés. Idem pour <code>.filter-todo</code>. Seul un de ces deux boutons peut être actif à la fois. Cliquer sur un bouton actif le désactive (et affiche ainsi tous les todos). Plutôt que se baser sur le DOM pour savoir quel filtre est activé, utiliser une variable à 3 états, et modifier la méthode <code>render</code> pour la mise à jour de la classe <code>active</code> sur les boutons.",
                 solved: "var todos = [];<br>var state = 'all';<br>var render = function() {<br>  var ul = document.querySelector('.todos ul');<br>  ul.innerHTML = '';<br>  var todoCount = 0, doneCount = 0;<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br><br>    if (todo.done)<br>      doneCount++;<br>    else<br>      todoCount++;<br><br>    if (state !== 'all') {<br>      if ((state === 'todo' && todo.done) || (state === 'done' && !todo.done)) {<br>        continue;<br>      }<br>    }<br><br>    let li = document.createElement('li');<br>    li.classList.add('item');<br>    li.classList.toggle('done', todo.done);<br>    li.innerHTML = todo.name;<br><br>    li.querySelector('i').addEventListener('click', function() {<br>      todos.splice(i, 1);<br>      render();<br>    });<br>    li.addEventListener('click', function() {<br>      todo.done = !todo.done;<br>      render();<br>    });<br><br>    ul.appendChild(li);<br>  }<br><br>  document.querySelector('.filter-todo').innerHTML = todoCount + ' à faire';<br>  document.querySelector('.filter-done').innerHTML = doneCount + (doneCount > 1 ? ' faits' : ' fait');<br><br>  document.querySelector('.filter-todo').classList.toggle('active', state === 'todo');<br>  document.querySelector('.filter-done').classList.toggle('active', state === 'done');<br>}<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});<br><br>document.querySelector('.filter-todo').addEventListener('click', function() {<br>  if (state !== 'todo')<br>    state = 'todo';<br>  else<br>    state = 'all';<br>  render();<br>});<br><br>document.querySelector('.filter-done').addEventListener('click', function() {<br>  if (state !== 'done')<br>    state = 'done';<br>  else<br>    state = 'all';<br>  render();<br>});",
                 dom: function() {
                     return todolist.bind(todolist);
@@ -3724,7 +3821,7 @@ let chapters = [
         ]
     }, {
         title: "Ajax",
-        description: "Ajax — basé sur le protocole HTTP — permet à un navigateur d'émettre une requête et d'attendre une réponse d'un serveur distant. Cette requête est asynchrone, elle ne bloque pas le navigateur, qui sera notifié lors du retour du serveur.<br><br>Ce chapitre présente ajax pas à pas.",
+        description: "Ajax permet à un navigateur d'émettre une requête et d'attendre une réponse d'un serveur distant. Cette requête est asynchrone, elle ne bloque pas le navigateur, qui sera notifié lors du retour du serveur.<br><br>Ce chapitre présente ajax pas à pas.",
         color: "teal",
         steps: [
             {
@@ -3922,8 +4019,8 @@ let chapters = [
             },
             {
                 title: "Rechercher un repository github",
-                description: "Effectuer un appel ajax vers <code>https://api.github.com/search/repositories?access_token={token}&q={query}</code> à l'appui sur entrée dans <code>.search input</code> en indiquant comme {query} la recherche saisie.<br><br>Afficher les trois premiers résultats dans <code>.results</code> chacun sous la forme <code>&lt;span class=\"result\"&gt;{full_name}&lt;/span&gt;</code> (<i>et ajouter la classe <code>visible</code> à <code>.results</code> pour le révéler</i>).",
-                excerpt: "Pour accèder à l'api de github, il est préférable de créer une clé (<i>ou token</i>), pour ce faire aller dans <code>Github > Settings > Personnal Access Token</code> puis <code>Generate new token</code>. Ce token est à ajouter à l'url <code>https://api.github.com/..?access_token={token}&q={query}</code>.<br><br>Il est possible d'effectuer une requête ajax à l'aide des objets <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest\">xhr</a>, <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/API/Fetch_API/Using_Fetch\">fetch</a> ou <a target=\"_blank\" href=\"http://api.jquery.com/jquery.ajax/\">jQuery.ajax</a>. Ajax est une technologie utilisée pour requêter un serveur de façon asynchrone. Pour effectuer une requête vers un serveur, trois informations sont nécessaires, son adresse <code>http://..</code>, l'action à réaliser, <code>GET</code> (<i>lecture</i>), <code>POST</code> (<i>création</i>), <code>PUT</code> (<i>modification</i>) ou <code>DELETE</code> (<i>suppression</i>) et la fonction à invoquer lorsque le serveur aura répondu.",
+                description: "Effectuer un appel ajax vers <code>https://api.github.com/search/repositories?access_token={token}&q={query}</code> à l'appui sur entrée dans <code>.search input</code> en indiquant comme {query} la recherche saisie.<br><br>Afficher les trois premiers résultats dans <code>.results</code> chacun sous la forme <code>&lt;span class=\"result\"&gt;{full_name}&lt;/span&gt;</code> (et ajouter la classe <code>visible</code> à <code>.results</code> pour le révéler).",
+                excerpt: "Pour accèder à l'api de github, il est préférable de créer une clé (ou token), pour ce faire aller dans <code>Github > Settings > Personnal Access Token</code> puis <code>Generate new token</code>. Ce token est à ajouter à l'url <code>https://api.github.com/..?access_token={token}&q={query}</code>.<br><br>Il est possible d'effectuer une requête ajax à l'aide des objets <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest\">xhr</a>, <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/API/Fetch_API/Using_Fetch\">fetch</a> ou <a target=\"_blank\" href=\"http://api.jquery.com/jquery.ajax/\">jQuery.ajax</a>. Ajax est une technologie utilisée pour requêter un serveur de façon asynchrone. Pour effectuer une requête vers un serveur, trois informations sont nécessaires, son adresse <code>http://..</code>, l'action à réaliser, <code>GET</code> (lecture), <code>POST</code> (création), <code>PUT</code> (modification) ou <code>DELETE</code> (suppression) et la fonction à invoquer lorsque le serveur aura répondu.",
                 solved: "/* remplacer {token} par le token github généré */<br><br>/* --------------------- xhr --------------------- */<br><br>var search = document.querySelector('.search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>var ajax = function(method, url, fn) {<br>  var xhr = new XMLHttpRequest();<br>  xhr.addEventListener('load', function() {<br>    if (xhr.readyState === 4) {<br>      fn(JSON.parse(xhr.response));<br>    }<br>  });<br>  xhr.open(method, url);<br>  xhr.send();<br>}<br><br>input.addEventListener('keypress', function(event) {<br>  if(event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  ajax('GET', 'https://api.github.com/search/repositories?access_token={token}&q=' + input.value, function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br><br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});<br><br>/* -------------------- fetch -------------------- */<br><br>var search = document.querySelector('.search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>input.addEventListener('keypress', function(event) {<br>  if(event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  fetch('https://api.github.com/search/repositories?access_token={token}&q=' + input.value)<br>  .then(function(response) {<br>    return response.json();<br>  })<br>  .then(function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br>      for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});",
                 dom: function() {
                     return search.bind(search);
@@ -3977,7 +4074,7 @@ let chapters = [
             },
             {
                 title: "Afficher la liste des favoris",
-                description: "Effectuer un appel ajax vers <code>https://api.github.com/user/starred</code> (<i>avec un access_token</i>) au clic sur <code>.fetch</code> (<i>le bouton Actualiser</i>).<br><br>Afficher les résultats dans <code>.list</code> chacun sous la forme <code>&lt;div class=\"item ui checkbox\"&gt;&lt;input type=\"checkbox\" id=\"{full_name}\"&gt;&lt;label for=\"{full_name}\"&gt;{full_name}&lt;/label&gt;&lt;/div&gt;</code>. Afficher le nombre total de résultats dans <code>.count</code>.",
+                description: "Effectuer un appel ajax vers <code>https://api.github.com/user/starred</code> (avec un access_token) au clic sur <code>.fetch</code> (le bouton Actualiser).<br><br>Afficher les résultats dans <code>.list</code> chacun sous la forme <code>&lt;div class=\"item ui checkbox\"&gt;&lt;input type=\"checkbox\" id=\"{full_name}\"&gt;&lt;label for=\"{full_name}\"&gt;{full_name}&lt;/label&gt;&lt;/div&gt;</code>. Afficher le nombre total de résultats dans <code>.count</code>.",
                 solved: "var search = document.querySelector('.favorites .search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  search.classList.add('loading');<br><br>  fetch('https://api.github.com/search/repositories?access_token={token}&q=' + input.value)<br>  .then(function(response) {<br>    search.classList.remove('loading');<br>    return response.json();<br>  })<br>  .then(function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});<br><br>var list = document.querySelector('.list');<br>var refresh = document.querySelector('.fetch');<br>var count = document.querySelector('.count');<br><br>var render = function() {<br>  fetch('https://api.github.com/user/starred?access_token={token}')<br>  .then(function(response) {<br>    return response.json();<br>  })<br>  .then(function(starred) {<br>    count.value = starred.length;<br>    list.innerHTML = '';<br>    for (var i = 0; i < starred.length; i++) {<br>      list.innerHTML += '&lt;div class=\"item ui checkbox\"&gt;&lt;input type=\"checkbox\" id=\"' + starred[i].full_name + '\"&gt;&lt;label for=\"' + starred[i].full_name + '\"&gt;' + starred[i].full_name + '&lt;/label&gt;&lt;/div&gt;';<br>    }<br>  });<br>}<br><br>refresh.addEventListener('click', render);",
                 excerpt: "Pour accéder aux repositories favoris, github requiert des autorisations supplémentaires. Dans l'écran <code>Personnal Access Tokens</code> il est nécessaire d'ajouter le scope <code>repo</code> au token précédemment créé.",
                 dom: function() {
@@ -4033,7 +4130,7 @@ let chapters = [
             },
             {
                 title: "Ajouter un favoris",
-                description: "Au clic sur un résultat <code>.result</code> (<i>après une recherche</i>), effectuer un appel ajax <code>https://api.github.com/user/starred/{full_name}</code> avec la méthode <code>PUT</code> pour l'ajouter aux favoris. Mettre à jour la liste de favoris en fonction.",
+                description: "Au clic sur un résultat <code>.result</code> (après une recherche), effectuer un appel ajax <code>https://api.github.com/user/starred/{full_name}</code> avec la méthode <code>PUT</code> pour l'ajouter aux favoris. Mettre à jour la liste de favoris en fonction.",
                 excerpt: "Attention, les réponses github ont un cache de plusieurs dizaines de secondes, le navigateur mémorise la dernière réponse et la retourne à chaque appel avant que ce laps ne soit écoulé. <code>https://api.github.com/..?bust=' + Date.now()</code> le force a appeler le serveur, en lui faisant croire qu'il s'agit d'une nouvelle route pour qu'il ignore son cache.<br><br>Lors d'appels <code>POST</code> et <code>PUT</code>, il est également possible d'envoyer un body sous forme de texte ou de <code>JSON</code> au serveur pour enregistrer des informations.",
                 solved: "var search = document.querySelector('.favorites .search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  search.classList.add('loading');<br><br>  fetch('https://api.github.com/search/repositories?access_token={token}&q=' + input.value)<br>  .then(function(response) {<br>    search.classList.remove('loading');<br>    return response.json();<br>  })<br>  .then(function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});<br><br>results.addEventListener('click', function(event) {<br>  if (!event.target.matches('.result')) {<br>    return;<br>  }<br>  results.classList.remove('visible');<br>  fetch('https://api.github.com/user/starred/' + event.target.innerHTML + '?access_token={token}', {<br>    method: 'PUT'<br>  }).then(render);<br>});<br><br>var list = document.querySelector('.list');<br>var refresh = document.querySelector('.fetch');<br>var count = document.querySelector('.count');<br><br>var render = function() {<br>  return fetch('https://api.github.com/user/starred?access_token={token}&bust=' + Date.now())<br>  .then(function(response) {<br>    return response.json();<br>  })<br>  .then(function(starred) {<br>    count.value = starred.length;<br>    list.innerHTML = '';<br>    for (var i = 0; i < starred.length; i++) {<br>      list.innerHTML += '&lt;div class=\"item ui checkbox\"&gt;&lt;input type=\"checkbox\" id=\"' + starred[i].full_name + '\"&gt;&lt;label for=\"' + starred[i].full_name + '\"&gt;' + starred[i].full_name + '&lt;/label&gt;&lt;/div&gt;';<br>    }<br>  });<br>}<br><br>refresh.addEventListener('click', function() {<br>  refresh.classList.add('loading');<br><br>  render().then(function() {<br>    refresh.classList.remove('loading');<br>  });<br>});",
                 dom: function() {
@@ -4107,7 +4204,7 @@ let chapters = [
             },
             {
                 title: "Trier les favoris",
-                description: "Au clic sur <code>.direction</code> modifier l'ordre de tri des favoris en rejouant la requête ajax de listing avec le paramètre d'url <code>direction</code> (<i>asc/desc</i>). Mettre à jour la liste de favoris en fonction.",
+                description: "Au clic sur <code>.direction</code> modifier l'ordre de tri des favoris en rejouant la requête ajax de listing avec le paramètre d'url <code>direction</code> (asc/desc). Mettre à jour la liste de favoris en fonction.",
                 solved: "var search = document.querySelector('.favorites .search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  search.classList.add('loading');<br><br>  fetch('https://api.github.com/search/repositories?access_token={token}&q=' + input.value)<br>  .then(function(response) {<br>    search.classList.remove('loading');<br>    return response.json();<br>  })<br>  .then(function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});<br><br>results.addEventListener('click', function(event) {<br>  if (!event.target.matches('.result')) {<br>    return;<br>  }<br>  results.classList.remove('visible');<br>  fetch('https://api.github.com/user/starred/' + event.target.innerHTML + '?access_token={token}', {<br>    method: 'PUT'<br>  }).then(render);<br>});<br><br>var list = document.querySelector('.list');<br>var refresh = document.querySelector('.fetch');<br>var count = document.querySelector('.count');<br><br>var direction = 'desc';<br>var render = function() {<br>  return fetch('https://api.github.com/user/starred?access_token={token}&bust=' + Date.now() + '&direction=' + direction)<br>  .then(function(response) {<br>    return response.json();<br>  })<br>  .then(function(starred) {<br>    count.value = starred.length;<br>    list.innerHTML = '';<br>    for (var i = 0; i < starred.length; i++) {<br>      list.innerHTML += '&lt;div class=\"item ui checkbox\"&gt;&lt;input type=\"checkbox\" id=\"' + starred[i].full_name + '\"&gt;&lt;label for=\"' + starred[i].full_name + '\"&gt;' + starred[i].full_name + '&lt;/label&gt;&lt;/div&gt;';<br>    }<br>  });<br>}<br><br>refresh.addEventListener('click', function() {<br>  refresh.classList.add('loading');<br><br>  render().then(function() {<br>    refresh.classList.remove('loading');<br>  });<br>});<br><br>document.querySelector('.direction').addEventListener('click', function() {<br>  var i = this.querySelector('i');<br>  i.classList.toggle('ascending');<br>  i.classList.toggle('descending');<br>  direction = (direction === 'desc') ? 'asc' : 'desc';<br><br>  this.classList.add('loading');<br>  render().then(function() {<br>    this.classList.remove('loading');<br>  }.bind(this));<br>});",
                 dom: function() {
                     return search.bind(search);
@@ -4344,7 +4441,7 @@ let chapters = [
         ]
     }, {
         title: "La programmation objet",
-        description: "La programmation orientée objet propose de définir un ensemble de concepts, les classes, dont il est possible de manipuler des exemplaires, les objets, dans le but de structurer un programme.<br><br>Ce chapitre présente la réalisation (<i>corsée</i>) d'un puzzle rpg au tour par tour.",
+        description: "La programmation orientée objet propose de définir un ensemble de concepts, les classes et les objets, dans le but de structurer un programme.<br><br>Ce chapitre présente la réalisation (corsée) d'un puzzle rpg au tour par tour.",
         color: "teal",
         steps: [
             {
@@ -4734,213 +4831,9 @@ let chapters = [
             }
         ]
     }, {
-        title: "Les expressions régulières",
-        description: "Les expressions régulières sont des expressions rationnelles permettant de reconnaître un motif (<i>pattern</i>) dans un texte de façon plus fine qu'une recherche classique de caratère.<br><br>Ce chapitre présente les expressions régulières.",
-        color: "teal",
-        steps: [
-            {
-                title: "",
-                course: true,
-                description: `
-                    Les expressions régulières sont des expressions rationnelles permettant de reconnaître un motif (pattern) dans un texte. Il existe deux méthodes pour les exprimer, l'une avec l'objet RegExp, l'autre avec deux « / » remplaçant les guillemets d'une chaîne de caractères. En plus du pattern à matcher, des flags (ou indicateurs) peuvent être indiqués pour préciser ce pattern.
-
-                    **Création d'expressions régulières :**
-
-                        /pattern/flags
-                        new RegExp(pattern[, flags])
-
-                    L'utilisation la plus simple d'une expression régulière est équivalente à la méthode indexOf des String recherchant la première occurrence d'un pattern dans un texte.
-
-                    **Expressions régulières, usage simple (équivalent à indexOf) :**
-
-                        'we all live in a yellow submarine'.indexOf('in')
-                        → 12
-
-                        /in/.test('we all live in a yellow submarine')
-                        → true
-
-                        'we all live in a yellow submarine'.match(/in/)
-                        → ['in']
-
-                    De nombreux caractères spéciaux permettent de rechercher des patterns plus élaborés :
-
-                    * « ? » indique que le caractère précédent est présent 0 ou 1 fois
-                    * « + » indique que le caractère précédent peut être répété 1 fois ou plus
-                    * « * » indique que le caractère précédent peut être répété 0 fois ou plus
-                    * « . » est un joker remplaçant n'importe quel caractère
-                    * « | » sépare deux alternatives possibles d'expressions régulière
-                    * « ( » et « ) » forme un groupe sur lequel les autres caractères spéciaux s'appliquent
-                    * « { » et « } » indique que le caractère précédent doit être répété un certain nombre de fois
-                    * « ^ » indique que le pattern doit commencer par le caractère qui suit
-                    * « $ » indique que le pattern doit se conclure par le caractère qui suit
-                `
-            },
-            {
-                course: true,
-                description: `
-                    **Expressions régulières avec caractères spéciaux :**
-
-                        'we all live in a yellow submarine'.match(/sub.*in/)
-                        → ['submarin']
-
-                        'we all live in a yellow submarine'.match(/s.b.a.i.e/)
-                        → ['submarin']
-
-                        'we all live in a yellow submarine'.match(/l{2}/)
-                        → ['ll']
-
-                        'we all live in a yellow submarine'.replace(/l/, '')
-                        → 'we al live in a yellow submarine'
-
-                    Par défaut, la recherche du pattern s'effectue uniquement sur la première occurrence de celui-ci et en respectant la casse (majuscule et minuscule sont différentes). Les flags qu'il est possible d'indiquer à l'expression permettent de modifier cela :
-
-                    * « g » indique de chercher pour toutes les occurrences du pattern
-                    * « i » indique d'être insensible à la casse (majuscules / miniscules)
-
-                    **Expressions régulières avec flags :**
-
-                        'we all live in a yellow submarine'.match(/in/g)
-                        → ['in', 'in']
-
-                        'we all live in a yellow submarine'.match(/l/g)
-                        → ['l', 'l', 'l', 'l', 'l']
-
-                        'we all live in a yellow submarine'.match(/SU./i)
-                        → ['sub']
-
-                        'we all live in a yellow submarine'.replace(/l/g, '')
-                        → 'we a ive in a yeow submarine'
-
-                    Une documentation détaillée est disponible sur les [RegExp](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/RegExp) pour plus de détails. Et [un excellent outil](https://regex101.com/) en ligne pour les tester et mieux les appréhender.
-                `
-            },
-            {
-                title: "Supprimer toutes les occurences d'une lettre",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de <code>x</code> (<i>déclarée par ce tutoriel</i>) dont toutes les lettres <code>e</code> ont été retirées.",
-                solved: "var secret = x.replace(/e/ig, '');",
-                init: function() {
-                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
-                },
-                secret: function() {
-                    return this.x.replace(/e/ig, '');
-                },
-                warn: function() {
-                    return basicWarn(secret, this.secret());
-                },
-                answer: function() {
-                    return secret === this.secret();
-                }
-            },
-            {
-                title: "Identifier si une chaine de caractères contient un pattern",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter <code>true</code> si la valeur de <code>x</code> (<i>déclarée par ce tutoriel</i>) contient la pattern <code>en.</code> ou <code>.</code> correspond à un caractère quelconque. Lui affecter <code>false</code> sinon.",
-                solved: "var secret = /en./i.test(x);",
-                init: function() {
-                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
-                },
-                secret: function() {
-                    return /en./i.test(this.x);
-                },
-                warn: function() {
-                    return basicWarn(secret, this.secret());
-                },
-                answer: function() {
-                    return secret === this.secret();
-                }
-            },
-            {
-                title: "Identifier combien de fois une chaine de caractères contient un pattern",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter le compte de <code>e</code> contenus dans la chaine de caractères déclarée par <code>x</code> (<i>déclarée par ce tutoriel</i>).",
-                solved: "var match = x.match(/e/ig);<br>var secret = !match ? 0 : match.length;",
-                init: function() {
-                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
-                },
-                secret: function() {
-                    var match = this.x.match(/e/ig);
-                    return !match ? 0 : match.length;
-                },
-                warn: function() {
-                    return basicWarn(secret, this.secret());
-                },
-                answer: function() {
-                    return secret === this.secret();
-                }
-            },
-            {
-                title: "Déclarer un pattern dynamique",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter <code>true</code> si le pattern déclaré par <code>y</code> est contenu dans la valeur de <code>x</code> (<i>déclarées par ce tutoriel</i>).",
-                solved: "var secret = new RegExp(y).test(x);",
-                init: function() {
-                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
-                    window.y = this.y = randomize("en.", "e.*d", "e?t")
-                },
-                secret: function() {
-                    return new RegExp(this.y).test(this.x);
-                },
-                warn: function() {
-                    return basicWarn(secret, this.secret());
-                },
-                answer: function() {
-                    return secret === this.secret();
-                }
-            },
-            {
-                title: "Déclarer un pattern conditonnel",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de <code>x</code> (<i>déclarée par ce tutoriel</i>) dont tous les <code>to</code>, <code>at</code>, <code>in</code> et <code>is</code> ont été retirés (de préférence, avec une seule expression régulière).",
-                solved: "var secret = x.replace(/(to|at|in|is)/ig, '');",
-                init: function() {
-                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
-                },
-                secret: function() {
-                    return this.x.replace(/(to|at|in|is)/g, '');
-                },
-                warn: function() {
-                    return basicWarn(secret, this.secret());
-                },
-                answer: function() {
-                    return secret === this.secret();
-                }
-            },
-            {
-                title: "Déclarer un pattern avec des groupes",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de <code>x</code> (<i>déclarée par ce tutoriel</i>) dont chaque <code>e</code> a été remplacé par <code>-e-</code> à condition qu'il soit précédé et suivi d'une lettre (et pas d'une espace — de préférence, avec une seule expression régulière).",
-                solved: "var secret = x.replace(/(\w)e(\w)/ig, '$1-e-$2');",
-                init: function() {
-                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
-                },
-                secret: function() {
-                    return this.x.replace(/(\w)e(\w)/ig, '$1-e-$2');
-                },
-                warn: function() {
-                    return basicWarn(secret, this.secret());
-                },
-                answer: function() {
-                    return secret === this.secret();
-                }
-            },
-            {
-                title: "Déclarer un pattern non glouton",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter le compte de <code><strong>...</strong></code> contenus dans la chaine de caractères déclarée par <code>x</code> (<i>déclarée par ce tutoriel</i>) ou <code>...</code> correspond à un ou plusieurs caractères quelconques.",
-                solved: "var match = x.match(/&lt;strong&gt;.*?&lt;\\/strong&gt;/g);<br>var secret = !match ? 0 : match.length;",
-                init: function() {
-                    window.x = this.x = randomize("I used to <strong>get</strong> mad at my school (No I <strong>can't</strong> complain)", "Lucy in the <strong>sky</strong> with <strong>diamonds</strong>", "And in the end, the love you <strong>take</strong> is equal to the love you <strong>make</strong>", "Sit <strong>back</strong> and let the evening <strong>go</strong>");
-                },
-                secret: function() {
-                    var match = this.x.match(/<strong>.*?<\/strong>/g);
-                    return !match ? 0 : match.length;
-                },
-                warn: function() {
-                    return basicWarn(secret, this.secret());
-                },
-                answer: function() {
-                    return secret === this.secret();
-                }
-            }
-        ]
-    }, {
         title: "Prototype, héritage, contexte",
         description: "Les classes JavaScript repose sur une chaîne de prototypes. Cela offre plus de richesse que dans d'autres approches plus tradiotnnelles, mais implique également certaines contraintes.<br><br>Ce chapitre approfondit la programmation objet.",
-        color: "grey",
+        color: "teal",
         steps: [
             {
                 title: "Classes et comparaison d'objets",
@@ -5102,8 +4995,212 @@ let chapters = [
             }
         ]
     }, {
+        title: "Les expressions régulières",
+        description: "Les expressions régulières sont des expressions rationnelles permettant de reconnaître un motif (pattern) dans un texte de façon plus fine qu'une recherche classique de caratère.<br><br>Ce chapitre présente les expressions régulières.",
+        color: "teal",
+        steps: [
+            {
+                title: "",
+                course: true,
+                description: `
+                    Les expressions régulières sont des expressions rationnelles permettant de reconnaître un motif (pattern) dans un texte. Il existe deux méthodes pour les exprimer, l'une avec l'objet RegExp, l'autre avec deux « / » remplaçant les guillemets d'une chaîne de caractères. En plus du pattern à matcher, des flags (ou indicateurs) peuvent être indiqués pour préciser ce pattern.
+
+                    **Création d'expressions régulières :**
+
+                        /pattern/flags
+                        new RegExp(pattern[, flags])
+
+                    L'utilisation la plus simple d'une expression régulière est équivalente à la méthode indexOf des String recherchant la première occurrence d'un pattern dans un texte.
+
+                    **Expressions régulières, usage simple (équivalent à indexOf) :**
+
+                        'we all live in a yellow submarine'.indexOf('in')
+                        → 12
+
+                        /in/.test('we all live in a yellow submarine')
+                        → true
+
+                        'we all live in a yellow submarine'.match(/in/)
+                        → ['in']
+
+                    De nombreux caractères spéciaux permettent de rechercher des patterns plus élaborés :
+
+                    * « ? » indique que le caractère précédent est présent 0 ou 1 fois
+                    * « + » indique que le caractère précédent peut être répété 1 fois ou plus
+                    * « * » indique que le caractère précédent peut être répété 0 fois ou plus
+                    * « . » est un joker remplaçant n'importe quel caractère
+                    * « | » sépare deux alternatives possibles d'expressions régulière
+                    * « ( » et « ) » forme un groupe sur lequel les autres caractères spéciaux s'appliquent
+                    * « { » et « } » indique que le caractère précédent doit être répété un certain nombre de fois
+                    * « ^ » indique que le pattern doit commencer par le caractère qui suit
+                    * « $ » indique que le pattern doit se conclure par le caractère qui suit
+                `
+            },
+            {
+                course: true,
+                description: `
+                    **Expressions régulières avec caractères spéciaux :**
+
+                        'we all live in a yellow submarine'.match(/sub.*in/)
+                        → ['submarin']
+
+                        'we all live in a yellow submarine'.match(/s.b.a.i.e/)
+                        → ['submarin']
+
+                        'we all live in a yellow submarine'.match(/l{2}/)
+                        → ['ll']
+
+                        'we all live in a yellow submarine'.replace(/l/, '')
+                        → 'we al live in a yellow submarine'
+
+                    Par défaut, la recherche du pattern s'effectue uniquement sur la première occurrence de celui-ci et en respectant la casse (majuscule et minuscule sont différentes). Les flags qu'il est possible d'indiquer à l'expression permettent de modifier cela :
+
+                    * « g » indique de chercher pour toutes les occurrences du pattern
+                    * « i » indique d'être insensible à la casse (majuscules / miniscules)
+
+                    **Expressions régulières avec flags :**
+
+                        'we all live in a yellow submarine'.match(/in/g)
+                        → ['in', 'in']
+
+                        'we all live in a yellow submarine'.match(/l/g)
+                        → ['l', 'l', 'l', 'l', 'l']
+
+                        'we all live in a yellow submarine'.match(/SU./i)
+                        → ['sub']
+
+                        'we all live in a yellow submarine'.replace(/l/g, '')
+                        → 'we a ive in a yeow submarine'
+
+                    Une documentation détaillée est disponible sur les [RegExp](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/RegExp) pour plus de détails. Et [un excellent outil](https://regex101.com/) en ligne pour les tester et mieux les appréhender.
+                `
+            },
+            {
+                title: "Supprimer toutes les occurences d'une lettre",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de <code>x</code> (déclarée par ce tutoriel) dont toutes les lettres <code>e</code> ont été retirées.",
+                solved: "var secret = x.replace(/e/ig, '');",
+                init: function() {
+                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                },
+                secret: function() {
+                    return this.x.replace(/e/ig, '');
+                },
+                warn: function() {
+                    return basicWarn(secret, this.secret());
+                },
+                answer: function() {
+                    return secret === this.secret();
+                }
+            },
+            {
+                title: "Identifier si une chaine de caractères contient un pattern",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter <code>true</code> si la valeur de <code>x</code> (déclarée par ce tutoriel) contient la pattern <code>en.</code> ou <code>.</code> correspond à un caractère quelconque. Lui affecter <code>false</code> sinon.",
+                solved: "var secret = /en./i.test(x);",
+                init: function() {
+                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                },
+                secret: function() {
+                    return /en./i.test(this.x);
+                },
+                warn: function() {
+                    return basicWarn(secret, this.secret());
+                },
+                answer: function() {
+                    return secret === this.secret();
+                }
+            },
+            {
+                title: "Identifier combien de fois une chaine de caractères contient un pattern",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter le compte de <code>e</code> contenus dans la chaine de caractères déclarée par <code>x</code> (déclarée par ce tutoriel).",
+                solved: "var match = x.match(/e/ig);<br>var secret = !match ? 0 : match.length;",
+                init: function() {
+                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                },
+                secret: function() {
+                    var match = this.x.match(/e/ig);
+                    return !match ? 0 : match.length;
+                },
+                warn: function() {
+                    return basicWarn(secret, this.secret());
+                },
+                answer: function() {
+                    return secret === this.secret();
+                }
+            },
+            {
+                title: "Déclarer un pattern dynamique",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter <code>true</code> si le pattern déclaré par <code>y</code> est contenu dans la valeur de <code>x</code> (déclarées par ce tutoriel).",
+                solved: "var secret = new RegExp(y).test(x);",
+                init: function() {
+                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                    window.y = this.y = randomize("en.", "e.*d", "e?t")
+                },
+                secret: function() {
+                    return new RegExp(this.y).test(this.x);
+                },
+                warn: function() {
+                    return basicWarn(secret, this.secret());
+                },
+                answer: function() {
+                    return secret === this.secret();
+                }
+            },
+            {
+                title: "Déclarer un pattern conditonnel",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de <code>x</code> (déclarée par ce tutoriel) dont tous les <code>to</code>, <code>at</code>, <code>in</code> et <code>is</code> ont été retirés (de préférence, avec une seule expression régulière).",
+                solved: "var secret = x.replace(/(to|at|in|is)/ig, '');",
+                init: function() {
+                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                },
+                secret: function() {
+                    return this.x.replace(/(to|at|in|is)/g, '');
+                },
+                warn: function() {
+                    return basicWarn(secret, this.secret());
+                },
+                answer: function() {
+                    return secret === this.secret();
+                }
+            },
+            {
+                title: "Déclarer un pattern avec des groupes",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de <code>x</code> (déclarée par ce tutoriel) dont chaque <code>e</code> a été remplacé par <code>-e-</code> à condition qu'il soit précédé et suivi d'une lettre (et pas d'une espace — de préférence, avec une seule expression régulière).",
+                solved: "var secret = x.replace(/(\w)e(\w)/ig, '$1-e-$2');",
+                init: function() {
+                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                },
+                secret: function() {
+                    return this.x.replace(/(\w)e(\w)/ig, '$1-e-$2');
+                },
+                warn: function() {
+                    return basicWarn(secret, this.secret());
+                },
+                answer: function() {
+                    return secret === this.secret();
+                }
+            },
+            {
+                title: "Déclarer un pattern non glouton",
+                description: "Créer une variable nommée <code>secret</code> et lui affecter le compte de <code><strong>...</strong></code> contenus dans la chaine de caractères déclarée par <code>x</code> (déclarée par ce tutoriel) ou <code>...</code> correspond à un ou plusieurs caractères quelconques.",
+                solved: "var match = x.match(/&lt;strong&gt;.*?&lt;\\/strong&gt;/g);<br>var secret = !match ? 0 : match.length;",
+                init: function() {
+                    window.x = this.x = randomize("I used to <strong>get</strong> mad at my school (No I <strong>can't</strong> complain)", "Lucy in the <strong>sky</strong> with <strong>diamonds</strong>", "And in the end, the love you <strong>take</strong> is equal to the love you <strong>make</strong>", "Sit <strong>back</strong> and let the evening <strong>go</strong>");
+                },
+                secret: function() {
+                    var match = this.x.match(/<strong>.*?<\/strong>/g);
+                    return !match ? 0 : match.length;
+                },
+                warn: function() {
+                    return basicWarn(secret, this.secret());
+                },
+                answer: function() {
+                    return secret === this.secret();
+                }
+            }
+        ]
+    }, {
         title: "Puzzle | Taquin",
-        description: "Un taquin est ce puzzle en plastique à résoudre du bout des pouces. Une pièce peut être glissée horizontalement ou verticalement pour venir prendre la place de l'espace libre.<br><br>Ce chapitre présente la réalisation (<i>corsée</i>) d'un taquin pas à pas.",
+        description: "Un taquin est ce puzzle en plastique à résoudre du bout des pouces. Une pièce peut être glissée horizontalement ou verticalement pour venir prendre la place de l'espace libre.<br><br>Ce chapitre présente la réalisation (corsée) d'un taquin pas à pas.",
         color: "pink",
         steps: [
             {
@@ -5138,8 +5235,8 @@ let chapters = [
             },
             {
                 title: "Gérer le déplacement horizontal d'une case",
-                description: "Au clic sur une case, celle-ci doit être intervertie avec la case vide <code>.square0</code> à condition que l'une et l'autre soit à côté (<i>et pas en diagonale</i>).",
-                excerpt: "Stocker l'état du puzzle dans une variable (<i>une matrice de préférence — un tableau de tableaux, 3 lignes, 3 colonnes</i>), et trouver une façon condensée pour lister quelles cases sont accessibles à partir d'une autre case. Se concentrer pour l'instant sur les mouvements horizontaux.",
+                description: "Au clic sur une case, celle-ci doit être intervertie avec la case vide <code>.square0</code> à condition que l'une et l'autre soit à côté (et pas en diagonale).",
+                excerpt: "Stocker l'état du puzzle dans une variable (une matrice de préférence — un tableau de tableaux, 3 lignes, 3 colonnes), et trouver une façon condensée pour lister quelles cases sont accessibles à partir d'une autre case. Se concentrer pour l'instant sur les mouvements horizontaux.",
                 solved: "var shuffle = function(o){<br>  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);<br>  return o;<br>}<br><br>var render = function(matrix) {<br>  var ul = document.querySelector('.sliding ul');<br>  ul.innerHTML = '';<br><br>  var squares = [].concat(matrix[0], matrix[1], matrix[2])<br>  for (var square of squares) {<br>    var li = document.createElement('li');<br>    li.className = 'square' + square;<br>    li.setAttribute('data-id', square);<br>    li.addEventListener('click', function() {<br>      move(matrix, parseInt(this.getAttribute('data-id')));<br>    });<br>    ul.appendChild(li);<br>  }<br>}<br>var move = function(matrix, square) {<br>  if (square === 0)<br>    return false;<br>  if (matrix[0][0] === square)<br>    canToggle(matrix, [0, 0], [[0, 1]]);<br>  else if (matrix[0][1] === square)<br>    canToggle(matrix, [0, 1], [[0, 0], [0, 2]]);<br>  else if (matrix[0][2] === square)<br>    canToggle(matrix, [0, 2], [[0, 1]]);<br>  else if (matrix[1][0] === square)<br>    canToggle(matrix, [1, 0], [[1, 1]]);<br>  else if (matrix[1][1] === square)<br>    canToggle(matrix, [1, 1], [[1, 0], [1, 2]]);<br>  else if (matrix[1][2] === square)<br>    canToggle(matrix, [1, 2], [[1, 1]]);<br>  else if (matrix[2][0] === square)<br>    canToggle(matrix, [2, 0], [[2, 1]]);<br>  else if (matrix[2][1] === square)<br>    canToggle(matrix, [2, 1], [[2, 0], [2, 2]]);<br>  else if (matrix[2][2] === square)<br>    canToggle(matrix, [2, 2], [[2, 1]]);<br>}<br>var canToggle = function(matrix, from, combinaisons) {<br>  for (var c of combinaisons) {<br>    if (matrix[c[0]][c[1]] === 0) {<br>      toggle(matrix, [from[0], from[1]], [c[0], c[1]]);<br>      break;<br>    }<br>  }<br>}<br>var toggle = function(matrix, from, to) {<br>  var memo = matrix[from[0]][from[1]];<br>  matrix[from[0]][from[1]] = matrix[to[0]][to[1]];<br>  matrix[to[0]][to[1]] = memo;<br>  render(matrix);<br>}<br><br>document.querySelector('.sliding button').addEventListener('click', function() {<br>  var squares = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8]);<br>  var matrix = [<br>    [squares[0], squares[1], squares[2]],<br>    [squares[3], squares[4], squares[5]],<br>    [squares[6], squares[7], squares[8]]<br>  ];<br>  render(matrix);<br>});",
                 dom: function() {
                     return sliding.bind(sliding);
@@ -5190,7 +5287,7 @@ let chapters = [
             },
             {
                 title: "Gérer le déplacement vertical d'une case",
-                description: "Au clic sur une case, celle-ci doit être intervertie avec la case vide <code>.square0</code> à condition que l'une et l'autre soit à côté (<i>et pas en diagonale</i>).",
+                description: "Au clic sur une case, celle-ci doit être intervertie avec la case vide <code>.square0</code> à condition que l'une et l'autre soit à côté (et pas en diagonale).",
                 solved: "var shuffle = function(o){<br>  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);<br>  return o;<br>}<br><br>var render = function(matrix) {<br>  var ul = document.querySelector('.sliding ul');<br>  ul.innerHTML = '';<br><br>  var squares = [].concat(matrix[0], matrix[1], matrix[2])<br>  for (var square of squares) {<br>    var li = document.createElement('li');<br>    li.className = 'square' + square;<br>    li.setAttribute('data-id', square);<br>    li.addEventListener('click', function() {<br>      move(matrix, parseInt(this.getAttribute('data-id')));<br>    });<br>    ul.appendChild(li);<br>  }<br>}<br>var move = function(matrix, square) {<br>  if (square === 0)<br>    return false;<br>  if (matrix[0][0] === square)<br>    canToggle(matrix, [0, 0], [[0, 1], [1, 0]]);<br>  else if (matrix[0][1] === square)<br>    canToggle(matrix, [0, 1], [[0, 0], [1, 1], [0, 2]]);<br>  else if (matrix[0][2] === square)<br>    canToggle(matrix, [0, 2], [[0, 1], [1, 2]]);<br>  else if (matrix[1][0] === square)<br>    canToggle(matrix, [1, 0], [[0, 0], [1, 1], [2, 0]]);<br>  else if (matrix[1][1] === square)<br>    canToggle(matrix, [1, 1], [[0, 1], [1, 0], [1, 2], [2, 1]]);<br>  else if (matrix[1][2] === square)<br>    canToggle(matrix, [1, 2], [[0, 2], [1, 1], [2, 2]]);<br>  else if (matrix[2][0] === square)<br>    canToggle(matrix, [2, 0], [[1, 0], [2, 1]]);<br>  else if (matrix[2][1] === square)<br>    canToggle(matrix, [2, 1], [[2, 0], [1, 1], [2, 2]]);<br>  else if (matrix[2][2] === square)<br>    canToggle(matrix, [2, 2], [[2, 1], [1, 2]]);<br>}<br>var canToggle = function(matrix, from, combinaisons) {<br>  for (var c of combinaisons) {<br>    if (matrix[c[0]][c[1]] === 0) {<br>      toggle(matrix, [from[0], from[1]], [c[0], c[1]]);<br>      break;<br>    }<br>  }<br>}<br>var toggle = function(matrix, from, to) {<br>  var memo = matrix[from[0]][from[1]];<br>  matrix[from[0]][from[1]] = matrix[to[0]][to[1]];<br>  matrix[to[0]][to[1]] = memo;<br>  render(matrix);<br>}<br><br>document.querySelector('.sliding button').addEventListener('click', function() {<br>  var squares = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8]);<br>  var matrix = [<br>    [squares[0], squares[1], squares[2]],<br>    [squares[3], squares[4], squares[5]],<br>    [squares[6], squares[7], squares[8]]<br>  ];<br>  render(matrix);<br>});",
                 dom: function() {
                     return sliding.bind(sliding);
@@ -5227,7 +5324,7 @@ let chapters = [
         ]
     }, {
         title: "Puzzle | Puissance 4",
-        description: "Un puissance 4 est un puzzle pour 2 joueurs jouant à tour de rôle un jeton dans une colonne. Chaque jeton s'empile aux jetons précédement, le premier joueur à en aligner 4 remporte la partie.<br><br>Ce chapitre présente la réalisation (<i>corsée</i>) d'un puissance 4 pas à pas.",
+        description: "Un puissance 4 est un puzzle pour 2 joueurs jouant à tour de rôle un jeton dans une colonne. Chaque jeton s'empile aux jetons précédement, le premier joueur à en aligner 4 remporte la partie.<br><br>Ce chapitre présente la réalisation (corsée) d'un puissance 4 pas à pas.",
         color: "pink",
         steps: [
             {
@@ -5247,7 +5344,7 @@ let chapters = [
             },
             {
                 title: "Ajouter un jeton alternativement jaune puis rouge",
-                description: "Au clic sur n'importe quel <code>td</code> d'une colonne, ajouter au <code>td</code> en pied de cette colonne la classe <code>yellow</code> ou <code>red</code> alternativement (<i>si il n'a pas de classe</i>). Au fur et à mesure des clics, les jetons s'empilent ainsi les uns sur les autres. Si une colonne est remplie, elle ne reçoit plus de jeton au clic.",
+                description: "Au clic sur n'importe quel <code>td</code> d'une colonne, ajouter au <code>td</code> en pied de cette colonne la classe <code>yellow</code> ou <code>red</code> alternativement (si il n'a pas de classe). Au fur et à mesure des clics, les jetons s'empilent ainsi les uns sur les autres. Si une colonne est remplie, elle ne reçoit plus de jeton au clic.",
                 solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      if (column)<br>        td.className = column;<br><br>      td.addEventListener('click', function(e) {<br>        var index = Array.prototype.indexOf.call(this.parentElement.children, this);<br>        for (var i = 5; i >= 0; i--) {<br>          if (!grid[i][index]) {<br>            color = (color === 'yellow' ? 'red' : 'yellow');<br>            grid[i][index] = color;<br>            break;<br>          } else continue;<br>        }<br>        render();<br>      });<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br>render();",
                 dom: function() {
                     return connectfour.bind(connectfour);
@@ -5431,7 +5528,7 @@ let chapters = [
         ]
     }, {
         title: "ES6",
-        description: "Chaque année, les navigateurs intègrent les dernières nouveautés de JavaScript. La norme ECMAScript dispose d'ailleurs désormais d'un versionning annuel annoncant ces nouvelles fonctionnalités.<br><br>Ce chapitre présente les nouveatés principales de ES5 et ES6.",
+        description: "Chaque année, les navigateurs intègrent les dernières nouveautés de JavaScript. La norme ECMAScript dispose d'ailleurs d'un versionning annuel annoncant ces nouvelles fonctionnalités.<br><br>Ce chapitre présente les nouveatés principales de ES5 et ES6.",
         color: "grey",
         steps: [
             {
@@ -5912,6 +6009,8 @@ let digest = function(el, data, methods) {
 
             for (let chapter = 0; chapter < chapters.length; chapter++) {
                 let chapterContent = chapters[chapter];
+                let description = chapterContent.description.replace(/(\(.*?\))/g, '<i>$1</i>');
+
                 let div = document.createElement('div');
                 div.className = 'five wide computer height wide tablet column';
 
@@ -5929,7 +6028,7 @@ let digest = function(el, data, methods) {
                     </div>
                     <div class="content">
                         <h3 class="header">${chapterContent.title}</h3>
-                        <div class="description">${chapterContent.description}</div>
+                        <div class="description">${description}</div>
                     </div>
                     <div class="extra content">
                         <button class="ui ${chapterContent.color} button" data-hook="enter">Parcourir</button>
@@ -5980,6 +6079,8 @@ let stepper = function(el, data, methods) {
             let labelNext = !this.methods.isLast(step) ? 'Étape suivante' : (!this.methods.isLatest(chapter, step) ? `Chapitre ${chapter+1}` : 'Chapitres');
             let description = stepContent.course ? marked(dedent(stepContent.description)) : `<p>${stepContent.description}</p>`;
             let title = !stepContent.title ? '' : `<h3 class="header">${stepContent.title}</h3>`;
+
+            description = description.replace(/(\(.*?\))/g, '<i>$1</i>');
 
             let lis = '';
             for (let _step = 0; _step < chapterContent.steps.length; _step++) {
