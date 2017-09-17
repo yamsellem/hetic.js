@@ -104,6 +104,19 @@ let todolist = function() {
     `;
 }
 
+// Tooltip
+
+let tooltip = function() {
+    return `
+        <div class="tooltips">
+            <span class="ui label" data-tooltip="Le soleil se lève à l'est" data-position="right">Est</span>
+            <span class="ui label" data-tooltip="Le soleil se couche à l'ouest" data-position="left">Ouest</span>
+            <span class="ui label" data-tooltip="La banquise en Arctique" data-position="top">Nord</span>
+            <span class="ui label" data-tooltip="Les volcans de l'Antarctique" data-position="bottom">Sud</span>
+        </div>
+    `;
+}
+
 // Carousel
 
 let carousel = function(dots) {
@@ -593,7 +606,7 @@ let glossary = function(gpage) {
 
         Sélectionne tous les éléments td de la première table de la page.
 
-            var els = document.querySelector('table).querySelectorAll('td');
+            var els = document.querySelector('table').querySelectorAll('td');
 
         Ajoute un écouteur d'événement sur le premier élément de la page avec la classe visible. La fonction echo sera déclenchée à chaque clic sur cet élément. Les événements disponibles sont nombreux, notamment click, keypress (l'appui sur une touche) et blur (la perte de focus sur un champ de formulaire).
 
@@ -738,6 +751,16 @@ let keyevent = function(el, key, event) {
 
     oEvent.keyCodeVal = key;
     el.dispatchEvent(oEvent);
+}
+
+let mouseevent = function(el, event) {
+    if(el.fireEvent) {
+        el.fireEvent('on' + event);
+    } else  {
+        let oEvent = document.createEvent('MouseEvent');
+        oEvent.initEvent(event, true, false);
+        el.dispatchEvent(oEvent);
+    }
 }
 
 let change = function(el) {
@@ -2871,14 +2894,200 @@ let chapters = [
             }
         ]
     }, {
+        title: "Composant | Tooltip",
+        description: "Un tooltip (ou infobulle), est une information contextuelle qui apparait au survol d'un élément, il est souvent utilisé pour donner plus de précisions sans surcharger l'interface.<br><br>Ce chapitre présente la réalisation d'un tooltip pas à pas.",
+        color: "violet",
+        steps: [
+            {
+                course: true,
+                description: `
+                    Au fur et à mesure de sa popularisation, JavaScript s'est illustré par certains usages récurrents (bien qu'il n'y ai pas de règles en la matière et que les seules limites soient la performance de la machine sur laquelle s'exécute le navigateur et l'imagination du développeur).
+
+                    Un des plus anciens usages du langage est d'afficher une information contextuelle au survol de la souris : un tooltip.
+
+                    Pour obtenir cet effet, deux choses sont nécessaires, premièrement, s'abonner au survol d'un élément par la souris (événements \`mouseenter\` et \`mouseleave\`), deuxièmement afficher/masquer le tooltip (changer sa propriété CSS \`display\` pour l'afficher ou le masquer).
+                `,
+                dom: function() {
+                    return function() {
+                        setTimeout(function() {
+                            var tooltip = document.querySelector('.tooltip');
+                            var label = document.querySelector('[data-tooltip-demo]');
+
+                            label.addEventListener('mouseenter', function() {
+                                tooltip.style.display = 'inline-block';
+                            });
+
+                            label.addEventListener('mouseleave', function() {
+                                tooltip.style.display = 'none';
+                            });
+                        });
+
+                        return `
+                            <p><strong>Démonstration :</strong></p>
+
+                            <div class="tooltips">
+                                <span class="ui label" data-tooltip-demo="Tooltip droite">Est</span>
+                                <span class="ui inverted black label tooltip">Le soleil se lève à l'est</span>
+                            </div>
+                        `;
+                    }
+                }
+            },
+            {
+                title: "Révéler un tooltip",
+                description: "Au survol du label doté de la propriété <code>data-tooltip</code> révéler le tooltip <code>.tooltip</code> en lui ajoutant la propriété <code>display: inline-block</code>.<br>À la fin du survol, masquer le tooltip.",
+                solved: "var tooltip = document.querySelector('.tooltip');<br>var label = document.querySelector('[data-tooltip]');<br><br>label.addEventListener('mouseenter', function() {<br>  tooltip.style.display = 'inline-block';<br>});<br><br>label.addEventListener('mouseleave', function() {<br>  tooltip.style.display = 'none';<br>});",
+                dom: function() {
+                    return function() {
+                        return `
+                            <div class="tooltips">
+                                <span class="ui label" data-tooltip="Tooltip droite">Est</span>
+                                <span class="ui inverted black label tooltip">Le soleil se lève à l'est</span>
+                            </div>
+                        `;
+                    }
+                },
+                answer: function() {
+                    var rightLabel = document.querySelector('[data-tooltip]');
+                    var rightTooltip = document.querySelector('.tooltip');
+                    if (rightTooltip.offsetParent)
+                        this.warn = this.warn || "Le tooltip doit être masqué tant que le label n'a pas été survolé";
+
+                    mouseevent(rightLabel, 'mouseenter');
+                    if (!rightTooltip.offsetParent)
+                        this.warn = this.warn || "Le tooltip n'est pas affiché lors du survol du label";
+
+                    mouseevent(rightLabel, 'mouseleave');
+                    if (rightTooltip.offsetParent)
+                        this.warn = this.warn || "Le tooltip n'est pas masqué après la sortie d'un survol du label";
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Créer un tooltip à la demande",
+                description: "Pour chacun des labels dotés de la propriété <code>data-tooltip</code> créer un <code>&lt;div&gt;</code> à la racine du <code>&lt;body&gt;</code> dont :<ul><li>la position soit <code>absolute</code></li><li>les classes soient <code>ui inverted black label tooltip</code></li><li>le contenu soit égal à la propriété <code>data-tooltip</code> du label ciblé</li></ul>Chacun de ces tooltips doit apparaitre à droite de leur label respectif.",
+                excerpt: "L'approche précédente n'est pas très simple à l'usage puisqu'il faut prévoir une balise dans le DOM pour chaque tooltip à afficher. Une solution plus flexible consiste à créer la balise du tooltip à la demande, pour un élément cible et de la positionner par rapport à cette dernière, au dessus, à droite, etc. Pour n'imposer aucune contrainte à l'élément cible, l'ajout du tooltip dans le DOM se fait couramment à la racine du <code>&lt;body&gt;</code> et est masqué par défaut.<br><br>Pour positionner un élément en absolu à côté d'un autre élément de la page, il est possible de récupérer la position exacte de la cible dans le viewport (la partie visible de la page) avec <code>element.getBoundingClientRect().top</code> puis de lui additionner la partie déjà scrollée avec <code>window.pageYOffset</code>.",
+                solved: "var tooltip = function(target, message) {<br>  var el = document.createElement('div');<br>  el.className = 'ui inverted black label tooltip';<br>  el.style.position = 'absolute';<br><br>  document.body.appendChild(el);<br><br>  target.addEventListener('mouseenter', function() {<br>    /* display before getting width, otherwise width is zero */<br>    el.style.display = 'block';<br>    el.innerHTML = target.dataset.tooltip;<br><br>    var rect = target.getBoundingClientRect();<br>    var top = window.pageYOffset + rect.top;<br>    var left = window.pageXOffset + rect.left + target.offsetWidth;<br>    <br>    el.style.left = left + 'px';<br>    el.style.top = top + 'px';<br>  });<br><br>  target.addEventListener('mouseleave', function() {<br>    el.style.display = 'none';<br>  });<br>};<br><br>var labels = document.querySelectorAll('[data-tooltip]');<br>for (var i = 0; i < labels.length; i++) {<br>  tooltip(labels[i], labels[i].innerHTML);<br>}",
+                dom: function() {
+                    return tooltip.bind(tooltip);
+                },
+                reload: function() {
+                    var tooltips = document.querySelectorAll('.tooltip');
+                    for (var i = 0; i < tooltips.length; i++)
+                        tooltips[i].remove();
+                },
+                answer: function() {
+                    var labels = document.querySelectorAll('[data-tooltip]');
+                    var tooltips = document.querySelectorAll('.tooltip');
+                    if (labels.length !== tooltips.length || tooltips.length !== 4)
+                        this.warn = this.warn || "Un tooltip doit être créé dans le DOM pour chaque label";
+
+                    if (tooltips[1].offsetParent)
+                        this.warn = this.warn || "Le tooltip n°2 doit être masqué tant que le label n°2 n'a pas été survolé";
+
+                    mouseevent(labels[1], 'mouseenter');
+                    if (!tooltips[1].offsetParent)
+                        this.warn = this.warn || "Le tooltip n°2 n'est pas affiché lors du survol du label n°2";
+
+                    mouseevent(labels[1], 'mouseleave');
+                    if (tooltips[1].offsetParent)
+                        this.warn = this.warn || "Le tooltip n°2 n'est pas masqué après la sortie d'un survol du label n°2";
+
+                    mouseevent(labels[3], 'mouseenter');
+                    if (!tooltips[3].offsetParent)
+                        this.warn = this.warn || "Le tooltip n°4 n'est pas affiché lors du survol du label n°4";
+
+                    mouseevent(labels[3], 'mouseleave');
+                    if (tooltips[3].offsetParent)
+                        this.warn = this.warn || "Le tooltip n°4 n'est pas masqué après la sortie d'un survol du label n°4";
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Créer un tooltip aux quatres positions possibles",
+                description: "Pour chacun des labels dotés de la propriété <code>data-tooltip</code> créer un <code>&lt;div&gt;</code> à la racine du <code>&lt;body&gt;</code> dont :<ul><li>le contenu soit égal à la propriété <code>data-tooltip</code> du label ciblé</li><li>la position soit fonction de la propriété <code>data-position</code> du label ciblé (<code>left</code> indiquant que le tooltip doit apparaitre à gauche du label, <code>top</code> au dessus, etc)</li></ul>",
+                solved: "var tooltip = function(target, message) {<br>  var el = document.createElement('div');<br>  el.className = 'ui inverted black label tooltip';<br>  el.style.position = 'absolute';<br><br>  document.body.appendChild(el);<br><br>  target.addEventListener('mouseenter', function() {<br>    /* display before getting width, otherwise width is zero */<br>    el.style.display = 'block';<br>    el.innerHTML = target.dataset.tooltip;<br><br>    var rect = target.getBoundingClientRect();<br>    var top = window.pageYOffset + rect.top;<br>    var left = window.pageXOffset + rect.left;<br><br>    switch (target.dataset.position) {<br>      case 'left':<br>        left -= el.offsetWidth;<br>      break;<br>      case 'top':<br>        top -= el.offsetHeight;<br>        left = left + target.offsetWidth / 2 - el.offsetWidth / 2;<br>      break;<br>      case 'bottom':<br>        top += el.offsetHeight;<br>        left = left + target.offsetWidth / 2 - el.offsetWidth / 2;<br>      break;<br>      default:<br>        left += target.offsetWidth;<br>      break;<br>    }<br>    el.style.left = left + 'px';<br>    el.style.top = top + 'px';<br>  });<br><br>  target.addEventListener('mouseleave', function() {<br>    el.style.display = 'none';<br>  });<br>};<br><br>var labels = document.querySelectorAll('[data-tooltip]');<br>for (var i = 0; i < labels.length; i++) {<br>  tooltip(labels[i], labels[i].innerHTML);<br>}",
+                dom: function() {
+                    return tooltip.bind(tooltip);
+                },
+                reload: function() {
+                    var tooltips = document.querySelectorAll('.tooltip');
+                    for (var i = 0; i < tooltips.length; i++)
+                        tooltips[i].remove();
+                },
+                answer: function() {
+                    var labels = document.querySelectorAll('[data-tooltip]');
+                    var tooltips = document.querySelectorAll('.tooltip');
+                    if (labels.length !== tooltips.length || tooltips.length !== 4)
+                        this.warn = this.warn || "Un tooltip doit être créé dans le DOM pour chaque label";
+
+                    mouseevent(labels[1], 'mouseenter');
+                    if (!tooltips[1].offsetParent)
+                        this.warn = this.warn || "Le tooltip n°2 n'est pas affiché lors du survol du label n°2";
+                    if (tooltips[1].offsetLeft > labels[1].offsetLeft)
+                        this.warn = this.warn || "Le tooltip n°2 doit être situé sur la gauche du label n°2";
+
+                    mouseevent(labels[1], 'mouseleave');
+                    mouseevent(labels[2], 'mouseenter');
+                    if (!tooltips[2].offsetParent)
+                        this.warn = this.warn || "Le tooltip n°3 n'est pas affiché lors du survol du label n°3";
+                    if (tooltips[2].offsetTop < labels[2].offsetTop)
+                        this.warn = this.warn || "Le tooltip n°3 doit être situé au dessus du label n°3";
+
+                    return !this.warn;
+                }
+            }
+        ]
+    }, {
         title: "Composant | Carrousel",
         description: "Un carrousel est une liste (d'images en général) dont un seul élément est visible et dont la navigation de d'un élément à l'autre s'effectue via des flèches « précédente » et « suivante » situées de part et d'autre du contenu.<br><br>Ce chapitre présente la réalisation d'un carrousel pas à pas.",
         color: "violet",
         steps: [
             {
+                course: true,
+                description: `
+                    Les carrousels sont des listes dont un seul item est visible et dont la navigation de l'un à l'autre des items s'effectue à l'aide de flèches « précédente » et « suivante » situées de part et d'autre du contenu.
+
+                    Pour arriver à ce résultat une option consiste à ajouter les blocs de contenu les uns à la suite des autres, et à n'afficher que le premier d'entre eux.
+
+                    Ensuite, pour basculer d'un élément à un autre, au clic sur une des flèches il est possible de masquer le premier contenu et d'afficher le second, puis de masquer le second et d'afficher le troisième, ainsi de suite.
+
+                    Une variable peut stocker la position actuelle, et, à chaque clic sur une flèche, être modifiée en même temps que le contenu affiché est remplacé par le suivant ou précédent.
+                `,
+                dom: function() {
+                    return function() {
+                        setTimeout(function() {
+                            var index = 0;
+                            var lis = document.querySelectorAll('.carousel li');
+                            document.querySelector('.prev').addEventListener('click', function() {
+                                lis[index].classList.remove('visible');
+                                index--;
+                                if (index < 0)
+                                    index = 4;
+
+                                lis[index].classList.add('visible');
+                            });
+
+                            document.querySelector('.next').addEventListener('click', function() {
+                                lis[index].classList.remove('visible');
+                                index++;
+                                if (index > 4)
+                                    index = 0;
+
+                                lis[index].classList.add('visible');
+                            });
+                        });
+
+                        return '<p><strong>Démonstration :</strong></p>' + carousel();
+                    }
+                }
+            },
+            {
                 title: "Naviguer au suivant",
                 description: "Lors du clic sur l'élément doté de la classe <code>next</code>, masquer le premier élément du carrousel et révéler le second.",
-                excerpt: "Les items du carrousel se situent dans la liste <code>.carousel > ul > li</code> et un seul d'entre eux à la classe <code>visible</code> (<i>ainsi, les autres sont masqués</i>). Retirer la classe <code>visible</code> d'un élément et l'ajouter à un autre, permet de masquer le premier et de révéler le second.<br><br><strong>Exemple </strong>: <pre><code>var next = document.querySelector('.next');<br>next.addEventListener('click', function() {<br>  var li = document.querySelector('.carousel > ul > li.visible');<br>  li.classList.remove('visible');<br>});</code></pre> déclare un écouteur d'événement sur la flêche de droite, et masque le premier élément du carrousel.",
+                excerpt: "Les items du carrousel se situent dans la liste <code>.carousel > ul > li</code> et un seul d'entre eux à la classe <code>visible</code> (<i>ainsi, les autres sont masqués</i>). Retirer la classe <code>visible</code> d'un élément et l'ajouter à un autre, permet de masquer le premier et de révéler le second.<br><br><strong>Déclarer un écouteur d'événement sur la flêche de droite, et masquer le premier élément du carrousel </strong>: <pre><code>var next = document.querySelector('.next');<br>next.addEventListener('click', function() {<br>  var li = document.querySelector('.carousel > ul > li.visible');<br>  li.classList.remove('visible');<br>});</code></pre>",
                 solved: "var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br><br>elNext.addEventListener('click', function() {<br>  lis[0].classList.remove('visible');<br>  lis[1].classList.add('visible');<br>});",
                 dom: function() {
                     return carousel.bind(carousel);
@@ -5937,6 +6146,8 @@ let stepper = function(el, data, methods) {
                 var code = document.querySelector('#code');
                 if (!code)
                     return;
+
+                stepContent.reload && stepContent.reload();
 
                 let script = document.createElement('script');
                 script.id = 'code';
