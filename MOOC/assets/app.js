@@ -3326,23 +3326,23 @@ let chapters = [
                     if (labels.length !== tooltips.length || tooltips.length !== 4)
                         this.warn = this.warn || "Un tooltip doit être créé dans le DOM pour chaque label";
 
-                    if (tooltips[1].offsetParent)
+                    if (!tooltips[1] || tooltips[1].offsetParent)
                         this.warn = this.warn || "Le tooltip n°2 doit être masqué tant que le label n°2 n'a pas été survolé";
 
                     mouseevent(labels[1], 'mouseenter');
-                    if (!tooltips[1].offsetParent)
+                    if (!tooltips[1] || !tooltips[1].offsetParent)
                         this.warn = this.warn || "Le tooltip n°2 n'est pas affiché lors du survol du label n°2";
 
                     mouseevent(labels[1], 'mouseleave');
-                    if (tooltips[1].offsetParent)
+                    if (!tooltips[1] || tooltips[1].offsetParent)
                         this.warn = this.warn || "Le tooltip n°2 n'est pas masqué après la sortie d'un survol du label n°2";
 
                     mouseevent(labels[3], 'mouseenter');
-                    if (!tooltips[3].offsetParent)
+                    if (!tooltips[3] || !tooltips[3].offsetParent)
                         this.warn = this.warn || "Le tooltip n°4 n'est pas affiché lors du survol du label n°4";
 
                     mouseevent(labels[3], 'mouseleave');
-                    if (tooltips[3].offsetParent)
+                    if (!tooltips[3] || tooltips[3].offsetParent)
                         this.warn = this.warn || "Le tooltip n°4 n'est pas masqué après la sortie d'un survol du label n°4";
 
                     return !this.warn;
@@ -3367,16 +3367,16 @@ let chapters = [
                         this.warn = this.warn || "Un tooltip doit être créé dans le DOM pour chaque label";
 
                     mouseevent(labels[1], 'mouseenter');
-                    if (!tooltips[1].offsetParent)
+                    if (!tooltips[1] || !tooltips[1].offsetParent)
                         this.warn = this.warn || "Le tooltip n°2 n'est pas affiché lors du survol du label n°2";
-                    if (tooltips[1].offsetLeft > labels[1].offsetLeft)
+                    if (!tooltips[1] || tooltips[1].offsetLeft > labels[1].offsetLeft)
                         this.warn = this.warn || "Le tooltip n°2 doit être situé sur la gauche du label n°2";
 
                     mouseevent(labels[1], 'mouseleave');
                     mouseevent(labels[2], 'mouseenter');
-                    if (!tooltips[2].offsetParent)
+                    if (!tooltips[2] || !tooltips[2].offsetParent)
                         this.warn = this.warn || "Le tooltip n°3 n'est pas affiché lors du survol du label n°3";
-                    if (tooltips[2].offsetTop < labels[2].offsetTop)
+                    if (!tooltips[2] || tooltips[2].offsetTop < labels[2].offsetTop)
                         this.warn = this.warn || "Le tooltip n°3 doit être situé au dessus du label n°3";
 
                     return !this.warn;
