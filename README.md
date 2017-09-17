@@ -1,6 +1,6 @@
 # JavaScript, le langage du web
 
-Ce repository est le point d'accès à tous les éléments de cours de JavaScript du bachelor web de l'Hetic. Pour commencer, télécharger le [MOOC](https://github.com/yamsellem/hetic.js/raw/master/MOOC/MOOC.zip) et ouvrir le fichier `index.html` dans un navigateur web.
+Ce repository est le point d'accès à tous les éléments de cours de JavaScript du bachelor web de l'Hetic. Pour commencer, télécharger le [MOOC](https://github.com/yamsellem/hetic.js/raw/master/MOOC.zip), le décompresser et ouvrir le fichier `index.html` dans un navigateur web et dans un éditeur de texte.
 
 ### Les thèmes abordés
 
