@@ -1356,7 +1356,7 @@ let chapters = [
                     * \`splice(start, deleteCount)\` supprime des éléments
                     * \`reverse()\` inverse l'ordre des éléments, le premier devenant le dernier, et ainsi de suite
                     * \`join()\` crée une chaîne de caractère en concaténant tous les éléments
-                    * \`contat(array1, …, arrayN)\` concatène des tableaux à la suite
+                    * \`concat(array1, …, arrayN)\` concatène des tableaux à la suite
 
                     **Attributs et méthodes des tableaux :**
 
