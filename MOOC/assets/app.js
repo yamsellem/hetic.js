@@ -48,7 +48,7 @@ let equalsContent = function(a, b) {
 }
 
 let basicWarn = function(actual, expected) {
-    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(actual) + "</code> et non la résultat attendu, <code>" + expected + "</code>";
+    return "La variable <code>answer</code> vaut <code>" + JSON.stringify(actual) + "</code> et non la résultat attendu, <code>" + expected + "</code>";
 }
 
 // DOM
@@ -899,30 +899,30 @@ let chapters = [
             },
             {
                 title: "Initialiser une variable (de type nombre)",
-                description: "Déclarer une variable nommée <code>secret</code> et lui affecter la valeur numérique <code>12</code>",
+                description: "Déclarer une variable nommée <code>answer</code> et lui affecter la valeur numérique <code>12</code>",
                 excerpt: "Une variable est un symbole qui associe un nom à une valeur stockée en mémoire. Le nom doit être unique. La valeur peut être de plusieurs types.<br><br><strong>Exemple</strong> : l'instruction <code>var value = 5;</code> déclare la variable <code>value</code> et lui affecte la valeur numérique <code>5</code> (le point virgule en fin de chaque ligne est optionnel).",
-                solved: "var secret = 12;",
-                warn: "La variable <code>secret</code> doit être déclarée et initialisée à <code>12</code>",
-                answer: function() {
-                    return secret === 12;
+                solved: "var answer = 12;",
+                warn: "La variable <code>answer</code> doit être déclarée et initialisée à <code>12</code>",
+                solution: function() {
+                    return answer === 12;
                 }
             },
             {
                 title: "Initialiser une variable (de type chaîne de caractères)",
-                description: "Déclarer une variable nommée <code>secret</code> et lui affecter la valeur <code>'lorem ipsum'</code>",
-                solved: "var secret = 'lorem ipsum';",
-                warn: "La variable <code>secret</code> doit être déclarée et initialisée à <code>'lorem ipsum'</code>",
-                answer: function() {
-                    return secret === 'lorem ipsum';
+                description: "Déclarer une variable nommée <code>answer</code> et lui affecter la valeur <code>'lorem ipsum'</code>",
+                solved: "var answer = 'lorem ipsum';",
+                warn: "La variable <code>answer</code> doit être déclarée et initialisée à <code>'lorem ipsum'</code>",
+                solution: function() {
+                    return answer === 'lorem ipsum';
                 }
             },
             {
                 title: "Initialiser une variable (de type booléen)",
-                description: "Déclarer une variable nommée <code>secret</code> et lui affecter la valeur <code>true</code>",
-                solved: "var secret = true;",
-                warn: "La variable <code>secret</code> doit être déclarée et initialisée à <code>true</code>",
-                answer: function() {
-                    return secret === true;
+                description: "Déclarer une variable nommée <code>answer</code> et lui affecter la valeur <code>true</code>",
+                solved: "var answer = true;",
+                warn: "La variable <code>answer</code> doit être déclarée et initialisée à <code>true</code>",
+                solution: function() {
+                    return answer === true;
                 }
             },
             {
@@ -949,59 +949,59 @@ let chapters = [
             },
             {
                 title: "Additionner deux nombres",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter la somme des variables numériques <code>x</code> et <code>y</code> (déclarées par ce tutoriel).",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter la somme des variables numériques <code>x</code> et <code>y</code> (déclarées par ce tutoriel).",
                 excerpt: "Un opérateur est un symbole qui représente une action. Il permet d'opérer sur deux valeurs, les additionner, les soustraire ou autre. Une variable peut être affectée du résultat d'un opérateur.<br><br><strong>Exemple</strong> : l'instruction <code>var value = 5 + 10;</code> déclare la variable <code>value</code> et lui affecte le résultat de l'opération, <code>15</code>.",
-                solved: "var secret = x + y;",
+                solved: "var answer = x + y;",
                 init: function() {
                     window.x = this.x = random();
                     window.y = this.y = random();
                 },
-                secret: function() {
+                answer: function() {
                     return this.x + this.y;
                 },
                 warn: function() {
-                    return basicWarn(secret, this.secret());
+                    return basicWarn(answer, this.answer());
                 },
-                answer: function() {
-                    return secret === this.secret();
+                solution: function() {
+                    return answer === this.answer();
                 }
             },
             {
                 title: "Concaténer deux chaines de caractères",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter la concaténation des variables <code>x</code> et <code>y</code> séparées d'un espace (déclarées par ce tutoriel).",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter la concaténation des variables <code>x</code> et <code>y</code> séparées d'un espace (déclarées par ce tutoriel).",
                 excerpt: "Ajouter une chaine de caractères à une autre avec l'opérateur <code>+</code> permet de les concaténer (les mettre bout à bout).<br><br>Pour ajouter un espace à une chaine existante, il est possible de créer une chaine composée uniquement d'un espace <code>' '</code>. Les chaines de caractères peuvent être déclarées à l'aide de guillemets simples <code>'lorem ipsum'</code> ou double <code>\"lorem ipsum bacon\"</code>.<br><br><strong>Exemple</strong> : <code>'lorem ' + 'ipsum'</code> crée la chaine <code>'lorem ipsum'</code>.",
-                solved: "var secret = x + ' ' + y;",
+                solved: "var answer = x + ' ' + y;",
                 init: function() {
                     window.x = this.x = randomize('purple', 'sapphire', 'blue', 'red');
                     window.y = this.y = randomize('skate', 'rollers', 'submarine');
                 },
-                secret: function() {
+                answer: function() {
                     return this.x + ' ' + this.y;
                 },
                 warn: function() {
-                    return basicWarn(secret, this.secret());
+                    return basicWarn(answer, this.answer());
                 },
-                answer: function() {
-                    return secret === this.secret();
+                solution: function() {
+                    return answer === this.answer();
                 }
             },
             {
                 title: "Diviser deux nombres",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter le résultat de la division de la variables <code>x</code> par <code>y</code> (déclarées par ce tutoriel) arrondi à l'entier inférieur.",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter le résultat de la division de la variables <code>x</code> par <code>y</code> (déclarées par ce tutoriel) arrondi à l'entier inférieur.",
                 excerpt: "Il est possible d'effectuer des arrondis avec la fonction <code>parseInt(value, 10)</code> ou <code>Math.floor(value)</code> (founies par tous les navigateurs).",
-                solved: "var secret = parseInt(x / y, 10);",
+                solved: "var answer = parseInt(x / y, 10);",
                 init: function() {
                     window.x = this.x = randomize(13, 23, 33, 43, 53);
                     window.y = this.y = randomize(2, 4, 6, 8);
                 },
-                secret: function() {
+                answer: function() {
                     return parseInt(this.x / this.y, 10);
                 },
                 warn: function() {
-                    return basicWarn(secret, this.secret());
+                    return basicWarn(answer, this.answer());
                 },
-                answer: function() {
-                    return secret === this.secret();
+                solution: function() {
+                    return answer === this.answer();
                 }
             }
         ]
@@ -1043,59 +1043,59 @@ let chapters = [
             },
             {
                 title: "Retourner le plus grand de deux nombres",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur du plus grand nombre parmi <code>x</code> et <code>y</code> (déclarées par ce tutoriel).",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur du plus grand nombre parmi <code>x</code> et <code>y</code> (déclarées par ce tutoriel).",
                 excerpt: "Il est égalemen d'écrire une condition qui vérifie lequel de deux nombres est le plus grand avec <code>if</code>. Ou, à la place d'utiliser <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math\"><code>Math</code></a>, celui-ci dispose de fonctionnalités pour identifier les maximum, minimum, sinus, etc.",
-                solved: "var secret;<br>if (x > y) {<br>  secret = x;<br>} else {<br>  secret = y;<br>}<br><br>/* or, instead */<br><br>var secret = Math.max(x, y);",
+                solved: "var answer;<br>if (x > y) {<br>  answer = x;<br>} else {<br>  answer = y;<br>}<br><br>/* or, instead */<br><br>var answer = Math.max(x, y);",
                 init: function() {
                     window.x = this.x = random();
                     window.y = this.y = random();
                 },
-                secret: function() {
+                answer: function() {
                     return Math.max(this.x, this.y);
                 },
                 warn: function() {
-                    return basicWarn(secret, this.secret());
+                    return basicWarn(answer, this.answer());
                 },
-                answer: function() {
-                    return secret === this.secret();
+                solution: function() {
+                    return answer === this.answer();
                 }
             },
             {
                 title: "Retourner la plus grande de deux chaines",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de la chaîne de caractères la plus longue parmi <code>x</code> et <code>y</code> (déclarées par ce tutoriel).",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de la chaîne de caractères la plus longue parmi <code>x</code> et <code>y</code> (déclarées par ce tutoriel).",
                 excerpt: "Les chaines de caractères sont des tableaux de caractères. Elles disposent donc d'un attribut <code>length</code> indiquant leur nombre d'éléments. Il est également possible d'accéder - comme pour un tableau - à un élément avec son index.<br><br><strong>Exemple</strong> : <code>'lorem ipsum'.length</code> retourne <code>11</code>, car la chaine est composée de 11 caractères. <code>'lorem ipsum'[3]</code> retourne <code>e</code>, car il s'agit du 4iem caractère de la chaine (l'index des tableaux commence à zéro).",
-                solved: "var secret;<br>if (x.length > y.length) {<br>  secret = x;<br>} else {<br>  secret = y;<br>}",
+                solved: "var answer;<br>if (x.length > y.length) {<br>  answer = x;<br>} else {<br>  answer = y;<br>}",
                 init: function() {
                     window.x = this.x = randomize('purple', 'sapphire', 'blue', 'red');
                     window.y = this.y = randomize('skate', 'rollers', 'submarine');
                 },
-                secret: function() {
+                answer: function() {
                     return this.x.length > this.y.length ? this.x : this.y;
                 },
                 warn: function() {
-                    return basicWarn(secret, this.secret());
+                    return basicWarn(answer, this.answer());
                 },
-                answer: function() {
-                    return secret === this.secret();
+                solution: function() {
+                    return answer === this.answer();
                 }
             },
             {
                 title: "Initialiser un booléen",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter <code>true</code> si la somme de <code>x</code> et <code>y</code> (déclarées par ce tutoriel) est supérieure à 100, <code>false</code> sinon.",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter <code>true</code> si la somme de <code>x</code> et <code>y</code> (déclarées par ce tutoriel) est supérieure à 100, <code>false</code> sinon.",
                 excerpt: "En plus des nombres et des chaines de caractères, le langage dispose de booléens, des variables dont la valeur est <code>true</code> ou <code>false</code>. Les conditions et les boucles sont basées sur des tests booléens (faits par le navigateur).",
-                solved: "var secret = x + y > 100;",
+                solved: "var answer = x + y > 100;",
                 init: function() {
                     window.x = this.x = randomize(30, 40, 50);
                     window.y = this.y = randomize(50, 60, 70);
                 },
-                secret: function() {
+                answer: function() {
                     return this.x + this.y > 100;
                 },
                 warn: function() {
-                    return basicWarn(secret, this.secret());
+                    return basicWarn(answer, this.answer());
                 },
-                answer: function() {
-                    return secret === this.secret();
+                solution: function() {
+                    return answer === this.answer();
                 }
             },
             {
@@ -1125,39 +1125,39 @@ let chapters = [
             },
             {
                 title: "Effectuer deux conditions simultanées",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter <code>true</code> si <code>x</code> et <code>y</code> (déclarées par ce tutoriel) sont tous deux supérieurs à 10, <code>false</code> sinon.",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter <code>true</code> si <code>x</code> et <code>y</code> (déclarées par ce tutoriel) sont tous deux supérieurs à 10, <code>false</code> sinon.",
                 excerpt: "Les opérateurs et <code>&&</code> et ou <code>||</code> permettent de combiner des conditions.<br><br><strong>Exemple</strong> : <code>10 < 12 && 12 < 15</code> retourne <code>true</code> car les deux conditions sont vérifiées. <code>10 < 12 || 12 > 15</code> retourne <code>true</code> car une des deux conditions est vérifiée. <code>10 > 12 || 12 > 15</code> retourne <code>false</code> car aucune des deux conditions n'est vérifiée.",
-                solved: "var secret = x > 10 && y > 10;",
+                solved: "var answer = x > 10 && y > 10;",
                 init: function() {
                     window.x = this.x = randomize(5, 9, 14, 18);
                     window.y = this.y = randomize(5, 9, 14, 18);
                 },
-                secret: function() {
+                answer: function() {
                     return this.x > 10 && this.y > 10;
                 },
                 warn: function() {
-                    return basicWarn(secret, this.secret());
+                    return basicWarn(answer, this.answer());
                 },
-                answer: function() {
-                    return secret === this.secret();
+                solution: function() {
+                    return answer === this.answer();
                 }
             },
             {
                 title: "Effectuer une condition ou une autre",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter <code>true</code> si <code>x</code> ou <code>y</code> (déclarées par ce tutoriel) est supérieur à 10, <code>false</code> sinon.",
-                solved: "var secret = x > 10 || y > 10;",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter <code>true</code> si <code>x</code> ou <code>y</code> (déclarées par ce tutoriel) est supérieur à 10, <code>false</code> sinon.",
+                solved: "var answer = x > 10 || y > 10;",
                 init: function() {
                     window.x = this.x = randomize(5, 9, 14, 18);
                     window.y = this.y = randomize(5, 9, 14, 18);
                 },
-                secret: function() {
+                answer: function() {
                     return this.x > 10 || this.y > 10;
                 },
                 warn: function() {
-                    return basicWarn(secret, this.secret());
+                    return basicWarn(answer, this.answer());
                 },
-                answer: function() {
-                    return secret === this.secret();
+                solution: function() {
+                    return answer === this.answer();
                 }
             },
             {
@@ -1197,52 +1197,52 @@ let chapters = [
             },
             {
                 title: "Effectuer une boucle",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de la chaîne <code>x</code> répétée autant de fois que la valeur numérique <code>y</code> (ex. 3, skate -> skateskateskate — déclarées par ce tutoriel)",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de la chaîne <code>x</code> répétée autant de fois que la valeur numérique <code>y</code> (ex. 3, skate -> skateskateskate — déclarées par ce tutoriel)",
                 excerpt: "L'expression conditionnelle de boucle <code>for</code> effectue une opération tant que sa condition est vérifiée (égale à true). Cette expression est originale : elle se définit en trois parties facultatives, d'abord une initialisation, ensuite une condition, enfin une opération finale. L'initialisation est effectuée au premier pas de boucle, ensuite, tant que la condition n'est pas vérifiée, la ou les opérations sont évaluées, puis l'opération finale est évaluée à son tour.<br><br><strong>Exemple</strong> : <pre><code>for (var i = 0; i < 5; i++) {<br> console.log(i);<br>}</code></pre> affiche <code>0 1 2 3 4</code> dans la console du navigateur. Elle peut se lire ainsi : « Soit <code>i</code> initialisé à zéro, tant que <code>i</code> est inférieur à <code>5</code> effectuer les opérations suivantes. Après avoir effectué les opérations, ajouter <code>1</code> à <code>i</code>, puis recommencer ».",
-                solved: "var secret = '';<br>for (var i = 0; i < y; i++) {<br>  secret = secret + x;<br>}",
+                solved: "var answer = '';<br>for (var i = 0; i < y; i++) {<br>  answer = answer + x;<br>}",
                 init: function() {
                     window.x = this.x = randomize('skate', 'rollers', 'submarine');
                     window.y = this.y = randomize(3, 5, 8, 13);
                 },
-                secret: function() {
+                answer: function() {
                     let result = '';
                     for(let i = 0; i < this.y; i++)
                         result += this.x;
                     return result;
                 },
                 warn: function() {
-                    return basicWarn(secret, this.secret());
+                    return basicWarn(answer, this.answer());
                 },
-                answer: function() {
-                    return secret === this.secret();
+                solution: function() {
+                    return answer === this.answer();
                 }
             },
             {
                 title: "Effectuer une boucle",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de <code>x</code> (déclarée par ce tutoriel) dont tous les <code>e</code> ont été retirés.",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de <code>x</code> (déclarée par ce tutoriel) dont tous les <code>e</code> ont été retirés.",
                 excerpt: "Les condition et les boucles peuvent être imbriquées les unes dans les autres.",
-                solved: "var secret = '';<br>for (var i = 0; i < x.length; i++) {<br>  var char = x[i];<br>  if (char !== 'e') {<br>    secret = secret + char;<br>  }<br>}",
+                solved: "var answer = '';<br>for (var i = 0; i < x.length; i++) {<br>  var char = x[i];<br>  if (char !== 'e') {<br>    answer = answer + char;<br>  }<br>}",
                 init: function() {
                     window.x = this.x = randomize('skate', 'rollers', 'submarine');
                 },
-                secret: function() {
+                answer: function() {
                     return this.x.replace(/[e]+/g, '');
                 },
                 warn: function() {
-                    return basicWarn(secret, this.secret());
+                    return basicWarn(answer, this.answer());
                 },
-                answer: function() {
-                    return secret === this.secret();
+                solution: function() {
+                    return answer === this.answer();
                 }
             },
             {
                 title: "Effectuer une boucle et une condition",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de tous les nombres de 1 jusqu'à <code>x</code> (déclarée par ce tutoriel) sans les pairs (ex. 7 -> 7 + 5 + 3 + 1).",
-                solved: "var secret = 0;<br>for (var i = 1; i <= x; i++) {<br>  if (i % 2 === 1) {<br>    secret = secret + i;<br>  }<br>}",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de tous les nombres de 1 jusqu'à <code>x</code> (déclarée par ce tutoriel) sans les pairs (ex. 7 -> 7 + 5 + 3 + 1).",
+                solved: "var answer = 0;<br>for (var i = 1; i <= x; i++) {<br>  if (i % 2 === 1) {<br>    answer = answer + i;<br>  }<br>}",
                 init: function() {
                     window.x = this.x = random(5, 9);
                 },
-                secret: function() {
+                answer: function() {
                     let result = 0;
                     for(let i = 1; i <= this.x; i++)
                         if (i % 2 !== 0)
@@ -1250,10 +1250,10 @@ let chapters = [
                     return result;
                 },
                 warn: function() {
-                    return basicWarn(secret, this.secret());
+                    return basicWarn(answer, this.answer());
                 },
-                answer: function() {
-                    return secret === this.secret();
+                solution: function() {
+                    return answer === this.answer();
                 }
             },
             {
@@ -1324,21 +1324,21 @@ let chapters = [
             },
             {
                 title: "Créer un tableau",
-                description: "Créer une variable nommée <code>secret</code> de type tableau et lui ajouter les valeurs de <code>x</code> et de <code>y</code> (déclarées par ce tutoriel).",
+                description: "Créer une variable nommée <code>answer</code> de type tableau et lui ajouter les valeurs de <code>x</code> et de <code>y</code> (déclarées par ce tutoriel).",
                 excerpt: "Les tableaux représentent une liste ordonnée de variables (qu'importe leur type). La propriété <code>length</code> permet de connaitre le nombre d'éléments d'un tableau. Les crochets <code>[ ]</code> permettent d'accèder à un élément par index (l'index des tableaux commence à zéro).",
-                solved: "var secret = [x, y];",
+                solved: "var answer = [x, y];",
                 init: function() {
                     window.x = this.x = random(1, 10);
                     window.y = this.y = random(11, 20);
                 },
-                secret: function() {
+                answer: function() {
                     return [this.x, this.y];
                 },
                 warn: function() {
-                    return basicWarn(secret, this.secret());
+                    return basicWarn(answer, this.answer());
                 },
-                answer: function() {
-                    return equals(secret, this.secret());
+                solution: function() {
+                    return equals(answer, this.answer());
                 }
             },
             {
@@ -1387,22 +1387,22 @@ let chapters = [
             },
             {
                 title: "Concaténer deux tableaux",
-                description: "Créer une variable nommée <code>secret</code> de type tableau et lui ajouter les valeurs de <code>x</code> (un tableau également) et de <code>y</code> (déclarées par ce tutoriel).",
+                description: "Créer une variable nommée <code>answer</code> de type tableau et lui ajouter les valeurs de <code>x</code> (un tableau également) et de <code>y</code> (déclarées par ce tutoriel).",
                 excerpt: "La méthode <code>concat</code> permet de rassembler un tableau à tableaux autres.",
-                solved: "var secret = [].concat(x, y);",
+                solved: "var answer = [].concat(x, y);",
                 init: function() {
                     this.x = [random(1, 10), random(1, 10)];
                     window.x = this.x.slice(0);
                     window.y = this.y = random(11, 20);
                 },
-                secret: function() {
+                answer: function() {
                     return [].concat(this.x, this.y);
                 },
                 warn: function() {
-                    return basicWarn(secret, this.secret());
+                    return basicWarn(answer, this.answer());
                 },
-                answer: function() {
-                    return equals(secret, this.secret());
+                solution: function() {
+                    return equals(answer, this.answer());
                 }
             },
             {
@@ -1450,59 +1450,59 @@ let chapters = [
             },
             {
                 title: "Modifier un tableau",
-                description: "Créer une variable nommée <code>secret</code> de type tableau avec toutes les valeurs du tableau <code>x</code> (déclarée par ce tutoriel) dont chaque valeur a été doublée (ex. [1, 5, 7] -> [2, 10, 14]).",
+                description: "Créer une variable nommée <code>answer</code> de type tableau avec toutes les valeurs du tableau <code>x</code> (déclarée par ce tutoriel) dont chaque valeur a été doublée (ex. [1, 5, 7] -> [2, 10, 14]).",
                 excerpt: "Les boucles <code>for</code> sont souvent utilisées pour parcourir un tableau et récupérer chacune de ses valeurs une à une.<br><br><strong>Exemple</strong> : <pre><code>for (var i = 0; i < items.length; i++) { <br>  console.log('value', items[i]); <br>}</code></pre> parcourt un tableau et affiche chacune de ses valeurs.",
-                solved: "var secret = [];<br>for (var i = 0; i < x.length; i++) {<br>  var value = x[i];<br>  secret.push(value * 2); <br>}",
+                solved: "var answer = [];<br>for (var i = 0; i < x.length; i++) {<br>  var value = x[i];<br>  answer.push(value * 2); <br>}",
                 init: function() {
                     this.x = [random(1, 10), random(1, 10), random(1, 10), random(1, 10)];
                     window.x = this.x.slice(0);
                 },
-                secret: function() {
+                answer: function() {
                     return this.x.map(function(item) { return item * 2; });
                 },
                 warn: function() {
-                    return basicWarn(secret, this.secret());
+                    return basicWarn(answer, this.answer());
                 },
-                answer: function() {
-                    return equals(secret, this.secret());
+                solution: function() {
+                    return equals(answer, this.answer());
                 }
             },
             {
                 title: "Filtrer un tableau",
-                description: "Créer une variable nommée <code>secret</code> de type tableau avec toutes les valeurs du tableau <code>x</code> dont la valeur de <code>y</code> a été retirée (ex. 3, [1, 3, 3, 1] -> [1, 1] — déclarées par ce tutoriel).",
-                solved: "var secret = [];<br>for (var i = 0; i < x.length; i++) {<br>  if (x[i] !== y) {<br>    secret.push(x[i]);<br>  }<br>}",
+                description: "Créer une variable nommée <code>answer</code> de type tableau avec toutes les valeurs du tableau <code>x</code> dont la valeur de <code>y</code> a été retirée (ex. 3, [1, 3, 3, 1] -> [1, 1] — déclarées par ce tutoriel).",
+                solved: "var answer = [];<br>for (var i = 0; i < x.length; i++) {<br>  if (x[i] !== y) {<br>    answer.push(x[i]);<br>  }<br>}",
                 init: function() {
                     this.x = [random(1, 3), random(1, 3), random(1, 3), ''+random(1, 3), random(1, 3), ''+random(1, 3), random(1, 3), ''+random(1, 3)];
                     window.x = this.x.slice(0);
                     window.y = this.y = randomize.apply(null, x);
                 },
-                secret: function() {
+                answer: function() {
                     let y = this.y;
                     return this.x.filter(function(i) { return i !== y; });
                 },
                 warn: function() {
-                    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + this.secret() + "</code> (attention, le tableau contient des entiers et des chaines de caractères).";
+                    return "La variable <code>answer</code> vaut <code>" + JSON.stringify(answer) + "</code> et non la résultat attendu, <code>" + this.answer() + "</code> (attention, le tableau contient des entiers et des chaines de caractères).";
                 },
-                answer: function() {
-                    return equals(secret, this.secret());
+                solution: function() {
+                    return equals(answer, this.answer());
                 }
             },
             {
                 title: "Réduire un tableau",
-                description: "Créer une variable nommée <code>secret</code> ayant pour la valeur la somme de toutes les valeur du tableau <code>x</code> (ex. [1, 5, 7] -> 13 — déclarée par ce tutoriel).",
-                solved: "var secret = 0;<br>for (var i = 0; i < x.length; i++) {<br>  secret = secret + x[i];<br>}",
+                description: "Créer une variable nommée <code>answer</code> ayant pour la valeur la somme de toutes les valeur du tableau <code>x</code> (ex. [1, 5, 7] -> 13 — déclarée par ce tutoriel).",
+                solved: "var answer = 0;<br>for (var i = 0; i < x.length; i++) {<br>  answer = answer + x[i];<br>}",
                 init: function() {
                     this.x = [random(1, 10), random(1, 10), random(1, 10), random(1, 10)];
                     window.x = this.x.slice(0);
                 },
-                secret: function() {
+                answer: function() {
                     return this.x.reduce(function(memo, value) { return memo + value; }, 0);
                 },
                 warn: function() {
-                    return basicWarn(secret, this.secret());
+                    return basicWarn(answer, this.answer());
                 },
-                answer: function() {
-                    return secret === this.secret();
+                solution: function() {
+                    return answer === this.answer();
                 }
             }
         ]
@@ -1554,51 +1554,51 @@ let chapters = [
             },
             {
                 title: "Créer un dictionnaire",
-                description: "Créer une variable nommée <code>secret</code> de type dictionnaire avec deux clés, <code>min</code> et <code>max</code>, ayant pour valeur le minimum et le maximum des valeurs <code>x</code> et <code>y</code> (ex. 7, 5 -> {min: 5, max: 7} — déclarées par ce tutoriel).",
+                description: "Créer une variable nommée <code>answer</code> de type dictionnaire avec deux clés, <code>min</code> et <code>max</code>, ayant pour valeur le minimum et le maximum des valeurs <code>x</code> et <code>y</code> (ex. 7, 5 -> {min: 5, max: 7} — déclarées par ce tutoriel).",
                 excerpt: "Les objets littéraux ( ou dictionnaires), représentent une suite de paires clé - valeur séparées par une virgule. Chacune des valeurs ainsi listées peut être d'une type primitif ou composite.<br><br><strong>Exemple</strong> : <code>var obj = { age: 27, name: 'paul' }</code> déclare un objet littéral avec deux clés, la première ayant pour valeur un nombre, la seconde, une chaine de caractères. Ainsi <code>obj.age</code> retourne <code>27</code> et <code>obj.name</code> retourne <code>'paul'</code>. Ces valeurs peuvent être modifiées comme elles sont accédées, <code>obj.age = 32</code>.",
-                solved: "var secret = {};<br>if (x < y) {<br>  secret.min = x;<br>  secret.max = y;<br>} else {<br>  secret.min = y;<br>  secret.max = x;<br>}",
+                solved: "var answer = {};<br>if (x < y) {<br>  answer.min = x;<br>  answer.max = y;<br>} else {<br>  answer.min = y;<br>  answer.max = x;<br>}",
                 init: function() {
                     window.x = this.x = random(1, 50);
                     window.y = this.y = random(1, 50);
                 },
-                secret: function() {
+                answer: function() {
                     return {min: Math.min(this.x, this.y), max: Math.max(this.x, this.y)};
                 },
                 warn: function() {
-                    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + JSON.stringify(this.secret()) + "</code>";
+                    return "La variable <code>answer</code> vaut <code>" + JSON.stringify(answer) + "</code> et non la résultat attendu, <code>" + JSON.stringify(this.answer()) + "</code>";
                 },
-                answer: function() {
-                    return equals(secret, this.secret());
+                solution: function() {
+                    return equals(answer, this.answer());
                 }
             },
             {
                 title: "Parcourir un dictionnaire",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter le maximum de la propriété <code>age</code> des variables <code>x</code> et <code>y</code> (ex. {age: 7}, {age: 5} -> 7 — déclarées par ce tutoriel).",
-                solved: "var secret = Math.max(x.age, y.age);",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter le maximum de la propriété <code>age</code> des variables <code>x</code> et <code>y</code> (ex. {age: 7}, {age: 5} -> 7 — déclarées par ce tutoriel).",
+                solved: "var answer = Math.max(x.age, y.age);",
                 init: function() {
                     this.x = {age: random(1, 50)};
                     window.x = Object.assign({}, this.x);
                     this.y = {age: random(1, 50)};
                     window.y = Object.assign({}, this.y);
                 },
-                secret: function() {
+                answer: function() {
                     return Math.max(this.x.age, this.y.age);
                 },
                 warn: function() {
-                    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + JSON.stringify(this.secret()) + "</code>";
+                    return "La variable <code>answer</code> vaut <code>" + JSON.stringify(answer) + "</code> et non la résultat attendu, <code>" + JSON.stringify(this.answer()) + "</code>";
                 },
-                answer: function() {
-                    return equals(secret, this.secret());
+                solution: function() {
+                    return equals(answer, this.answer());
                 }
             },
             {
                 title: "Utiliser un dictionnaire pour structurer des données",
-                description: "Créer une variable nommée <code>secret</code> de type dictionnaire, avec cinq clés, <code>a</code>, <code>e</code>, <code>i</code>, <code>o</code> et <code>u</code> et y stocker le nombre de chacune de ces voyelles dans la chaîne de caratères déclarée par la variable <code>x</code> (ex. 'hello' -> {a:0, e:1, i:0, o: 1, u:0} — déclarée par ce tutoriel).",
-                solved: "var secret = {a:0, e:0, i:0, o:0, u:0};<br>for (var i = 0; i < x.length; i++) {<br>  switch(x[i].toLowerCase()) {<br>    case 'a': secret.a++; break;<br>    case 'e': secret.e++; break;<br>    case 'i': secret.i++; break;<br>    case 'o': secret.o++; break;<br>    case 'u': secret.u++; break;<br>  }<br>}",
+                description: "Créer une variable nommée <code>answer</code> de type dictionnaire, avec cinq clés, <code>a</code>, <code>e</code>, <code>i</code>, <code>o</code> et <code>u</code> et y stocker le nombre de chacune de ces voyelles dans la chaîne de caratères déclarée par la variable <code>x</code> (ex. 'hello' -> {a:0, e:1, i:0, o: 1, u:0} — déclarée par ce tutoriel).",
+                solved: "var answer = {a:0, e:0, i:0, o:0, u:0};<br>for (var i = 0; i < x.length; i++) {<br>  switch(x[i].toLowerCase()) {<br>    case 'a': answer.a++; break;<br>    case 'e': answer.e++; break;<br>    case 'i': answer.i++; break;<br>    case 'o': answer.o++; break;<br>    case 'u': answer.u++; break;<br>  }<br>}",
                 init: function() {
                     window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
                 },
-                secret: function() {
+                answer: function() {
                     var result = {a:0, e:0, i:0, o:0, u:0};
                     for (var i = 0; i < this.x.length; i++) {
                         switch(this.x[i].toLowerCase()) {
@@ -1612,16 +1612,16 @@ let chapters = [
                     return result;
                 },
                 warn: function() {
-                    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + JSON.stringify(this.secret()) + "</code>";
+                    return "La variable <code>answer</code> vaut <code>" + JSON.stringify(answer) + "</code> et non la résultat attendu, <code>" + JSON.stringify(this.answer()) + "</code>";
                 },
-                answer: function() {
-                    return equals(secret, this.secret());
+                solution: function() {
+                    return equals(answer, this.answer());
                 }
             },
             {
                 title: "Filtrer un dictionnaire",
-                description: "Créer une variable nommée <code>secret</code> de type dictionnaire, avec les attributs du dictionnaire déclarés par la variable <code>x</code> dont les attributs listés dans le tableau déclaré par la variable <code>y</code> ont été supprimés (ex. {paul:true, john:true, george:true}, ['paul', 'ringo'] -> {john:true, george:true} — déclarée par ce tutoriel).",
-                solved: "var secret = x;<br>for (var i = 0; i < y.length; i++)<br>  delete secret[this.y[i]];",
+                description: "Créer une variable nommée <code>answer</code> de type dictionnaire, avec les attributs du dictionnaire déclarés par la variable <code>x</code> dont les attributs listés dans le tableau déclaré par la variable <code>y</code> ont été supprimés (ex. {paul:true, john:true, george:true}, ['paul', 'ringo'] -> {john:true, george:true} — déclarée par ce tutoriel).",
+                solved: "var answer = x;<br>for (var i = 0; i < y.length; i++)<br>  delete answer[this.y[i]];",
                 init: function() {
                     this.x = {yellow: true, green: true, blue: true, violet: true, red: true, orange: true};
                     window.x = Object.assign({}, this.x);
@@ -1633,7 +1633,7 @@ let chapters = [
                     this.y = [first, second];
                     window.y = this.y.slice(0);
                 },
-                secret: function() {
+                answer: function() {
                     let x = Object.assign({}, this.x);
                     for (let i = 0; i < this.y.length; i++)
                         delete x[this.y[i]];
@@ -1641,10 +1641,10 @@ let chapters = [
                     return x;
                 },
                 warn: function() {
-                    return "La variable <code>secret</code> vaut <code>" + JSON.stringify(secret) + "</code> et non la résultat attendu, <code>" + JSON.stringify(this.secret()) + "</code>";
+                    return "La variable <code>answer</code> vaut <code>" + JSON.stringify(answer) + "</code> et non la résultat attendu, <code>" + JSON.stringify(this.answer()) + "</code>";
                 },
-                answer: function() {
-                    return equals(secret, this.secret());
+                solution: function() {
+                    return equals(answer, this.answer());
                 }
             }
         ]
@@ -2055,7 +2055,7 @@ let chapters = [
                 warn: function() {
                     return "Le premier <code>li</code> doit avoir la classe <code>cadmiumyellow</code>";
                 },
-                answer: function() {
+                solution: function() {
                     let li = document.querySelector('.board li');
                     return li.classList.contains('cadmiumyellow');
                 }
@@ -2071,7 +2071,7 @@ let chapters = [
                 warn: function() {
                     return "Aucun <code>li</code> ne doit avoir la classe <code>braken</code> et dix <code>li</code> doivent avoir la classe <code>candyapplered</code>";
                 },
-                answer: function() {
+                solution: function() {
                     let braken = document.querySelectorAll('.board li.braken');
                     let candyapplered = document.querySelectorAll('.board li.candyapplered');
                     return braken.length === 0 && candyapplered.length === 10;
@@ -2148,7 +2148,7 @@ let chapters = [
                 warn: function() {
                     return "Au clic sur le premier <code>li.cadmiumyellow</code> sa classe doit être remplacée par <code>bondiblue</code>";
                 },
-                answer: function() {
+                solution: function() {
                     let li = document.querySelector('.board li.cadmiumyellow');
                     let basic = li.className === 'cadmiumyellow';
                     li.click();
@@ -2165,7 +2165,7 @@ let chapters = [
                 warn: function() {
                     return "Au clic sur le premier <code>li.candyapplered</code> les seize <code>li</code> doivent avoir la classe <code>candyapplered</code>";
                 },
-                answer: function() {
+                solution: function() {
                     let li = document.querySelector('.board li.candyapplered');
                     li.click();
                     return 16 === document.querySelectorAll('.board li.candyapplered').length;
@@ -2182,7 +2182,7 @@ let chapters = [
                 warn: function() {
                     return "Au clic sur les <code>li.champagne</code>, l'un puis l'autre, ils doivent tous deux avoir la classe <code>braken</code>";
                 },
-                answer: function() {
+                solution: function() {
                     let lis = document.querySelectorAll('.board li.champagne');
                     let braken = document.querySelectorAll('.board li.braken');
                     let basic = lis.length === 2 && braken.length === 2;
@@ -2205,7 +2205,7 @@ let chapters = [
                 warn: function() {
                     return "Au clic sur le premier <code>li.braken</code>, il doit avoir la classe <code>champagne</code> et le premier <code>li.champagne</code> doit avoir la classe <code>braken</code>. Au clic suivant, ces deux <code>li</code> retrouvent leurs classes de départ. Et ainsi de suite";
                 },
-                answer: function() {
+                solution: function() {
                     let lib = document.querySelector('.board li.braken');
                     let lic = document.querySelector('.board li.champagne');
 
@@ -2234,7 +2234,7 @@ let chapters = [
                 warn: function() {
                     return "Au clic sur le premier <code>li.champagne</code>, rien ne se produit. Mais après trois clics répétés, ce <code>li</code> doit avoir la classe <code>braken</code>. Au quatrième clic, il doit conserver cette nouvelle classe";
                 },
-                answer: function() {
+                solution: function() {
                     let li = document.querySelector('.board li.champagne');
 
                     let basic = true
@@ -2259,7 +2259,7 @@ let chapters = [
                 warn: function() {
                     return "Au clic sur un <code>li.braken</code> rien ne se produit. Mais après trois clics répétés, ce <code>li</code> doit avoir la classe <code>braken</code>. Au quatrième clic, il doit conserver cette nouvelle classe";
                 },
-                answer: function() {
+                solution: function() {
                     let lis = document.querySelectorAll('.board li.braken');
 
                     let basic = true;
@@ -2281,7 +2281,7 @@ let chapters = [
                 warn: function() {
                     return "Quatre <code>li</code> doivent être ajoutés à la suite de ceux déjà présents dans <code>ul.board</code>";
                 },
-                answer: function() {
+                solution: function() {
                     let basic = true;
                     let lis = document.querySelectorAll('.board li');
                     basic = basic && 16 === lis.length;
@@ -2305,7 +2305,7 @@ let chapters = [
                 warn: function() {
                     return "Quatre <code>li</code> doivent être ajoutés après le huitième <code>li</code> de <code>ul.board</code>";
                 },
-                answer: function() {
+                solution: function() {
                     let basic = true;
                     let lis = document.querySelectorAll('.board li');
                     basic = basic && 16 === lis.length;
@@ -2326,7 +2326,7 @@ let chapters = [
                 warn: function() {
                     return "Au clic sur le premier <code>li</code> et le second, leurs classes doivent être interverties. Puis, au clic du second et du troisième <code>li</code>, leurs classes doivent être interverties également";
                 },
-                answer: function() {
+                solution: function() {
                     let basic = true;
                     let lis = document.querySelectorAll('.board li');
                     lis[0].click();
@@ -2352,7 +2352,7 @@ let chapters = [
                 warn: function() {
                     return "Au clic sur le premier <code>li</code> il doit avoir un attribut <code>data-value</code> égal à zéro. Au clic sur un autre <code>li</code>, il doit avoir un attribut <code>data-value</code> égal à un. Et ainsi de suite. Au clic sur un élément ayant déjà un <code>data-value</code> celui-ci ne change pas";
                 },
-                answer: function() {
+                solution: function() {
                     let lis = document.querySelectorAll('.board li');
                     lis[2].click();
                     lis[4].click();
@@ -2463,7 +2463,7 @@ let chapters = [
                 dom: function() {
                     return booking.bind(booking);
                 },
-                answer: function() {
+                solution: function() {
                     var from = {
                         input: document.querySelector('.from input'),
                         formatted: document.querySelector('.from .formatted')
@@ -2493,7 +2493,7 @@ let chapters = [
                 dom: function() {
                     return booking.bind(booking);
                 },
-                answer: function() {
+                solution: function() {
                     var from = {
                         input: document.querySelector('.from input'),
                         formatted: document.querySelector('.from .formatted')
@@ -2525,7 +2525,7 @@ let chapters = [
                 dom: function() {
                     return booking.bind(booking);
                 },
-                answer: function() {
+                solution: function() {
                     var from = {
                         input: document.querySelector('.from input'),
                         formatted: document.querySelector('.from .formatted')
@@ -2553,7 +2553,7 @@ let chapters = [
                 dom: function() {
                     return booking.bind(booking);
                 },
-                answer: function() {
+                solution: function() {
                     var from = {
                         input: document.querySelector('.from input'),
                         formatted: document.querySelector('.from .formatted')
@@ -2585,7 +2585,7 @@ let chapters = [
                 dom: function() {
                     return booking.bind(booking);
                 },
-                answer: function() {
+                solution: function() {
                     var from = {
                         input: document.querySelector('.from input'),
                         formatted: document.querySelector('.from .formatted')
@@ -2706,7 +2706,7 @@ let chapters = [
                 description: "Créer une fonction nommée <code>positive</code> qui prend un paramètre et retourne <code>true</code> si celui-ci est supérieur ou égal à zéro, <code>false</code> sinon.",
                 excerpt: "Une fonction est comme une usine, elle transforme quelque chose (ses paramètres d'entrée) en autre chose (son paramètre de sortie). L'utilisation de fonctions permet de structurer un programme. Au lieu de lister toutes les opérations d'un programme les unes à la suite des autres, il est préférable de regrouper les opérations en plusieurs fonctions correspondant à des parties clairement identifiées du programme.<br><br><strong>Exemple </strong>: <pre><code>var double = function(value) {<br>  return value * 2; <br>}</code></pre> déclare une variable <code>value</code> qui sera initialisée à une valeur à chaque appel de la fonction. Cette variable est locale à la fonction, elle n'existe pas à l'extérieur du code de celle-ci. Le mot clé <code>return</code> interrompt immédiatement la fonction et retourne le résultat au code appelant. <pre><code>var x = double(12);<br>x; /* 24 */<br>var y = double(7);<br>y; /* 14 */<br>var weird = double('hello');<br>weird; /* NaN */<br>value; /* undefined */<br></code></pre>",
                 solved: "var positive = function(value) {<br>  return value >= 0;<br>};",
-                answer: function() {
+                solution: function() {
                     let x = random();
                     let y = random();
                     if (positive(0) !== true)
@@ -2726,7 +2726,7 @@ let chapters = [
                 description: "Créer une fonction <code>add</code> qui prend deux paramètres et retourne leur somme. Cette fonction retourne <code>0</code> si un de ces paramètres n'est pas un nombre.",
                 excerpt: "Une fonction peut prendre plusieurs paramètres en entrée, séparés par des virgules <code>function(a, b, c) { ... }</code>. L'opérateur <code>typeof</code> permet quant à lui de vérfier le type d'une variable.<br><br><strong>Exemple </strong>: <pre><code>typeof 12 === 'number'; /* true */<br>typeof 'hello' === 'string'; /* true */<br>typeof ['1', '2', '3'] === 'string'; /* false */</code></pre>",
                 solved: "var add = function(a, b) {<br>  if (typeof a !== 'number' || typeof b !== 'number') {<br>    return 0;<br>  }<br>  return a + b;<br>};",
-                answer: function() {
+                solution: function() {
                     let x = random();
                     let y = random();
                     if (add(x, y) !== x + y)
@@ -2746,7 +2746,7 @@ let chapters = [
                 description: "Créer une fonction <code>hypotenuse</code> qui prend deux paramètres, représentant la dimension de deux côtés d'un triangle, et retourne l'hypoténuse de celui-ci.",
                 excerpt: "Une fonction peut elle-même appeler d'autres fonctions.",
                 solved: "var hypotenuse = function(a, b) {<br>  return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));<br>};",
-                answer: function() {
+                solution: function() {
                     if (hypotenuse(3, 4) !== 5)
                         this.warn = this.warn || "La fonction <code>hypotenuse(3, 4)</code> doit retourner <code>5</code>";
 
@@ -2759,7 +2759,7 @@ let chapters = [
                 title: "Trouver une valeur dans un tableau",
                 description: "Créer une fonction <code>includes</code> qui prend deux paramètres, un tableau et une valeur. Si la valeur est une des valeurs du tableau, la fonction retourne <code>true</code>, sinon elle retrourne <code>false</code>.",
                 solved: "var includes = function(array, value) {<br>  for (var i = 0; i < array.length; i++) {<br>    if (array[i] === value) {<br>      return true;<br>    }<br>  }<br>  return false;<br>};",
-                answer: function() {
+                solution: function() {
                     if (includes(['banana', 'kiwi', 'apple'], 'kiwi') !== true)
                         this.warn = this.warn || "La fonction <code>includes(['banana', 'kiwi', 'apple'], 'kiwi')</code> doit retourner <code>true</code>";
 
@@ -2780,7 +2780,7 @@ let chapters = [
                 description: "Créer une fonction <code>max</code> qui prend un nombre quelconque de paramètres et retourne le nombre le plus élevé parmi eux. Si aucun paramètre n'est indiqué, elle retourne <code>-1</code>.",
                 excerpt: "Les fonctions disposent toutes d'un paramètre spécial <code>arguments</code> qui est un tableau listant tous les paramètres reçus par la fonction. Il est ainsi possible de créer des fonctions dotées d'un nombre indéterminé de paramètres (et sans avoir besoin de nommer chacun d'entre eux).<br><br><strong>Exemple </strong>: <pre><code>var sum = function() { <br>  var total = 0;<br>  for (var i = 0; i < arguments.length; i++) {<br>    total += arguments[i];<br>  }<br>  return total;<br>}</code></pre> crée une méthode calculant la somme d'un nombre quelconque de paramètres, par exemple <code>sum(5, 8, 13)</code> retourne <code>26</code>.",
                 solved: "var max = function() {<br>  if (arguments.length === 0)<br>    return -1;<br><br>  var result = arguments[0];<br>  for (var i = 1; i < arguments.length; i++) {<br>    if (arguments[i] > result) {<br>      result = arguments[i];<br>    }<br>  }<br>  return result;<br>};",
-                answer: function() {
+                solution: function() {
                     if (max(5, 12) !== 12)
                         this.warn = this.warn || "La fonction <code>max(5, 12)</code> doit retourner <code>12</code>";
 
@@ -2797,7 +2797,7 @@ let chapters = [
                 title: "Compter le nombre de « a » et « e »",
                 description: "Créer une fonction <code>count</code> qui prend un paramètre et retourne un littéral indiquant le nombre de « a » et de « e » de cette chaine (sous la forme <code>{a: 5, e: 7}</code>).",
                 solved: "var text = 'Short ribs fatback pork chop turducken. Hamburger capicola turkey sausage tail leberkas ham andouille pork chop picanha pancetta landjaeger brisket. Ground round pork belly jowl pancetta frankfurter beef ribs ham cupim turkey tenderloin drumstick sausage shoulder. Pig cow short ribs tenderloin tongue pork belly.';<br>var count = function(text) {<br>  text = text.toLowerCase();<br>  var total = {a: 0, e: 0};<br>  for (var i = 0; i < text.length; i++) {<br>    var char = text.charAt(i);<br>    if (char === 'a')<br>      total.a++;<br>    else if (char === 'e')<br>      total.e++;<br>  };<br>  return total;<br>};",
-                answer: function() {
+                solution: function() {
                     if (equals({a: 0, e: 0}, count('')) !== true)
                         this.warn = this.warn || "La fonction <code>count('')</code> doit retourner <code>{a: 0, e: 0}</code>";
 
@@ -2815,7 +2815,7 @@ let chapters = [
                 description: "Créer une fonction <code>search</code> qui prend deux paramètres, un arbre binaire et une valeur. Si la valeur est une des valeurs de l'arbre, la fonction retourne <code>true</code>, sinon elle retrourne <code>false</code>.",
                 excerpt: "<pre><code>var tree = {<br>  value: 8, <br>  left: {value: 3, left: {value: 1}, right: {value: 6}}, <br>  right: {value: 11, right: {value: 14}}<br>};<br><br>//       8<br>//    3 ─┴─ 11<br>// 1 ─┴─ 6   └─ 14</code></pre>Un arbre binaire dispose d'une racine, <code>8</code> (ici), celle-ci est dotée d'une noeud gauche, <code>3</code> et droit, <code>10</code>, qui, eux-mêmes peuvent disposer d'un noeud gauche et droit, et ainsi de suite. Un arbre binaire est trié de telle sorte que la noeud gauche d'une valeur lui est inférieur, <code>3 > 8</code> et que son noeud droit lui est supérieur, <code>8 < 10</code>. Et ceci récursivement, chaque noeud gauche inférieur à sa racine, chaque noeud droit supérieur à sa racine. Cette structure permet d'effectuer des recherches très efficaces (peu de comparaison) au sein d'un ensemble de valeurs.<br><br>La fonction à réaliser est une fonction récursive (elle peut s'appeler elle-même). Elle vérifie si la racine est égale, supérieure ou inférieure à la valeur recherchée. En cas d'égalité, elle retourne <code>true</code>, en cas d'infériorité, elle s'appelle elle-même avec le noeud gauche, en cas de supériorité, avec le noeud droit. Arrivée en fin d'arbre (sur une feuille — un noeud sans noeud enfant), elle retourne <code>false</code> si sa valeur n'est pas celle recherchée.",
                 solved: "var search = function(tree, value) {<br>  if (!tree)<br>    return false;<br>  else if (value === tree.value)<br>    return true;<br>  else if (value > tree.value)<br>    return search(tree.right, value);<br>  else<br>    return search(tree.left, value);<br>};",
-                answer: function() {
+                solution: function() {
                     let tree = {value: 8,
                         left: {value: 3, left: {value: 1}, right: {value: 6}},
                         right: {value: 11, left: {value:9, right: {value: 10}}, right: {value: 14}}
@@ -3029,7 +3029,7 @@ let chapters = [
                 dom: function() {
                     return carousel.bind(carousel);
                 },
-                answer: function() {
+                solution: function() {
                     var elPrev = document.querySelector('.prev');
                     var elNext = document.querySelector('.next');
 
@@ -3058,7 +3058,7 @@ let chapters = [
                 dom: function() {
                     return carousel.bind(carousel);
                 },
-                answer: function() {
+                solution: function() {
                     var elPrev = document.querySelector('.prev');
                     var elNext = document.querySelector('.next');
 
@@ -3088,7 +3088,7 @@ let chapters = [
                 dom: function() {
                     return carousel.bind(carousel);
                 },
-                answer: function() {
+                solution: function() {
                     var elPrev = document.querySelector('.prev');
                     var elNext = document.querySelector('.next');
 
@@ -3124,7 +3124,7 @@ let chapters = [
                 dom: function() {
                     return carousel.bind(carousel);
                 },
-                answer: function() {
+                solution: function() {
                     var elPrev = document.querySelector('.prev');
                     var elNext = document.querySelector('.next');
 
@@ -3161,7 +3161,7 @@ let chapters = [
                 dom: function() {
                     return carousel.bind(carousel, true);
                 },
-                answer: function() {
+                solution: function() {
                     var elPrev = document.querySelector('.prev');
                     var elNext = document.querySelector('.next');
 
@@ -3197,7 +3197,7 @@ let chapters = [
                 dom: function() {
                     return carousel.bind(carousel, true);
                 },
-                answer: function() {
+                solution: function() {
                     var elPrev = document.querySelector('.prev');
                     var elNext = document.querySelector('.next');
 
@@ -3290,7 +3290,7 @@ let chapters = [
                         `;
                     }
                 },
-                answer: function() {
+                solution: function() {
                     var rightLabel = document.querySelector('[data-tooltip]');
                     var rightTooltip = document.querySelector('.tooltip');
                     if (rightTooltip.offsetParent)
@@ -3320,7 +3320,7 @@ let chapters = [
                     for (var i = 0; i < tooltips.length; i++)
                         tooltips[i].remove();
                 },
-                answer: function() {
+                solution: function() {
                     var labels = document.querySelectorAll('[data-tooltip]');
                     var tooltips = document.querySelectorAll('.tooltip');
                     if (labels.length !== tooltips.length || tooltips.length !== 4)
@@ -3360,7 +3360,7 @@ let chapters = [
                     for (var i = 0; i < tooltips.length; i++)
                         tooltips[i].remove();
                 },
-                answer: function() {
+                solution: function() {
                     var labels = document.querySelectorAll('[data-tooltip]');
                     var tooltips = document.querySelectorAll('.tooltip');
                     if (labels.length !== tooltips.length || tooltips.length !== 4)
@@ -3396,7 +3396,7 @@ let chapters = [
                 dom: function() {
                     return maps.bind(maps);
                 },
-                answer: function() {
+                solution: function() {
                     if (!map)
                         return;
 
@@ -3416,7 +3416,7 @@ let chapters = [
                 dom: function() {
                     return maps.bind(maps);
                 },
-                answer: function() {
+                solution: function() {
                     if (!map || !marker)
                         return;
 
@@ -3434,7 +3434,7 @@ let chapters = [
                 dom: function() {
                     return maps.bind(maps, true);
                 },
-                answer: function() {
+                solution: function() {
                     if (!map || !marker)
                         return;
 
@@ -3461,7 +3461,7 @@ let chapters = [
                 dom: function() {
                     return maps.bind(maps, true);
                 },
-                answer: function() {
+                solution: function() {
                     if (!map || !marker)
                         return;
 
@@ -3513,7 +3513,7 @@ let chapters = [
                 dom: function() {
                     return maps.bind(maps, true);
                 },
-                answer: function() {
+                solution: function() {
                     if (!map || !marker)
                         return;
 
@@ -3562,7 +3562,7 @@ let chapters = [
                 dom: function() {
                     return todolist.bind(todolist);
                 },
-                answer: function() {
+                solution: function() {
                     let input = document.querySelector('input');
 
                     input.value = 'apple';
@@ -3585,7 +3585,7 @@ let chapters = [
                 dom: function() {
                     return todolist.bind(todolist);
                 },
-                answer: function() {
+                solution: function() {
                     let input = document.querySelector('input');
                     input.value = '';
                     keypress(input, 13);
@@ -3618,7 +3618,7 @@ let chapters = [
                 dom: function() {
                     return todolist.bind(todolist);
                 },
-                answer: function() {
+                solution: function() {
                     let input = document.querySelector('input');
                     input.value = 'apple';
                     keypress(input, 13);
@@ -3646,7 +3646,7 @@ let chapters = [
                 dom: function() {
                     return todolist.bind(todolist);
                 },
-                answer: function() {
+                solution: function() {
                     let input = document.querySelector('input');
                     input.value = 'apple';
                     keypress(input, 13);
@@ -3698,7 +3698,7 @@ let chapters = [
                 dom: function() {
                     return todolist.bind(todolist);
                 },
-                answer: function() {
+                solution: function() {
                     let input = document.querySelector('input');
                     input.value = 'apple';
                     keypress(input, 13);
@@ -3729,7 +3729,7 @@ let chapters = [
                 dom: function() {
                     return todolist.bind(todolist);
                 },
-                answer: function() {
+                solution: function() {
                     let input = document.querySelector('input');
                     input.value = 'apple';
                     keypress(input, 13);
@@ -3770,7 +3770,7 @@ let chapters = [
                 dom: function() {
                     return todolist.bind(todolist);
                 },
-                answer: function() {
+                solution: function() {
                     let input = document.querySelector('input');
                     input.value = 'apple';
                     keypress(input, 13);
@@ -4025,7 +4025,7 @@ let chapters = [
                 dom: function() {
                     return search.bind(search);
                 },
-                answer: function() {
+                solution: function() {
                     var input = document.querySelector('.search input');
                     var promise = httpWait();
 
@@ -4049,7 +4049,7 @@ let chapters = [
                 dom: function() {
                     return search.bind(search);
                 },
-                answer: function() {
+                solution: function() {
                     var search = document.querySelector('.search');
                     var input = search.querySelector('input');
                     var promise = httpWait();
@@ -4080,7 +4080,7 @@ let chapters = [
                 dom: function() {
                     return search.bind(search);
                 },
-                answer: function() {
+                solution: function() {
                     var refresh = document.querySelector('.fetch');
                     var promise = httpWait();
 
@@ -4105,7 +4105,7 @@ let chapters = [
                 dom: function() {
                     return search.bind(search);
                 },
-                answer: function() {
+                solution: function() {
                     var refresh = document.querySelector('.fetch');
                     var promise = httpWait();
 
@@ -4136,7 +4136,7 @@ let chapters = [
                 dom: function() {
                     return search.bind(search);
                 },
-                answer: function() {
+                solution: function() {
                     var refresh = document.querySelector('.fetch');
                     var initialCount = 0;
                     var promise = httpWait();
@@ -4209,7 +4209,7 @@ let chapters = [
                 dom: function() {
                     return search.bind(search);
                 },
-                answer: function() {
+                solution: function() {
                     var refresh = document.querySelector('.fetch');
                     var direction = document.querySelector('.direction');
                     var promise = httpWait();
@@ -4261,7 +4261,7 @@ let chapters = [
                 dom: function() {
                     return search.bind(search);
                 },
-                answer: function() {
+                solution: function() {
                     var refresh = document.querySelector('.fetch');
                     var initialCount = 0;
                     var promise = httpWait();
@@ -4566,7 +4566,7 @@ let chapters = [
                 dom: function() {
                     return might.bind(might);
                 },
-                answer: function() {
+                solution: function() {
                     var player = new Player(1);
                     if (player.name !== 1)
                         this.warn = this.warn || "L'attribut <code>name</code> de la classe <code>Player</code> doit être initialisé avec son premier paramètre de constructeur.";
@@ -4582,7 +4582,7 @@ let chapters = [
                 dom: function() {
                     return might.bind(might);
                 },
-                answer: function() {
+                solution: function() {
                     var player = new Player(1);
                     if (player.table.querySelectorAll('td').length !== 24)
                         this.warn = this.warn || "L'attribut <code>table</code> de la classe <code>Player</code> doit être initialisé avec son premier paramètre de constructeur.";
@@ -4597,7 +4597,7 @@ let chapters = [
                 dom: function() {
                     return might.bind(might);
                 },
-                answer: function() {
+                solution: function() {
                     var player = new Player(1);
                     if (player.get(1, 1).className !== 'peon')
                         this.warn = this.warn || "La case 1,1 du joueur 1 contient la classe <code>peon</code>. La méthode <code>new Player(1).get(1, 1)</code> doit retourner ce <code>td</code>.";
@@ -4614,7 +4614,7 @@ let chapters = [
                 dom: function() {
                     return might.bind(might);
                 },
-                answer: function() {
+                solution: function() {
                     var player = new Player(1);
                     if (player.get(1, 1).className !== 'peon')
                         this.warn = this.warn || "La case 1,1 du joueur 1 contient la classe <code>peon</code>. La méthode <code>new Player(1).get(1, 1)</code> doit retourner ce <code>td</code>.";
@@ -4633,7 +4633,7 @@ let chapters = [
                 dom: function() {
                     return might.bind(might);
                 },
-                answer: function() {
+                solution: function() {
                     var player = new Player(1);
                     if (player.free(1) !== 3)
                         this.warn = this.warn || "La colonne 1 est occupée jusqu'en case 3, la méthode <code>free(1)</code> doit retourner <code>3</code>.";
@@ -4657,7 +4657,7 @@ let chapters = [
                 dom: function() {
                     return might.bind(might);
                 },
-                answer: function() {
+                solution: function() {
                     var player = new Player(1);
                     if (player.last(3) !== 0)
                         this.warn = this.warn || "La colonne 3 est inoccupée, la méthode <code>last(3)</code> doit retourner <code>0</code>.";
@@ -4678,7 +4678,7 @@ let chapters = [
                 dom: function() {
                     return might.bind(might);
                 },
-                answer: function() {
+                solution: function() {
                     var player = new Player(1);
                     player.get(4, 1).click();
                     if (game.memo.x !== 4 || game.memo.y !== 2)
@@ -4693,7 +4693,7 @@ let chapters = [
                 dom: function() {
                     return might.bind(might);
                 },
-                answer: function() {
+                solution: function() {
                     var player = new Player(1);
                     player.get(5, 1).click();
                     player.get(3, 1).click();
@@ -4714,7 +4714,7 @@ let chapters = [
                 dom: function() {
                     return might.bind(might);
                 },
-                answer: function() {
+                solution: function() {
                     var player = new Player(1);
                     player.get(5, 1).click();
                     player.get(3, 1).click();
@@ -4744,7 +4744,7 @@ let chapters = [
                 dom: function() {
                     return might.bind(might);
                 },
-                answer: function() {
+                solution: function() {
                     var player = new Player(1);
                     player.get(5, 1).click();
                     player.get(4, 1).click();
@@ -4760,7 +4760,7 @@ let chapters = [
                 dom: function() {
                     return might.bind(might);
                 },
-                answer: function() {
+                solution: function() {
                     var player = new Player(1);
                     player.get(5, 1).click();
                     player.get(4, 1).click();
@@ -4788,7 +4788,7 @@ let chapters = [
                 dom: function() {
                     return might.bind(might);
                 },
-                answer: function() {
+                solution: function() {
                     var player = new Player(1);
                     player.get(4, 1).click();
                     player.get(3, 1).click();
@@ -4804,7 +4804,7 @@ let chapters = [
                 dom: function() {
                     return might.bind(might);
                 },
-                answer: function() {
+                solution: function() {
                     var player = new Player(1);
                     player.get(5, 1).click();
                     player.get(4, 1).click();
@@ -5077,124 +5077,124 @@ let chapters = [
             },
             {
                 title: "Supprimer toutes les occurences d'une lettre",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de <code>x</code> (déclarée par ce tutoriel) dont toutes les lettres <code>e</code> ont été retirées.",
-                solved: "var secret = x.replace(/e/ig, '');",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de <code>x</code> (déclarée par ce tutoriel) dont toutes les lettres <code>e</code> ont été retirées.",
+                solved: "var answer = x.replace(/e/ig, '');",
                 init: function() {
                     window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
                 },
-                secret: function() {
+                answer: function() {
                     return this.x.replace(/e/ig, '');
                 },
                 warn: function() {
-                    return basicWarn(secret, this.secret());
+                    return basicWarn(answer, this.answer());
                 },
-                answer: function() {
-                    return secret === this.secret();
+                solution: function() {
+                    return answer === this.answer();
                 }
             },
             {
                 title: "Identifier si une chaine de caractères contient un pattern",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter <code>true</code> si la valeur de <code>x</code> (déclarée par ce tutoriel) contient la pattern <code>en.</code> ou <code>.</code> correspond à un caractère quelconque. Lui affecter <code>false</code> sinon.",
-                solved: "var secret = /en./i.test(x);",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter <code>true</code> si la valeur de <code>x</code> (déclarée par ce tutoriel) contient la pattern <code>en.</code> ou <code>.</code> correspond à un caractère quelconque. Lui affecter <code>false</code> sinon.",
+                solved: "var answer = /en./i.test(x);",
                 init: function() {
                     window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
                 },
-                secret: function() {
+                answer: function() {
                     return /en./i.test(this.x);
                 },
                 warn: function() {
-                    return basicWarn(secret, this.secret());
+                    return basicWarn(answer, this.answer());
                 },
-                answer: function() {
-                    return secret === this.secret();
+                solution: function() {
+                    return answer === this.answer();
                 }
             },
             {
                 title: "Identifier combien de fois une chaine de caractères contient un pattern",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter le compte de <code>e</code> contenus dans la chaine de caractères déclarée par <code>x</code> (déclarée par ce tutoriel).",
-                solved: "var match = x.match(/e/ig);<br>var secret = !match ? 0 : match.length;",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter le compte de <code>e</code> contenus dans la chaine de caractères déclarée par <code>x</code> (déclarée par ce tutoriel).",
+                solved: "var match = x.match(/e/ig);<br>var answer = !match ? 0 : match.length;",
                 init: function() {
                     window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
                 },
-                secret: function() {
+                answer: function() {
                     var match = this.x.match(/e/ig);
                     return !match ? 0 : match.length;
                 },
                 warn: function() {
-                    return basicWarn(secret, this.secret());
+                    return basicWarn(answer, this.answer());
                 },
-                answer: function() {
-                    return secret === this.secret();
+                solution: function() {
+                    return answer === this.answer();
                 }
             },
             {
                 title: "Déclarer un pattern dynamique",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter <code>true</code> si le pattern déclaré par <code>y</code> est contenu dans la valeur de <code>x</code> (déclarées par ce tutoriel).",
-                solved: "var secret = new RegExp(y).test(x);",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter <code>true</code> si le pattern déclaré par <code>y</code> est contenu dans la valeur de <code>x</code> (déclarées par ce tutoriel).",
+                solved: "var answer = new RegExp(y).test(x);",
                 init: function() {
                     window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
                     window.y = this.y = randomize("en.", "e.*d", "e?t")
                 },
-                secret: function() {
+                answer: function() {
                     return new RegExp(this.y).test(this.x);
                 },
                 warn: function() {
-                    return basicWarn(secret, this.secret());
+                    return basicWarn(answer, this.answer());
                 },
-                answer: function() {
-                    return secret === this.secret();
+                solution: function() {
+                    return answer === this.answer();
                 }
             },
             {
                 title: "Déclarer un pattern conditonnel",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de <code>x</code> (déclarée par ce tutoriel) dont tous les <code>to</code>, <code>at</code>, <code>in</code> et <code>is</code> ont été retirés (de préférence, avec une seule expression régulière).",
-                solved: "var secret = x.replace(/(to|at|in|is)/ig, '');",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de <code>x</code> (déclarée par ce tutoriel) dont tous les <code>to</code>, <code>at</code>, <code>in</code> et <code>is</code> ont été retirés (de préférence, avec une seule expression régulière).",
+                solved: "var answer = x.replace(/(to|at|in|is)/ig, '');",
                 init: function() {
                     window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
                 },
-                secret: function() {
+                answer: function() {
                     return this.x.replace(/(to|at|in|is)/g, '');
                 },
                 warn: function() {
-                    return basicWarn(secret, this.secret());
+                    return basicWarn(answer, this.answer());
                 },
-                answer: function() {
-                    return secret === this.secret();
+                solution: function() {
+                    return answer === this.answer();
                 }
             },
             {
                 title: "Déclarer un pattern avec des groupes",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter la valeur de <code>x</code> (déclarée par ce tutoriel) dont chaque <code>e</code> a été remplacé par <code>-e-</code> à condition qu'il soit précédé et suivi d'une lettre (et pas d'une espace — de préférence, avec une seule expression régulière).",
-                solved: "var secret = x.replace(/(\w)e(\w)/ig, '$1-e-$2');",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de <code>x</code> (déclarée par ce tutoriel) dont chaque <code>e</code> a été remplacé par <code>-e-</code> à condition qu'il soit précédé et suivi d'une lettre (et pas d'une espace — de préférence, avec une seule expression régulière).",
+                solved: "var answer = x.replace(/(\w)e(\w)/ig, '$1-e-$2');",
                 init: function() {
                     window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
                 },
-                secret: function() {
+                answer: function() {
                     return this.x.replace(/(\w)e(\w)/ig, '$1-e-$2');
                 },
                 warn: function() {
-                    return basicWarn(secret, this.secret());
+                    return basicWarn(answer, this.answer());
                 },
-                answer: function() {
-                    return secret === this.secret();
+                solution: function() {
+                    return answer === this.answer();
                 }
             },
             {
                 title: "Déclarer un pattern non glouton",
-                description: "Créer une variable nommée <code>secret</code> et lui affecter le compte de <code><strong>...</strong></code> contenus dans la chaine de caractères déclarée par <code>x</code> (déclarée par ce tutoriel) ou <code>...</code> correspond à un ou plusieurs caractères quelconques.",
-                solved: "var match = x.match(/&lt;strong&gt;.*?&lt;\\/strong&gt;/g);<br>var secret = !match ? 0 : match.length;",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter le compte de <code><strong>...</strong></code> contenus dans la chaine de caractères déclarée par <code>x</code> (déclarée par ce tutoriel) ou <code>...</code> correspond à un ou plusieurs caractères quelconques.",
+                solved: "var match = x.match(/&lt;strong&gt;.*?&lt;\\/strong&gt;/g);<br>var answer = !match ? 0 : match.length;",
                 init: function() {
                     window.x = this.x = randomize("I used to <strong>get</strong> mad at my school (No I <strong>can't</strong> complain)", "Lucy in the <strong>sky</strong> with <strong>diamonds</strong>", "And in the end, the love you <strong>take</strong> is equal to the love you <strong>make</strong>", "Sit <strong>back</strong> and let the evening <strong>go</strong>");
                 },
-                secret: function() {
+                answer: function() {
                     var match = this.x.match(/<strong>.*?<\/strong>/g);
                     return !match ? 0 : match.length;
                 },
                 warn: function() {
-                    return basicWarn(secret, this.secret());
+                    return basicWarn(answer, this.answer());
                 },
-                answer: function() {
-                    return secret === this.secret();
+                solution: function() {
+                    return answer === this.answer();
                 }
             }
         ]
@@ -5211,7 +5211,7 @@ let chapters = [
                 dom: function() {
                     return sliding.bind(sliding);
                 },
-                answer: function() {
+                solution: function() {
                     let classNames = getClassNames('.sliding li');
 
                     if (classNames.length !== 9)
@@ -5241,7 +5241,7 @@ let chapters = [
                 dom: function() {
                     return sliding.bind(sliding);
                 },
-                answer: function() {
+                solution: function() {
                     let button = document.querySelector('.sliding button');
                     button.click();
 
@@ -5292,7 +5292,7 @@ let chapters = [
                 dom: function() {
                     return sliding.bind(sliding);
                 },
-                answer: function() {
+                solution: function() {
                     let button = document.querySelector('.sliding button');
                     button.click();
 
@@ -5334,7 +5334,7 @@ let chapters = [
                 dom: function() {
                     return connectfour.bind(connectfour);
                 },
-                answer: function() {
+                solution: function() {
                     if (document.querySelectorAll('table tr').length !== 6)
                         this.warn = this.warn || "La table doit contenir 6 <code>tr</code>";
                     if (document.querySelectorAll('table tr td').length !== 42)
@@ -5349,7 +5349,7 @@ let chapters = [
                 dom: function() {
                     return connectfour.bind(connectfour);
                 },
-                answer: function() {
+                solution: function() {
                     var cell = function(tr, td) {
                         return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
                     }
@@ -5377,7 +5377,7 @@ let chapters = [
                 dom: function() {
                     return connectfour.bind(connectfour);
                 },
-                answer: function() {
+                solution: function() {
                     var cell = function(tr, td) {
                         return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
                     }
@@ -5408,7 +5408,7 @@ let chapters = [
                 dom: function() {
                     return connectfour.bind(connectfour);
                 },
-                answer: function() {
+                solution: function() {
                     var cell = function(tr, td) {
                         return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
                     }
@@ -6196,9 +6196,9 @@ let stepper = function(el, data, methods) {
                 new Promise(function(resolve) {
                     try {
                         Promise
-                        .resolve(stepContent.answer())
-                        .then(function(answer) {
-                            complete = answer;
+                        .resolve(stepContent.solution())
+                        .then(function(solution) {
+                            complete = solution;
                             resolve(this.methods.warn());
                         }.bind(this));
                     } catch(err) {
