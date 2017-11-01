@@ -986,7 +986,7 @@ let chapters = [
                 }
             },
             {
-                title: "Diviser deux nombres",
+                title: "Diviser deux nombres (division euclidienne)",
                 description: "Créer une variable nommée <code>answer</code> et lui affecter le résultat de la division de la variables <code>x</code> par <code>y</code> (déclarées par ce tutoriel) arrondi à l'entier inférieur.",
                 excerpt: "Il est possible d'effectuer des arrondis avec la fonction <code>parseInt(value, 10)</code> ou <code>Math.floor(value)</code> (founies par tous les navigateurs).",
                 solved: "var answer = parseInt(x / y, 10);",
@@ -1042,7 +1042,7 @@ let chapters = [
                 `
             },
             {
-                title: "Retourner le plus grand de deux nombres",
+                title: "Identifier le nombre le plus grand",
                 description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur du plus grand nombre parmi <code>x</code> et <code>y</code> (déclarées par ce tutoriel).",
                 excerpt: "Il est égalemen d'écrire une condition qui vérifie lequel de deux nombres est le plus grand avec <code>if</code>. Ou, à la place d'utiliser <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math\"><code>Math</code></a>, celui-ci dispose de fonctionnalités pour identifier les maximum, minimum, sinus, etc.",
                 solved: "var answer;<br>if (x > y) {<br>  answer = x;<br>} else {<br>  answer = y;<br>}<br><br>/* or, instead */<br><br>var answer = Math.max(x, y);",
@@ -1061,7 +1061,7 @@ let chapters = [
                 }
             },
             {
-                title: "Retourner la plus grande de deux chaines",
+                title: "Identifier le texte le plus long",
                 description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de la chaîne de caractères la plus longue parmi <code>x</code> et <code>y</code> (déclarées par ce tutoriel).",
                 excerpt: "Les chaines de caractères sont des tableaux de caractères. Elles disposent donc d'un attribut <code>length</code> indiquant leur nombre d'éléments. Il est également possible d'accéder - comme pour un tableau - à un élément avec son index.<br><br><strong>Exemple</strong> : <code>'lorem ipsum'.length</code> retourne <code>11</code>, car la chaine est composée de 11 caractères. <code>'lorem ipsum'[3]</code> retourne <code>e</code>, car il s'agit du 4iem caractère de la chaine (l'index des tableaux commence à zéro).",
                 solved: "var answer;<br>if (x.length > y.length) {<br>  answer = x;<br>} else {<br>  answer = y;<br>}",
@@ -1080,7 +1080,7 @@ let chapters = [
                 }
             },
             {
-                title: "Initialiser un booléen",
+                title: "Récupérer le résultat d'une comparaison",
                 description: "Créer une variable nommée <code>answer</code> et lui affecter <code>true</code> si la somme de <code>x</code> et <code>y</code> (déclarées par ce tutoriel) est supérieure à 100, <code>false</code> sinon.",
                 excerpt: "En plus des nombres et des chaines de caractères, le langage dispose de booléens, des variables dont la valeur est <code>true</code> ou <code>false</code>. Les conditions et les boucles sont basées sur des tests booléens (faits par le navigateur).",
                 solved: "var answer = x + y > 100;",
@@ -1125,15 +1125,14 @@ let chapters = [
             },
             {
                 title: "Effectuer deux conditions simultanées",
-                description: "Créer une variable nommée <code>answer</code> et lui affecter <code>true</code> si <code>x</code> et <code>y</code> (déclarées par ce tutoriel) sont tous deux supérieurs à 10, <code>false</code> sinon.",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter <code>true</code> si <code>x</code> (déclarées par ce tutoriel) est supérieur à 10 et inférieur à 15, <code>false</code> sinon.",
                 excerpt: "Les opérateurs et <code>&&</code> et ou <code>||</code> permettent de combiner des conditions.<br><br><strong>Exemple</strong> : <code>10 < 12 && 12 < 15</code> retourne <code>true</code> car les deux conditions sont vérifiées. <code>10 < 12 || 12 > 15</code> retourne <code>true</code> car une des deux conditions est vérifiée. <code>10 > 12 || 12 > 15</code> retourne <code>false</code> car aucune des deux conditions n'est vérifiée.",
-                solved: "var answer = x > 10 && y > 10;",
+                solved: "var answer = x > 10 && x < 15;",
                 init: function() {
-                    window.x = this.x = randomize(5, 9, 14, 18);
-                    window.y = this.y = randomize(5, 9, 14, 18);
+                    window.x = this.x = randomize(5, 11, 14, 18);
                 },
                 answer: function() {
-                    return this.x > 10 && this.y > 10;
+                    return this.x > 10 && this.x < 15;
                 },
                 warn: function() {
                     return basicWarn(answer, this.answer());
@@ -1144,14 +1143,99 @@ let chapters = [
             },
             {
                 title: "Effectuer une condition ou une autre",
-                description: "Créer une variable nommée <code>answer</code> et lui affecter <code>true</code> si <code>x</code> ou <code>y</code> (déclarées par ce tutoriel) est supérieur à 10, <code>false</code> sinon.",
-                solved: "var answer = x > 10 || y > 10;",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter <code>true</code> si <code>x</code> (déclarées par ce tutoriel) est supérieur à 10 ou inférieur à -10, <code>false</code> sinon.",
+                solved: "var answer = x > 10 || x < -10;<br><br>/* or, instead */<br><br>var answer = Math.abs(x) > 10;",
                 init: function() {
-                    window.x = this.x = randomize(5, 9, 14, 18);
-                    window.y = this.y = randomize(5, 9, 14, 18);
+                    window.x = this.x = randomize(-18, -14, -11, -5, 5, 11, 14, 18);
                 },
                 answer: function() {
-                    return this.x > 10 || this.y > 10;
+                    return this.x > 10 || this.x < -10;
+                },
+                warn: function() {
+                    return basicWarn(answer, this.answer());
+                },
+                solution: function() {
+                    return answer === this.answer();
+                }
+            },
+            {
+                title: "L'expression de boucle while",
+                course: true,
+                description: `
+                    Les boucles sont des expressions conditionnelles dont l'opération peut-être répétée à plusieurs reprises.
+
+                    L'expression conditionnelle de boucle \`while\` effectue une opération tant que sa condition est vérifiée (égale à \`true\`).
+
+                    **Opération conditionnelle while :**
+
+                        // compute 4! which is equal to 4*3*2*1
+
+                        var fact = 4;
+                        var total = 1;
+
+                        while (fact > 0) {
+                          total = total * fact;
+                          fact = fact - 1;
+                        }
+
+                        // total === 24
+
+                    Il est également possible d'utiliser le mot clé \`do\` afin d'effectuer l'opération une première fois avant d'itérer.
+
+                    **Opération conditionnelle while alternative :**
+
+                        var fact = 4;
+                        var total = 1;
+
+                        do {
+                          total = total * fact;
+                          fact = fact - 1;
+                        } while (fact > 0);
+
+                        // total === 24
+                `
+            },
+            {
+                title: "Calculer une puissance",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de <code>x</code> puissance <code>y</code> (ex. 2^3 = 2*2*2 — déclarées par ce tutoriel)",
+                solved: "var answer = x;<br>while (y > 1) {<br>  answer = answer * y;<br>  y = y - 1;<br>}",
+                init: function() {
+                    window.x = this.x = randomize(2, 4, 6);
+                    window.y = this.y = randomize(3, 5, 7);
+                },
+                answer: function() {
+                    var x = this.x;
+                    var y = this.y;
+                    while(y > 1) {
+                        x = x * y;
+                        y--;
+                    }
+                    return x;
+                },
+                warn: function() {
+                    return basicWarn(answer, this.answer());
+                },
+                solution: function() {
+                    return answer === this.answer();
+                }
+            },
+            {
+                title: "Calculer une plage",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de la plage située entre <code>x</code> et <code>y</code> (ex. 2-5 = 2+3+4+5 — déclarées par ce tutoriel)",
+                solved: "var answer = 0;<br>while (x <= y) {<br>  answer = answer + x;<br>  x = x + 1;<br>}",
+                init: function() {
+                    window.x = this.x = randomize(2, 4, 6);
+                    window.y = this.y = randomize(8, 10, 12);
+                },
+                answer: function() {
+                    var x = this.x;
+                    var y = this.y;
+                    var result = 0;
+                    while(x <= y) {
+                        result = result + x;
+                        x++;
+                    }
+                    return result;
                 },
                 warn: function() {
                     return basicWarn(answer, this.answer());
@@ -1196,19 +1280,15 @@ let chapters = [
                 `
             },
             {
-                title: "Effectuer une boucle",
-                description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de la chaîne <code>x</code> répétée autant de fois que la valeur numérique <code>y</code> (ex. 3, skate -> skateskateskate — déclarées par ce tutoriel)",
-                excerpt: "L'expression conditionnelle de boucle <code>for</code> effectue une opération tant que sa condition est vérifiée (égale à true). Cette expression est originale : elle se définit en trois parties facultatives, d'abord une initialisation, ensuite une condition, enfin une opération finale. L'initialisation est effectuée au premier pas de boucle, ensuite, tant que la condition n'est pas vérifiée, la ou les opérations sont évaluées, puis l'opération finale est évaluée à son tour.<br><br><strong>Exemple</strong> : <pre><code>for (var i = 0; i < 5; i++) {<br> console.log(i);<br>}</code></pre> affiche <code>0 1 2 3 4</code> dans la console du navigateur. Elle peut se lire ainsi : « Soit <code>i</code> initialisé à zéro, tant que <code>i</code> est inférieur à <code>5</code> effectuer les opérations suivantes. Après avoir effectué les opérations, ajouter <code>1</code> à <code>i</code>, puis recommencer ».",
-                solved: "var answer = '';<br>for (var i = 0; i < y; i++) {<br>  answer = answer + x;<br>}",
+                title: "Normaliser des numéros de téléphones",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de <code>x</code> (éclarée par ce tutoriel) dont tous les espaces ont été retirés (ex. '06 05 04 03 02' -> '0605040302').",
+                excerpt: "Les condition et les boucles peuvent être imbriquées les unes dans les autres.<br><br>Les chaines de caractères sont des tableaux de caractères. Elles disposent donc d'un attribut <code>length</code> indiquant leur nombre d'éléments. Il est également possible d'accéder - comme pour un tableau - à un élément avec son index.<br><br><strong>Exemple</strong> : <code>'lorem ipsum'.length</code> retourne <code>11</code>, car la chaine est composée de 11 caractères. <code>'lorem ipsum'[3]</code> retourne <code>e</code>, car il s'agit du 4iem caractère de la chaine (l'index des tableaux commence à zéro).",
+                solved: "var answer = '';<br>for (var i = 0; i < x.length; i++) {<br>  var char = x[i];<br>  if (char !== ' ') {<br>    answer = answer + char;<br>  }<br>}",
                 init: function() {
-                    window.x = this.x = randomize('skate', 'rollers', 'submarine');
-                    window.y = this.y = randomize(3, 5, 8, 13);
+                    window.x = this.x = randomize('06 03 05 02 04 ', '06 01  04 03 07', ' 06 08 03 09 02');
                 },
                 answer: function() {
-                    let result = '';
-                    for(let i = 0; i < this.y; i++)
-                        result += this.x;
-                    return result;
+                    return this.x.replace(/[ ]+/g, '');
                 },
                 warn: function() {
                     return basicWarn(answer, this.answer());
@@ -1218,27 +1298,9 @@ let chapters = [
                 }
             },
             {
-                title: "Effectuer une boucle",
-                description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de <code>x</code> (déclarée par ce tutoriel) dont tous les <code>e</code> ont été retirés.",
-                excerpt: "Les condition et les boucles peuvent être imbriquées les unes dans les autres.",
-                solved: "var answer = '';<br>for (var i = 0; i < x.length; i++) {<br>  var char = x[i];<br>  if (char !== 'e') {<br>    answer = answer + char;<br>  }<br>}",
-                init: function() {
-                    window.x = this.x = randomize('skate', 'rollers', 'submarine');
-                },
-                answer: function() {
-                    return this.x.replace(/[e]+/g, '');
-                },
-                warn: function() {
-                    return basicWarn(answer, this.answer());
-                },
-                solution: function() {
-                    return answer === this.answer();
-                }
-            },
-            {
-                title: "Effectuer une boucle et une condition",
+                title: "Calculer une plage d'impairs",
                 description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de tous les nombres de 1 jusqu'à <code>x</code> (déclarée par ce tutoriel) sans les pairs (ex. 7 -> 7 + 5 + 3 + 1).",
-                solved: "var answer = 0;<br>for (var i = 1; i <= x; i++) {<br>  if (i % 2 === 1) {<br>    answer = answer + i;<br>  }<br>}",
+                solved: "var answer = 0;<br>for (var i = 1; i <= x; i++) {<br>  if (i % 2 === 1) {<br>    answer = answer + i;<br>  }<br>}<br><br>/* or, instead */<br><br>var answer = 0;<br>for (var i = 1; i <= x; i = i + 2) {<br>  answer = answer + i;<br>}",
                 init: function() {
                     window.x = this.x = random(5, 9);
                 },
@@ -1257,20 +1319,21 @@ let chapters = [
                 }
             },
             {
-                title: "L'expression de boucle while",
-                course: true,
-                description: `
-                    L'expression conditionnelle de boucle \`while\` effectue une opération tant que sa condition est vérifiée (égale à \`true\`). Il est également possible d'utiliser le mot clé \`do\` afin d'effectuer l'opération une première fois avant d'itérer.
-
-                    **Opération conditionnelle while :**
-
-                        while (albums < 12)
-                          albums = albums + 1;
-
-                        do {
-                          albums++;
-                        } while (albums < 12)
-                `
+                title: "Identifier un palindrome",
+                description: "Créer une variable nommée <code>answer</code> ayant pour valeur <code>true</code> si <code>x</code> (déclarée par ce tutoriel) est un palindrome, <code>false</code> sinon. Un palindrome est un mot qui se lit de la même manière à l'endroit et à l'envers (ex. kayak).",
+                solved: "var answer = true;<br>for (var i = 0; i <= x.length / 2; i++) {<br>  if (x[i] !== x[x.length - i]) {<br>    answer = false;<br>  }<br>}",
+                init: function() {
+                    window.x = this.x = random('anna', 'kayak', 'eva', 'canoe');
+                },
+                answer: function() {
+                    return this.x === this.x.split('').reverse().join('');;
+                },
+                warn: function() {
+                    return basicWarn(answer, this.answer());
+                },
+                solution: function() {
+                    return answer === this.answer();
+                }
             },
             {
                 title: "L'expression conditionnelle switch",
@@ -1450,15 +1513,15 @@ let chapters = [
             },
             {
                 title: "Modifier un tableau",
-                description: "Créer une variable nommée <code>answer</code> de type tableau avec toutes les valeurs du tableau <code>x</code> (déclarée par ce tutoriel) dont chaque valeur a été doublée (ex. [1, 5, 7] -> [2, 10, 14]).",
+                description: "Créer une variable nommée <code>answer</code> de type tableau avec toutes les valeurs du tableau <code>x</code> (déclarée par ce tutoriel) dont chaque valeur a été arrondie à l'entier le plus proche (ex. [1.2, 5.7, 7.5] -> [1, 6, 8]).",
                 excerpt: "Les boucles <code>for</code> sont souvent utilisées pour parcourir un tableau et récupérer chacune de ses valeurs une à une.<br><br><strong>Exemple</strong> : <pre><code>for (var i = 0; i < items.length; i++) { <br>  console.log('value', items[i]); <br>}</code></pre> parcourt un tableau et affiche chacune de ses valeurs.",
-                solved: "var answer = [];<br>for (var i = 0; i < x.length; i++) {<br>  var value = x[i];<br>  answer.push(value * 2); <br>}",
+                solved: "var answer = [];<br>for (var i = 0; i < x.length; i++) {<br>  var value = x[i];<br>  answer[i] = Math.round(value); <br>}",
                 init: function() {
-                    this.x = [random(1, 10), random(1, 10), random(1, 10), random(1, 10)];
+                    this.x = [random(1, 10) + 0.1 * random(1, 10), random(1, 10) + 0.1 * random(1, 10), random(1, 10) + 0.1 * random(1, 10), random(1, 10) + 0.1 * random(1, 10)];
                     window.x = this.x.slice(0);
                 },
                 answer: function() {
-                    return this.x.map(function(item) { return item * 2; });
+                    return this.x.map(function(item) { return Math.round(item); });
                 },
                 warn: function() {
                     return basicWarn(answer, this.answer());
@@ -1469,16 +1532,15 @@ let chapters = [
             },
             {
                 title: "Filtrer un tableau",
-                description: "Créer une variable nommée <code>answer</code> de type tableau avec toutes les valeurs du tableau <code>x</code> dont la valeur de <code>y</code> a été retirée (ex. 3, [1, 3, 3, 1] -> [1, 1] — déclarées par ce tutoriel).",
-                solved: "var answer = [];<br>for (var i = 0; i < x.length; i++) {<br>  if (x[i] !== y) {<br>    answer.push(x[i]);<br>  }<br>}",
+                description: "Créer une variable nommée <code>answer</code> de type tableau avec toutes les valeurs du tableau <code>x</code> dont les valeurs inférieures à 10 ont été retirées (ex. [7, 12, 3, 17] -> [12, 17] — déclarées par ce tutoriel).",
+                solved: "var answer = [];<br>for (var i = 0; i < x.length; i++) {<br>  if (x[i] >= 10) {<br>    answer.push(x[i]);<br>  }<br>}",
                 init: function() {
-                    this.x = [random(1, 3), random(1, 3), random(1, 3), ''+random(1, 3), random(1, 3), ''+random(1, 3), random(1, 3), ''+random(1, 3)];
+                    this.x = [random(1, 20), random(1, 20), random(1, 20), random(1, 20), random(1, 20), random(1, 20), random(1, 20), random(1, 20)];
                     window.x = this.x.slice(0);
-                    window.y = this.y = randomize.apply(null, x);
                 },
                 answer: function() {
                     let y = this.y;
-                    return this.x.filter(function(i) { return i !== y; });
+                    return this.x.filter(function(i) { return i >= 10; });
                 },
                 warn: function() {
                     return "La variable <code>answer</code> vaut <code>" + JSON.stringify(answer) + "</code> et non la résultat attendu, <code>" + this.answer() + "</code> (attention, le tableau contient des entiers et des chaines de caractères).";
@@ -1488,21 +1550,42 @@ let chapters = [
                 }
             },
             {
-                title: "Réduire un tableau",
-                description: "Créer une variable nommée <code>answer</code> ayant pour la valeur la somme de toutes les valeur du tableau <code>x</code> (ex. [1, 5, 7] -> 13 — déclarée par ce tutoriel).",
-                solved: "var answer = 0;<br>for (var i = 0; i < x.length; i++) {<br>  answer = answer + x[i];<br>}",
+                title: "Calculer une moyenne",
+                description: "Créer une variable nommée <code>answer</code> ayant pour valeur la moyenne (entière, arrondie à l'inférieur) des valeurs du tableau <code>x</code> (ex. [1, 5, 7] -> (1+5+7)/3 -> 4 — déclarée par ce tutoriel).",
+                solved: "var answer = 0;<br>for (var i = 0; i < x.length; i++) {<br>  answer = answer + x[i];<br>}<br>answer = Math.ceil(answer / x.length);",
                 init: function() {
                     this.x = [random(1, 10), random(1, 10), random(1, 10), random(1, 10)];
                     window.x = this.x.slice(0);
                 },
                 answer: function() {
-                    return this.x.reduce(function(memo, value) { return memo + value; }, 0);
+                    return Math.ceil(this.x.reduce(function(memo, value) { return memo + value; }, 0) / this.x.length);
                 },
                 warn: function() {
                     return basicWarn(answer, this.answer());
                 },
                 solution: function() {
                     return answer === this.answer();
+                }
+            },
+            {
+                title: "Supprimer des doublons",
+                description: "Créer une variable nommée <code>answer</code> de type tableau avec toutes les valeurs du tableau <code>x</code> (déclarée par ce tutoriel) dont tous les doublons ont été supprimés (ex. ['banana', 'apple', 'apple', 'pear'] -> ['banana', 'apple', 'pear']).",
+                solved: "var answer = 0;<br>for (var i = 0; i < x.length; i++) {<br>  answer = answer + x[i];<br>}<br>answer = Math.ceil(answer / x.length);",
+                init: function() {
+                    var fruits = ['banana', 'apple', 'pear', 'pineapple', 'coconut'];
+                    this.x = [randomize.apply(null, fruits), randomize.apply(null, fruits), randomize.apply(null, fruits), randomize.apply(null, fruits)];
+                    window.x = this.x.slice(0);
+                },
+                answer: function() {
+                    return this.x.filter(function(item, pos, x) {
+                        return x.indexOf(item) === pos;
+                    });
+                },
+                warn: function() {
+                    return basicWarn(answer, this.answer());
+                },
+                solution: function() {
+                    return equals(answer, this.answer());
                 }
             }
         ]
