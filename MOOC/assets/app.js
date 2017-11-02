@@ -216,7 +216,7 @@ let booking = function() {
                 <div class="sixteen wide yellow center aligned column">
                     <h4 class="ui header">
                         <i class="plane icon"></i>
-                        <div class="content">Réserver un vol</div>
+                        <div class="content">Réserver un vol + hôtel</div>
                     </h4>
                 </div>
                 <div class="eight wide column">
