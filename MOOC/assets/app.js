@@ -2177,9 +2177,9 @@ let chapters = [
                     document.querySelector('tr').classList.remove('release');
 
                     document.querySelector('p').innerHTML;
-                    → '<p>Hey Jude is a song by the English rock band <a href="http://www.thebeatles.com">the Beatles</a></p>'
+                    → 'Hey Jude is a song by the English rock band <a href="http://www.thebeatles.com">the Beatles</a>'
 
-                    document.querySelector('p').innerHTML = '<p>Live performance footage <a href=".."><img src=".."></a></p>';
+                    document.querySelector('p').innerHTML = 'Live performance footage <a href=".."><img src=".."></a>';
                     \`\`\`
 
                     Une documentation détaillée est disponible pour [classList](https://developer.mozilla.org/en/docs/Web/API/Element/classList) et [innerHTML](https://developer.mozilla.org/en/docs/Web/API/Element/innerHTML) pour plus de détails.
