@@ -1698,7 +1698,7 @@ let chapters = [
             {
                 title: "Filtrer un dictionnaire",
                 description: "Créer une variable nommée <code>answer</code> de type dictionnaire, avec les attributs du dictionnaire déclarés par la variable <code>x</code> dont les attributs listés dans le tableau déclaré par la variable <code>y</code> ont été supprimés (ex. {paul:true, john:true, george:true}, ['paul', 'ringo'] -> {john:true, george:true} — déclarée par ce tutoriel).",
-                solved: "var answer = x;<br>for (var i = 0; i < y.length; i++)<br>  delete answer[this.y[i]];",
+                solved: "var answer = x;<br>for (var i = 0; i < y.length; i++)<br>  delete answer[y[i]];",
                 init: function() {
                     this.x = {yellow: true, green: true, blue: true, violet: true, red: true, orange: true};
                     window.x = Object.assign({}, this.x);
