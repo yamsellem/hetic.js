@@ -1323,7 +1323,7 @@ let chapters = [
                 description: "Créer une variable nommée <code>answer</code> ayant pour valeur <code>true</code> si <code>x</code> (déclarée par ce tutoriel) est un palindrome, <code>false</code> sinon. Un palindrome est un mot qui se lit de la même manière à l'endroit et à l'envers (ex. kayak).",
                 solved: "var answer = true;<br>for (var i = 0; i <= x.length / 2; i++) {<br>  if (x[i] !== x[x.length - i]) {<br>    answer = false;<br>  }<br>}",
                 init: function() {
-                    window.x = this.x = random('anna', 'kayak', 'eva', 'canoe');
+                    window.x = this.x = randomize('anna', 'kayak', 'eva', 'canoe');
                 },
                 answer: function() {
                     return this.x === this.x.split('').reverse().join('');;
@@ -1570,7 +1570,7 @@ let chapters = [
             {
                 title: "Supprimer des doublons",
                 description: "Créer une variable nommée <code>answer</code> de type tableau avec toutes les valeurs du tableau <code>x</code> (déclarée par ce tutoriel) dont tous les doublons ont été supprimés (ex. ['banana', 'apple', 'apple', 'pear'] -> ['banana', 'apple', 'pear']).",
-                solved: "var answer = 0;<br>for (var i = 0; i < x.length; i++) {<br>  answer = answer + x[i];<br>}<br>answer = Math.ceil(answer / x.length);",
+                solved: "var answer = [];<br>for (var i = 0; i < x.length; i++) {<br>  if (answer.indexOf(x[i]) === -1) {<br>  answer.push(x[i]);<br>  }<br>}",
                 init: function() {
                     var fruits = ['banana', 'apple', 'pear', 'pineapple', 'coconut'];
                     this.x = [randomize.apply(null, fruits), randomize.apply(null, fruits), randomize.apply(null, fruits), randomize.apply(null, fruits)];
