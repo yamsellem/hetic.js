@@ -2258,7 +2258,7 @@ let chapters = [
                 title: "Écouter plusieurs événements",
                 description: "Ajouter un écouteur d'événement sur tous les éléments dotés de la classe <code>champagne</code>, et, au clic, remplacer cette classe par <code>braken</code>.",
                 excerpt: "Le code déclaré dans la fonction d'un écouteur d'événement n'est excuté par le navigateur qu'on moment où l'événement se produit. Cela pose problème avec les boucles car elles modifient les variables <code>i</code> & co. et la valeur du code dans l'écouteur d'événement se retrouve être la dernière positionnée par la boucle.<br><br>Pour éviter cela, il est possible d'utiliser <code>this</code> dasn l'écouteur d'événement (qui correspond à l'élément qui a été cliqué) ou de déclarer toutes les variables de la boucles avec <code>let name</code> au lieu de <code>var name</code> (leur portée est ainsi limitée à la boucle) ou encore de créer une fonction qui encapsule le code déclenché par l'événement.<br><br>Ce problème tient à la portée des variables déclarées avec <code>var</code> qui est locale à la fonction qui l'encapsule, et non à la boucle qui l'encapsule.",
-                solved: "var lis = document.querySelectorAll('.board li.champagne');<br>for (var i = 0; i < lis.length; i++) {<br>  var li = lis[i];<br>  li.addEventListener('click', function() {<br>    this.className = 'braken';<br>  });<br>}",
+                solved: "var lis = document.querySelectorAll('.board li.champagne');<br>for (var i = 0; i < lis.length; i++) {<br>  var li = lis[i];<br>  li.addEventListener('click', function(event) {<br>    event.target.className = 'braken';<br>  });<br>}",
                 dom: function() {
                     return board.bind(board, cartman);
                 },
@@ -2281,7 +2281,7 @@ let chapters = [
                 title: "Écouter un événement",
                 description: "Ajouter un écouteur d'événement sur le premier élément doté de la classe <code>braken</code> et le premier doté de la classe <code>champagne</code>, et, au clic sur l'un des deux, intervertir leurs classes.",
                 excerpt: "Lorsque du code se retrouve dupliqué, il est possible de le rassembler au sein d'une fonction et d'appeller celle-ci plusieurs fois. Le mot clé <code>function</code> permet de déclarer un sous programme qui peut être appelé par du code externe (ou s'appeller elle-même, en cas d'appels récursifs). Comme une boucle conditionnelle, une fonction est composée d'une liste d'opérations (délimitées entre accolades), il est possible de lui fournir des arguments et elle peut retourner une valeur avec le mot clé <code>return</code>. Une fonction est variables comme les autres.<br><br><strong>Exemple</strong> : <pre><code>var double = function(value) { <br>  return value * 2; <br>}</code></pre> crée une fonction qui retourne le double d'un nombre. utilisée ainsi <code>double(12)</code> elle retourne <code>24</code>.",
-                solved: "var lib = document.querySelector('.board li.braken');<br>var lic = document.querySelector('.board li.champagne');<br><br>var toggle = function(li) {<br>  if (li.className === 'champagne') {<br>    li.className = 'braken';<br>  } else {<br>    li.className = 'champagne';<br>  }<br>}<br><br>lib.addEventListener('click', function() {<br>  toggle(lib);<br>  toggle(lic);<br>});<br><br>lic.addEventListener('click', function() {<br>  toggle(lib);<br>  toggle(lic);<br>});",
+                solved: "var first = document.querySelector('ul.board li.braken');<br>var second = document.querySelector('ul.board li.champagne');<br><br>first.addEventListener('click', function() {<br>  var memo = first.className;<br>  first.className = second.className;<br>  second.className = memo;<br>});<br><br>second.addEventListener('click', function() {<br>  var memo = first.className;<br>  first.className = second.className;<br>  second.className = memo;<br>});",
                 dom: function() {
                     return board.bind(board, kenny);
                 },
@@ -2335,7 +2335,7 @@ let chapters = [
             {
                 title: "Mémoriser un état",
                 description: "Ajouter un écouteur d'événement sur tous les éléments dotés de la classe <code>braken</code>, et, après 3 clics répétés sur n'importe lequel d'entre eux, remplacer sa classe par <code>champagne</code>.",
-                solved: "var handleClick = function(lis, count, i) {<br>  count[i] = 0;<br>  var li = lis[i];<br>  li.addEventListener('click', function() {<br>    count[i]++;<br>    if (count[i] > 2) {<br>      li.className = 'champagne';<br>    }<br>  });<br>}<br><br>var lis = document.querySelectorAll('.board li.braken');<br>var count = [];<br>for (var i = 0; i < lis.length; i++) {<br>  handleClick(lis, count, i);<br>}",
+                solved: "var lis = document.querySelectorAll('.board li.braken');<br>var count = [];<br>for (let i = 0; i < lis.length; i++) {<br>  count[i] = 0;<br>  let li = lis[i];<br>  li.addEventListener('click', function() {<br>    count[i]++;<br>    if (count[i] > 2) {<br>      li.className = 'champagne';<br>    }<br>  });<br>}",
                 dom: function() {
                     return board.bind(board, kenny);
                 },
@@ -2428,7 +2428,7 @@ let chapters = [
             {
                 title: "Manipuler les attributs data-*",
                 description: "À chaque clic sur un <code>li</code> de <code>ul.board</code>, ajouter un attribut <code>data-value</code> sur cet élément avec le nombre d'éléments sélectionnés jusque là.<br><br>Un élément ne peut être sélectionné deux fois.",
-                solved: "var value = 0;<br>var lis = document.querySelectorAll('.board li');<br>for (var i = 0; i < lis.length; i++) {<br>  var li = lis[i];<br>  li.addEventListener('click', function() {<br>    if (!this.dataset.value) {<br>      this.dataset.value = value++;<br>    }<br>  });<br>}",
+                solved: "var value = 0;<br>var lis = document.querySelectorAll('.board li');<br>for (var i = 0; i < lis.length; i++) {<br>  var li = lis[i];<br>  li.addEventListener('click', function(event) {<br>    if (!event.target.dataset.value) {<br>      event.target.dataset.value = value++;<br>    }<br>  });<br>}",
                 dom: function() {
                     return board.bind(board, kyle);
                 },
