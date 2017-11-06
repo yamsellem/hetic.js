@@ -1198,19 +1198,13 @@ let chapters = [
             {
                 title: "Calculer une puissance",
                 description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de <code>x</code> puissance <code>y</code> (ex. 2^3 = 2*2*2 — déclarées par ce tutoriel)",
-                solved: "var answer = x;<br>while (y > 1) {<br>  answer = answer * y;<br>  y = y - 1;<br>}",
+                solved: "var answer = x;<br>while (y > 1) {<br>  answer = answer * x;<br>  y = y - 1;<br>}",
                 init: function() {
                     window.x = this.x = randomize(2, 4, 6);
                     window.y = this.y = randomize(3, 5, 7);
                 },
                 answer: function() {
-                    var x = this.x;
-                    var y = this.y;
-                    while(y > 1) {
-                        x = x * y;
-                        y--;
-                    }
-                    return x;
+                    return Math.pow(this.x, this.y);
                 },
                 warn: function() {
                     return basicWarn(answer, this.answer());
@@ -1321,7 +1315,7 @@ let chapters = [
             {
                 title: "Identifier un palindrome",
                 description: "Créer une variable nommée <code>answer</code> ayant pour valeur <code>true</code> si <code>x</code> (déclarée par ce tutoriel) est un palindrome, <code>false</code> sinon. Un palindrome est un mot qui se lit de la même manière à l'endroit et à l'envers (ex. kayak).",
-                solved: "var answer = true;<br>for (var i = 0; i <= x.length / 2; i++) {<br>  if (x[i] !== x[x.length - i]) {<br>    answer = false;<br>  }<br>}",
+                solved: "var answer = true;<br>for (var i = 0; i < x.length / 2; i++) {<br>  if (x[i] !== x[x.length - 1 - i]) {<br>    answer = false;<br>  }<br>}",
                 init: function() {
                     window.x = this.x = randomize('anna', 'kayak', 'eva', 'canoe');
                 },
@@ -1570,7 +1564,7 @@ let chapters = [
             {
                 title: "Supprimer des doublons",
                 description: "Créer une variable nommée <code>answer</code> de type tableau avec toutes les valeurs du tableau <code>x</code> (déclarée par ce tutoriel) dont tous les doublons ont été supprimés (ex. ['banana', 'apple', 'apple', 'pear'] -> ['banana', 'apple', 'pear']).",
-                solved: "var answer = [];<br>for (var i = 0; i < x.length; i++) {<br>  if (answer.indexOf(x[i]) === -1) {<br>  answer.push(x[i]);<br>  }<br>}",
+                solved: "var answer = [];<br>for (var i = 0; i < x.length; i++) {<br>  if (answer.indexOf(x[i]) === -1) {<br>    answer.push(x[i]);<br>  }<br>}",
                 init: function() {
                     var fruits = ['banana', 'apple', 'pear', 'pineapple', 'coconut'];
                     this.x = [randomize.apply(null, fruits), randomize.apply(null, fruits), randomize.apply(null, fruits), randomize.apply(null, fruits)];
