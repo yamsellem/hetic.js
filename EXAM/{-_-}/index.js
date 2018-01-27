@@ -11,31 +11,26 @@ const students = require('./lib/students')(stepNames, folder);
 
 let times = 0;
 
-const promises = [];
+let promise = Promise.resolve();
+
 for (let student in students) {
     let files = students[student].files;
     console.log(`${student} --- ${Object.keys(files)}`);
+
     for (let file in files) {
-        let promise = new Promise(function (resolve, reject) {
-            setTimeout(resolve, 10000 * times++);
-        })
-        .then(() => {
+        promise = promise.then(() => {
             return require(`./lib/assertions/${file}`)(`http://localhost:${port}/${student}/${file}.html`);
         })
         .then((score) => {
             files[file] = score;
             students[student].score += score;
         });
-
-        promises.push(promise);
     }
 }
 
 console.time('solve');
 
-Promise
-.all(promises)
-.then(() => {
+promise.then(() => {
     console.timeEnd('solve');
     console.log('\n');
     console.log(students);
