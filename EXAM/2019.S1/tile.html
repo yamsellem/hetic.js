@@ -26,43 +26,8 @@
     </body>
 
     <script type="text/javascript">
-        var previousColor;
-        var previousLi;
-        var update = false;
-        var ul = document.querySelector('ul');
-        var lis = ul.querySelectorAll('li');
 
-        var listen = function(li) {
-            li.addEventListener('click', function() {
-                var color = li.className;
-                if (!previousColor) {
-                    previousColor = color;
-                    previousLi = li;
-                    return;
-                }
+        // code goes here
 
-                if (color === previousColor) {
-                    previousLi.remove();
-                    li.remove();
-
-                    update = true;
-                } else if (!update) {
-                    var newLi = document.createElement('li');
-                    newLi.className = 'tomato'
-                    listen(newLi);
-                    ul.appendChild(newLi);
-                    update = true;
-                } else {
-                    update = false;
-                }
-
-                previousColor = color;
-                previousLi = li;
-            });
-        }
-
-        for (var i = 0; i < lis.length; i++) {
-            listen(lis[i]);
-        }
     </script>
 </html>

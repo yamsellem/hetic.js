@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style>
+            ul { list-style: none; width: 400px; margin: auto; user-select: none; }
+            li { background: grey; padding: 20px; float: left; border-radius: 20px; position: relative; margin-right: 16px; cursor: pointer; }
+            li:before { content: ""; position: absolute; left: -17px; top: 17px; background: grey; width: 17px; height: 5px; }
+            li:first-child:before { display: none }
+
+            li.light { background: orange; }
+            li.closed:after { content: "\274c"; font-size: 40px; position: absolute; top: -7px; left: 0; }
+        </style>
+    </head>
+    <body>
+        <ul>
+            <li class="light"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </body>
+    <script type="text/javascript">
+        var stops = [1,0,0,0,0,0,0];
+        var reverse = false;
+
+        var lis = document.querySelectorAll('li');
+        for (let i = 0; i < lis.length; i++) {
+            lis[i].addEventListener('click', function() {
+                if (stops[i] === -1)
+                    return;
+
+                if (reverse) {
+                    if (stops[i + 1] === 0)
+                        return;
+
+                    if (i === 0) {
+                        reverse = false;
+                        for (let j = 0; j < lis.length; j++) {
+                            stops[j] = (stops[j] === -1 ? -1 : 0);
+                            lis[j].classList.remove('light');
+                        }
+                    }
+                } else {
+                    if (stops[i - 1] === 0)
+                        return;
+
+                    if (i === 6) {
+                        reverse = true;
+                        stops = [0,0,0,0,0,0,1];
+                        for (let j = 0; j < lis.length; j++) {
+                            stops[j] = (stops[j] === -1 ? -1 : 0);
+                            lis[j].classList.remove('light');
+                        }
+                    }
+                }
+
+                stops[i] = 1;
+                this.classList.add('light');
+            });
+        }
+
+        /*
+         * alternative more standard approach:
+         *
+
+        var render = function(stops) {
+            var ul = document.querySelector('ul');
+            ul.innerHTML = '';
+            for (let i = 0; i < stops.length; i++) {
+                var li = document.createElement('li');
+                if (stops[i] === 1) {
+                    li.classList.add('light');
+                }
+
+                li.addEventListener('click', function() {
+                    if (stops[i] === -1)
+                        return;
+
+                    if (reverse) {
+                        if (stops[i + 1] === 0)
+                            return;
+
+                        if (i === 0) {
+                            reverse = false;
+                            for (let j = 0; j < stops.length; j++) {
+                                stops[j] = (stops[j] === -1 ? -1 : 0);
+                            }
+                        }
+                    } else {
+                        if (stops[i - 1] === 0)
+                            return;
+
+                        if (i === 6) {
+                            reverse = true;
+                            stops = [0,0,0,0,0,0,1];
+                            for (let j = 0; j < stop.length; j++) {
+                                stops[j] = (stops[j] === -1 ? -1 : 0);
+                            }
+                        }
+                    }
+
+                    stops[i] = 1;
+                    render(stops);
+                });
+
+                ul.appendChild(li);
+            }
+        }
+
+        var stops = [1,0,0,0,0,0,0];
+        var reverse = false;
+
+        render(stops);
+
+        */
+    </script>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style>
+            label { display: block; }
+            input[type=number] { width: 30px; margin: 3px 0.5ex; }
+            hr { max-width: 200px; margin: 5px 0px; }
+        </style>
+    </head>
+    <body>
+        <label><input type="number" name="quantity" value="1" min="1">T-shirt (20€ pièce)</label>
+        <br>
+        <label><input type="checkbox" name="delivery">Livré à domicile</label>
+        <label><input type="checkbox" name="gift">Emballage cadeau</label>
+        <br>
+        <label>Coupon <input type="text" name="coupon"></label>
+        <hr>
+        <div id="total">20€</div>
+    </body>
+    <script type="text/javascript">
+        var unitPrice = 20;
+        var quantity = 1;
+        var delivery = 0;
+        var gift = 0;
+        var coupon = 0;
+
+        var renderPrice = function() {
+            price = unitPrice * quantity + delivery + gift + coupon;
+            document.querySelector('#total').innerHTML = price + '€';
+        }
+
+        var computeGift = function() {
+            if (document.querySelector('input[name=gift]').checked)
+                gift = quantity * 2;
+            else
+                gift = 0;
+        }
+
+        document.querySelector('input[name=quantity]').addEventListener('keyup', function() {
+            quantity = this.value;
+            computeGift();
+            renderPrice();
+        });
+
+        document.querySelector('input[name=delivery]').addEventListener('change', function() {
+            if (this.checked)
+                delivery = 5;
+            else
+                delivery = 0;
+            renderPrice();
+        });
+
+        document.querySelector('input[name=gift]').addEventListener('change', function() {
+            computeGift();
+            renderPrice();
+        });
+
+        document.querySelector('input[name=coupon]').addEventListener('keyup', function() {
+            if (this.value === 'été')
+                coupon = -10;
+            else
+                coupon = 0;
+            renderPrice();
+        });
+    </script>
+</html>

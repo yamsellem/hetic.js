@@ -20,49 +20,8 @@
         <div id="total">20€</div>
     </body>
     <script type="text/javascript">
-        var unitPrice = 20;
-        var quantity = 1;
-        var delivery = 0;
-        var gift = 0;
-        var coupon = 0;
 
-        var renderPrice = function() {
-            price = unitPrice * quantity + delivery + gift + coupon;
-            document.querySelector('#total').innerHTML = price + '€';
-        }
+        // code goes here
 
-        var computeGift = function() {
-            if (document.querySelector('input[name=gift]').checked)
-                gift = quantity * 2;
-            else
-                gift = 0;
-        }
-
-        document.querySelector('input[name=quantity]').addEventListener('keyup', function() {
-            quantity = this.value;
-            computeGift();
-            renderPrice();
-        });
-
-        document.querySelector('input[name=delivery]').addEventListener('change', function() {
-            if (this.checked)
-                delivery = 5;
-            else
-                delivery = 0;
-            renderPrice();
-        });
-
-        document.querySelector('input[name=gift]').addEventListener('change', function() {
-            computeGift();
-            renderPrice();
-        });
-
-        document.querySelector('input[name=coupon]').addEventListener('keyup', function() {
-            if (this.value === 'été')
-                coupon = -10;
-            else
-                coupon = 0;
-            renderPrice();
-        });
     </script>
 </html>
