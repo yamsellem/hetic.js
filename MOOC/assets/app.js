@@ -3446,14 +3446,14 @@ let chapters = [
                     mouseevent(labels[1], 'mouseenter');
                     if (!tooltips[1] || !tooltips[1].offsetParent)
                         this.warn = this.warn || "Le tooltip n°2 n'est pas affiché lors du survol du label n°2";
-                    if (!tooltips[1] || tooltips[1].offsetLeft > labels[1].offsetLeft)
+                    if (!tooltips[1] || tooltips[1].getBoundingClientRect().left > labels[1].getBoundingClientRect().left)
                         this.warn = this.warn || "Le tooltip n°2 doit être situé sur la gauche du label n°2";
 
                     mouseevent(labels[1], 'mouseleave');
                     mouseevent(labels[2], 'mouseenter');
                     if (!tooltips[2] || !tooltips[2].offsetParent)
                         this.warn = this.warn || "Le tooltip n°3 n'est pas affiché lors du survol du label n°3";
-                    if (!tooltips[2] || tooltips[2].offsetTop < labels[2].offsetTop)
+                    if (!tooltips[2] || tooltips[2].getBoundingClientRect().top > labels[2].getBoundingClientRect().top)
                         this.warn = this.warn || "Le tooltip n°3 doit être situé au dessus du label n°3";
 
                     return !this.warn;
