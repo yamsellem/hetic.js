@@ -2,7 +2,7 @@
 
 const port = 8888;
 const folder = 'public';
-const stepNames = ['mice', 'tile'];
+const stepNames = ['digit', 'letters'];
 
 const serve = require('./lib/serve');
 serve.start(folder, port);

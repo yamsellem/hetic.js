@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style media="screen">
+                ul { padding: 0; list-style-type: none; display: flex; flex-wrap: wrap; }
+                li { display: inline-flex; align-items: center; justify-content: center; height: 45px; text-align: center; margin-right: 5px; }
+                li input { width: 20px; text-align: center; }
+            </style>
+    </head>
+    <body>
+        <button id="paul">paul</button>
+        <button id="john">john</button>
+        <button id="ringo">ringo</button>
+        <button id="george">george</button>
+        <ul>
+            <li><input></li>
+            <li><input></li>
+            <li><input></li>
+            <li><input></li>
+            <li><input></li>
+            <li><input></li>
+        </ul>
+        <button id="move-left">←</button>
+        <button id="move-right">→</button>
+    </body>
+    <script type="text/javascript">
+        var inputs = document.querySelectorAll('li input');
+
+        var copyLetters = function(button) {
+            button.addEventListener('click', function() {
+                var text = button.innerHTML;
+                for (var i = 0; i < 6; i++) {
+                    if (text[i]) {
+                        inputs[i].value = text[i];
+                    } else {
+                        inputs[i].value = '';
+                    }
+                }
+            });
+        }
+
+        copyLetters(document.querySelector('#paul'));
+        copyLetters(document.querySelector('#john'));
+        copyLetters(document.querySelector('#ringo'));
+        copyLetters(document.querySelector('#george'));
+
+        var memoLeft = [];
+        var memoRight = [];
+
+        var left = document.querySelector('#move-left');
+        left.addEventListener('click', function() {
+            memoLeft.push(inputs[0].value);
+
+            for (var i = 0; i < 5; i++) {
+                inputs[i].value = inputs[i+1].value;
+            }
+
+            var memo = memoRight.pop();
+            if (memo) {
+                inputs[5].value = memo;
+            } else {
+                inputs[5].value = '';
+            }
+        });
+
+        var right = document.querySelector('#move-right');
+        right.addEventListener('click', function() {
+            memoRight.push(inputs[5].value);
+            
+            for (var i = 5; i > 0; i--) {
+                inputs[i].value = inputs[i-1].value;
+            }
+
+            var memo = memoLeft.pop();
+            if (memo) {
+                inputs[0].value = memo;
+            } else {
+                inputs[0].value = '';
+            }
+        });
+
+    </script>
+</html>
