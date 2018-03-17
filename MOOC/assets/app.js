@@ -92,11 +92,11 @@ let board = function(squares) {
 let todolist = function() {
     return `
         <div class="todos">
-            <div class="ui input">
+            <div class="ui fluid input">
                 <input type="text" placeholder="Ajouter un todo...">
             </div>
             <ul class="ui list"></ul>
-            <div class="ui tiny buttons">
+            <div class="ui tiny fluid buttons">
                 <button class="ui button filter-todo">0 à faire</button>
                 <button class="ui button filter-done">0 fait</button>
             </div>
@@ -3627,9 +3627,9 @@ let chapters = [
             }
         ]
     },  {
-        title: "Composant | Todolist",
+        title: "Applications | Todolist",
         description: "Les approches MV* (modèle, vue & co) structurent les applications. Un modèle stocke l'état de l'application (ex. un panier). Les vues affichent les informations d'un modèle et le modifient.<br><br>Ce chapitre présente la réalisation d'une liste de tâches pas à pas avec une approche MV*.",
-        color: "violet",
+        color: "teal",
         steps: [
             {
                 title: "Ajouter un todo",
@@ -3771,7 +3771,7 @@ let chapters = [
             {
                 title: "Séparer le modèle de la vue",
                 description: "Créer une variable <code>todos</code> pour stocker l'état du composant (combien d'éléments, lesquels sont cochés, etc). À chaque appui sur entrée dans le champ de formulaire, ajouter un object <code>{name: event.target.value, done: false}</code> au tableau. À chaque modification de ce tableau, appeller une méthode <code>render</code> chargée de mettre à jour l'affichage.",
-                solved: "var todos = [];<br>var render = function() {<br>  var ul = document.querySelector('.todos ul');<br>  ul.innerHTML = '';<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br><br>    let li = document.createElement('li');<br>    li.classList.add('item');<br>    li.classList.toggle('done', todo.done);<br>    li.innerHTML = todo.name;<br><br>    li.querySelector('i').addEventListener('click', function() {<br>      todos.splice(i, 1);<br>      render();<br>    });<br>    li.addEventListener('click', function() {<br>      todo.done = !todo.done;<br>      render();<br>    });<br><br>    ul.appendChild(li);<br>  }<br>}<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});",
+                solved: "var todos = [];<br>var render = function() {<br>  var ul = document.querySelector('.todos ul');<br>  ul.innerHTML = '';<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br>    let li = document.createElement('li');<br>    li.classList.add('item');<br>    li.classList.toggle('done', todo.done);<br>    li.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + todo.name;<br>    li.querySelector('i').addEventListener('click', function() {<br>      todos.splice(i, 1);<br>      render();<br>    });<br>    li.addEventListener('click', function() {<br>      todo.done = !todo.done;<br>      render();<br>    });<br>    ul.appendChild(li);<br>  }<br>}<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});",
                 dom: function() {
                     return todolist.bind(todolist);
                 },
@@ -3802,7 +3802,7 @@ let chapters = [
             {
                 title: "Compter les todos",
                 description: "À chaque création d'un todo, le texte de <code>.filter-todo</code> doit afficher le nombre total de todo non cochés (sans le classe <code>done</code>). Le texte de <code>.filter-done</code> affiche quant à lui, le nombre total de todo cochés (avec la classe <code>done</code>). Penser au pluriel pour « 0 fait », « 1 fait » et « 2 faits ».",
-                solved: "var todos = [];<br>var render = function() {<br>  var ul = document.querySelector('.todos ul');<br>  ul.innerHTML = '';<br>  var todoCount = 0, doneCount = 0;<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br><br>    if (todo.done)<br>      doneCount++;<br>    else<br>      todoCount++;<br><br>    let li = document.createElement('li');<br>    li.classList.add('item');<br>    li.classList.toggle('done', todo.done);<br>    li.innerHTML = todo.name;<br><br>    li.querySelector('i').addEventListener('click', function() {<br>      todos.splice(i, 1);<br>      render();<br>    });<br>    li.addEventListener('click', function() {<br>      todo.done = !todo.done;<br>      render();<br>    });<br><br>    ul.appendChild(li);<br>  }<br><br>  document.querySelector('.filter-todo').innerHTML = todoCount + ' à faire';<br>  document.querySelector('.filter-done').innerHTML = doneCount + (doneCount > 1 ? ' faits' : ' fait');<br>}<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});",
+                solved: "var todos = [];<br>var render = function() {<br>  var ul = document.querySelector('.todos ul');<br>  ul.innerHTML = '';<br>  var todoCount = 0, doneCount = 0;<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br><br>    if (todo.done)<br>      doneCount++;<br>    else<br>      todoCount++;<br><br>    let li = document.createElement('li');<br>    li.classList.add('item');<br>    li.classList.toggle('done', todo.done);<br>    li.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + todo.name;<br><br>    li.querySelector('i').addEventListener('click', function() {<br>      todos.splice(i, 1);<br>      render();<br>    });<br>    li.addEventListener('click', function() {<br>      todo.done = !todo.done;<br>      render();<br>    });<br><br>    ul.appendChild(li);<br>  }<br><br>  document.querySelector('.filter-todo').innerHTML = todoCount + ' à faire';<br>  document.querySelector('.filter-done').innerHTML = doneCount + (doneCount > 1 ? ' faits' : ' fait');<br>}<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});",
                 dom: function() {
                     return todolist.bind(todolist);
                 },
@@ -3843,7 +3843,7 @@ let chapters = [
             {
                 title: "Filtrer les todos",
                 description: "Au clic sur <code>.filter-done</code> cet élément récupère la classe <code>active</code> et seuls les todos terminés sont affichés. Idem pour <code>.filter-todo</code>. Seul un de ces deux boutons peut être actif à la fois. Cliquer sur un bouton actif le désactive (et affiche ainsi tous les todos). Plutôt que se baser sur le DOM pour savoir quel filtre est activé, utiliser une variable à 3 états, et modifier la méthode <code>render</code> pour la mise à jour de la classe <code>active</code> sur les boutons.",
-                solved: "var todos = [];<br>var state = 'all';<br>var render = function() {<br>  var ul = document.querySelector('.todos ul');<br>  ul.innerHTML = '';<br>  var todoCount = 0, doneCount = 0;<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br><br>    if (todo.done)<br>      doneCount++;<br>    else<br>      todoCount++;<br><br>    if (state !== 'all') {<br>      if ((state === 'todo' && todo.done) || (state === 'done' && !todo.done)) {<br>        continue;<br>      }<br>    }<br><br>    let li = document.createElement('li');<br>    li.classList.add('item');<br>    li.classList.toggle('done', todo.done);<br>    li.innerHTML = todo.name;<br><br>    li.querySelector('i').addEventListener('click', function() {<br>      todos.splice(i, 1);<br>      render();<br>    });<br>    li.addEventListener('click', function() {<br>      todo.done = !todo.done;<br>      render();<br>    });<br><br>    ul.appendChild(li);<br>  }<br><br>  document.querySelector('.filter-todo').innerHTML = todoCount + ' à faire';<br>  document.querySelector('.filter-done').innerHTML = doneCount + (doneCount > 1 ? ' faits' : ' fait');<br><br>  document.querySelector('.filter-todo').classList.toggle('active', state === 'todo');<br>  document.querySelector('.filter-done').classList.toggle('active', state === 'done');<br>}<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});<br><br>document.querySelector('.filter-todo').addEventListener('click', function() {<br>  if (state !== 'todo')<br>    state = 'todo';<br>  else<br>    state = 'all';<br>  render();<br>});<br><br>document.querySelector('.filter-done').addEventListener('click', function() {<br>  if (state !== 'done')<br>    state = 'done';<br>  else<br>    state = 'all';<br>  render();<br>});",
+                solved: "var todos = [];<br>var filter = 'all';<br>var render = function() {<br>  var ul = document.querySelector('.todos ul');<br>  ul.innerHTML = '';<br>  var todoCount = 0, doneCount = 0;<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br><br>    if (todo.done)<br>      doneCount++;<br>    else<br>      todoCount++;<br><br>    if ((filter === 'todo' && todo.done) || (filter === 'done' && !todo.done)) {<br>      continue;<br>    }<br><br>    let li = document.createElement('li');<br>    li.classList.add('item');<br>    li.classList.toggle('done', todo.done);<br>    li.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + todo.name;<br><br>    li.querySelector('i').addEventListener('click', function() {<br>      todos.splice(i, 1);<br>      render();<br>    });<br>    li.addEventListener('click', function() {<br>      todo.done = !todo.done;<br>      render();<br>    });<br><br>    ul.appendChild(li);<br>  }<br><br>  document.querySelector('.filter-todo').innerHTML = todoCount + ' à faire';<br>  document.querySelector('.filter-done').innerHTML = doneCount + (doneCount > 1 ? ' faits' : ' fait');<br><br>  document.querySelector('.filter-todo').classList.toggle('active', filter === 'todo');<br>  document.querySelector('.filter-done').classList.toggle('active', filter === 'done');<br>}<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});<br><br>document.querySelector('.filter-todo').addEventListener('click', function() {<br>  if (filter !== 'todo')<br>    filter = 'todo';<br>  else<br>    filter = 'all';<br>  render();<br>});<br><br>document.querySelector('.filter-done').addEventListener('click', function() {<br>  if (filter !== 'done')<br>    filter = 'done';<br>  else<br>    filter = 'all';<br>  render();<br>});",
                 dom: function() {
                     return todolist.bind(todolist);
                 },
@@ -3894,6 +3894,257 @@ let chapters = [
 
                     return !this.warn;
                 }
+            },
+            {
+                title: "Découper en sous vues, vue item",
+                description: "Créer une fonction nommée <code>TodoView</code> dotée de deux arguments : un todo (un dictionnaire aux attributes <code>name</code> et <code>done</code>) et un dictionnaire <code>options</code> (aux attributs <code>onUpdate</code> et <code>onRemove</code>). Déplacer dans cette vue tout le code ayant rapport au <code>li</code>.<br><br>Appeler cette fonction pour chaque todo du tableau <code>todos</code>. Elle se charge d'ajouter un <code>li</code> au <code>ul</code> et de gérer toutes les intéractions DOM ayant lieu sur cet élément. Sa vue parente lui transmet deux fonctions à invoquer, <code>onUpdate</code>, lorsque son todo change, afin que le compte des filtres puisse être mis à jour, <code>onRemove</code>, lorsque son todo est supprimé. Cette vue fille utilise une méthode <code>render</code> pour se mettre à jour.",
+                excerpt: "Structurer un programme facilite sa compréhension et sa modification future. Il est ainsi possible de découper une application en plusieurs vues. Pour cet exemple, une vue avec une logique identique pour chaque todo, une vue pour le filtre et une vue générale. Puis les responsabilités peuvent être réparties entre ces vues. La vue d'un item est la seule responsable de cocher un todo, la vue filtre, la seule responsable de compter combien de todo sont cochés, et la vue générale de coordonner le tout.",
+                solved: "var TodoView = function(todo, options) {<br>  var view = {<br>    el: document.createElement('li'),<br>    render: function() {<br>      view.el.classList.toggle('done', todo.done);<br>      view.el.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + todo.name;<br>    }<br>  }<br><br>  view.el.classList.add('item');<br>  view.render();<br>  <br>  view.el.querySelector('i').addEventListener('click', function() {<br>    options.onRemove();<br>  });<br>  <br>  view.el.addEventListener('click', function () {<br>    todo.done = !todo.done;<br>    view.render();<br><br>    options.onUpdate();<br>  });<br>  <br>  return view;<br>}<br><br>var todos = [];<br>var filter = 'all';<br>var render = function () {<br>  var ul = document.querySelector('.todos ul');<br>  ul.innerHTML = '';<br>  var todoCount = 0, doneCount = 0;<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br><br>    if (todo.done)<br>      doneCount++;<br>    else<br>      todoCount++;<br><br>    if ((filter === 'todo' && todo.done) || (filter === 'done' && !todo.done)) {<br>      continue;<br>    }<br><br>    var view = TodoView(todo, {<br>      onUpdate: render,<br>      onRemove: function() {<br>        todos.splice(i, 1);<br>        render();<br>      }<br>    });<br><br>    ul.appendChild(view.el);<br>  }<br><br>  document.querySelector('.filter-todo').innerHTML = todoCount + ' à faire';<br>  document.querySelector('.filter-done').innerHTML = doneCount + (doneCount > 1 ? ' faits' : ' fait');<br><br>  document.querySelector('.filter-todo').classList.toggle('active', filter === 'todo');<br>  document.querySelector('.filter-done').classList.toggle('active', filter === 'done');<br>}<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function (event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});<br><br>document.querySelector('.filter-todo').addEventListener('click', function () {<br>  if (filter !== 'todo')<br>    filter = 'todo';<br>  else<br>    filter = 'all';<br>  render();<br>});<br><br>document.querySelector('.filter-done').addEventListener('click', function () {<br>  if (filter !== 'done')<br>    filter = 'done';<br>  else<br>    filter = 'all';<br>  render();<br>});",
+                dom: function() {
+                    return todolist.bind(todolist);
+                },
+                solution: function() {
+                    let input = document.querySelector('input');
+                    input.value = 'apple';
+                    keypress(input, 13);
+
+                    input.value = 'pear';
+                    keypress(input, 13);
+
+                    input.value = 'banana';
+                    keypress(input, 13);
+
+                    let lis = document.querySelectorAll('.todos ul li');
+                    let todoCount = document.querySelector('.filter-todo');
+                    let doneCount = document.querySelector('.filter-done');
+
+                    lis[1].click();
+
+                    if (lis.length !== 3)
+                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, à trois reprises, trois <code>li</code> doivent être créés dans le <code>.todos ul</code>";
+                    if (elContains(todoCount, '2 à faire') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, le compte todo doit indiquer « 2 à faire »";
+                    if (elContains(doneCount, '1 fait') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, le compte done doit indiquer « 1 fait »";
+
+                    todoCount.click();
+                    lis = document.querySelectorAll('.todos ul li');
+                    if (lis.length !== 2)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 2 à faire » seuls les deux todos concernés sont affichés";
+
+                    todoCount.click();
+                    lis = document.querySelectorAll('.todos ul li');
+                    if (lis.length !== 3)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 2 à faire » à deux reprises, tous les todos sont affichés";
+
+                    doneCount.click();
+                    lis = document.querySelectorAll('.todos ul li');
+                    if (lis.length !== 1)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » seul le todo concerné est affiché";
+                    if (elContains(lis[0], 'pear') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » ce todo contient toujours la valeur d'origine";
+                    if (elContains(todoCount, '2 à faire') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » le compte todo doit indiquer « 2 à faire »";
+                    if (elContains(doneCount, '1 fait') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » le compte done doit indiquer « 1 fait »"
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Découper en sous vues, vue filtre",
+                description: "Créer une fonction nommée <code>FilterView</code> dotée de deux arguments : le tableau todos et un dictionnaire <code>options</code> (avec l'attribut <code>onUpdate</code>). Déplacer dans cette vue tout le code ayant rapport aux filtres.<br><br>Cette fonction se charge de gérer les filtres todo / done et toutes les intéractions DOM ayant lieu sur ces éléments. Sa vue parente lui transmet une fonction à invoquer, <code>onUpdate</code>, lorsque son filtre change, afin que la vue parente se <code>render</code> à nouveau. Cette vue fille peut exposer une méthode <code>isVisible</code> prenant un todo en paramètre et indiquant s'il doit être affiché par la vue parente ou non.",
+                solved: "var TodoView = function (todo, options) {<br>  var view = {<br>    el: document.createElement('li'),<br>    render: function () {<br>      view.el.classList.toggle('done', todo.done);<br>      view.el.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + todo.name;<br>    }<br>  }<br><br>  view.el.classList.add('item');<br>  view.render();<br><br>  view.el.querySelector('i').addEventListener('click', function () {<br>    options.onRemove();<br>  });<br><br>  view.el.addEventListener('click', function () {<br>    todo.done = !todo.done;<br>    view.render();<br><br>    options.onUpdate();<br>  });<br><br>  return view;<br>}<br><br>var FilterView = function (todos, options) {<br>  var view = {<br>    state: {<br>      filter: 'all'<br>    },<br>    filterTodo: document.querySelector('.filter-todo'),<br>    filterDone: document.querySelector('.filter-done'),<br>    isVisible: function (todo) {<br>      var filter = view.state.filter;<br>      return filter === 'all' || (filter === 'todo' && !todo.done) || (filter === 'done' && todo.done);<br>    },<br>    render: function () {<br>      var todoCount = 0, doneCount = 0;<br>      for (let i = 0; i < todos.length; i++) {<br>        var todo = todos[i];<br>        if (todo.done)<br>          doneCount++;<br>        else<br>          todoCount++;<br>      }<br><br>      view.filterTodo.innerHTML = todoCount + ' à faire';<br>      view.filterDone.innerHTML = doneCount + (doneCount > 1 ? ' faits' : ' fait');<br><br>      view.filterTodo.classList.toggle('active', view.state.filter === 'todo');<br>      view.filterDone.classList.toggle('active', view.state.filter === 'done');<br>    }<br>  };<br><br>  view.filterTodo.addEventListener('click', function () {<br>    view.state.filter = (view.state.filter !== 'todo') ? 'todo' : 'all';<br>    view.render();<br><br>    options.onUpdate();<br>  });<br><br>  view.filterDone.addEventListener('click', function () {<br>    view.state.filter = (view.state.filter !== 'done') ? 'done' : 'all';<br>    view.render();<br><br>    options.onUpdate();<br>  });<br><br>  return view;<br>}<br><br>var todos = [];<br>var render = function () {<br>  var ul = document.querySelector('.todos ul');<br><br>  ul.innerHTML = '';<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br><br>    if (!filterView.isVisible(todo)) {<br>      continue;<br>    }<br><br>    var todoView = TodoView(todo, {<br>      onUpdate: render,<br>      onRemove: function () {<br>        todos.splice(i, 1);<br>        view.render();<br>      }<br>    });<br><br>    ul.appendChild(todoView.el);<br>  }<br>  filterView.render();<br>};<br><br>var filterView = FilterView(todos, {<br>  onUpdate: render<br>});<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function (event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});",
+                dom: function() {
+                    return todolist.bind(todolist);
+                },
+                solution: function() {
+                    let input = document.querySelector('input');
+                    input.value = 'apple';
+                    keypress(input, 13);
+
+                    input.value = 'pear';
+                    keypress(input, 13);
+
+                    input.value = 'banana';
+                    keypress(input, 13);
+
+                    let lis = document.querySelectorAll('.todos ul li');
+                    let todoCount = document.querySelector('.filter-todo');
+                    let doneCount = document.querySelector('.filter-done');
+
+                    lis[1].click();
+
+                    if (lis.length !== 3)
+                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, à trois reprises, trois <code>li</code> doivent être créés dans le <code>.todos ul</code>";
+                    if (elContains(todoCount, '2 à faire') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, le compte todo doit indiquer « 2 à faire »";
+                    if (elContains(doneCount, '1 fait') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, le compte done doit indiquer « 1 fait »";
+
+                    todoCount.click();
+                    lis = document.querySelectorAll('.todos ul li');
+                    if (lis.length !== 2)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 2 à faire » seuls les deux todos concernés sont affichés";
+
+                    todoCount.click();
+                    lis = document.querySelectorAll('.todos ul li');
+                    if (lis.length !== 3)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 2 à faire » à deux reprises, tous les todos sont affichés";
+
+                    doneCount.click();
+                    lis = document.querySelectorAll('.todos ul li');
+                    if (lis.length !== 1)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » seul le todo concerné est affiché";
+                    if (elContains(lis[0], 'pear') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » ce todo contient toujours la valeur d'origine";
+                    if (elContains(todoCount, '2 à faire') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » le compte todo doit indiquer « 2 à faire »";
+                    if (elContains(doneCount, '1 fait') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » le compte done doit indiquer « 1 fait »"
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Découper en sous vues, vue parente",
+                description: "Créer une fonction nommée <code>TodosView</code> dont le rôle est de créer le tableau <code>todos</code> et de coordonner les autres vues.",
+                solved: "var TodoView = function (todo, options) {<br>  var view = {<br>    el: document.createElement('li'),<br>    render: function () {<br>      view.el.classList.toggle('done', todo.done);<br>      view.el.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + todo.name;<br>    }<br>  }<br><br>  view.el.classList.add('item');<br>  view.render();<br><br>  view.el.querySelector('i').addEventListener('click', function () {<br>    options.onRemove();<br>  });<br><br>  view.el.addEventListener('click', function () {<br>    todo.done = !todo.done;<br>    view.render();<br><br>    options.onUpdate();<br>  });<br><br>  return view;<br>}<br><br>var FilterView = function (todos, options) {<br>  var view = {<br>    state: {<br>      filter: 'all'<br>    },<br>    filterTodo: document.querySelector('.filter-todo'),<br>    filterDone: document.querySelector('.filter-done'),<br>    isVisible: function (todo) {<br>      var filter = view.state.filter;<br>      return filter === 'all' || (filter === 'todo' && !todo.done) || (filter === 'done' && todo.done);<br>    },<br>    render: function () {<br>      var todoCount = 0, doneCount = 0;<br>      for (let i = 0; i < todos.length; i++) {<br>        var todo = todos[i];<br>        if (todo.done)<br>          doneCount++;<br>        else<br>          todoCount++;<br>      }<br><br>      view.filterTodo.innerHTML = todoCount + ' à faire';<br>      view.filterDone.innerHTML = doneCount + (doneCount > 1 ? ' faits' : ' fait');<br><br>      view.filterTodo.classList.toggle('active', view.state.filter === 'todo');<br>      view.filterDone.classList.toggle('active', view.state.filter === 'done');<br>    }<br>  };<br><br>  view.filterTodo.addEventListener('click', function () {<br>    view.state.filter = (view.state.filter !== 'todo') ? 'todo' : 'all';<br>    view.render();<br><br>    options.onUpdate();<br>  });<br><br>  view.filterDone.addEventListener('click', function () {<br>    view.state.filter = (view.state.filter !== 'done') ? 'done' : 'all';<br>    view.render();<br><br>    options.onUpdate();<br>  });<br><br>  return view;<br>}<br><br>var TodosView = function (ul) {<br>  var view = {<br>    state: {<br>      todos: []<br>    },<br>    render: function () {<br>      var todos = view.state.todos;<br>      var filterView = view.filterView;<br><br>      ul.innerHTML = '';<br>      for (let i = 0; i < todos.length; i++) {<br>        let todo = todos[i];<br><br>        if (!filterView.isVisible(todo)) {<br>          continue;<br>        }<br><br>        var todoView = TodoView(todo, {<br>          onUpdate: view.render,<br>          onRemove: function () {<br>            todos.splice(i, 1);<br>            view.render();<br>          }<br>        });<br><br>        ul.appendChild(todoView.el);<br>      }<br>      filterView.render();<br>    }<br>  }<br><br>  view.filterView = FilterView(view.state.todos, {<br>    onUpdate: view.render<br>  });<br><br>  var input = document.querySelector('input');<br>  input.addEventListener('keypress', function (event) {<br>    if (event.keyCode === 13 && event.target.value) {<br>      view.state.todos.push({<br>        name: event.target.value,<br>        done: false<br>      });<br>      event.target.value = '';<br>      view.render();<br>    }<br>  });<br>  return view;<br>}<br><br>TodosView(document.querySelector('.todos ul'));",
+                dom: function() {
+                    return todolist.bind(todolist);
+                },
+                solution: function() {
+                    let input = document.querySelector('input');
+                    input.value = 'apple';
+                    keypress(input, 13);
+
+                    input.value = 'pear';
+                    keypress(input, 13);
+
+                    input.value = 'banana';
+                    keypress(input, 13);
+
+                    let lis = document.querySelectorAll('.todos ul li');
+                    let todoCount = document.querySelector('.filter-todo');
+                    let doneCount = document.querySelector('.filter-done');
+
+                    lis[1].click();
+
+                    if (lis.length !== 3)
+                        this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, à trois reprises, trois <code>li</code> doivent être créés dans le <code>.todos ul</code>";
+                    if (elContains(todoCount, '2 à faire') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, le compte todo doit indiquer « 2 à faire »";
+                    if (elContains(doneCount, '1 fait') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, le compte done doit indiquer « 1 fait »";
+
+                    todoCount.click();
+                    lis = document.querySelectorAll('.todos ul li');
+                    if (lis.length !== 2)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 2 à faire » seuls les deux todos concernés sont affichés";
+
+                    todoCount.click();
+                    lis = document.querySelectorAll('.todos ul li');
+                    if (lis.length !== 3)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 2 à faire » à deux reprises, tous les todos sont affichés";
+
+                    doneCount.click();
+                    lis = document.querySelectorAll('.todos ul li');
+                    if (lis.length !== 1)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » seul le todo concerné est affiché";
+                    if (elContains(lis[0], 'pear') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » ce todo contient toujours la valeur d'origine";
+                    if (elContains(todoCount, '2 à faire') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » le compte todo doit indiquer « 2 à faire »";
+                    if (elContains(doneCount, '1 fait') !== true)
+                        this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » le compte done doit indiquer « 1 fait »"
+
+                    return !this.warn;
+                }
+            },
+            {
+                course: true,
+                description: `
+                    JavaScript donne accès à tout ce qui a lieu dans le navigateur, les actions utilisateurs, la barre d'adresse, l'historique, le contenu de la page, il n'en fallait pas moins pour qu'il devienne, au fil des années, le moteur des sites internet, leur chef d'orchestre.
+
+                    Dès les débuts de jQuery, et la possibilité de développer un programme unique compatibles tous navigateurs, il ne manquait qu'une chose à son essor : la rapidité des navigateurs.
+
+                    Google lors du développement de Gmail en 2007 saisit cette limitation technique et se donna pour mission de la lever avec Chrome, un navigateur survitaminé, qui, fin 2008 allait changer la donne. Les voix de nombreux cerveaux de la société s'exprimèrent dans [un long comic book](http://blogoscoped.com/google-chrome/) pour présenter le virage qu'avait pris internet : les pages web étaient devenues des applications. Ils abordèrent alors en détail les questions et les problématiques que ce changement introduisait, et proposèrent un nouveau navigateur pour y répondre.
+
+                    Ce qui a changé, et qui demanda de repenser fondamentalement les navigateurs, c'est l'omniprésence de JavaScript. Dès lors la guerre des navigateurs se déclara et les lança dans une course à la puissance. Rétrospectivement, en à peine une année, de nouvelles frontières avaient été tracées, de nouvelles applications virent le jour, et de nombreux outils commencèrent à apparaître pour en faciliter le développement.
+
+                    [Angular](https://angularjs.org/), [Backbone](http://backbonejs.org/), [Batman](http://batmanjs.org/), [Ember](http://emberjs.com/), [Knockout](http://knockoutjs.com/), [React](https://facebook.github.io/react/), [Riot](http://riotjs.com/), [Vue](http://vuejs.org/), la liste des librairies JavaScript facilitant la construction d'applications n'en finit pas de s'allonger. Cette profusion de librairie montrent deux choses, tout d'abord la vitalité de la communauté JavaScript et son profond besoin d'outils pour accélérer le développement, ensuite la diversité des approches envisageables sur cette nouvelle plateforme qu'est devenue le web.
+                `
+            },
+            {
+                course: true,
+                description: `
+                    Ces outils cherchent à répondre à quatre questions :
+
+                    * comment découper et organiser une application en composants
+                    * comment gérer le templating d'une application (la découpe en plusieurs HTML à trous)
+                    * comment accéder aux données d'un serveur (Ajax et consort)
+                    * comment gérer la navigation de l'utilisateur dans plusieurs pages côté client
+
+                    ### Les limitations de jQuery et la naissance de la première génération de librairies MV*
+
+                    La profusion de ces librairies au détriment de jQuery s'explique facilement. La doyenne des librairie n'a pas été conçue pour construire des applications, elle l'a été pour offrir une façon normalisée d'utiliser les navigateurs.
+
+                    Développer une application avec jQuery pose rapidement des problèmes d'organisation du code, les composants chargés d'écouter les actions utilisateur peuvent émettre des requêtes Ajax et modifier la barre d'adresse. Bien sur, il est possible de définir des conventions pour structurer les choses, pour éviter le code spaghetti. Pourtant il est souvent plus simple de s'appuyer sur une structure plus robuste proposée par une librairie open source.
+
+                    Backbone fut l'une des premières à voir le jour, et, via l'introduction de quatre classes, proposa une structure simple pour développer des applications jQuery. Toute sa logique est basé sur l'usage de jQuery mais en séparant les responsabilités de l'application afin de la rendre plus facile à appréhender et à maintenir.
+
+                    Ces quatre classes sont :
+
+                    * \`View\`, une vue, c'est à dire un bout de HTML (disposé dans la page à l'aide d'une template), sur lequel il est possible de positionner des écouteurs d'événements et dont le contenu est modifiable. Chaque partie du HTML de la page est géré par une vue différente, le header est une vue, les menus sont des vues, le footer également, et, chaque vue n'accède qu'à son HTML. Ainsi, tout ce qui a lieu dans une partie du site, est régenté par ce composant. Ce qui simplifie grandement sa modification
+                    * \`Model\` et \`Collection\`, un modèle de donnée et une liste de modèles, c'est à dire l'état de l'application (ex. le nom et le prénom de l'utilisateur, les articles dans un panier). La vue affiche des informations mais elle ne les manipule pas, toutes les données récupérées du serveur et toutes les données saisies par l'utilisateur sont stockées dans des modèles. Ceux-ci connaissent les règles de cohérence, de validation (interdit au moins de 16 ans, etc)
+                    * \`Router\`, un aiguilleur modifiant les vues affichées à l'écran en fonction de l'adresse saisie par l'utilisateur. L'adresse de la page peut-être modifiée par le programme en fonction des actions de l'utilisateur. Ainsi, si l'utilisateur filtre les résultats d'une recherche par type, ce type peut être ajouté à la barre d'adresse. Lorsque l'utilisateur rafraîchit la page ou qu'il partage son adresse, le routeur est alors en mesure de choisir les vues à afficher et de leur indiquer dans quel état exact elles doivent se positionner.
+                `
+            },
+            {
+                title: "Le templating",
+                course: true,
+                description: `
+                    Le templating est un procédé qui vise à créer des templates (des textes à trous) qu'il est possible de renseigner en leur appliquant des objets dotés des mêmes propriétés ; cela s'avère très pratique pour construire des pages HTML avec des listes d'éléments, par exemple des résultats de recherche avec le même format, mais au données différentes.
+
+                    La librairie [mustache](https://github.com/janl/mustache.js) permet de manipuler des templates qu'il est possible de renseigner avec des objets aux attributs correspondant.
+
+                    **Manipulation de templates :**
+
+                    \`\`\`javascript
+                    var template = '<h1>Hello {{name}}</h1>';
+                    Mustache.render(template, {name: 'Paul'});
+                    → '<h1>Hello Paul</h1>'
+
+                    Mustache.render(template, {name: 'John'});
+                    → '<h1>Hello John</h1>'
+                    \`\`\`
+
+                    Cette librairie est très utilisée lors de la construction d'une partie de la page HTML en JavaScript. Certains blocs de la page sont enregistrés sous la forme de templates (la page de profil utilisateur) et complétées à l'aide de données dynamiques.
+
+                    La librairie [handlebars](http://handlebarsjs.com/) est une des plus populaires pour le templating, elle est fortement inspirée de mustache.
+                `
+            },
+            {
+                course: true,
+                description: `
+                    ### Deuxième génération de librairies MV*
+
+                    Certaines librairies ont une approche diamétralement opposée, elles font le choix de ne pas avoir recours à jQuery et de ne manipuler ni templates ni DOM. Cette deuxième génération de librairies, initiée par Angular et prolongée par de nombreuses autres, propose de masquer le DOM au maximum au développeur et de gérer automatiquement l'ajout de template HTML dans la page pour lui. Ces librairies de deuxième génération ont recours à divers procédés.
+
+                    Le problème qu'elles cherchent à résoudre est la profusion d'événements et la difficulté de maintenir une application dans un état cohérent.
+                    Il n'est pas rare qu'une librairie de première génération — où la gestion complète du DOM est laissée au développeur — réagisse à un événement en modifiant le contenu d'une partie de la page, puis une autre partie, puis à nouveau car ces deux parties dépendent l'une de l'autre. l'ordre d'affichage des éléments, la complexité d'imbrication de plusieurs d'entre eux et la richesse de navigation dans une application peuvent rendre difficile une gestion manuelle du changement d'état de chaque composant les uns par rapport aux autres.
+
+
+                    Les librairies de deuxième génération ont souvent recours (de façon masquée pour le développeur) à une boucle d'événement qui synchronise l'état des différents composants et orchestre leur affichage en fonction de leur dépendance les uns des autres. Le développeur n'est presque plus confronté au DOM, il manipule alors des templates HTML et des valeurs et indique que pour tel événement, ces valeurs ont changées, à charge de la librairie de mettre à jour la page.
+
+                    ### Troisième génération de librairies MV*
+
+                    Des librairies de troisième génération ont commencées à voir le jour dans ce même esprit, mais, en plus d'abstraire la gestion du DOM pour le développeur, elles ont introduit un DOM virtuel. Cette idée remarquable consiste à maintenir (de façon masquée pour le développeur) une copie du DOM avant d'effectuer des modifications et de repérer, après les avoir effectuées, quelles parties de cette copie ont été modifiées pour, enfin, mettre uniquement à jour le DOM sur ces différences.
+
+                    Cette troisième génération, initiée par React, a introduit également la notion d'état de l'application. Toutes les valeurs qui conditionnent l'affichage d'une page dans son état actuel sont identifiées, et l'application change en fonction de cet état. Si bien qu'à la saisie d'une adresse particulière, il suffit d'initialiser cet état correspondant, pour que toute l'application s'affiche de la même façon.
+
+                    Il existe de nombreux dérivés de ces concepts, et chaque génération à ses avantages, la première étant la seule à être compatible avec les centaines de plugins jQuery, que les seconde et troisième génération ne peuvent utiliser (ou difficilement).
+                `
             }
         ]
     }, {
@@ -4098,7 +4349,7 @@ let chapters = [
                 title: "Rechercher un repository github",
                 description: "Effectuer un appel ajax vers <code>https://api.github.com/search/repositories?access_token={token}&q={query}</code> à l'appui sur entrée dans <code>.search input</code> en indiquant comme {query} la recherche saisie.<br><br>Afficher les trois premiers résultats dans <code>.results</code> chacun sous la forme <code>&lt;span class=\"result\"&gt;{full_name}&lt;/span&gt;</code> (et ajouter la classe <code>visible</code> à <code>.results</code> pour le révéler).",
                 excerpt: "Pour accèder à l'api de github, il est préférable de créer une clé (ou token), pour ce faire aller dans <code>Github > Settings > Personnal Access Token</code> puis <code>Generate new token</code>. Ce token est à ajouter à l'url <code>https://api.github.com/..?access_token={token}&q={query}</code>.<br><br>Il est possible d'effectuer une requête ajax à l'aide des objets <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest\">xhr</a>, <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/API/Fetch_API/Using_Fetch\">fetch</a> ou <a target=\"_blank\" href=\"http://api.jquery.com/jquery.ajax/\">jQuery.ajax</a>. Ajax est une technologie utilisée pour requêter un serveur de façon asynchrone. Pour effectuer une requête vers un serveur, trois informations sont nécessaires, son adresse <code>http://..</code>, l'action à réaliser, <code>GET</code> (lecture), <code>POST</code> (création), <code>PUT</code> (modification) ou <code>DELETE</code> (suppression) et la fonction à invoquer lorsque le serveur aura répondu.",
-                solved: "/* remplacer {token} par le token github généré */<br><br>/* --------------------- xhr --------------------- */<br><br>var search = document.querySelector('.search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>var ajax = function(method, url, fn) {<br>  var xhr = new XMLHttpRequest();<br>  xhr.addEventListener('load', function() {<br>    if (xhr.readyState === 4) {<br>      fn(JSON.parse(xhr.response));<br>    }<br>  });<br>  xhr.open(method, url);<br>  xhr.send();<br>}<br><br>input.addEventListener('keypress', function(event) {<br>  if(event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  ajax('GET', 'https://api.github.com/search/repositories?access_token={token}&q=' + input.value, function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br><br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});<br><br>/* -------------------- fetch -------------------- */<br><br>var search = document.querySelector('.search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>input.addEventListener('keypress', function(event) {<br>  if(event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  fetch('https://api.github.com/search/repositories?access_token={token}&q=' + input.value)<br>  .then(function(response) {<br>    return response.json();<br>  })<br>  .then(function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br>      for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});",
+                solved: "/* remplacer {token} par le token github généré */<br><br>/* --------------------- xhr --------------------- */<br><br>var search = document.querySelector('.search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>var ajax = function(method, url, fn) {<br>  var xhr = new XMLHttpRequest();<br>  xhr.addEventListener('load', function() {<br>    if (xhr.readyState === 4) {<br>      fn(JSON.parse(xhr.response));<br>    }<br>  });<br>  xhr.open(method, url);<br>  xhr.send();<br>}<br><br>input.addEventListener('keypress', function(event) {<br>  if(event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  ajax('GET', 'https://api.github.com/search/repositories?access_token={token}&q=' + input.value, function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br><br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});<br><br>/* -------------------- fetch -------------------- */<br><br>var search = document.querySelector('.search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>input.addEventListener('keypress', function(event) {<br>  if(event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  fetch('https://api.github.com/search/repositories?access_token={token}&q=' + input.value)<br>  .then(function(response) {<br>    return response.json();<br>  })<br>  .then(function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});",
                 dom: function() {
                     return searchbar.bind(searchbar);
                 },
@@ -5510,97 +5761,6 @@ let chapters = [
                         this.warn = "Les combinaisons verticales gagnantes doivent fonctionner";
                     return basic;
                 }
-            }
-        ]
-    }, {
-        title: "Les applications",
-        description: "Angular, Backbone, React, Vue, la liste des librairies JavaScript facilitant la construction d'applications n'en finit pas de s'allonger. <br><br>Ce chapitre approfondit les problématiques sous-jacentes de ces outils.",
-        color: "grey",
-        steps: [
-            {
-                course: true,
-                description: `
-                    JavaScript donne accès à tout ce qui a lieu dans le navigateur, les actions utilisateurs, la barre d'adresse, l'historique, le contenu de la page, il n'en fallait pas moins pour qu'il devienne, au fil des années, le moteur des sites internet, leur chef d'orchestre.
-
-                    Dès les débuts de jQuery, et la possibilité de développer un programme unique compatibles tous navigateurs, il ne manquait qu'une chose à son essor : la rapidité des navigateurs.
-
-                    Google lors du développement de Gmail en 2007 saisit cette limitation technique et se donna pour mission de la lever avec Chrome, un navigateur survitaminé, qui, fin 2008 allait changer la donne. Les voix de nombreux cerveaux de la société s'exprimèrent dans [un long comic book](http://blogoscoped.com/google-chrome/) pour présenter le virage qu'avait pris internet : les pages web étaient devenues des applications. Ils abordèrent alors en détail les questions et les problématiques que ce changement introduisait, et proposèrent un nouveau navigateur pour y répondre.
-
-                    Ce qui a changé, et qui demanda de repenser fondamentalement les navigateurs, c'est l'omniprésence de JavaScript. Dès lors la guerre des navigateurs se déclara et les lança dans une course à la puissance. Rétrospectivement, en à peine une année, de nouvelles frontières avaient été tracées, de nouvelles applications virent le jour, et de nombreux outils commencèrent à apparaître pour en faciliter le développement.
-
-                    [Angular](https://angularjs.org/), [Backbone](http://backbonejs.org/), [Batman](http://batmanjs.org/), [Ember](http://emberjs.com/), [Knockout](http://knockoutjs.com/), [React](https://facebook.github.io/react/), [Riot](http://riotjs.com/), [Vue](http://vuejs.org/), la liste des librairies JavaScript facilitant la construction d'applications n'en finit pas de s'allonger. Cette profusion de librairie montrent deux choses, tout d'abord la vitalité de la communauté JavaScript et son profond besoin d'outils pour accélérer le développement, ensuite la diversité des approches envisageables sur cette nouvelle plateforme qu'est devenue le web.
-                `
-            },
-            {
-                course: true,
-                description: `
-                    Ces outils cherchent à répondre à quatre questions :
-
-                    * comment découper et organiser une application en composants
-                    * comment gérer le templating d'une application (la découpe en plusieurs HTML à trous)
-                    * comment accéder aux données d'un serveur (Ajax et consort)
-                    * comment gérer la navigation de l'utilisateur dans plusieurs pages côté client
-
-                    ### Les limitations de jQuery et la naissance de la première génération de librairies MV*
-
-                    La profusion de ces librairies au détriment de jQuery s'explique facilement. La doyenne des librairie n'a pas été conçue pour construire des applications, elle l'a été pour offrir une façon normalisée d'utiliser les navigateurs.
-
-                    Développer une application avec jQuery pose rapidement des problèmes d'organisation du code, les composants chargés d'écouter les actions utilisateur peuvent émettre des requêtes Ajax et modifier la barre d'adresse. Bien sur, il est possible de définir des conventions pour structurer les choses, pour éviter le code spaghetti. Pourtant il est souvent plus simple de s'appuyer sur une structure plus robuste proposée par une librairie open source.
-
-                    Backbone fut l'une des premières à voir le jour, et, via l'introduction de quatre classes, proposa une structure simple pour développer des applications jQuery. Toute sa logique est basé sur l'usage de jQuery mais en séparant les responsabilités de l'application afin de la rendre plus facile à appréhender et à maintenir.
-
-                    Ces quatre classes sont :
-
-                    * \`View\`, une vue, c'est à dire un bout de HTML (disposé dans la page à l'aide d'une template), sur lequel il est possible de positionner des écouteurs d'événements et dont le contenu est modifiable. Chaque partie du HTML de la page est géré par une vue différente, le header est une vue, les menus sont des vues, le footer également, et, chaque vue n'accède qu'à son HTML. Ainsi, tout ce qui a lieu dans une partie du site, est régenté par ce composant. Ce qui simplifie grandement sa modification
-                    * \`Model\` et \`Collection\`, un modèle de donnée et une liste de modèles, c'est à dire l'état de l'application (ex. le nom et le prénom de l'utilisateur, les articles dans un panier). La vue affiche des informations mais elle ne les manipule pas, toutes les données récupérées du serveur et toutes les données saisies par l'utilisateur sont stockées dans des modèles. Ceux-ci connaissent les règles de cohérence, de validation (interdit au moins de 16 ans, etc)
-                    * \`Router\`, un aiguilleur modifiant les vues affichées à l'écran en fonction de l'adresse saisie par l'utilisateur. L'adresse de la page peut-être modifiée par le programme en fonction des actions de l'utilisateur. Ainsi, si l'utilisateur filtre les résultats d'une recherche par type, ce type peut être ajouté à la barre d'adresse. Lorsque l'utilisateur rafraîchit la page ou qu'il partage son adresse, le routeur est alors en mesure de choisir les vues à afficher et de leur indiquer dans quel état exact elles doivent se positionner.
-                `
-            },
-            {
-                title: "Le templating",
-                course: true,
-                description: `
-                    Le templating est un procédé qui vise à créer des templates (des textes à trous) qu'il est possible de renseigner en leur appliquant des objets dotés des mêmes propriétés ; cela s'avère très pratique pour construire des pages HTML avec des listes d'éléments, par exemple des résultats de recherche avec le même format, mais au données différentes.
-
-                    La librairie [mustache](https://github.com/janl/mustache.js) permet de manipuler des templates qu'il est possible de renseigner avec des objets aux attributs correspondant.
-
-                    **Manipulation de templates :**
-
-                    \`\`\`javascript
-                    var template = '<h1>Hello {{name}}</h1>';
-                    Mustache.render(template, {name: 'Paul'});
-                    → '<h1>Hello Paul</h1>'
-
-                    Mustache.render(template, {name: 'John'});
-                    → '<h1>Hello John</h1>'
-                    \`\`\`
-
-                    Cette librairie est très utilisée lors de la construction d'une partie de la page HTML en JavaScript. Certains blocs de la page sont enregistrés sous la forme de templates (la page de profil utilisateur) et complétées à l'aide de données dynamiques.
-
-                    La librairie [handlebars](http://handlebarsjs.com/) est une des plus populaires pour le templating, elle est fortement inspirée de mustache.
-                `
-            },
-            {
-                course: true,
-                description: `
-                    ### Deuxième génération de librairies MV*
-
-                    Certaines librairies ont une approche diamétralement opposée, elles font le choix de ne pas avoir recours à jQuery et de ne manipuler ni templates ni DOM. Cette deuxième génération de librairies, initiée par Angular et prolongée par de nombreuses autres, propose de masquer le DOM au maximum au développeur et de gérer automatiquement l'ajout de template HTML dans la page pour lui. Ces librairies de deuxième génération ont recours à divers procédés.
-
-                    Le problème qu'elles cherchent à résoudre est la profusion d'événements et la difficulté de maintenir une application dans un état cohérent.
-                    Il n'est pas rare qu'une librairie de première génération — où la gestion complète du DOM est laissée au développeur — réagisse à un événement en modifiant le contenu d'une partie de la page, puis une autre partie, puis à nouveau car ces deux parties dépendent l'une de l'autre. l'ordre d'affichage des éléments, la complexité d'imbrication de plusieurs d'entre eux et la richesse de navigation dans une application peuvent rendre difficile une gestion manuelle du changement d'état de chaque composant les uns par rapport aux autres.
-
-
-                    Les librairies de deuxième génération ont souvent recours (de façon masquée pour le développeur) à une boucle d'événement qui synchronise l'état des différents composants et orchestre leur affichage en fonction de leur dépendance les uns des autres. Le développeur n'est presque plus confronté au DOM, il manipule alors des templates HTML et des valeurs et indique que pour tel événement, ces valeurs ont changées, à charge de la librairie de mettre à jour la page.
-
-                    ### Troisième génération de librairies MV*
-
-                    Des librairies de troisième génération ont commencées à voir le jour dans ce même esprit, mais, en plus d'abstraire la gestion du DOM pour le développeur, elles ont introduit un DOM virtuel. Cette idée remarquable consiste à maintenir (de façon masquée pour le développeur) une copie du DOM avant d'effectuer des modifications et de repérer, après les avoir effectuées, quelles parties de cette copie ont été modifiées pour, enfin, mettre uniquement à jour le DOM sur ces différences.
-
-                    Cette troisième génération, initiée par React, a introduit également la notion d'état de l'application. Toutes les valeurs qui conditionnent l'affichage d'une page dans son état actuel sont identifiées, et l'application change en fonction de cet état. Si bien qu'à la saisie d'une adresse particulière, il suffit d'initialiser cet état correspondant, pour que toute l'application s'affiche de la même façon.
-
-                    Il existe de nombreux dérivés de ces concepts, et chaque génération à ses avantages, la première étant la seule à être compatible avec les centaines de plugins jQuery, que les seconde et troisième génération ne peuvent utiliser (ou difficilement).
-                `
             }
         ]
     }, {

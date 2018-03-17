@@ -305,23 +305,43 @@ h3 {
 .stepper .board li.darkgreen { background-color: #086800; }
 .stepper .board li.white { background: none; }
 
+.stepper .todos {
+    width: 320px;
+    margin: auto;
+}
+
+.stepper .todos input {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
 .stepper .todos ul.ui.list li:before {
     content: none;
 }
 .stepper .todos ul.ui.list li {
     cursor: pointer;
     user-select: none;
+    padding: .67857143em 1.5em .67857143em 1em;
+    border: 1px solid rgba(34,36,38,.15);
+    border-top: 0;
 }
 .stepper .todos ul.ui.list li.done {
     color: grey;
     text-decoration: line-through;
 }
-.stepper .todos ul.ui.list li.done i {
+.stepper .todos ul.ui.list i {
     color: black;
     text-decoration: none;
+    position: absolute;
+    right: 2px;
 }
 .stepper .todos ul.ui.list {
-    margin-left: 0;
+    margin: 0;
+}
+.stepper .todos .ui.buttons .filter-todo,
+.stepper .todos .ui.buttons .filter-done {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 .tooltips span {
