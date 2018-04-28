@@ -26,6 +26,24 @@ document.body.innerHTML = `
 </div>
 `;
 
+// Global listeners
+
+let listeners = {};
+let originalEventListener = window.addEventListener;
+window.addEventListener = function(type, fn, options) {
+    if (!listeners[type])
+        listeners[type] = [];
+    listeners[type].push(fn);
+    return originalEventListener(type, fn, options);
+}
+let removeEventListener = function(type) {
+    if (!listeners[type] || !listeners[type].length)
+        return;
+
+    for (let i = 0; i < listeners[type].length; i++)
+        window.removeEventListener(type, listeners[type][i]);
+}
+
 // Basics
 
 let random = function(min, max) {
@@ -49,6 +67,10 @@ let equalsContent = function(a, b) {
 
 let basicWarn = function(actual, expected) {
     return "La variable <code>answer</code> vaut <code>" + JSON.stringify(actual) + "</code> et non la résultat attendu, <code>" + expected + "</code>";
+}
+
+let deepClone = function(object) {
+    return JSON.parse(JSON.stringify(object));
 }
 
 // DOM
@@ -85,23 +107,6 @@ let board = function(squares) {
     });
 
     return ul.outerHTML;
-}
-
-// Forms
-
-let todolist = function() {
-    return `
-        <div class="todos">
-            <div class="ui fluid input">
-                <input type="text" placeholder="Ajouter un todo...">
-            </div>
-            <ul class="ui list"></ul>
-            <div class="ui tiny fluid buttons">
-                <button class="ui button filter-todo">0 à faire</button>
-                <button class="ui button filter-done">0 fait</button>
-            </div>
-        </div>
-    `;
 }
 
 // Tooltip
@@ -289,6 +294,23 @@ let connectfour = function() {
     `;
 }
 
+// Forms
+
+let todolist = function() {
+    return `
+        <div class="todos">
+            <div class="ui fluid input">
+                <input type="text" placeholder="Ajouter un todo...">
+            </div>
+            <ul class="ui list"></ul>
+            <div class="ui tiny fluid buttons">
+                <button class="ui button filter-todo">0 à faire</button>
+                <button class="ui button filter-done">0 fait</button>
+            </div>
+        </div>
+    `;
+}
+
 // Search
 
 let httpWait = function(url) {
@@ -368,6 +390,100 @@ let searchbar = function() {
     `;
 }
 
+// Shop
+
+let shop = function() {
+    return `
+        <div class="shop">
+            <div class="ui menu">
+                <a href="#products" class="active item products">Produits</a>
+                <div class="right menu">
+                    <a href="#cart" class="item cart">
+                        Panier
+                        <div class="ui teal label">
+                            <span class="cart-quantity">0</span>
+                            <div class="detail cart-price">0€</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div id="app-view"></div>
+            
+            <script id="product" type="text/template">
+                <div class="card">
+                    <div class="image {{image}}"></div>
+                    <div class="content">
+                        <div class="meta">{{name}}</div>
+                    </div>
+                    <div class="extra content">
+                        <span class="left floated">{{price}}€</span>
+                        <span class="right floated">
+                            <i class="minus icon"></i>
+                            {{quantity}}
+                            <i class="plus icon"></i>
+                        </span>
+                    </div>
+                </div>
+            </script>
+
+            <script id="cart" type="text/template">
+                <div class="ui middle aligned divided list">
+                    {{#each .}}
+                    <div class="item">
+                        <div class="right floated content">
+                            <div class="ui right labeled small input">
+                                <input type="number" placeholder="Quantité..." value="{{quantity}}" min="0" />
+                                <div class="ui basic label">
+                                    unités
+                                </div>
+                            </div>
+                            <div class="ui label">
+                                {{price}}€
+                            </div>
+                        </div>
+                        <div class="content">
+                            {{name}}
+                        </div>
+                    </div>
+                    {{/each}}
+                    <div class="item">
+                        <div class="right floated content">
+                            <div class="ui teal label cart-price"></div>
+                        </div>
+                        <div class="content">
+                            Total
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="content">
+                            <a href="#payment" class="ui fluid button">Passer à la caisse</a>
+                        </div>
+                    </div>    
+                </div>
+            </script>
+
+            <script id="payment" type="text/template">
+                <form class="checkout">
+                    <div class="stripe"></div>
+                    <button type="submit" class="ui fluid button">Payer <span class="cart-price"></span></button>
+                </form>
+            </script>
+        </div>
+    `;
+}
+
+let shopProducts = [
+    {name: 'Manches longues', price: 15, image: 'longsleeve', quantity: 0},
+    {name: 'T-shirt', price: 25, image: 'tshirt', quantity: 0},
+    {name: 'Chemise', price: 40, image: 'shirt', quantity: 0}
+];
+
+let hashWait = function() {
+    return new Promise(function(resolve) {
+        setTimeout(resolve, 0);
+    });
+}
+
 // Might
 
 let might = function() {
@@ -385,9 +501,9 @@ let might = function() {
     var html = '<div class="might">';
     for (var y = 0; y < 8; y++) {
         if (y === 0)
-            html += '<table class="active" data-p="1"><thead><th class="floating ui teal label">2 ♥♥</th></thead><tbody>';
+            html += '<table class="active" data-p="1"><thead><th class="floating ui pink label">2 ♥♥</th></thead><tbody>';
         else if (y === 4)
-            html += '<table data-p="2"><thead><th class="floating ui teal label">0 ♥♥</th></thead><tbody>';
+            html += '<table data-p="2"><thead><th class="floating ui pink label">0 ♥♥</th></thead><tbody>';
 
         html += '<tr>';
         for (var x = 0; x < 6; x++) {
@@ -763,8 +879,8 @@ let mouseevent = function(el, event) {
     }
 }
 
-let change = function(el) {
-    var event = new Event('change');
+let change = function(el, type) {
+    var event = new Event(type || 'change');
     el.dispatchEvent(event);
 }
 
@@ -3627,7 +3743,7 @@ let chapters = [
             }
         ]
     },  {
-        title: "Applications | Todolist",
+        title: "Applications | Modèles & vues",
         description: "Les approches MV* (modèle, vue & co) structurent les applications. Un modèle stocke l'état de l'application (ex. un panier). Les vues affichent les informations d'un modèle et le modifient.<br><br>Ce chapitre présente la réalisation d'une liste de tâches pas à pas avec une approche MV*.",
         color: "teal",
         steps: [
@@ -4101,30 +4217,6 @@ let chapters = [
                 `
             },
             {
-                title: "Le templating",
-                course: true,
-                description: `
-                    Le templating est un procédé qui vise à créer des templates (des textes à trous) qu'il est possible de renseigner en leur appliquant des objets dotés des mêmes propriétés ; cela s'avère très pratique pour construire des pages HTML avec des listes d'éléments, par exemple des résultats de recherche avec le même format, mais au données différentes.
-
-                    La librairie [mustache](https://github.com/janl/mustache.js) permet de manipuler des templates qu'il est possible de renseigner avec des objets aux attributs correspondant.
-
-                    **Manipulation de templates :**
-
-                    \`\`\`javascript
-                    var template = '<h1>Hello {{name}}</h1>';
-                    Mustache.render(template, {name: 'Paul'});
-                    → '<h1>Hello Paul</h1>'
-
-                    Mustache.render(template, {name: 'John'});
-                    → '<h1>Hello John</h1>'
-                    \`\`\`
-
-                    Cette librairie est très utilisée lors de la construction d'une partie de la page HTML en JavaScript. Certains blocs de la page sont enregistrés sous la forme de templates (la page de profil utilisateur) et complétées à l'aide de données dynamiques.
-
-                    La librairie [handlebars](http://handlebarsjs.com/) est une des plus populaires pour le templating, elle est fortement inspirée de mustache.
-                `
-            },
-            {
                 course: true,
                 description: `
                     ### Deuxième génération de librairies MV*
@@ -4148,7 +4240,7 @@ let chapters = [
             }
         ]
     }, {
-        title: "Ajax",
+        title: "Applications | Ajax",
         description: "Ajax permet à un navigateur d'émettre une requête et d'attendre une réponse d'un serveur distant. Cette requête est asynchrone, elle ne bloque pas le navigateur, qui sera notifié lors du retour du serveur.<br><br>Ce chapitre présente ajax pas à pas.",
         color: "teal",
         steps: [
@@ -4768,560 +4860,407 @@ let chapters = [
             }
         ]
     }, {
-        title: "La programmation objet",
-        description: "La programmation orientée objet propose de définir un ensemble de concepts, les classes et les objets, dans le but de structurer un programme.<br><br>Ce chapitre présente la réalisation (corsée) d'un puzzle rpg au tour par tour.",
+        title: "Applications | Routeur",
+        description: "Un routeur est un aiguilleur qui modifie les vues affichées à l'écran en fonction de l'adresse saisie par l'utilisateur. Lorsque l'utilisateur rafraîchit la page ou qu'il partage son adresse, le routeur affiche ainsi les vues à l'identique.<br><br>Ce chapitre présente la réalisation d'une boutique pas à pas avec un routeur.",
         color: "teal",
-        steps: [
-            {
-                course: true,
-                description: `
-                    Il est possible (et souvent souhaitable) de structurer un programme à l'aide de composants au comportement clairement défini. La programmation orientée objet propose ainsi, dans de nombreux langages, de définir un ensemble de concepts, les classes, dont il est possible de manipuler des exemplaires, les objets.
+        steps: [{
+            title: "Le templating",
+            course: true,
+            description: `
+                Le templating est un procédé qui vise à créer des templates (des textes à trous) qu'il est possible de renseigner en leur appliquant des objets dotés des mêmes propriétés ; cela s'avère très pratique pour construire des pages HTML avec des listes d'éléments, par exemple des résultats de recherche avec le même format, mais aux données différentes.
 
-                    **Utilisation de classes et d'objets :**
+                La librairie [mustache](https://github.com/janl/mustache.js) permet de manipuler des templates qu'il est possible de renseigner avec des objets aux attributs correspondant.
 
-                        var release = new Date(1964, 11, 17);
-                        → Thu Dec 17 1964 00:00:00 GMT+0100 (CET)
+                **Manipulation de templates :**
 
-                        Math.max(5, 10);
-                        → 10
+                \`\`\`javascript
+                var template = '<h1>Hello {{name}}</h1>';
+                Mustache.render(template, {name: 'Paul'});
+                → '<h1>Hello Paul</h1>'
 
-                    Il a été question de plusieurs classes jusqu'ici, \`Math\`, \`Date\`, \`Element\`, \`RegExp\` respectant une convention de nommage : leur initiale est en majuscule. Certaines de ces classes peuvent être instanciées, comme Date dont il est possible d'obtenir des exemplaires avec l'opérateur \`new\`. D'autres offrent surtout des méthodes statiques, comme Math dont il est impossible d'obtenir une instance.
+                Mustache.render(template, {name: 'John'});
+                → '<h1>Hello John</h1>'
+                \`\`\`
 
-                    Une classe est un modèle (comme un moule à pâtisserie) qui définit un ensemble d'attributs (la taille, les fruits utilisés) et de méthodes (découper, manger). Une instance est un exemplaire d'une classe (un gâteau aux poires, une tarte aux pommes, etc). Il est ainsi possible de créer autant d'objets d'une classe que souhaité avec pour chacun d'entre eux ses attributs propres et ses opérations basés sur le modèle de la classe.
+                Cette librairie est très utilisée lors de la construction d'une partie de la page HTML en JavaScript. Certains blocs de la page sont enregistrés sous la forme de templates (la page de profil utilisateur) et complétées à l'aide de données dynamiques.
 
-                    **Création et comparaison de deux dates :**
-
-                        var release = new Date(1946, 0, 1);
-                        → Tue Jan 01 1946 00:00:00 GMT+0100
-
-                        var peace = new Date(1945, 8, 2);
-                        → Sun Sep 02 1945 00:00:00 GMT+0200 (CEST)
-
-                        release.getTime() > peace.getTime();
-                        → true
-                `
+                La librairie [handlebars](http://handlebarsjs.com/) est une des plus populaires pour le templating, elle est fortement inspirée de mustache.
+            `
+        },
+        {
+            title: "Lister des produits",
+            description: "Récupérer le contenu du template <code>#product</code> puis lui injecter un à un les trois produits contenus dans la variable <code>products</code> à l'aide de la librairie handlebars. Ajouter ensuite le résultat dans un <code>div</code> aux classes <code>.ui.cards</code>, inséré au DOM dans l'élément <code>#app-view</code>.",
+            excerpt: "La librairie <a target=\"_blank\" href=\"https://handlebarsjs.com\">handlebars</a> permet de manipuler facilement des templates, et, notamment, de les transformer ne HTML en leur donnant un objet aux clés correspondantes.<br><br>L'ajout de HTML dans une balise <code>script</code> de type <code>text/template</code> est une technique qui permet d'ajouter des templates invisbles à une page afin de les ajouter ensuite dynamiquement en javascript.",
+            solved: "/* import this in the HTML <head> before the code<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js\"&gt;&lt;/script&gt;<br>*/<br>var el =  document.createElement('div');<br>el.className = 'ui cards';<br><br>var source = document.querySelector('#product').innerHTML;<br>var template = Handlebars.compile(source);<br><br>el.innerHTML = ''; <br>for (let i = 0; i < products.length; i++) {<br>  el.innerHTML += template(this.products[i]);<br>}<br><br>document.querySelector('#app-view').appendChild(el);",
+            init: function() {
+                window.products = shopProducts;
             },
-            {
-                course: true,
-                description: `
-                    JavaScript est un langage à prototype (contrairement aux langages objets classiques, des attributs peuvent être ajoutés aux objets, même si la classe ne les déclare pas). Une classe est déclarée comme une fonction classique (par convention, avec son initiale en majuscule), et, à ce moment là, il s'agit d'une fonction comme les autres. Ce qui la distingue, c'est que pour l'invoquer, au lieu d'utiliser \`()\`, le mot clé \`new\` est utilisé. Alors, et contrairement à une fonction classique, son code est invoqué avec en variable le mot clé \`this\` faisant référence à l'objet qui est créé.
-
-                    **Création de classes et d'objets :**
-
-                        var Pie = function(fruits, pieces) {
-                          this.fruits = fruits;
-                          this.pieces = pieces;
-                        }
-
-                        var applePie = new Pie('apple', 8);
-                        applePie.fruits;
-                        → 'apple'
-
-                        var cheeseCake = new Pie('cheese', 6);
-                        cheeseCake.fruits;
-                        → 'cheese'
-
-                    Ainsi, à chaque usage du mot clé \`new\` un nouvel object de la classe est créé disposant d'un attribut \`fruits\` qui lui est propre. Il est possible d'ajouter du comportement à ces objets.
-
-                    **Ajout de méthodes à une classe :**
-
-                        Pie.prototype.eat = function() {
-                          if (this.pieces >= 1)
-                            this.pieces--;
-                        }
-
-                        var applePie = new Pie('apple', 8);
-                        applePie.eat();
-                        applePie.eat();
-                        applePie.pieces;
-                        → 6
-
-                    Les objets encapsulent leurs données et exposent leurs opérations. [L'encapsulation](https://developer.mozilla.org/en/docs/Glossary/Encapsulation), qui consiste à ne rendre disponible aux utilisateurs d'un objet qu'une partie de celui-ci, permet de garantir la cohérence de cet objet.
-                `
+            dom: function() {
+                return shop.bind(shop);
             },
-            {
-                course: true,
-                description: `
-                    Certains langages disposent de mécanismes pour rendre certains attributs ou méthodes d'un objet inaccessibles de l'extérieur, ce n'est pas le cas de JavaScript. Quels qu'ils soient, tous les attributs et toutes les méthodes sont accessibles à tout le monde. Pour parer cette limitation, une norme de nommage a vu le jour, et propose de préfixer les attributs et méthodes protégés d'un underscore.
+            solution: function() {
+                var cards = document.querySelectorAll('.shop .card');
+                if (cards.length !== 3)
+                    this.warn = this.warn || 'Les 3 produits doivent être affichés dans le sélecteur <code>#app-view</code>';
+                    
+                if (!elContains(cards[0] && cards[0].querySelector('.meta'), 'Manches longues'))
+                    this.warn = this.warn || 'Le premier produit doit être nommé « Manches longues »';
+                if (!elContains(cards[0] && cards[0].querySelector('.left'), '15€'))
+                    this.warn = this.warn || 'Le premier produit doit être indiqué à 15€';
 
-                    **Légende ajout d'attribut privé (par convention) :**
+                if (!elContains(cards[1] && cards[1].querySelector('.meta'), 'T-shirt'))
+                    this.warn = this.warn || 'Le second produit doit être nommé « T-shirt »';
+                if (!elContains(cards[1] && cards[1].querySelector('.left'), '25€'))
+                    this.warn = this.warn || 'Le second produit doit être indiqué à 25€';
 
-                        var Pie = function(fruits, pieces) {
-                          this._fruits = fruits;
-                          this._pieces = pieces;
-                        }
+                if (!elContains(cards[2] && cards[2].querySelector('.meta'), 'Chemise'))
+                    this.warn = this.warn || 'Le troisième produit doit être nommé « Chemise »';
+                if (!elContains(cards[2] && cards[2].querySelector('.left'), '40€'))
+                    this.warn = this.warn || 'Le troisième produit doit être indiqué à 40€';
 
-                        Pie.prototype.eat = function() {
-                          if (this._pieces >= 1)
-                            this._pieces--;
-                        }
-
-                        Pie.prototype.getPieces = function() {
-                          return this._pieces;
-                          // returns a copy (simple type are passed by value)
-                          // if it it an array, create a copy: array.slice()
-                          // with a dictionnary, create a copy: JSON.parse(JSON.stringify({..}))
-                        }
-
-                        var applePie = new Pie('apple', 8);
-                        var pieces = applePie.getPieces();
-                        pieces;
-                        → 8
-
-                        pieces = 7;
-                        applePie.getPieces();
-                        → 8
-
-                    Dans cet exemple, les attributes \`_fruits\` et \`_pieces\` sont déclarés internes. Une méthodes \`getPieces\` est fournie pour y accéder, et elle renvoie une valeur non modifiable. C'est ici que brille l'intérêt des classes, la logique de calcul est masquée (décrémenter les nombre de parts à chaque fois qu'un gourmand en mange une) et la cohérence des données est assurée (le nombres de parts restantes n'est modifiée qu'ici) et tous les objets instanciés à partir de cette classe disposent du même contrat de fonctionnement.
-
-                    Bien entendu, l'attribut \`_pieces\` reste accessible de l'extérieur, et, si il est modifié par quelqu'un d'autre, les données de l'objet deviennent incohérentes (son nommage averti qu'il ne faut pas le modifier ainsi).
-
-                    Dans un registre similaire, il est possible d'ajouter dynamiquement, et individuellement, des attributs dans un objet non prévu par sa classe.
-
-                    **Ajout dynamique d'attributs à un objet :**
-
-                        var cheeseCake = new Pie('cheese');
-                        cheeseCake.flavour = 'lemon';
-                        cheeseCake.flavour;
-                        → 'lemon'
-                `
-            },
-            {
-                title: "Créer une classe",
-                description: "Créer une classe <code>Player</code> avec un attribut <code>name</code>, de façon à ce que <code>new Player(1)</code> crée un objet avec l'attrbut <code>name</code> initialisé à <code>1</code>.",
-                excerpt: "Dans ce jeu deux adversaires s'affrontent, et jouent deux coups à tour de rôle. Avec un coup, un joueur peut déplacer un pion d'une colonne vers une autre. Si plusieurs pions sont sur la même colonne, seul le plus éloigné du territoire adverse peut être déplacé. Et, quand un pion arrive dans une colonne, il arrive dans la première ligne disponible, la plus éloignée du territoire adverse.<br><br>Dans les étapes suivantes, deux objets de la classe <code>Player</code> vont être utilisés pour gérer les actions des deux joueurs ; la classe va définir un comportement similaire, unique pour les deux joueurs, le premier de ses objets gérera le premier joueur, et le second, le second joueur.<br><br>Il est possible (et souvent souhaitable) de structurer un programme à l'aide de composants au comportement clairement défini. Une classe est un modèle (comme un moule à pâtisserie) qui définit un ensemble d'attributs (la taille, les fruits utilisés) et de méthodes (découper, manger). <pre><code>var Player = function(name) {<br>  this.name = name;<br>}<br>var player = new Player(1);</code></pre>Par convention les classes commencent par une majuscule et les variables / instances par une minuscules.",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>};",
-                dom: function() {
-                    return might.bind(might);
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    if (player.name !== 1)
-                        this.warn = this.warn || "L'attribut <code>name</code> de la classe <code>Player</code> doit être initialisé avec son premier paramètre de constructeur.";
-
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Modifier le constructeur d'une classe",
-                description: "Modifier le constructeur de la classe <code>Player</code>, afin que le <code>name</code> passé en paramètre soit utilisé également pour initialiser un attribut <code>table</code> avec la <code>table[data-p=..]</code> du dom correspondante. Les deux tables disposent chacune d'un attribut <code>data-p</code> différent avec le « nom » du joueur (1 ou 2).",
-                excerpt: "Le constructeur d'une classe peut être utilisé pour configurer l'objet qu'il créé. Ici, deux objet <code>Player</code> vont être créés, ils partageront le même comportement, mais l'un gérera la <code>table</code> du haut (joueur 1), l'autre la <code>table</code> du bas (joueur 2).",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};",
-                dom: function() {
-                    return might.bind(might);
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    if (player.table.querySelectorAll('td').length !== 24)
-                        this.warn = this.warn || "L'attribut <code>table</code> de la classe <code>Player</code> doit être initialisé avec son premier paramètre de constructeur.";
-
-                    return !this.warn;
-                }
-            }, {
-                title: "Modifier le prototype d'une classe",
-                description: "Modifier le prototype de la classe <code>Player</code>, en lui ajoutant la méthode <code>get(x, y)</code> pour récupérer un <code>td</code> de sa <code>table</code> par ses coordonnées x,y. Chaque <code>td</code> dispose d'attributs <code>data-x</code> et <code>data-y</code> pour faciliter cette recherche.",
-                excerpt: "Dans les étapes suivantes, afin de déplacer les pions, il sera nécessaire de pouvoir récupérer chaque case du territoire d'un joueur et de savoir si elle libre ou occupée. La méthode <code>get</code> est créée pour cela.<br><br>Pour ajouter un comportement commun à chaque objet d'une classe, il est possible de modifier le prototype de celle-ci. De cette façon, tous les objets créés à partir de cette clase, disposeront de la même fonction.<pre><code>Player.prototype.get = function(x, y) {<br>  return this.table.querySelector('[data-x=\"' + x + '\"]');<br>}</code></pre>",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  }<br>};",
-                dom: function() {
-                    return might.bind(might);
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    if (player.get(1, 1).className !== 'peon')
-                        this.warn = this.warn || "La case 1,1 du joueur 1 contient la classe <code>peon</code>. La méthode <code>new Player(1).get(1, 1)</code> doit retourner ce <code>td</code>.";
-                    if (player.get(2, 1).className !== 'block')
-                        this.warn = this.warn || "La case 2,1 du joueur 1 contient la classe <code>block</code>. La méthode <code>new Player(1).get(2, 1)</code> doit retourner ce <code>td</code>.";
-
-                    return !this.warn;
-                }
-            }, {
-                title: "Modifier le prototype d'une classe",
-                description: "Modifier le prototype de la classe <code>Player</code>, en lui ajoutant la méthode <code>set(x, y, className)</code> pour modifier la classe d'un <code>td</code> de sa <code>table</code> en le recherchant par ses coordonnées x,y et en remplacant sa classe par className.",
-                excerpt: "Dans les étapes suivantes, afin de déplacer les pions, il sera nécessaire de pouvoir modifier une case du territoire d'un joueur, celle dont il vient devra ne plus avoir de classe (pour apparaitre vide), celle ou il arrive devra obtenir la classe correspondante, <code>.peon</code>, <code>.block</code> ou <code>.attack</code>. La méthode <code>set</code> est créée pour cela.",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  }<br>};",
-                dom: function() {
-                    return might.bind(might);
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    if (player.get(1, 1).className !== 'peon')
-                        this.warn = this.warn || "La case 1,1 du joueur 1 contient la classe <code>peon</code>. La méthode <code>new Player(1).get(1, 1)</code> doit retourner ce <code>td</code>.";
-
-                    player.set(2, 1, 'peon');
-                    if (player.get(2, 1).className !== 'peon')
-                        this.warn = this.warn || "La case 2,1 du joueur 1 ne contient pas la classe <code>peon</code>. La méthode <code>new Player(1).set(2, 1, 'peon')</code> doit lui ajouter.";
-
-                    return !this.warn;
-                }
-            }, {
-                title: "Modifier le prototype d'une classe",
-                description: "Modifier le prototype de la classe <code>Player</code>, en lui ajoutant la méthode <code>free(x)</code> qui retourne l'index de la première ligne disponible (de 1 à 4) pour cette colonne ou <code>undefined</code> sinon. Cette méthode ne gère pas le clic sur la colonne, elle indique juste, pour une colonne donnée, quelle est la première ligne disponible.",
-                excerpt: "Dans les étapes suivantes, au clic sur une colonne, le dernier pion de la colonne (le plus loin du territoire adverse) pourra être déplacé vers une autre colonne. La méthode <code>free</code> permettra de connaître le premier emplacement disponible de la colonne d'arrivée du déplacement.",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var i = this.free(x);<br>    if (i) {<br>      return i - 1;<br>    } else {<br>      return 4;<br>    }<br>  }<br>};",
-                dom: function() {
-                    return might.bind(might);
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    if (player.free(1) !== 3)
-                        this.warn = this.warn || "La colonne 1 est occupée jusqu'en case 3, la méthode <code>free(1)</code> doit retourner <code>3</code>.";
-
-                    if (player.free(2) !== 2)
-                        this.warn = this.warn || "La colonne 2 est occupée jusqu'en case 2, la méthode <code>free(2)</code> doit retourner <code>2</code>.";
-
-                    if (player.free(3) !== 1)
-                        this.warn = this.warn || "La colonne 3 est inoccupée, la méthode <code>free(3)</code> doit retourner <code>1</code>.";
-
-                    if (player.free(4) !== 3)
-                        this.warn = this.warn || "La colonne 4 est occupée jusqu'en case 3, la méthode <code>free(4)</code> doit retourner <code>3</code>.";
-
-                    return !this.warn;
-                }
-            }, {
-                title: "Modifier le prototype d'une classe",
-                description: "Modifier le prototype de la classe <code>Player</code>, en lui ajoutant la méthode <code>last(x)</code> qui retourne l'indice de la dernière ligne occupée (de 1 à 4) pour cette colonne ou <code>undefined</code> sinon.",
-                excerpt: "Dans les étapes suivantes, au clic sur une colonne, le dernier pion de la colonne (le plus loin du territoire adverse) pourra être déplacé vers une autre colonne. La méthode <code>last</code> permettra de connaître le dernier emplacement occupé de la colonne de départ du déplacement.",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  }<br>};",
-                dom: function() {
-                    return might.bind(might);
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    if (player.last(3) !== 0)
-                        this.warn = this.warn || "La colonne 3 est inoccupée, la méthode <code>last(3)</code> doit retourner <code>0</code>.";
-
-                    if (player.last(4) !== 2)
-                        this.warn = this.warn || "La colonne 4 est occupée jusqu'en case 2, la méthode <code>last(4)</code> doit retourner <code>2</code>.";
-
-                    if (player.last(5) !== 1)
-                        this.warn = this.warn || "La colonne 5 est occupée jusqu'en case 1, la méthode <code>last(5)</code> doit retourner <code>1</code>.";
-
-                    return !this.warn;
-                }
-            }, {
-                title: "Commencer la partie",
-                description: "Créer un dictionnaire <code>game</code> pour représenter la partie. Lui ajouter l'attribut <code>player</code> (le joueur actif) initialisé avec <code>new Player(1)</code>, l'attribut <code>moves</code> (le nombre de coups du joueur actif) intialisé à 2 et la méthode <code>select(x)</code> qui récupère (à l'aide de <code>this.player.last(x)</code>) la dernière case contenant un pion et la mémorise dans un attribut <code>memo</code> au format <code>{x:.., y:..}</code>.<br><br>Ajouter un écouteur d'événement sur tous les <code>td</code> des deux <code>table</code>, et, au clic sur l'un d'entre eux, récupérer sa colonne, x, et invoquer la méthode <code>game.select(x)</code>.",
-                excerpt: "Dans les étapes suivantes, l'attribut <code>game.memo</code> permettra de déplacer le pion. ",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  }<br>};<br><br>var player1 = new Player(1);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    game.select(+this.dataset.x);<br>  });<br>}",
-                dom: function() {
-                    return might.bind(might);
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    player.get(4, 1).click();
-                    if (game.memo.x !== 4 || game.memo.y !== 2)
-                        this.warn = this.warn || "Au clic sur le <code>td</code> en case 4,1 <code>game.memo</code> doit être initialisée à <code>{x: 4, y: 2}</code> car il s'agit de la dernière case avec une classe de cette colonne.";
-
-                    return !this.warn;
-                }
-            }, {
-                title: "Déplacer un péon",
-                description: "Lors d'un clic sur une colonne occupée par un péon (bleu), puis sur une autre colonne, la dernière case occupée cliquée (c'est à dire <code>game.memo</code>), est vidée et déplacée vers la première case libre de la seconde colonne cliquée. Si les deux colonnes sont identiques, rien ne se passe. Si la seconde colonne n'a plus d'espace libre, rien ne se passe non plus.",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  }<br>};<br><br>var player1 = new Player(1);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br>    }<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var x = +this.dataset.x;<br>    if (game.memo) {<br>      game.move(x);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
-                dom: function() {
-                    return might.bind(might);
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    player.get(5, 1).click();
-                    player.get(3, 1).click();
-                    if (player.get(3, 1).className !== 'peon' || player.get(5, 1).className !== '')
-                        this.warn = this.warn || "Au clic sur le <code>td</code> en case 5,1 puis 3,1 leur classes doivent s'intervertir.";
-
-                    player.get(3, 1).click();
-                    player.get(2, 1).click();
-                    if (player.get(2, 2).className !== 'peon' || player.get(3, 1).className !== '')
-                        this.warn = this.warn || "Au clic sur le <code>td</code> en case 3,1 puis 2,1 la colonne 2 doit contenir 2 péons.";
-
-                    return !this.warn;
-                }
-            }, {
-                title: "Gérer le tour des joueurs",
-                description: "Lors du déplacement d'une case, diminuer le nombre de coups du joueur en cours de 1. Si ce nombre tombe à 0, supprimer la classe <code>active</code> de sa <code>table</code> et l'ajouter à la <code>table</code> de l'autre joueur. Les méthodes pour effectuer ces modifications peuvent être ajoutées à la classe <code>Player</code>. Modifier le compteur de tour dans le <code>th</code> de la <code>table</code> des joueurs. Lorsque ce n'est pas son tour, les <code>td</code> de la <code>table</code> d'un joueur ne doivent pas être cliquable.",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  life: '♥♥',<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  title: function(moves) {<br>    this.table.querySelector('th').innerHTML = moves + ' ' + this.life;<br>  },<br>  stop: function() {<br>    this.table.classList.remove('active');<br>  },<br>  start: function() {<br>    this.table.classList.add('active');<br>  }<br>};<br><br>var player1 = new Player(1);<br>var player2 = new Player(2);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br><br>      this.moves--;<br>      this.player.title(this.moves);<br>      if (this.moves === 0) {<br>        this.player.stop();<br><br>        this.player = this.opponent();<br>        this.player.start();<br>        this.moves = 2;<br>        this.player.title(this.moves);<br>      }<br>    }<br>  },<br>  opponent: function() {<br>    return this.player === player1 ? player2 : player1;<br>  },<br>  isActivePlayer(playerName) {<br>    return this.player.name === playerName;<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var table = this.closest('table');<br>    if (!game.isActivePlayer(+table.dataset.p)) {<br>      return;<br>    }<br><br>    var x = +this.dataset.x;<br>    if (game.memo) {<br>      game.move(x);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
-                dom: function() {
-                    return might.bind(might);
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    player.get(5, 1).click();
-                    player.get(3, 1).click();
-                    if (player.table.querySelector('th').innerHTML !== '1 ♥♥')
-                        this.warn = this.warn || "Après 1 déplacement, le compteur du joueur 1 doit indiquer 1 ♥♥.";
-
-                    player.get(3, 1).click();
-                    player.get(4, 1).click();
-                    if (player.table.querySelector('th').innerHTML !== '0 ♥♥')
-                        this.warn = this.warn || "Après 2 déplacement, le compteur du joueur 1 doit indiquer 0 ♥♥.";
-
-                    var opponent = new Player(2);
-                    opponent.get(3, 1).click();
-                    opponent.get(4, 1).click();
-                    if (opponent.get(3, 1).className !== '' || opponent.get(4, 1).className !== 'peon')
-                        this.warn = this.warn || "Au clic sur le <code>td</code> en case 3,1 puis 4,1 du joueur 2 la colonne 2 doit contenir 3 péons.";
-
-                    if (opponent.table.querySelector('th').innerHTML !== '1 ♥♥')
-                        this.warn = this.warn || "Après 1 déplacement, le compteur du joueur 2 doit indiquer 1 ♥♥.";
-
-                    return !this.warn;
-                }
-            }, {
-                title: "La tête brûlée",
-                description: "Lorsqu'après un déplacement 3 péons (bleus) se retrouvent dans la même colonne, ils sont supprimés et une unique tête brûlée (un <code>td.attack</code>) les remplace à la place du premier d'entre eux (celui le plus proche du territoire adverse).",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  life: '♥♥',<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  title: function(moves) {<br>    this.table.querySelector('th').innerHTML = moves + ' ' + this.life;<br>  },<br>  stop: function() {<br>    this.table.classList.remove('active');<br>  },<br>  start: function() {<br>    this.table.classList.add('active');<br>  },<br>  column: function(x) {<br>    var y = this.last(x);<br>    var td1 = (y === 3) ? this.get(x, 1) : this.get(x, 2);<br>    var td2 = (y === 3) ? this.get(x, 2) : this.get(x, 3);<br>    var td3 = (y === 3) ? this.get(x, 3) : this.get(x, 4);<br>    if (td1.className === 'peon' && td1.className === td2.className && td2.className === td3.className) {<br>      td1.className = 'attack';<br>      td2.className = td3.className = '';<br>    }<br>  }<br>};<br><br>var player1 = new Player(1);<br>var player2 = new Player(2);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br><br>      this.player.column(x)<br><br>      this.moves--;<br>      this.player.title(this.moves);<br>      if (this.moves === 0) {<br>        this.player.stop();<br><br>        this.player = this.opponent();<br>        this.player.start();<br>        this.moves = 2;<br>        this.player.title(this.moves);<br>      }<br>    }<br>  },<br>  opponent: function() {<br>    return this.player === player1 ? player2 : player1;<br>  },<br>  isActivePlayer(playerName) {<br>    return this.player.name === playerName;<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var table = this.closest('table');<br>    if (!game.isActivePlayer(+table.dataset.p)) {<br>      return;<br>    }<br><br>    var x = +this.dataset.x;<br>    if (game.memo) {<br>      game.move(x);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
-                dom: function() {
-                    return might.bind(might);
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    player.get(5, 1).click();
-                    player.get(4, 1).click();
-                    if (player.get(4, 1).className !== 'attack')
-                        this.warn = this.warn || "Après 1 déplacement d'un <code>td</code> en 4,1 en 5,1 les 3 péons doivent se transformer en une tête brûlée.";
-
-                    return !this.warn;
-                }
-            }, {
-                title: "L'attaque de la tête brûlée",
-                description: "Au clic sur une tête brûlée, celle-ci disparait (les péons de derrière avance alors d'une case) et diminue d'un point le nombre de ♥ de l'adversaire. Si l'adversaire n'a plus de ♥, un x est affiché à la place et la partie prend fin (plus aucune case n'est cliquable).",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  life: '♥♥',<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    return this.match(x, '');<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  title: function(moves) {<br>    this.table.querySelector('th').innerHTML = moves + ' ' + this.life;<br>  },<br>  stop: function() {<br>    this.table.classList.remove('active');<br>  },<br>  start: function() {<br>    this.table.classList.add('active');<br>  },<br>  column: function(x) {<br>    var y = this.last(x);<br>    var td1 = (y === 3) ? this.get(x, 1) : this.get(x, 2);<br>    var td2 = (y === 3) ? this.get(x, 2) : this.get(x, 3);<br>    var td3 = (y === 3) ? this.get(x, 3) : this.get(x, 4);<br>    if (td1.className === 'peon' && td1.className === td2.className && td2.className === td3.className) {<br>      td1.className = 'attack';<br>      td2.className = td3.className = '';<br>    }<br>  },<br>  match: function(x, className) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (td.className === className) {<br>        return y;<br>      }<br>    }<br>  },<br>  attack: function(x) {<br>    var match = this.match(x, 'attack')<br>    if (match) {<br>        for (var y = match + 1; y < 4; y++) {<br>          this.set(x, y - 1, this.get(x, y).className);<br>        }<br>        this.set(x, 4, '');<br>        return true;<br>    }<br>  },<br>  hurt: function() {<br>    if (this.life === '♥♥')<br>      this.life = '♥';<br>    else<br>      this.life = 'x';<br>  },<br>  dead: function() {<br>    return this.life === 'x';<br>  }<br>};<br><br>var player1 = new Player(1);<br>var player2 = new Player(2);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    if (this.player.attack(x)) {<br>      this.opponent().hurt();<br>      this.opponent().title(2);<br>      if (this.opponent().dead())<br>        this.player.stop();<br>      else<br>        this.next();<br>      return;<br>    }<br><br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br><br>      this.player.column(x)<br>      this.next();<br>    }<br>  },<br>  next: function() {<br>    this.moves--;<br>    this.player.title(this.moves);<br>    if (this.moves === 0) {<br>      this.player.stop();<br><br>      this.player = this.opponent();<br>      this.player.start();<br>      this.moves = 2;<br>      this.player.title(this.moves);<br>    }<br>  },<br>  opponent: function() {<br>    return this.player === player1 ? player2 : player1;<br>  },<br>  isActivePlayer(playerName) {<br>    return this.player.name === playerName;<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var table = this.closest('table');<br>    if (!game.isActivePlayer(+table.dataset.p)) {<br>      return;<br>    }<br><br>    var x = +this.dataset.x;<br>    if (game.memo) {<br>      game.move(x);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
-                dom: function() {
-                    return might.bind(might);
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    player.get(5, 1).click();
-                    player.get(4, 1).click();
-                    player.get(1, 1).click();
-                    player.get(6, 1).click();
-
-                    var opponent = new Player(2);
-                    opponent.get(2, 1).click();
-                    opponent.get(3, 1).click();
-                    opponent.get(3, 1).click();
-                    opponent.get(2, 1).click();
-
-                    player.get(4, 1).click();
-                    player.get(6, 1).click();
-
-                    if (opponent.table.querySelector('th').innerHTML !== '2 x')
-                        this.warn = this.warn || "Après 2 attaques, le compteur du joueur 2 doit indiquer x.";
-
-                    return !this.warn;
-                }
-            }, {
-                title: "La tête d'arbre",
-                description: "Lorsqu'après un déplacement au moins 3 péons (bleus) se retrouvent dans la même ligne, ils sont remplacés par des têtes d'arbre (un <code>td.block</code>).",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  life: '♥♥',<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    return this.match(x, '');<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  title: function(moves) {<br>    this.table.querySelector('th').innerHTML = moves + ' ' + this.life;<br>  },<br>  stop: function() {<br>    this.table.classList.remove('active');<br>  },<br>  start: function() {<br>    this.table.classList.add('active');<br>  },<br>  column: function(x) {<br>    var y = this.last(x);<br>    var td1 = (y === 3) ? this.get(x, 1) : this.get(x, 2);<br>    var td2 = (y === 3) ? this.get(x, 2) : this.get(x, 3);<br>    var td3 = (y === 3) ? this.get(x, 3) : this.get(x, 4);<br>    if (td1.className === 'peon' && td1.className === td2.className && td2.className === td3.className) {<br>      td1.className = 'attack';<br>      td2.className = td3.className = '';<br>    }<br>  },<br>  line: function(x, y) {<br>    var count = 0;<br>    for (var _x = x - 1; _x >= 1; _x--) {<br>      if (this.get(_x, y).className === 'peon')<br>        count++;<br>      else<br>        break;<br>    }<br><br>    for (var _x = x + 1; _x <= 7; _x++) {<br>      if (this.get(_x, y).className === 'peon')<br>        count++;<br>      else<br>        break;<br>    }<br><br>    if (count >= 3) {<br>      this.get(x, y).className = 'block'<br>      for (var _x = x - 1; _x >= 1; _x--) {<br>        if (this.get(_x, y).className === 'peon')<br>          this.get(_x, y).className = 'block';<br>        else<br>          break;<br>      }<br><br>      for (var _x = x + 1; _x <= 7; _x++) {<br>        if (this.get(_x, y).className === 'peon')<br>          this.get(_x, y).className = 'block';<br>        else<br>          break;<br>      }<br>    }<br>  },<br>  match: function(x, className) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (td.className === className) {<br>        return y;<br>      }<br>    }<br>  },<br>  attack: function(x) {<br>    var match = this.match(x, 'attack')<br>    if (match) {<br>        for (var y = match + 1; y < 4; y++) {<br>          this.set(x, y - 1, this.get(x, y).className);<br>        }<br>        this.set(x, 4, '');<br>        return true;<br>    }<br>  },<br>  hurt: function() {<br>    if (this.life === '♥♥')<br>      this.life = '♥';<br>    else<br>      this.life = 'x';<br>  },<br>  dead: function() {<br>    return this.life === 'x';<br>  }<br>};<br><br>var player1 = new Player(1);<br>var player2 = new Player(2);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    if (this.player.attack(x)) {<br>      this.opponent().hurt();<br>      this.opponent().title(2);<br>      if (this.opponent().dead())<br>        this.player.stop();<br>      else<br>        this.next();<br>      return;<br>    }<br><br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x, y) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br><br>      this.player.column(x);<br>      this.player.line(x, y);<br>      this.next();<br>    }<br>  },<br>  next: function() {<br>    this.moves--;<br>    this.player.title(this.moves);<br>    if (this.moves === 0) {<br>      this.player.stop();<br><br>      this.player = this.opponent();<br>      this.player.start();<br>      this.moves = 2;<br>      this.player.title(this.moves);<br>    }<br>  },<br>  opponent: function() {<br>    return this.player === player1 ? player2 : player1;<br>  },<br>  isActivePlayer(playerName) {<br>    return this.player.name === playerName;<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var table = this.closest('table');<br>    if (!game.isActivePlayer(+table.dataset.p)) {<br>      return;<br>    }<br><br>    var x = +this.dataset.x;<br>    var y = +this.dataset.y;<br>    if (game.memo) {<br>      game.move(x, y);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
-                dom: function() {
-                    return might.bind(might);
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    player.get(4, 1).click();
-                    player.get(3, 1).click();
-                    if (player.get(1, 1).className !== 'peon' || player.get(3, 1).className !== 'block' || player.get(4, 1).className !== 'block' || player.get(3, 1).className !== 'block' || player.get(5, 1).className !== 'block' || player.get(6, 1).className !== 'block')
-                        this.warn = this.warn || "Après 1 déplacement d'un <code>td</code> en 4,1 vers 3,1 les 4 péons de la première ligne doivent se transformer en une tête d'arbre.";
-
-                    return !this.warn;
-                }
-            }, {
-                title: "La défense de la tête d'arbre",
-                description: "Lorsqu'une tête brûle attaque et qu'une tête d'arbre lui fait fasse en première ligne dans le territoire adverse, les deux disparraissent (les péons de derrière avance alors d'une case) sans causer de dégats à l'adversaire.",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  life: '♥♥',<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    return this.match(x, '');<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  title: function(moves) {<br>    this.table.querySelector('th').innerHTML = moves + ' ' + this.life;<br>  },<br>  stop: function() {<br>    this.table.classList.remove('active');<br>  },<br>  start: function() {<br>    this.table.classList.add('active');<br>  },<br>  column: function(x) {<br>    var y = this.last(x);<br>    var td1 = (y === 3) ? this.get(x, 1) : this.get(x, 2);<br>    var td2 = (y === 3) ? this.get(x, 2) : this.get(x, 3);<br>    var td3 = (y === 3) ? this.get(x, 3) : this.get(x, 4);<br>    if (td1.className === 'peon' && td1.className === td2.className && td2.className === td3.className) {<br>      td1.className = 'attack';<br>      td2.className = td3.className = '';<br>    }<br>  },<br>  line: function(x, y) {<br>    var count = 0;<br>    for (var _x = x - 1; _x >= 1; _x--) {<br>      if (this.get(_x, y).className === 'peon')<br>        count++;<br>      else<br>        break;<br>    }<br><br>    for (var _x = x + 1; _x <= 7; _x++) {<br>      if (this.get(_x, y).className === 'peon')<br>        count++;<br>      else<br>        break;<br>    }<br><br>    if (count >= 3) {<br>      this.get(x, y).className = 'block'<br>      for (var _x = x - 1; _x >= 1; _x--) {<br>        if (this.get(_x, y).className === 'peon')<br>          this.get(_x, y).className = 'block';<br>        else<br>          break;<br>      }<br><br>      for (var _x = x + 1; _x <= 7; _x++) {<br>        if (this.get(_x, y).className === 'peon')<br>          this.get(_x, y).className = 'block';<br>        else<br>          break;<br>      }<br>    }<br>  },<br>  match: function(x, className) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (td.className === className) {<br>        return y;<br>      }<br>    }<br>  },<br>  attack: function(x) {<br>    var match = this.match(x, 'attack')<br>    if (match) {<br>        this.dash(x, match);<br>        return true;<br>    }<br>  },<br>  block: function(x) {<br>    if (this.get(x, 1).className === 'block') {<br>      this.dash(x, 1);<br>      return true;<br>    }<br>  },<br>  dash: function(x, y) {<br>    for (var _y = y + 1; _y < 4; _y++) {<br>      this.set(x, _y - 1, this.get(x, _y).className);<br>    }<br>    this.set(x, 4, '');<br>  },<br>  hurt: function() {<br>    if (this.life === '♥♥')<br>      this.life = '♥';<br>    else<br>      this.life = 'x';<br>  },<br>  dead: function() {<br>    return this.life === 'x';<br>  }<br>};<br><br>var player1 = new Player(1);<br>var player2 = new Player(2);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    if (this.player.attack(x)) {<br>      if (!this.opponent().block(x)) {<br>        this.opponent().hurt();<br>        this.opponent().title(2);<br>      }<br><br>      if (this.opponent().dead())<br>        this.player.stop();<br>      else<br>        this.next();<br>      return;<br>    }<br><br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x, y) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br><br>      this.player.column(x);<br>      this.player.line(x, y);<br>      this.next();<br>    }<br>  },<br>  next: function() {<br>    this.moves--;<br>    this.player.title(this.moves);<br>    if (this.moves === 0) {<br>      this.player.stop();<br><br>      this.player = this.opponent();<br>      this.player.start();<br>      this.moves = 2;<br>      this.player.title(this.moves);<br>    }<br>  },<br>  opponent: function() {<br>    return this.player === player1 ? player2 : player1;<br>  },<br>  isActivePlayer(playerName) {<br>    return this.player.name === playerName;<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var table = this.closest('table');<br>    if (!game.isActivePlayer(+table.dataset.p)) {<br>      return;<br>    }<br><br>    var x = +this.dataset.x;<br>    var y = +this.dataset.y;<br>    if (game.memo) {<br>      game.move(x, y);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
-                dom: function() {
-                    return might.bind(might);
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    player.get(5, 1).click();
-                    player.get(4, 1).click();
-                    player.get(6, 1).click();
-                    player.get(1, 1).click();
-
-                    var opponent = new Player(2);
-                    opponent.get(5, 1).click();
-                    opponent.get(4, 1).click();
-                    opponent.get(2, 1).click();
-                    opponent.get(1, 1).click();
-
-                    player.get(4, 1).click();
-                    player.get(1, 1).click();
-
-                    if (opponent.get(4, 1).className !== '')
-                        this.warn = this.warn || "Si une attaque a lieu et qu'une tête d'arbre lui fait fasse, celle-ci doit disparaitre.";
-
-                    if (opponent.table.querySelector('th').innerHTML !== '2 ♥')
-                        this.warn = this.warn || "Après 2 attaques, dont 1 bloquée, le compteur du joueur 2 doit indiquer ♥.";
-
-                    return !this.warn;
-                }
+                return !this.warn;
             }
-        ]
-    }, {
-        title: "Prototype, héritage, contexte",
-        description: "Les classes JavaScript repose sur une chaîne de prototypes. Cela offre plus de richesse que dans d'autres approches plus tradiotnnelles, mais implique également certaines contraintes.<br><br>Ce chapitre approfondit la programmation objet.",
-        color: "teal",
-        steps: [
-            {
-                title: "Classes et comparaison d'objets",
-                course: true,
-                description: `
-                    Lorsque deux objets sont comparés, ce n'est pas la valeur de leurs attributs qui est comparée, mais la référence des objets ; à la création d'un objet, une zone mémoire lui est réservée par le navigateur pour le stocker. Deux objets au contenu identique ne sont donc pas égaux car ils sont alloués à différents endroits en mémoire. Pour que deux objet soient égaux, il faut qu'il s'agisse du même objet (la comparaison d'objets littéraux ou de tableau fonctionne de la même façon).
+        }, 
+        {
+            course: true,
+            description: `
+                Il est possible (et souvent souhaitable) de structurer un programme à l'aide de composants au comportement clairement défini. La programmation orientée objet propose ainsi, dans de nombreux langages, de définir un ensemble de concepts, les classes, dont il est possible de manipuler des exemplaires, les objets.
 
-                    **Comparaison d'objets :**
+                **Utilisation de classes et d'objets :**
 
-                        var applePie = new Pie('apple', 8);
-                        var bigApplePie = new Pie('apple', 12);
+                    var release = new Date(1964, 11, 17);
+                    → Thu Dec 17 1964 00:00:00 GMT+0100 (CET)
 
-                        applePie === bigApplePie;
-                        → false
+                    Math.max(5, 10);
+                    → 10
 
-                        applePie === applePie;
-                        → true
+                Il a été question de plusieurs classes jusqu'ici, \`Math\`, \`Date\`, \`Element\`, \`RegExp\` respectant une convention de nommage : leur initiale est en majuscule. Certaines de ces classes peuvent être instanciées, comme Date dont il est possible d'obtenir des exemplaires avec l'opérateur \`new\`. D'autres offrent surtout des méthodes statiques, comme Math dont il est impossible d'obtenir une instance.
 
-                        applePie._fruits === bigApplePie._fruits
-                        && applePie._pieces === bigApplePie._pieces
-                        && ...; // compare every attribute to verify that objets are equal
-                        → true
+                Une classe est un modèle (comme un moule à pâtisserie) qui définit un ensemble d'attributs (la taille, les fruits utilisés) et de méthodes (découper, manger). Une instance est un exemplaire d'une classe (un gâteau aux poires, une tarte aux pommes, etc). Il est ainsi possible de créer autant d'objets d'une classe que souhaité avec pour chacun d'entre eux ses attributs propres et ses opérations basés sur le modèle de la classe.
 
-                    ### Méthodes statiques de classes
+                **Création et comparaison de deux dates :**
 
-                    Enfin, il est également possible d'ajouter des méthodes statiques de classe, c'est à dire des méthodes ne s'appliquant pas à un objet particulier, mais à la classe elle-même. Ce qui est le cas pour la classe \`Math\`, par exemple, dont toutes les méthodes sont des méthodes de classe ; calculer le sinus d'un angle ou maximum de deux nombres ne concerne que les paramètres de la fonction.
+                    var release = new Date(1946, 0, 1);
+                    → Tue Jan 01 1946 00:00:00 GMT+0100
 
-                    **Méthode statique de classe :**
+                    var peace = new Date(1945, 8, 2);
+                    → Sun Sep 02 1945 00:00:00 GMT+0200 (CEST)
 
-                        Pie.favoriteFavour = function() {
-                          return 'lemon';
-                        }
+                    release.getTime() > peace.getTime();
+                    → true
+            `
+        },
+        {
+            course: true,
+            description: `
+                JavaScript est un langage à prototype (contrairement aux langages objets classiques, des attributs peuvent être ajoutés aux objets, même si la classe ne les déclare pas). Une classe est déclarée comme une fonction classique (par convention, avec son initiale en majuscule), et, à ce moment là, il s'agit d'une fonction comme les autres. Ce qui la distingue, c'est que pour l'invoquer, au lieu d'utiliser \`()\`, le mot clé \`new\` est utilisé. Alors, et contrairement à une fonction classique, son code est invoqué avec en variable le mot clé \`this\` faisant référence à l'objet qui est créé.
 
-                        Pie.favoriteFavour();
-                        → 'lemon'
+                **Création de classes et d'objets :**
 
-                    L'usage de telles fonctions est souvent utile, comme dans le cas de \`Math\`, pour regrouper des méthodes relatives aux mêmes types de traitement qui ne nécessitent pas d'objets.
-                `
+                    var Pie = function(fruits, pieces) {
+                      this.fruits = fruits;
+                      this.pieces = pieces;
+                    }
+
+                    var applePie = new Pie('apple', 8);
+                    applePie.fruits;
+                    → 'apple'
+
+                    var cheeseCake = new Pie('cheese', 6);
+                    cheeseCake.fruits;
+                    → 'cheese'
+
+                Ainsi, à chaque usage du mot clé \`new\` un nouvel object de la classe est créé disposant d'un attribut \`fruits\` qui lui est propre. Il est possible d'ajouter du comportement à ces objets.
+
+                **Ajout de méthodes à une classe :**
+
+                    Pie.prototype.eat = function() {
+                      if (this.pieces >= 1)
+                        this.pieces--;
+                    }
+
+                    var applePie = new Pie('apple', 8);
+                    applePie.eat();
+                    applePie.eat();
+                    applePie.pieces;
+                    → 6
+
+                Les objets encapsulent leurs données et exposent leurs opérations. [L'encapsulation](https://developer.mozilla.org/en/docs/Glossary/Encapsulation), qui consiste à ne rendre disponible aux utilisateurs d'un objet qu'une partie de celui-ci, permet de garantir la cohérence de cet objet.
+            `
+        },
+        {
+            title: "Créer un composant",
+            description: "Créer une classe <code>ProductsView</code> responsable de la création du <code>div.ui.cards</code> généré précédemment. Ce composant dispose d'une méthode <code>render</code> pour afficher tous les produits. Il dispose également d'un attribut <code>el</code> contenant le DOM généré à partir de la template <code>#product</code>. Son contenu est injecté dans <code>#app-view</code> comme précédemment.",
+            excerpt: "Il est possible (et souvent souhaitable) de structurer un programme à l'aide de composants au comportement clairement défini. Une classe est un modèle (comme un moule à pâtisserie) qui définit un ensemble d'attributs (la taille, les fruits utilisés) et de méthodes (découper, manger). <pre><code>var ProductsView = function(products) {<br>  this.products = products;<br>}<br>ProductsView.prototype = {<br>  render: function() { .. }<br>}<br><br>var view = new ProductsView(products);<br>view.render();</code></pre>Par convention les classes commencent par une majuscule et les variables / instances par une minuscules.",
+            solved: "var ProductsView = function(products) {<br>  this.products = products;<br><br>  this.el =  document.createElement('div');<br>  this.el.className = 'ui cards';<br>}<br><br>ProductsView.prototype = {<br>  render: function() {<br>    var source = document.querySelector('#product').innerHTML;<br>    var template = Handlebars.compile(source);<br>    <br>    this.el.innerHTML = ''; <br>    for (let i = 0; i < this.products.length; i++) {<br>      this.el.innerHTML += template(this.products[i]);<br>    }<br>  }<br>}<br><br>var appView = document.querySelector('#app-view');<br><br>var productsView = new ProductsView(products);<br>productsView.render();<br>appView.appendChild(productsView.el);",
+            init: function() {
+                window.products = shopProducts;
             },
-            {
-                title: "La chaîne de prototypes",
-                course: true,
-                description: `
-                    Chaque objet encapsule un autre objet qui est son prototype. Ce prototype encapsule un autre objet qui est son prototype, et ainsi de suite jusqu'à ce qu'un objet ainsi encapsulé soit \`null\`. Par définition, \`null\` n'a pas de prototype et agit comme le dernier maillon de la chaîne de prototypes.
-
-                    Lorsqu'un attribut est accédé sur un objet, si cet attribut n'est pas trouvé sur l'objet lui-même, le navigateur le cherche sur son prototype, puis sur le prototype de son prototype, etc. S'il n'est trouvé nulle part, sa valeur est \`undefined\`. Lorsqu'un attribut est modifié sur un objet, c'est directement sur l'objet qu'il l'est, la chaîne de prototype n'est pas parcourue.
-
-                    **Création d'une classe basée sur le prototype d'une autre classe :**
-
-                        var Cake = function(fruits, iceCream) {
-                          Pie.call(this, fruits, 20); // Cake is a sub-class of Pie
-                          this.iceCream = iceCream;
-                        };
-
-                        Cake.prototype = Object.create(Pie.prototype);
-
-                        var chocolateCake = new Cake('nuts', 'vanilla');
-                        chocolateCake._fruits;
-                        → 'nuts'
-                        chocolateCake.iceCream;
-                        → 'vanilla'
-                        chocolateCake.tea;
-                        → undefined
-                `
+            dom: function() {
+                return shop.bind(shop);
             },
-            {
-                title: "L'héritage",
-                course: true,
-                description: `
-                    La chaîne de prototypes permet de créer des relations d'héritage entre objets. Ainsi, une classe récupère les attributs et le comportement de la classe dont elle hérite et elle peut y apporter des modifications pour l'usage de ses propres objets. Dans le cas précédent, la classe \`Cake\` hérite de la classe \`Pie\`, lui ajoute l'attribut \`iceCream\` et fixe le nombre de part à 20. Tous les gâteaux de ce type seront des tartes un peu spéciales, forcément composées de 20 parts à partager et accompagnées d'une boule de glace.
+            solution: function() {
+                var cards = document.querySelectorAll('.shop .card');
+                if (cards.length !== 3)
+                    this.warn = this.warn || 'Les 3 produits doivent être affichés dans le sélecteur <code>#app-view</code>';
+                    
+                var view = new ProductsView(shopProducts);
 
-                    Lorsqu'une classe hérite d'une autre, elle peut redéfinir certaines de ces méthodes.
+                if (!view || !view.render || typeof view.render !== 'function')
+                    this.warn = this.warn || 'L\'attribut <code>render</code> de la classe <code>ProductsView</code> doit être une fonction';
+                
+                if (!view.el)
+                    this.warn = this.warn || 'La classe <code>ProductsView</code> doit disposer d\'un attribut el contenant son morceau de DOM';
 
-                    **Redéfinition d'une méthode dans une classe fille :**
+                view.render && view.render();
+                document.querySelector('#app-view').appendChild(view.el);
 
-                        Cake.prototype.eat = function() {
-                          if (this._pieces > 1)
-                            this._pieces -= 2; // pieces are serve two by two
-                        }
-                `
-            },
-            {
-                title: "Le contexte",
-                course: true,
-                description: `
-                    Chaque object dispose de son propre contexte, accessible et modifiable via son attribut \`this\`. Une des difficultés du langage est que ce contexte change si une autre fonction est invoquée au sein d'une fonction de cet objet.
+                cards = document.querySelectorAll('.shop .card');
 
-                    **Problème du contexte relatif à la dernière fonction :**
+                if (cards.length !== 6)
+                    this.warn = this.warn || 'L\'appel de la fonction <code>render</code> de <codeProductsView</code> doit ajouter les 3 produits au DOM';
 
-                        Pie.prototype.display = function() {
-                          console.log(this.fruits);
-                        });
+                if (!elContains(cards[4] && cards[4].querySelector('.meta'), 'T-shirt'))
+                    this.warn = this.warn || 'Le second produit doit être nommé « T-shirt »';
+                if (!elContains(cards[4] && cards[4].querySelector('.left'), '25€'))
+                    this.warn = this.warn || 'Le second produit doit être indiqué à 25€';
 
-                        Pie.prototype.displayLater = function() {
-                          setTimeout(function() {
-                            console.log(this.fruits);
-                          }, 10);
-                        });
-
-                        var applePie = new Pie('apple', 8);
-                        applePie.display();
-                        → 8
-
-                        applePie.displayLater();
-                        → undefined
-
-                    La fonction anonyme déclarée dans le \`setTimeout\` reçoit comme contexte le \`this\` relatif à l'invocation de ce timeout. Dans le cas d'un event listener, le \`this\` sera relatif à l'élément de la page ayant reçu le clic, par exemple. Dans certaines circonstances, cela peut être utile, dans d'autres, comme dans celles présentées ici, cela complique les choses.
-
-                    Pour parer ce problème, il est possible de forcer le contexte d'une fonction à l'aide de la méthode \`bind\`.
-
-                    **Légende modification du contexte d'une fonction :**
-
-                        Pie.prototype.displayLater = function() {
-                          var fn = function() {
-                            console.log(this.fruits);
-                          }.bind(this);
-
-                          setTimeout(fn, 10);
-                        });
-
-                        applePie.displayLater();
-                        → 8
-
-                    Ainsi, la fonction déclarée dans le setTimeout ne s'exécute plus avec le contexte du timeout, mais avec celui de l'objet.
-                    Il existe deux autres méthodes souvent utilisées pour invoquer une méthode avec un contexte prédéfini : call et apply.
-
-                    **Modification du contexte d'une fonction :**
-
-                        var multiply = function(by) {
-                          var result = this.value * by;
-                          return result;
-                        }
-
-                        var ten = {value: 10};
-                        var Money = function(value) {
-                          this.value = value;
-                        };
-                        var twelve = new Money(12);
-
-                        multiply.call(ten, 2); // or multiply.apply(ten, [2]);
-                        → 20
-
-                        multiply.call(twelve, 2); // or multiply.apply(twelve, [2]);
-                        → 24
-
-                    Ces deux méthodes ont la même logique, elles invoquent une fonction en lui donnant son contexte (premier paramètre d'appel) et ses paramètres d'exécution (second paramètre et suivants). La méthode \`call\` transmet ces paramètres d'exécution les uns après les autres, la méthode \`apply\` les transmet sous la forme d'un tableau (pense-bête apply, array).
-                `
-            },
-            {
-                title: "La gestion de la mémoire",
-                course: true,
-                description: `
-                    JavaScript dispose d'une garbage collection, c'est à dire d'un mécanisme libérant automatiquement la mémoire utilisée par des objets, les littéraux et les tableaux qui ne sont plus utilisés. Il passe à fréquence régulière et remet cette mémoire à disposition.
-
-                    Tant qu'un objet est référencé (stocké dans une variable, dans un tableau, etc), il est maintenu en mémoire. Déclarer un tableau à la racine d'un script — pour le rendre accessible à tous les fonctions de ce script, par exemple — l'expose à ne jamais être retiré de la mémoire.
-
-                    La mémoire du navigateur n'est pas infinie, lorsqu'un programme est très gourmand, il risque de ralentir de la navigateur, et, avec le temps, de bloquer la page. Déclarer les variables dans les fonctions ou objets qui les utilisent limitent ce genre de problèmes. I de grandes quantités de données sont à manipuler, intégrer un système de plafond pour supprimer les données les plus anciennes lorsqu'une limite est atteinte, pour empêcher le programme de croître en mémoire indéfiniment.
-                `
+                return !this.warn;
             }
-        ]
+        },
+        {
+            title: "Créer un sous composant",
+            description: "Créer une classe <code>ProductView</code> responsable de l'affichage d'un unique produit. Modifier la classe <code>ProductsView</code> qui, plutôt que de faire appel au template, va créer 3 instances de <code>ProductView</code>, une par produit. Ajouter un écouteur dans la classe <code>ProductView</code> afin de modifier la quantité du produit affiché au clic sur <code>.plus</code> ou <code>.minus</code>. Puis appeler <code>render</code> pour mettre à jour son affichage.",
+            excerpt: "Découper une application en vues et sous vues est très courant. L'objectif est manipuler un morceau de DOM relatif à un object simple, ici, un produit, plutôt qu'à un tableau. Sans ce découpage, la gestion d'un tableau requiert de laisser des indications dans le DOM afin de savoir quel élément du tableau a été cliqué, par exemple.",
+            solved: "var ProductView = function(product) {<br>  this.product = product;<br><br>  this.el = document.createElement('div');<br>}<br><br>ProductView.prototype = {<br>  render: function() {<br>    var source = document.querySelector('#product').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.product);<br><br>    this.el.querySelector('.plus').addEventListener('click', function() {<br>      this.product.quantity++;<br>      this.render();<br>    }.bind(this));<br><br>    this.el.querySelector('.minus').addEventListener('click', function() {<br>      if (this.product.quantity <= 0)<br>        return;<br><br>      this.product.quantity--;<br>      this.render();<br>    }.bind(this));<br>  }<br>}<br><br>var ProductsView = function(products) {<br>  this.products = products;<br><br>  this.el =  document.createElement('div');<br>  this.el.className = 'ui cards';<br>}<br><br>ProductsView.prototype = {<br>  render: function() {<br>    for (let i = 0; i < this.products.length; i++) {<br>      var children = new ProductView(this.products[i]);<br>      this.el.appendChild(children.el);<br>      children.render();<br>    }<br>  }<br>}<br><br>var appView = document.querySelector('#app-view');<br><br>var productsView = new ProductsView(products);<br>productsView.render();<br>appView.appendChild(productsView.el);",
+            init: function() {
+                window.products = deepClone(shopProducts);
+            },
+            dom: function() {
+                return shop.bind(shop);
+            },
+            solution: function() {
+                var cards = document.querySelectorAll('.shop .card');
+                if (cards.length !== 3)
+                    this.warn = this.warn || 'Les 3 produits doivent être affichés dans le sélecteur <code>#app-view</code>';
+                    
+                cards[1].querySelector('.plus').click();
+                cards[1].querySelector('.plus').click();
+
+                cards = document.querySelectorAll('.shop .card'); // rerender
+                if (cards[1].querySelector('.right').textContent.trim() !== '2')
+                    this.warn = this.warn || 'Cliquer à deux reprises sur le <code>.plus</code> du second produit doit incrémenter sa quantité';
+
+                return !this.warn;
+            }
+        }, 
+        {
+            title: "Créer un routeur",
+            description: "Créer une classe <code>Router</code> responsable de l'affichage des produits ou du panier en fonction de l'adresse de la page (selon si <code>location.hash</code> est égal à <code>#products</code> ou à <code>#cart</code>). Créer une classe <code>CartView</code> qui affiche les produits du panier à l'aide de la template <code>#cart</code>.",
+            excerpt: "Un routeur est un aiguilleur modifiant les vues affichées à l'écran en fonction de l'adresse saisie par l'utilisateur. Lorsque l'utilisateur rafraîchit la page ou qu'il partage son adresse, le routeur est alors en mesure de choisir les vues à afficher et de leur indiquer dans quel état exact elles doivent se positionner.<br><br>Le router peut s'abonner à l'événement hashchange de window, <code>window.addEventListener('hashchange', function() { .. });</code>.",
+            solved: "var ProductView = function(product) {<br>  this.product = product;<br><br>  this.el = document.createElement('div');<br>}<br><br>ProductView.prototype = {<br>  render: function() {<br>    var source = document.querySelector('#product').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.product);<br><br>    this.el.querySelector('.plus').addEventListener('click', function() {<br>      this.product.quantity++;<br>      this.render();<br>    }.bind(this));<br><br>    this.el.querySelector('.minus').addEventListener('click', function() {<br>      if (this.product.quantity <= 0)<br>        return;<br><br>      this.product.quantity--;<br>      this.render();<br>    }.bind(this));<br>  }<br>}<br><br>var ProductsView = function(products) {<br>  this.products = products;<br><br>  this.el =  document.createElement('div');<br>  this.el.className = 'ui cards';<br>}<br><br>ProductsView.prototype = {<br>  render: function() {<br>    for (let i = 0; i < this.products.length; i++) {<br>      var children = new ProductView(this.products[i]);<br>      this.el.appendChild(children.el);<br>      children.render();<br>    }<br>  }<br>}<br><br>var CartView = function(products) {<br>  this.products = products;<br><br>  this.el = document.createElement('div');<br>}<br><br>CartView.prototype = {<br>  render: function() {<br>    var source = document.querySelector('#cart').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.products);<br>  }<br>}<br><br>var Router = function() {<br>  this.appView = document.querySelector('#app-view');<br>  this.render();<br><br>  window.addEventListener('hashchange', this.render.bind(this));<br>};<br><br>Router.prototype = {<br>  render: function() {<br>    var view;<br>    <br>    switch(location.hash) {<br>      case '#cart': <br>        view = new CartView(products);<br>        break;<br>      default:<br>        view = new ProductsView(products);<br>        break;<br>    }<br>    <br>    this.appView.innerHTML = '';<br>    this.appView.appendChild(view.el);<br>    view.render();<br>  }<br>}<br><br>new Router();",
+            init: function() {
+                window.products = deepClone(shopProducts);
+            },
+            dom: function(assertion) {
+                return shop.bind(shop);
+            },
+            reload: function() {
+                removeEventListener('hashchange');
+            },
+            solution: function() {
+                document.querySelector('.item.cart').click();  
+                
+                return hashWait()
+                .then(function() {
+                    var items = document.querySelectorAll('.ui.list .item');
+                    if (items.length !== 5)
+                        this.warn = this.warn || 'Cliquer sur le lien du panier doit afficher la vue panier';
+
+                    document.querySelector('.item.products').click();
+                    return hashWait();
+                }.bind(this))
+                .then(function() {
+                    var cards = document.querySelectorAll('.shop .card');
+                    if (cards.length !== 3)
+                        this.warn = this.warn || 'Cliquer sur le lien des produits doit afficher la vue produits';
+
+                    return !this.warn;
+                }.bind(this));
+            }
+        }, 
+        {
+            title: "Modifier la quantité du panier",
+            description: "Modifier la classe <code>CartView</code> afin que les inputs mettent à jour la quantité des produits (avec l'événement <code>input</code>).",
+            solved: "var ProductView = function(product) {<br>  this.product = product;<br><br>  this.el = document.createElement('div');<br>}<br><br>ProductView.prototype = {<br>  render: function() {<br>    var source = document.querySelector('#product').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.product);<br><br>    this.el.querySelector('.plus').addEventListener('click', function() {<br>      this.product.quantity++;<br>      this.render();<br>    }.bind(this));<br><br>    this.el.querySelector('.minus').addEventListener('click', function() {<br>      if (this.product.quantity <= 0)<br>        return;<br><br>      this.product.quantity--;<br>      this.render();<br>    }.bind(this));<br>  }<br>}<br><br>var ProductsView = function(products) {<br>  this.products = products;<br><br>  this.el =  document.createElement('div');<br>  this.el.className = 'ui cards';<br>}<br><br>ProductsView.prototype = {<br>  render: function() {<br>    for (let i = 0; i < this.products.length; i++) {<br>      var children = new ProductView(this.products[i]);<br>      this.el.appendChild(children.el);<br>      children.render();<br>    }<br>  }<br>}<br><br>var CartView = function(products) {<br>  this.products = products;<br><br>  this.el = document.createElement('div');<br>}<br><br>CartView.prototype = {<br>  render: function() {<br>    var source = document.querySelector('#cart').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.products);<br><br>    var inputs = this.el.querySelectorAll('input');<br>    for (let i = 0; i < inputs.length; i++) {<br>      inputs[i].addEventListener('input', function() {<br>        this.products[i].quantity = Math.floor(inputs[i].value);<br>      }.bind(this));<br>    }<br>  }<br>}<br><br>var Router = function() {<br>  this.appView = document.querySelector('#app-view');<br>  this.render();<br><br>  window.addEventListener('hashchange', this.render.bind(this));<br>};<br><br>Router.prototype = {<br>  render: function() {<br>    var view;<br>    <br>    switch(location.hash) {<br>      case '#cart': <br>        view = new CartView(products);<br>        break;<br>      default:<br>        view = new ProductsView(products);<br>        break;<br>    }<br>    <br>    this.appView.innerHTML = '';<br>    this.appView.appendChild(view.el);<br>    view.render();<br>  }<br>}<br><br>new Router();",
+            init: function() {
+                window.products = deepClone(shopProducts);
+            },
+            dom: function() {
+                return shop.bind(shop);
+            },
+            reload: function() {
+                removeEventListener('hashchange');
+            },
+            solution: function() {
+                document.querySelector('.item.cart').click();  
+                
+                return hashWait()
+                .then(function() {
+                    var items = document.querySelectorAll('.ui.list .item');
+                    var input = items[1].querySelector('input');
+                    input.value = 5;
+                    change(input, 'input');
+
+                    document.querySelector('.item.products').click();
+                    return hashWait();
+                }.bind(this))
+                .then(function() {
+                    var cards = document.querySelectorAll('.shop .card');
+                    if (cards[1].querySelector('.right').textContent.trim() !== '5')
+                        this.warn = this.warn || 'Modifier la quantité d\'un article dans le panier doit également modifier sa quantité dans le listing de produit (puisqu\'ils partagent le même modèle)';
+
+                    return !this.warn;
+                }.bind(this));
+            }
+        }, 
+        {
+            title: "Créer une vue partagée",
+            description: "Créer une classe <code>Total</code> responsable de l'affichage du nombre d'articles et du prix total du panier (en haut à droite). Cette vue n'a pas de template, et est affichée pour toutes les routes. Elle doit mettre à jour <code>.cart-quantity</code> et <code>.cart-price</code> à chaque modification d'une quantité d'un produit (dans les vues produits et panier).",
+            excerpt: "Les vues communiquement souvent entre elles en partageant un modèle (ici, la liste des produits). Elles peuvent également communiquer en se partageant une fonction que l'une appelle (ici, lorsque la quantité est modifiée) et l'autre écoute (ici, l'affichage du total).",
+            solved: "var ProductView = function(product, options) {<br>  this.product = product;<br>  this.options = options;<br><br>  this.el = document.createElement('div');<br>}<br><br>ProductView.prototype = {<br>  render: function() {<br>    var source = document.querySelector('#product').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.product);<br><br>    this.el.querySelector('.plus').addEventListener('click', function() {<br>      this.product.quantity++;<br>      this.render();<br>      this.options.onUpdate();<br>    }.bind(this));<br><br>    this.el.querySelector('.minus').addEventListener('click', function() {<br>      if (this.product.quantity <= 0)<br>        return;<br><br>      this.product.quantity--;<br>      this.render();<br>      this.options.onUpdate();<br>    }.bind(this));<br>  }<br>}<br><br>var ProductsView = function(products, options) {<br>  this.products = products;<br>  this.options = options;<br><br>  this.el =  document.createElement('div');<br>  this.el.className = 'ui cards';<br>}<br><br>ProductsView.prototype = {<br>  render: function() {<br>    for (let i = 0; i < this.products.length; i++) {<br>      var children = new ProductView(this.products[i], this.options);<br>      this.el.appendChild(children.el);<br>      children.render();<br>    }<br>  }<br>}<br><br>var CartView = function(products, options) {<br>  this.products = products;<br>  this.options = options;<br><br>  this.el = document.createElement('div');<br>}<br><br>CartView.prototype = {<br>  render: function() {<br>    var source = document.querySelector('#cart').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.products);<br><br>    var inputs = this.el.querySelectorAll('input');<br>    for (let i = 0; i < inputs.length; i++) {<br>      inputs[i].addEventListener('input', function() {<br>        this.products[i].quantity = Math.floor(inputs[i].value);<br>        this.options.onUpdate();<br>      }.bind(this));<br>    }<br>  }<br>}<br><br>var Total = function(products) {<br>  this.products = products;<br>}<br><br>Total.prototype = {<br>  render() {<br>    var computed = {quantity: 0, price: 0};<br>  <br>    for (var i = 0; i < products.length; i++) {<br>      var product = products[i];<br>      computed.quantity += product.quantity;<br>      computed.price += (product.price * product.quantity);<br>    }<br><br>    document.querySelector('.cart-quantity').innerHTML = computed.quantity;;<br>    document.querySelector('.cart-price').innerHTML = computed.price + '€';<br>  }<br>}<br><br>var Router = function() {<br>  this.total = new Total(products);<br>  this.appView = document.querySelector('#app-view');<br>  this.render();<br><br>  window.addEventListener('hashchange', this.render.bind(this));<br>};<br><br>Router.prototype = {<br>  onUpdate: function() {<br>    this.total.render();<br>  },<br>  render: function() {<br>    var view;<br>    var options = {onUpdate: this.onUpdate.bind(this)};<br>    <br>    switch(location.hash) {<br>      case '#cart': <br>        view = new CartView(products, options);<br>        break;<br>      default:<br>        view = new ProductsView(products, options);<br>        break;<br>    }<br>    <br>    this.appView.innerHTML = '';<br>    this.appView.appendChild(view.el);<br>    view.render();<br><br>    this.total.render();<br>  }<br>}<br><br>new Router();",
+            init: function() {
+                window.products = deepClone(shopProducts);
+            },
+            dom: function() {
+                return shop.bind(shop);
+            },
+            reload: function() {
+                removeEventListener('hashchange');
+            },
+            solution: function() {
+                var cards = document.querySelectorAll('.shop .card');
+                if (cards.length !== 3)
+                    this.warn = this.warn || 'Les 3 produits doivent être affichés dans le sélecteur <code>#app-view</code>';
+                    
+                cards[1].querySelector('.plus').click();
+                cards[1].querySelector('.plus').click();
+                cards[2].querySelector('.plus').click();
+
+                var quantity = document.querySelector('.cart-quantity').innerHTML;
+                var price = document.querySelector('.cart-price').innerHTML;
+                if (quantity !== '3')
+                    this.warn = this.warn || 'Sélectionner deux fois le second produit et une le troisième doit afficher une quantité de 3 dans <code>.cart-quantity</code>';
+                if (price !== '90€')
+                    this.warn = this.warn || 'Cliquer à trois reprises sur le <code>.plus</code> de produits doit afficher un prix de 90€ dans <code>.cart-price</code>';
+
+                return !this.warn;
+            }
+        },
+        {
+            title: "Créer une méthode statique",
+            description: "Ajouter une méthode statique <code>compute</code> à la classe <code>Total</code>. Cette méthode, ajoutée sans passer par le prototype, permet d'être invoquée sans créer d'instance de cette classe. Utiliser cette méthode statique pour mettre à jour le prix <code>.cart-price</code> dans le composant <code>CartView</code>.",
+            excerpt: "Les méthodes statiques permettent de regrouper des fonctions utilitaires au sein de classes, la classe Math en propose de très nombreuses, comme <code>Math.sin</code>, <code>Math.max</code>, etc.",
+            solved: "var ProductView = function(product, options) {<br>  this.product = product;<br>  this.options = options;<br><br>  this.el = document.createElement('div');<br>}<br><br>ProductView.prototype = {<br>  render: function() {<br>    var source = document.querySelector('#product').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.product);<br><br>    this.el.querySelector('.plus').addEventListener('click', function() {<br>      this.product.quantity++;<br>      this.render();<br>      this.options.onUpdate();<br>    }.bind(this));<br><br>    this.el.querySelector('.minus').addEventListener('click', function() {<br>      if (this.product.quantity <= 0)<br>        return;<br><br>      this.product.quantity--;<br>      this.render();<br>      this.options.onUpdate();<br>    }.bind(this));<br>  }<br>}<br><br>var ProductsView = function(products, options) {<br>  this.products = products;<br>  this.options = options;<br><br>  this.el =  document.createElement('div');<br>  this.el.className = 'ui cards';<br>}<br><br>ProductsView.prototype = {<br>  render: function() {<br>    for (let i = 0; i < this.products.length; i++) {<br>      var children = new ProductView(this.products[i], this.options);<br>      this.el.appendChild(children.el);<br>      children.render();<br>    }<br>  }<br>}<br><br>var CartView = function(products, options) {<br>  this.products = products;<br>  this.options = options;<br><br>  this.el = document.createElement('div');<br>}<br><br>CartView.prototype = {<br>  renderTotal() {<br>    this.el.querySelector('.cart-price').innerHTML = Total.compute(this.products).price + '€';<br>  },<br>  render: function() {<br>    var source = document.querySelector('#cart').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.products);<br><br>    var inputs = this.el.querySelectorAll('input');<br>    for (let i = 0; i < inputs.length; i++) {<br>      inputs[i].addEventListener('input', function() {<br>        this.products[i].quantity = Math.floor(inputs[i].value);<br>        this.renderTotal();<br>        this.options.onUpdate();<br>      }.bind(this));<br>    }<br>    this.renderTotal();<br>  }<br>}<br><br>var Total = function(products) {<br>  this.products = products;<br>}<br><br>Total.compute = function(products) {<br>  var computed = {quantity: 0, price: 0};<br>  <br>  for (var i = 0; i < products.length; i++) {<br>    var product = products[i];<br>    computed.quantity += product.quantity;<br>    computed.price += (product.price * product.quantity);<br>  }<br><br>  return computed;<br>}<br><br>Total.prototype = {<br>  render() {<br>    var computed = Total.compute(this.products);<br><br>    document.querySelector('.cart-quantity').innerHTML = computed.quantity;;<br>    document.querySelector('.cart-price').innerHTML = computed.price + '€';<br>  }<br>}<br><br>var Router = function() {<br>  this.total = new Total(products);<br>  this.appView = document.querySelector('#app-view');<br>  this.render();<br><br>  window.addEventListener('hashchange', this.render.bind(this));<br>};<br><br>Router.prototype = {<br>  onUpdate: function() {<br>    this.total.render();<br>  },<br>  render: function() {<br>    var view;<br>    var options = {onUpdate: this.onUpdate.bind(this)};<br>    <br>    switch(location.hash) {<br>      case '#cart': <br>        view = new CartView(products, options);<br>        break;<br>      default:<br>        view = new ProductsView(products, options);<br>        break;<br>    }<br>    <br>    this.appView.innerHTML = '';<br>    this.appView.appendChild(view.el);<br>    view.render();<br><br>    this.total.render();<br>  }<br>}<br><br>new Router();",
+            init: function() {
+                window.products = deepClone(shopProducts);
+            },
+            dom: function() {
+                return shop.bind(shop);
+            },
+            reload: function() {
+                removeEventListener('hashchange');
+            },
+            solution: function() {
+                document.querySelector('.item.cart').click();  
+                
+                return hashWait()
+                .then(function() {
+                    var items = document.querySelectorAll('.ui.list .item');
+                    var input = items[1].querySelector('input');
+                    input.value = 5;
+                    change(input, 'input');
+
+                    var price = document.querySelector('#app-view .cart-price').innerHTML;
+                    if (price !== '125€')
+                        this.warn = this.warn || 'Ajouter 5 exemplaires du second produit doit afficher un prix de 125€ dans le <code>.cart-price</code> du panier';
+
+                    return !this.warn;
+                }.bind(this));
+            }
+        },
+        {
+            title: "Ajouter un paiement sécurisé",
+            description: "Importer la librairie stripe, et utiliser stripe elements pour afficher un formulaire de paiement (à l'aidé d'une clé publique obtenue en créant un compte). Ajouter une vue <code>PaymentView</code>, affichée par le routeur au hash <code>#payment</code>, affichant ce formulaire à l'aide de la template <code>#payment</code>. Ce formulaire génère un token à l'aide de la carte bleue saisie (en mode test, 4242 4242 4242 4242). Pour l'instant, après l'appel à <code>createToken</code> afficher ce token à la place du libellé du bouton payer.",
+            exerpt: "Stripe est une solution de paiement en ligne qui offre deux outils : des interface de saisie de carte bleue côté client et une api de paiement côté serveurs. La qualité de sa documentation et de son back office est souvent louée par la communauté.",
+            solved: "/* import this in the HTML <head> before the code<br>&lt;script src=\"https://js.stripe.com/v3/\"&gt;&lt;/script&gt;<br>*/<br>var ProductView = function(product, options) {<br>  this.product = product;<br>  this.options = options;<br><br>  this.el = document.createElement('div');<br>}<br><br>ProductView.prototype = {<br>  render: function() {<br>    var source = document.querySelector('#product').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.product);<br><br>    this.el.querySelector('.plus').addEventListener('click', function() {<br>      this.product.quantity++;<br>      this.render();<br>      this.options.onUpdate();<br>    }.bind(this));<br><br>    this.el.querySelector('.minus').addEventListener('click', function() {<br>      if (this.product.quantity <= 0)<br>        return;<br><br>      this.product.quantity--;<br>      this.render();<br>      this.options.onUpdate();<br>    }.bind(this));<br>  }<br>}<br><br>var ProductsView = function(products, options) {<br>  this.products = products;<br>  this.options = options;<br><br>  this.el =  document.createElement('div');<br>  this.el.className = 'ui cards';<br>}<br><br>ProductsView.prototype = {<br>  render: function() {<br>    for (let i = 0; i < this.products.length; i++) {<br>      var children = new ProductView(this.products[i], this.options);<br>      this.el.appendChild(children.el);<br>      children.render();<br>    }<br>  }<br>}<br><br>var CartView = function(products, options) {<br>  this.products = products;<br>  this.options = options;<br><br>  this.el = document.createElement('div');<br>}<br><br>CartView.prototype = {<br>  renderTotal() {<br>    this.el.querySelector('.cart-price').innerHTML = Total.compute(this.products).price + '€';<br>  },<br>  render: function() {<br>    var source = document.querySelector('#cart').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.products);<br><br>    var inputs = this.el.querySelectorAll('input');<br>    for (let i = 0; i < inputs.length; i++) {<br>      inputs[i].addEventListener('input', function() {<br>        this.products[i].quantity = Math.floor(inputs[i].value);<br>        this.renderTotal();<br>        this.options.onUpdate();<br>      }.bind(this));<br>    }<br>    this.renderTotal();<br>  }<br>}<br><br>var Total = function(products) {<br>  this.products = products;<br>}<br><br>Total.compute = function(products) {<br>  var computed = {quantity: 0, price: 0};<br>  <br>  for (var i = 0; i < products.length; i++) {<br>    var product = products[i];<br>    computed.quantity += product.quantity;<br>    computed.price += (product.price * product.quantity);<br>  }<br><br>  return computed;<br>}<br><br>Total.prototype = {<br>  render() {<br>    var computed = Total.compute(this.products);<br><br>    document.querySelector('.cart-quantity').innerHTML = computed.quantity;;<br>    document.querySelector('.cart-price').innerHTML = computed.price + '€';<br>  }<br>}<br><br>var Router = function() {<br>  this.total = new Total(products);<br>  this.appView = document.querySelector('#app-view');<br>  this.render();<br><br>  window.addEventListener('hashchange', this.render.bind(this));<br>};<br><br>var PaymentView = function(products, options) {<br>  this.products = products;<br>  this.options = options;<br><br>  this.el = document.createElement('div');<br>  this.render();<br>}<br><br>PaymentView.prototype = {<br>  publishableKey: 'pk_test_{token}',<br>  render: function() {<br>    this.el.innerHTML = document.querySelector('#payment').innerHTML;<br><br>    var stripe = Stripe(this.publishableKey);<br>    var elements = stripe.elements();<br>    var card = elements.create('card', {hidePostalCode: true});<br>    card.mount(this.el.querySelector('.stripe'));<br><br>    var button = this.el.querySelector('.button');<br>    button.querySelector('.cart-price').innerHTML = Total.compute(this.products).price + '€';<br><br>    this.el.querySelector('.checkout').addEventListener('submit', function(event) {<br>      event.preventDefault();<br><br>      button.classList.add('loading');<br>      <br>      stripe.createToken(card).then(function(data) {<br>        button.classList.remove('loading');<br><br>        var token = data.token.id;<br>        button.innerHTML = token<br>      }.bind(this));<br>    }.bind(this));<br>  }<br>}<br><br>Router.prototype = {<br>  onUpdate: function() {<br>    this.total.render();<br>  },<br>  render: function() {<br>    var view;<br>    var options = {onUpdate: this.onUpdate.bind(this)};<br>    <br>    switch(location.hash) {<br>      case '#cart': <br>        view = new CartView(products, options);<br>        break;<br>      case '#payment': <br>        view = new PaymentView(products, options);<br>        break;<br>      default:<br>        view = new ProductsView(products, options);<br>        break;<br>    }<br>    <br>    this.appView.innerHTML = '';<br>    this.appView.appendChild(view.el);<br>    view.render();<br><br>    this.total.render();<br>  }<br>}<br><br>new Router();",
+            init: function() {
+                window.products = deepClone(shopProducts);
+            },
+            dom: function() {
+                return shop.bind(shop);
+            },
+            reload: function() {
+                removeEventListener('hashchange');
+            },
+            solution: function() {
+                document.querySelector('.item.cart').click();  
+                
+                return hashWait()
+                .then(function() {
+                    var items = document.querySelectorAll('.ui.list .item');
+                    var input = items[1].querySelector('input');
+                    input.value = 5;
+                    change(input, 'input');
+
+                    document.querySelector('#app-view .button').click();  
+                    return hashWait();
+                })
+                .then(function() {
+                    var checkout = document.querySelector('.checkout');
+                    if (!checkout || checkout.querySelectorAll('.button').length !== 1)
+                        this.warn = this.warn || 'Cliquer sur le lien du panier, puis sur « passer à la caisse » doit afficher le formulaire de paiement';
+                    
+                    return !this.warn;
+                }.bind(this))
+            }
+        },
+        {
+            title: "Effectuer le paiement",
+            description: "Effectuer un appel à l'api privée de stripe.",
+            excerpt: "L'api <code>charge</code> de stripe est destinée a être requétée avec un serveur par mesure de sécurité (les données bancaires et leur accès sont très sensibles). Une clé privée est prévue pour cela. Il est possible de simuler cet appel côté client, mais cela requiert d'utiliser un serveur de fichiers pour afficher l'application actuelle (browsersync, par exemple). Ainsi, au lieu de <code>file://</code>, elle est accédée par le navigateur en <code>localhost://</code>. Une fois le paiement réussi, vérifier dans l'interface de stripe qu'il y figure bien",
+            solved: "var ProductView = function(product, options) {<br>  this.product = product;<br>  this.options = options;<br><br>  this.el = document.createElement('div');<br>}<br><br>ProductView.prototype = {<br>  render: function() {<br>    var source = document.querySelector('#product').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.product);<br><br>    this.el.querySelector('.plus').addEventListener('click', function() {<br>      this.product.quantity++;<br>      this.render();<br>      this.options.onUpdate();<br>    }.bind(this));<br><br>    this.el.querySelector('.minus').addEventListener('click', function() {<br>      if (this.product.quantity <= 0)<br>        return;<br><br>      this.product.quantity--;<br>      this.render();<br>      this.options.onUpdate();<br>    }.bind(this));<br>  }<br>}<br><br>var ProductsView = function(products, options) {<br>  this.products = products;<br>  this.options = options;<br><br>  this.el =  document.createElement('div');<br>  this.el.className = 'ui cards';<br>}<br><br>ProductsView.prototype = {<br>  render: function() {<br>    for (let i = 0; i < this.products.length; i++) {<br>      var children = new ProductView(this.products[i], this.options);<br>      this.el.appendChild(children.el);<br>      children.render();<br>    }<br>  }<br>}<br><br>var CartView = function(products, options) {<br>  this.products = products;<br>  this.options = options;<br><br>  this.el = document.createElement('div');<br>}<br><br>CartView.prototype = {<br>  renderTotal() {<br>    this.el.querySelector('.cart-price').innerHTML = Total.compute(this.products).price + '€';<br>  },<br>  render: function() {<br>    var source = document.querySelector('#cart').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.products);<br><br>    var inputs = this.el.querySelectorAll('input');<br>    for (let i = 0; i < inputs.length; i++) {<br>      inputs[i].addEventListener('input', function() {<br>        this.products[i].quantity = Math.floor(inputs[i].value);<br>        this.renderTotal();<br>        this.options.onUpdate();<br>      }.bind(this));<br>    }<br>    this.renderTotal();<br>  }<br>}<br><br>var Total = function(products) {<br>  this.products = products;<br>}<br><br>Total.compute = function(products) {<br>  var computed = {quantity: 0, price: 0};<br>  <br>  for (var i = 0; i < products.length; i++) {<br>    var product = products[i];<br>    computed.quantity += product.quantity;<br>    computed.price += (product.price * product.quantity);<br>  }<br><br>  return computed;<br>}<br><br>Total.prototype = {<br>  render() {<br>    var computed = Total.compute(this.products);<br><br>    document.querySelector('.cart-quantity').innerHTML = computed.quantity;;<br>    document.querySelector('.cart-price').innerHTML = computed.price + '€';<br>  }<br>}<br><br>var Router = function() {<br>  this.total = new Total(products);<br>  this.appView = document.querySelector('#app-view');<br>  this.render();<br><br>  window.addEventListener('hashchange', this.render.bind(this));<br>};<br><br>var PaymentView = function(products, options) {<br>  this.products = products;<br>  this.options = options;<br><br>  this.el = document.createElement('div');<br>  this.render();<br>}<br><br>PaymentView.prototype = {<br>  publishableKey: 'pk_test_{token}',<br>  secretKey: 'sk_test_{token}',<br>  encodeBodyAsQueryParams: function(body) {<br>    return Object.keys(body).map(function(key) {<br>      return encodeURIComponent(key) + '=' + encodeURIComponent(body[key]);<br>    }).join('&');<br>  },<br>  render: function() {<br>    this.el.innerHTML = document.querySelector('#payment').innerHTML;<br><br>    var stripe = Stripe(this.publishableKey);<br>    var elements = stripe.elements();<br>    var card = elements.create('card', {hidePostalCode: true});<br>    card.mount(this.el.querySelector('.stripe'));<br><br>    var button = this.el.querySelector('.button');<br>    button.querySelector('.cart-price').innerHTML = Total.compute(this.products).price + '€';<br><br>    this.el.querySelector('.checkout').addEventListener('submit', function(event) {<br>      event.preventDefault();<br><br>      button.classList.add('loading');<br><br>      stripe.createToken(card).then(function(data) {<br>        var token = data.token.id;<br><br>        fetch('https://api.stripe.com/v1/charges', {<br>          method: 'POST',<br>          headers: {<br>            'Authorization': 'Bearer ' + this.secretKey,<br>            'Content-Type': 'application/x-www-form-urlencoded'<br>          },<br>          mode: 'cors',<br>          body: this.encodeBodyAsQueryParams({<br>            amount: 100 * Total.compute(this.products).price,<br>            currency: 'eur',<br>            description: 'shop',<br>            source: token<br>          })<br>        })<br>        .then(function(response) {<br>          return response.json();<br>        })<br>        .then(function(data) {<br>          button.classList.remove('loading');<br>          <br>          for (var i = 0; i < this.products.length; i++) {<br>            this.products[i].quantity = 0;<br>          }<br>          this.options.onUpdate();<br>        }.bind(this))<br>        .catch(function(err) {<br>          console.log(err);<br>        });<br>      }.bind(this));<br>    }.bind(this));<br>  }<br>}<br><br>Router.prototype = {<br>  onUpdate: function() {<br>    this.total.render();<br>  },<br>  render: function() {<br>    var view;<br>    var options = {onUpdate: this.onUpdate.bind(this)};<br>    <br>    switch(location.hash) {<br>      case '#cart': <br>        view = new CartView(products, options);<br>        break;<br>      case '#payment': <br>        view = new PaymentView(products, options);<br>        break;<br>      default:<br>        view = new ProductsView(products, options);<br>        break;<br>    }<br>    <br>    this.appView.innerHTML = '';<br>    this.appView.appendChild(view.el);<br>    view.render();<br><br>    this.total.render();<br>  }<br>}<br><br>new Router();",
+            init: function() {
+                window.products = deepClone(shopProducts);
+            },
+            dom: function() {
+                return shop.bind(shop);
+            },
+            reload: function() {
+                removeEventListener('hashchange');
+            },
+            solution: function() {
+                document.querySelector('.item.cart').click();  
+                
+                return hashWait()
+                .then(function() {
+                    var items = document.querySelectorAll('.ui.list .item');
+                    var input = items[1].querySelector('input');
+                    input.value = 5;
+                    change(input, 'input');
+
+                    document.querySelector('#app-view .button').click();  
+                    return hashWait();
+                })
+                .then(function() {
+                    var checkout = document.querySelector('.checkout');
+                    if (!checkout || checkout.querySelectorAll('.button').length !== 1)
+                        this.warn = this.warn || 'Cliquer sur le lien du panier, puis sur « passer à la caisse » doit afficher le formulaire de paiement';
+                    
+                    return !this.warn;
+                }.bind(this))
+            }
+        }]
     }, {
         title: "Les expressions régulières",
         description: "Les expressions régulières sont des expressions rationnelles permettant de reconnaître un motif (pattern) dans un texte de façon plus fine qu'une recherche classique de caratère.<br><br>Ce chapitre présente les expressions régulières.",
@@ -5763,6 +5702,491 @@ let chapters = [
                 }
             }
         ]
+    }, {
+        title: "Puzzle | Might & Magic",
+        description: "Might & Magic est un jeu pour 2 joueurs jouant à tour de rôle des pions sur un échiquier. Chaque pion dispose de pouvoirs particuliers et les joueurs d'un nombre de point de vie limité.<br><br>Ce chapitre présente la réalisation (corsée) d'un puzzle rpg au tour par tour.",
+        color: "pink",
+        steps: [{
+                title: "Créer une classe",
+                description: "Créer une classe <code>Player</code> avec un attribut <code>name</code>, de façon à ce que <code>new Player(1)</code> crée un objet avec l'attrbut <code>name</code> initialisé à <code>1</code>.",
+                excerpt: "Dans ce jeu deux adversaires s'affrontent, et jouent deux coups à tour de rôle. Avec un coup, un joueur peut déplacer un pion d'une colonne vers une autre. Si plusieurs pions sont sur la même colonne, seul le plus éloigné du territoire adverse peut être déplacé. Et, quand un pion arrive dans une colonne, il arrive dans la première ligne disponible, la plus éloignée du territoire adverse.<br><br>Dans les étapes suivantes, deux objets de la classe <code>Player</code> vont être utilisés pour gérer les actions des deux joueurs ; la classe va définir un comportement similaire, unique pour les deux joueurs, le premier de ses objets gérera le premier joueur, et le second, le second joueur.<br><br>Il est possible (et souvent souhaitable) de structurer un programme à l'aide de composants au comportement clairement défini. Une classe est un modèle (comme un moule à pâtisserie) qui définit un ensemble d'attributs (la taille, les fruits utilisés) et de méthodes (découper, manger). <pre><code>var Player = function(name) {<br>  this.name = name;<br>}<br>var player = new Player(1);</code></pre>Par convention les classes commencent par une majuscule et les variables / instances par une minuscules.",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>};",
+                dom: function() {
+                    return might.bind(might);
+                },
+                solution: function() {
+                    var player = new Player(1);
+                    if (player.name !== 1)
+                        this.warn = this.warn || "L'attribut <code>name</code> de la classe <code>Player</code> doit être initialisé avec son premier paramètre de constructeur.";
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Modifier le constructeur d'une classe",
+                description: "Modifier le constructeur de la classe <code>Player</code>, afin que le <code>name</code> passé en paramètre soit utilisé également pour initialiser un attribut <code>table</code> avec la <code>table[data-p=..]</code> du dom correspondante. Les deux tables disposent chacune d'un attribut <code>data-p</code> différent avec le « nom » du joueur (1 ou 2).",
+                excerpt: "Le constructeur d'une classe peut être utilisé pour configurer l'objet qu'il créé. Ici, deux objet <code>Player</code> vont être créés, ils partageront le même comportement, mais l'un gérera la <code>table</code> du haut (joueur 1), l'autre la <code>table</code> du bas (joueur 2).",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};",
+                dom: function() {
+                    return might.bind(might);
+                },
+                solution: function() {
+                    var player = new Player(1);
+                    if (player.table.querySelectorAll('td').length !== 24)
+                        this.warn = this.warn || "L'attribut <code>table</code> de la classe <code>Player</code> doit être initialisé avec son premier paramètre de constructeur.";
+
+                    return !this.warn;
+                }
+            }, {
+                title: "Modifier le prototype d'une classe",
+                description: "Modifier le prototype de la classe <code>Player</code>, en lui ajoutant la méthode <code>get(x, y)</code> pour récupérer un <code>td</code> de sa <code>table</code> par ses coordonnées x,y. Chaque <code>td</code> dispose d'attributs <code>data-x</code> et <code>data-y</code> pour faciliter cette recherche.",
+                excerpt: "Dans les étapes suivantes, afin de déplacer les pions, il sera nécessaire de pouvoir récupérer chaque case du territoire d'un joueur et de savoir si elle libre ou occupée. La méthode <code>get</code> est créée pour cela.<br><br>Pour ajouter un comportement commun à chaque objet d'une classe, il est possible de modifier le prototype de celle-ci. De cette façon, tous les objets créés à partir de cette clase, disposeront de la même fonction.<pre><code>Player.prototype.get = function(x, y) {<br>  return this.table.querySelector('[data-x=\"' + x + '\"]');<br>}</code></pre>",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  }<br>};",
+                dom: function() {
+                    return might.bind(might);
+                },
+                solution: function() {
+                    var player = new Player(1);
+                    if (player.get(1, 1).className !== 'peon')
+                        this.warn = this.warn || "La case 1,1 du joueur 1 contient la classe <code>peon</code>. La méthode <code>new Player(1).get(1, 1)</code> doit retourner ce <code>td</code>.";
+                    if (player.get(2, 1).className !== 'block')
+                        this.warn = this.warn || "La case 2,1 du joueur 1 contient la classe <code>block</code>. La méthode <code>new Player(1).get(2, 1)</code> doit retourner ce <code>td</code>.";
+
+                    return !this.warn;
+                }
+            }, {
+                title: "Modifier le prototype d'une classe",
+                description: "Modifier le prototype de la classe <code>Player</code>, en lui ajoutant la méthode <code>set(x, y, className)</code> pour modifier la classe d'un <code>td</code> de sa <code>table</code> en le recherchant par ses coordonnées x,y et en remplacant sa classe par className.",
+                excerpt: "Dans les étapes suivantes, afin de déplacer les pions, il sera nécessaire de pouvoir modifier une case du territoire d'un joueur, celle dont il vient devra ne plus avoir de classe (pour apparaitre vide), celle ou il arrive devra obtenir la classe correspondante, <code>.peon</code>, <code>.block</code> ou <code>.attack</code>. La méthode <code>set</code> est créée pour cela.",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  }<br>};",
+                dom: function() {
+                    return might.bind(might);
+                },
+                solution: function() {
+                    var player = new Player(1);
+                    if (player.get(1, 1).className !== 'peon')
+                        this.warn = this.warn || "La case 1,1 du joueur 1 contient la classe <code>peon</code>. La méthode <code>new Player(1).get(1, 1)</code> doit retourner ce <code>td</code>.";
+
+                    player.set(2, 1, 'peon');
+                    if (player.get(2, 1).className !== 'peon')
+                        this.warn = this.warn || "La case 2,1 du joueur 1 ne contient pas la classe <code>peon</code>. La méthode <code>new Player(1).set(2, 1, 'peon')</code> doit lui ajouter.";
+
+                    return !this.warn;
+                }
+            }, {
+                title: "Modifier le prototype d'une classe",
+                description: "Modifier le prototype de la classe <code>Player</code>, en lui ajoutant la méthode <code>free(x)</code> qui retourne l'index de la première ligne disponible (de 1 à 4) pour cette colonne ou <code>undefined</code> sinon. Cette méthode ne gère pas le clic sur la colonne, elle indique juste, pour une colonne donnée, quelle est la première ligne disponible.",
+                excerpt: "Dans les étapes suivantes, au clic sur une colonne, le dernier pion de la colonne (le plus loin du territoire adverse) pourra être déplacé vers une autre colonne. La méthode <code>free</code> permettra de connaître le premier emplacement disponible de la colonne d'arrivée du déplacement.",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var i = this.free(x);<br>    if (i) {<br>      return i - 1;<br>    } else {<br>      return 4;<br>    }<br>  }<br>};",
+                dom: function() {
+                    return might.bind(might);
+                },
+                solution: function() {
+                    var player = new Player(1);
+                    if (player.free(1) !== 3)
+                        this.warn = this.warn || "La colonne 1 est occupée jusqu'en case 3, la méthode <code>free(1)</code> doit retourner <code>3</code>.";
+
+                    if (player.free(2) !== 2)
+                        this.warn = this.warn || "La colonne 2 est occupée jusqu'en case 2, la méthode <code>free(2)</code> doit retourner <code>2</code>.";
+
+                    if (player.free(3) !== 1)
+                        this.warn = this.warn || "La colonne 3 est inoccupée, la méthode <code>free(3)</code> doit retourner <code>1</code>.";
+
+                    if (player.free(4) !== 3)
+                        this.warn = this.warn || "La colonne 4 est occupée jusqu'en case 3, la méthode <code>free(4)</code> doit retourner <code>3</code>.";
+
+                    return !this.warn;
+                }
+            }, {
+                title: "Modifier le prototype d'une classe",
+                description: "Modifier le prototype de la classe <code>Player</code>, en lui ajoutant la méthode <code>last(x)</code> qui retourne l'indice de la dernière ligne occupée (de 1 à 4) pour cette colonne ou <code>undefined</code> sinon.",
+                excerpt: "Dans les étapes suivantes, au clic sur une colonne, le dernier pion de la colonne (le plus loin du territoire adverse) pourra être déplacé vers une autre colonne. La méthode <code>last</code> permettra de connaître le dernier emplacement occupé de la colonne de départ du déplacement.",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  }<br>};",
+                dom: function() {
+                    return might.bind(might);
+                },
+                solution: function() {
+                    var player = new Player(1);
+                    if (player.last(3) !== 0)
+                        this.warn = this.warn || "La colonne 3 est inoccupée, la méthode <code>last(3)</code> doit retourner <code>0</code>.";
+
+                    if (player.last(4) !== 2)
+                        this.warn = this.warn || "La colonne 4 est occupée jusqu'en case 2, la méthode <code>last(4)</code> doit retourner <code>2</code>.";
+
+                    if (player.last(5) !== 1)
+                        this.warn = this.warn || "La colonne 5 est occupée jusqu'en case 1, la méthode <code>last(5)</code> doit retourner <code>1</code>.";
+
+                    return !this.warn;
+                }
+            }, {
+                title: "Commencer la partie",
+                description: "Créer un dictionnaire <code>game</code> pour représenter la partie. Lui ajouter l'attribut <code>player</code> (le joueur actif) initialisé avec <code>new Player(1)</code>, l'attribut <code>moves</code> (le nombre de coups du joueur actif) intialisé à 2 et la méthode <code>select(x)</code> qui récupère (à l'aide de <code>this.player.last(x)</code>) la dernière case contenant un pion et la mémorise dans un attribut <code>memo</code> au format <code>{x:.., y:..}</code>.<br><br>Ajouter un écouteur d'événement sur tous les <code>td</code> des deux <code>table</code>, et, au clic sur l'un d'entre eux, récupérer sa colonne, x, et invoquer la méthode <code>game.select(x)</code>.",
+                excerpt: "Dans les étapes suivantes, l'attribut <code>game.memo</code> permettra de déplacer le pion. ",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  }<br>};<br><br>var player1 = new Player(1);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    game.select(+this.dataset.x);<br>  });<br>}",
+                dom: function() {
+                    return might.bind(might);
+                },
+                solution: function() {
+                    var player = new Player(1);
+                    player.get(4, 1).click();
+                    if (game.memo.x !== 4 || game.memo.y !== 2)
+                        this.warn = this.warn || "Au clic sur le <code>td</code> en case 4,1 <code>game.memo</code> doit être initialisée à <code>{x: 4, y: 2}</code> car il s'agit de la dernière case avec une classe de cette colonne.";
+
+                    return !this.warn;
+                }
+            }, {
+                title: "Déplacer un péon",
+                description: "Lors d'un clic sur une colonne occupée par un péon (bleu), puis sur une autre colonne, la dernière case occupée cliquée (c'est à dire <code>game.memo</code>), est vidée et déplacée vers la première case libre de la seconde colonne cliquée. Si les deux colonnes sont identiques, rien ne se passe. Si la seconde colonne n'a plus d'espace libre, rien ne se passe non plus.",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  }<br>};<br><br>var player1 = new Player(1);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br>    }<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var x = +this.dataset.x;<br>    if (game.memo) {<br>      game.move(x);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
+                dom: function() {
+                    return might.bind(might);
+                },
+                solution: function() {
+                    var player = new Player(1);
+                    player.get(5, 1).click();
+                    player.get(3, 1).click();
+                    if (player.get(3, 1).className !== 'peon' || player.get(5, 1).className !== '')
+                        this.warn = this.warn || "Au clic sur le <code>td</code> en case 5,1 puis 3,1 leur classes doivent s'intervertir.";
+
+                    player.get(3, 1).click();
+                    player.get(2, 1).click();
+                    if (player.get(2, 2).className !== 'peon' || player.get(3, 1).className !== '')
+                        this.warn = this.warn || "Au clic sur le <code>td</code> en case 3,1 puis 2,1 la colonne 2 doit contenir 2 péons.";
+
+                    return !this.warn;
+                }
+            }, {
+                title: "Gérer le tour des joueurs",
+                description: "Lors du déplacement d'une case, diminuer le nombre de coups du joueur en cours de 1. Si ce nombre tombe à 0, supprimer la classe <code>active</code> de sa <code>table</code> et l'ajouter à la <code>table</code> de l'autre joueur. Les méthodes pour effectuer ces modifications peuvent être ajoutées à la classe <code>Player</code>. Modifier le compteur de tour dans le <code>th</code> de la <code>table</code> des joueurs. Lorsque ce n'est pas son tour, les <code>td</code> de la <code>table</code> d'un joueur ne doivent pas être cliquable.",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  life: '♥♥',<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  title: function(moves) {<br>    this.table.querySelector('th').innerHTML = moves + ' ' + this.life;<br>  },<br>  stop: function() {<br>    this.table.classList.remove('active');<br>  },<br>  start: function() {<br>    this.table.classList.add('active');<br>  }<br>};<br><br>var player1 = new Player(1);<br>var player2 = new Player(2);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br><br>      this.moves--;<br>      this.player.title(this.moves);<br>      if (this.moves === 0) {<br>        this.player.stop();<br><br>        this.player = this.opponent();<br>        this.player.start();<br>        this.moves = 2;<br>        this.player.title(this.moves);<br>      }<br>    }<br>  },<br>  opponent: function() {<br>    return this.player === player1 ? player2 : player1;<br>  },<br>  isActivePlayer(playerName) {<br>    return this.player.name === playerName;<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var table = this.closest('table');<br>    if (!game.isActivePlayer(+table.dataset.p)) {<br>      return;<br>    }<br><br>    var x = +this.dataset.x;<br>    if (game.memo) {<br>      game.move(x);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
+                dom: function() {
+                    return might.bind(might);
+                },
+                solution: function() {
+                    var player = new Player(1);
+                    player.get(5, 1).click();
+                    player.get(3, 1).click();
+                    if (player.table.querySelector('th').innerHTML !== '1 ♥♥')
+                        this.warn = this.warn || "Après 1 déplacement, le compteur du joueur 1 doit indiquer 1 ♥♥.";
+
+                    player.get(3, 1).click();
+                    player.get(4, 1).click();
+                    if (player.table.querySelector('th').innerHTML !== '0 ♥♥')
+                        this.warn = this.warn || "Après 2 déplacement, le compteur du joueur 1 doit indiquer 0 ♥♥.";
+
+                    var opponent = new Player(2);
+                    opponent.get(3, 1).click();
+                    opponent.get(4, 1).click();
+                    if (opponent.get(3, 1).className !== '' || opponent.get(4, 1).className !== 'peon')
+                        this.warn = this.warn || "Au clic sur le <code>td</code> en case 3,1 puis 4,1 du joueur 2 la colonne 2 doit contenir 3 péons.";
+
+                    if (opponent.table.querySelector('th').innerHTML !== '1 ♥♥')
+                        this.warn = this.warn || "Après 1 déplacement, le compteur du joueur 2 doit indiquer 1 ♥♥.";
+
+                    return !this.warn;
+                }
+            }, {
+                title: "La tête brûlée",
+                description: "Lorsqu'après un déplacement 3 péons (bleus) se retrouvent dans la même colonne, ils sont supprimés et une unique tête brûlée (un <code>td.attack</code>) les remplace à la place du premier d'entre eux (celui le plus proche du territoire adverse).",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  life: '♥♥',<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  title: function(moves) {<br>    this.table.querySelector('th').innerHTML = moves + ' ' + this.life;<br>  },<br>  stop: function() {<br>    this.table.classList.remove('active');<br>  },<br>  start: function() {<br>    this.table.classList.add('active');<br>  },<br>  column: function(x) {<br>    var y = this.last(x);<br>    var td1 = (y === 3) ? this.get(x, 1) : this.get(x, 2);<br>    var td2 = (y === 3) ? this.get(x, 2) : this.get(x, 3);<br>    var td3 = (y === 3) ? this.get(x, 3) : this.get(x, 4);<br>    if (td1.className === 'peon' && td1.className === td2.className && td2.className === td3.className) {<br>      td1.className = 'attack';<br>      td2.className = td3.className = '';<br>    }<br>  }<br>};<br><br>var player1 = new Player(1);<br>var player2 = new Player(2);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br><br>      this.player.column(x)<br><br>      this.moves--;<br>      this.player.title(this.moves);<br>      if (this.moves === 0) {<br>        this.player.stop();<br><br>        this.player = this.opponent();<br>        this.player.start();<br>        this.moves = 2;<br>        this.player.title(this.moves);<br>      }<br>    }<br>  },<br>  opponent: function() {<br>    return this.player === player1 ? player2 : player1;<br>  },<br>  isActivePlayer(playerName) {<br>    return this.player.name === playerName;<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var table = this.closest('table');<br>    if (!game.isActivePlayer(+table.dataset.p)) {<br>      return;<br>    }<br><br>    var x = +this.dataset.x;<br>    if (game.memo) {<br>      game.move(x);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
+                dom: function() {
+                    return might.bind(might);
+                },
+                solution: function() {
+                    var player = new Player(1);
+                    player.get(5, 1).click();
+                    player.get(4, 1).click();
+                    if (player.get(4, 1).className !== 'attack')
+                        this.warn = this.warn || "Après 1 déplacement d'un <code>td</code> en 4,1 en 5,1 les 3 péons doivent se transformer en une tête brûlée.";
+
+                    return !this.warn;
+                }
+            }, {
+                title: "L'attaque de la tête brûlée",
+                description: "Au clic sur une tête brûlée, celle-ci disparait (les péons de derrière avance alors d'une case) et diminue d'un point le nombre de ♥ de l'adversaire. Si l'adversaire n'a plus de ♥, un x est affiché à la place et la partie prend fin (plus aucune case n'est cliquable).",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  life: '♥♥',<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    return this.match(x, '');<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  title: function(moves) {<br>    this.table.querySelector('th').innerHTML = moves + ' ' + this.life;<br>  },<br>  stop: function() {<br>    this.table.classList.remove('active');<br>  },<br>  start: function() {<br>    this.table.classList.add('active');<br>  },<br>  column: function(x) {<br>    var y = this.last(x);<br>    var td1 = (y === 3) ? this.get(x, 1) : this.get(x, 2);<br>    var td2 = (y === 3) ? this.get(x, 2) : this.get(x, 3);<br>    var td3 = (y === 3) ? this.get(x, 3) : this.get(x, 4);<br>    if (td1.className === 'peon' && td1.className === td2.className && td2.className === td3.className) {<br>      td1.className = 'attack';<br>      td2.className = td3.className = '';<br>    }<br>  },<br>  match: function(x, className) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (td.className === className) {<br>        return y;<br>      }<br>    }<br>  },<br>  attack: function(x) {<br>    var match = this.match(x, 'attack')<br>    if (match) {<br>        for (var y = match + 1; y < 4; y++) {<br>          this.set(x, y - 1, this.get(x, y).className);<br>        }<br>        this.set(x, 4, '');<br>        return true;<br>    }<br>  },<br>  hurt: function() {<br>    if (this.life === '♥♥')<br>      this.life = '♥';<br>    else<br>      this.life = 'x';<br>  },<br>  dead: function() {<br>    return this.life === 'x';<br>  }<br>};<br><br>var player1 = new Player(1);<br>var player2 = new Player(2);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    if (this.player.attack(x)) {<br>      this.opponent().hurt();<br>      this.opponent().title(2);<br>      if (this.opponent().dead())<br>        this.player.stop();<br>      else<br>        this.next();<br>      return;<br>    }<br><br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br><br>      this.player.column(x)<br>      this.next();<br>    }<br>  },<br>  next: function() {<br>    this.moves--;<br>    this.player.title(this.moves);<br>    if (this.moves === 0) {<br>      this.player.stop();<br><br>      this.player = this.opponent();<br>      this.player.start();<br>      this.moves = 2;<br>      this.player.title(this.moves);<br>    }<br>  },<br>  opponent: function() {<br>    return this.player === player1 ? player2 : player1;<br>  },<br>  isActivePlayer(playerName) {<br>    return this.player.name === playerName;<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var table = this.closest('table');<br>    if (!game.isActivePlayer(+table.dataset.p)) {<br>      return;<br>    }<br><br>    var x = +this.dataset.x;<br>    if (game.memo) {<br>      game.move(x);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
+                dom: function() {
+                    return might.bind(might);
+                },
+                solution: function() {
+                    var player = new Player(1);
+                    player.get(5, 1).click();
+                    player.get(4, 1).click();
+                    player.get(1, 1).click();
+                    player.get(6, 1).click();
+
+                    var opponent = new Player(2);
+                    opponent.get(2, 1).click();
+                    opponent.get(3, 1).click();
+                    opponent.get(3, 1).click();
+                    opponent.get(2, 1).click();
+
+                    player.get(4, 1).click();
+                    player.get(6, 1).click();
+
+                    if (opponent.table.querySelector('th').innerHTML !== '2 x')
+                        this.warn = this.warn || "Après 2 attaques, le compteur du joueur 2 doit indiquer x.";
+
+                    return !this.warn;
+                }
+            }, {
+                title: "La tête d'arbre",
+                description: "Lorsqu'après un déplacement au moins 3 péons (bleus) se retrouvent dans la même ligne, ils sont remplacés par des têtes d'arbre (un <code>td.block</code>).",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  life: '♥♥',<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    return this.match(x, '');<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  title: function(moves) {<br>    this.table.querySelector('th').innerHTML = moves + ' ' + this.life;<br>  },<br>  stop: function() {<br>    this.table.classList.remove('active');<br>  },<br>  start: function() {<br>    this.table.classList.add('active');<br>  },<br>  column: function(x) {<br>    var y = this.last(x);<br>    var td1 = (y === 3) ? this.get(x, 1) : this.get(x, 2);<br>    var td2 = (y === 3) ? this.get(x, 2) : this.get(x, 3);<br>    var td3 = (y === 3) ? this.get(x, 3) : this.get(x, 4);<br>    if (td1.className === 'peon' && td1.className === td2.className && td2.className === td3.className) {<br>      td1.className = 'attack';<br>      td2.className = td3.className = '';<br>    }<br>  },<br>  line: function(x, y) {<br>    var count = 0;<br>    for (var _x = x - 1; _x >= 1; _x--) {<br>      if (this.get(_x, y).className === 'peon')<br>        count++;<br>      else<br>        break;<br>    }<br><br>    for (var _x = x + 1; _x <= 7; _x++) {<br>      if (this.get(_x, y).className === 'peon')<br>        count++;<br>      else<br>        break;<br>    }<br><br>    if (count >= 3) {<br>      this.get(x, y).className = 'block'<br>      for (var _x = x - 1; _x >= 1; _x--) {<br>        if (this.get(_x, y).className === 'peon')<br>          this.get(_x, y).className = 'block';<br>        else<br>          break;<br>      }<br><br>      for (var _x = x + 1; _x <= 7; _x++) {<br>        if (this.get(_x, y).className === 'peon')<br>          this.get(_x, y).className = 'block';<br>        else<br>          break;<br>      }<br>    }<br>  },<br>  match: function(x, className) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (td.className === className) {<br>        return y;<br>      }<br>    }<br>  },<br>  attack: function(x) {<br>    var match = this.match(x, 'attack')<br>    if (match) {<br>        for (var y = match + 1; y < 4; y++) {<br>          this.set(x, y - 1, this.get(x, y).className);<br>        }<br>        this.set(x, 4, '');<br>        return true;<br>    }<br>  },<br>  hurt: function() {<br>    if (this.life === '♥♥')<br>      this.life = '♥';<br>    else<br>      this.life = 'x';<br>  },<br>  dead: function() {<br>    return this.life === 'x';<br>  }<br>};<br><br>var player1 = new Player(1);<br>var player2 = new Player(2);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    if (this.player.attack(x)) {<br>      this.opponent().hurt();<br>      this.opponent().title(2);<br>      if (this.opponent().dead())<br>        this.player.stop();<br>      else<br>        this.next();<br>      return;<br>    }<br><br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x, y) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br><br>      this.player.column(x);<br>      this.player.line(x, y);<br>      this.next();<br>    }<br>  },<br>  next: function() {<br>    this.moves--;<br>    this.player.title(this.moves);<br>    if (this.moves === 0) {<br>      this.player.stop();<br><br>      this.player = this.opponent();<br>      this.player.start();<br>      this.moves = 2;<br>      this.player.title(this.moves);<br>    }<br>  },<br>  opponent: function() {<br>    return this.player === player1 ? player2 : player1;<br>  },<br>  isActivePlayer(playerName) {<br>    return this.player.name === playerName;<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var table = this.closest('table');<br>    if (!game.isActivePlayer(+table.dataset.p)) {<br>      return;<br>    }<br><br>    var x = +this.dataset.x;<br>    var y = +this.dataset.y;<br>    if (game.memo) {<br>      game.move(x, y);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
+                dom: function() {
+                    return might.bind(might);
+                },
+                solution: function() {
+                    var player = new Player(1);
+                    player.get(4, 1).click();
+                    player.get(3, 1).click();
+                    if (player.get(1, 1).className !== 'peon' || player.get(3, 1).className !== 'block' || player.get(4, 1).className !== 'block' || player.get(3, 1).className !== 'block' || player.get(5, 1).className !== 'block' || player.get(6, 1).className !== 'block')
+                        this.warn = this.warn || "Après 1 déplacement d'un <code>td</code> en 4,1 vers 3,1 les 4 péons de la première ligne doivent se transformer en une tête d'arbre.";
+
+                    return !this.warn;
+                }
+            }, {
+                title: "La défense de la tête d'arbre",
+                description: "Lorsqu'une tête brûle attaque et qu'une tête d'arbre lui fait fasse en première ligne dans le territoire adverse, les deux disparraissent (les péons de derrière avance alors d'une case) sans causer de dégats à l'adversaire.",
+                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  life: '♥♥',<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    return this.match(x, '');<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  title: function(moves) {<br>    this.table.querySelector('th').innerHTML = moves + ' ' + this.life;<br>  },<br>  stop: function() {<br>    this.table.classList.remove('active');<br>  },<br>  start: function() {<br>    this.table.classList.add('active');<br>  },<br>  column: function(x) {<br>    var y = this.last(x);<br>    var td1 = (y === 3) ? this.get(x, 1) : this.get(x, 2);<br>    var td2 = (y === 3) ? this.get(x, 2) : this.get(x, 3);<br>    var td3 = (y === 3) ? this.get(x, 3) : this.get(x, 4);<br>    if (td1.className === 'peon' && td1.className === td2.className && td2.className === td3.className) {<br>      td1.className = 'attack';<br>      td2.className = td3.className = '';<br>    }<br>  },<br>  line: function(x, y) {<br>    var count = 0;<br>    for (var _x = x - 1; _x >= 1; _x--) {<br>      if (this.get(_x, y).className === 'peon')<br>        count++;<br>      else<br>        break;<br>    }<br><br>    for (var _x = x + 1; _x <= 7; _x++) {<br>      if (this.get(_x, y).className === 'peon')<br>        count++;<br>      else<br>        break;<br>    }<br><br>    if (count >= 3) {<br>      this.get(x, y).className = 'block'<br>      for (var _x = x - 1; _x >= 1; _x--) {<br>        if (this.get(_x, y).className === 'peon')<br>          this.get(_x, y).className = 'block';<br>        else<br>          break;<br>      }<br><br>      for (var _x = x + 1; _x <= 7; _x++) {<br>        if (this.get(_x, y).className === 'peon')<br>          this.get(_x, y).className = 'block';<br>        else<br>          break;<br>      }<br>    }<br>  },<br>  match: function(x, className) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (td.className === className) {<br>        return y;<br>      }<br>    }<br>  },<br>  attack: function(x) {<br>    var match = this.match(x, 'attack')<br>    if (match) {<br>        this.dash(x, match);<br>        return true;<br>    }<br>  },<br>  block: function(x) {<br>    if (this.get(x, 1).className === 'block') {<br>      this.dash(x, 1);<br>      return true;<br>    }<br>  },<br>  dash: function(x, y) {<br>    for (var _y = y + 1; _y < 4; _y++) {<br>      this.set(x, _y - 1, this.get(x, _y).className);<br>    }<br>    this.set(x, 4, '');<br>  },<br>  hurt: function() {<br>    if (this.life === '♥♥')<br>      this.life = '♥';<br>    else<br>      this.life = 'x';<br>  },<br>  dead: function() {<br>    return this.life === 'x';<br>  }<br>};<br><br>var player1 = new Player(1);<br>var player2 = new Player(2);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    if (this.player.attack(x)) {<br>      if (!this.opponent().block(x)) {<br>        this.opponent().hurt();<br>        this.opponent().title(2);<br>      }<br><br>      if (this.opponent().dead())<br>        this.player.stop();<br>      else<br>        this.next();<br>      return;<br>    }<br><br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x, y) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br><br>      this.player.column(x);<br>      this.player.line(x, y);<br>      this.next();<br>    }<br>  },<br>  next: function() {<br>    this.moves--;<br>    this.player.title(this.moves);<br>    if (this.moves === 0) {<br>      this.player.stop();<br><br>      this.player = this.opponent();<br>      this.player.start();<br>      this.moves = 2;<br>      this.player.title(this.moves);<br>    }<br>  },<br>  opponent: function() {<br>    return this.player === player1 ? player2 : player1;<br>  },<br>  isActivePlayer(playerName) {<br>    return this.player.name === playerName;<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var table = this.closest('table');<br>    if (!game.isActivePlayer(+table.dataset.p)) {<br>      return;<br>    }<br><br>    var x = +this.dataset.x;<br>    var y = +this.dataset.y;<br>    if (game.memo) {<br>      game.move(x, y);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
+                dom: function() {
+                    return might.bind(might);
+                },
+                solution: function() {
+                    var player = new Player(1);
+                    player.get(5, 1).click();
+                    player.get(4, 1).click();
+                    player.get(6, 1).click();
+                    player.get(1, 1).click();
+
+                    var opponent = new Player(2);
+                    opponent.get(5, 1).click();
+                    opponent.get(4, 1).click();
+                    opponent.get(2, 1).click();
+                    opponent.get(1, 1).click();
+
+                    player.get(4, 1).click();
+                    player.get(1, 1).click();
+
+                    if (opponent.get(4, 1).className !== '')
+                        this.warn = this.warn || "Si une attaque a lieu et qu'une tête d'arbre lui fait fasse, celle-ci doit disparaitre.";
+
+                    if (opponent.table.querySelector('th').innerHTML !== '2 ♥')
+                        this.warn = this.warn || "Après 2 attaques, dont 1 bloquée, le compteur du joueur 2 doit indiquer ♥.";
+
+                    return !this.warn;
+                }
+            }
+        ]
+    }, {
+        title: "Prototype, héritage, contexte",
+        description: "Les classes JavaScript repose sur une chaîne de prototypes. Cela offre plus de richesse que dans d'autres approches plus tradiotnnelles, mais implique également certaines contraintes.<br><br>Ce chapitre approfondit la programmation objet.",
+        color: "grey",
+        steps: [{
+            title: "Classes et comparaison d'objets",
+            course: true,
+            description: `
+                Lorsque deux objets sont comparés, ce n'est pas la valeur de leurs attributs qui est comparée, mais la référence des objets ; à la création d'un objet, une zone mémoire lui est réservée par le navigateur pour le stocker. Deux objets au contenu identique ne sont donc pas égaux car ils sont alloués à différents endroits en mémoire. Pour que deux objet soient égaux, il faut qu'il s'agisse du même objet (la comparaison d'objets littéraux ou de tableau fonctionne de la même façon).
+
+                **Comparaison d'objets :**
+
+                    var applePie = new Pie('apple', 8);
+                    var bigApplePie = new Pie('apple', 12);
+
+                    applePie === bigApplePie;
+                    → false
+
+                    applePie === applePie;
+                    → true
+
+                    applePie._fruits === bigApplePie._fruits
+                    && applePie._pieces === bigApplePie._pieces
+                    && ...; // compare every attribute to verify that objets are equal
+                    → true
+
+                ### Méthodes statiques de classes
+
+                Enfin, il est également possible d'ajouter des méthodes statiques de classe, c'est à dire des méthodes ne s'appliquant pas à un objet particulier, mais à la classe elle-même. Ce qui est le cas pour la classe \`Math\`, par exemple, dont toutes les méthodes sont des méthodes de classe ; calculer le sinus d'un angle ou maximum de deux nombres ne concerne que les paramètres de la fonction.
+
+                **Méthode statique de classe :**
+
+                    Pie.favoriteFavour = function() {
+                        return 'lemon';
+                    }
+
+                    Pie.favoriteFavour();
+                    → 'lemon'
+
+                L'usage de telles fonctions est souvent utile, comme dans le cas de \`Math\`, pour regrouper des méthodes relatives aux mêmes types de traitement qui ne nécessitent pas d'objets.
+            `
+        },
+        {
+            course: true,
+            description: `
+                Certains langages disposent de mécanismes pour rendre certains attributs ou méthodes d'un objet inaccessibles de l'extérieur, ce n'est pas le cas de JavaScript. Quels qu'ils soient, tous les attributs et toutes les méthodes sont accessibles à tout le monde. Pour parer cette limitation, une norme de nommage a vu le jour, et propose de préfixer les attributs et méthodes protégés d'un underscore.
+
+                **Légende ajout d'attribut privé (par convention) :**
+
+                    var Pie = function(fruits, pieces) {
+                        this._fruits = fruits;
+                        this._pieces = pieces;
+                    }
+
+                    Pie.prototype.eat = function() {
+                        if (this._pieces >= 1)
+                        this._pieces--;
+                    }
+
+                    Pie.prototype.getPieces = function() {
+                        return this._pieces;
+                        // returns a copy (simple type are passed by value)
+                        // if it it an array, create a copy: array.slice()
+                        // with a dictionnary, create a copy: JSON.parse(JSON.stringify({..}))
+                    }
+
+                    var applePie = new Pie('apple', 8);
+                    var pieces = applePie.getPieces();
+                    pieces;
+                    → 8
+
+                    pieces = 7;
+                    applePie.getPieces();
+                    → 8
+
+                Dans cet exemple, les attributes \`_fruits\` et \`_pieces\` sont déclarés internes. Une méthodes \`getPieces\` est fournie pour y accéder, et elle renvoie une valeur non modifiable. C'est ici que brille l'intérêt des classes, la logique de calcul est masquée (décrémenter les nombre de parts à chaque fois qu'un gourmand en mange une) et la cohérence des données est assurée (le nombres de parts restantes n'est modifiée qu'ici) et tous les objets instanciés à partir de cette classe disposent du même contrat de fonctionnement.
+
+                Bien entendu, l'attribut \`_pieces\` reste accessible de l'extérieur, et, si il est modifié par quelqu'un d'autre, les données de l'objet deviennent incohérentes (son nommage averti qu'il ne faut pas le modifier ainsi).
+
+                Dans un registre similaire, il est possible d'ajouter dynamiquement, et individuellement, des attributs dans un objet non prévu par sa classe.
+
+                **Ajout dynamique d'attributs à un objet :**
+
+                    var cheeseCake = new Pie('cheese');
+                    cheeseCake.flavour = 'lemon';
+                    cheeseCake.flavour;
+                    → 'lemon'
+            `
+        },
+        {
+            title: "La chaîne de prototypes",
+            course: true,
+            description: `
+                Chaque objet encapsule un autre objet qui est son prototype. Ce prototype encapsule un autre objet qui est son prototype, et ainsi de suite jusqu'à ce qu'un objet ainsi encapsulé soit \`null\`. Par définition, \`null\` n'a pas de prototype et agit comme le dernier maillon de la chaîne de prototypes.
+
+                Lorsqu'un attribut est accédé sur un objet, si cet attribut n'est pas trouvé sur l'objet lui-même, le navigateur le cherche sur son prototype, puis sur le prototype de son prototype, etc. S'il n'est trouvé nulle part, sa valeur est \`undefined\`. Lorsqu'un attribut est modifié sur un objet, c'est directement sur l'objet qu'il l'est, la chaîne de prototype n'est pas parcourue.
+
+                **Création d'une classe basée sur le prototype d'une autre classe :**
+
+                    var Cake = function(fruits, iceCream) {
+                        Pie.call(this, fruits, 20); // Cake is a sub-class of Pie
+                        this.iceCream = iceCream;
+                    };
+
+                    Cake.prototype = Object.create(Pie.prototype);
+
+                    var chocolateCake = new Cake('nuts', 'vanilla');
+                    chocolateCake._fruits;
+                    → 'nuts'
+                    chocolateCake.iceCream;
+                    → 'vanilla'
+                    chocolateCake.tea;
+                    → undefined
+            `
+        },
+        {
+            title: "L'héritage",
+            course: true,
+            description: `
+                La chaîne de prototypes permet de créer des relations d'héritage entre objets. Ainsi, une classe récupère les attributs et le comportement de la classe dont elle hérite et elle peut y apporter des modifications pour l'usage de ses propres objets. Dans le cas précédent, la classe \`Cake\` hérite de la classe \`Pie\`, lui ajoute l'attribut \`iceCream\` et fixe le nombre de part à 20. Tous les gâteaux de ce type seront des tartes un peu spéciales, forcément composées de 20 parts à partager et accompagnées d'une boule de glace.
+
+                Lorsqu'une classe hérite d'une autre, elle peut redéfinir certaines de ces méthodes.
+
+                **Redéfinition d'une méthode dans une classe fille :**
+
+                    Cake.prototype.eat = function() {
+                        if (this._pieces > 1)
+                        this._pieces -= 2; // pieces are serve two by two
+                    }
+            `
+        },
+        {
+            title: "Le contexte",
+            course: true,
+            description: `
+                Chaque object dispose de son propre contexte, accessible et modifiable via son attribut \`this\`. Une des difficultés du langage est que ce contexte change si une autre fonction est invoquée au sein d'une fonction de cet objet.
+
+                **Problème du contexte relatif à la dernière fonction :**
+
+                    Pie.prototype.display = function() {
+                        console.log(this.fruits);
+                    });
+
+                    Pie.prototype.displayLater = function() {
+                        setTimeout(function() {
+                        console.log(this.fruits);
+                        }, 10);
+                    });
+
+                    var applePie = new Pie('apple', 8);
+                    applePie.display();
+                    → 8
+
+                    applePie.displayLater();
+                    → undefined
+
+                La fonction anonyme déclarée dans le \`setTimeout\` reçoit comme contexte le \`this\` relatif à l'invocation de ce timeout. Dans le cas d'un event listener, le \`this\` sera relatif à l'élément de la page ayant reçu le clic, par exemple. Dans certaines circonstances, cela peut être utile, dans d'autres, comme dans celles présentées ici, cela complique les choses.
+
+                Pour parer ce problème, il est possible de forcer le contexte d'une fonction à l'aide de la méthode \`bind\`.
+
+                **Légende modification du contexte d'une fonction :**
+
+                    Pie.prototype.displayLater = function() {
+                        var fn = function() {
+                        console.log(this.fruits);
+                        }.bind(this);
+
+                        setTimeout(fn, 10);
+                    });
+
+                    applePie.displayLater();
+                    → 8
+
+                Ainsi, la fonction déclarée dans le setTimeout ne s'exécute plus avec le contexte du timeout, mais avec celui de l'objet.
+                Il existe deux autres méthodes souvent utilisées pour invoquer une méthode avec un contexte prédéfini : call et apply.
+
+                **Modification du contexte d'une fonction :**
+
+                    var multiply = function(by) {
+                        var result = this.value * by;
+                        return result;
+                    }
+
+                    var ten = {value: 10};
+                    var Money = function(value) {
+                        this.value = value;
+                    };
+                    var twelve = new Money(12);
+
+                    multiply.call(ten, 2); // or multiply.apply(ten, [2]);
+                    → 20
+
+                    multiply.call(twelve, 2); // or multiply.apply(twelve, [2]);
+                    → 24
+
+                Ces deux méthodes ont la même logique, elles invoquent une fonction en lui donnant son contexte (premier paramètre d'appel) et ses paramètres d'exécution (second paramètre et suivants). La méthode \`call\` transmet ces paramètres d'exécution les uns après les autres, la méthode \`apply\` les transmet sous la forme d'un tableau (pense-bête apply, array).
+            `
+        },
+        {
+            title: "La gestion de la mémoire",
+            course: true,
+            description: `
+                JavaScript dispose d'une garbage collection, c'est à dire d'un mécanisme libérant automatiquement la mémoire utilisée par des objets, les littéraux et les tableaux qui ne sont plus utilisés. Il passe à fréquence régulière et remet cette mémoire à disposition.
+
+                Tant qu'un objet est référencé (stocké dans une variable, dans un tableau, etc), il est maintenu en mémoire. Déclarer un tableau à la racine d'un script — pour le rendre accessible à tous les fonctions de ce script, par exemple — l'expose à ne jamais être retiré de la mémoire.
+
+                La mémoire du navigateur n'est pas infinie, lorsqu'un programme est très gourmand, il risque de ralentir de la navigateur, et, avec le temps, de bloquer la page. Déclarer les variables dans les fonctions ou objets qui les utilisent limitent ce genre de problèmes. I de grandes quantités de données sont à manipuler, intégrer un système de plafond pour supprimer les données les plus anciennes lorsqu'une limite est atteinte, pour empêcher le programme de croître en mémoire indéfiniment.
+            `
+        }]
     }, {
         title: "ES6",
         description: "Chaque année, les navigateurs intègrent les dernières nouveautés de JavaScript. La norme ECMAScript dispose d'ailleurs d'un versionning annuel annoncant ces nouvelles fonctionnalités.<br><br>Ce chapitre présente les nouveatés principales de ES5 et ES6.",
@@ -6468,7 +6892,7 @@ let stepper = function(el, data, methods) {
             },
             warn: function() {
                 let warning = 'Réponse incorrecte';
-                if (typeof stepContent.warn === "function") {
+                if (typeof stepContent.warn === 'function') {
                     try {
                         warning = stepContent.warn();
                     } catch (err) {
