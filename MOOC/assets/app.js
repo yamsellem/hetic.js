@@ -5979,6 +5979,305 @@ let chapters = [
             }
         ]
     }, {
+        title: "ES6",
+        description: "Chaque année, les navigateurs intègrent les dernières nouveautés de JavaScript. La norme ECMAScript dispose d'ailleurs d'un versionning annuel annoncant ces nouvelles fonctionnalités.<br><br>Ce chapitre présente les nouveatés principales de ES5 et ES6.",
+        color: "grey",
+        steps: [
+            {
+                course: true,
+                description: `
+                    Ces dernières années, de nombreuses améliorations ont été intégrées à JavaScript. En juin 2015, ES6 (ECMAScript 6) a été publié et est progressivement supporté par les navigateurs. Avant lui, ES5 avait déjà initié en 2009 ce mouvement de mise à jour du langage resté stationaire depuis 1999.
+
+                    ### ES5
+
+                    Les modifications les plus importantes [introduites par ES5](http://kangax.github.io/compat-table/es5/) — et supporté par tous les navigateurs modernes — portent sur les tableaux. Notamment, l'ajout des méthodes \`map\`, \`reduce\`, \`filter\`, \`forEach\`, \`every\`, \`some\` et \`indexOf\` (et la méthode \`bind\` ajoutée aux fonctions).
+
+                    La méthode [\`map\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/map) crée, à partir d'un tableau, un nouveau tableau du même nombre d'éléments, en modifiant chacun des éléments de départ via la fonction fournie.
+
+                    **Méthode array.map :**
+
+                        [1, 2, 3].map(function(number) {
+                          return number * 2;
+                        });
+                        → [2, 4, 6]
+
+                    La méthode [\`filter\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) crée, à partir d'un tableau, un nouveau tableau, en ne conservant que les éléments passant le test de la fonction fournie.
+
+                    **Méthode array.filter :**
+
+                        [1, 2, 3].filter(function(number) {
+                          return number > 1;
+                        });
+                        → [2, 3]
+
+                    La méthode [\`forEach\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) permet d'itérer sur un tableau, c'est une alternative à la boucle for.
+
+                    **Méthode array.forEach :**
+
+                        var sum = 0;
+                        [1, 2, 3].forEach(function(number) {
+                          sum += number;
+                        });
+                        sum;
+                        → 6
+
+                    La méthode [\`reduce\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce) retourne, à partir d'un tableau, une valeur qui peut accumuler chacun des éléments de départ via la fonction fournie.
+
+                    **Méthode array.reduce :**
+
+                        [1, 2, 3].reduce(function(memo, number) {
+                          return memo + number;
+                        }, 0);
+                        → 6
+
+                    Les méthodes [\`every\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/every) et [\`some\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/some) retournent, à partir d'un tableau, un booléen indiquant si tous les éléments de départ passent le test de la fonction fournie (\`every\`) ou certains d'entre eux (\`some\`).
+
+                    **Méthodes array.every et array.some :**
+
+                        [1, 2, 3].every(function(number) {
+                          return number > 2;
+                        });
+                        → false
+
+                        [1, 2, 3].some(function(number) {
+                          return number > 2;
+                        });
+                        → true
+                `
+            },
+            {
+                title: "ES6",
+                course: true,
+                description: `
+                    Davantage encore de modifications ont été introduites par ES6 — certaines non supportées par certains navigateurs modernes. Pour les utiliser partout, des polyfill comme Babel, permettent de transpiler (transformer) du code moderne en code compatible tous navigateur, offrant ainsi l'usage des dernières avancées du langage, sans nécessiter l'attente de leur intégration dans tous les navigateurs.
+
+                    ### Fat arrows
+
+                    L'opérateur \`=>\`, nommé fat arrow, est un raccourci pour déclarer des fonctions. Si une seule opération est effectuée, les accolades peuvent être omises et le mot clé \`return\` est automatique.
+
+                    **Raccourci fat arrow :**
+
+                        var isOdd = (value) => {
+                          return value % 2 === 0;
+                        }
+                        // alternative declaration
+                        var isOdd = (value) => value % 2 === 0;
+
+                        isOdd(17);
+                        → false
+
+                        isOdd(12);
+                        → true
+
+                    L'opérateur \`=>\` dispose également d'un second intérêt, il \`bind\` le \`this\` du contexte actuel à la fonction invoquée. Plus besoin, donc, de le réaliser soi-même.
+
+                    **Raccourci fat arrow et bind automatique de this :**
+
+                        class Pie {
+                          displayLater() {
+                            var fn = () => {
+                              console.log(15);
+                            };
+
+                            setTimeout(fn, 10);
+                          }
+                        };
+
+                        var applePie = new Pie();
+                        applePie.displayLater();
+                `
+            },
+            {
+                title: "Modifier un tableau",
+                description: "Créer une variable nommée <code>answer</code> de type tableau avec toutes les valeurs du tableau <code>x</code> (déclarée par ce tutoriel) dont chaque valeur a été arrondie à l'entier le plus proche (ex. [1.2, 5.7, 7.5] -> [1, 6, 8]).",
+                excerpt: "Les méthodes <code>map</code> et <code>forEach</code> parcourent toutes deux le tableau sur lequel elles s'appliquent. <code>map</code> retourne un nouveau tableau ou chaque valeur du tableau original peut avoir été modifiée, <code>forEach</code> peut modifier le tableau actuel ou seulement lire les valeurs pour les afficher, par exemple.",
+                solved: "var answer = x.map(value => Math.round(value));<br><br>/* -------------------- or -------------------- */<br><br>var answer = [];<br>x.forEach(value => answer.push(Math.round(value)));<br><br>/* ------------------- es5 -------------------- */<br><br>var answer = x.map(function(value) {<br>  return Math.round(value);<br>});<br><br>/* ------------------- es3 -------------------- */<br><br>var answer = [];<br>for (var i = 0; i < x.length; i++) {<br>  var value = x[i];<br>  answer[i] = Math.round(value); <br>}",
+                init: function() {
+                    this.x = [random(1, 10) + 0.1 * random(1, 10), random(1, 10) + 0.1 * random(1, 10), random(1, 10) + 0.1 * random(1, 10), random(1, 10) + 0.1 * random(1, 10)];
+                    window.x = this.x.slice(0);
+                },
+                answer: function() {
+                    return this.x.map(function(item) { return Math.round(item); });
+                },
+                warn: function() {
+                    return basicWarn(answer, this.answer());
+                },
+                solution: function() {
+                    return equals(answer, this.answer());
+                }
+            },
+            {
+                title: "Filtrer un tableau",
+                description: "Créer une variable nommée <code>answer</code> de type tableau avec toutes les valeurs du tableau <code>x</code> dont les valeurs inférieures à 10 ont été retirées (ex. [7, 12, 3, 17] -> [12, 17] — déclarées par ce tutoriel). La méthode <code>filter</code> est la plus approriée pour se faire.",
+                solved: "var answer = x.filter(value => value >= 10);<br><br>/* ------------------- es5 -------------------- */<br><br>var answer = x.filter(function(value) {<br>  return value >= 10;<br>});<br><br>/* ------------------- es3 -------------------- */<br><br>var answer = [];<br>for (var i = 0; i < x.length; i++) {<br>  if (x[i] >= 10) {<br>    answer.push(x[i]);<br>  }<br>}",
+                init: function() {
+                    this.x = [random(1, 20), random(1, 20), random(1, 20), random(1, 20), random(1, 20), random(1, 20), random(1, 20), random(1, 20)];
+                    window.x = this.x.slice(0);
+                },
+                answer: function() {
+                    let y = this.y;
+                    return this.x.filter(function(i) { return i >= 10; });
+                },
+                warn: function() {
+                    return "La variable <code>answer</code> vaut <code>" + JSON.stringify(answer) + "</code> et non la résultat attendu, <code>" + this.answer() + "</code> (attention, le tableau contient des entiers et des chaines de caractères).";
+                },
+                solution: function() {
+                    return equals(answer, this.answer());
+                }
+            },
+            {
+                title: "Calculer une moyenne",
+                description: "Créer une variable nommée <code>answer</code> ayant pour valeur la moyenne (entière, arrondie à l'inférieur) des valeurs du tableau <code>x</code> (ex. [1, 5, 7] -> (1+5+7)/3 -> 4 — déclarée par ce tutoriel). La méthode <code>reduce</code> est la plus approriée pour se faire.",
+                solved: "var answer = Math.ceil(x.reduce((memo, value) => memo + value, 0) / x.length);<br><br>/* -------------------- es5 -------------------- */<br><br>var answer = x.reduce(function(memo, value) {<br>  return memo + value;<br>}, 0);<br>answer = Math.ceil(answer / x.length);<br><br>/* -------------------- es3 -------------------- */<br><br>var answer = 0;<br>for (var i = 0; i < x.length; i++) {<br>  answer = answer + x[i];<br>}<br>answer = Math.ceil(answer / x.length);",
+                init: function() {
+                    this.x = [random(1, 10), random(1, 10), random(1, 10), random(1, 10)];
+                    window.x = this.x.slice(0);
+                },
+                answer: function() {
+                    return Math.ceil(this.x.reduce(function(memo, value) { return memo + value; }, 0) / this.x.length);
+                },
+                warn: function() {
+                    return basicWarn(answer, this.answer());
+                },
+                solution: function() {
+                    return answer === this.answer();
+                }
+            },
+            {
+                title: "Les classes ES6",
+                course: true,
+                description: `
+                    Le mot clé \`class\` permet de déclarer des classes et de s'abstraire de l'usage du prototype (qui est toujours utilisé en coulisses). La méthode \`constructor\` stocke le code d'initialisation de l'instance de cette classe. Et le mot clé \`static\` permet de créer des méthodes statiques de classe.
+
+                    **Class, constructor et méthodes statiques :**
+
+                        class Pie {
+                          constructor(fruits, pieces) {
+                            this.fruits = fruits;
+                            this.pieces = pieces;
+                          }
+                          eat() {
+                            if (this.pieces >= 1)
+                              this.pieces--;
+                          }
+                          static favoriteFavour() {
+                            return 'lemon';
+                          }
+                        }
+
+                        var pie = new Pie('apple', 8);
+                        pie.fruits;
+                        → 'apple'
+
+                        Pie.favoriteFavour();
+                        → 'lemon'
+
+                    L'héritage est simplifié avec l'apparition du mot clé \`extends\` et de la méthode \`super\`. Cette dernière fait référence à la méthode (ou au constructeur) du même nom de la classe parent.
+
+                    **Héritage avec extends et super :**
+
+                        class Cake extends Pie {
+                          constructor(fruits, pieces, iceCream) {
+                            super(fruits, 20);
+                            this.iceCream = iceCream;
+                          }
+                        }
+
+                        var chocolateCake = new Cake('nuts', 'vanilla');
+
+                    Attention, les mots clés \`function\` disparaissent de la déclaration des méthodes, ainsi que les virgules séparant deux déclarations.
+                `
+            },
+            {
+                title: "Créer une classe",
+                description: "Créer une classe nommée <code>Movie</code> dont le constructeur reçoit son titre, <code>title</code>, et son année de sortie, <code>release</code> en paramètre. Cette classe possède une méthode <code>isOlderThan</code> qui reçoit un <code>Movie</code> en paramètre et retourne <code>true</code> si le film en paramètre est sorti après l'instance testée (<code>alien.isOlderThan(terminator)</code> retourne <code>true</code>).",
+                solved: "class Movie {<br>  constructor(title, release) {<br>    this.title = title;<br>    this.release = release;<br>  }<br>  isOlderThan(movie) {<br>    return this.release < movie.release;<br>  }<br>}<br><br>/* -------------------- es5 -------------------- */<br><br>var Movie = function(title, release) {<br>  this.title = title;<br>  this.release = release;<br>}<br><br>Movie.prototype.isOlderThan = function(movie) {<br>  return this.release < movie.release;<br>}",
+                init: function() {
+                    this.x = [random(1, 10), random(1, 10), random(1, 10), random(1, 10)];
+                    window.x = this.x.slice(0);
+                },
+                solution: function() {
+                    var alien = new Movie('alien', 1979);
+                    var terminator = new Movie('terminator', 1984);
+                    if (!alien.isOlderThan(terminator))
+                        this.warn = this.warn || "La méthode <code>isOlderThan</code> doit retourner <code>true</code> si la film passé en paramètre est sorti après l'instance testée";
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Template strings",
+                course: true,
+                description: `
+                    L'usage du guillemet inversé \` permet de déclarer des templates.
+
+                    **Template strings :**
+
+                        var name = 'Paul', time = 'today';
+                        \`Hello \${name}, how are you \${time}?\`
+                        → "Hello Paul, how are you today?"
+
+                    Ces templates permettent d'écrire des chaînes sur plusieurs lignes (impossibles avec les guillemets simples et doubles), et d'injecter des valeurs de variables avec la syntaxe \`\${variable}\`.
+                `
+            },
+            {
+                title: "Déclaration de variables, let, var et const",
+                course: true,
+                description: `
+                    Deux nouveaux mots clés permettent de déclarer des variables, \`const\` et \`let\`. Le premier permet de déclarer une constante, une variable qui n'acceptera qu'une seule assignation. Les constantes doivent être assignées à leur déclaration et une erreur est levée si une autre valeur leur est assignée par la suite.
+
+                    Le mot clé \`let\` est une réponse aux problèmes posés par la portée de \`var\`. En effet, ce dernier déclare une variable relative à la dernière fonction encapsulante. Cela pose de nombreux problèmes avec les boucles.
+
+                    Le mot clé \`let\` règle ce problème en limitant sa portée à la boucle dans laquelle il se trouve. Ainsi déclarer une variable dans une boucle \`for\` limite sa portée à cette boucle et les fonctions asynchrones invoquées à l'intérieur de cette boucle disposent de la bonne valeur de cette variable, et non de la dernière valeur qu'elle aura reçu.
+
+                    **Scope de var et de let :**
+
+                        for (var i = 0; i < 5; i++)
+                            setTimeout(() => { console.log(i); }, 20);
+                        → 5, 5, 5, 5, 5
+
+                        for (let i = 0; i < 5; i++)
+                            setTimeout(() => { console.log(i); }, 20);
+                        → 0, 1, 2, 3, 4
+
+                    Remplacer \`var\` par \`let\` lors de l'écriture d'un programme est une idée généralement encouragée par la communauté.
+                `
+            },
+            {
+                title: "Les modules",
+                course: true,
+                description: `
+                    La gestion des modules est également intégrée au langage avec les mots clé \`import\` et \`export\`. Le premier permet d'importer un module, le second permet de déclarer un module avec une variable, un objet, des fonctions qui seront visibles lors de son import par un autre module.
+
+                    Cette syntaxe est très proche de celle proposée par AMD et CommonJS.
+
+                    **Export et import de modules :**
+
+                        // saved in numbers.js
+                        export default {
+                          isOdd: function(value) {
+                            return value % 2 === 0;
+                          },
+                          isEven: function(value) {
+                            return value % 2 === 1;
+                          }
+                        }
+
+                        // saved in another file, in the same folder
+                        import numbers from './numbers.js';
+
+                        number.isOdd(17);
+                        → true
+                        number.isEven(17);
+                        → false
+
+                    L'export et l'import de modules sont très flexibles, et plusieurs autres fonctionnalités sont également proposées par ES6. [Des listes sont disponibles](https://github.com/lukehoban/es6features) pour approfondir le sujet.
+
+                    À nouveau, ces fonctionnalités ne sont pas toutes supportées par tous les navigateurs actuels et l'usage d'un polyfill est nécessaire pour s'assurer qu'une application fonctionnera sur chacun d'entre eux.
+                `
+            }
+        ]
+    }, {
         title: "Prototype, héritage, contexte",
         description: "Les classes JavaScript repose sur une chaîne de prototypes. Cela offre plus de richesse que dans d'autres approches plus tradiotnnelles, mais implique également certaines contraintes.<br><br>Ce chapitre approfondit la programmation objet.",
         color: "grey",
@@ -6187,232 +6486,6 @@ let chapters = [
                 La mémoire du navigateur n'est pas infinie, lorsqu'un programme est très gourmand, il risque de ralentir de la navigateur, et, avec le temps, de bloquer la page. Déclarer les variables dans les fonctions ou objets qui les utilisent limitent ce genre de problèmes. I de grandes quantités de données sont à manipuler, intégrer un système de plafond pour supprimer les données les plus anciennes lorsqu'une limite est atteinte, pour empêcher le programme de croître en mémoire indéfiniment.
             `
         }]
-    }, {
-        title: "ES6",
-        description: "Chaque année, les navigateurs intègrent les dernières nouveautés de JavaScript. La norme ECMAScript dispose d'ailleurs d'un versionning annuel annoncant ces nouvelles fonctionnalités.<br><br>Ce chapitre présente les nouveatés principales de ES5 et ES6.",
-        color: "grey",
-        steps: [
-            {
-                course: true,
-                description: `
-                    Ces dernières années, de nombreuses améliorations ont été intégrées à JavaScript. En juin 2015, ES6 (ECMAScript 6) a été publié et est progressivement supporté par les navigateurs. Avant lui, ES5 avait déjà initié en 2009 ce mouvement de mise à jour du langage resté stationaire depuis 1999.
-
-                    ### ES5
-
-                    Les modifications les plus importantes [introduites par ES5](http://kangax.github.io/compat-table/es5/) — et supporté par tous les navigateurs modernes — portent sur les tableaux. Notamment, l'ajout des méthodes \`map\`, \`reduce\`, \`filter\`, \`forEach\`, \`every\`, \`some\` et \`indexOf\` (et la méthode \`bind\` ajoutée aux fonctions).
-
-                    La méthode [\`map\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/map) crée, à partir d'un tableau, un nouveau tableau du même nombre d'éléments, en modifiant chacun des éléments de départ via la fonction fournie.
-
-                    **Méthode array.map :**
-
-                        [1, 2, 3].map(function(number) {
-                          return number * 2;
-                        });
-                        → [2, 4, 6]
-
-                    La méthode [\`filter\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) crée, à partir d'un tableau, un nouveau tableau, en ne conservant que les éléments passant le test de la fonction fournie.
-
-                    **Méthode array.filter :**
-
-                        [1, 2, 3].filter(function(number) {
-                          return number > 1;
-                        });
-                        → [2, 3]
-
-                    La méthode [\`forEach\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) permet d'itérer sur un tableau, c'est une alternative à la boucle for.
-
-                    **Méthode array.forEach :**
-
-                        var sum = 0;
-                        [1, 2, 3].forEach(function(number) {
-                          sum += number;
-                        });
-                        sum;
-                        → 6
-
-                    La méthode [\`reduce\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce) retourne, à partir d'un tableau, une valeur qui peut accumuler chacun des éléments de départ via la fonction fournie.
-
-                    **Méthode array.reduce :**
-
-                        [1, 2, 3].reduce(function(memo, number) {
-                          return memo + number;
-                        }, 0);
-                        → 6
-
-                    Les méthodes [\`every\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/every) et [\`some\`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/some) retournent, à partir d'un tableau, un booléen indiquant si tous les éléments de départ passent le test de la fonction fournie (\`every\`) ou certains d'entre eux (\`some\`).
-
-                    **Méthodes array.every et array.some :**
-
-                        [1, 2, 3].every(function(number) {
-                          return number > 2;
-                        });
-                        → false
-
-                        [1, 2, 3].some(function(number) {
-                          return number > 2;
-                        });
-                        → true
-                `
-            },
-            {
-                title: "ES6",
-                course: true,
-                description: `
-                    Davantage encore de modifications ont été introduites par ES6 — certaines non supportées par certains navigateurs modernes. Pour les utiliser partout, des polyfill comme Babel, permettent de transpiler (transformer) du code moderne en code compatible tous navigateur, offrant ainsi l'usage des dernières avancées du langage, sans nécessiter l'attente de leur intégration dans tous les navigateurs.
-
-                    ### Les classes
-
-                    Le mot clé \`class\` permet de déclarer des classes et de s'abstraire de l'usage du prototype (qui est toujours utilisé en coulisses). La méthode \`constructor\` stocke le code d'initialisation de l'instance de cette classe. Et le mot clé \`static\` permet de créer des méthodes statiques de classe.
-
-                    **Class, constructor et méthodes statiques :**
-
-                        class Pie {
-                          constructor(fruits, pieces) {
-                            this.fruits = fruits;
-                            this.pieces = pieces;
-                          }
-                          eat() {
-                            if (this.pieces >= 1)
-                              this.pieces--;
-                          }
-                          static favoriteFavour() {
-                            return 'lemon';
-                          }
-                        }
-
-                        var pie = new Pie('apple', 8);
-                        pie.fruits;
-                        → 'apple'
-
-                        Pie.favoriteFavour();
-                        → 'lemon'
-
-                    L'héritage est simplifié avec l'apparition du mot clé \`extends\` et de la méthode \`super\`. Cette dernière fait référence à la méthode (ou au constructeur) du même nom de la classe parent.
-
-                    **Héritage avec extends et super :**
-
-                        class Cake extends Pie {
-                          constructor(fruits, pieces, iceCream) {
-                            super(fruits, 20);
-                            this.iceCream = iceCream;
-                          }
-                        }
-
-                        var chocolateCake = new Cake('nuts', 'vanilla');
-
-                    Attention, les mots clés \`function\` disparaissent de la déclaration des méthodes, ainsi que les virgules séparant deux déclarations.
-                `
-            },
-            {
-                title: "Fat arrows",
-                course: true,
-                description: `
-                    L'opérateur \`=>\`, nommé fat arrow, est un raccourci pour déclarer des fonctions. Si une seule opération est effectuée, les accolades peuvent être omises et le mot clé \`return\` est automatique.
-
-                    **Raccourci fat arrow :**
-
-                        var isOdd = (value) => {
-                          return value % 2 === 0;
-                        }
-                        // alternative declaration
-                        var isOdd = (value) => value % 2 === 0;
-
-                        isOdd(17);
-                        → false
-
-                        isOdd(12);
-                        → true
-
-                    L'opérateur \`=>\` dispose également d'un second intérêt, il \`bind\` le \`this\` du contexte actuel à la fonction invoquée. Plus besoin, donc, de le réaliser soi-même.
-
-                    **Raccourci fat arrow et bind automatique de this :**
-
-                        class Pie {
-                          displayLater() {
-                            var fn = () => {
-                              console.log(15);
-                            };
-
-                            setTimeout(fn, 10);
-                          }
-                        };
-
-                        var applePie = new Pie();
-                        applePie.displayLater();
-                `
-            },
-            {
-                title: "Template strings",
-                course: true,
-                description: `
-                    L'usage du guillemet inversé \` permet de déclarer des templates.
-
-                    **Template strings :**
-
-                        var name = 'Paul', time = 'today';
-                        \`Hello \${name}, how are you \${time}?\`
-                        → "Hello Paul, how are you today?"
-
-                    Ces templates permettent d'écrire des chaînes sur plusieurs lignes (impossibles avec les guillemets simples et doubles), et d'injecter des valeurs de variables avec la syntaxe \`\${variable}\`.
-                `
-            },
-            {
-                title: "Déclaration de variables, let, var et const",
-                course: true,
-                description: `
-                    Deux nouveaux mots clés permettent de déclarer des variables, \`const\` et \`let\`. Le premier permet de déclarer une constante, une variable qui n'acceptera qu'une seule assignation. Les constantes doivent être assignées à leur déclaration et une erreur est levée si une autre valeur leur est assignée par la suite.
-
-                    Le mot clé \`let\` est une réponse aux problèmes posés par la portée de \`var\`. En effet, ce dernier déclare une variable relative à la dernière fonction encapsulante. Cela pose de nombreux problèmes avec les boucles.
-
-                    Le mot clé \`let\` règle ce problème en limitant sa portée à la boucle dans laquelle il se trouve. Ainsi déclarer une variable dans une boucle \`for\` limite sa portée à cette boucle et les fonctions asynchrones invoquées à l'intérieur de cette boucle disposent de la bonne valeur de cette variable, et non de la dernière valeur qu'elle aura reçu.
-
-                    **Scope de var et de let :**
-
-                        for (var i = 0; i < 5; i++)
-                            setTimeout(() => { console.log(i); }, 20);
-                        → 5, 5, 5, 5, 5
-
-                        for (let i = 0; i < 5; i++)
-                            setTimeout(() => { console.log(i); }, 20);
-                        → 0, 1, 2, 3, 4
-
-                    Remplacer \`var\` par \`let\` lors de l'écriture d'un programme est une idée généralement encouragée par la communauté.
-                `
-            },
-            {
-                title: "Les modules",
-                course: true,
-                description: `
-                    La gestion des modules est également intégrée au langage avec les mots clé \`import\` et \`export\`. Le premier permet d'importer un module, le second permet de déclarer un module avec une variable, un objet, des fonctions qui seront visibles lors de son import par un autre module.
-
-                    Cette syntaxe est très proche de celle proposée par AMD et CommonJS.
-
-                    **Export et import de modules :**
-
-                        // saved in numbers.js
-                        export default {
-                          isOdd: function(value) {
-                            return value % 2 === 0;
-                          },
-                          isEven: function(value) {
-                            return value % 2 === 1;
-                          }
-                        }
-
-                        // saved in another file, in the same folder
-                        import numbers from './numbers.js';
-
-                        number.isOdd(17);
-                        → true
-                        number.isEven(17);
-                        → false
-
-                    L'export et l'import de modules sont très flexibles, et plusieurs autres fonctionnalités sont également proposées par ES6. [Des listes sont disponibles](https://github.com/lukehoban/es6features) pour approfondir le sujet.
-
-                    À nouveau, ces fonctionnalités ne sont pas toutes supportées par tous les navigateurs actuels et l'usage d'un polyfill est nécessaire pour s'assurer qu'une application fonctionnera sur chacun d'entre eux.
-                `
-            }
-        ]
     }, {
         title: "La qualité logicielle",
         description: "Une application peut devenir un musée, où chaque pièce, chaque mécanisme, se retrouve derrière une vitrine, rouillé, isolé, par peur qu'à la moindre manipulation, il tombe en miettes.<br><br>Ce chapitre présente des méthodes pour assurer une bonne qualité logicielle.",
