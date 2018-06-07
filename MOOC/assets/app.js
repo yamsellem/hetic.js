@@ -1661,7 +1661,7 @@ let chapters = [
             },
             {
                 title: "Calculer une moyenne",
-                description: "Créer une variable nommée <code>answer</code> ayant pour valeur la moyenne (entière, arrondie à l'entier supérieur le plus proche) des valeurs du tableau <code>x</code> (ex. [1, 5, 7] -> (1+5+7)/3 -> 4 — déclarée par ce tutoriel).",
+                description: "Créer une variable nommée <code>answer</code> ayant pour valeur la moyenne (arrondie à l'entier supérieur le plus proche) des valeurs du tableau <code>x</code> (ex. [1, 5, 7] -> (1+5+7)/3 -> 4 — déclarée par ce tutoriel).",
                 solved: "var answer = 0;<br>for (var i = 0; i < x.length; i++) {<br>  answer = answer + x[i];<br>}<br>answer = Math.ceil(answer / x.length);",
                 init: function() {
                     this.x = [random(1, 10), random(1, 10), random(1, 10), random(1, 10)];
@@ -6127,7 +6127,7 @@ let chapters = [
             },
             {
                 title: "Calculer une moyenne",
-                description: "Créer une variable nommée <code>answer</code> ayant pour valeur la moyenne (entière, arrondie à l'inférieur) des valeurs du tableau <code>x</code> (ex. [1, 5, 7] -> (1+5+7)/3 -> 4 — déclarée par ce tutoriel). La méthode <code>reduce</code> est la plus approriée pour se faire.",
+                description: "Créer une variable nommée <code>answer</code> ayant pour valeur la moyenne (arrondie à l'entier supérieur le plus proche) des valeurs du tableau <code>x</code> (ex. [1, 5, 7] -> (1+5+7)/3 -> 4 — déclarée par ce tutoriel). La méthode <code>reduce</code> est la plus approriée pour se faire.",
                 solved: "var answer = Math.ceil(x.reduce((memo, value) => memo + value, 0) / x.length);<br><br>/* -------------------- es5 -------------------- */<br><br>var answer = x.reduce(function(memo, value) {<br>  return memo + value;<br>}, 0);<br>answer = Math.ceil(answer / x.length);<br><br>/* -------------------- es3 -------------------- */<br><br>var answer = 0;<br>for (var i = 0; i < x.length; i++) {<br>  answer = answer + x[i];<br>}<br>answer = Math.ceil(answer / x.length);",
                 init: function() {
                     this.x = [random(1, 10), random(1, 10), random(1, 10), random(1, 10)];
