@@ -9,7 +9,7 @@ Une meilleure note sera donnée à un code qui répond bien à une question plut
 
 ## 1. Digit (9 pts)
 
-Le fichier `digit.html` sert de base à cette exercice et doit être rendu avec le javascript complété.
+Le fichier `digit.html` sert de base à cet exercice et doit être rendu avec le javascript complété.
 
 a. Ajouter un écouteur d'événement `click` sur le bouton `#plus` afin qu'à chaque clic, la valeur du `input#count` soit incrémentée de 1.
 
@@ -33,7 +33,7 @@ e. À chaque fois que la valeur de `input#count` est modifiée par `#plus` ou pa
 
 ## 2. Letters (9 pts)
 
-Le fichier `letters.html` sert de base à cette exercice et doit être rendu avec le javascript complété.
+Le fichier `letters.html` sert de base à cet exercice et doit être rendu avec le javascript complété.
 
 a. Ajouter un écouteur d'événement `click` sur le bouton `#paul` afin qu'au clic, la première lettre de son `innerHTML` ('p') soit affichée dans le premier `li > input`, la deuxième lettre ('a') soit affichée dans le second `li > input`, etc.
 

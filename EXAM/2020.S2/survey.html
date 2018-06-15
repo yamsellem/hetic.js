@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style media="screen">
+            html, body { height: 100%; display: flex; align-items: center; justify-content: center; }
+            form { max-width: 20rem; }
+            form label { display: block; }
+            form .answers { margin-bottom: 1rem; }
+        </style>
+    </head>
+    <body>
+        <form>
+            <p class="question">Tu es un ver de terre et ton rêve le plus cher est de faire un tour sur un mammifère. Lequel ?</p>
+            <div class="answers">
+                <label><input type="radio" name="choice" value="one">un hélicoptère</label>
+                <label><input type="radio" name="choice" value="two">un chiroptère</label>
+                <label><input type="radio" name="choice" value="three">un coléoptère</label>
+                <label><input type="radio" name="choice" value="for">un pélicoptère</label>
+            </div>
+            <input class="button" type="submit" value="Suivant >" />
+        </form>
+    </body>
+    <script type="text/javascript">
+
+        let survey = [{
+            question: 'Tu es un ver de terre et ton rêve le plus cher est de faire un tour sur un mammifère. Lequel ?',
+            answers: ['un hélicoptère', 'un chiroptère', 'un coléoptère', 'un pélicoptère'],
+            solution: 'un chiroptère'
+        }, {
+            question: 'Si les trésoriers politiques, lassés de se faire pincer pour financement occultes, décidaient de fabriquer de faux billets, et si on était encore au XVIIIe siècle, quel serait leur châtiment ?',
+            answers: ['on les brûlerait sur la place publique', 'on les écartèlerait avant de les pendre ', 'on les ferait bouillir dans un chaudron', 'on ne leur ferait rien du tout'],
+            solution: 'on les ferait bouillir dans un chaudron'
+        }, {
+            question: 'L\'une de ces coiffures est d\'origine gastronomique. Laquelle ?',
+            answers: ['la choucroute', 'le chou-fleur', 'le chou-chou', 'le chichon'],
+            solution: 'la choucroute'
+        }];
+
+        // code goes here
+
+    </script>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style media="screen">
+            html, body { height: 100%; display: flex; align-items: center; justify-content: center; }
+            ul { padding: 0; list-style-type: none; display: flex; flex-wrap: wrap; width: 200px; margin: auto; }
+            li { display: inline-flex; width: 45px; height: 45px; background: #F5F5F5; margin: 0 5px 5px 0; cursor: pointer; }
+            li.turquoise { background-color: #00D1B4; }
+            li.yellow { background-color: #FFDC6E; }
+        </style>
+    </head>
+    <body>
+        <ul>
+            <li class="yellow"></li>
+            <li></li>
+            <li></li>
+            <li class="turquoise"></li>
+            
+            <li class="turquoise"></li>
+            <li class="turquoise"></li>
+            <li></li>
+            <li class="yellow"></li>
+            
+            <li></li>
+            <li></li>
+            <li class="yellow"></li>
+            <li class="turquoise"></li>
+            
+            <li></li>
+            <li class="turquoise"></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </body>
+    <script type="text/javascript">
+        class Grid {
+            constructor(el) {
+                this.el = el;
+                this.squares = {
+                    a1: 'yellow',
+                    a4: 'turquoise',
+                    b1: 'turquoise',
+                    b2: 'turquoise',
+                    b4: 'yellow',
+                    c3: 'yellow',
+                    c4: 'turquoise',
+                    d2: 'turquoise'
+                };
+
+                this.COLUMNS = ['a', 'b', 'c', 'd'];
+                this.LINES = [1, 2, 3, 4];
+
+                this.render();
+            }
+            resolveLines(squares) {
+                let matches = [];
+
+                this.COLUMNS.forEach(column => {
+                    let colors = {};
+                    this.LINES.forEach(line => {
+                        let square = squares[column + line];
+                        if (!colors[square])
+                            colors[square] = 0;
+                        colors[square]++;
+                    });
+                    
+                    ['yellow', 'turquoise'].forEach(color => {
+                        if (colors[color] >= 3) {
+                            this.LINES.forEach(line => {
+                                let square = squares[column + line];
+                                if (square === color)
+                                    matches.push({column: column, line: line});
+                            });
+                        }
+                    });
+                });
+
+                return matches;
+            }
+            resolveColumns(squares) {
+                let matches = [];
+
+                this.LINES.forEach(line => {
+                    let colors = {};
+                    this.COLUMNS.forEach(column => {
+                        let square = squares[column + line];
+                        if (!colors[square])
+                            colors[square] = 0;
+                        colors[square]++;
+                    });
+                    
+                    ['yellow', 'turquoise'].forEach(color => {
+                        if (colors[color] >= 3) {
+                            this.COLUMNS.forEach(column => {
+                                let square = squares[column + line];
+                                if (square === color)
+                                    matches.push({column: column, line: line});
+                            });
+                        }
+                    });
+                });
+
+                return matches;
+            }
+            handleClick(column, line) {
+                let squares = this.squares;
+                let memo = this.memo;
+
+                if (!memo) {
+                    if (squares[column + line])
+                        this.memo = {column: column, line: line};
+                    return;
+                }
+
+                let square = squares[memo.column + memo.line];
+                squares[memo.column + memo.line] = squares[column + line];
+                squares[column + line] = square;
+
+                let matches = [];
+                matches = matches.concat(this.resolveLines(squares));
+                matches = matches.concat(this.resolveColumns(squares));
+
+                matches.forEach(function(match) {
+                    delete squares[match.column + match.line];
+                });
+
+                this.memo = undefined;
+                this.render();
+            }
+            render() {
+                this.el.innerHTML = '';
+
+                this.COLUMNS.forEach(column => {
+                    this.LINES.forEach(line => {
+                        let li = document.createElement('li');
+                        let square = this.squares[column + line];
+                        if (square)
+                            li.className = square;
+                        li.addEventListener('click', this.handleClick.bind(this, column, line));
+
+                        this.el.appendChild(li);
+                    });
+                });
+            };
+        }
+
+        new Grid(document.querySelector('ul'));
+
+    </script>
+</html>
