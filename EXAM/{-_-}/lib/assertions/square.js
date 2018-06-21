@@ -59,7 +59,7 @@ const score = (path) => {
                     u, u, u, t, 
                     u, t, u, u
                 ]))
-                score += 1;
+                score += 2;
         });
     })
     .then(() => {
@@ -77,7 +77,7 @@ const score = (path) => {
                     u, u, t, y,
                     u, u, t, u
                 ]))
-                score += 1;
+                score += 2;
         });
     })
     .then(() => {
@@ -152,7 +152,7 @@ const score = (path) => {
         });
     })
     .then(() => {
-        return score;
+        return score > 10 ? 10 : score;
     })
 }
 

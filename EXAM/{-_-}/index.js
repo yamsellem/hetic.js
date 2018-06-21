@@ -2,7 +2,7 @@
 
 const port = 8888;
 const folder = 'public';
-const stepNames = ['digit', 'letters'];
+const stepNames = ['survey','square'];
 
 const serve = require('./lib/serve');
 serve.start(folder, port);

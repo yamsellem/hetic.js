@@ -10,8 +10,6 @@ const runner = (path) => {
 }
 
 const assert = (runner) => {
-    const nightmare = Nightmare({ show: false, typeInterval: 1 });
-
     return runner
     .evaluate( () => {
         let capitalizeFirst = (string) => {
@@ -20,11 +18,11 @@ const assert = (runner) => {
 
         let question = document.querySelector('.question');
         let button = document.querySelector('.button');
-        let inputs = document.querySelectorAll('label input');
+        let labels = document.querySelectorAll('label');
         return {
             question: question ? capitalizeFirst(question.innerHTML) : '',
             button: button ? capitalizeFirst(button.value) : '',
-            answers: inputs.length ? [].map.call(inputs, input => input.value) : ['', '', '', ''],
+            answers: labels.length ? [].map.call(labels, label => label.textContent) : ['', '', '', ''],
         }
     })
     .end()
@@ -36,6 +34,12 @@ const assert = (runner) => {
 
 const equals = (a, b) => {
     return JSON.stringify(a) === JSON.stringify(b);
+}
+
+const contains = (a, b) => {
+    a = a || '';
+    b = b || '';
+    return a.toLowerCase().indexOf(b.toLowerCase()) !== -1
 }
 
 const score = (path) => {
@@ -94,7 +98,7 @@ const score = (path) => {
             .click('.button')
         )
         .then((value) => {
-            if (value.question === 'Score 1/3')
+            if (contains(value.question, '1/3'))
                 score++;
         });
     })
@@ -109,10 +113,10 @@ const score = (path) => {
             .click('.button')
         )
         .then((value) => {
-            if (value.question === 'Score 3/3')
+            if (contains(value.question, '3/3'))
                 score++;
 
-            if (value.button === 'Recommencer')
+            if (contains(value.button, 'Recommencer'))
                 score++;
         });
     })
@@ -131,7 +135,7 @@ const score = (path) => {
             if (value.question === survey[0].question && equals(value.answers, survey[0].answers))
                 score++;
 
-            if (value.button === 'Suivant >')
+            if (contains(value.button, 'Suivant'))
                 score++;
         });
     })
@@ -153,7 +157,7 @@ const score = (path) => {
             .click('.button')
         )
         .then((value) => {
-            if (value.question === 'Score 1/3')
+            if (contains(value.question, '1/3'))
                 score++;
         });
     })
