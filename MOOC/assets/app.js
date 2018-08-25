@@ -6,8 +6,8 @@
 /*! highlight.js v9.12.0 */
 !function(e){var n="object"==typeof window&&window||"object"==typeof self&&self;"undefined"!=typeof exports?e(exports):n&&(n.hljs=e({}),"function"==typeof define&&define.amd&&define([],function(){return n.hljs}))}(function(e){function n(e){return e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}function t(e){return e.nodeName.toLowerCase()}function r(e,n){var t=e&&e.exec(n);return t&&0===t.index}function a(e){return k.test(e)}function i(e){var n,t,r,i,o=e.className+" ";if(o+=e.parentNode?e.parentNode.className:"",t=B.exec(o))return w(t[1])?t[1]:"no-highlight";for(o=o.split(/\s+/),n=0,r=o.length;r>n;n++)if(i=o[n],a(i)||w(i))return i}function o(e){var n,t={},r=Array.prototype.slice.call(arguments,1);for(n in e)t[n]=e[n];return r.forEach(function(e){for(n in e)t[n]=e[n]}),t}function u(e){var n=[];return function r(e,a){for(var i=e.firstChild;i;i=i.nextSibling)3===i.nodeType?a+=i.nodeValue.length:1===i.nodeType&&(n.push({event:"start",offset:a,node:i}),a=r(i,a),t(i).match(/br|hr|img|input/)||n.push({event:"stop",offset:a,node:i}));return a}(e,0),n}function c(e,r,a){function i(){return e.length&&r.length?e[0].offset!==r[0].offset?e[0].offset<r[0].offset?e:r:"start"===r[0].event?e:r:e.length?e:r}function o(e){function r(e){return" "+e.nodeName+'="'+n(e.value).replace('"',"&quot;")+'"'}s+="<"+t(e)+E.map.call(e.attributes,r).join("")+">"}function u(e){s+="</"+t(e)+">"}function c(e){("start"===e.event?o:u)(e.node)}for(var l=0,s="",f=[];e.length||r.length;){var g=i();if(s+=n(a.substring(l,g[0].offset)),l=g[0].offset,g===e){f.reverse().forEach(u);do c(g.splice(0,1)[0]),g=i();while(g===e&&g.length&&g[0].offset===l);f.reverse().forEach(o)}else"start"===g[0].event?f.push(g[0].node):f.pop(),c(g.splice(0,1)[0])}return s+n(a.substr(l))}function l(e){return e.v&&!e.cached_variants&&(e.cached_variants=e.v.map(function(n){return o(e,{v:null},n)})),e.cached_variants||e.eW&&[o(e)]||[e]}function s(e){function n(e){return e&&e.source||e}function t(t,r){return new RegExp(n(t),"m"+(e.cI?"i":"")+(r?"g":""))}function r(a,i){if(!a.compiled){if(a.compiled=!0,a.k=a.k||a.bK,a.k){var o={},u=function(n,t){e.cI&&(t=t.toLowerCase()),t.split(" ").forEach(function(e){var t=e.split("|");o[t[0]]=[n,t[1]?Number(t[1]):1]})};"string"==typeof a.k?u("keyword",a.k):x(a.k).forEach(function(e){u(e,a.k[e])}),a.k=o}a.lR=t(a.l||/\w+/,!0),i&&(a.bK&&(a.b="\\b("+a.bK.split(" ").join("|")+")\\b"),a.b||(a.b=/\B|\b/),a.bR=t(a.b),a.e||a.eW||(a.e=/\B|\b/),a.e&&(a.eR=t(a.e)),a.tE=n(a.e)||"",a.eW&&i.tE&&(a.tE+=(a.e?"|":"")+i.tE)),a.i&&(a.iR=t(a.i)),null==a.r&&(a.r=1),a.c||(a.c=[]),a.c=Array.prototype.concat.apply([],a.c.map(function(e){return l("self"===e?a:e)})),a.c.forEach(function(e){r(e,a)}),a.starts&&r(a.starts,i);var c=a.c.map(function(e){return e.bK?"\\.?("+e.b+")\\.?":e.b}).concat([a.tE,a.i]).map(n).filter(Boolean);a.t=c.length?t(c.join("|"),!0):{exec:function(){return null}}}}r(e)}function f(e,t,a,i){function o(e,n){var t,a;for(t=0,a=n.c.length;a>t;t++)if(r(n.c[t].bR,e))return n.c[t]}function u(e,n){if(r(e.eR,n)){for(;e.endsParent&&e.parent;)e=e.parent;return e}return e.eW?u(e.parent,n):void 0}function c(e,n){return!a&&r(n.iR,e)}function l(e,n){var t=N.cI?n[0].toLowerCase():n[0];return e.k.hasOwnProperty(t)&&e.k[t]}function p(e,n,t,r){var a=r?"":I.classPrefix,i='<span class="'+a,o=t?"":C;return i+=e+'">',i+n+o}function h(){var e,t,r,a;if(!E.k)return n(k);for(a="",t=0,E.lR.lastIndex=0,r=E.lR.exec(k);r;)a+=n(k.substring(t,r.index)),e=l(E,r),e?(B+=e[1],a+=p(e[0],n(r[0]))):a+=n(r[0]),t=E.lR.lastIndex,r=E.lR.exec(k);return a+n(k.substr(t))}function d(){var e="string"==typeof E.sL;if(e&&!y[E.sL])return n(k);var t=e?f(E.sL,k,!0,x[E.sL]):g(k,E.sL.length?E.sL:void 0);return E.r>0&&(B+=t.r),e&&(x[E.sL]=t.top),p(t.language,t.value,!1,!0)}function b(){L+=null!=E.sL?d():h(),k=""}function v(e){L+=e.cN?p(e.cN,"",!0):"",E=Object.create(e,{parent:{value:E}})}function m(e,n){if(k+=e,null==n)return b(),0;var t=o(n,E);if(t)return t.skip?k+=n:(t.eB&&(k+=n),b(),t.rB||t.eB||(k=n)),v(t,n),t.rB?0:n.length;var r=u(E,n);if(r){var a=E;a.skip?k+=n:(a.rE||a.eE||(k+=n),b(),a.eE&&(k=n));do E.cN&&(L+=C),E.skip||(B+=E.r),E=E.parent;while(E!==r.parent);return r.starts&&v(r.starts,""),a.rE?0:n.length}if(c(n,E))throw new Error('Illegal lexeme "'+n+'" for mode "'+(E.cN||"<unnamed>")+'"');return k+=n,n.length||1}var N=w(e);if(!N)throw new Error('Unknown language: "'+e+'"');s(N);var R,E=i||N,x={},L="";for(R=E;R!==N;R=R.parent)R.cN&&(L=p(R.cN,"",!0)+L);var k="",B=0;try{for(var M,j,O=0;;){if(E.t.lastIndex=O,M=E.t.exec(t),!M)break;j=m(t.substring(O,M.index),M[0]),O=M.index+j}for(m(t.substr(O)),R=E;R.parent;R=R.parent)R.cN&&(L+=C);return{r:B,value:L,language:e,top:E}}catch(T){if(T.message&&-1!==T.message.indexOf("Illegal"))return{r:0,value:n(t)};throw T}}function g(e,t){t=t||I.languages||x(y);var r={r:0,value:n(e)},a=r;return t.filter(w).forEach(function(n){var t=f(n,e,!1);t.language=n,t.r>a.r&&(a=t),t.r>r.r&&(a=r,r=t)}),a.language&&(r.second_best=a),r}function p(e){return I.tabReplace||I.useBR?e.replace(M,function(e,n){return I.useBR&&"\n"===e?"<br>":I.tabReplace?n.replace(/\t/g,I.tabReplace):""}):e}function h(e,n,t){var r=n?L[n]:t,a=[e.trim()];return e.match(/\bhljs\b/)||a.push("hljs"),-1===e.indexOf(r)&&a.push(r),a.join(" ").trim()}function d(e){var n,t,r,o,l,s=i(e);a(s)||(I.useBR?(n=document.createElementNS("http://www.w3.org/1999/xhtml","div"),n.innerHTML=e.innerHTML.replace(/\n/g,"").replace(/<br[ \/]*>/g,"\n")):n=e,l=n.textContent,r=s?f(s,l,!0):g(l),t=u(n),t.length&&(o=document.createElementNS("http://www.w3.org/1999/xhtml","div"),o.innerHTML=r.value,r.value=c(t,u(o),l)),r.value=p(r.value),e.innerHTML=r.value,e.className=h(e.className,s,r.language),e.result={language:r.language,re:r.r},r.second_best&&(e.second_best={language:r.second_best.language,re:r.second_best.r}))}function b(e){I=o(I,e)}function v(){if(!v.called){v.called=!0;var e=document.querySelectorAll("pre code");E.forEach.call(e,d)}}function m(){addEventListener("DOMContentLoaded",v,!1),addEventListener("load",v,!1)}function N(n,t){var r=y[n]=t(e);r.aliases&&r.aliases.forEach(function(e){L[e]=n})}function R(){return x(y)}function w(e){return e=(e||"").toLowerCase(),y[e]||y[L[e]]}var E=[],x=Object.keys,y={},L={},k=/^(no-?highlight|plain|text)$/i,B=/\blang(?:uage)?-([\w-]+)\b/i,M=/((^(<[^>]+>|\t|)+|(?:\n)))/gm,C="</span>",I={classPrefix:"hljs-",tabReplace:null,useBR:!1,languages:void 0};return e.highlight=f,e.highlightAuto=g,e.fixMarkup=p,e.highlightBlock=d,e.configure=b,e.initHighlighting=v,e.initHighlightingOnLoad=m,e.registerLanguage=N,e.listLanguages=R,e.getLanguage=w,e.inherit=o,e.IR="[a-zA-Z]\\w*",e.UIR="[a-zA-Z_]\\w*",e.NR="\\b\\d+(\\.\\d+)?",e.CNR="(-?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)",e.BNR="\\b(0b[01]+)",e.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|-|-=|/=|/|:|;|<<|<<=|<=|<|===|==|=|>>>=|>>=|>=|>>>|>>|>|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~",e.BE={b:"\\\\[\\s\\S]",r:0},e.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[e.BE]},e.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[e.BE]},e.PWM={b:/\b(a|an|the|are|I'm|isn't|don't|doesn't|won't|but|just|should|pretty|simply|enough|gonna|going|wtf|so|such|will|you|your|they|like|more)\b/},e.C=function(n,t,r){var a=e.inherit({cN:"comment",b:n,e:t,c:[]},r||{});return a.c.push(e.PWM),a.c.push({cN:"doctag",b:"(?:TODO|FIXME|NOTE|BUG|XXX):",r:0}),a},e.CLCM=e.C("//","$"),e.CBCM=e.C("/\\*","\\*/"),e.HCM=e.C("#","$"),e.NM={cN:"number",b:e.NR,r:0},e.CNM={cN:"number",b:e.CNR,r:0},e.BNM={cN:"number",b:e.BNR,r:0},e.CSSNM={cN:"number",b:e.NR+"(%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc|px|deg|grad|rad|turn|s|ms|Hz|kHz|dpi|dpcm|dppx)?",r:0},e.RM={cN:"regexp",b:/\//,e:/\/[gimuy]*/,i:/\n/,c:[e.BE,{b:/\[/,e:/\]/,r:0,c:[e.BE]}]},e.TM={cN:"title",b:e.IR,r:0},e.UTM={cN:"title",b:e.UIR,r:0},e.METHOD_GUARD={b:"\\.\\s*"+e.UIR,r:0},e});hljs.registerLanguage("css",function(e){var c="[a-zA-Z-][a-zA-Z0-9_-]*",t={b:/[A-Z\_\.\-]+\s*:/,rB:!0,e:";",eW:!0,c:[{cN:"attribute",b:/\S/,e:":",eE:!0,starts:{eW:!0,eE:!0,c:[{b:/[\w-]+\(/,rB:!0,c:[{cN:"built_in",b:/[\w-]+/},{b:/\(/,e:/\)/,c:[e.ASM,e.QSM]}]},e.CSSNM,e.QSM,e.ASM,e.CBCM,{cN:"number",b:"#[0-9A-Fa-f]+"},{cN:"meta",b:"!important"}]}}]};return{cI:!0,i:/[=\/|'\$]/,c:[e.CBCM,{cN:"selector-id",b:/#[A-Za-z0-9_-]+/},{cN:"selector-class",b:/\.[A-Za-z0-9_-]+/},{cN:"selector-attr",b:/\[/,e:/\]/,i:"$"},{cN:"selector-pseudo",b:/:(:)?[a-zA-Z0-9\_\-\+\(\)"'.]+/},{b:"@(font-face|page)",l:"[a-z-]+",k:"font-face page"},{b:"@",e:"[{;]",i:/:/,c:[{cN:"keyword",b:/\w+/},{b:/\s/,eW:!0,eE:!0,r:0,c:[e.ASM,e.QSM,e.CSSNM]}]},{cN:"selector-tag",b:c,r:0},{b:"{",e:"}",i:/\S/,c:[e.CBCM,t]}]}});hljs.registerLanguage("http",function(e){var t="HTTP/[0-9\\.]+";return{aliases:["https"],i:"\\S",c:[{b:"^"+t,e:"$",c:[{cN:"number",b:"\\b\\d{3}\\b"}]},{b:"^[A-Z]+ (.*?) "+t+"$",rB:!0,e:"$",c:[{cN:"string",b:" ",e:" ",eB:!0,eE:!0},{b:t},{cN:"keyword",b:"[A-Z]+"}]},{cN:"attribute",b:"^\\w",e:": ",eE:!0,i:"\\n|\\s|=",starts:{e:"$",r:0}},{b:"\\n\\n",starts:{sL:[],eW:!0}}]}});hljs.registerLanguage("javascript",function(e){var r="[A-Za-z$_][0-9A-Za-z$_]*",t={keyword:"in of if for while finally var new function do return void else break catch instanceof with throw case default try this switch continue typeof delete let yield const export super debugger as async await static import from as",literal:"true false null undefined NaN Infinity",built_in:"eval isFinite isNaN parseFloat parseInt decodeURI decodeURIComponent encodeURI encodeURIComponent escape unescape Object Function Boolean Error EvalError InternalError RangeError ReferenceError StopIteration SyntaxError TypeError URIError Number Math Date String RegExp Array Float32Array Float64Array Int16Array Int32Array Int8Array Uint16Array Uint32Array Uint8Array Uint8ClampedArray ArrayBuffer DataView JSON Intl arguments require module console window document Symbol Set Map WeakSet WeakMap Proxy Reflect Promise"},a={cN:"number",v:[{b:"\\b(0[bB][01]+)"},{b:"\\b(0[oO][0-7]+)"},{b:e.CNR}],r:0},n={cN:"subst",b:"\\$\\{",e:"\\}",k:t,c:[]},c={cN:"string",b:"`",e:"`",c:[e.BE,n]};n.c=[e.ASM,e.QSM,c,a,e.RM];var s=n.c.concat([e.CBCM,e.CLCM]);return{aliases:["js","jsx"],k:t,c:[{cN:"meta",r:10,b:/^\s*['"]use (strict|asm)['"]/},{cN:"meta",b:/^#!/,e:/$/},e.ASM,e.QSM,c,e.CLCM,e.CBCM,a,{b:/[{,]\s*/,r:0,c:[{b:r+"\\s*:",rB:!0,r:0,c:[{cN:"attr",b:r,r:0}]}]},{b:"("+e.RSR+"|\\b(case|return|throw)\\b)\\s*",k:"return throw case",c:[e.CLCM,e.CBCM,e.RM,{cN:"function",b:"(\\(.*?\\)|"+r+")\\s*=>",rB:!0,e:"\\s*=>",c:[{cN:"params",v:[{b:r},{b:/\(\s*\)/},{b:/\(/,e:/\)/,eB:!0,eE:!0,k:t,c:s}]}]},{b:/</,e:/(\/\w+|\w+\/)>/,sL:"xml",c:[{b:/<\w+\s*\/>/,skip:!0},{b:/<\w+/,e:/(\/\w+|\w+\/)>/,skip:!0,c:[{b:/<\w+\s*\/>/,skip:!0},"self"]}]}],r:0},{cN:"function",bK:"function",e:/\{/,eE:!0,c:[e.inherit(e.TM,{b:r}),{cN:"params",b:/\(/,e:/\)/,eB:!0,eE:!0,c:s}],i:/\[|%/},{b:/\$[(.]/},e.METHOD_GUARD,{cN:"class",bK:"class",e:/[{;=]/,eE:!0,i:/[:"\[\]]/,c:[{bK:"extends"},e.UTM]},{bK:"constructor",e:/\{/,eE:!0}],i:/#(?!!)/}});hljs.registerLanguage("xml",function(s){var e="[A-Za-z0-9\\._:-]+",t={eW:!0,i:/</,r:0,c:[{cN:"attr",b:e,r:0},{b:/=\s*/,r:0,c:[{cN:"string",endsParent:!0,v:[{b:/"/,e:/"/},{b:/'/,e:/'/},{b:/[^\s"'=<>`]+/}]}]}]};return{aliases:["html","xhtml","rss","atom","xjb","xsd","xsl","plist"],cI:!0,c:[{cN:"meta",b:"<!DOCTYPE",e:">",r:10,c:[{b:"\\[",e:"\\]"}]},s.C("<!--","-->",{r:10}),{b:"<\\!\\[CDATA\\[",e:"\\]\\]>",r:10},{b:/<\?(php)?/,e:/\?>/,sL:"php",c:[{b:"/\\*",e:"\\*/",skip:!0}]},{cN:"tag",b:"<style(?=\\s|>|$)",e:">",k:{name:"style"},c:[t],starts:{e:"</style>",rE:!0,sL:["css","xml"]}},{cN:"tag",b:"<script(?=\\s|>|$)",e:">",k:{name:"script"},c:[t],starts:{e:"</script>",rE:!0,sL:["actionscript","javascript","handlebars","xml"]}},{cN:"meta",v:[{b:/<\?xml/,e:/\?>/,r:10},{b:/<\?\w+/,e:/\?>/}]},{cN:"tag",b:"</?",e:"/?>",c:[{cN:"name",b:/[^\/><\s]+/,r:0},t]}]}});hljs.registerLanguage("json",function(e){var i={literal:"true false null"},n=[e.QSM,e.CNM],r={e:",",eW:!0,eE:!0,c:n,k:i},t={b:"{",e:"}",c:[{cN:"attr",b:/"/,e:/"/,c:[e.BE],i:"\\n"},e.inherit(r,{b:/:/})],i:"\\S"},c={b:"\\[",e:"\\]",c:[e.inherit(r)],i:"\\S"};return n.splice(n.length,0,t,c),{c:n,k:i,i:"\\S"}});
 
-/*! marked.js 0.3.6 */
- (function(){function e(e){this.tokens=[],this.tokens.links={},this.options=e||a.defaults,this.rules=p.normal,this.options.gfm&&(this.options.tables?this.rules=p.tables:this.rules=p.gfm)}function t(e,t){if(this.options=t||a.defaults,this.links=e,this.rules=u.normal,this.renderer=this.options.renderer||new n,this.renderer.options=this.options,!this.links)throw new Error("Tokens array requires a `links` property.");this.options.gfm?this.options.breaks?this.rules=u.breaks:this.rules=u.gfm:this.options.pedantic&&(this.rules=u.pedantic)}function n(e){this.options=e||{}}function r(e){this.tokens=[],this.token=null,this.options=e||a.defaults,this.options.renderer=this.options.renderer||new n,this.renderer=this.options.renderer,this.renderer.options=this.options}function s(e,t){return e.replace(t?/&/g:/&(?!#?\w+;)/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}function i(e){return e.replace(/&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/g,function(e,t){return t=t.toLowerCase(),"colon"===t?":":"#"===t.charAt(0)?"x"===t.charAt(1)?String.fromCharCode(parseInt(t.substring(2),16)):String.fromCharCode(+t.substring(1)):""})}function l(e,t){return e=e.source,t=t||"",function n(r,s){return r?(s=s.source||s,s=s.replace(/(^|[^\[])\^/g,"$1"),e=e.replace(r,s),n):new RegExp(e,t)}}function o(){}function h(e){for(var t,n,r=1;r<arguments.length;r++){t=arguments[r];for(n in t)Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n])}return e}function a(t,n,i){if(i||"function"==typeof n){i||(i=n,n=null),n=h({},a.defaults,n||{});var l,o,p=n.highlight,u=0;try{l=e.lex(t,n)}catch(c){return i(c)}o=l.length;var g=function(e){if(e)return n.highlight=p,i(e);var t;try{t=r.parse(l,n)}catch(s){e=s}return n.highlight=p,e?i(e):i(null,t)};if(!p||p.length<3)return g();if(delete n.highlight,!o)return g();for(;u<l.length;u++)!function(e){return"code"!==e.type?--o||g():p(e.text,e.lang,function(t,n){return t?g(t):null==n||n===e.text?--o||g():(e.text=n,e.escaped=!0,void(--o||g()))})}(l[u])}else try{return n&&(n=h({},a.defaults,n)),r.parse(e.lex(t,n),n)}catch(c){if(c.message+="\nPlease report this to https://github.com/chjj/marked.",(n||a.defaults).silent)return"<p>An error occured:</p><pre>"+s(c.message+"",!0)+"</pre>";throw c}}var p={newline:/^\n+/,code:/^( {4}[^\n]+\n*)+/,fences:o,hr:/^( *[-*_]){3,} *(?:\n+|$)/,heading:/^ *(#{1,6}) *([^\n]+?) *#* *(?:\n+|$)/,nptable:o,lheading:/^([^\n]+)\n *(=|-){2,} *(?:\n+|$)/,blockquote:/^( *>[^\n]+(\n(?!def)[^\n]+)*\n*)+/,list:/^( *)(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,html:/^ *(?:comment *(?:\n|\s*$)|closed *(?:\n{2,}|\s*$)|closing *(?:\n{2,}|\s*$))/,def:/^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n+|$)/,table:o,paragraph:/^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def))+)\n*/,text:/^[^\n]+/};p.bullet=/(?:[*+-]|\d+\.)/,p.item=/^( *)(bull) [^\n]*(?:\n(?!\1bull )[^\n]*)*/,p.item=l(p.item,"gm")(/bull/g,p.bullet)(),p.list=l(p.list)(/bull/g,p.bullet)("hr","\\n+(?=\\1?(?:[-*_] *){3,}(?:\\n+|$))")("def","\\n+(?="+p.def.source+")")(),p.blockquote=l(p.blockquote)("def",p.def)(),p._tag="(?!(?:a|em|strong|small|s|cite|q|dfn|abbr|data|time|code|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo|span|br|wbr|ins|del|img)\\b)\\w+(?!:/|[^\\w\\s@]*@)\\b",p.html=l(p.html)("comment",/<!--[\s\S]*?-->/)("closed",/<(tag)[\s\S]+?<\/\1>/)("closing",/<tag(?:"[^"]*"|'[^']*'|[^'">])*?>/)(/tag/g,p._tag)(),p.paragraph=l(p.paragraph)("hr",p.hr)("heading",p.heading)("lheading",p.lheading)("blockquote",p.blockquote)("tag","<"+p._tag)("def",p.def)(),p.normal=h({},p),p.gfm=h({},p.normal,{fences:/^ *(`{3,}|~{3,})[ \.]*(\S+)? *\n([\s\S]*?)\s*\1 *(?:\n+|$)/,paragraph:/^/,heading:/^ *(#{1,6}) +([^\n]+?) *#* *(?:\n+|$)/}),p.gfm.paragraph=l(p.paragraph)("(?!","(?!"+p.gfm.fences.source.replace("\\1","\\2")+"|"+p.list.source.replace("\\1","\\3")+"|")(),p.tables=h({},p.gfm,{nptable:/^ *(\S.*\|.*)\n *([-:]+ *\|[-| :]*)\n((?:.*\|.*(?:\n|$))*)\n*/,table:/^ *\|(.+)\n *\|( *[-:]+[-| :]*)\n((?: *\|.*(?:\n|$))*)\n*/}),e.rules=p,e.lex=function(t,n){var r=new e(n);return r.lex(t)},e.prototype.lex=function(e){return e=e.replace(/\r\n|\r/g,"\n").replace(/\t/g,"    ").replace(/\u00a0/g," ").replace(/\u2424/g,"\n"),this.token(e,!0)},e.prototype.token=function(e,t,n){for(var r,s,i,l,o,h,a,u,c,e=e.replace(/^ +$/gm,"");e;)if((i=this.rules.newline.exec(e))&&(e=e.substring(i[0].length),i[0].length>1&&this.tokens.push({type:"space"})),i=this.rules.code.exec(e))e=e.substring(i[0].length),i=i[0].replace(/^ {4}/gm,""),this.tokens.push({type:"code",text:this.options.pedantic?i:i.replace(/\n+$/,"")});else if(i=this.rules.fences.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"code",lang:i[2],text:i[3]||""});else if(i=this.rules.heading.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"heading",depth:i[1].length,text:i[2]});else if(t&&(i=this.rules.nptable.exec(e))){for(e=e.substring(i[0].length),h={type:"table",header:i[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:i[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:i[3].replace(/\n$/,"").split("\n")},u=0;u<h.align.length;u++)/^ *-+: *$/.test(h.align[u])?h.align[u]="right":/^ *:-+: *$/.test(h.align[u])?h.align[u]="center":/^ *:-+ *$/.test(h.align[u])?h.align[u]="left":h.align[u]=null;for(u=0;u<h.cells.length;u++)h.cells[u]=h.cells[u].split(/ *\| */);this.tokens.push(h)}else if(i=this.rules.lheading.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"heading",depth:"="===i[2]?1:2,text:i[1]});else if(i=this.rules.hr.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"hr"});else if(i=this.rules.blockquote.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"blockquote_start"}),i=i[0].replace(/^ *> ?/gm,""),this.token(i,t,!0),this.tokens.push({type:"blockquote_end"});else if(i=this.rules.list.exec(e)){for(e=e.substring(i[0].length),l=i[2],this.tokens.push({type:"list_start",ordered:l.length>1}),i=i[0].match(this.rules.item),r=!1,c=i.length,u=0;c>u;u++)h=i[u],a=h.length,h=h.replace(/^ *([*+-]|\d+\.) +/,""),~h.indexOf("\n ")&&(a-=h.length,h=this.options.pedantic?h.replace(/^ {1,4}/gm,""):h.replace(new RegExp("^ {1,"+a+"}","gm"),"")),this.options.smartLists&&u!==c-1&&(o=p.bullet.exec(i[u+1])[0],l===o||l.length>1&&o.length>1||(e=i.slice(u+1).join("\n")+e,u=c-1)),s=r||/\n\n(?!\s*$)/.test(h),u!==c-1&&(r="\n"===h.charAt(h.length-1),s||(s=r)),this.tokens.push({type:s?"loose_item_start":"list_item_start"}),this.token(h,!1,n),this.tokens.push({type:"list_item_end"});this.tokens.push({type:"list_end"})}else if(i=this.rules.html.exec(e))e=e.substring(i[0].length),this.tokens.push({type:this.options.sanitize?"paragraph":"html",pre:!this.options.sanitizer&&("pre"===i[1]||"script"===i[1]||"style"===i[1]),text:i[0]});else if(!n&&t&&(i=this.rules.def.exec(e)))e=e.substring(i[0].length),this.tokens.links[i[1].toLowerCase()]={href:i[2],title:i[3]};else if(t&&(i=this.rules.table.exec(e))){for(e=e.substring(i[0].length),h={type:"table",header:i[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:i[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:i[3].replace(/(?: *\| *)?\n$/,"").split("\n")},u=0;u<h.align.length;u++)/^ *-+: *$/.test(h.align[u])?h.align[u]="right":/^ *:-+: *$/.test(h.align[u])?h.align[u]="center":/^ *:-+ *$/.test(h.align[u])?h.align[u]="left":h.align[u]=null;for(u=0;u<h.cells.length;u++)h.cells[u]=h.cells[u].replace(/^ *\| *| *\| *$/g,"").split(/ *\| */);this.tokens.push(h)}else if(t&&(i=this.rules.paragraph.exec(e)))e=e.substring(i[0].length),this.tokens.push({type:"paragraph",text:"\n"===i[1].charAt(i[1].length-1)?i[1].slice(0,-1):i[1]});else if(i=this.rules.text.exec(e))e=e.substring(i[0].length),this.tokens.push({type:"text",text:i[0]});else if(e)throw new Error("Infinite loop on byte: "+e.charCodeAt(0));return this.tokens};var u={escape:/^\\([\\`*{}\[\]()#+\-.!_>])/,autolink:/^<([^ >]+(@|:\/)[^ >]+)>/,url:o,tag:/^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,link:/^!?\[(inside)\]\(href\)/,reflink:/^!?\[(inside)\]\s*\[([^\]]*)\]/,nolink:/^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,strong:/^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,em:/^\b_((?:[^_]|__)+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,code:/^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/,br:/^ {2,}\n(?!\s*$)/,del:o,text:/^[\s\S]+?(?=[\\<!\[_*`]| {2,}\n|$)/};u._inside=/(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/,u._href=/\s*<?([\s\S]*?)>?(?:\s+['"]([\s\S]*?)['"])?\s*/,u.link=l(u.link)("inside",u._inside)("href",u._href)(),u.reflink=l(u.reflink)("inside",u._inside)(),u.normal=h({},u),u.pedantic=h({},u.normal,{strong:/^__(?=\S)([\s\S]*?\S)__(?!_)|^\*\*(?=\S)([\s\S]*?\S)\*\*(?!\*)/,em:/^_(?=\S)([\s\S]*?\S)_(?!_)|^\*(?=\S)([\s\S]*?\S)\*(?!\*)/}),u.gfm=h({},u.normal,{escape:l(u.escape)("])","~|])")(),url:/^(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/,del:/^~~(?=\S)([\s\S]*?\S)~~/,text:l(u.text)("]|","~]|")("|","|https?://|")()}),u.breaks=h({},u.gfm,{br:l(u.br)("{2,}","*")(),text:l(u.gfm.text)("{2,}","*")()}),t.rules=u,t.output=function(e,n,r){var s=new t(n,r);return s.output(e)},t.prototype.output=function(e){for(var t,n,r,i,l="";e;)if(i=this.rules.escape.exec(e))e=e.substring(i[0].length),l+=i[1];else if(i=this.rules.autolink.exec(e))e=e.substring(i[0].length),"@"===i[2]?(n=":"===i[1].charAt(6)?this.mangle(i[1].substring(7)):this.mangle(i[1]),r=this.mangle("mailto:")+n):(n=s(i[1]),r=n),l+=this.renderer.link(r,null,n);else if(this.inLink||!(i=this.rules.url.exec(e))){if(i=this.rules.tag.exec(e))!this.inLink&&/^<a /i.test(i[0])?this.inLink=!0:this.inLink&&/^<\/a>/i.test(i[0])&&(this.inLink=!1),e=e.substring(i[0].length),l+=this.options.sanitize?this.options.sanitizer?this.options.sanitizer(i[0]):s(i[0]):i[0];else if(i=this.rules.link.exec(e))e=e.substring(i[0].length),this.inLink=!0,l+=this.outputLink(i,{href:i[2],title:i[3]}),this.inLink=!1;else if((i=this.rules.reflink.exec(e))||(i=this.rules.nolink.exec(e))){if(e=e.substring(i[0].length),t=(i[2]||i[1]).replace(/\s+/g," "),t=this.links[t.toLowerCase()],!t||!t.href){l+=i[0].charAt(0),e=i[0].substring(1)+e;continue}this.inLink=!0,l+=this.outputLink(i,t),this.inLink=!1}else if(i=this.rules.strong.exec(e))e=e.substring(i[0].length),l+=this.renderer.strong(this.output(i[2]||i[1]));else if(i=this.rules.em.exec(e))e=e.substring(i[0].length),l+=this.renderer.em(this.output(i[2]||i[1]));else if(i=this.rules.code.exec(e))e=e.substring(i[0].length),l+=this.renderer.codespan(s(i[2],!0));else if(i=this.rules.br.exec(e))e=e.substring(i[0].length),l+=this.renderer.br();else if(i=this.rules.del.exec(e))e=e.substring(i[0].length),l+=this.renderer.del(this.output(i[1]));else if(i=this.rules.text.exec(e))e=e.substring(i[0].length),l+=this.renderer.text(s(this.smartypants(i[0])));else if(e)throw new Error("Infinite loop on byte: "+e.charCodeAt(0))}else e=e.substring(i[0].length),n=s(i[1]),r=n,l+=this.renderer.link(r,null,n);return l},t.prototype.outputLink=function(e,t){var n=s(t.href),r=t.title?s(t.title):null;return"!"!==e[0].charAt(0)?this.renderer.link(n,r,this.output(e[1])):this.renderer.image(n,r,s(e[1]))},t.prototype.smartypants=function(e){return this.options.smartypants?e.replace(/---/g,"—").replace(/--/g,"–").replace(/(^|[-\u2014\/(\[{"\s])'/g,"$1‘").replace(/'/g,"’").replace(/(^|[-\u2014\/(\[{\u2018\s])"/g,"$1“").replace(/"/g,"”").replace(/\.{3}/g,"…"):e},t.prototype.mangle=function(e){if(!this.options.mangle)return e;for(var t,n="",r=e.length,s=0;r>s;s++)t=e.charCodeAt(s),Math.random()>.5&&(t="x"+t.toString(16)),n+="&#"+t+";";return n},n.prototype.code=function(e,t,n){if(this.options.highlight){var r=this.options.highlight(e,t);null!=r&&r!==e&&(n=!0,e=r)}return t?'<pre><code class="'+this.options.langPrefix+s(t,!0)+'">'+(n?e:s(e,!0))+"\n</code></pre>\n":"<pre><code>"+(n?e:s(e,!0))+"\n</code></pre>"},n.prototype.blockquote=function(e){return"<blockquote>\n"+e+"</blockquote>\n"},n.prototype.html=function(e){return e},n.prototype.heading=function(e,t,n){return"<h"+t+' id="'+this.options.headerPrefix+n.toLowerCase().replace(/[^\w]+/g,"-")+'">'+e+"</h"+t+">\n"},n.prototype.hr=function(){return this.options.xhtml?"<hr/>\n":"<hr>\n"},n.prototype.list=function(e,t){var n=t?"ol":"ul";return"<"+n+">\n"+e+"</"+n+">\n"},n.prototype.listitem=function(e){return"<li>"+e+"</li>\n"},n.prototype.paragraph=function(e){return"<p>"+e+"</p>\n"},n.prototype.table=function(e,t){return"<table>\n<thead>\n"+e+"</thead>\n<tbody>\n"+t+"</tbody>\n</table>\n"},n.prototype.tablerow=function(e){return"<tr>\n"+e+"</tr>\n"},n.prototype.tablecell=function(e,t){var n=t.header?"th":"td",r=t.align?"<"+n+' style="text-align:'+t.align+'">':"<"+n+">";return r+e+"</"+n+">\n"},n.prototype.strong=function(e){return"<strong>"+e+"</strong>"},n.prototype.em=function(e){return"<em>"+e+"</em>"},n.prototype.codespan=function(e){return"<code>"+e+"</code>"},n.prototype.br=function(){return this.options.xhtml?"<br/>":"<br>"},n.prototype.del=function(e){return"<del>"+e+"</del>"},n.prototype.link=function(e,t,n){if(this.options.sanitize){try{var r=decodeURIComponent(i(e)).replace(/[^\w:]/g,"").toLowerCase()}catch(s){return""}if(0===r.indexOf("javascript:")||0===r.indexOf("vbscript:"))return""}var l='<a href="'+e+'"';return t&&(l+=' title="'+t+'"'),l+=">"+n+"</a>"},n.prototype.image=function(e,t,n){var r='<img src="'+e+'" alt="'+n+'"';return t&&(r+=' title="'+t+'"'),r+=this.options.xhtml?"/>":">"},n.prototype.text=function(e){return e},r.parse=function(e,t,n){var s=new r(t,n);return s.parse(e)},r.prototype.parse=function(e){this.inline=new t(e.links,this.options,this.renderer),this.tokens=e.reverse();for(var n="";this.next();)n+=this.tok();return n},r.prototype.next=function(){return this.token=this.tokens.pop()},r.prototype.peek=function(){return this.tokens[this.tokens.length-1]||0},r.prototype.parseText=function(){for(var e=this.token.text;"text"===this.peek().type;)e+="\n"+this.next().text;return this.inline.output(e)},r.prototype.tok=function(){switch(this.token.type){case"space":return"";case"hr":return this.renderer.hr();case"heading":return this.renderer.heading(this.inline.output(this.token.text),this.token.depth,this.token.text);case"code":return this.renderer.code(this.token.text,this.token.lang,this.token.escaped);case"table":var e,t,n,r,s,i="",l="";for(n="",e=0;e<this.token.header.length;e++)r={header:!0,align:this.token.align[e]},n+=this.renderer.tablecell(this.inline.output(this.token.header[e]),{header:!0,align:this.token.align[e]});for(i+=this.renderer.tablerow(n),e=0;e<this.token.cells.length;e++){for(t=this.token.cells[e],n="",s=0;s<t.length;s++)n+=this.renderer.tablecell(this.inline.output(t[s]),{header:!1,align:this.token.align[s]});l+=this.renderer.tablerow(n)}return this.renderer.table(i,l);case"blockquote_start":for(var l="";"blockquote_end"!==this.next().type;)l+=this.tok();return this.renderer.blockquote(l);case"list_start":for(var l="",o=this.token.ordered;"list_end"!==this.next().type;)l+=this.tok();return this.renderer.list(l,o);case"list_item_start":for(var l="";"list_item_end"!==this.next().type;)l+="text"===this.token.type?this.parseText():this.tok();return this.renderer.listitem(l);case"loose_item_start":for(var l="";"list_item_end"!==this.next().type;)l+=this.tok();return this.renderer.listitem(l);case"html":var h=this.token.pre||this.options.pedantic?this.token.text:this.inline.output(this.token.text);return this.renderer.html(h);case"paragraph":return this.renderer.paragraph(this.inline.output(this.token.text));case"text":return this.renderer.paragraph(this.parseText())}},o.exec=o,a.options=a.setOptions=function(e){return h(a.defaults,e),a},a.defaults={gfm:!0,tables:!0,breaks:!1,pedantic:!1,sanitize:!1,sanitizer:null,mangle:!0,smartLists:!1,silent:!1,highlight:null,langPrefix:"lang-",smartypants:!1,headerPrefix:"",renderer:new n,xhtml:!1},a.Parser=r,a.parser=r.parse,a.Renderer=n,a.Lexer=e,a.lexer=e.lex,a.InlineLexer=t,a.inlineLexer=t.output,a.parse=a,"undefined"!=typeof module&&"object"==typeof exports?module.exports=a:"function"==typeof define&&define.amd?define(function(){return a}):this.marked=a}).call(function(){return this||("undefined"!=typeof window?window:global)}());
+/*! marked.js 0.5.0 */
+!function(e){"use strict";var k={newline:/^\n+/,code:/^( {4}[^\n]+\n*)+/,fences:g,hr:/^ {0,3}((?:- *){3,}|(?:_ *){3,}|(?:\* *){3,})(?:\n+|$)/,heading:/^ *(#{1,6}) *([^\n]+?) *(?:#+ *)?(?:\n+|$)/,nptable:g,blockquote:/^( {0,3}> ?(paragraph|[^\n]*)(?:\n|$))+/,list:/^( *)(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,html:"^ {0,3}(?:<(script|pre|style)[\\s>][\\s\\S]*?(?:</\\1>[^\\n]*\\n+|$)|comment[^\\n]*(\\n+|$)|<\\?[\\s\\S]*?\\?>\\n*|<![A-Z][\\s\\S]*?>\\n*|<!\\[CDATA\\[[\\s\\S]*?\\]\\]>\\n*|</?(tag)(?: +|\\n|/?>)[\\s\\S]*?(?:\\n{2,}|$)|<(?!script|pre|style)([a-z][\\w-]*)(?:attribute)*? */?>(?=\\h*\\n)[\\s\\S]*?(?:\\n{2,}|$)|</(?!script|pre|style)[a-z][\\w-]*\\s*>(?=\\h*\\n)[\\s\\S]*?(?:\\n{2,}|$))",def:/^ {0,3}\[(label)\]: *\n? *<?([^\s>]+)>?(?:(?: +\n? *| *\n *)(title))? *(?:\n+|$)/,table:g,lheading:/^([^\n]+)\n *(=|-){2,} *(?:\n+|$)/,paragraph:/^([^\n]+(?:\n(?!hr|heading|lheading| {0,3}>|<\/?(?:tag)(?: +|\n|\/?>)|<(?:script|pre|style|!--))[^\n]+)*)/,text:/^[^\n]+/};function a(e){this.tokens=[],this.tokens.links=Object.create(null),this.options=e||d.defaults,this.rules=k.normal,this.options.pedantic?this.rules=k.pedantic:this.options.gfm&&(this.options.tables?this.rules=k.tables:this.rules=k.gfm)}k._label=/(?!\s*\])(?:\\[\[\]]|[^\[\]])+/,k._title=/(?:"(?:\\"?|[^"\\])*"|'[^'\n]*(?:\n[^'\n]+)*\n?'|\([^()]*\))/,k.def=t(k.def).replace("label",k._label).replace("title",k._title).getRegex(),k.bullet=/(?:[*+-]|\d+\.)/,k.item=/^( *)(bull) [^\n]*(?:\n(?!\1bull )[^\n]*)*/,k.item=t(k.item,"gm").replace(/bull/g,k.bullet).getRegex(),k.list=t(k.list).replace(/bull/g,k.bullet).replace("hr","\\n+(?=\\1?(?:(?:- *){3,}|(?:_ *){3,}|(?:\\* *){3,})(?:\\n+|$))").replace("def","\\n+(?="+k.def.source+")").getRegex(),k._tag="address|article|aside|base|basefont|blockquote|body|caption|center|col|colgroup|dd|details|dialog|dir|div|dl|dt|fieldset|figcaption|figure|footer|form|frame|frameset|h[1-6]|head|header|hr|html|iframe|legend|li|link|main|menu|menuitem|meta|nav|noframes|ol|optgroup|option|p|param|section|source|summary|table|tbody|td|tfoot|th|thead|title|tr|track|ul",k._comment=/<!--(?!-?>)[\s\S]*?-->/,k.html=t(k.html,"i").replace("comment",k._comment).replace("tag",k._tag).replace("attribute",/ +[a-zA-Z:_][\w.:-]*(?: *= *"[^"\n]*"| *= *'[^'\n]*'| *= *[^\s"'=<>`]+)?/).getRegex(),k.paragraph=t(k.paragraph).replace("hr",k.hr).replace("heading",k.heading).replace("lheading",k.lheading).replace("tag",k._tag).getRegex(),k.blockquote=t(k.blockquote).replace("paragraph",k.paragraph).getRegex(),k.normal=f({},k),k.gfm=f({},k.normal,{fences:/^ *(`{3,}|~{3,})[ \.]*(\S+)? *\n([\s\S]*?)\n? *\1 *(?:\n+|$)/,paragraph:/^/,heading:/^ *(#{1,6}) +([^\n]+?) *#* *(?:\n+|$)/}),k.gfm.paragraph=t(k.paragraph).replace("(?!","(?!"+k.gfm.fences.source.replace("\\1","\\2")+"|"+k.list.source.replace("\\1","\\3")+"|").getRegex(),k.tables=f({},k.gfm,{nptable:/^ *([^|\n ].*\|.*)\n *([-:]+ *\|[-| :]*)(?:\n((?:.*[^>\n ].*(?:\n|$))*)\n*|$)/,table:/^ *\|(.+)\n *\|?( *[-:]+[-| :]*)(?:\n((?: *[^>\n ].*(?:\n|$))*)\n*|$)/}),k.pedantic=f({},k.normal,{html:t("^ *(?:comment *(?:\\n|\\s*$)|<(tag)[\\s\\S]+?</\\1> *(?:\\n{2,}|\\s*$)|<tag(?:\"[^\"]*\"|'[^']*'|\\s[^'\"/>\\s]*)*?/?> *(?:\\n{2,}|\\s*$))").replace("comment",k._comment).replace(/tag/g,"(?!(?:a|em|strong|small|s|cite|q|dfn|abbr|data|time|code|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo|span|br|wbr|ins|del|img)\\b)\\w+(?!:|[^\\w\\s@]*@)\\b").getRegex(),def:/^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +(["(][^\n]+[")]))? *(?:\n+|$)/}),a.rules=k,a.lex=function(e,t){return new a(t).lex(e)},a.prototype.lex=function(e){return e=e.replace(/\r\n|\r/g,"\n").replace(/\t/g,"    ").replace(/\u00a0/g," ").replace(/\u2424/g,"\n"),this.token(e,!0)},a.prototype.token=function(e,t){var n,r,s,i,l,o,a,h,p,u,c,g,f,d,b,m;for(e=e.replace(/^ +$/gm,"");e;)if((s=this.rules.newline.exec(e))&&(e=e.substring(s[0].length),1<s[0].length&&this.tokens.push({type:"space"})),s=this.rules.code.exec(e))e=e.substring(s[0].length),s=s[0].replace(/^ {4}/gm,""),this.tokens.push({type:"code",text:this.options.pedantic?s:y(s,"\n")});else if(s=this.rules.fences.exec(e))e=e.substring(s[0].length),this.tokens.push({type:"code",lang:s[2],text:s[3]||""});else if(s=this.rules.heading.exec(e))e=e.substring(s[0].length),this.tokens.push({type:"heading",depth:s[1].length,text:s[2]});else if(t&&(s=this.rules.nptable.exec(e))&&(o={type:"table",header:x(s[1].replace(/^ *| *\| *$/g,"")),align:s[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:s[3]?s[3].replace(/\n$/,"").split("\n"):[]}).header.length===o.align.length){for(e=e.substring(s[0].length),c=0;c<o.align.length;c++)/^ *-+: *$/.test(o.align[c])?o.align[c]="right":/^ *:-+: *$/.test(o.align[c])?o.align[c]="center":/^ *:-+ *$/.test(o.align[c])?o.align[c]="left":o.align[c]=null;for(c=0;c<o.cells.length;c++)o.cells[c]=x(o.cells[c],o.header.length);this.tokens.push(o)}else if(s=this.rules.hr.exec(e))e=e.substring(s[0].length),this.tokens.push({type:"hr"});else if(s=this.rules.blockquote.exec(e))e=e.substring(s[0].length),this.tokens.push({type:"blockquote_start"}),s=s[0].replace(/^ *> ?/gm,""),this.token(s,t),this.tokens.push({type:"blockquote_end"});else if(s=this.rules.list.exec(e)){for(e=e.substring(s[0].length),a={type:"list_start",ordered:d=1<(i=s[2]).length,start:d?+i:"",loose:!1},this.tokens.push(a),n=!(h=[]),f=(s=s[0].match(this.rules.item)).length,c=0;c<f;c++)u=(o=s[c]).length,~(o=o.replace(/^ *([*+-]|\d+\.) +/,"")).indexOf("\n ")&&(u-=o.length,o=this.options.pedantic?o.replace(/^ {1,4}/gm,""):o.replace(new RegExp("^ {1,"+u+"}","gm"),"")),this.options.smartLists&&c!==f-1&&(i===(l=k.bullet.exec(s[c+1])[0])||1<i.length&&1<l.length||(e=s.slice(c+1).join("\n")+e,c=f-1)),r=n||/\n\n(?!\s*$)/.test(o),c!==f-1&&(n="\n"===o.charAt(o.length-1),r||(r=n)),r&&(a.loose=!0),m=void 0,(b=/^\[[ xX]\] /.test(o))&&(m=" "!==o[1],o=o.replace(/^\[[ xX]\] +/,"")),p={type:"list_item_start",task:b,checked:m,loose:r},h.push(p),this.tokens.push(p),this.token(o,!1),this.tokens.push({type:"list_item_end"});if(a.loose)for(f=h.length,c=0;c<f;c++)h[c].loose=!0;this.tokens.push({type:"list_end"})}else if(s=this.rules.html.exec(e))e=e.substring(s[0].length),this.tokens.push({type:this.options.sanitize?"paragraph":"html",pre:!this.options.sanitizer&&("pre"===s[1]||"script"===s[1]||"style"===s[1]),text:s[0]});else if(t&&(s=this.rules.def.exec(e)))e=e.substring(s[0].length),s[3]&&(s[3]=s[3].substring(1,s[3].length-1)),g=s[1].toLowerCase().replace(/\s+/g," "),this.tokens.links[g]||(this.tokens.links[g]={href:s[2],title:s[3]});else if(t&&(s=this.rules.table.exec(e))&&(o={type:"table",header:x(s[1].replace(/^ *| *\| *$/g,"")),align:s[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:s[3]?s[3].replace(/(?: *\| *)?\n$/,"").split("\n"):[]}).header.length===o.align.length){for(e=e.substring(s[0].length),c=0;c<o.align.length;c++)/^ *-+: *$/.test(o.align[c])?o.align[c]="right":/^ *:-+: *$/.test(o.align[c])?o.align[c]="center":/^ *:-+ *$/.test(o.align[c])?o.align[c]="left":o.align[c]=null;for(c=0;c<o.cells.length;c++)o.cells[c]=x(o.cells[c].replace(/^ *\| *| *\| *$/g,""),o.header.length);this.tokens.push(o)}else if(s=this.rules.lheading.exec(e))e=e.substring(s[0].length),this.tokens.push({type:"heading",depth:"="===s[2]?1:2,text:s[1]});else if(t&&(s=this.rules.paragraph.exec(e)))e=e.substring(s[0].length),this.tokens.push({type:"paragraph",text:"\n"===s[1].charAt(s[1].length-1)?s[1].slice(0,-1):s[1]});else if(s=this.rules.text.exec(e))e=e.substring(s[0].length),this.tokens.push({type:"text",text:s[0]});else if(e)throw new Error("Infinite loop on byte: "+e.charCodeAt(0));return this.tokens};var n={escape:/^\\([!"#$%&'()*+,\-./:;<=>?@\[\]\\^_`{|}~])/,autolink:/^<(scheme:[^\s\x00-\x1f<>]*|email)>/,url:g,tag:"^comment|^</[a-zA-Z][\\w:-]*\\s*>|^<[a-zA-Z][\\w-]*(?:attribute)*?\\s*/?>|^<\\?[\\s\\S]*?\\?>|^<![a-zA-Z]+\\s[\\s\\S]*?>|^<!\\[CDATA\\[[\\s\\S]*?\\]\\]>",link:/^!?\[(label)\]\(href(?:\s+(title))?\s*\)/,reflink:/^!?\[(label)\]\[(?!\s*\])((?:\\[\[\]]?|[^\[\]\\])+)\]/,nolink:/^!?\[(?!\s*\])((?:\[[^\[\]]*\]|\\[\[\]]|[^\[\]])*)\](?:\[\])?/,strong:/^__([^\s])__(?!_)|^\*\*([^\s])\*\*(?!\*)|^__([^\s][\s\S]*?[^\s])__(?!_)|^\*\*([^\s][\s\S]*?[^\s])\*\*(?!\*)/,em:/^_([^\s_])_(?!_)|^\*([^\s*"<\[])\*(?!\*)|^_([^\s][\s\S]*?[^\s_])_(?!_)|^_([^\s_][\s\S]*?[^\s])_(?!_)|^\*([^\s"<\[][\s\S]*?[^\s*])\*(?!\*)|^\*([^\s*"<\[][\s\S]*?[^\s])\*(?!\*)/,code:/^(`+)\s*([\s\S]*?[^`]?)\s*\1(?!`)/,br:/^( {2,}|\\)\n(?!\s*$)/,del:g,text:/^[\s\S]+?(?=[\\<!\[`*]|\b_| {2,}\n|$)/};function h(e,t){if(this.options=t||d.defaults,this.links=e,this.rules=n.normal,this.renderer=this.options.renderer||new r,this.renderer.options=this.options,!this.links)throw new Error("Tokens array requires a `links` property.");this.options.pedantic?this.rules=n.pedantic:this.options.gfm&&(this.options.breaks?this.rules=n.breaks:this.rules=n.gfm)}function r(e){this.options=e||d.defaults}function s(){}function p(e){this.tokens=[],this.token=null,this.options=e||d.defaults,this.options.renderer=this.options.renderer||new r,this.renderer=this.options.renderer,this.renderer.options=this.options}function u(e,t){return e.replace(t?/&/g:/&(?!#?\w+;)/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}function c(e){return e.replace(/&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/gi,function(e,t){return"colon"===(t=t.toLowerCase())?":":"#"===t.charAt(0)?"x"===t.charAt(1)?String.fromCharCode(parseInt(t.substring(2),16)):String.fromCharCode(+t.substring(1)):""})}function t(n,e){return n=n.source||n,e=e||"",{replace:function(e,t){return t=(t=t.source||t).replace(/(^|[^\[])\^/g,"$1"),n=n.replace(e,t),this},getRegex:function(){return new RegExp(n,e)}}}function i(e,t){return l[" "+e]||(/^[^:]+:\/*[^/]*$/.test(e)?l[" "+e]=e+"/":l[" "+e]=y(e,"/",!0)),e=l[" "+e],"//"===t.slice(0,2)?e.replace(/:[\s\S]*/,":")+t:"/"===t.charAt(0)?e.replace(/(:\/*[^/]*)[\s\S]*/,"$1")+t:e+t}n._escapes=/\\([!"#$%&'()*+,\-./:;<=>?@\[\]\\^_`{|}~])/g,n._scheme=/[a-zA-Z][a-zA-Z0-9+.-]{1,31}/,n._email=/[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+(@)[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+(?![-_])/,n.autolink=t(n.autolink).replace("scheme",n._scheme).replace("email",n._email).getRegex(),n._attribute=/\s+[a-zA-Z:_][\w.:-]*(?:\s*=\s*"[^"]*"|\s*=\s*'[^']*'|\s*=\s*[^\s"'=<>`]+)?/,n.tag=t(n.tag).replace("comment",k._comment).replace("attribute",n._attribute).getRegex(),n._label=/(?:\[[^\[\]]*\]|\\[\[\]]?|`[^`]*`|[^\[\]\\])*?/,n._href=/\s*(<(?:\\[<>]?|[^\s<>\\])*>|(?:\\[()]?|\([^\s\x00-\x1f\\]*\)|[^\s\x00-\x1f()\\])*?)/,n._title=/"(?:\\"?|[^"\\])*"|'(?:\\'?|[^'\\])*'|\((?:\\\)?|[^)\\])*\)/,n.link=t(n.link).replace("label",n._label).replace("href",n._href).replace("title",n._title).getRegex(),n.reflink=t(n.reflink).replace("label",n._label).getRegex(),n.normal=f({},n),n.pedantic=f({},n.normal,{strong:/^__(?=\S)([\s\S]*?\S)__(?!_)|^\*\*(?=\S)([\s\S]*?\S)\*\*(?!\*)/,em:/^_(?=\S)([\s\S]*?\S)_(?!_)|^\*(?=\S)([\s\S]*?\S)\*(?!\*)/,link:t(/^!?\[(label)\]\((.*?)\)/).replace("label",n._label).getRegex(),reflink:t(/^!?\[(label)\]\s*\[([^\]]*)\]/).replace("label",n._label).getRegex()}),n.gfm=f({},n.normal,{escape:t(n.escape).replace("])","~|])").getRegex(),url:t(/^((?:ftp|https?):\/\/|www\.)(?:[a-zA-Z0-9\-]+\.?)+[^\s<]*|^email/).replace("email",n._email).getRegex(),_backpedal:/(?:[^?!.,:;*_~()&]+|\([^)]*\)|&(?![a-zA-Z0-9]+;$)|[?!.,:;*_~)]+(?!$))+/,del:/^~+(?=\S)([\s\S]*?\S)~+/,text:t(n.text).replace("]|","~]|").replace("|","|https?://|ftp://|www\\.|[a-zA-Z0-9.!#$%&'*+/=?^_`{\\|}~-]+@|").getRegex()}),n.breaks=f({},n.gfm,{br:t(n.br).replace("{2,}","*").getRegex(),text:t(n.gfm.text).replace("{2,}","*").getRegex()}),h.rules=n,h.output=function(e,t,n){return new h(t,n).output(e)},h.prototype.output=function(e){for(var t,n,r,s,i,l,o="";e;)if(i=this.rules.escape.exec(e))e=e.substring(i[0].length),o+=i[1];else if(i=this.rules.autolink.exec(e))e=e.substring(i[0].length),r="@"===i[2]?"mailto:"+(n=u(this.mangle(i[1]))):n=u(i[1]),o+=this.renderer.link(r,null,n);else if(this.inLink||!(i=this.rules.url.exec(e))){if(i=this.rules.tag.exec(e))!this.inLink&&/^<a /i.test(i[0])?this.inLink=!0:this.inLink&&/^<\/a>/i.test(i[0])&&(this.inLink=!1),e=e.substring(i[0].length),o+=this.options.sanitize?this.options.sanitizer?this.options.sanitizer(i[0]):u(i[0]):i[0];else if(i=this.rules.link.exec(e))e=e.substring(i[0].length),this.inLink=!0,r=i[2],this.options.pedantic?(t=/^([^'"]*[^\s])\s+(['"])(.*)\2/.exec(r))?(r=t[1],s=t[3]):s="":s=i[3]?i[3].slice(1,-1):"",r=r.trim().replace(/^<([\s\S]*)>$/,"$1"),o+=this.outputLink(i,{href:h.escapes(r),title:h.escapes(s)}),this.inLink=!1;else if((i=this.rules.reflink.exec(e))||(i=this.rules.nolink.exec(e))){if(e=e.substring(i[0].length),t=(i[2]||i[1]).replace(/\s+/g," "),!(t=this.links[t.toLowerCase()])||!t.href){o+=i[0].charAt(0),e=i[0].substring(1)+e;continue}this.inLink=!0,o+=this.outputLink(i,t),this.inLink=!1}else if(i=this.rules.strong.exec(e))e=e.substring(i[0].length),o+=this.renderer.strong(this.output(i[4]||i[3]||i[2]||i[1]));else if(i=this.rules.em.exec(e))e=e.substring(i[0].length),o+=this.renderer.em(this.output(i[6]||i[5]||i[4]||i[3]||i[2]||i[1]));else if(i=this.rules.code.exec(e))e=e.substring(i[0].length),o+=this.renderer.codespan(u(i[2].trim(),!0));else if(i=this.rules.br.exec(e))e=e.substring(i[0].length),o+=this.renderer.br();else if(i=this.rules.del.exec(e))e=e.substring(i[0].length),o+=this.renderer.del(this.output(i[1]));else if(i=this.rules.text.exec(e))e=e.substring(i[0].length),o+=this.renderer.text(u(this.smartypants(i[0])));else if(e)throw new Error("Infinite loop on byte: "+e.charCodeAt(0))}else{for(;l=i[0],i[0]=this.rules._backpedal.exec(i[0])[0],l!==i[0];);e=e.substring(i[0].length),"@"===i[2]?r="mailto:"+(n=u(i[0])):(n=u(i[0]),r="www."===i[1]?"http://"+n:n),o+=this.renderer.link(r,null,n)}return o},h.escapes=function(e){return e?e.replace(h.rules._escapes,"$1"):e},h.prototype.outputLink=function(e,t){var n=t.href,r=t.title?u(t.title):null;return"!"!==e[0].charAt(0)?this.renderer.link(n,r,this.output(e[1])):this.renderer.image(n,r,u(e[1]))},h.prototype.smartypants=function(e){return this.options.smartypants?e.replace(/---/g,"—").replace(/--/g,"–").replace(/(^|[-\u2014/(\[{"\s])'/g,"$1‘").replace(/'/g,"’").replace(/(^|[-\u2014/(\[{\u2018\s])"/g,"$1“").replace(/"/g,"”").replace(/\.{3}/g,"…"):e},h.prototype.mangle=function(e){if(!this.options.mangle)return e;for(var t,n="",r=e.length,s=0;s<r;s++)t=e.charCodeAt(s),.5<Math.random()&&(t="x"+t.toString(16)),n+="&#"+t+";";return n},r.prototype.code=function(e,t,n){if(this.options.highlight){var r=this.options.highlight(e,t);null!=r&&r!==e&&(n=!0,e=r)}return t?'<pre><code class="'+this.options.langPrefix+u(t,!0)+'">'+(n?e:u(e,!0))+"</code></pre>\n":"<pre><code>"+(n?e:u(e,!0))+"</code></pre>"},r.prototype.blockquote=function(e){return"<blockquote>\n"+e+"</blockquote>\n"},r.prototype.html=function(e){return e},r.prototype.heading=function(e,t,n){return this.options.headerIds?"<h"+t+' id="'+this.options.headerPrefix+n.toLowerCase().replace(/[^\w]+/g,"-")+'">'+e+"</h"+t+">\n":"<h"+t+">"+e+"</h"+t+">\n"},r.prototype.hr=function(){return this.options.xhtml?"<hr/>\n":"<hr>\n"},r.prototype.list=function(e,t,n){var r=t?"ol":"ul";return"<"+r+(t&&1!==n?' start="'+n+'"':"")+">\n"+e+"</"+r+">\n"},r.prototype.listitem=function(e){return"<li>"+e+"</li>\n"},r.prototype.checkbox=function(e){return"<input "+(e?'checked="" ':"")+'disabled="" type="checkbox"'+(this.options.xhtml?" /":"")+"> "},r.prototype.paragraph=function(e){return"<p>"+e+"</p>\n"},r.prototype.table=function(e,t){return t&&(t="<tbody>"+t+"</tbody>"),"<table>\n<thead>\n"+e+"</thead>\n"+t+"</table>\n"},r.prototype.tablerow=function(e){return"<tr>\n"+e+"</tr>\n"},r.prototype.tablecell=function(e,t){var n=t.header?"th":"td";return(t.align?"<"+n+' align="'+t.align+'">':"<"+n+">")+e+"</"+n+">\n"},r.prototype.strong=function(e){return"<strong>"+e+"</strong>"},r.prototype.em=function(e){return"<em>"+e+"</em>"},r.prototype.codespan=function(e){return"<code>"+e+"</code>"},r.prototype.br=function(){return this.options.xhtml?"<br/>":"<br>"},r.prototype.del=function(e){return"<del>"+e+"</del>"},r.prototype.link=function(e,t,n){if(this.options.sanitize){try{var r=decodeURIComponent(c(e)).replace(/[^\w:]/g,"").toLowerCase()}catch(e){return n}if(0===r.indexOf("javascript:")||0===r.indexOf("vbscript:")||0===r.indexOf("data:"))return n}this.options.baseUrl&&!o.test(e)&&(e=i(this.options.baseUrl,e));try{e=encodeURI(e).replace(/%25/g,"%")}catch(e){return n}var s='<a href="'+u(e)+'"';return t&&(s+=' title="'+t+'"'),s+=">"+n+"</a>"},r.prototype.image=function(e,t,n){this.options.baseUrl&&!o.test(e)&&(e=i(this.options.baseUrl,e));var r='<img src="'+e+'" alt="'+n+'"';return t&&(r+=' title="'+t+'"'),r+=this.options.xhtml?"/>":">"},r.prototype.text=function(e){return e},s.prototype.strong=s.prototype.em=s.prototype.codespan=s.prototype.del=s.prototype.text=function(e){return e},s.prototype.link=s.prototype.image=function(e,t,n){return""+n},s.prototype.br=function(){return""},p.parse=function(e,t){return new p(t).parse(e)},p.prototype.parse=function(e){this.inline=new h(e.links,this.options),this.inlineText=new h(e.links,f({},this.options,{renderer:new s})),this.tokens=e.reverse();for(var t="";this.next();)t+=this.tok();return t},p.prototype.next=function(){return this.token=this.tokens.pop()},p.prototype.peek=function(){return this.tokens[this.tokens.length-1]||0},p.prototype.parseText=function(){for(var e=this.token.text;"text"===this.peek().type;)e+="\n"+this.next().text;return this.inline.output(e)},p.prototype.tok=function(){switch(this.token.type){case"space":return"";case"hr":return this.renderer.hr();case"heading":return this.renderer.heading(this.inline.output(this.token.text),this.token.depth,c(this.inlineText.output(this.token.text)));case"code":return this.renderer.code(this.token.text,this.token.lang,this.token.escaped);case"table":var e,t,n,r,s="",i="";for(n="",e=0;e<this.token.header.length;e++)n+=this.renderer.tablecell(this.inline.output(this.token.header[e]),{header:!0,align:this.token.align[e]});for(s+=this.renderer.tablerow(n),e=0;e<this.token.cells.length;e++){for(t=this.token.cells[e],n="",r=0;r<t.length;r++)n+=this.renderer.tablecell(this.inline.output(t[r]),{header:!1,align:this.token.align[r]});i+=this.renderer.tablerow(n)}return this.renderer.table(s,i);case"blockquote_start":for(i="";"blockquote_end"!==this.next().type;)i+=this.tok();return this.renderer.blockquote(i);case"list_start":i="";for(var l=this.token.ordered,o=this.token.start;"list_end"!==this.next().type;)i+=this.tok();return this.renderer.list(i,l,o);case"list_item_start":i="";var a=this.token.loose;for(this.token.task&&(i+=this.renderer.checkbox(this.token.checked));"list_item_end"!==this.next().type;)i+=a||"text"!==this.token.type?this.tok():this.parseText();return this.renderer.listitem(i);case"html":return this.renderer.html(this.token.text);case"paragraph":return this.renderer.paragraph(this.inline.output(this.token.text));case"text":return this.renderer.paragraph(this.parseText())}};var l={},o=/^$|^[a-z][a-z0-9+.-]*:|^[?#]/i;function g(){}function f(e){for(var t,n,r=1;r<arguments.length;r++)for(n in t=arguments[r])Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n]);return e}function x(e,t){var n=e.replace(/\|/g,function(e,t,n){for(var r=!1,s=t;0<=--s&&"\\"===n[s];)r=!r;return r?"|":" |"}).split(/ \|/),r=0;if(n.length>t)n.splice(t);else for(;n.length<t;)n.push("");for(;r<n.length;r++)n[r]=n[r].trim().replace(/\\\|/g,"|");return n}function y(e,t,n){if(0===e.length)return"";for(var r=0;r<e.length;){var s=e.charAt(e.length-r-1);if(s!==t||n){if(s===t||!n)break;r++}else r++}return e.substr(0,e.length-r)}function d(e,n,r){if(null==e)throw new Error("marked(): input parameter is undefined or null");if("string"!=typeof e)throw new Error("marked(): input parameter is of type "+Object.prototype.toString.call(e)+", string expected");if(r||"function"==typeof n){r||(r=n,n=null);var s,i,l=(n=f({},d.defaults,n||{})).highlight,t=0;try{s=a.lex(e,n)}catch(e){return r(e)}i=s.length;var o=function(t){if(t)return n.highlight=l,r(t);var e;try{e=p.parse(s,n)}catch(e){t=e}return n.highlight=l,t?r(t):r(null,e)};if(!l||l.length<3)return o();if(delete n.highlight,!i)return o();for(;t<s.length;t++)!function(n){"code"!==n.type?--i||o():l(n.text,n.lang,function(e,t){return e?o(e):null==t||t===n.text?--i||o():(n.text=t,n.escaped=!0,void(--i||o()))})}(s[t])}else try{return n&&(n=f({},d.defaults,n)),p.parse(a.lex(e,n),n)}catch(e){if(e.message+="\nPlease report this to https://github.com/markedjs/marked.",(n||d.defaults).silent)return"<p>An error occurred:</p><pre>"+u(e.message+"",!0)+"</pre>";throw e}}g.exec=g,d.options=d.setOptions=function(e){return f(d.defaults,e),d},d.getDefaults=function(){return{baseUrl:null,breaks:!1,gfm:!0,headerIds:!0,headerPrefix:"",highlight:null,langPrefix:"language-",mangle:!0,pedantic:!1,renderer:new r,sanitize:!1,sanitizer:null,silent:!1,smartLists:!1,smartypants:!1,tables:!0,xhtml:!1}},d.defaults=d.getDefaults(),d.Parser=p,d.parser=p.parse,d.Renderer=r,d.TextRenderer=s,d.Lexer=a,d.lexer=a.lex,d.InlineLexer=h,d.inlineLexer=h.output,d.parse=d,"undefined"!=typeof module&&"object"==typeof exports?module.exports=d:"function"==typeof define&&define.amd?define(function(){return d}):e.marked=d}(this||("undefined"!=typeof window?window:global));
 
 marked.setOptions({
     highlight: function (code) {
@@ -44,481 +44,456 @@ let removeEventListener = function(type) {
         window.removeEventListener(type, listeners[type][i]);
 }
 
-// Basics
-
-let random = function(min, max) {
-    return Math.floor(Math.random() * (max - min || 99)) + (min || 1);
-};
-
-let randomize = function() {
-    let array = [].slice.call(arguments);
-    return array[Math.floor(Math.random() * array.length)];
-};
-
-let equals = function(a, b) {
-    return a && b && Object.keys(a).length === Object.keys(b).length
-        && Object.keys(a).reduce(function(memo, key) { return memo && a[key] === b[key]; }, true)
-        && Object.keys(b).reduce(function(memo, key) { return memo && a[key] === b[key]; }, true);
-}
-
-let equalsContent = function(a, b) {
-    return JSON.stringify(a.slice(0).sort()) === JSON.stringify(b.slice(0).sort());
-}
-
-let basicWarn = function(actual, expected) {
-    return "La variable <code>answer</code> vaut <code>" + JSON.stringify(actual) + "</code> et non la résultat attendu, <code>" + expected + "</code>";
-}
-
-let deepClone = function(object) {
-    return JSON.parse(JSON.stringify(object));
-}
-
 // DOM
 
-let cartman = [
-    {}, {cadmiumyellow: true}, {bondiblue: true}, {},
-    {candyapplered: true}, {champagne: true}, {champagne: true}, {candyapplered: true},
-    {candyapplered: true}, {candyapplered: true}, {candyapplered: true}, {candyapplered: true},
-    {braken: true}, {candyapplered: true}, {candyapplered: true}, {braken: true}
-];
-let kenny = [
-    {safetyorange: true}, {safetyorange: true}, {safetyorange: true}, {safetyorange: true},
-    {safetyorange: true}, {braken: true}, {champagne: true}, {safetyorange: true},
-    {safetyorange: true}, {safetyorange: true}, {safetyorange: true}, {safetyorange: true},
-    {braken: true}, {braken: true}, {braken: true}, {braken: true},
-];
-let kyle = [
-    {kellygreen: true}, {islamicgreen: true}, {islamicgreen: true}, {kellygreen: true},
-    {kellygreen: true}, {champagne: true}, {champagne: true}, {kellygreen: true},
-    {safetyorange: true}, {safetyorange: true}, {safetyorange: true}, {safetyorange: true},
-    {}, {darkgreen: true}, {darkgreen: true}, {}
-];
-
-let board = function(squares) {
-    let ul = document.createElement('ul');
-    ul.className = 'board';
-    squares.forEach(function(square) {
-        let li = document.createElement('li');
-        li.className = '';
-        for (let property in square)
-            li.className += property + ' ';
-        li.className = li.className.slice(0, -1);
-        ul.appendChild(li);
-    });
-
-    return ul.outerHTML;
-}
-
-// Tooltip
-
-let tooltip = function() {
-    return `
-        <div class="tooltips">
-            <span class="ui label" data-tooltip="Le soleil se lève à l'est" data-position="right">Est</span>
-            <span class="ui label" data-tooltip="Le soleil se couche à l'ouest" data-position="left">Ouest</span>
-            <span class="ui label" data-tooltip="La banquise en Arctique" data-position="top">Nord</span>
-            <span class="ui label" data-tooltip="Les volcans de l'Antarctique" data-position="bottom">Sud</span>
-        </div>
-    `;
-}
-
-// Carousel
-
-let carousel = function(dots) {
-    let elDots = !dots ? '' : `
-        <span class="dots">
-            <ul>
-                <li class="active"></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </span>
-    `;
-
-    return `
-        <div class="carousel">
-            <ul>
-                <li class="visible">1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
-                <li>5</li>
-                <span class="prev"><i class="angle left icon"></i></span>
-                <span class="next"><i class="angle right icon"></i></span>
-                ${elDots}
-           </ul>
-        </div>
-    `;
-}
-
-// Sliding
-
-let sliding = function() {
-    return `
-        <div class="sliding">
-            <ul>
-                <li class="square1"></li>
-                <li class="square2"></li>
-                <li class="square0"></li>
-                <li class="square3"></li>
-                <li class="square4"></li>
-                <li class="square5"></li>
-                <li class="square6"></li>
-                <li class="square7"></li>
-                <li class="square8"></li>
-            </ul>
-            <button class="ui pink button">Mélanger</button>
-        </div>
-    `;
-}
-
-// Maps
-
-let maps = function(searchable) {
-    if (!searchable)
+let dom = {
+    cartman: [
+        {}, {cadmiumyellow: true}, {bondiblue: true}, {},
+        {candyapplered: true}, {champagne: true}, {champagne: true}, {candyapplered: true},
+        {candyapplered: true}, {candyapplered: true}, {candyapplered: true}, {candyapplered: true},
+        {braken: true}, {candyapplered: true}, {candyapplered: true}, {braken: true}
+    ],
+    kenny: [
+        {safetyorange: true}, {safetyorange: true}, {safetyorange: true}, {safetyorange: true},
+        {safetyorange: true}, {braken: true}, {champagne: true}, {safetyorange: true},
+        {safetyorange: true}, {safetyorange: true}, {safetyorange: true}, {safetyorange: true},
+        {braken: true}, {braken: true}, {braken: true}, {braken: true},
+    ],
+    kyle: [
+        {kellygreen: true}, {islamicgreen: true}, {islamicgreen: true}, {kellygreen: true},
+        {kellygreen: true}, {champagne: true}, {champagne: true}, {kellygreen: true},
+        {safetyorange: true}, {safetyorange: true}, {safetyorange: true}, {safetyorange: true},
+        {}, {darkgreen: true}, {darkgreen: true}, {}
+    ],
+    
+    board: function(squares) {
+        let ul = document.createElement('ul');
+        ul.className = 'board';
+        squares.forEach(function(square) {
+            let li = document.createElement('li');
+            li.className = '';
+            for (let property in square)
+                li.className += property + ' ';
+            li.className = li.className.slice(0, -1);
+            ul.appendChild(li);
+        });
+    
+        return ul.outerHTML;
+    },
+    
+    // Tooltip
+    
+    tooltip: function() {
+        return `
+            <div class="tooltips">
+                <span class="ui label" data-tooltip="Le soleil se lève à l'est" data-position="right">Est</span>
+                <span class="ui label" data-tooltip="Le soleil se couche à l'ouest" data-position="left">Ouest</span>
+                <span class="ui label" data-tooltip="La banquise en Arctique" data-position="top">Nord</span>
+                <span class="ui label" data-tooltip="Les volcans de l'Antarctique" data-position="bottom">Sud</span>
+            </div>
+        `;
+    },
+    
+    // Carousel
+    
+    carousel: function(dots) {
+        let elDots = !dots ? '' : `
+            <span class="dots">
+                <ul>
+                    <li class="active"></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </span>
+        `;
+    
+        return `
+            <div class="carousel">
+                <ul>
+                    <li class="visible">1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+                    <li>5</li>
+                    <span class="prev"><i class="angle left icon"></i></span>
+                    <span class="next"><i class="angle right icon"></i></span>
+                    ${elDots}
+               </ul>
+            </div>
+        `;
+    },
+    
+    // Sliding
+    
+    sliding: function() {
+        return `
+            <div class="sliding">
+                <ul>
+                    <li class="square1"></li>
+                    <li class="square2"></li>
+                    <li class="square0"></li>
+                    <li class="square3"></li>
+                    <li class="square4"></li>
+                    <li class="square5"></li>
+                    <li class="square6"></li>
+                    <li class="square7"></li>
+                    <li class="square8"></li>
+                </ul>
+                <button class="ui pink button">Mélanger</button>
+            </div>
+        `;
+    },
+    
+    // Maps
+    
+    maps: function(searchable) {
+        if (!searchable)
+            return `
+                <div class="places">
+                    <div class="map"></div>
+                </div>
+            `;
+    
         return `
             <div class="places">
+                <div class="ui icon mini input">
+                    <i class="search icon"></i>
+                    <input type="text" placeholder="Rechercher un lieu">
+                </div>
                 <div class="map"></div>
             </div>
         `;
-
-    return `
-        <div class="places">
-            <div class="ui icon mini input">
-                <i class="search icon"></i>
-                <input type="text" placeholder="Rechercher un lieu">
-            </div>
-            <div class="map"></div>
-        </div>
-    `;
-}
-
-let mapsWait = function() {
-    return new Promise(function(resolve) {
-        setTimeout(resolve, 3000);
-        google.maps.event.addListenerOnce(map, 'idle', resolve);
-    });
-}
-
-let near = function(positionA, positionB) {
-    if (!positionA || !positionB)
-        return false;
-
-    return 0.01 > +positionA.lat.toFixed(4) - +positionB.lat.toFixed(4)
-        && 0.01 > +positionA.lng.toFixed(4) - +positionB.lng.toFixed(4)
-        && -0.01 < +positionA.lat.toFixed(4) - +positionB.lat.toFixed(4)
-        && -0.01 < +positionA.lng.toFixed(4) - +positionB.lng.toFixed(4);
-}
-
-// Booking
-
-let booking = function() {
-    return `
-        <div class="booking">
-            <div class="ui stackable grid">
-                <div class="sixteen wide yellow center aligned column">
-                    <h4 class="ui header">
-                        <i class="plane icon"></i>
-                        <div class="content">Réserver un vol + hôtel</div>
-                    </h4>
-                </div>
-                <div class="eight wide column">
-                    <div class="ui card">
-                        <div class="content">
-                            <div class="header">DEL</div>
-                            <div class="meta">
-                                <span class="date">NEW DEHLI</span>
-                            </div>
-                        </div>
+    },
+    
+    mapsWait: function() {
+        return new Promise(function(resolve) {
+            setTimeout(resolve, 3000);
+            google.maps.event.addListenerOnce(map, 'idle', resolve);
+        });
+    },
+    
+    near: function(positionA, positionB) {
+        if (!positionA || !positionB)
+            return false;
+    
+        return 0.01 > +positionA.lat.toFixed(4) - +positionB.lat.toFixed(4)
+            && 0.01 > +positionA.lng.toFixed(4) - +positionB.lng.toFixed(4)
+            && -0.01 < +positionA.lat.toFixed(4) - +positionB.lat.toFixed(4)
+            && -0.01 < +positionA.lng.toFixed(4) - +positionB.lng.toFixed(4);
+    },
+    
+    // Booking
+    
+    booking: function() {
+        return `
+            <div class="booking">
+                <div class="ui stackable grid">
+                    <div class="sixteen wide yellow center aligned column">
+                        <h4 class="ui header">
+                            <i class="plane icon"></i>
+                            <div class="content">Réserver un vol + hôtel</div>
+                        </h4>
                     </div>
-                </div>
-                <div class="eight wide column">
-                    <div class="ui card">
-                        <div class="content">
-                            <div class="header">BKK</div>
-                            <div class="meta">
-                                <span class="date">BANGKOK</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="eight wide column">
-                    <div class="ui card from">
-                        <div class="content">
-                            <a class="header formatted">-</a>
-                            <div class="ui input">
-                                <input type="date" placeholder="yyyy-mm-dd"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="eight wide column">
-                    <div class="ui card to">
-                        <div class="content">
-                            <a class="header formatted">-</a>
-                            <div class="ui input">
-                                <input type="date" placeholder="yyyy-mm-dd"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="eight wide column">
-                    <select class="ui fluid dropdown">
-                        <option value="1">1 voyageur</option>
-                        <option value="2">2 voyageurs</option>
-                        <option value="3">3 voyageurs</option>
-                        <option value="4">4 voyageurs</option>
-                    </select>
-                </div>
-                <div class="eight wide column">
-                    <div class="ui grey center aligned card">
-                        <div class="content">
-                            <span class="header price">0€</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-// Connect Four
-
-let connectfour = function() {
-    return `
-        <div class="connectfour">
-            <table></table>
-        </div>
-    `;
-}
-
-// Forms
-
-let todolist = function() {
-    return `
-        <div class="todos">
-            <div class="ui fluid input">
-                <input type="text" placeholder="Ajouter un todo...">
-            </div>
-            <ul class="ui list"></ul>
-            <div class="ui tiny fluid buttons">
-                <button class="ui button filter-todo">0 à faire</button>
-                <button class="ui button filter-done">0 fait</button>
-            </div>
-        </div>
-    `;
-}
-
-// Search
-
-let httpWait = function(url) {
-    var open = XMLHttpRequest.prototype.open;
-    var fetching = fetch;
-
-    return new Promise(function(resolve) {
-        setTimeout(resolve, 3000);
-
-        XMLHttpRequest.prototype.open = function() {
-            this.addEventListener('readystatechange', function(event) {
-                if (event.target.readyState !== 4)
-                    return;
-
-                // await for xhr listeners to be called
-                setTimeout(resolve.bind(null, event.target.responseURL), 200);
-            });
-
-            open.apply(this, arguments);
-        }
-
-        fetch = function() {
-            let promise = fetching.apply(this, arguments);
-            promise.then(function() {
-                let url = arguments[0] && arguments[0].url;
-                // await for json() to be completed
-                setTimeout(resolve.bind(null, url), 200);
-            });
-            return promise;
-        }
-    }).then(function(url) {
-        // remove listener
-        XMLHttpRequest.prototype.open = open;
-        fetch = fetching;
-
-        return url;
-    });
-}
-
-let getParameterByName = function(url, name) {
-    var match = RegExp('[?&]' + name + '=([^&]*)').exec(url);
-    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-}
-
-let searchbar = function() {
-    return `
-        <div class="ui centered stackable grid favorites">
-            <div class="ui eight wide column">
-                <div class="ui labeled search focus">
-                    <div class="ui icon fluid input">
-                        <input class="prompt" type="text" placeholder="Search repositories..." autocomplete="off">
-                        <i class="search icon"></i>
-                    </div>
-                    <div class="results transition"></div>
-                </div>
-            </div>
-            <div class="ui eight wide column">
-                <div class="ui right labeled left icon action input">
-                    <i class="star icon"></i>
-                    <input type="text" placeholder="0" disabled="disabled" class="count">
-                    <button class="ui icon button direction">
-                        <i class="sort content descending icon"></i>
-                    </button>
-                </div>
-                <button class="ui labeled icon button fetch">
-                    <i class="refresh icon"></i>Actualiser
-                </button>
-                <button class="ui labeled icon button remove">
-                    <i class="trash icon"></i>Supprimer
-                </button>
-
-                <div class="ui middle aligned divided list">
-                    <div class="basic center aligned segment"></div>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-// Shop
-
-let shop = function() {
-    return `
-        <div class="shop">
-            <div class="ui menu">
-                <a href="#products" class="active item products">Produits</a>
-                <div class="right menu">
-                    <a href="#cart" class="item cart">
-                        Panier
-                        <div class="ui teal label">
-                            <span class="cart-quantity">0</span>
-                            <div class="detail cart-price">0€</div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div id="app-view"></div>
-            
-            <script id="product" type="text/template">
-                <div class="card">
-                    <div class="image {{image}}"></div>
-                    <div class="content">
-                        <div class="meta">{{name}}</div>
-                    </div>
-                    <div class="extra content">
-                        <span class="left floated">{{price}}€</span>
-                        <span class="right floated">
-                            <i class="minus icon"></i>
-                            {{quantity}}
-                            <i class="plus icon"></i>
-                        </span>
-                    </div>
-                </div>
-            </script>
-
-            <script id="cart" type="text/template">
-                <div class="ui middle aligned divided list">
-                    {{#each .}}
-                    <div class="item">
-                        <div class="right floated content">
-                            <div class="ui right labeled small input">
-                                <input type="number" placeholder="Quantité..." value="{{quantity}}" min="0" />
-                                <div class="ui basic label">
-                                    unités
+                    <div class="eight wide column">
+                        <div class="ui card">
+                            <div class="content">
+                                <div class="header">DEL</div>
+                                <div class="meta">
+                                    <span class="date">NEW DEHLI</span>
                                 </div>
                             </div>
-                            <div class="ui label">
-                                {{price}}€
+                        </div>
+                    </div>
+                    <div class="eight wide column">
+                        <div class="ui card">
+                            <div class="content">
+                                <div class="header">BKK</div>
+                                <div class="meta">
+                                    <span class="date">BANGKOK</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="content">
-                            {{name}}
+                    </div>
+                    <div class="eight wide column">
+                        <div class="ui card from">
+                            <div class="content">
+                                <a class="header formatted">-</a>
+                                <div class="ui input">
+                                    <input type="date" placeholder="yyyy-mm-dd"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    {{/each}}
-                    <div class="item">
-                        <div class="right floated content">
-                            <div class="ui teal label cart-price"></div>
-                        </div>
-                        <div class="content">
-                            Total
+                    <div class="eight wide column">
+                        <div class="ui card to">
+                            <div class="content">
+                                <a class="header formatted">-</a>
+                                <div class="ui input">
+                                    <input type="date" placeholder="yyyy-mm-dd"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="item">
-                        <div class="content">
-                            <a href="#payment" class="ui fluid button">Passer à la caisse</a>
+                    <div class="eight wide column">
+                        <select class="ui fluid dropdown">
+                            <option value="1">1 voyageur</option>
+                            <option value="2">2 voyageurs</option>
+                            <option value="3">3 voyageurs</option>
+                            <option value="4">4 voyageurs</option>
+                        </select>
+                    </div>
+                    <div class="eight wide column">
+                        <div class="ui grey center aligned card">
+                            <div class="content">
+                                <span class="header price">0€</span>
+                            </div>
                         </div>
-                    </div>    
+                    </div>
                 </div>
-            </script>
-
-            <script id="payment" type="text/template">
-                <form class="checkout">
-                    <div class="stripe"></div>
-                    <button type="submit" class="ui fluid button">Payer <span class="cart-price"></span></button>
-                </form>
-            </script>
-        </div>
-    `;
-}
-
-let shopProducts = [
-    {name: 'Manches longues', price: 15, image: 'longsleeve', quantity: 0},
-    {name: 'T-shirt', price: 25, image: 'tshirt', quantity: 0},
-    {name: 'Chemise', price: 40, image: 'shirt', quantity: 0}
-];
-
-let hashWait = function() {
-    return new Promise(function(resolve) {
-        setTimeout(resolve, 0);
-    });
-}
-
-// Might
-
-let might = function() {
-    var tiles = [
-        '', '', '', '', '', '',
-        '', '', '', '', '', '',
-        'peon', '', '', 'peon', '', 'peon',
-        'peon', 'block', '', 'peon', 'peon', 'peon',
-        'attack', 'peon', 'peon', '', 'peon', 'peon',
-        'peon', 'peon', '', '', 'peon', '',
-        '', '', '', '', '', '',
-        '', '', '', '', '', ''
-    ];
-
-    var html = '<div class="might">';
-    for (var y = 0; y < 8; y++) {
-        if (y === 0)
-            html += '<table class="active" data-p="1"><thead><th class="floating ui pink label">2 ♥♥</th></thead><tbody>';
-        else if (y === 4)
-            html += '<table data-p="2"><thead><th class="floating ui pink label">0 ♥♥</th></thead><tbody>';
-
-        html += '<tr>';
-        for (var x = 0; x < 6; x++) {
-            var clazz = tiles[y*6+x];
-            html += `<td class="${clazz}" data-y="${y<4 ? 4-y%4 : y%4+1}" data-x="${x+1}"></td>`;
+            </div>
+        `;
+    },
+    
+    // Connect Four
+    
+    connectfour: function() {
+        return `
+            <div class="connectfour">
+                <table></table>
+            </div>
+        `;
+    },
+    
+    // Forms
+    
+    todolist: function() {
+        return `
+            <div class="todos">
+                <div class="ui fluid input">
+                    <input type="text" placeholder="Ajouter un todo...">
+                </div>
+                <ul class="ui list"></ul>
+                <div class="ui tiny fluid buttons">
+                    <button class="ui button filter-todo">0 à faire</button>
+                    <button class="ui button filter-done">0 fait</button>
+                </div>
+            </div>
+        `;
+    },
+    
+    // Search
+    
+    searchbar: function() {
+        return `
+            <div class="ui centered stackable grid favorites">
+                <div class="ui eight wide column">
+                    <div class="ui labeled search focus">
+                        <div class="ui icon fluid input">
+                            <input class="prompt" type="text" placeholder="Search repositories..." autocomplete="off">
+                            <i class="search icon"></i>
+                        </div>
+                        <div class="results transition"></div>
+                    </div>
+                </div>
+                <div class="ui eight wide column">
+                    <div class="ui right labeled left icon action input">
+                        <i class="star icon"></i>
+                        <input type="text" placeholder="0" disabled="disabled" class="count">
+                        <button class="ui icon button direction">
+                            <i class="sort content descending icon"></i>
+                        </button>
+                    </div>
+                    <button class="ui labeled icon button fetch">
+                        <i class="refresh icon"></i>Actualiser
+                    </button>
+                    <button class="ui labeled icon button remove">
+                        <i class="trash icon"></i>Supprimer
+                    </button>
+    
+                    <div class="ui middle aligned divided list">
+                        <div class="basic center aligned segment"></div>
+                    </div>
+                </div>
+            </div>
+        `;
+    },
+    
+    // Shop
+    
+    shop: function() {
+        return `
+            <div class="shop">
+                <div class="ui menu">
+                    <a href="#products" class="active item products">Produits</a>
+                    <div class="right menu">
+                        <a href="#cart" class="item cart">
+                            Panier
+                            <div class="ui teal label">
+                                <span class="cart-quantity">0</span>
+                                <div class="detail cart-price">0€</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div id="app-view"></div>
+                
+                <script id="product" type="text/template">
+                    <div class="card">
+                        <div class="image {{image}}"></div>
+                        <div class="content">
+                            <div class="meta">{{name}}</div>
+                        </div>
+                        <div class="extra content">
+                            <span class="left floated">{{price}}€</span>
+                            <span class="right floated">
+                                <i class="minus icon"></i>
+                                {{quantity}}
+                                <i class="plus icon"></i>
+                            </span>
+                        </div>
+                    </div>
+                </script>
+    
+                <script id="cart" type="text/template">
+                    <div class="ui middle aligned divided list">
+                        {{#each .}}
+                        <div class="item">
+                            <div class="right floated content">
+                                <div class="ui right labeled small input">
+                                    <input type="number" placeholder="Quantité..." value="{{quantity}}" min="0" />
+                                    <div class="ui basic label">
+                                        unités
+                                    </div>
+                                </div>
+                                <div class="ui label">
+                                    {{price}}€
+                                </div>
+                            </div>
+                            <div class="content">
+                                {{name}}
+                            </div>
+                        </div>
+                        {{/each}}
+                        <div class="item">
+                            <div class="right floated content">
+                                <div class="ui teal label cart-price"></div>
+                            </div>
+                            <div class="content">
+                                Total
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="content">
+                                <a href="#payment" class="ui fluid button">Passer à la caisse</a>
+                            </div>
+                        </div>    
+                    </div>
+                </script>
+    
+                <script id="payment" type="text/template">
+                    <form class="checkout">
+                        <div class="stripe"></div>
+                        <button type="submit" class="ui fluid button">Payer <span class="cart-price"></span></button>
+                    </form>
+                </script>
+            </div>
+        `;
+    },
+    
+    shopProducts: [
+        {name: 'Manches longues', price: 15, image: 'longsleeve', quantity: 0},
+        {name: 'T-shirt', price: 25, image: 'tshirt', quantity: 0},
+        {name: 'Chemise', price: 40, image: 'shirt', quantity: 0}
+    ],
+    
+    // Might
+    
+    might: function() {
+        var tiles = [
+            '', '', '', '', '', '',
+            '', '', '', '', '', '',
+            'peon', '', '', 'peon', '', 'peon',
+            'peon', 'block', '', 'peon', 'peon', 'peon',
+            'attack', 'peon', 'peon', '', 'peon', 'peon',
+            'peon', 'peon', '', '', 'peon', '',
+            '', '', '', '', '', '',
+            '', '', '', '', '', ''
+        ];
+    
+        var html = '<div class="might">';
+        for (var y = 0; y < 8; y++) {
+            if (y === 0)
+                html += '<table class="active" data-p="1"><thead><th class="floating ui pink label">2 ♥♥</th></thead><tbody>';
+            else if (y === 4)
+                html += '<table data-p="2"><thead><th class="floating ui pink label">0 ♥♥</th></thead><tbody>';
+    
+            html += '<tr>';
+            for (var x = 0; x < 6; x++) {
+                var clazz = tiles[y*6+x];
+                html += `<td class="${clazz}" data-y="${y<4 ? 4-y%4 : y%4+1}" data-x="${x+1}"></td>`;
+            }
+            html += '</tr>';
+    
+            if (y === 3 || y === 7)
+                html += '</tbody></table>';
         }
-        html += '</tr>';
-
-        if (y === 3 || y === 7)
-            html += '</tbody></table>';
+    
+        html += '</div>';
+        return html;
     }
+};
 
-    html += '</div>';
-    return html;
-}
+let http = {
+    wait: function() {
+        var open = XMLHttpRequest.prototype.open;
+        var fetching = fetch;
+    
+        return new Promise(function(resolve) {
+            setTimeout(resolve, 3000);
+    
+            XMLHttpRequest.prototype.open = function() {
+                this.addEventListener('readystatechange', function(event) {
+                    if (event.target.readyState !== 4)
+                        return;
+    
+                    // await for xhr listeners to be called
+                    setTimeout(resolve.bind(null, event.target.responseURL), 200);
+                });
+    
+                open.apply(this, arguments);
+            }
+    
+            fetch = function() {
+                let promise = fetching.apply(this, arguments);
+                promise.then(function() {
+                    let url = arguments[0] && arguments[0].url;
+                    // await for json() to be completed
+                    setTimeout(resolve.bind(null, url), 200);
+                });
+                return promise;
+            }
+        }).then(function(url) {
+            // remove listener
+            XMLHttpRequest.prototype.open = open;
+            fetch = fetching;
+    
+            return url;
+        });
+    },
+    
+    getParameterByName: function(url, name) {
+        var match = RegExp('[?&]' + name + '=([^&]*)').exec(url);
+        return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+    },
+
+    hashWait: function() {
+        return new Promise(function(resolve) {
+            setTimeout(resolve, 0);
+        });
+    },
+};
 
 // Glossary
 
@@ -846,58 +821,88 @@ let glossary = function(gpage) {
 
 // Helpers
 
-let keypress = function(el, key) {
-    keyevent(el, key, 'keypress');
-    keyevent(el, key, 'keyup');
-    keyevent(el, key, 'keydown');
-}
-
-let keyevent = function(el, key, event) {
-    let oEvent = document.createEvent('KeyboardEvent');
-
-    // Chromium Hack
-    Object.defineProperty(oEvent, 'keyCode', { get : function() { return this.keyCodeVal; }});
-    Object.defineProperty(oEvent, 'which', { get : function() { return this.keyCodeVal; } });
-
-    if (oEvent.initKeyboardEvent) {
-        oEvent.initKeyboardEvent(event, true, true, document.defaultView, false, false, false, false, key, key);
-    } else {
-        oEvent.initKeyEvent(event, true, true, document.defaultView, false, false, false, false, key, 0);
-    }
-
-    oEvent.keyCodeVal = key;
-    el.dispatchEvent(oEvent);
-}
-
-let mouseevent = function(el, event) {
-    if(el.fireEvent) {
-        el.fireEvent('on' + event);
-    } else  {
-        let oEvent = document.createEvent('MouseEvent');
-        oEvent.initEvent(event, true, false);
+let helpers = {
+    random: function(min, max) {
+        return Math.floor(Math.random() * (max - min || 99)) + (min || 1);
+    },
+    
+    randomize: function() {
+        let array = [].slice.call(arguments);
+        return array[Math.floor(Math.random() * array.length)];
+    },
+    
+    equals: function(a, b) {
+        return a && b && Object.keys(a).length === Object.keys(b).length
+            && Object.keys(a).reduce(function(memo, key) { return memo && a[key] === b[key]; }, true)
+            && Object.keys(b).reduce(function(memo, key) { return memo && a[key] === b[key]; }, true);
+    },
+    
+    equalsContent: function(a, b) {
+        return JSON.stringify(a.slice(0).sort()) === JSON.stringify(b.slice(0).sort());
+    },
+    
+    basicWarn: function(actual, expected) {
+        return "La variable <code>answer</code> vaut <code>" + JSON.stringify(actual) + "</code> et non la résultat attendu, <code>" + expected + "</code>";
+    },
+    
+    deepClone: function(object) {
+        return JSON.parse(JSON.stringify(object));
+    },
+    
+    keypress: function(el, key) {
+        helpers.keyevent(el, key, 'keypress');
+        helpers.keyevent(el, key, 'keyup');
+        helpers.keyevent(el, key, 'keydown');
+    },
+    
+    keyevent: function(el, key, event) {
+        let oEvent = document.createEvent('KeyboardEvent');
+    
+        // Chromium Hack
+        Object.defineProperty(oEvent, 'keyCode', { get : function() { return this.keyCodeVal; }});
+        Object.defineProperty(oEvent, 'which', { get : function() { return this.keyCodeVal; } });
+    
+        if (oEvent.initKeyboardEvent) {
+            oEvent.initKeyboardEvent(event, true, true, document.defaultView, false, false, false, false, key, key);
+        } else {
+            oEvent.initKeyEvent(event, true, true, document.defaultView, false, false, false, false, key, 0);
+        }
+    
+        oEvent.keyCodeVal = key;
         el.dispatchEvent(oEvent);
+    },
+    
+    mouseevent: function(el, event) {
+        if(el.fireEvent) {
+            el.fireEvent('on' + event);
+        } else  {
+            let oEvent = document.createEvent('MouseEvent');
+            oEvent.initEvent(event, true, false);
+            el.dispatchEvent(oEvent);
+        }
+    },
+    
+    change: function(el, type) {
+        var event = new Event(type || 'change');
+        el.dispatchEvent(event);
+    },
+    
+    elContains: function(el, value) {
+        return !!(el && el.innerHTML.indexOf(value) !== -1);
+    },
+
+    elHasClass: function(el, clazz) {
+        return !!(el && el.classList.contains(clazz));
+    },
+    
+    getClassNames: function(selector) {
+        var classNames = [];
+        var els = document.querySelectorAll(selector);
+        for (var i = 0; i < els.length; i++) {
+            classNames.push(els[i].className);
+        }
+        return classNames;
     }
-}
-
-let change = function(el, type) {
-    var event = new Event(type || 'change');
-    el.dispatchEvent(event);
-}
-
-let elContains = function(el, value) {
-    return !!(el && el.innerHTML.indexOf(value) !== -1);
-}
-let elHasClass = function(el, clazz) {
-    return !!(el && el.classList.contains(clazz));
-}
-
-let getClassNames = function(selector) {
-    var classNames = [];
-    var els = document.querySelectorAll(selector);
-    for (var i = 0; i < els.length; i++) {
-        classNames.push(els[i].className);
-    }
-    return classNames;
 }
 
 //
@@ -1069,14 +1074,14 @@ let chapters = [
                 excerpt: "Un opérateur est un symbole qui représente une action. Il permet d'opérer sur deux valeurs, les additionner, les soustraire ou autre. Une variable peut être affectée du résultat d'un opérateur.<br><br><strong>Exemple</strong> : l'instruction <code>var value = 5 + 10;</code> déclare la variable <code>value</code> et lui affecte le résultat de l'opération, <code>15</code>.",
                 solved: "var answer = x + y;",
                 init: function() {
-                    window.x = this.x = random();
-                    window.y = this.y = random();
+                    window.x = this.x = helpers.random();
+                    window.y = this.y = helpers.random();
                 },
                 answer: function() {
                     return this.x + this.y;
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
                     return answer === this.answer();
@@ -1088,14 +1093,14 @@ let chapters = [
                 excerpt: "Ajouter une chaine de caractères à une autre avec l'opérateur <code>+</code> permet de les concaténer (les mettre bout à bout).<br><br>Pour ajouter un espace à une chaine existante, il est possible de créer une chaine composée uniquement d'un espace <code>' '</code>. Les chaines de caractères peuvent être déclarées à l'aide de guillemets simples <code>'lorem ipsum'</code> ou double <code>\"lorem ipsum bacon\"</code>.<br><br><strong>Exemple</strong> : <code>'lorem ' + 'ipsum'</code> crée la chaine <code>'lorem ipsum'</code>.",
                 solved: "var answer = x + ' ' + y;",
                 init: function() {
-                    window.x = this.x = randomize('purple', 'sapphire', 'blue', 'red');
-                    window.y = this.y = randomize('skate', 'rollers', 'submarine');
+                    window.x = this.x = helpers.randomize('purple', 'sapphire', 'blue', 'red');
+                    window.y = this.y = helpers.randomize('skate', 'rollers', 'submarine');
                 },
                 answer: function() {
                     return this.x + ' ' + this.y;
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
                     return answer === this.answer();
@@ -1107,14 +1112,14 @@ let chapters = [
                 excerpt: "Il est possible d'effectuer des arrondis avec la fonction <code>parseInt(value, 10)</code> ou <code>Math.floor(value)</code> (founies par tous les navigateurs).",
                 solved: "var answer = parseInt(x / y, 10);",
                 init: function() {
-                    window.x = this.x = randomize(13, 23, 33, 43, 53);
-                    window.y = this.y = randomize(2, 4, 6, 8);
+                    window.x = this.x = helpers.randomize(13, 23, 33, 43, 53);
+                    window.y = this.y = helpers.randomize(2, 4, 6, 8);
                 },
                 answer: function() {
                     return parseInt(this.x / this.y, 10);
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
                     return answer === this.answer();
@@ -1163,14 +1168,14 @@ let chapters = [
                 excerpt: "Il est égalemen d'écrire une condition qui vérifie lequel de deux nombres est le plus grand avec <code>if</code>. Ou, à la place d'utiliser <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math\"><code>Math</code></a>, celui-ci dispose de fonctionnalités pour identifier les maximum, minimum, sinus, etc.",
                 solved: "var answer;<br>if (x > y) {<br>  answer = x;<br>} else {<br>  answer = y;<br>}<br><br>/* or, instead */<br><br>var answer = Math.max(x, y);",
                 init: function() {
-                    window.x = this.x = random();
-                    window.y = this.y = random();
+                    window.x = this.x = helpers.random();
+                    window.y = this.y = helpers.random();
                 },
                 answer: function() {
                     return Math.max(this.x, this.y);
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
                     return answer === this.answer();
@@ -1182,14 +1187,14 @@ let chapters = [
                 excerpt: "Les chaines de caractères sont des tableaux de caractères. Elles disposent donc d'un attribut <code>length</code> indiquant leur nombre d'éléments. Il est également possible d'accéder - comme pour un tableau - à un élément avec son index.<br><br><strong>Exemple</strong> : <code>'lorem ipsum'.length</code> retourne <code>11</code>, car la chaine est composée de 11 caractères. <code>'lorem ipsum'[3]</code> retourne <code>e</code>, car il s'agit du 4iem caractère de la chaine (l'index des tableaux commence à zéro).",
                 solved: "var answer;<br>if (x.length > y.length) {<br>  answer = x;<br>} else {<br>  answer = y;<br>}",
                 init: function() {
-                    window.x = this.x = randomize('purple', 'sapphire', 'blue', 'red');
-                    window.y = this.y = randomize('skate', 'rollers', 'submarine');
+                    window.x = this.x = helpers.randomize('purple', 'sapphire', 'blue', 'red');
+                    window.y = this.y = helpers.randomize('skate', 'rollers', 'submarine');
                 },
                 answer: function() {
                     return this.x.length > this.y.length ? this.x : this.y;
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
                     return answer === this.answer();
@@ -1201,14 +1206,14 @@ let chapters = [
                 excerpt: "En plus des nombres et des chaines de caractères, le langage dispose de booléens, des variables dont la valeur est <code>true</code> ou <code>false</code>. Les conditions et les boucles sont basées sur des tests booléens (faits par le navigateur).",
                 solved: "var answer = x + y > 100;",
                 init: function() {
-                    window.x = this.x = randomize(30, 40, 50);
-                    window.y = this.y = randomize(50, 60, 70);
+                    window.x = this.x = helpers.randomize(30, 40, 50);
+                    window.y = this.y = helpers.randomize(50, 60, 70);
                 },
                 answer: function() {
                     return this.x + this.y > 100;
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
                     return answer === this.answer();
@@ -1245,13 +1250,13 @@ let chapters = [
                 excerpt: "Les opérateurs et <code>&&</code> et ou <code>||</code> permettent de combiner des conditions.<br><br><strong>Exemple</strong> : <code>10 < 12 && 12 < 15</code> retourne <code>true</code> car les deux conditions sont vérifiées. <code>10 < 12 || 12 > 15</code> retourne <code>true</code> car une des deux conditions est vérifiée. <code>10 > 12 || 12 > 15</code> retourne <code>false</code> car aucune des deux conditions n'est vérifiée.",
                 solved: "var answer = x > 10 && x < 15;",
                 init: function() {
-                    window.x = this.x = randomize(5, 11, 14, 18);
+                    window.x = this.x = helpers.randomize(5, 11, 14, 18);
                 },
                 answer: function() {
                     return this.x > 10 && this.x < 15;
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
                     return answer === this.answer();
@@ -1262,13 +1267,13 @@ let chapters = [
                 description: "Créer une variable nommée <code>answer</code> et lui affecter <code>true</code> si <code>x</code> (déclarées par ce tutoriel) est supérieur à 10 ou inférieur à -10, <code>false</code> sinon.",
                 solved: "var answer = x > 10 || x < -10;<br><br>/* or, instead */<br><br>var answer = Math.abs(x) > 10;",
                 init: function() {
-                    window.x = this.x = randomize(-18, -14, -11, -5, 5, 11, 14, 18);
+                    window.x = this.x = helpers.randomize(-18, -14, -11, -5, 5, 11, 14, 18);
                 },
                 answer: function() {
                     return this.x > 10 || this.x < -10;
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
                     return answer === this.answer();
@@ -1316,14 +1321,14 @@ let chapters = [
                 description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de <code>x</code> puissance <code>y</code> (ex. 2^3 = 2*2*2 — déclarées par ce tutoriel)",
                 solved: "var answer = x;<br>while (y > 1) {<br>  answer = answer * x;<br>  y = y - 1;<br>}",
                 init: function() {
-                    window.x = this.x = randomize(2, 4, 6);
-                    window.y = this.y = randomize(3, 5, 7);
+                    window.x = this.x = helpers.randomize(2, 4, 6);
+                    window.y = this.y = helpers.randomize(3, 5, 7);
                 },
                 answer: function() {
                     return Math.pow(this.x, this.y);
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
                     return answer === this.answer();
@@ -1334,8 +1339,8 @@ let chapters = [
                 description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de la plage située entre <code>x</code> et <code>y</code> (ex. 2-5 = 2+3+4+5 — déclarées par ce tutoriel)",
                 solved: "var answer = 0;<br>while (x <= y) {<br>  answer = answer + x;<br>  x = x + 1;<br>}",
                 init: function() {
-                    window.x = this.x = randomize(2, 4, 6);
-                    window.y = this.y = randomize(8, 10, 12);
+                    window.x = this.x = helpers.randomize(2, 4, 6);
+                    window.y = this.y = helpers.randomize(8, 10, 12);
                 },
                 answer: function() {
                     var x = this.x;
@@ -1348,7 +1353,7 @@ let chapters = [
                     return result;
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
                     return answer === this.answer();
@@ -1395,13 +1400,13 @@ let chapters = [
                 excerpt: "Les condition et les boucles peuvent être imbriquées les unes dans les autres.<br><br>Les chaines de caractères sont des tableaux de caractères. Elles disposent donc d'un attribut <code>length</code> indiquant leur nombre d'éléments. Il est également possible d'accéder - comme pour un tableau - à un élément avec son index.<br><br><strong>Exemple</strong> : <code>'lorem ipsum'.length</code> retourne <code>11</code>, car la chaine est composée de 11 caractères. <code>'lorem ipsum'[3]</code> retourne <code>e</code>, car il s'agit du 4iem caractère de la chaine (l'index des tableaux commence à zéro).",
                 solved: "var answer = '';<br>for (var i = 0; i < x.length; i++) {<br>  var char = x[i];<br>  if (char !== ' ') {<br>    answer = answer + char;<br>  }<br>}",
                 init: function() {
-                    window.x = this.x = randomize('06 03 05 02 04 ', '06 01  04 03 07', ' 06 08 03 09 02');
+                    window.x = this.x = helpers.randomize('06 03 05 02 04 ', '06 01  04 03 07', ' 06 08 03 09 02');
                 },
                 answer: function() {
                     return this.x.replace(/[ ]+/g, '');
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
                     return answer === this.answer();
@@ -1412,7 +1417,7 @@ let chapters = [
                 description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de tous les nombres de 1 jusqu'à <code>x</code> (déclarée par ce tutoriel) sans les pairs (ex. 7 -> 7 + 5 + 3 + 1).",
                 solved: "var answer = 0;<br>for (var i = 1; i <= x; i++) {<br>  if (i % 2 === 1) {<br>    answer = answer + i;<br>  }<br>}<br><br>/* or, instead */<br><br>var answer = 0;<br>for (var i = 1; i <= x; i = i + 2) {<br>  answer = answer + i;<br>}",
                 init: function() {
-                    window.x = this.x = random(5, 9);
+                    window.x = this.x = helpers.random(5, 9);
                 },
                 answer: function() {
                     let result = 0;
@@ -1422,7 +1427,7 @@ let chapters = [
                     return result;
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
                     return answer === this.answer();
@@ -1433,13 +1438,13 @@ let chapters = [
                 description: "Créer une variable nommée <code>answer</code> ayant pour valeur <code>true</code> si <code>x</code> (déclarée par ce tutoriel) est un palindrome, <code>false</code> sinon. Un palindrome est un mot qui se lit de la même manière à l'endroit et à l'envers (ex. kayak).",
                 solved: "var answer = true;<br>for (var i = 0; i < x.length / 2; i++) {<br>  if (x[i] !== x[x.length - 1 - i]) {<br>    answer = false;<br>  }<br>}",
                 init: function() {
-                    window.x = this.x = randomize('anna', 'kayak', 'eva', 'canoe');
+                    window.x = this.x = helpers.randomize('anna', 'kayak', 'eva', 'canoe');
                 },
                 answer: function() {
                     return this.x === this.x.split('').reverse().join('');;
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
                     return answer === this.answer();
@@ -1501,17 +1506,17 @@ let chapters = [
                 excerpt: "Les tableaux représentent une liste ordonnée de variables (qu'importe leur type). La propriété <code>length</code> permet de connaitre le nombre d'éléments d'un tableau. Les crochets <code>[ ]</code> permettent d'accèder à un élément par index (l'index des tableaux commence à zéro).",
                 solved: "var answer = [x, y];",
                 init: function() {
-                    window.x = this.x = random(1, 10);
-                    window.y = this.y = random(11, 20);
+                    window.x = this.x = helpers.random(1, 10);
+                    window.y = this.y = helpers.random(11, 20);
                 },
                 answer: function() {
                     return [this.x, this.y];
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
-                    return equals(answer, this.answer());
+                    return helpers.equals(answer, this.answer());
                 }
             },
             {
@@ -1564,18 +1569,18 @@ let chapters = [
                 excerpt: "La méthode <code>concat</code> permet de rassembler un tableau à tableaux autres.",
                 solved: "var answer = [].concat(x, y);",
                 init: function() {
-                    this.x = [random(1, 10), random(1, 10)];
+                    this.x = [helpers.random(1, 10), helpers.random(1, 10)];
                     window.x = this.x.slice(0);
-                    window.y = this.y = random(11, 20);
+                    window.y = this.y = helpers.random(11, 20);
                 },
                 answer: function() {
                     return [].concat(this.x, this.y);
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
-                    return equals(answer, this.answer());
+                    return helpers.equals(answer, this.answer());
                 }
             },
             {
@@ -1627,17 +1632,17 @@ let chapters = [
                 excerpt: "Les boucles <code>for</code> sont souvent utilisées pour parcourir un tableau et récupérer chacune de ses valeurs une à une.<br><br><strong>Exemple</strong> : <pre><code>for (var i = 0; i < items.length; i++) { <br>  console.log('value', items[i]); <br>}</code></pre> parcourt un tableau et affiche chacune de ses valeurs.",
                 solved: "var answer = [];<br>for (var i = 0; i < x.length; i++) {<br>  var value = x[i];<br>  answer[i] = Math.round(value); <br>}",
                 init: function() {
-                    this.x = [random(1, 10) + 0.1 * random(1, 10), random(1, 10) + 0.1 * random(1, 10), random(1, 10) + 0.1 * random(1, 10), random(1, 10) + 0.1 * random(1, 10)];
+                    this.x = [helpers.random(1, 10) + 0.1 * helpers.random(1, 10), helpers.random(1, 10) + 0.1 * helpers.random(1, 10), helpers.random(1, 10) + 0.1 * helpers.random(1, 10), helpers.random(1, 10) + 0.1 * helpers.random(1, 10)];
                     window.x = this.x.slice(0);
                 },
                 answer: function() {
                     return this.x.map(function(item) { return Math.round(item); });
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
-                    return equals(answer, this.answer());
+                    return helpers.equals(answer, this.answer());
                 }
             },
             {
@@ -1645,7 +1650,7 @@ let chapters = [
                 description: "Créer une variable nommée <code>answer</code> de type tableau avec toutes les valeurs du tableau <code>x</code> dont les valeurs inférieures à 10 ont été retirées (ex. [7, 12, 3, 17] -> [12, 17] — déclarées par ce tutoriel).",
                 solved: "var answer = [];<br>for (var i = 0; i < x.length; i++) {<br>  if (x[i] >= 10) {<br>    answer.push(x[i]);<br>  }<br>}",
                 init: function() {
-                    this.x = [random(1, 20), random(1, 20), random(1, 20), random(1, 20), random(1, 20), random(1, 20), random(1, 20), random(1, 20)];
+                    this.x = [helpers.random(1, 20), helpers.random(1, 20), helpers.random(1, 20), helpers.random(1, 20), helpers.random(1, 20), helpers.random(1, 20), helpers.random(1, 20), helpers.random(1, 20)];
                     window.x = this.x.slice(0);
                 },
                 answer: function() {
@@ -1656,7 +1661,7 @@ let chapters = [
                     return "La variable <code>answer</code> vaut <code>" + JSON.stringify(answer) + "</code> et non la résultat attendu, <code>" + this.answer() + "</code> (attention, le tableau contient des entiers et des chaines de caractères).";
                 },
                 solution: function() {
-                    return equals(answer, this.answer());
+                    return helpers.equals(answer, this.answer());
                 }
             },
             {
@@ -1664,14 +1669,14 @@ let chapters = [
                 description: "Créer une variable nommée <code>answer</code> ayant pour valeur la moyenne (entière, arrondie à l'inférieur) des valeurs du tableau <code>x</code> (ex. [1, 5, 7] -> (1+5+7)/3 -> 4 — déclarée par ce tutoriel).",
                 solved: "var answer = 0;<br>for (var i = 0; i < x.length; i++) {<br>  answer = answer + x[i];<br>}<br>answer = Math.ceil(answer / x.length);",
                 init: function() {
-                    this.x = [random(1, 10), random(1, 10), random(1, 10), random(1, 10)];
+                    this.x = [helpers.random(1, 10), helpers.random(1, 10), helpers.random(1, 10), helpers.random(1, 10)];
                     window.x = this.x.slice(0);
                 },
                 answer: function() {
                     return Math.ceil(this.x.reduce(function(memo, value) { return memo + value; }, 0) / this.x.length);
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
                     return answer === this.answer();
@@ -1692,10 +1697,10 @@ let chapters = [
                     });
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
-                    return equals(answer, this.answer());
+                    return helpers.equals(answer, this.answer());
                 }
             }
         ]
@@ -1751,8 +1756,8 @@ let chapters = [
                 excerpt: "Les objets littéraux ( ou dictionnaires), représentent une suite de paires clé - valeur séparées par une virgule. Chacune des valeurs ainsi listées peut être d'une type primitif ou composite.<br><br><strong>Exemple</strong> : <code>var obj = { age: 27, name: 'paul' }</code> déclare un objet littéral avec deux clés, la première ayant pour valeur un nombre, la seconde, une chaine de caractères. Ainsi <code>obj.age</code> retourne <code>27</code> et <code>obj.name</code> retourne <code>'paul'</code>. Ces valeurs peuvent être modifiées comme elles sont accédées, <code>obj.age = 32</code>.",
                 solved: "var answer = {};<br>if (x < y) {<br>  answer.min = x;<br>  answer.max = y;<br>} else {<br>  answer.min = y;<br>  answer.max = x;<br>}",
                 init: function() {
-                    window.x = this.x = random(1, 50);
-                    window.y = this.y = random(1, 50);
+                    window.x = this.x = helpers.random(1, 50);
+                    window.y = this.y = helpers.random(1, 50);
                 },
                 answer: function() {
                     return {min: Math.min(this.x, this.y), max: Math.max(this.x, this.y)};
@@ -1761,7 +1766,7 @@ let chapters = [
                     return "La variable <code>answer</code> vaut <code>" + JSON.stringify(answer) + "</code> et non la résultat attendu, <code>" + JSON.stringify(this.answer()) + "</code>";
                 },
                 solution: function() {
-                    return equals(answer, this.answer());
+                    return helpers.equals(answer, this.answer());
                 }
             },
             {
@@ -1769,9 +1774,9 @@ let chapters = [
                 description: "Créer une variable nommée <code>answer</code> et lui affecter le maximum de la propriété <code>age</code> des variables <code>x</code> et <code>y</code> (ex. {age: 7}, {age: 5} -> 7 — déclarées par ce tutoriel).",
                 solved: "var answer = Math.max(x.age, y.age);",
                 init: function() {
-                    this.x = {age: random(1, 50)};
+                    this.x = {age: helpers.random(1, 50)};
                     window.x = Object.assign({}, this.x);
-                    this.y = {age: random(1, 50)};
+                    this.y = {age: helpers.random(1, 50)};
                     window.y = Object.assign({}, this.y);
                 },
                 answer: function() {
@@ -1781,7 +1786,7 @@ let chapters = [
                     return "La variable <code>answer</code> vaut <code>" + JSON.stringify(answer) + "</code> et non la résultat attendu, <code>" + JSON.stringify(this.answer()) + "</code>";
                 },
                 solution: function() {
-                    return equals(answer, this.answer());
+                    return helpers.equals(answer, this.answer());
                 }
             },
             {
@@ -1789,7 +1794,7 @@ let chapters = [
                 description: "Créer une variable nommée <code>answer</code> de type dictionnaire, avec cinq clés, <code>a</code>, <code>e</code>, <code>i</code>, <code>o</code> et <code>u</code> et y stocker le nombre de chacune de ces voyelles dans la chaîne de caratères déclarée par la variable <code>x</code> (ex. 'hello' -> {a:0, e:1, i:0, o: 1, u:0} — déclarée par ce tutoriel).",
                 solved: "var answer = {a:0, e:0, i:0, o:0, u:0};<br>for (var i = 0; i < x.length; i++) {<br>  switch(x[i].toLowerCase()) {<br>    case 'a': answer.a++; break;<br>    case 'e': answer.e++; break;<br>    case 'i': answer.i++; break;<br>    case 'o': answer.o++; break;<br>    case 'u': answer.u++; break;<br>  }<br>}",
                 init: function() {
-                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                    window.x = this.x = helpers.randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
                 },
                 answer: function() {
                     var result = {a:0, e:0, i:0, o:0, u:0};
@@ -1808,7 +1813,7 @@ let chapters = [
                     return "La variable <code>answer</code> vaut <code>" + JSON.stringify(answer) + "</code> et non la résultat attendu, <code>" + JSON.stringify(this.answer()) + "</code>";
                 },
                 solution: function() {
-                    return equals(answer, this.answer());
+                    return helpers.equals(answer, this.answer());
                 }
             },
             {
@@ -1837,7 +1842,7 @@ let chapters = [
                     return "La variable <code>answer</code> vaut <code>" + JSON.stringify(answer) + "</code> et non la résultat attendu, <code>" + JSON.stringify(this.answer()) + "</code>";
                 },
                 solution: function() {
-                    return equals(answer, this.answer());
+                    return helpers.equals(answer, this.answer());
                 }
             }
         ]
@@ -2243,7 +2248,7 @@ let chapters = [
                 excerpt: "La méthode <code>document.querySelector</code> peut être utilisée avec un sélecteur css pour récupérer un élément. Cet élément dispose d'un attribut <code>classList</code> qui permet de modifier ses classes css.<br><br><strong>Exemple</strong> : <pre><code>var div = document.querySelector('div');<br>div.classList.add('visible');</code></pre> ajouter la classe <code>visible</code> au premier <code>div</code> de la page.",
                 solved: "var li = document.querySelector('.board li');<br>li.classList.add('cadmiumyellow');",
                 dom: function() {
-                    return board.bind(board, cartman);
+                    return dom.board(dom.cartman);
                 },
                 warn: function() {
                     return "Le premier <code>li</code> doit avoir la classe <code>cadmiumyellow</code>";
@@ -2259,7 +2264,7 @@ let chapters = [
                 excerpt: "La méthode <code>document.querySelectorAll</code> peut être utilisée pour récupérer une liste d'éléments. Ensuite, il est nécessaire d'effectuer une boucle <code>for</code> pour parcourir chacun des éléments.",
                 solved: "var lis = document.querySelectorAll('.board li.braken');<br>for (var i = 0; i < lis.length; i++) {<br>  lis[i].className = 'candyapplered';<br>}",
                 dom: function() {
-                    return board.bind(board, cartman);
+                    return dom.board(dom.cartman);
                 },
                 warn: function() {
                     return "Aucun <code>li</code> ne doit avoir la classe <code>braken</code> et dix <code>li</code> doivent avoir la classe <code>candyapplered</code>";
@@ -2336,7 +2341,7 @@ let chapters = [
                 excerpt: "La méthode <code>addEventListener</code> peut être utilisée sur un élément pour l'abonner aux événements utilisateur comme <code>click</code>.<br><br><strong>Exemple</strong> : <pre><code>var div = document.querySelector('div');<br>div.addEventListener('click', function() { <br>  console.log('clicked'); <br>});</code></pre> ajoute un écouteur sur le premier <code>div</code> de la page et affiche <code>'clicked'</code> dans la console à chaque clic sur celui-ci.",
                 solved: "var li = document.querySelector('.board li.cadmiumyellow');<br>li.addEventListener('click', function() {<br>  li.className = 'bondiblue';<br>});",
                 dom: function() {
-                    return board.bind(board, cartman);
+                    return dom.board(dom.cartman);
                 },
                 warn: function() {
                     return "Au clic sur le premier <code>li.cadmiumyellow</code> sa classe doit être remplacée par <code>bondiblue</code>";
@@ -2353,7 +2358,7 @@ let chapters = [
                 description: "Ajouter un écouteur d'événement sur le premier élément doté de la classe <code>candyapplered</code>, et, au clic, remplacer la classe de tous les <code>li</code> de <code>ul.board</code> par <code>candyapplered</code>.",
                 solved: "var li = document.querySelector('.board li.candyapplered');<br>li.addEventListener('click', function() {<br>  var lis = document.querySelectorAll('.board li');<br>  for (var i = 0; i < lis.length; i++)<br>    lis[i].className = 'candyapplered';<br>});",
                 dom: function() {
-                    return board.bind(board, cartman);
+                    return dom.board(dom.cartman);
                 },
                 warn: function() {
                     return "Au clic sur le premier <code>li.candyapplered</code> les seize <code>li</code> doivent avoir la classe <code>candyapplered</code>";
@@ -2370,7 +2375,7 @@ let chapters = [
                 excerpt: "Le code déclaré dans la fonction d'un écouteur d'événement n'est excuté par le navigateur qu'on moment où l'événement se produit. Cela pose problème avec les boucles car elles modifient les variables <code>i</code> & co. et la valeur du code dans l'écouteur d'événement se retrouve être la dernière positionnée par la boucle.<br><br>Pour éviter cela, il est possible d'utiliser <code>this</code> dasn l'écouteur d'événement (qui correspond à l'élément qui a été cliqué) ou de déclarer toutes les variables de la boucles avec <code>let name</code> au lieu de <code>var name</code> (leur portée est ainsi limitée à la boucle) ou encore de créer une fonction qui encapsule le code déclenché par l'événement.<br><br>Ce problème tient à la portée des variables déclarées avec <code>var</code> qui est locale à la fonction qui l'encapsule, et non à la boucle qui l'encapsule.",
                 solved: "var lis = document.querySelectorAll('.board li.champagne');<br>for (var i = 0; i < lis.length; i++) {<br>  var li = lis[i];<br>  li.addEventListener('click', function(event) {<br>    event.target.className = 'braken';<br>  });<br>}",
                 dom: function() {
-                    return board.bind(board, cartman);
+                    return dom.board(dom.cartman);
                 },
                 warn: function() {
                     return "Au clic sur les <code>li.champagne</code>, l'un puis l'autre, ils doivent tous deux avoir la classe <code>braken</code>";
@@ -2393,7 +2398,7 @@ let chapters = [
                 excerpt: "Lorsque du code se retrouve dupliqué, il est possible de le rassembler au sein d'une fonction et d'appeller celle-ci plusieurs fois. Le mot clé <code>function</code> permet de déclarer un sous programme qui peut être appelé par du code externe (ou s'appeller elle-même, en cas d'appels récursifs). Comme une boucle conditionnelle, une fonction est composée d'une liste d'opérations (délimitées entre accolades), il est possible de lui fournir des arguments et elle peut retourner une valeur avec le mot clé <code>return</code>. Une fonction est variables comme les autres.<br><br><strong>Exemple</strong> : <pre><code>var double = function(value) { <br>  return value * 2; <br>}</code></pre> crée une fonction qui retourne le double d'un nombre. utilisée ainsi <code>double(12)</code> elle retourne <code>24</code>.",
                 solved: "var first = document.querySelector('ul.board li.braken');<br>var second = document.querySelector('ul.board li.champagne');<br><br>first.addEventListener('click', function() {<br>  var memo = first.className;<br>  first.className = second.className;<br>  second.className = memo;<br>});<br><br>second.addEventListener('click', function() {<br>  var memo = first.className;<br>  first.className = second.className;<br>  second.className = memo;<br>});",
                 dom: function() {
-                    return board.bind(board, kenny);
+                    return dom.board(dom.kenny);
                 },
                 warn: function() {
                     return "Au clic sur le premier <code>li.braken</code>, il doit avoir la classe <code>champagne</code> et le premier <code>li.champagne</code> doit avoir la classe <code>braken</code>. Au clic suivant, ces deux <code>li</code> retrouvent leurs classes de départ. Et ainsi de suite";
@@ -2422,7 +2427,7 @@ let chapters = [
                 excerpt: "Utiliser une variable d'état est souvent plus pratique que sauvegarder des données dans le DOM.",
                 solved: "var li = document.querySelector('.board li.champagne');<br>var i = 0;<br>li.addEventListener('click', function() {<br>  i++;<br>  if (i > 2) {<br>    li.className = 'braken';<br>  }<br>});",
                 dom: function() {
-                    return board.bind(board, kenny);
+                    return dom.board(dom.kenny);
                 },
                 warn: function() {
                     return "Au clic sur le premier <code>li.champagne</code>, rien ne se produit. Mais après trois clics répétés, ce <code>li</code> doit avoir la classe <code>braken</code>. Au quatrième clic, il doit conserver cette nouvelle classe";
@@ -2447,7 +2452,7 @@ let chapters = [
                 description: "Ajouter un écouteur d'événement sur tous les éléments dotés de la classe <code>braken</code>, et, après 3 clics répétés sur n'importe lequel d'entre eux, remplacer sa classe par <code>champagne</code>.",
                 solved: "var lis = document.querySelectorAll('.board li.braken');<br>var count = [];<br>for (let i = 0; i < lis.length; i++) {<br>  count[i] = 0;<br>  let li = lis[i];<br>  li.addEventListener('click', function() {<br>    count[i]++;<br>    if (count[i] > 2) {<br>      li.className = 'champagne';<br>    }<br>  });<br>}",
                 dom: function() {
-                    return board.bind(board, kenny);
+                    return dom.board(dom.kenny);
                 },
                 warn: function() {
                     return "Au clic sur un <code>li.braken</code> rien ne se produit. Mais après trois clics répétés, ce <code>li</code> doit avoir la classe <code>braken</code>. Au quatrième clic, il doit conserver cette nouvelle classe";
@@ -2469,7 +2474,7 @@ let chapters = [
                 excerpt: "L'attribut <code>innerHTML</code> des éléments du DOM permet de modifier leur contenu.<br><br><strong>Exemple</strong> : <pre><code>var div = document.querySelector('div');<br>div.innerHTML = '&lt;ul&gt;&lt;li&gt;paul&lt;/li&gt;&lt;li&gt;john&lt;/li&gt;&lt;/ul&gt;';</code></pre> ajoute un <code>ul</code> avec deux <code>li</code> au premier <code>div</code> de la page.",
                 solved: "var ul = document.querySelector('.board');<br>ul.innerHTML += '&lt;li&gt;&lt;/li&gt;&lt;li class=\"darkgreen\"&gt;&lt;/li&gt;&lt;li class=\"darkgreen\"&gt;&lt;/li&gt;&lt;li&gt;&lt;/li&gt;';",
                 dom: function() {
-                    return board.bind(board, kyle.slice(0, 12));
+                    return dom.board(dom.kyle.slice(0, 12));
                 },
                 warn: function() {
                     return "Quatre <code>li</code> doivent être ajoutés à la suite de ceux déjà présents dans <code>ul.board</code>";
@@ -2478,7 +2483,7 @@ let chapters = [
                     let basic = true;
                     let lis = document.querySelectorAll('.board li');
                     basic = basic && 16 === lis.length;
-                    kyle.forEach(function(value, i) {
+                    dom.kyle.forEach(function(value, i) {
                         if (i === 12 || i === 15)
                             basic = basic && lis[i].className === '';
                         if (i === 13 || i === 14)
@@ -2493,7 +2498,7 @@ let chapters = [
                 excerpt: "La méthode <code>insertAdjacentHTML</code>, plus rarement utilisée, permet d'insérer du texte à une position donné dans un élément.",
                 solved: "var li = document.querySelector('.board li:nth-child(8)');<br>li.insertAdjacentHTML('afterend', '&lt;li class=\"safetyorange\"&gt;&lt;/li&gt;&lt;li class=\"safetyorange\"&gt;&lt;/li&gt;&lt;li class=\"safetyorange\"&gt;&lt;/li&gt;&lt;li class=\"safetyorange\"&gt;&lt;/li&gt;');",
                 dom: function() {
-                    return board.bind(board, kyle.slice(0, 8).concat(kyle.slice(12, 16)));
+                    return dom.board(dom.kyle.slice(0, 8).concat(dom.kyle.slice(12, 16)));
                 },
                 warn: function() {
                     return "Quatre <code>li</code> doivent être ajoutés après le huitième <code>li</code> de <code>ul.board</code>";
@@ -2502,7 +2507,7 @@ let chapters = [
                     let basic = true;
                     let lis = document.querySelectorAll('.board li');
                     basic = basic && 16 === lis.length;
-                    kyle.forEach(function(value, i) {
+                    dom.kyle.forEach(function(value, i) {
                         if (i >= 8 && i <= 11)
                             basic = basic && lis[i].classList.contains('safetyorange')
                     });
@@ -2514,7 +2519,7 @@ let chapters = [
                 description: "Mémoriser lorsqu'un <code>li</code> de <code>ul.board</code> est cliqué, et, lorsqu'un second l'est à son tour, intervertir les classes de ces élements.",
                 solved: "var memo;<br>var lis = document.querySelectorAll('.board li');<br><br>for (let i = 0; i < lis.length; i++) {<br>  let li = lis[i];<br>  li.addEventListener('click', function() {<br>    if (!memo) {<br>      memo = li;<br>    } else {<br>      var className = memo.className;<br>      memo.className = li.className;<br>      li.className = className;<br>      memo = undefined;<br>    }<br>  });<br>}",
                 dom: function() {
-                    return board.bind(board, kyle);
+                    return dom.board(dom.kyle);
                 },
                 warn: function() {
                     return "Au clic sur le premier <code>li</code> et le second, leurs classes doivent être interverties. Puis, au clic du second et du troisième <code>li</code>, leurs classes doivent être interverties également";
@@ -2526,7 +2531,7 @@ let chapters = [
                     lis[1].click();
                     lis[1].click();
                     lis[2].click();
-                    kyle.forEach(function(value, i) {
+                    dom.kyle.forEach(function(value, i) {
                         if (i === 0 || i === 1)
                             basic = basic && lis[i].classList.contains('islamicgreen');
                         if (i === 2 || i === 3)
@@ -2540,7 +2545,7 @@ let chapters = [
                 description: "À chaque clic sur un <code>li</code> de <code>ul.board</code>, ajouter un attribut <code>data-value</code> sur cet élément avec le nombre d'éléments sélectionnés jusque là.<br><br>Un élément ne peut être sélectionné deux fois.",
                 solved: "var value = 0;<br>var lis = document.querySelectorAll('.board li');<br>for (var i = 0; i < lis.length; i++) {<br>  var li = lis[i];<br>  li.addEventListener('click', function(event) {<br>    if (!event.target.dataset.value) {<br>      event.target.dataset.value = value++;<br>    }<br>  });<br>}",
                 dom: function() {
-                    return board.bind(board, kyle);
+                    return dom.board(dom.kyle);
                 },
                 warn: function() {
                     return "Au clic sur le premier <code>li</code> il doit avoir un attribut <code>data-value</code> égal à zéro. Au clic sur un autre <code>li</code>, il doit avoir un attribut <code>data-value</code> égal à un. Et ainsi de suite. Au clic sur un élément ayant déjà un <code>data-value</code> celui-ci ne change pas";
@@ -2654,7 +2659,7 @@ let chapters = [
                 excerpt: "La librairie <a target=\"_blank\" href=\"http://momentjs.com/\">moment</a> permet de manipuler facilement des dates, et, notamment, de les mettre en forme en fonction de la locale.",
                 solved: "/* import this in the HTML <head> before the code<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js\"&gt;&lt;/script&gt;<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/fr.js\"&gt;&lt;/script&gt;<br>*/<br>document.querySelector('.booking .from input').addEventListener('change', function() {<br>  var date = moment(this.value);<br>  document.querySelector('.from .formatted').innerHTML = date.format('MMM').toUpperCase() + ' ' + date.format('D');<br>});<br><br>document.querySelector('.booking .to input').addEventListener('change', function() {<br>  var date = moment(this.value);<br>  document.querySelector('.to .formatted').innerHTML = date.format('MMM').toUpperCase() + ' ' + date.format('D');<br>});",
                 dom: function() {
-                    return booking.bind(booking);
+                    return dom.booking();
                 },
                 solution: function() {
                     var from = {
@@ -2667,14 +2672,14 @@ let chapters = [
                     }
 
                     from.input.value = '2017-01-24';
-                    change(from.input);
+                    helpers.change(from.input);
 
                     to.input.value = '2017-01-26';
-                    change(to.input);
+                    helpers.change(to.input);
 
-                    if (elContains(from.formatted, 'JANV. 24') !== true)
+                    if (helpers.elContains(from.formatted, 'JANV. 24') !== true)
                         this.warn = this.warn || "La date affichée dans <code>.from .formatted</code> doit être égale à JANV. 24, lorsque la date saisie est le 24 janvier";
-                    if (elContains(to.formatted, 'JANV. 26') !== true)
+                    if (helpers.elContains(to.formatted, 'JANV. 26') !== true)
                         this.warn = this.warn || "La date affichée dans <code>.to .formatted</code> doit être égale à JANV. 26, lorsque la date saisie est le 26 janvier";
                     return !this.warn;
                 }
@@ -2684,7 +2689,7 @@ let chapters = [
                 description: "Si la date de retour saisie est antérieure ou égale à la date de l'aller, elle est par défaut 1 jour après l'aller (l'aller est le 12 janvier, la date de retour doit être le 13 janvier au plus tôt).",
                 solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>});",
                 dom: function() {
-                    return booking.bind(booking);
+                    return dom.booking();
                 },
                 solution: function() {
                     var from = {
@@ -2697,14 +2702,14 @@ let chapters = [
                     }
 
                     from.input.value = '2017-01-24';
-                    change(from.input);
+                    helpers.change(from.input);
 
                     to.input.value = '2017-01-24';
-                    change(to.input);
+                    helpers.change(to.input);
 
-                    if (elContains(from.formatted, 'JANV. 24') !== true)
+                    if (helpers.elContains(from.formatted, 'JANV. 24') !== true)
                         this.warn = this.warn || "La date affichée dans <code>.from .formatted</code> doit être égale à JANV. 24, lorsque la date saisie est le 24 janvier";
-                    if (elContains(to.formatted, 'JANV. 25') !== true)
+                    if (helpers.elContains(to.formatted, 'JANV. 25') !== true)
                         this.warn = this.warn || "La date affichée dans <code>.to .formatted</code> doit être égale à JANV. 25, lorsque la date de l'aller est le 24 janvier et que la date saisie lui est antérieure";
                     if (to.input.value !== '2017-01-25')
                         this.warn = this.warn || "La date de l'input <code>.to</code> doit être égale au 25 janvier, lorsque la date de l'aller est le 24 janvier et que la date saisie lui est antérieure";
@@ -2716,7 +2721,7 @@ let chapters = [
                 description: "Pour chaque jour de voyage, compter 40€, et afficher le total dans <code>.price</code>.",
                 solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = to.value.diff(from.value, 'days') + 1;<br>  document.querySelector('.price').innerHTML = 40 * days + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});",
                 dom: function() {
-                    return booking.bind(booking);
+                    return dom.booking();
                 },
                 solution: function() {
                     var from = {
@@ -2729,12 +2734,12 @@ let chapters = [
                     }
 
                     from.input.value = '2017-01-24';
-                    change(from.input);
+                    helpers.change(from.input);
 
                     to.input.value = '2017-01-27';
-                    change(to.input);
+                    helpers.change(to.input);
 
-                    if (elContains(document.querySelector('.price'), '160€') !== true)
+                    if (helpers.elContains(document.querySelector('.price'), '160€') !== true)
                         this.warn = "Le prix doit être de 160€ pour un voyage du 24 au 27 janvier";
                     return !this.warn;
                 }
@@ -2744,7 +2749,7 @@ let chapters = [
                 description: "Pour chaque voyageur, multiplier le prix (un voyage à 80€ coûtera 240€ pour 3 voyageurs).",
                 solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br>var passengers = 1;<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = to.value.diff(from.value, 'days') + 1;<br>  document.querySelector('.price').innerHTML = 40 * days * passengers + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});<br><br>document.querySelector('select').addEventListener('change', function() {<br>  passengers = this.value;<br>  total();<br>});",
                 dom: function() {
-                    return booking.bind(booking);
+                    return dom.booking();
                 },
                 solution: function() {
                     var from = {
@@ -2757,16 +2762,16 @@ let chapters = [
                     }
 
                     from.input.value = '2017-01-24';
-                    change(from.input);
+                    helpers.change(from.input);
 
                     to.input.value = '2017-01-27';
-                    change(to.input);
+                    helpers.change(to.input);
 
                     var select = document.querySelector('select');
                     select.value = 3;
-                    change(select);
+                    helpers.change(select);
 
-                    if (elContains(document.querySelector('.price'), '480€') !== true)
+                    if (helpers.elContains(document.querySelector('.price'), '480€') !== true)
                         this.warn = "Le prix doit être de 160€ pour un voyage du 24 au 27 janvier pour 3 voyageurs";
                     return !this.warn;
                 }
@@ -2776,7 +2781,7 @@ let chapters = [
                 description: "Les samedis et dimanches ne sont pas facturés (vendredi, samedi, dimanche coûtera 40€ — 1 jour —, vendredi, samedi, dimanche, lundi coûtera 80€ — 2 jours —, du lundi au lundi deux semaines après, coûtera 840€ — 11 jours).",
                 solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br>var passengers = 1;<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = 0;<br>  var clone = from.value.clone();<br>  while (clone.isSameOrBefore(to.value)) {<br>    if (clone.day() !== 6 && clone.day() !== 0)<br>      days++;<br>    clone.add(1, 'days');<br>  }<br><br>  document.querySelector('.price').innerHTML = 40 * days * passengers + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});<br><br>document.querySelector('select').addEventListener('change', function() {<br>  passengers = this.value;<br>  total();<br>});",
                 dom: function() {
-                    return booking.bind(booking);
+                    return dom.booking();
                 },
                 solution: function() {
                     var from = {
@@ -2789,27 +2794,27 @@ let chapters = [
                     }
 
                     from.input.value = '2017-01-27';
-                    change(from.input);
+                    helpers.change(from.input);
 
                     to.input.value = '2017-01-30';
-                    change(to.input);
+                    helpers.change(to.input);
 
                     var select = document.querySelector('select');
                     select.value = 2;
-                    change(select);
+                    helpers.change(select);
 
                     var basic = true;
-                    basic = basic && elContains(document.querySelector('.price'), '160€');
-                    if (elContains(document.querySelector('.price'), '160€') !== true)
+                    basic = basic && helpers.elContains(document.querySelector('.price'), '160€');
+                    if (helpers.elContains(document.querySelector('.price'), '160€') !== true)
                         this.warn = this.warn || "Le prix doit être de 160€ pour un voyage de 4 jours incluant samedi et dimanche pour 2 voyageurs";
 
                     from.input.value = '2017-01-13';
-                    change(from.input);
+                    helpers.change(from.input);
 
                     to.input.value = '2017-01-30';
-                    change(to.input);
+                    helpers.change(to.input);
 
-                    if (elContains(document.querySelector('.price'), '960€') !== true)
+                    if (helpers.elContains(document.querySelector('.price'), '960€') !== true)
                         this.warn = this.warn || "Le prix doit être de 960€ pour un voyage de 18 jours incluant 3 samedis et dimanches pour 2 voyageurs";
                     return !this.warn;
                 }
@@ -2900,8 +2905,8 @@ let chapters = [
                 excerpt: "Une fonction est comme une usine, elle transforme quelque chose (ses paramètres d'entrée) en autre chose (son paramètre de sortie). L'utilisation de fonctions permet de structurer un programme. Au lieu de lister toutes les opérations d'un programme les unes à la suite des autres, il est préférable de regrouper les opérations en plusieurs fonctions correspondant à des parties clairement identifiées du programme.<br><br><strong>Exemple </strong>: <pre><code>var double = function(value) {<br>  return value * 2; <br>}</code></pre> déclare une variable <code>value</code> qui sera initialisée à une valeur à chaque appel de la fonction. Cette variable est locale à la fonction, elle n'existe pas à l'extérieur du code de celle-ci. Le mot clé <code>return</code> interrompt immédiatement la fonction et retourne le résultat au code appelant. <pre><code>var x = double(12);<br>x; /* 24 */<br>var y = double(7);<br>y; /* 14 */<br>var weird = double('hello');<br>weird; /* NaN */<br>value; /* undefined */<br></code></pre>",
                 solved: "var positive = function(value) {<br>  return value >= 0;<br>};",
                 solution: function() {
-                    let x = random();
-                    let y = random();
+                    let x = helpers.random();
+                    let y = helpers.random();
                     if (positive(0) !== true)
                         this.warn = this.warn || "La fonction <code>positive(0)</code> doit retourner <code>true</code>";
 
@@ -2920,8 +2925,8 @@ let chapters = [
                 excerpt: "Une fonction peut prendre plusieurs paramètres en entrée, séparés par des virgules <code>function(a, b, c) { ... }</code>. L'opérateur <code>typeof</code> permet quant à lui de vérfier le type d'une variable.<br><br><strong>Exemple </strong>: <pre><code>typeof 12 === 'number'; /* true */<br>typeof 'hello' === 'string'; /* true */<br>typeof ['1', '2', '3'] === 'string'; /* false */</code></pre>",
                 solved: "var add = function(a, b) {<br>  if (typeof a !== 'number' || typeof b !== 'number') {<br>    return 0;<br>  }<br>  return a + b;<br>};",
                 solution: function() {
-                    let x = random();
-                    let y = random();
+                    let x = helpers.random();
+                    let y = helpers.random();
                     if (add(x, y) !== x + y)
                         this.warn = this.warn || `La fonction <code>add(${x}, ${y})</code> doit retourner ${x+y}`;
 
@@ -2991,13 +2996,13 @@ let chapters = [
                 description: "Créer une fonction <code>count</code> qui prend un paramètre et retourne un littéral indiquant le nombre de « a » et de « e » de cette chaine (sous la forme <code>{a: 5, e: 7}</code>).",
                 solved: "var text = 'Short ribs fatback pork chop turducken. Hamburger capicola turkey sausage tail leberkas ham andouille pork chop picanha pancetta landjaeger brisket. Ground round pork belly jowl pancetta frankfurter beef ribs ham cupim turkey tenderloin drumstick sausage shoulder. Pig cow short ribs tenderloin tongue pork belly.';<br>var count = function(text) {<br>  text = text.toLowerCase();<br>  var total = {a: 0, e: 0};<br>  for (var i = 0; i < text.length; i++) {<br>    var char = text.charAt(i);<br>    if (char === 'a')<br>      total.a++;<br>    else if (char === 'e')<br>      total.e++;<br>  };<br>  return total;<br>};",
                 solution: function() {
-                    if (equals({a: 0, e: 0}, count('')) !== true)
+                    if (helpers.equals({a: 0, e: 0}, count('')) !== true)
                         this.warn = this.warn || "La fonction <code>count('')</code> doit retourner <code>{a: 0, e: 0}</code>";
 
-                    if (equals({a: 2, e: 1}, count('Short ribs fatback pork chop turducken.')) !== true)
+                    if (helpers.equals({a: 2, e: 1}, count('Short ribs fatback pork chop turducken.')) !== true)
                         this.warn = this.warn || "La fonction <code>count('Short ribs fatback pork chop turducken.')</code> doit retourner <code>{a: 2, e: 1}</code>";
 
-                    if (equals({a: 7, e: 5}, count('Andouille pork chop picanha pancetta landjaeger brisket.')) !== true)
+                    if (helpers.equals({a: 7, e: 5}, count('Andouille pork chop picanha pancetta landjaeger brisket.')) !== true)
                         this.warn = this.warn || "La fonction <code>count('Andouille pork chop picanha pancetta landjaeger brisket.')</code> doit retourner <code>{a: 7, e: 5}</code>";
 
                     return !this.warn;
@@ -3220,7 +3225,7 @@ let chapters = [
                 excerpt: "Les items du carrousel se situent dans la liste <code>.carousel > ul > li</code> et un seul d'entre eux à la classe <code>visible</code> (ainsi, les autres sont masqués). Retirer la classe <code>visible</code> d'un élément et l'ajouter à un autre, permet de masquer le premier et de révéler le second.<br><br><strong>Déclarer un écouteur d'événement sur la flêche de droite, et masquer le premier élément du carrousel </strong>: <pre><code>var next = document.querySelector('.next');<br>next.addEventListener('click', function() {<br>  var li = document.querySelector('.carousel > ul > li.visible');<br>  li.classList.remove('visible');<br>});</code></pre>",
                 solved: "var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br><br>elNext.addEventListener('click', function() {<br>  lis[0].classList.remove('visible');<br>  lis[1].classList.add('visible');<br>});",
                 dom: function() {
-                    return carousel.bind(carousel);
+                    return dom.carousel();
                 },
                 solution: function() {
                     var elPrev = document.querySelector('.prev');
@@ -3230,15 +3235,15 @@ let chapters = [
 
                     if (lis.length !== 5)
                         this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
-                    if (elHasClass(lis[0], 'visible') !== true)
+                    if (helpers.elHasClass(lis[0], 'visible') !== true)
                         this.warn = this.warn || "Le premier <code>li</code> doit avoir la classe <code>visible</code>";
-                    if (elHasClass(lis[1], 'visible') !== false)
+                    if (helpers.elHasClass(lis[1], 'visible') !== false)
                         this.warn = this.warn || "Le second <code>li</code> ne doit avoir la classe <code>visible</code>";
 
                     elNext.click();
-                    if (elHasClass(lis[0], 'visible') !== false)
+                    if (helpers.elHasClass(lis[0], 'visible') !== false)
                         this.warn = this.warn || "Après un clic sur suivant, le premier <code>li</code> ne doit plus avoir la classe <code>visible</code>";
-                    if (elHasClass(lis[1], 'visible') !== true)
+                    if (helpers.elHasClass(lis[1], 'visible') !== true)
                         this.warn = this.warn || "Après un clic sur suivant, le second <code>li</code> doit avoir la classe <code>visible</code>";
 
                     return !this.warn;
@@ -3249,7 +3254,7 @@ let chapters = [
                 description: "S'assurer que cliquer sur la flêche de droite permet de passer d'un élément au suivant, mais qu'une fois arrivé au dernier, n'a plus d'effet.",
                 solved: "var index = 0;<br>var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br><br>elNext.addEventListener('click', function() {<br>  lis[index].classList.remove('visible');<br>  index++;<br>  if (index > 4)<br>    index = 4;<br><br>  lis[index].classList.add('visible');<br>});",
                 dom: function() {
-                    return carousel.bind(carousel);
+                    return dom.carousel();
                 },
                 solution: function() {
                     var elPrev = document.querySelector('.prev');
@@ -3259,15 +3264,15 @@ let chapters = [
 
                     if (lis.length !== 5)
                         this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
-                    if (elHasClass(lis[0], 'visible') !== true)
+                    if (helpers.elHasClass(lis[0], 'visible') !== true)
                         this.warn = this.warn || "Le premier <code>li</code> doit avoir la classe <code>visible</code>";
-                    if (elHasClass(lis[1], 'visible') !== false)
+                    if (helpers.elHasClass(lis[1], 'visible') !== false)
                         this.warn = this.warn || "Le second <code>li</code> ne doit avoir la classe <code>visible</code>";
 
                     elNext.click(); elNext.click(); elNext.click(); elNext.click(); elNext.click();
-                    if (elHasClass(lis[1], 'visible') !== false)
+                    if (helpers.elHasClass(lis[1], 'visible') !== false)
                         this.warn = this.warn || "Après quatre clic sur suivant, le premier <code>li</code> ne doit plus avoir la classe <code>visible</code>";
-                    if (elHasClass(lis[4], 'visible') !== true)
+                    if (helpers.elHasClass(lis[4], 'visible') !== true)
                         this.warn = this.warn || "Après quatre clic sur suivant, le cinquième <code>li</code> doit avoir la classe <code>visible</code>";
 
                     return !this.warn;
@@ -3279,7 +3284,7 @@ let chapters = [
                 excerpt: "Déclarer une variable <code>index</code> et l'utiliser pour mémoriser la position actuelle peut faciliter les choses. À chaque action utilisateur, le <code>li</code> à cet index peut être masqué et la position du suivant (ou précédent) peut être déduite à partir de cette variable (et non du DOM).",
                 solved: "var index = 0;<br>var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br>var elPrev = document.querySelector('.prev');<br><br>elPrev.addEventListener('click', function() {<br>  lis[index].classList.remove('visible');<br>  index--;<br>  if (index < 0)<br>    index = 0;<br><br>  lis[index].classList.add('visible');<br>});<br><br>elNext.addEventListener('click', function() {<br>  lis[index].classList.remove('visible');<br>  index++;<br>  if (index > 4)<br>    index = 4;<br><br>  lis[index].classList.add('visible');<br>});",
                 dom: function() {
-                    return carousel.bind(carousel);
+                    return dom.carousel();
                 },
                 solution: function() {
                     var elPrev = document.querySelector('.prev');
@@ -3289,21 +3294,21 @@ let chapters = [
 
                     if (lis.length !== 5)
                         this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
-                    if (elHasClass(lis[0], 'visible') !== true)
+                    if (helpers.elHasClass(lis[0], 'visible') !== true)
                         this.warn = this.warn || "Le premier <code>li</code> doit avoir la classe <code>visible</code>";
-                    if (elHasClass(lis[1], 'visible') !== false)
+                    if (helpers.elHasClass(lis[1], 'visible') !== false)
                         this.warn = this.warn || "Le second <code>li</code> ne doit avoir la classe <code>visible</code>";
 
                     elPrev.click();
-                    if (elHasClass(lis[0], 'visible') !== true)
+                    if (helpers.elHasClass(lis[0], 'visible') !== true)
                         this.warn = this.warn || "Après un clic sur précédent, le premier <code>li</code> doit avoir la classe <code>visible</code>";
-                    if (elHasClass(lis[1], 'visible') !== false)
+                    if (helpers.elHasClass(lis[1], 'visible') !== false)
                         this.warn = this.warn || "Après un clic sur précédent, le second <code>li</code> ne doit avoir la classe <code>visible</code>";
 
                     elNext.click(); elNext.click(); elPrev.click();
-                    if (elHasClass(lis[0], 'visible') !== false)
+                    if (helpers.elHasClass(lis[0], 'visible') !== false)
                         this.warn = this.warn || "Après un clic sur suivant, précédent, suivant, le premier <code>li</code> ne doit plus avoir la classe <code>visible</code>";
-                    if (elHasClass(lis[1], 'visible') !== true)
+                    if (helpers.elHasClass(lis[1], 'visible') !== true)
                         this.warn = this.warn || "Après un clic sur suivant, précédent, suivant, le second <code>li</code> doit avoir la classe <code>visible</code>";
 
                     return !this.warn;
@@ -3315,7 +3320,7 @@ let chapters = [
                 excerpt: "Il est possible de regrouper le code de passage d'un élément au suivant (ou au précédent) dans une fonction <code>jump</code>. Cette fonction peut être dotée d'un paramètre d'entrée indiquant le prochain index (calculé par l'appelant), la fonction peut ainsi vérifier que l'index ne passe pas en dessous de <code>0</code> ou au dessus de <code>4</code>. Elle peut également se charger d'afficher / masquer les flêches de navigation.<br><br><strong>Exemple </strong>: <pre><code>var index =  0;<br>var jump = function(to) {<br>  /* retrait de la classe .visible du li actuel */<br>  /* modification de l'index */<br>  /* ajout de la classe .visible au li correspondant au nouvel index */<br>  /* affichage / masquage des flêches de navigation en fonction du nouvel index */<br>};<br><br>document.querySelector('.next').addEventListener('click', function() {<br>  jump(index + 1);<br>});</code></pre>",
                 solved: "var index = 0;<br>var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br>var elPrev = document.querySelector('.prev');<br><br>var navigation = function(index) {<br>  elPrev.classList.toggle('hidden', index === 0);<br>  elNext.classList.toggle('hidden', index === 4);<br>}<br><br>var jump = function(to) {<br>  lis[index].classList.remove('visible');<br>  index = to;<br>  if (index > 4)<br>    index = 4;<br>  if (index < 0)<br>    index = 0;<br>  lis[index].classList.add('visible');<br>  navigation(index);<br>}<br><br>elPrev.addEventListener('click', function() {<br>  jump(index - 1);<br>});<br><br>elNext.addEventListener('click', function() {<br>  jump(index + 1);<br>});<br><br>navigation(0);",
                 dom: function() {
-                    return carousel.bind(carousel);
+                    return dom.carousel();
                 },
                 solution: function() {
                     var elPrev = document.querySelector('.prev');
@@ -3325,23 +3330,23 @@ let chapters = [
 
                     if (lis.length !== 5)
                         this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
-                    if (elHasClass(elPrev, 'hidden') !== true)
+                    if (helpers.elHasClass(elPrev, 'hidden') !== true)
                         this.warn = this.warn || "La flêche de gauche doit être masquée quand le premier élément est affiché";
-                    if (elHasClass(elNext, 'hidden') !== false)
+                    if (helpers.elHasClass(elNext, 'hidden') !== false)
                         this.warn = this.warn || "La flêche de gauche doit être affichée quand le premier élément est affiché";
 
                     elNext.click();
-                    if (elHasClass(elPrev, 'hidden') !== false)
+                    if (helpers.elHasClass(elPrev, 'hidden') !== false)
                         this.warn = this.warn || "La flêche de gauche doit être affichée quand le second élément est affiché";
-                    if (elHasClass(elNext, 'hidden') !== false)
+                    if (helpers.elHasClass(elNext, 'hidden') !== false)
                         this.warn = this.warn || "La flêche de gauche doit être affichée quand le second élément est affiché";
 
                     elNext.click(); elNext.click(); elNext.click();
-                    if (elHasClass(lis[4], 'visible') !== true)
+                    if (helpers.elHasClass(lis[4], 'visible') !== true)
                         this.warn = this.warn || "Après quatre clic sur suivant, le cinquième <code>li</code> doit avoir la classe <code>visible</code>";
-                    if (elHasClass(elPrev, 'hidden') !== false)
+                    if (helpers.elHasClass(elPrev, 'hidden') !== false)
                         this.warn = this.warn || "La flêche de gauche doit être affichée quand le cinquième élément est affiché";
-                    if (elHasClass(elNext, 'hidden') !== true)
+                    if (helpers.elHasClass(elNext, 'hidden') !== true)
                         this.warn = this.warn || "La flêche de gauche doit être masquée quand le cinquième élément est affiché";
 
                     return !this.warn;
@@ -3352,7 +3357,7 @@ let chapters = [
                 description: "Une liste d'indicateurs <code>.dots li</code> est disponible sous le carrousel. Ajouter la classe <code>active</code> à celui d'entre eux qui correspond à l'élément du carrousel affiché (le premier rond quand le premier élément est affiché, le second pour le second, etc). Mettre à jour cet indicateur lors du changement d'élément dans le carrousel.",
                 solved: "var index = 0;<br>var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br>var elPrev = document.querySelector('.prev');<br><br>var dots = document.querySelectorAll('.carousel .dots li');<br>var navigation = function(index) {<br>  elPrev.classList.toggle('hidden', index === 0);<br>  elNext.classList.toggle('hidden', index === 4);<br><br>  for (var i = 0; i < dots.length; i++) {<br>    dots[i].classList.remove('active');<br>  }<br>  dots[index].classList.add('active');<br>}<br><br>var jump = function(to) {<br>  lis[index].classList.remove('visible');<br>  index = to;<br>  if (index > 4)<br>    index = 4;<br>  if (index < 0)<br>    index = 0;<br>  lis[index].classList.add('visible');<br>  navigation(index);<br>}<br><br>elPrev.addEventListener('click', function() {<br>  jump(index - 1);<br>});<br><br>elNext.addEventListener('click', function() {<br>  jump(index + 1);<br>});<br><br>navigation(0);",
                 dom: function() {
-                    return carousel.bind(carousel, true);
+                    return dom.carousel(true);
                 },
                 solution: function() {
                     var elPrev = document.querySelector('.prev');
@@ -3363,21 +3368,21 @@ let chapters = [
 
                     if (lis.length !== 5)
                         this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
-                    if (elHasClass(dots[0], 'active') !== true)
+                    if (helpers.elHasClass(dots[0], 'active') !== true)
                         this.warn = this.warn || "Le premier indicateur doit avoir la classe <code>active</code> lorsque le premier élément est affiché";
 
                     elNext.click();
-                    if (elHasClass(dots[0], 'active') !== false)
+                    if (helpers.elHasClass(dots[0], 'active') !== false)
                         this.warn = this.warn || "Après un clic sur suivant, le premier indicateur ne doit pas avoir la classe <code>active</code>";
-                    if (elHasClass(dots[1], 'active') !== true)
+                    if (helpers.elHasClass(dots[1], 'active') !== true)
                         this.warn = this.warn || "Après un clic sur suivant, le second indicateur doit avoir la classe <code>active</code>";
 
                     elNext.click(); elNext.click(); elNext.click();
-                    if (elHasClass(lis[4], 'visible') !== true)
+                    if (helpers.elHasClass(lis[4], 'visible') !== true)
                         this.warn = this.warn || "Après quatre clic sur suivant, le cinquième <code>li</code> doit avoir la classe <code>visible</code>";
-                    if (elHasClass(elPrev, 'hidden') !== false)
+                    if (helpers.elHasClass(elPrev, 'hidden') !== false)
                         this.warn = this.warn || "La flêche de gauche doit être affichée quand le cinquième élément est affiché";
-                    if (elHasClass(elNext, 'hidden') !== true)
+                    if (helpers.elHasClass(elNext, 'hidden') !== true)
                         this.warn = this.warn || "La flêche de gauche doit être masquée quand le cinquième élément est affiché";
 
                     return !this.warn;
@@ -3388,7 +3393,7 @@ let chapters = [
                 description: "Cliquer sur l'un des ronds doit permettre de naviguer à l'élément du carrousel à la même position. Les flêches de navigation gauche ou droite sont masquées si il s'agit du premier ou dernier élément du carrousel (comme lors de la navigation manuelle de l'utilisateur).",
                 solved: "var index = 0;<br>var lis = document.querySelectorAll('.carousel li');<br>var elNext = document.querySelector('.next');<br>var elPrev = document.querySelector('.prev');<br><br>var dots = document.querySelectorAll('.carousel .dots li');<br>var navigation = function(index) {<br>  elPrev.classList.toggle('hidden', index === 0);<br>  elNext.classList.toggle('hidden', index === 4);<br><br>  for (var i = 0; i < dots.length; i++) {<br>    dots[i].classList.remove('active');<br>  }<br>  dots[index].classList.add('active');<br>}<br><br>var jump = function(to) {<br>  lis[index].classList.remove('visible');<br>  index = to;<br>  if (index > 4)<br>    index = 4;<br>  if (index < 0)<br>    index = 0;<br>  lis[index].classList.add('visible');<br>  navigation(index);<br>}<br><br>elPrev.addEventListener('click', function() {<br>  jump(index - 1);<br>});<br><br>elNext.addEventListener('click', function() {<br>  jump(index + 1);<br>});<br><br>for (let i = 0; i < dots.length; i++) {<br>  dots[i].addEventListener('click', function() {<br>    jump(i);<br>  });<br>}<br><br>navigation(0);",
                 dom: function() {
-                    return carousel.bind(carousel, true);
+                    return dom.carousel(true);
                 },
                 solution: function() {
                     var elPrev = document.querySelector('.prev');
@@ -3399,30 +3404,30 @@ let chapters = [
 
                     if (lis.length !== 5)
                         this.warn = this.warn || "Le <code>.carousel > ul</code> doit contenir 5 <code>li</code>";
-                    if (elHasClass(dots[0], 'active') !== true)
+                    if (helpers.elHasClass(dots[0], 'active') !== true)
                         this.warn = this.warn || "Le premier indicateur doit avoir la classe <code>active</code> lorsque le premier élément est affiché";
 
                     dots[2].click();
-                    if (elHasClass(dots[0], 'active') !== false)
+                    if (helpers.elHasClass(dots[0], 'active') !== false)
                         this.warn = this.warn || "Après un clic le troisième indicateur, le premier indicateur ne doit pas avoir la classe <code>active</code>";
-                    if (elHasClass(dots[2], 'active') !== true)
+                    if (helpers.elHasClass(dots[2], 'active') !== true)
                         this.warn = this.warn || "Après un clic le troisième indicateur, le troisième indicateur doit avoir la classe <code>active</code>";
 
                     elNext.click();
-                    if (elHasClass(dots[2], 'active') !== false)
+                    if (helpers.elHasClass(dots[2], 'active') !== false)
                         this.warn = this.warn || "Après un clic le troisième indicateur puis sur suivant, le troisième indicateur ne doit pas avoir la classe <code>active</code>";
-                    if (elHasClass(dots[3], 'active') !== true)
+                    if (helpers.elHasClass(dots[3], 'active') !== true)
                         this.warn = this.warn || "Après un clic le troisième indicateur puis sur suivant, le quatrième indicateur doit avoir la classe <code>active</code>";
 
                     dots[0].click();
-                    if (elHasClass(dots[3], 'active') !== false)
+                    if (helpers.elHasClass(dots[3], 'active') !== false)
                         this.warn = this.warn || "Après un clic le premier indicateur, le troisième indicateur ne doit pas avoir la classe <code>active</code>";
-                    if (elHasClass(dots[0], 'active') !== true)
+                    if (helpers.elHasClass(dots[0], 'active') !== true)
                         this.warn = this.warn || "Après un clic le premier indicateur, le premier indicateur doit avoir la classe <code>active</code>";
 
-                    if (elHasClass(elPrev, 'hidden') !== true)
+                    if (helpers.elHasClass(elPrev, 'hidden') !== true)
                         this.warn = this.warn || "La flêche de gauche doit être masquée quand le premier élément est affiché";
-                    if (elHasClass(elNext, 'hidden') !== false)
+                    if (helpers.elHasClass(elNext, 'hidden') !== false)
                         this.warn = this.warn || "La flêche de gauche doit être affichée quand le premier élément est affiché";
 
                     return !this.warn;
@@ -3489,11 +3494,11 @@ let chapters = [
                     if (rightTooltip.offsetParent)
                         this.warn = this.warn || "Le tooltip doit être masqué tant que le label n'a pas été survolé";
 
-                    mouseevent(rightLabel, 'mouseenter');
+                    helpers.mouseevent(rightLabel, 'mouseenter');
                     if (!rightTooltip.offsetParent)
                         this.warn = this.warn || "Le tooltip n'est pas affiché lors du survol du label";
 
-                    mouseevent(rightLabel, 'mouseleave');
+                    helpers.mouseevent(rightLabel, 'mouseleave');
                     if (rightTooltip.offsetParent)
                         this.warn = this.warn || "Le tooltip n'est pas masqué après la sortie d'un survol du label";
 
@@ -3506,7 +3511,7 @@ let chapters = [
                 excerpt: "L'approche précédente n'est pas très simple à l'usage puisqu'il faut prévoir une balise dans le DOM pour chaque tooltip à afficher. Une solution plus flexible consiste à créer la balise du tooltip à la demande, pour un élément cible et de la positionner par rapport à cette dernière, au dessus, à droite, etc. Pour n'imposer aucune contrainte à l'élément cible, l'ajout du tooltip dans le DOM se fait couramment à la racine du <code>&lt;body&gt;</code> et est masqué par défaut.<br><br>Pour positionner un élément en absolu à côté d'un autre élément de la page, il est possible de récupérer la position exacte de la cible dans le viewport (la partie visible de la page) avec <code>element.getBoundingClientRect().top</code> puis de lui additionner la partie déjà scrollée avec <code>window.pageYOffset</code>.",
                 solved: "var tooltip = function(target) {<br>  var el = document.createElement('div');<br>  el.className = 'ui inverted black label tooltip';<br>  el.style.position = 'absolute';<br><br>  document.body.appendChild(el);<br><br>  target.addEventListener('mouseenter', function() {<br>    /* display before getting width, otherwise width is zero */<br>    el.style.display = 'block';<br>    el.innerHTML = target.dataset.tooltip;<br><br>    var rect = target.getBoundingClientRect();<br>    var top = window.pageYOffset + rect.top;<br>    var left = window.pageXOffset + rect.left + target.offsetWidth;<br>    <br>    el.style.left = left + 'px';<br>    el.style.top = top + 'px';<br>  });<br><br>  target.addEventListener('mouseleave', function() {<br>    el.style.display = 'none';<br>  });<br>};<br><br>var labels = document.querySelectorAll('[data-tooltip]');<br>for (var i = 0; i < labels.length; i++) {<br>  tooltip(labels[i]);<br>}",
                 dom: function() {
-                    return tooltip.bind(tooltip);
+                    return dom.tooltip();
                 },
                 reload: function() {
                     var tooltips = document.querySelectorAll('.tooltip');
@@ -3522,19 +3527,19 @@ let chapters = [
                     if (!tooltips[1] || tooltips[1].offsetParent)
                         this.warn = this.warn || "Le tooltip n°2 doit être masqué tant que le label n°2 n'a pas été survolé";
 
-                    mouseevent(labels[1], 'mouseenter');
+                    helpers.mouseevent(labels[1], 'mouseenter');
                     if (!tooltips[1] || !tooltips[1].offsetParent)
                         this.warn = this.warn || "Le tooltip n°2 n'est pas affiché lors du survol du label n°2";
 
-                    mouseevent(labels[1], 'mouseleave');
+                    helpers.mouseevent(labels[1], 'mouseleave');
                     if (!tooltips[1] || tooltips[1].offsetParent)
                         this.warn = this.warn || "Le tooltip n°2 n'est pas masqué après la sortie d'un survol du label n°2";
 
-                    mouseevent(labels[3], 'mouseenter');
+                    helpers.mouseevent(labels[3], 'mouseenter');
                     if (!tooltips[3] || !tooltips[3].offsetParent)
                         this.warn = this.warn || "Le tooltip n°4 n'est pas affiché lors du survol du label n°4";
 
-                    mouseevent(labels[3], 'mouseleave');
+                    helpers.mouseevent(labels[3], 'mouseleave');
                     if (!tooltips[3] || tooltips[3].offsetParent)
                         this.warn = this.warn || "Le tooltip n°4 n'est pas masqué après la sortie d'un survol du label n°4";
 
@@ -3546,7 +3551,7 @@ let chapters = [
                 description: "Pour chacun des labels dotés de la propriété <code>data-tooltip</code> créer un <code>&lt;div&gt;</code> à la racine du <code>&lt;body&gt;</code> dont :<ul><li>le contenu soit égal à la propriété <code>data-tooltip</code> du label ciblé</li><li>la position soit fonction de la propriété <code>data-position</code> du label ciblé (<code>left</code> indiquant que le tooltip doit apparaitre à gauche du label, <code>top</code> au dessus, etc)</li></ul>",
                 solved: "var tooltip = function(target) {<br>  var el = document.createElement('div');<br>  el.className = 'ui inverted black label tooltip';<br>  el.style.position = 'absolute';<br><br>  document.body.appendChild(el);<br><br>  target.addEventListener('mouseenter', function() {<br>    /* display before getting width, otherwise width is zero */<br>    el.style.display = 'block';<br>    el.innerHTML = target.dataset.tooltip;<br><br>    var rect = target.getBoundingClientRect();<br>    var top = window.pageYOffset + rect.top;<br>    var left = window.pageXOffset + rect.left;<br><br>    switch (target.dataset.position) {<br>      case 'left':<br>        left -= el.offsetWidth;<br>      break;<br>      case 'top':<br>        top -= el.offsetHeight;<br>        left = left + target.offsetWidth / 2 - el.offsetWidth / 2;<br>      break;<br>      case 'bottom':<br>        top += el.offsetHeight;<br>        left = left + target.offsetWidth / 2 - el.offsetWidth / 2;<br>      break;<br>      default:<br>        left += target.offsetWidth;<br>      break;<br>    }<br>    el.style.left = left + 'px';<br>    el.style.top = top + 'px';<br>  });<br><br>  target.addEventListener('mouseleave', function() {<br>    el.style.display = 'none';<br>  });<br>};<br><br>var labels = document.querySelectorAll('[data-tooltip]');<br>for (var i = 0; i < labels.length; i++) {<br>  tooltip(labels[i]);<br>}",
                 dom: function() {
-                    return tooltip.bind(tooltip);
+                    return dom.tooltip();
                 },
                 reload: function() {
                     var tooltips = document.querySelectorAll('.tooltip');
@@ -3559,14 +3564,14 @@ let chapters = [
                     if (labels.length !== tooltips.length || tooltips.length !== 4)
                         this.warn = this.warn || "Un tooltip doit être créé dans le DOM pour chaque label";
 
-                    mouseevent(labels[1], 'mouseenter');
+                    helpers.mouseevent(labels[1], 'mouseenter');
                     if (!tooltips[1] || !tooltips[1].offsetParent)
                         this.warn = this.warn || "Le tooltip n°2 n'est pas affiché lors du survol du label n°2";
                     if (!tooltips[1] || tooltips[1].getBoundingClientRect().left > labels[1].getBoundingClientRect().left)
                         this.warn = this.warn || "Le tooltip n°2 doit être situé sur la gauche du label n°2";
 
-                    mouseevent(labels[1], 'mouseleave');
-                    mouseevent(labels[2], 'mouseenter');
+                    helpers.mouseevent(labels[1], 'mouseleave');
+                    helpers.mouseevent(labels[2], 'mouseenter');
                     if (!tooltips[2] || !tooltips[2].offsetParent)
                         this.warn = this.warn || "Le tooltip n°3 n'est pas affiché lors du survol du label n°3";
                     if (!tooltips[2] || tooltips[2].getBoundingClientRect().top > labels[2].getBoundingClientRect().top)
@@ -3587,14 +3592,14 @@ let chapters = [
                 excerpt: "<strong>Ne pas utiliser la propriété <code>async</code> du script ni son <code>callback</code></strong>. Bien qu'il s'agisse de la méthode classique pour manipuler une carte google (l'affichage de la carte ne bloque pas le chargement du reste de la page), cette méthode n'est pas compatible avec ce tutoriel. Sans callback, le script de la librairie doit être avant le script qui l'utilise, et ce dernier n'a pas besoin d'une fonction englobante (puisque la page est bloquée tant que google maps n'est pas chargé), et peut être directement déclaré <code>var map = new google.maps.Map(..)</code>.<br><br>Il est possible d'obtenir une clé d'usage via la documentation (les librairies ont courament des clés afin d'effectuer un suivi / limite d'usage).",
                 solved: "/* à ajouter avant le script principal<br>&lt;script src=\"https://maps.googleapis.com/maps/api/js?key=\"&gt;&lt;/script&gt;<br>*/<br>var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});",
                 dom: function() {
-                    return maps.bind(maps);
+                    return dom.maps();
                 },
                 solution: function() {
                     if (!map)
                         return;
 
-                    return mapsWait().then(function() {
-                        if (near({lat: map.center.lat(), lng: map.center.lng()}, {lat: 48.86, lng: 2.35}) !== true)
+                    return dom.mapsWait().then(function() {
+                        if (dom.near({lat: map.center.lat(), lng: map.center.lng()}, {lat: 48.86, lng: 2.35}) !== true)
                             this.warn = this.warn || "Le centre le carte doit être positionné proche de <code>{lat: 48.86, lng: 2.35}</code>";
                         if (map.zoom !== 12)
                             this.warn = this.warn || "Le zoom de la carte doit être égal à <code>12</code>";
@@ -3607,14 +3612,14 @@ let chapters = [
                 description: "Créer une variable <code>marker</code> et l'initialiser avec un marqueur de carte (le célèbre pin rouge) aux coordonnées du pont des arts de Paris.",
                 solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});",
                 dom: function() {
-                    return maps.bind(maps);
+                    return dom.maps();
                 },
                 solution: function() {
                     if (!map || !marker)
                         return;
 
-                    return mapsWait().then(function() {
-                        if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
+                    return dom.mapsWait().then(function() {
+                        if (dom.near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
                             this.warn = this.warn || "Le marqueur doit être positionné proche de <code>{lat: 48.8583, lng: 2.3353}</code>";
                         return !this.warn;
                     }.bind(this));
@@ -3625,21 +3630,21 @@ let chapters = [
                 description: "Afficher « Le Pont des Arts » dans une <code>infowindow</code> au clic sur le point d'intérêt. Cette fenêtre doit se fermer au clic sur la carte.",
                 solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});<br><br>var infowindow = new google.maps.InfoWindow({<br>  content: 'Le Pont des Arts'<br>});<br><br>marker.addListener('click', function() {<br>  infowindow.open(map, marker);<br>});<br><br>map.addListener('click', function() {<br>  infowindow.close();<br>});",
                 dom: function() {
-                    return maps.bind(maps, true);
+                    return dom.maps(true);
                 },
                 solution: function() {
                     if (!map || !marker)
                         return;
 
-                    return mapsWait().then(function() {
+                    return dom.mapsWait().then(function() {
                         google.maps.event.trigger(marker, 'click');
 
                         let basic = true;
-                        if (elContains(document.querySelector('.gm-style-iw div div'), 'Le Pont des Arts') !== true)
+                        if (helpers.elContains(document.querySelector('.gm-style-iw div div'), 'Le Pont des Arts') !== true)
                             this.warn = this.warn || "Le popin doit afficher « Le Pont des Arts »";
 
                         google.maps.event.trigger(map, 'click');
-                        if (elContains(document.querySelector('.gm-style-iw div div'), 'Le Pont des Arts') !== false)
+                        if (helpers.elContains(document.querySelector('.gm-style-iw div div'), 'Le Pont des Arts') !== false)
                             this.warn = this.warn || "Au clic sur la carte, le popin doit être masqué";
 
                         return !this.warn;
@@ -3652,20 +3657,20 @@ let chapters = [
                 excerpt: "La librairie offre un géocodeur pour transformer une adresse en coordonnées latitude, longitude.",
                 solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});<br><br>var infowindow = new google.maps.InfoWindow({<br>  content: 'Le Pont des Arts'<br>});<br><br>marker.addListener('click', function() {<br>  infowindow.open(map, marker);<br>});<br><br>map.addListener('click', function() {<br>  infowindow.close();<br>});<br><br>geocoder = new google.maps.Geocoder();<br>document.querySelector('.places input').addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13)<br>    return;<br><br>  geocoder.geocode({'address': event.target.value}, function(results, status) {<br>    if (status !== google.maps.GeocoderStatus.OK)<br>      return;<br><br>    map.setCenter(results[0].geometry.location);<br>    marker.setPosition(results[0].geometry.location);<br>  });<br>});",
                 dom: function() {
-                    return maps.bind(maps, true);
+                    return dom.maps(true);
                 },
                 solution: function() {
                     if (!map || !marker)
                         return;
 
-                    return mapsWait().then(function() {
+                    return dom.mapsWait().then(function() {
                         let input = document.querySelector('.places input');
 
-                        if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
+                        if (dom.near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
                             this.warn = this.warn || "Le marqueur doit être positionné proche de <code>{lat: 48.8583, lng: 2.3353}</code>";
 
                         input.value = '29 Rue des Trois Frères';
-                        keypress(input, 13);
+                        helpers.keypress(input, 13);
 
                         return Promise
                         .resolve()
@@ -3674,23 +3679,23 @@ let chapters = [
                             return new Promise(function(res, rej) { setTimeout(res, 100); });
                         })
                         .then(function() {
-                            if (near( {lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8848, lng: 2.3407}) !== true)
+                            if (dom.near( {lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8848, lng: 2.3407}) !== true)
                                 this.warn = this.warn || "Après une recherche sur « 29 Rue des Trois Frères », la marqueur doit être positionné proche de <code>{lat: 48.8848, lng: 2.3407}</code>";
-                            if (near({lat: map.center.lat(), lng: map.center.lng()}, {lat: 48.8848, lng: 2.3407}) !== true)
+                            if (dom.near({lat: map.center.lat(), lng: map.center.lng()}, {lat: 48.8848, lng: 2.3407}) !== true)
                                 this.warn = this.warn || "Après une recherche sur « 29 Rue des Trois Frères », la carte doit être centrée proche de <code>{lat: 48.8848, lng: 2.3407}</code>";
 
                             input.value = '13 Boulevard Garibaldi';
-                            keypress(input, 13);
+                            helpers.keypress(input, 13);
                         }.bind(this))
                         .then(function() {
                             // wait for the geocoder
                             return new Promise(function(res, rej) { setTimeout(res, 100); });
                         })
                         .then(function() {
-                            if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8476, lng: 2.3036}) !== true)
+                            if (dom.near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8476, lng: 2.3036}) !== true)
                                 this.warn = this.warn || "Après une recherche sur « 13 Boulevard Garibaldi », le marqueur doit être positionné proche de <code>{lat: 48.8476, lng: 2.3036}</code>";
 
-                            if (near({lat: map.center.lat(), lng: map.center.lng()}, {lat: 48.8476, lng: 2.3036}) !== true)
+                            if (dom.near({lat: map.center.lat(), lng: map.center.lng()}, {lat: 48.8476, lng: 2.3036}) !== true)
                                 this.warn = this.warn || "Après une recherche sur « 13 Boulevard Garibaldi », le carte doit être centrée proche de <code>{lat: 48.8476, lng: 2.3036}</code>";
 
                             return !this.warn;
@@ -3704,20 +3709,20 @@ let chapters = [
                 excerpt: "Le navigateur est en mesure d'acèder à <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/API/Geolocation/Using_geolocation\">sa position géographique</a>, cepdendant, il a besoin de l'autorisation de l'utilisateur pour ce faire.",
                 solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});<br><br>var infowindow = new google.maps.InfoWindow({<br>  content: 'Le Pont des Arts'<br>});<br><br>marker.addListener('click', function() {<br>  infowindow.open(map, marker);<br>});<br><br>map.addListener('click', function() {<br>  infowindow.close();<br>});<br><br>geocoder = new google.maps.Geocoder();<br>document.querySelector('.places input').addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13)<br>    return;<br><br>  if (event.target.value === 'ici') {<br>    return navigator.geolocation.getCurrentPosition(function(position) {<br>      map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude});<br>      marker.setPosition({lat: position.coords.latitude, lng: position.coords.longitude});<br>    });<br>  }<br><br>  geocoder.geocode({'address': event.target.value}, function(results, status) {<br>    if (status !== google.maps.GeocoderStatus.OK)<br>      return;<br><br>    map.setCenter(results[0].geometry.location);<br>    marker.setPosition(results[0].geometry.location);<br>  });<br>});",
                 dom: function() {
-                    return maps.bind(maps, true);
+                    return dom.maps(true);
                 },
                 solution: function() {
                     if (!map || !marker)
                         return;
 
-                    return mapsWait().then(function() {
+                    return dom.mapsWait().then(function() {
                         let input = document.querySelector('.places input');
 
-                        if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
+                        if (dom.near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
                             this.warn = this.warn || "Le marqueur doit être positionné proche de <code>{lat: 48.8583, lng: 2.3353}</code>";
 
                         input.value = 'ici';
-                        keypress(input, 13);
+                        helpers.keypress(input, 13);
 
                         return Promise
                         .resolve()
@@ -3733,7 +3738,7 @@ let chapters = [
                             return new Promise(function(res, rej) { setTimeout(function() { res(geoloc); }, 100); });
                         })
                         .then(function(geoloc) {
-                            if (near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: geoloc.coords.latitude, lng: geoloc.coords.longitude}) !== true)
+                            if (dom.near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: geoloc.coords.latitude, lng: geoloc.coords.longitude}) !== true)
                                 this.warn = this.warn || "Après une recherche sur « ici », le marqueur doit être positionné proche de la position de l'utilisateur";
 
                             return !this.warn;
@@ -3753,19 +3758,19 @@ let chapters = [
                 excerpt: "Un écouteur d'événement reçoit en premier paramètre l'événement qui l'a déclenché. s'il s'agit d'un événement clavier <code>keypress</code> celui indique via <code>event.keyCode</code> quelle touche a été saisie, et via <code>event.target.value</code> quelle est la valeur actuelle du champ de formulaire.<br><br><strong>Exemple</strong> : <pre><code>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) { <br>  console.log(event.keyCode, event.target.value); <br>});</code></pre> affiche ces deux informations à chaque saisie dans le premier <code>input</code> de la page.",
                 solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    var ul = document.querySelector('.todos ul');<br>    ul.innerHTML = '&lt;li class=\"item\"&gt;&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value + '&lt;/li&gt;';<br>  }<br>});",
                 dom: function() {
-                    return todolist.bind(todolist);
+                    return dom.todolist();
                 },
                 solution: function() {
                     let input = document.querySelector('input');
 
                     input.value = 'apple';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     let lis = document.querySelectorAll('.todos ul li');
 
                     if (lis.length !== 1)
                         this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, un <code>li</code> doit être créé dans le <code>.todos ul</code>";
-                    if (elContains(lis[0], 'apple') !== true)
+                    if (helpers.elContains(lis[0], 'apple') !== true)
                         this.warn = this.warn || "Le <code>li</code> doit contenir le mot saisi dans l'input";
 
                     return !this.warn;
@@ -3776,18 +3781,18 @@ let chapters = [
                 description: "Si le champ de formulaire est vide, aucun <code>li</code> ne doit être créé. Et, losqu'un <code>li</code> est créé, le champ de formulaire doit être vidé.",
                 solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    var ul = document.querySelector('.todos ul');<br>    ul.innerHTML += '&lt;li class=\"item\"&gt;&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value + '&lt;/li&gt;';<br>    event.target.value ='';<br>  }<br>});",
                 dom: function() {
-                    return todolist.bind(todolist);
+                    return dom.todolist();
                 },
                 solution: function() {
                     let input = document.querySelector('input');
                     input.value = '';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     input.value = 'apple';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     input.value = 'pear';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     let lis = document.querySelectorAll('.todos ul li');
 
@@ -3795,9 +3800,9 @@ let chapters = [
                         this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, l'input doit être vidé";
                     if (lis.length !== 2)
                         this.warn = this.warn || "À la saisie d'un mot vide, puis d'entrée, aucun <code>li</code> ne doit être créé";
-                    if (elContains(lis[0], 'apple') !== true)
+                    if (helpers.elContains(lis[0], 'apple') !== true)
                         this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, un <code>li</code> doit être créé";
-                    if (elContains(lis[1], 'pear') !== true)
+                    if (helpers.elContains(lis[1], 'pear') !== true)
                         this.warn = this.warn || "À la saisie d'un second mot, puis d'entrée, un second <code>li</code> doit être créé";
 
                     return !this.warn;
@@ -3809,15 +3814,15 @@ let chapters = [
                 excerpt: "À la création d'un élément dans le DOM, il est possible d'ajouter un écouteur d'événement sur un de ses sous éléments, ou sur lui même.",
                 solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    var ul = document.querySelector('.todos ul');<br>    var li = document.createElement('li');<br>    li.className = 'item';<br>    li.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value;<br>    li.querySelector('i').addEventListener('click', function() {<br>      li.remove();<br>    });<br>    ul.appendChild(li);<br>    event.target.value = '';<br>  }<br>});",
                 dom: function() {
-                    return todolist.bind(todolist);
+                    return dom.todolist();
                 },
                 solution: function() {
                     let input = document.querySelector('input');
                     input.value = 'apple';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     input.value = 'pear';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     let remove = document.querySelector('.todos ul .remove.icon');
                     remove.click();
@@ -3826,7 +3831,7 @@ let chapters = [
 
                     if (lis.length !== 1)
                         this.warn = this.warn || "Après l'ajout d'un <code>li</code> un clic sur la croix du premier doit le supprimer";
-                    if (elContains(lis[0], 'pear') !== true)
+                    if (helpers.elContains(lis[0], 'pear') !== true)
                         this.warn = this.warn || "Après l'ajout de deux <code>li</code> un clic sur la croix du premier ne doit laisser que le second dans la liste";
 
                     return !this.warn;
@@ -3837,15 +3842,15 @@ let chapters = [
                 description: "Lorsqu'un <code>li</code> est cliqué, la classe <code>done</code> doit lui être ajoutée. S'il est cliqué de nouveau, cette classe est supprimée.",
                 solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    var ul = document.querySelector('.todos ul');<br>    var li = document.createElement('li');<br>    li.className = 'item';<br>    li.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value;<br>    li.querySelector('i').addEventListener('click', function() {<br>      li.remove();<br>    });<br>    li.addEventListener('click', function() {<br>        li.classList.toggle('done');<br>    });<br>    ul.appendChild(li);<br>    event.target.value = '';<br>  }<br>});",
                 dom: function() {
-                    return todolist.bind(todolist);
+                    return dom.todolist();
                 },
                 solution: function() {
                     let input = document.querySelector('input');
                     input.value = 'apple';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     input.value = 'pear';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     let lis = document.querySelectorAll('.todos ul li');
 
@@ -3857,9 +3862,9 @@ let chapters = [
 
                     lis = document.querySelectorAll('.todos ul li');
 
-                    if (elContains(lis[0], 'apple') !== true)
+                    if (helpers.elContains(lis[0], 'apple') !== true)
                         this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, un <code>li</code> doit être créé";
-                    if (elContains(lis[1], 'pear') !== true )
+                    if (helpers.elContains(lis[1], 'pear') !== true )
                         this.warn = this.warn || "À la saisie d'un second mot, puis d'entrée, un second <code>li</code> doit être créé";
 
                     if (lis[0].classList.contains('done') !== true)
@@ -3889,15 +3894,15 @@ let chapters = [
                 description: "Créer une variable <code>todos</code> pour stocker l'état du composant (combien d'éléments, lesquels sont cochés, etc). À chaque appui sur entrée dans le champ de formulaire, ajouter un object <code>{name: event.target.value, done: false}</code> au tableau. À chaque modification de ce tableau, appeller une méthode <code>render</code> chargée de mettre à jour l'affichage.",
                 solved: "var todos = [];<br>var render = function() {<br>  var ul = document.querySelector('.todos ul');<br>  ul.innerHTML = '';<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br>    let li = document.createElement('li');<br>    li.classList.add('item');<br>    li.classList.toggle('done', todo.done);<br>    li.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + todo.name;<br>    li.querySelector('i').addEventListener('click', function() {<br>      todos.splice(i, 1);<br>      render();<br>    });<br>    li.addEventListener('click', function() {<br>      todo.done = !todo.done;<br>      render();<br>    });<br>    ul.appendChild(li);<br>  }<br>}<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});",
                 dom: function() {
-                    return todolist.bind(todolist);
+                    return dom.todolist();
                 },
                 solution: function() {
                     let input = document.querySelector('input');
                     input.value = 'apple';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     input.value = 'pear';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     let lis = document.querySelectorAll('.todos ul li');
                     if (lis.length !== 2)
@@ -3920,37 +3925,37 @@ let chapters = [
                 description: "À chaque création d'un todo, le texte de <code>.filter-todo</code> doit afficher le nombre total de todo non cochés (sans le classe <code>done</code>). Le texte de <code>.filter-done</code> affiche quant à lui, le nombre total de todo cochés (avec la classe <code>done</code>). Penser au pluriel pour « 0 fait », « 1 fait » et « 2 faits ».",
                 solved: "var todos = [];<br>var render = function() {<br>  var ul = document.querySelector('.todos ul');<br>  ul.innerHTML = '';<br>  var todoCount = 0, doneCount = 0;<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br><br>    if (todo.done)<br>      doneCount++;<br>    else<br>      todoCount++;<br><br>    let li = document.createElement('li');<br>    li.classList.add('item');<br>    li.classList.toggle('done', todo.done);<br>    li.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + todo.name;<br><br>    li.querySelector('i').addEventListener('click', function() {<br>      todos.splice(i, 1);<br>      render();<br>    });<br>    li.addEventListener('click', function() {<br>      todo.done = !todo.done;<br>      render();<br>    });<br><br>    ul.appendChild(li);<br>  }<br><br>  document.querySelector('.filter-todo').innerHTML = todoCount + ' à faire';<br>  document.querySelector('.filter-done').innerHTML = doneCount + (doneCount > 1 ? ' faits' : ' fait');<br>}<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});",
                 dom: function() {
-                    return todolist.bind(todolist);
+                    return dom.todolist();
                 },
                 solution: function() {
                     let input = document.querySelector('input');
                     input.value = 'apple';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     input.value = 'pear';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     let lis = document.querySelectorAll('.todos ul li');
                     let todoCount = document.querySelector('.filter-todo');
                     let doneCount = document.querySelector('.filter-done');
 
-                    if (elContains(todoCount, '2 à faire') !== true)
+                    if (helpers.elContains(todoCount, '2 à faire') !== true)
                         this.warn = this.warn || "Après la création de 2 todos, le compte todo doit indiquer « 2 à faire »"
-                    if (elContains(doneCount, '0 fait') !== true)
+                    if (helpers.elContains(doneCount, '0 fait') !== true)
                         this.warn = this.warn || "Après la création de 2 todos, le compte done doit indiquer « 0 fait »"
 
                     lis[0].click();
                     lis = document.querySelectorAll('.todos ul li');
-                    if (elContains(todoCount, '1 à faire') !== true)
+                    if (helpers.elContains(todoCount, '1 à faire') !== true)
                         this.warn = this.warn || "Après la création de 2 todos et le clic sur l'un des deux, le compte todo doit indiquer « 1 à faire »"
-                    if (elContains(doneCount, '1 fait') !== true)
+                    if (helpers.elContains(doneCount, '1 fait') !== true)
                         this.warn = this.warn || "Après la création de 2 todos et le clic sur l'un des deux, le compte done doit indiquer « 1 fait »"
 
                     lis[1].click();
                     lis = document.querySelectorAll('.todos ul li');
-                    if (elContains(todoCount, '0 à faire') !== true)
+                    if (helpers.elContains(todoCount, '0 à faire') !== true)
                         this.warn = this.warn || "Après la création de 2 todos et le clic sur les deux, le compte todo doit indiquer « 0 à faire »"
-                    if (elContains(doneCount, '2 faits') !== true)
+                    if (helpers.elContains(doneCount, '2 faits') !== true)
                         this.warn = this.warn || "Après la création de 2 todos et le clic sur les deux, le compte done doit indiquer « 2 faits »"
 
                     return !this.warn;
@@ -3961,18 +3966,18 @@ let chapters = [
                 description: "Au clic sur <code>.filter-done</code> cet élément récupère la classe <code>active</code> et seuls les todos terminés sont affichés. Idem pour <code>.filter-todo</code>. Seul un de ces deux boutons peut être actif à la fois. Cliquer sur un bouton actif le désactive (et affiche ainsi tous les todos). Plutôt que se baser sur le DOM pour savoir quel filtre est activé, utiliser une variable à 3 états, et modifier la méthode <code>render</code> pour la mise à jour de la classe <code>active</code> sur les boutons.",
                 solved: "var todos = [];<br>var filter = 'all';<br>var render = function() {<br>  var ul = document.querySelector('.todos ul');<br>  ul.innerHTML = '';<br>  var todoCount = 0, doneCount = 0;<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br><br>    if (todo.done)<br>      doneCount++;<br>    else<br>      todoCount++;<br><br>    if ((filter === 'todo' && todo.done) || (filter === 'done' && !todo.done)) {<br>      continue;<br>    }<br><br>    let li = document.createElement('li');<br>    li.classList.add('item');<br>    li.classList.toggle('done', todo.done);<br>    li.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + todo.name;<br><br>    li.querySelector('i').addEventListener('click', function() {<br>      todos.splice(i, 1);<br>      render();<br>    });<br>    li.addEventListener('click', function() {<br>      todo.done = !todo.done;<br>      render();<br>    });<br><br>    ul.appendChild(li);<br>  }<br><br>  document.querySelector('.filter-todo').innerHTML = todoCount + ' à faire';<br>  document.querySelector('.filter-done').innerHTML = doneCount + (doneCount > 1 ? ' faits' : ' fait');<br><br>  document.querySelector('.filter-todo').classList.toggle('active', filter === 'todo');<br>  document.querySelector('.filter-done').classList.toggle('active', filter === 'done');<br>}<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});<br><br>document.querySelector('.filter-todo').addEventListener('click', function() {<br>  if (filter !== 'todo')<br>    filter = 'todo';<br>  else<br>    filter = 'all';<br>  render();<br>});<br><br>document.querySelector('.filter-done').addEventListener('click', function() {<br>  if (filter !== 'done')<br>    filter = 'done';<br>  else<br>    filter = 'all';<br>  render();<br>});",
                 dom: function() {
-                    return todolist.bind(todolist);
+                    return dom.todolist();
                 },
                 solution: function() {
                     let input = document.querySelector('input');
                     input.value = 'apple';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     input.value = 'pear';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     input.value = 'banana';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     let lis = document.querySelectorAll('.todos ul li');
                     let todoCount = document.querySelector('.filter-todo');
@@ -3982,9 +3987,9 @@ let chapters = [
 
                     if (lis.length !== 3)
                         this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, à trois reprises, trois <code>li</code> doivent être créés dans le <code>.todos ul</code>";
-                    if (elContains(todoCount, '2 à faire') !== true)
+                    if (helpers.elContains(todoCount, '2 à faire') !== true)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, le compte todo doit indiquer « 2 à faire »";
-                    if (elContains(doneCount, '1 fait') !== true)
+                    if (helpers.elContains(doneCount, '1 fait') !== true)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, le compte done doit indiquer « 1 fait »";
 
                     todoCount.click();
@@ -4001,11 +4006,11 @@ let chapters = [
                     lis = document.querySelectorAll('.todos ul li');
                     if (lis.length !== 1)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » seul le todo concerné est affiché";
-                    if (elContains(lis[0], 'pear') !== true)
+                    if (helpers.elContains(lis[0], 'pear') !== true)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » ce todo contient toujours la valeur d'origine";
-                    if (elContains(todoCount, '2 à faire') !== true)
+                    if (helpers.elContains(todoCount, '2 à faire') !== true)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » le compte todo doit indiquer « 2 à faire »";
-                    if (elContains(doneCount, '1 fait') !== true)
+                    if (helpers.elContains(doneCount, '1 fait') !== true)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » le compte done doit indiquer « 1 fait »"
 
                     return !this.warn;
@@ -4017,18 +4022,18 @@ let chapters = [
                 excerpt: "Structurer un programme facilite sa compréhension et sa modification future. Il est ainsi possible de découper une application en plusieurs vues. Pour cet exemple, une vue avec une logique identique pour chaque todo, une vue pour le filtre et une vue générale. Puis les responsabilités peuvent être réparties entre ces vues. La vue d'un item est la seule responsable de cocher un todo, la vue filtre, la seule responsable de compter combien de todo sont cochés, et la vue générale de coordonner le tout.",
                 solved: "var TodoView = function(todo, options) {<br>  var view = {<br>    el: document.createElement('li'),<br>    render: function() {<br>      view.el.classList.toggle('done', todo.done);<br>      view.el.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + todo.name;<br>    }<br>  }<br><br>  view.el.classList.add('item');<br>  view.render();<br>  <br>  view.el.querySelector('i').addEventListener('click', function() {<br>    options.onRemove();<br>  });<br>  <br>  view.el.addEventListener('click', function () {<br>    todo.done = !todo.done;<br>    view.render();<br><br>    options.onUpdate();<br>  });<br>  <br>  return view;<br>}<br><br>var todos = [];<br>var filter = 'all';<br>var render = function () {<br>  var ul = document.querySelector('.todos ul');<br>  ul.innerHTML = '';<br>  var todoCount = 0, doneCount = 0;<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br><br>    if (todo.done)<br>      doneCount++;<br>    else<br>      todoCount++;<br><br>    if ((filter === 'todo' && todo.done) || (filter === 'done' && !todo.done)) {<br>      continue;<br>    }<br><br>    var view = TodoView(todo, {<br>      onUpdate: render,<br>      onRemove: function() {<br>        todos.splice(i, 1);<br>        render();<br>      }<br>    });<br><br>    ul.appendChild(view.el);<br>  }<br><br>  document.querySelector('.filter-todo').innerHTML = todoCount + ' à faire';<br>  document.querySelector('.filter-done').innerHTML = doneCount + (doneCount > 1 ? ' faits' : ' fait');<br><br>  document.querySelector('.filter-todo').classList.toggle('active', filter === 'todo');<br>  document.querySelector('.filter-done').classList.toggle('active', filter === 'done');<br>}<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function (event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});<br><br>document.querySelector('.filter-todo').addEventListener('click', function () {<br>  if (filter !== 'todo')<br>    filter = 'todo';<br>  else<br>    filter = 'all';<br>  render();<br>});<br><br>document.querySelector('.filter-done').addEventListener('click', function () {<br>  if (filter !== 'done')<br>    filter = 'done';<br>  else<br>    filter = 'all';<br>  render();<br>});",
                 dom: function() {
-                    return todolist.bind(todolist);
+                    return dom.todolist();
                 },
                 solution: function() {
                     let input = document.querySelector('input');
                     input.value = 'apple';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     input.value = 'pear';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     input.value = 'banana';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     let lis = document.querySelectorAll('.todos ul li');
                     let todoCount = document.querySelector('.filter-todo');
@@ -4038,9 +4043,9 @@ let chapters = [
 
                     if (lis.length !== 3)
                         this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, à trois reprises, trois <code>li</code> doivent être créés dans le <code>.todos ul</code>";
-                    if (elContains(todoCount, '2 à faire') !== true)
+                    if (helpers.elContains(todoCount, '2 à faire') !== true)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, le compte todo doit indiquer « 2 à faire »";
-                    if (elContains(doneCount, '1 fait') !== true)
+                    if (helpers.elContains(doneCount, '1 fait') !== true)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, le compte done doit indiquer « 1 fait »";
 
                     todoCount.click();
@@ -4057,11 +4062,11 @@ let chapters = [
                     lis = document.querySelectorAll('.todos ul li');
                     if (lis.length !== 1)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » seul le todo concerné est affiché";
-                    if (elContains(lis[0], 'pear') !== true)
+                    if (helpers.elContains(lis[0], 'pear') !== true)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » ce todo contient toujours la valeur d'origine";
-                    if (elContains(todoCount, '2 à faire') !== true)
+                    if (helpers.elContains(todoCount, '2 à faire') !== true)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » le compte todo doit indiquer « 2 à faire »";
-                    if (elContains(doneCount, '1 fait') !== true)
+                    if (helpers.elContains(doneCount, '1 fait') !== true)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » le compte done doit indiquer « 1 fait »"
 
                     return !this.warn;
@@ -4072,18 +4077,18 @@ let chapters = [
                 description: "Créer une fonction nommée <code>FilterView</code> dotée de deux arguments : le tableau todos et un dictionnaire <code>options</code> (avec l'attribut <code>onUpdate</code>). Déplacer dans cette vue tout le code ayant rapport aux filtres.<br><br>Cette fonction se charge de gérer les filtres todo / done et toutes les intéractions DOM ayant lieu sur ces éléments. Sa vue parente lui transmet une fonction à invoquer, <code>onUpdate</code>, lorsque son filtre change, afin que la vue parente se <code>render</code> à nouveau. Cette vue fille peut exposer une méthode <code>isVisible</code> prenant un todo en paramètre et indiquant s'il doit être affiché par la vue parente ou non.",
                 solved: "var TodoView = function (todo, options) {<br>  var view = {<br>    el: document.createElement('li'),<br>    render: function () {<br>      view.el.classList.toggle('done', todo.done);<br>      view.el.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + todo.name;<br>    }<br>  }<br><br>  view.el.classList.add('item');<br>  view.render();<br><br>  view.el.querySelector('i').addEventListener('click', function () {<br>    options.onRemove();<br>  });<br><br>  view.el.addEventListener('click', function () {<br>    todo.done = !todo.done;<br>    view.render();<br><br>    options.onUpdate();<br>  });<br><br>  return view;<br>}<br><br>var FilterView = function (todos, options) {<br>  var view = {<br>    state: {<br>      filter: 'all'<br>    },<br>    filterTodo: document.querySelector('.filter-todo'),<br>    filterDone: document.querySelector('.filter-done'),<br>    isVisible: function (todo) {<br>      var filter = view.state.filter;<br>      return filter === 'all' || (filter === 'todo' && !todo.done) || (filter === 'done' && todo.done);<br>    },<br>    render: function () {<br>      var todoCount = 0, doneCount = 0;<br>      for (let i = 0; i < todos.length; i++) {<br>        var todo = todos[i];<br>        if (todo.done)<br>          doneCount++;<br>        else<br>          todoCount++;<br>      }<br><br>      view.filterTodo.innerHTML = todoCount + ' à faire';<br>      view.filterDone.innerHTML = doneCount + (doneCount > 1 ? ' faits' : ' fait');<br><br>      view.filterTodo.classList.toggle('active', view.state.filter === 'todo');<br>      view.filterDone.classList.toggle('active', view.state.filter === 'done');<br>    }<br>  };<br><br>  view.filterTodo.addEventListener('click', function () {<br>    view.state.filter = (view.state.filter !== 'todo') ? 'todo' : 'all';<br>    view.render();<br><br>    options.onUpdate();<br>  });<br><br>  view.filterDone.addEventListener('click', function () {<br>    view.state.filter = (view.state.filter !== 'done') ? 'done' : 'all';<br>    view.render();<br><br>    options.onUpdate();<br>  });<br><br>  return view;<br>}<br><br>var todos = [];<br>var render = function () {<br>  var ul = document.querySelector('.todos ul');<br><br>  ul.innerHTML = '';<br>  for (let i = 0; i < todos.length; i++) {<br>    let todo = todos[i];<br><br>    if (!filterView.isVisible(todo)) {<br>      continue;<br>    }<br><br>    var todoView = TodoView(todo, {<br>      onUpdate: render,<br>      onRemove: function () {<br>        todos.splice(i, 1);<br>        view.render();<br>      }<br>    });<br><br>    ul.appendChild(todoView.el);<br>  }<br>  filterView.render();<br>};<br><br>var filterView = FilterView(todos, {<br>  onUpdate: render<br>});<br><br>var input = document.querySelector('input');<br>input.addEventListener('keypress', function (event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    todos.push({<br>      name: event.target.value,<br>      done: false<br>    });<br>    event.target.value = '';<br>    render();<br>  }<br>});",
                 dom: function() {
-                    return todolist.bind(todolist);
+                    return dom.todolist();
                 },
                 solution: function() {
                     let input = document.querySelector('input');
                     input.value = 'apple';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     input.value = 'pear';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     input.value = 'banana';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     let lis = document.querySelectorAll('.todos ul li');
                     let todoCount = document.querySelector('.filter-todo');
@@ -4093,9 +4098,9 @@ let chapters = [
 
                     if (lis.length !== 3)
                         this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, à trois reprises, trois <code>li</code> doivent être créés dans le <code>.todos ul</code>";
-                    if (elContains(todoCount, '2 à faire') !== true)
+                    if (helpers.elContains(todoCount, '2 à faire') !== true)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, le compte todo doit indiquer « 2 à faire »";
-                    if (elContains(doneCount, '1 fait') !== true)
+                    if (helpers.elContains(doneCount, '1 fait') !== true)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, le compte done doit indiquer « 1 fait »";
 
                     todoCount.click();
@@ -4112,11 +4117,11 @@ let chapters = [
                     lis = document.querySelectorAll('.todos ul li');
                     if (lis.length !== 1)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » seul le todo concerné est affiché";
-                    if (elContains(lis[0], 'pear') !== true)
+                    if (helpers.elContains(lis[0], 'pear') !== true)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » ce todo contient toujours la valeur d'origine";
-                    if (elContains(todoCount, '2 à faire') !== true)
+                    if (helpers.elContains(todoCount, '2 à faire') !== true)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » le compte todo doit indiquer « 2 à faire »";
-                    if (elContains(doneCount, '1 fait') !== true)
+                    if (helpers.elContains(doneCount, '1 fait') !== true)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » le compte done doit indiquer « 1 fait »"
 
                     return !this.warn;
@@ -4127,18 +4132,18 @@ let chapters = [
                 description: "Créer une fonction nommée <code>TodosView</code> dont le rôle est de créer le tableau <code>todos</code> et de coordonner les autres vues.",
                 solved: "var TodoView = function (todo, options) {<br>  var view = {<br>    el: document.createElement('li'),<br>    render: function () {<br>      view.el.classList.toggle('done', todo.done);<br>      view.el.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + todo.name;<br>    }<br>  }<br><br>  view.el.classList.add('item');<br>  view.render();<br><br>  view.el.querySelector('i').addEventListener('click', function () {<br>    options.onRemove();<br>  });<br><br>  view.el.addEventListener('click', function () {<br>    todo.done = !todo.done;<br>    view.render();<br><br>    options.onUpdate();<br>  });<br><br>  return view;<br>}<br><br>var FilterView = function (todos, options) {<br>  var view = {<br>    state: {<br>      filter: 'all'<br>    },<br>    filterTodo: document.querySelector('.filter-todo'),<br>    filterDone: document.querySelector('.filter-done'),<br>    isVisible: function (todo) {<br>      var filter = view.state.filter;<br>      return filter === 'all' || (filter === 'todo' && !todo.done) || (filter === 'done' && todo.done);<br>    },<br>    render: function () {<br>      var todoCount = 0, doneCount = 0;<br>      for (let i = 0; i < todos.length; i++) {<br>        var todo = todos[i];<br>        if (todo.done)<br>          doneCount++;<br>        else<br>          todoCount++;<br>      }<br><br>      view.filterTodo.innerHTML = todoCount + ' à faire';<br>      view.filterDone.innerHTML = doneCount + (doneCount > 1 ? ' faits' : ' fait');<br><br>      view.filterTodo.classList.toggle('active', view.state.filter === 'todo');<br>      view.filterDone.classList.toggle('active', view.state.filter === 'done');<br>    }<br>  };<br><br>  view.filterTodo.addEventListener('click', function () {<br>    view.state.filter = (view.state.filter !== 'todo') ? 'todo' : 'all';<br>    view.render();<br><br>    options.onUpdate();<br>  });<br><br>  view.filterDone.addEventListener('click', function () {<br>    view.state.filter = (view.state.filter !== 'done') ? 'done' : 'all';<br>    view.render();<br><br>    options.onUpdate();<br>  });<br><br>  return view;<br>}<br><br>var TodosView = function (ul) {<br>  var view = {<br>    state: {<br>      todos: []<br>    },<br>    render: function () {<br>      var todos = view.state.todos;<br>      var filterView = view.filterView;<br><br>      ul.innerHTML = '';<br>      for (let i = 0; i < todos.length; i++) {<br>        let todo = todos[i];<br><br>        if (!filterView.isVisible(todo)) {<br>          continue;<br>        }<br><br>        var todoView = TodoView(todo, {<br>          onUpdate: view.render,<br>          onRemove: function () {<br>            todos.splice(i, 1);<br>            view.render();<br>          }<br>        });<br><br>        ul.appendChild(todoView.el);<br>      }<br>      filterView.render();<br>    }<br>  }<br><br>  view.filterView = FilterView(view.state.todos, {<br>    onUpdate: view.render<br>  });<br><br>  var input = document.querySelector('input');<br>  input.addEventListener('keypress', function (event) {<br>    if (event.keyCode === 13 && event.target.value) {<br>      view.state.todos.push({<br>        name: event.target.value,<br>        done: false<br>      });<br>      event.target.value = '';<br>      view.render();<br>    }<br>  });<br>  return view;<br>}<br><br>TodosView(document.querySelector('.todos ul'));",
                 dom: function() {
-                    return todolist.bind(todolist);
+                    return dom.todolist();
                 },
                 solution: function() {
                     let input = document.querySelector('input');
                     input.value = 'apple';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     input.value = 'pear';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     input.value = 'banana';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     let lis = document.querySelectorAll('.todos ul li');
                     let todoCount = document.querySelector('.filter-todo');
@@ -4148,9 +4153,9 @@ let chapters = [
 
                     if (lis.length !== 3)
                         this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, à trois reprises, trois <code>li</code> doivent être créés dans le <code>.todos ul</code>";
-                    if (elContains(todoCount, '2 à faire') !== true)
+                    if (helpers.elContains(todoCount, '2 à faire') !== true)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, le compte todo doit indiquer « 2 à faire »";
-                    if (elContains(doneCount, '1 fait') !== true)
+                    if (helpers.elContains(doneCount, '1 fait') !== true)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, le compte done doit indiquer « 1 fait »";
 
                     todoCount.click();
@@ -4167,11 +4172,11 @@ let chapters = [
                     lis = document.querySelectorAll('.todos ul li');
                     if (lis.length !== 1)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » seul le todo concerné est affiché";
-                    if (elContains(lis[0], 'pear') !== true)
+                    if (helpers.elContains(lis[0], 'pear') !== true)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » ce todo contient toujours la valeur d'origine";
-                    if (elContains(todoCount, '2 à faire') !== true)
+                    if (helpers.elContains(todoCount, '2 à faire') !== true)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » le compte todo doit indiquer « 2 à faire »";
-                    if (elContains(doneCount, '1 fait') !== true)
+                    if (helpers.elContains(doneCount, '1 fait') !== true)
                         this.warn = this.warn || "Après la création de 3 todos et le clic sur l'un deux, au clic sur « 1 fait » le compte done doit indiquer « 1 fait »"
 
                     return !this.warn;
@@ -4443,20 +4448,20 @@ let chapters = [
                 excerpt: "Pour accèder à l'api de github, il est préférable de créer une clé (ou token), pour ce faire aller dans <code>Github > Settings > Personnal Access Token</code> puis <code>Generate new token</code>. Ce token est à ajouter à l'url <code>https://api.github.com/..?access_token={token}&q={query}</code>.<br><br>Il est possible d'effectuer une requête ajax à l'aide des objets <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest\">xhr</a>, <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/API/Fetch_API/Using_Fetch\">fetch</a> ou <a target=\"_blank\" href=\"http://api.jquery.com/jquery.ajax/\">jQuery.ajax</a>. Ajax est une technologie utilisée pour requêter un serveur de façon asynchrone. Pour effectuer une requête vers un serveur, trois informations sont nécessaires, son adresse <code>http://..</code>, l'action à réaliser, <code>GET</code> (lecture), <code>POST</code> (création), <code>PUT</code> (modification) ou <code>DELETE</code> (suppression) et la fonction à invoquer lorsque le serveur aura répondu.",
                 solved: "/* remplacer {token} par le token github généré */<br><br>/* --------------------- xhr --------------------- */<br><br>var search = document.querySelector('.search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>var ajax = function(method, url, fn) {<br>  var xhr = new XMLHttpRequest();<br>  xhr.addEventListener('load', function() {<br>    if (xhr.readyState === 4) {<br>      fn(JSON.parse(xhr.response));<br>    }<br>  });<br>  xhr.open(method, url);<br>  xhr.send();<br>}<br><br>input.addEventListener('keypress', function(event) {<br>  if(event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  ajax('GET', 'https://api.github.com/search/repositories?access_token={token}&q=' + input.value, function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br><br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});<br><br>/* -------------------- fetch -------------------- */<br><br>var search = document.querySelector('.search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>input.addEventListener('keypress', function(event) {<br>  if(event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  fetch('https://api.github.com/search/repositories?access_token={token}&q=' + input.value)<br>  .then(function(response) {<br>    return response.json();<br>  })<br>  .then(function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});",
                 dom: function() {
-                    return searchbar.bind(searchbar);
+                    return dom.searchbar();
                 },
                 solution: function() {
                     var input = document.querySelector('.search input');
-                    var promise = httpWait();
+                    var promise = http.wait();
 
                     input.value = 'hetic';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
                     return promise.then(function(value) {
                         var results = document.querySelectorAll('.search .result');
                         if (results.length !== 3)
                             this.warn = this.warn || "Des résultats doivent apparaitre dans <code>.results</code> et être limités à 3";
-                        if (elContains(results[0], 'hetic') !== true)
+                        if (helpers.elContains(results[0], 'hetic') !== true)
                             this.warn = this.warn || "Le premier résultat doit porter le nom d'un projet github";
                         return !this.warn;
                     }.bind(this));
@@ -4467,21 +4472,21 @@ let chapters = [
                 description: "Ajouter la classe <code>loading</code> sur <code>.search</code> lorsque l'appel ajax est lancé, la retirer lorsque le serveur répond.",
                 solved: "var search = document.querySelector('.favorites .search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  search.classList.add('loading');<br><br>  fetch('https://api.github.com/search/repositories?access_token={token}&q=' + input.value)<br>  .then(function(response) {<br>    search.classList.remove('loading');<br>    return response.json();<br>  })<br>  .then(function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});",
                 dom: function() {
-                    return searchbar.bind(searchbar);
+                    return dom.searchbar();
                 },
                 solution: function() {
                     var search = document.querySelector('.search');
                     var input = search.querySelector('input');
-                    var promise = httpWait();
+                    var promise = http.wait();
 
                     input.value = 'hetic';
-                    keypress(input, 13);
+                    helpers.keypress(input, 13);
 
-                    if (elHasClass(search, 'loading') !== true)
+                    if (helpers.elHasClass(search, 'loading') !== true)
                         this.warn = this.warn || "La classe <code>loading</code> n'est pas ajoutée lors de l'appel au serveur";
 
                     return promise.then(function() {
-                        if (elHasClass(search, 'loading') !== false)
+                        if (helpers.elHasClass(search, 'loading') !== false)
                             this.warn = this.warn || "La classe <code>loading</code> n'est pas retirée après la réponse du serveur";
 
                         var results = document.querySelectorAll('.search .result');
@@ -4498,11 +4503,11 @@ let chapters = [
                 solved: "var search = document.querySelector('.favorites .search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  search.classList.add('loading');<br><br>  fetch('https://api.github.com/search/repositories?access_token={token}&q=' + input.value)<br>  .then(function(response) {<br>    search.classList.remove('loading');<br>    return response.json();<br>  })<br>  .then(function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});<br><br>var list = document.querySelector('.list');<br>var refresh = document.querySelector('.fetch');<br>var count = document.querySelector('.count');<br><br>var render = function() {<br>  fetch('https://api.github.com/user/starred?access_token={token}')<br>  .then(function(response) {<br>    return response.json();<br>  })<br>  .then(function(starred) {<br>    count.value = starred.length;<br>    list.innerHTML = '';<br>    for (var i = 0; i < starred.length; i++) {<br>      list.innerHTML += '&lt;div class=\"item ui checkbox\"&gt;&lt;input type=\"checkbox\" id=\"' + starred[i].full_name + '\"&gt;&lt;label for=\"' + starred[i].full_name + '\"&gt;' + starred[i].full_name + '&lt;/label&gt;&lt;/div&gt;';<br>    }<br>  });<br>}<br><br>refresh.addEventListener('click', render);",
                 excerpt: "Pour accéder aux repositories favoris, github requiert des autorisations supplémentaires. Dans l'écran <code>Personnal Access Tokens</code> il est nécessaire d'ajouter le scope <code>repo</code> au token précédemment créé.",
                 dom: function() {
-                    return searchbar.bind(searchbar);
+                    return dom.searchbar();
                 },
                 solution: function() {
                     var refresh = document.querySelector('.fetch');
-                    var promise = httpWait();
+                    var promise = http.wait();
 
                     refresh.click();
 
@@ -4523,15 +4528,15 @@ let chapters = [
                 solved: "var search = document.querySelector('.favorites .search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  search.classList.add('loading');<br><br>  fetch('https://api.github.com/search/repositories?access_token={token}&q=' + input.value)<br>  .then(function(response) {<br>    search.classList.remove('loading');<br>    return response.json();<br>  })<br>  .then(function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});<br><br>var list = document.querySelector('.list');<br>var refresh = document.querySelector('.fetch');<br>var count = document.querySelector('.count');<br><br>var render = function() {<br>  return fetch('https://api.github.com/user/starred?access_token={token}')<br>  .then(function(response) {<br>    return response.json();<br>  })<br>  .then(function(starred) {<br>    count.value = starred.length;<br>    list.innerHTML = '';<br>    for (var i = 0; i < starred.length; i++) {<br>      list.innerHTML += '&lt;div class=\"item ui checkbox\"&gt;&lt;input type=\"checkbox\" id=\"' + starred[i].full_name + '\"&gt;&lt;label for=\"' + starred[i].full_name + '\"&gt;' + starred[i].full_name + '&lt;/label&gt;&lt;/div&gt;';<br>    }<br>  });<br>}<br><br>refresh.addEventListener('click', function() {<br>  refresh.classList.add('loading');<br><br>  render().then(function() {<br>    refresh.classList.remove('loading');<br>  });<br>});",
                 excerpt: "Une <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise\">promesse</a> est le résultat futur d'une action asynchrone. Les promesses sont souvent utilisées pour chainer plusieurs appels ajax ou s'abonner au résultat qu'elles renveront lorsque le serveur aura répondu. Les objets <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/API/Fetch_API/Using_Fetch\">fetch</a> et <a target=\"_blank\" href=\"http://api.jquery.com/jquery.ajax/\">jQuery.ajax</a> proposent de récupérer la réponse du serveur avec une promesse.<pre><code>fetch('https://api.github.com/..')<br>.then(function(response) {<br>  return response.json();<br>})<br>.then(function(data) {<br>  console.log(data);<br>});</code></pre>La méthode <code>then</code> permet de s'abonner au résultat futur, et sera invoquée une seule fois lorsque le serveur aura répondu. Il est possible de retourner une promesse à l'intérieur d'une méthode <code>then</code> et d'ainsi chainer les promesses. La méthode <code>catch</code> permet de capturer les erreurs levées par n'importe laquelle des promesses de la chaine.",
                 dom: function() {
-                    return searchbar.bind(searchbar);
+                    return dom.searchbar();
                 },
                 solution: function() {
                     var refresh = document.querySelector('.fetch');
-                    var promise = httpWait();
+                    var promise = http.wait();
 
                     refresh.click();
 
-                    if (elHasClass(refresh, 'loading') !== true)
+                    if (helpers.elHasClass(refresh, 'loading') !== true)
                         this.warn = this.warn || "La classe <code>loading</code> n'est pas ajoutée lors de l'appel au serveur";
 
                     return promise.then(function() {
@@ -4541,7 +4546,7 @@ let chapters = [
                         if (+count.value !== items.length)
                             this.warn = this.warn || "Le compte de <code>.count</code> et le nombre d'items dans <code>.list</code> doit être le même.";
 
-                        if (elHasClass(refresh, 'loading') !== false)
+                        if (helpers.elHasClass(refresh, 'loading') !== false)
                             this.warn = this.warn || "La classe <code>loading</code> n'est pas retirée après la réponse du serveur";
 
                         return !this.warn;
@@ -4554,26 +4559,26 @@ let chapters = [
                 excerpt: "Attention, les réponses github ont un cache de plusieurs dizaines de secondes, le navigateur mémorise la dernière réponse et la retourne à chaque appel avant que ce laps ne soit écoulé. <code>https://api.github.com/..?bust=' + Date.now()</code> le force a appeler le serveur, en lui faisant croire qu'il s'agit d'une nouvelle route pour qu'il ignore son cache.<br><br>Lors d'appels <code>POST</code> et <code>PUT</code>, il est également possible d'envoyer un body sous forme de texte ou de <code>JSON</code> au serveur pour enregistrer des informations.",
                 solved: "var search = document.querySelector('.favorites .search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  search.classList.add('loading');<br><br>  fetch('https://api.github.com/search/repositories?access_token={token}&q=' + input.value)<br>  .then(function(response) {<br>    search.classList.remove('loading');<br>    return response.json();<br>  })<br>  .then(function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});<br><br>results.addEventListener('click', function(event) {<br>  if (!event.target.matches('.result')) {<br>    return;<br>  }<br>  results.classList.remove('visible');<br>  fetch('https://api.github.com/user/starred/' + event.target.innerHTML + '?access_token={token}', {<br>    method: 'PUT'<br>  }).then(render);<br>});<br><br>var list = document.querySelector('.list');<br>var refresh = document.querySelector('.fetch');<br>var count = document.querySelector('.count');<br><br>var render = function() {<br>  return fetch('https://api.github.com/user/starred?access_token={token}&bust=' + Date.now())<br>  .then(function(response) {<br>    return response.json();<br>  })<br>  .then(function(starred) {<br>    count.value = starred.length;<br>    list.innerHTML = '';<br>    for (var i = 0; i < starred.length; i++) {<br>      list.innerHTML += '&lt;div class=\"item ui checkbox\"&gt;&lt;input type=\"checkbox\" id=\"' + starred[i].full_name + '\"&gt;&lt;label for=\"' + starred[i].full_name + '\"&gt;' + starred[i].full_name + '&lt;/label&gt;&lt;/div&gt;';<br>    }<br>  });<br>}<br><br>refresh.addEventListener('click', function() {<br>  refresh.classList.add('loading');<br><br>  render().then(function() {<br>    refresh.classList.remove('loading');<br>  });<br>});",
                 dom: function() {
-                    return searchbar.bind(searchbar);
+                    return dom.searchbar();
                 },
                 solution: function() {
                     var refresh = document.querySelector('.fetch');
                     var initialCount = 0;
-                    var promise = httpWait();
+                    var promise = http.wait();
                     var token, added;
 
                     refresh.click();
 
                     return promise.then(function(url) {
-                        token = getParameterByName(url, 'access_token');
+                        token = http.getParameterByName(url, 'access_token');
 
-                        promise = httpWait();
+                        promise = http.wait();
 
                         var search = document.querySelector('.search');
                         var input = search.querySelector('input');
 
                         input.value = 'beatles';
-                        keypress(input, 13);
+                        helpers.keypress(input, 13);
 
                         return promise;
                     }.bind(this))
@@ -4589,7 +4594,7 @@ let chapters = [
                         });
                     }.bind(this))
                     .then(function() {
-                        promise = httpWait();
+                        promise = http.wait();
                         refresh.click();
                         return promise;
                     }.bind(this))
@@ -4600,7 +4605,7 @@ let chapters = [
                         if (initialCount !== items.length)
                             this.warn = this.warn || "Le compte de <code>.count</code> et le nombre d'items dans <code>.list</code> doit être le même.";
 
-                        promise = httpWait();
+                        promise = http.wait();
 
                         added.click();
 
@@ -4627,12 +4632,12 @@ let chapters = [
                 description: "Au clic sur <code>.direction</code> modifier l'ordre de tri des favoris en rejouant la requête ajax de listing avec le paramètre d'url <code>direction</code> (asc/desc). Mettre à jour la liste de favoris en fonction.",
                 solved: "var search = document.querySelector('.favorites .search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  search.classList.add('loading');<br><br>  fetch('https://api.github.com/search/repositories?access_token={token}&q=' + input.value)<br>  .then(function(response) {<br>    search.classList.remove('loading');<br>    return response.json();<br>  })<br>  .then(function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});<br><br>results.addEventListener('click', function(event) {<br>  if (!event.target.matches('.result')) {<br>    return;<br>  }<br>  results.classList.remove('visible');<br>  fetch('https://api.github.com/user/starred/' + event.target.innerHTML + '?access_token={token}', {<br>    method: 'PUT'<br>  }).then(render);<br>});<br><br>var list = document.querySelector('.list');<br>var refresh = document.querySelector('.fetch');<br>var count = document.querySelector('.count');<br><br>var direction = 'desc';<br>var render = function() {<br>  return fetch('https://api.github.com/user/starred?access_token={token}&bust=' + Date.now() + '&direction=' + direction)<br>  .then(function(response) {<br>    return response.json();<br>  })<br>  .then(function(starred) {<br>    count.value = starred.length;<br>    list.innerHTML = '';<br>    for (var i = 0; i < starred.length; i++) {<br>      list.innerHTML += '&lt;div class=\"item ui checkbox\"&gt;&lt;input type=\"checkbox\" id=\"' + starred[i].full_name + '\"&gt;&lt;label for=\"' + starred[i].full_name + '\"&gt;' + starred[i].full_name + '&lt;/label&gt;&lt;/div&gt;';<br>    }<br>  });<br>}<br><br>refresh.addEventListener('click', function() {<br>  refresh.classList.add('loading');<br><br>  render().then(function() {<br>    refresh.classList.remove('loading');<br>  });<br>});<br><br>document.querySelector('.direction').addEventListener('click', function() {<br>  var i = this.querySelector('i');<br>  i.classList.toggle('ascending');<br>  i.classList.toggle('descending');<br>  direction = (direction === 'desc') ? 'asc' : 'desc';<br><br>  this.classList.add('loading');<br>  render().then(function() {<br>    this.classList.remove('loading');<br>  }.bind(this));<br>});",
                 dom: function() {
-                    return searchbar.bind(searchbar);
+                    return dom.searchbar();
                 },
                 solution: function() {
                     var refresh = document.querySelector('.fetch');
                     var direction = document.querySelector('.direction');
-                    var promise = httpWait();
+                    var promise = http.wait();
 
                     refresh.click();
 
@@ -4643,28 +4648,28 @@ let chapters = [
                         if (+count.value !== items.length)
                             this.warn = this.warn || "Le compte de <code>.count</code> et le nombre d'items dans <code>.list</code> doit être le même.";
 
-                        promise = httpWait();
+                        promise = http.wait();
 
                         direction.click();
 
                         return promise;
                     }.bind(this))
                     .then(function(url) {
-                        var dir = getParameterByName(url, 'direction');
+                        var dir = http.getParameterByName(url, 'direction');
 
                         if (dir !== 'asc')
                             this.warn = this.warn || "Au premier clic sur <code>.direction</code> le sens doit être <code>asc</code>.";
 
                         var items = document.querySelectorAll('.list .item');
 
-                        promise = httpWait();
+                        promise = http.wait();
 
                         direction.click();
 
                         return promise;
                     }.bind(this))
                     .then(function(url) {
-                        var dir = getParameterByName(url, 'direction');
+                        var dir = http.getParameterByName(url, 'direction');
 
                         if (dir !== 'desc')
                             this.warn = this.warn || "Au second clic sur <code>.direction</code> le sens doit être <code>desc</code>.";
@@ -4679,26 +4684,26 @@ let chapters = [
                 excerpt: "La méthode <code>DELETE</code> permet de supprimer une resource à la fois.",
                 solved: "var search = document.querySelector('.favorites .search');<br>var input = search.querySelector('input');<br>var results = search.querySelector('.results');<br><br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13 || !input.value) {<br>    return<br>  }<br><br>  search.classList.add('loading');<br><br>  fetch('https://api.github.com/search/repositories?access_token={token}&q=' + input.value)<br>  .then(function(response) {<br>    search.classList.remove('loading');<br>    return response.json();<br>  })<br>  .then(function(data) {<br>    results.innerHTML = '';<br>    results.classList.toggle('visible', data.items.length > 0);<br>    for (var i = 0; i < Math.min(data.items.length, 3); i++) {<br>      results.innerHTML += '&lt;span class=\"result\"&gt;' + data.items[i].full_name + '&lt;/span&gt;';<br>    }<br>  });<br>});<br><br>results.addEventListener('click', function(event) {<br>  if (!event.target.matches('.result')) {<br>    return;<br>  }<br>  results.classList.remove('visible');<br>  fetch('https://api.github.com/user/starred/' + event.target.innerHTML + '?access_token={token}', {<br>    method: 'PUT'<br>  }).then(render);<br>});<br><br>var list = document.querySelector('.list');<br>var refresh = document.querySelector('.fetch');<br>var count = document.querySelector('.count');<br><br>var direction = 'desc';<br>var render = function() {<br>  return fetch('https://api.github.com/user/starred?access_token={token}&bust=' + Date.now() + '&direction=' + direction)<br>  .then(function(response) {<br>    return response.json();<br>  })<br>  .then(function(starred) {<br>    count.value = starred.length;<br>    list.innerHTML = '';<br>    for (var i = 0; i < starred.length; i++) {<br>      list.innerHTML += '&lt;div class=\"item ui checkbox\"&gt;&lt;input type=\"checkbox\" id=\"' + starred[i].full_name + '\"&gt;&lt;label for=\"' + starred[i].full_name + '\"&gt;' + starred[i].full_name + '&lt;/label&gt;&lt;/div&gt;';<br>    }<br>  });<br>}<br><br>refresh.addEventListener('click', function() {<br>  refresh.classList.add('loading');<br><br>  render().then(function() {<br>    refresh.classList.remove('loading');<br>  });<br>});<br><br>document.querySelector('.direction').addEventListener('click', function() {<br>  var i = this.querySelector('i');<br>  i.classList.toggle('ascending');<br>  i.classList.toggle('descending');<br>  direction = (direction === 'desc') ? 'asc' : 'desc';<br><br>  this.classList.add('loading');<br>  render().then(function() {<br>    this.classList.remove('loading');<br>  }.bind(this));<br>});<br><br>var remove = document.querySelector('.remove');<br>remove.addEventListener('click', function(event) {<br>  remove.classList.add('loading');<br><br>  var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');<br>  var promises = [];<br>  for (var i = 0; i < checkboxes.length; i++) {<br>    var promise = fetch('https://api.github.com/user/starred/' + checkboxes[i].id + '?access_token={token}', {<br>      method: 'DELETE'<br>    });<br>    promises.push(promise);<br>  }<br><br>  Promise.all(promises)<br>  .then(render)<br>  .then(function() {<br>    remove.classList.remove('loading');<br>  });<br>});",
                 dom: function() {
-                    return searchbar.bind(searchbar);
+                    return dom.searchbar();
                 },
                 solution: function() {
                     var refresh = document.querySelector('.fetch');
                     var initialCount = 0;
-                    var promise = httpWait();
+                    var promise = http.wait();
                     var token, added;
 
                     refresh.click();
 
                     return promise.then(function(url) {
-                        token = getParameterByName(url, 'access_token');
+                        token = http.getParameterByName(url, 'access_token');
 
-                        promise = httpWait();
+                        promise = http.wait();
 
                         var search = document.querySelector('.search');
                         var input = search.querySelector('input');
 
                         input.value = 'beatles';
-                        keypress(input, 13);
+                        helpers.keypress(input, 13);
 
                         return promise;
                     }.bind(this))
@@ -4714,7 +4719,7 @@ let chapters = [
                         });
                     }.bind(this))
                     .then(function() {
-                        promise = httpWait();
+                        promise = http.wait();
                         refresh.click();
                         return promise;
                     }.bind(this))
@@ -4725,7 +4730,7 @@ let chapters = [
                         if (initialCount !== items.length)
                             this.warn = this.warn || "Le compte de <code>.count</code> et le nombre d'items dans <code>.list</code> doit être le même.";
 
-                        promise = httpWait();
+                        promise = http.wait();
 
                         added.click();
 
@@ -4744,7 +4749,7 @@ let chapters = [
                         else
                             checkbox.checked = true;
 
-                        promise = httpWait();
+                        promise = http.wait();
 
                         var remove = document.querySelector('.remove');
                         remove.click();
@@ -4893,29 +4898,29 @@ let chapters = [
             excerpt: "La librairie <a target=\"_blank\" href=\"https://handlebarsjs.com\">handlebars</a> permet de manipuler facilement des templates, et, notamment, de les transformer ne HTML en leur donnant un objet aux clés correspondantes.<br><br>L'ajout de HTML dans une balise <code>script</code> de type <code>text/template</code> est une technique qui permet d'ajouter des templates invisbles à une page afin de les ajouter ensuite dynamiquement en javascript.",
             solved: "/* import this in the HTML <head> before the code<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js\"&gt;&lt;/script&gt;<br>*/<br>var el =  document.createElement('div');<br>el.className = 'ui cards';<br><br>var source = document.querySelector('#product').innerHTML;<br>var template = Handlebars.compile(source);<br><br>el.innerHTML = ''; <br>for (let i = 0; i < products.length; i++) {<br>  el.innerHTML += template(products[i]);<br>}<br><br>document.querySelector('#app-view').appendChild(el);",
             init: function() {
-                window.products = shopProducts;
+                window.products = dom.shopProducts;
             },
             dom: function() {
-                return shop.bind(shop);
+                return dom.shop();
             },
             solution: function() {
                 var cards = document.querySelectorAll('.shop .card');
                 if (cards.length !== 3)
                     this.warn = this.warn || 'Les 3 produits doivent être affichés dans le sélecteur <code>#app-view</code>';
                     
-                if (!elContains(cards[0] && cards[0].querySelector('.meta'), 'Manches longues'))
+                if (!helpers.elContains(cards[0] && cards[0].querySelector('.meta'), 'Manches longues'))
                     this.warn = this.warn || 'Le premier produit doit être nommé « Manches longues »';
-                if (!elContains(cards[0] && cards[0].querySelector('.left'), '15€'))
+                if (!helpers.elContains(cards[0] && cards[0].querySelector('.left'), '15€'))
                     this.warn = this.warn || 'Le premier produit doit être indiqué à 15€';
 
-                if (!elContains(cards[1] && cards[1].querySelector('.meta'), 'T-shirt'))
+                if (!helpers.elContains(cards[1] && cards[1].querySelector('.meta'), 'T-shirt'))
                     this.warn = this.warn || 'Le second produit doit être nommé « T-shirt »';
-                if (!elContains(cards[1] && cards[1].querySelector('.left'), '25€'))
+                if (!helpers.elContains(cards[1] && cards[1].querySelector('.left'), '25€'))
                     this.warn = this.warn || 'Le second produit doit être indiqué à 25€';
 
-                if (!elContains(cards[2] && cards[2].querySelector('.meta'), 'Chemise'))
+                if (!helpers.elContains(cards[2] && cards[2].querySelector('.meta'), 'Chemise'))
                     this.warn = this.warn || 'Le troisième produit doit être nommé « Chemise »';
-                if (!elContains(cards[2] && cards[2].querySelector('.left'), '40€'))
+                if (!helpers.elContains(cards[2] && cards[2].querySelector('.left'), '40€'))
                     this.warn = this.warn || 'Le troisième produit doit être indiqué à 40€';
 
                 return !this.warn;
@@ -4994,17 +4999,17 @@ let chapters = [
             excerpt: "Il est possible (et souvent souhaitable) de structurer un programme à l'aide de composants au comportement clairement défini. Une classe est un modèle (comme un moule à pâtisserie) qui définit un ensemble d'attributs (la taille, les fruits utilisés) et de méthodes (découper, manger). <pre><code>var ProductsView = function(products) {<br>  this.products = products;<br>}<br>ProductsView.prototype = {<br>  render: function() { .. }<br>}<br><br>var view = new ProductsView(products);<br>view.render();</code></pre>Par convention les classes commencent par une majuscule et les variables / instances par une minuscules.",
             solved: "var ProductsView = function(products) {<br>  this.products = products;<br><br>  this.el =  document.createElement('div');<br>  this.el.className = 'ui cards';<br>}<br><br>ProductsView.prototype = {<br>  render: function() {<br>    var source = document.querySelector('#product').innerHTML;<br>    var template = Handlebars.compile(source);<br>    <br>    this.el.innerHTML = ''; <br>    for (let i = 0; i < this.products.length; i++) {<br>      this.el.innerHTML += template(this.products[i]);<br>    }<br>  }<br>}<br><br>var appView = document.querySelector('#app-view');<br><br>var productsView = new ProductsView(products);<br>productsView.render();<br>appView.appendChild(productsView.el);",
             init: function() {
-                window.products = shopProducts;
+                window.products = dom.shopProducts;
             },
             dom: function() {
-                return shop.bind(shop);
+                return dom.shop();
             },
             solution: function() {
                 var cards = document.querySelectorAll('.shop .card');
                 if (cards.length !== 3)
                     this.warn = this.warn || 'Les 3 produits doivent être affichés dans le sélecteur <code>#app-view</code>';
                     
-                var view = new ProductsView(shopProducts);
+                var view = new ProductsView(dom.shopProducts);
 
                 if (!view || !view.render || typeof view.render !== 'function')
                     this.warn = this.warn || 'L\'attribut <code>render</code> de la classe <code>ProductsView</code> doit être une fonction';
@@ -5020,9 +5025,9 @@ let chapters = [
                 if (cards.length !== 6)
                     this.warn = this.warn || 'L\'appel de la fonction <code>render</code> de <codeProductsView</code> doit ajouter les 3 produits au DOM';
 
-                if (!elContains(cards[4] && cards[4].querySelector('.meta'), 'T-shirt'))
+                if (!helpers.elContains(cards[4] && cards[4].querySelector('.meta'), 'T-shirt'))
                     this.warn = this.warn || 'Le second produit doit être nommé « T-shirt »';
-                if (!elContains(cards[4] && cards[4].querySelector('.left'), '25€'))
+                if (!helpers.elContains(cards[4] && cards[4].querySelector('.left'), '25€'))
                     this.warn = this.warn || 'Le second produit doit être indiqué à 25€';
 
                 return !this.warn;
@@ -5034,10 +5039,10 @@ let chapters = [
             excerpt: "Découper une application en vues et sous vues est très courant. L'objectif est manipuler un morceau de DOM relatif à un object simple, ici, un produit, plutôt qu'à un tableau. Sans ce découpage, la gestion d'un tableau requiert de laisser des indications dans le DOM afin de savoir quel élément du tableau a été cliqué, par exemple.",
             solved: "var ProductView = function(product) {<br>  this.product = product;<br><br>  this.el = document.createElement('div');<br>}<br><br>ProductView.prototype = {<br>  render: function() {<br>    var source = document.querySelector('#product').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.product);<br><br>    this.el.querySelector('.plus').addEventListener('click', function() {<br>      this.product.quantity++;<br>      this.render();<br>    }.bind(this));<br><br>    this.el.querySelector('.minus').addEventListener('click', function() {<br>      if (this.product.quantity <= 0)<br>        return;<br><br>      this.product.quantity--;<br>      this.render();<br>    }.bind(this));<br>  }<br>}<br><br>var ProductsView = function(products) {<br>  this.products = products;<br><br>  this.el =  document.createElement('div');<br>  this.el.className = 'ui cards';<br>}<br><br>ProductsView.prototype = {<br>  render: function() {<br>    for (let i = 0; i < this.products.length; i++) {<br>      var children = new ProductView(this.products[i]);<br>      this.el.appendChild(children.el);<br>      children.render();<br>    }<br>  }<br>}<br><br>var appView = document.querySelector('#app-view');<br><br>var productsView = new ProductsView(products);<br>productsView.render();<br>appView.appendChild(productsView.el);",
             init: function() {
-                window.products = deepClone(shopProducts);
+                window.products = helpers.deepClone(dom.shopProducts);
             },
             dom: function() {
-                return shop.bind(shop);
+                return dom.shop();
             },
             solution: function() {
                 var cards = document.querySelectorAll('.shop .card');
@@ -5060,10 +5065,10 @@ let chapters = [
             excerpt: "Un routeur est un aiguilleur modifiant les vues affichées à l'écran en fonction de l'adresse saisie par l'utilisateur. Lorsque l'utilisateur rafraîchit la page ou qu'il partage son adresse, le routeur est alors en mesure de choisir les vues à afficher et de leur indiquer dans quel état exact elles doivent se positionner.<br><br>Le router peut s'abonner à l'événement hashchange de window, <code>window.addEventListener('hashchange', function() { .. });</code>.",
             solved: "var ProductView = function(product) {<br>  this.product = product;<br><br>  this.el = document.createElement('div');<br>}<br><br>ProductView.prototype = {<br>  render: function() {<br>    var source = document.querySelector('#product').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.product);<br><br>    this.el.querySelector('.plus').addEventListener('click', function() {<br>      this.product.quantity++;<br>      this.render();<br>    }.bind(this));<br><br>    this.el.querySelector('.minus').addEventListener('click', function() {<br>      if (this.product.quantity <= 0)<br>        return;<br><br>      this.product.quantity--;<br>      this.render();<br>    }.bind(this));<br>  }<br>}<br><br>var ProductsView = function(products) {<br>  this.products = products;<br><br>  this.el =  document.createElement('div');<br>  this.el.className = 'ui cards';<br>}<br><br>ProductsView.prototype = {<br>  render: function() {<br>    for (let i = 0; i < this.products.length; i++) {<br>      var children = new ProductView(this.products[i]);<br>      this.el.appendChild(children.el);<br>      children.render();<br>    }<br>  }<br>}<br><br>var CartView = function(products) {<br>  this.products = products;<br><br>  this.el = document.createElement('div');<br>}<br><br>CartView.prototype = {<br>  render: function() {<br>    var source = document.querySelector('#cart').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.products);<br>  }<br>}<br><br>var Router = function() {<br>  this.appView = document.querySelector('#app-view');<br>  this.render();<br><br>  window.addEventListener('hashchange', this.render.bind(this));<br>};<br><br>Router.prototype = {<br>  render: function() {<br>    var view;<br>    <br>    switch(location.hash) {<br>      case '#cart': <br>        view = new CartView(products);<br>        break;<br>      default:<br>        view = new ProductsView(products);<br>        break;<br>    }<br>    <br>    this.appView.innerHTML = '';<br>    this.appView.appendChild(view.el);<br>    view.render();<br>  }<br>}<br><br>new Router();",
             init: function() {
-                window.products = deepClone(shopProducts);
+                window.products = helpers.deepClone(dom.shopProducts);
             },
-            dom: function(assertion) {
-                return shop.bind(shop);
+            dom: function() {
+                return dom.shop();
             },
             reload: function() {
                 removeEventListener('hashchange');
@@ -5071,14 +5076,14 @@ let chapters = [
             solution: function() {
                 document.querySelector('.item.cart').click();  
                 
-                return hashWait()
+                return http.hashWait()
                 .then(function() {
                     var items = document.querySelectorAll('.ui.list .item');
                     if (items.length !== 5)
                         this.warn = this.warn || 'Cliquer sur le lien du panier doit afficher la vue panier';
 
                     document.querySelector('.item.products').click();
-                    return hashWait();
+                    return http.hashWait();
                 }.bind(this))
                 .then(function() {
                     var cards = document.querySelectorAll('.shop .card');
@@ -5094,10 +5099,10 @@ let chapters = [
             description: "Modifier la classe <code>CartView</code> afin que les inputs mettent à jour la quantité des produits (avec l'événement <code>input</code>).",
             solved: "var ProductView = function(product) {<br>  this.product = product;<br><br>  this.el = document.createElement('div');<br>}<br><br>ProductView.prototype = {<br>  render: function() {<br>    var source = document.querySelector('#product').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.product);<br><br>    this.el.querySelector('.plus').addEventListener('click', function() {<br>      this.product.quantity++;<br>      this.render();<br>    }.bind(this));<br><br>    this.el.querySelector('.minus').addEventListener('click', function() {<br>      if (this.product.quantity <= 0)<br>        return;<br><br>      this.product.quantity--;<br>      this.render();<br>    }.bind(this));<br>  }<br>}<br><br>var ProductsView = function(products) {<br>  this.products = products;<br><br>  this.el =  document.createElement('div');<br>  this.el.className = 'ui cards';<br>}<br><br>ProductsView.prototype = {<br>  render: function() {<br>    for (let i = 0; i < this.products.length; i++) {<br>      var children = new ProductView(this.products[i]);<br>      this.el.appendChild(children.el);<br>      children.render();<br>    }<br>  }<br>}<br><br>var CartView = function(products) {<br>  this.products = products;<br><br>  this.el = document.createElement('div');<br>}<br><br>CartView.prototype = {<br>  render: function() {<br>    var source = document.querySelector('#cart').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.products);<br><br>    var inputs = this.el.querySelectorAll('input');<br>    for (let i = 0; i < inputs.length; i++) {<br>      inputs[i].addEventListener('input', function() {<br>        this.products[i].quantity = Math.floor(inputs[i].value);<br>      }.bind(this));<br>    }<br>  }<br>}<br><br>var Router = function() {<br>  this.appView = document.querySelector('#app-view');<br>  this.render();<br><br>  window.addEventListener('hashchange', this.render.bind(this));<br>};<br><br>Router.prototype = {<br>  render: function() {<br>    var view;<br>    <br>    switch(location.hash) {<br>      case '#cart': <br>        view = new CartView(products);<br>        break;<br>      default:<br>        view = new ProductsView(products);<br>        break;<br>    }<br>    <br>    this.appView.innerHTML = '';<br>    this.appView.appendChild(view.el);<br>    view.render();<br>  }<br>}<br><br>new Router();",
             init: function() {
-                window.products = deepClone(shopProducts);
+                window.products = helpers.deepClone(dom.shopProducts);
             },
             dom: function() {
-                return shop.bind(shop);
+                return dom.shop();
             },
             reload: function() {
                 removeEventListener('hashchange');
@@ -5105,15 +5110,15 @@ let chapters = [
             solution: function() {
                 document.querySelector('.item.cart').click();  
                 
-                return hashWait()
+                return http.hashWait()
                 .then(function() {
                     var items = document.querySelectorAll('.ui.list .item');
                     var input = items[1].querySelector('input');
                     input.value = 5;
-                    change(input, 'input');
+                    helpers.change(input, 'input');
 
                     document.querySelector('.item.products').click();
-                    return hashWait();
+                    return http.hashWait();
                 }.bind(this))
                 .then(function() {
                     var cards = document.querySelectorAll('.shop .card');
@@ -5130,10 +5135,10 @@ let chapters = [
             excerpt: "Les vues communiquement souvent entre elles en partageant un modèle (ici, la liste des produits). Elles peuvent également communiquer en se partageant une fonction que l'une appelle (ici, lorsque la quantité est modifiée) et l'autre écoute (ici, l'affichage du total).",
             solved: "var ProductView = function(product, options) {<br>  this.product = product;<br>  this.options = options;<br><br>  this.el = document.createElement('div');<br>}<br><br>ProductView.prototype = {<br>  render: function() {<br>    var source = document.querySelector('#product').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.product);<br><br>    this.el.querySelector('.plus').addEventListener('click', function() {<br>      this.product.quantity++;<br>      this.render();<br>      this.options.onUpdate();<br>    }.bind(this));<br><br>    this.el.querySelector('.minus').addEventListener('click', function() {<br>      if (this.product.quantity <= 0)<br>        return;<br><br>      this.product.quantity--;<br>      this.render();<br>      this.options.onUpdate();<br>    }.bind(this));<br>  }<br>}<br><br>var ProductsView = function(products, options) {<br>  this.products = products;<br>  this.options = options;<br><br>  this.el =  document.createElement('div');<br>  this.el.className = 'ui cards';<br>}<br><br>ProductsView.prototype = {<br>  render: function() {<br>    for (let i = 0; i < this.products.length; i++) {<br>      var children = new ProductView(this.products[i], this.options);<br>      this.el.appendChild(children.el);<br>      children.render();<br>    }<br>  }<br>}<br><br>var CartView = function(products, options) {<br>  this.products = products;<br>  this.options = options;<br><br>  this.el = document.createElement('div');<br>}<br><br>CartView.prototype = {<br>  render: function() {<br>    var source = document.querySelector('#cart').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.products);<br><br>    var inputs = this.el.querySelectorAll('input');<br>    for (let i = 0; i < inputs.length; i++) {<br>      inputs[i].addEventListener('input', function() {<br>        this.products[i].quantity = Math.floor(inputs[i].value);<br>        this.options.onUpdate();<br>      }.bind(this));<br>    }<br>  }<br>}<br><br>var Total = function(products) {<br>  this.products = products;<br>}<br><br>Total.prototype = {<br>  render() {<br>    var computed = {quantity: 0, price: 0};<br>  <br>    for (var i = 0; i < products.length; i++) {<br>      var product = products[i];<br>      computed.quantity += product.quantity;<br>      computed.price += (product.price * product.quantity);<br>    }<br><br>    document.querySelector('.cart-quantity').innerHTML = computed.quantity;;<br>    document.querySelector('.cart-price').innerHTML = computed.price + '€';<br>  }<br>}<br><br>var Router = function() {<br>  this.total = new Total(products);<br>  this.appView = document.querySelector('#app-view');<br>  this.render();<br><br>  window.addEventListener('hashchange', this.render.bind(this));<br>};<br><br>Router.prototype = {<br>  onUpdate: function() {<br>    this.total.render();<br>  },<br>  render: function() {<br>    var view;<br>    var options = {onUpdate: this.onUpdate.bind(this)};<br>    <br>    switch(location.hash) {<br>      case '#cart': <br>        view = new CartView(products, options);<br>        break;<br>      default:<br>        view = new ProductsView(products, options);<br>        break;<br>    }<br>    <br>    this.appView.innerHTML = '';<br>    this.appView.appendChild(view.el);<br>    view.render();<br><br>    this.total.render();<br>  }<br>}<br><br>new Router();",
             init: function() {
-                window.products = deepClone(shopProducts);
+                window.products = helpers.deepClone(dom.shopProducts);
             },
             dom: function() {
-                return shop.bind(shop);
+                return dom.shop();
             },
             reload: function() {
                 removeEventListener('hashchange');
@@ -5163,10 +5168,10 @@ let chapters = [
             excerpt: "Les méthodes statiques permettent de regrouper des fonctions utilitaires au sein de classes, la classe Math en propose de très nombreuses, comme <code>Math.sin</code>, <code>Math.max</code>, etc.",
             solved: "var ProductView = function(product, options) {<br>  this.product = product;<br>  this.options = options;<br><br>  this.el = document.createElement('div');<br>}<br><br>ProductView.prototype = {<br>  render: function() {<br>    var source = document.querySelector('#product').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.product);<br><br>    this.el.querySelector('.plus').addEventListener('click', function() {<br>      this.product.quantity++;<br>      this.render();<br>      this.options.onUpdate();<br>    }.bind(this));<br><br>    this.el.querySelector('.minus').addEventListener('click', function() {<br>      if (this.product.quantity <= 0)<br>        return;<br><br>      this.product.quantity--;<br>      this.render();<br>      this.options.onUpdate();<br>    }.bind(this));<br>  }<br>}<br><br>var ProductsView = function(products, options) {<br>  this.products = products;<br>  this.options = options;<br><br>  this.el =  document.createElement('div');<br>  this.el.className = 'ui cards';<br>}<br><br>ProductsView.prototype = {<br>  render: function() {<br>    for (let i = 0; i < this.products.length; i++) {<br>      var children = new ProductView(this.products[i], this.options);<br>      this.el.appendChild(children.el);<br>      children.render();<br>    }<br>  }<br>}<br><br>var CartView = function(products, options) {<br>  this.products = products;<br>  this.options = options;<br><br>  this.el = document.createElement('div');<br>}<br><br>CartView.prototype = {<br>  renderTotal() {<br>    this.el.querySelector('.cart-price').innerHTML = Total.compute(this.products).price + '€';<br>  },<br>  render: function() {<br>    var source = document.querySelector('#cart').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.products);<br><br>    var inputs = this.el.querySelectorAll('input');<br>    for (let i = 0; i < inputs.length; i++) {<br>      inputs[i].addEventListener('input', function() {<br>        this.products[i].quantity = Math.floor(inputs[i].value);<br>        this.renderTotal();<br>        this.options.onUpdate();<br>      }.bind(this));<br>    }<br>    this.renderTotal();<br>  }<br>}<br><br>var Total = function(products) {<br>  this.products = products;<br>}<br><br>Total.compute = function(products) {<br>  var computed = {quantity: 0, price: 0};<br>  <br>  for (var i = 0; i < products.length; i++) {<br>    var product = products[i];<br>    computed.quantity += product.quantity;<br>    computed.price += (product.price * product.quantity);<br>  }<br><br>  return computed;<br>}<br><br>Total.prototype = {<br>  render() {<br>    var computed = Total.compute(this.products);<br><br>    document.querySelector('.cart-quantity').innerHTML = computed.quantity;;<br>    document.querySelector('.cart-price').innerHTML = computed.price + '€';<br>  }<br>}<br><br>var Router = function() {<br>  this.total = new Total(products);<br>  this.appView = document.querySelector('#app-view');<br>  this.render();<br><br>  window.addEventListener('hashchange', this.render.bind(this));<br>};<br><br>Router.prototype = {<br>  onUpdate: function() {<br>    this.total.render();<br>  },<br>  render: function() {<br>    var view;<br>    var options = {onUpdate: this.onUpdate.bind(this)};<br>    <br>    switch(location.hash) {<br>      case '#cart': <br>        view = new CartView(products, options);<br>        break;<br>      default:<br>        view = new ProductsView(products, options);<br>        break;<br>    }<br>    <br>    this.appView.innerHTML = '';<br>    this.appView.appendChild(view.el);<br>    view.render();<br><br>    this.total.render();<br>  }<br>}<br><br>new Router();",
             init: function() {
-                window.products = deepClone(shopProducts);
+                window.products = helpers.deepClone(dom.shopProducts);
             },
             dom: function() {
-                return shop.bind(shop);
+                return dom.shop();
             },
             reload: function() {
                 removeEventListener('hashchange');
@@ -5174,12 +5179,12 @@ let chapters = [
             solution: function() {
                 document.querySelector('.item.cart').click();  
                 
-                return hashWait()
+                return http.hashWait()
                 .then(function() {
                     var items = document.querySelectorAll('.ui.list .item');
                     var input = items[1].querySelector('input');
                     input.value = 5;
-                    change(input, 'input');
+                    helpers.change(input, 'input');
 
                     var price = document.querySelector('#app-view .cart-price').innerHTML;
                     if (price !== '125€')
@@ -5195,10 +5200,10 @@ let chapters = [
             exerpt: "Stripe est une solution de paiement en ligne qui offre deux outils : des interface de saisie de carte bleue côté client et une api de paiement côté serveurs. La qualité de sa documentation et de son back office est souvent louée par la communauté.",
             solved: "/* import this in the HTML <head> before the code<br>&lt;script src=\"https://js.stripe.com/v3/\"&gt;&lt;/script&gt;<br>*/<br>var ProductView = function(product, options) {<br>  this.product = product;<br>  this.options = options;<br><br>  this.el = document.createElement('div');<br>}<br><br>ProductView.prototype = {<br>  render: function() {<br>    var source = document.querySelector('#product').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.product);<br><br>    this.el.querySelector('.plus').addEventListener('click', function() {<br>      this.product.quantity++;<br>      this.render();<br>      this.options.onUpdate();<br>    }.bind(this));<br><br>    this.el.querySelector('.minus').addEventListener('click', function() {<br>      if (this.product.quantity <= 0)<br>        return;<br><br>      this.product.quantity--;<br>      this.render();<br>      this.options.onUpdate();<br>    }.bind(this));<br>  }<br>}<br><br>var ProductsView = function(products, options) {<br>  this.products = products;<br>  this.options = options;<br><br>  this.el =  document.createElement('div');<br>  this.el.className = 'ui cards';<br>}<br><br>ProductsView.prototype = {<br>  render: function() {<br>    for (let i = 0; i < this.products.length; i++) {<br>      var children = new ProductView(this.products[i], this.options);<br>      this.el.appendChild(children.el);<br>      children.render();<br>    }<br>  }<br>}<br><br>var CartView = function(products, options) {<br>  this.products = products;<br>  this.options = options;<br><br>  this.el = document.createElement('div');<br>}<br><br>CartView.prototype = {<br>  renderTotal() {<br>    this.el.querySelector('.cart-price').innerHTML = Total.compute(this.products).price + '€';<br>  },<br>  render: function() {<br>    var source = document.querySelector('#cart').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.products);<br><br>    var inputs = this.el.querySelectorAll('input');<br>    for (let i = 0; i < inputs.length; i++) {<br>      inputs[i].addEventListener('input', function() {<br>        this.products[i].quantity = Math.floor(inputs[i].value);<br>        this.renderTotal();<br>        this.options.onUpdate();<br>      }.bind(this));<br>    }<br>    this.renderTotal();<br>  }<br>}<br><br>var Total = function(products) {<br>  this.products = products;<br>}<br><br>Total.compute = function(products) {<br>  var computed = {quantity: 0, price: 0};<br>  <br>  for (var i = 0; i < products.length; i++) {<br>    var product = products[i];<br>    computed.quantity += product.quantity;<br>    computed.price += (product.price * product.quantity);<br>  }<br><br>  return computed;<br>}<br><br>Total.prototype = {<br>  render() {<br>    var computed = Total.compute(this.products);<br><br>    document.querySelector('.cart-quantity').innerHTML = computed.quantity;;<br>    document.querySelector('.cart-price').innerHTML = computed.price + '€';<br>  }<br>}<br><br>var Router = function() {<br>  this.total = new Total(products);<br>  this.appView = document.querySelector('#app-view');<br>  this.render();<br><br>  window.addEventListener('hashchange', this.render.bind(this));<br>};<br><br>var PaymentView = function(products, options) {<br>  this.products = products;<br>  this.options = options;<br><br>  this.el = document.createElement('div');<br>  this.render();<br>}<br><br>PaymentView.prototype = {<br>  publishableKey: 'pk_test_{token}',<br>  render: function() {<br>    this.el.innerHTML = document.querySelector('#payment').innerHTML;<br><br>    var stripe = Stripe(this.publishableKey);<br>    var elements = stripe.elements();<br>    var card = elements.create('card', {hidePostalCode: true});<br>    card.mount(this.el.querySelector('.stripe'));<br><br>    var button = this.el.querySelector('.button');<br>    button.querySelector('.cart-price').innerHTML = Total.compute(this.products).price + '€';<br><br>    this.el.querySelector('.checkout').addEventListener('submit', function(event) {<br>      event.preventDefault();<br><br>      button.classList.add('loading');<br>      <br>      stripe.createToken(card).then(function(data) {<br>        button.classList.remove('loading');<br><br>        var token = data.token.id;<br>        button.innerHTML = token<br>      }.bind(this));<br>    }.bind(this));<br>  }<br>}<br><br>Router.prototype = {<br>  onUpdate: function() {<br>    this.total.render();<br>  },<br>  render: function() {<br>    var view;<br>    var options = {onUpdate: this.onUpdate.bind(this)};<br>    <br>    switch(location.hash) {<br>      case '#cart': <br>        view = new CartView(products, options);<br>        break;<br>      case '#payment': <br>        view = new PaymentView(products, options);<br>        break;<br>      default:<br>        view = new ProductsView(products, options);<br>        break;<br>    }<br>    <br>    this.appView.innerHTML = '';<br>    this.appView.appendChild(view.el);<br>    view.render();<br><br>    this.total.render();<br>  }<br>}<br><br>new Router();",
             init: function() {
-                window.products = deepClone(shopProducts);
+                window.products = helpers.deepClone(dom.shopProducts);
             },
             dom: function() {
-                return shop.bind(shop);
+                return dom.shop();
             },
             reload: function() {
                 removeEventListener('hashchange');
@@ -5206,15 +5211,15 @@ let chapters = [
             solution: function() {
                 document.querySelector('.item.cart').click();  
                 
-                return hashWait()
+                return http.hashWait()
                 .then(function() {
                     var items = document.querySelectorAll('.ui.list .item');
                     var input = items[1].querySelector('input');
                     input.value = 5;
-                    change(input, 'input');
+                    helpers.change(input, 'input');
 
                     document.querySelector('#app-view .button').click();  
-                    return hashWait();
+                    return http.hashWait();
                 })
                 .then(function() {
                     var checkout = document.querySelector('.checkout');
@@ -5231,10 +5236,10 @@ let chapters = [
             excerpt: "L'api <code>charge</code> de stripe est destinée a être requétée avec un serveur par mesure de sécurité (les données bancaires et leur accès sont très sensibles). Une clé privée est prévue pour cela. Il est possible de simuler cet appel côté client, mais cela requiert d'utiliser un serveur de fichiers pour afficher l'application actuelle (browsersync, par exemple). Ainsi, au lieu de <code>file://</code>, elle est accédée par le navigateur en <code>localhost://</code>. Une fois le paiement réussi, vérifier dans l'interface de stripe qu'il y figure bien",
             solved: "var ProductView = function(product, options) {<br>  this.product = product;<br>  this.options = options;<br><br>  this.el = document.createElement('div');<br>}<br><br>ProductView.prototype = {<br>  render: function() {<br>    var source = document.querySelector('#product').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.product);<br><br>    this.el.querySelector('.plus').addEventListener('click', function() {<br>      this.product.quantity++;<br>      this.render();<br>      this.options.onUpdate();<br>    }.bind(this));<br><br>    this.el.querySelector('.minus').addEventListener('click', function() {<br>      if (this.product.quantity <= 0)<br>        return;<br><br>      this.product.quantity--;<br>      this.render();<br>      this.options.onUpdate();<br>    }.bind(this));<br>  }<br>}<br><br>var ProductsView = function(products, options) {<br>  this.products = products;<br>  this.options = options;<br><br>  this.el =  document.createElement('div');<br>  this.el.className = 'ui cards';<br>}<br><br>ProductsView.prototype = {<br>  render: function() {<br>    for (let i = 0; i < this.products.length; i++) {<br>      var children = new ProductView(this.products[i], this.options);<br>      this.el.appendChild(children.el);<br>      children.render();<br>    }<br>  }<br>}<br><br>var CartView = function(products, options) {<br>  this.products = products;<br>  this.options = options;<br><br>  this.el = document.createElement('div');<br>}<br><br>CartView.prototype = {<br>  renderTotal() {<br>    this.el.querySelector('.cart-price').innerHTML = Total.compute(this.products).price + '€';<br>  },<br>  render: function() {<br>    var source = document.querySelector('#cart').innerHTML;<br>    var template = Handlebars.compile(source);<br>    this.el.innerHTML = template(this.products);<br><br>    var inputs = this.el.querySelectorAll('input');<br>    for (let i = 0; i < inputs.length; i++) {<br>      inputs[i].addEventListener('input', function() {<br>        this.products[i].quantity = Math.floor(inputs[i].value);<br>        this.renderTotal();<br>        this.options.onUpdate();<br>      }.bind(this));<br>    }<br>    this.renderTotal();<br>  }<br>}<br><br>var Total = function(products) {<br>  this.products = products;<br>}<br><br>Total.compute = function(products) {<br>  var computed = {quantity: 0, price: 0};<br>  <br>  for (var i = 0; i < products.length; i++) {<br>    var product = products[i];<br>    computed.quantity += product.quantity;<br>    computed.price += (product.price * product.quantity);<br>  }<br><br>  return computed;<br>}<br><br>Total.prototype = {<br>  render() {<br>    var computed = Total.compute(this.products);<br><br>    document.querySelector('.cart-quantity').innerHTML = computed.quantity;;<br>    document.querySelector('.cart-price').innerHTML = computed.price + '€';<br>  }<br>}<br><br>var Router = function() {<br>  this.total = new Total(products);<br>  this.appView = document.querySelector('#app-view');<br>  this.render();<br><br>  window.addEventListener('hashchange', this.render.bind(this));<br>};<br><br>var PaymentView = function(products, options) {<br>  this.products = products;<br>  this.options = options;<br><br>  this.el = document.createElement('div');<br>  this.render();<br>}<br><br>PaymentView.prototype = {<br>  publishableKey: 'pk_test_{token}',<br>  secretKey: 'sk_test_{token}',<br>  encodeBodyAsQueryParams: function(body) {<br>    return Object.keys(body).map(function(key) {<br>      return encodeURIComponent(key) + '=' + encodeURIComponent(body[key]);<br>    }).join('&');<br>  },<br>  render: function() {<br>    this.el.innerHTML = document.querySelector('#payment').innerHTML;<br><br>    var stripe = Stripe(this.publishableKey);<br>    var elements = stripe.elements();<br>    var card = elements.create('card', {hidePostalCode: true});<br>    card.mount(this.el.querySelector('.stripe'));<br><br>    var button = this.el.querySelector('.button');<br>    button.querySelector('.cart-price').innerHTML = Total.compute(this.products).price + '€';<br><br>    this.el.querySelector('.checkout').addEventListener('submit', function(event) {<br>      event.preventDefault();<br><br>      button.classList.add('loading');<br><br>      stripe.createToken(card).then(function(data) {<br>        var token = data.token.id;<br><br>        fetch('https://api.stripe.com/v1/charges', {<br>          method: 'POST',<br>          headers: {<br>            'Authorization': 'Bearer ' + this.secretKey,<br>            'Content-Type': 'application/x-www-form-urlencoded'<br>          },<br>          mode: 'cors',<br>          body: this.encodeBodyAsQueryParams({<br>            amount: 100 * Total.compute(this.products).price,<br>            currency: 'eur',<br>            description: 'shop',<br>            source: token<br>          })<br>        })<br>        .then(function(response) {<br>          return response.json();<br>        })<br>        .then(function(data) {<br>          button.classList.remove('loading');<br>          <br>          for (var i = 0; i < this.products.length; i++) {<br>            this.products[i].quantity = 0;<br>          }<br>          this.options.onUpdate();<br>        }.bind(this))<br>        .catch(function(err) {<br>          console.log(err);<br>        });<br>      }.bind(this));<br>    }.bind(this));<br>  }<br>}<br><br>Router.prototype = {<br>  onUpdate: function() {<br>    this.total.render();<br>  },<br>  render: function() {<br>    var view;<br>    var options = {onUpdate: this.onUpdate.bind(this)};<br>    <br>    switch(location.hash) {<br>      case '#cart': <br>        view = new CartView(products, options);<br>        break;<br>      case '#payment': <br>        view = new PaymentView(products, options);<br>        break;<br>      default:<br>        view = new ProductsView(products, options);<br>        break;<br>    }<br>    <br>    this.appView.innerHTML = '';<br>    this.appView.appendChild(view.el);<br>    view.render();<br><br>    this.total.render();<br>  }<br>}<br><br>new Router();",
             init: function() {
-                window.products = deepClone(shopProducts);
+                window.products = helpers.deepClone(dom.shopProducts);
             },
             dom: function() {
-                return shop.bind(shop);
+                return dom.shop();
             },
             reload: function() {
                 removeEventListener('hashchange');
@@ -5242,15 +5247,15 @@ let chapters = [
             solution: function() {
                 document.querySelector('.item.cart').click();  
                 
-                return hashWait()
+                return http.hashWait()
                 .then(function() {
                     var items = document.querySelectorAll('.ui.list .item');
                     var input = items[1].querySelector('input');
                     input.value = 5;
-                    change(input, 'input');
+                    helpers.change(input, 'input');
 
                     document.querySelector('#app-view .button').click();  
-                    return hashWait();
+                    return http.hashWait();
                 })
                 .then(function() {
                     var checkout = document.querySelector('.checkout');
@@ -5347,13 +5352,13 @@ let chapters = [
                 description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de <code>x</code> (déclarée par ce tutoriel) dont toutes les lettres <code>e</code> ont été retirées.",
                 solved: "var answer = x.replace(/e/ig, '');",
                 init: function() {
-                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                    window.x = this.x = helpers.randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
                 },
                 answer: function() {
                     return this.x.replace(/e/ig, '');
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
                     return answer === this.answer();
@@ -5364,13 +5369,13 @@ let chapters = [
                 description: "Créer une variable nommée <code>answer</code> et lui affecter <code>true</code> si la valeur de <code>x</code> (déclarée par ce tutoriel) contient la pattern <code>en.</code> ou <code>.</code> correspond à un caractère quelconque. Lui affecter <code>false</code> sinon.",
                 solved: "var answer = /en./i.test(x);",
                 init: function() {
-                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                    window.x = this.x = helpers.randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
                 },
                 answer: function() {
                     return /en./i.test(this.x);
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
                     return answer === this.answer();
@@ -5381,14 +5386,14 @@ let chapters = [
                 description: "Créer une variable nommée <code>answer</code> et lui affecter le compte de <code>e</code> contenus dans la chaine de caractères déclarée par <code>x</code> (déclarée par ce tutoriel).",
                 solved: "var match = x.match(/e/ig);<br>var answer = !match ? 0 : match.length;",
                 init: function() {
-                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                    window.x = this.x = helpers.randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
                 },
                 answer: function() {
                     var match = this.x.match(/e/ig);
                     return !match ? 0 : match.length;
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
                     return answer === this.answer();
@@ -5399,14 +5404,14 @@ let chapters = [
                 description: "Créer une variable nommée <code>answer</code> et lui affecter <code>true</code> si le pattern déclaré par <code>y</code> est contenu dans la valeur de <code>x</code> (déclarées par ce tutoriel).",
                 solved: "var answer = new RegExp(y).test(x);",
                 init: function() {
-                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
-                    window.y = this.y = randomize("en.", "e.*d", "e?t")
+                    window.x = this.x = helpers.randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                    window.y = this.y = helpers.randomize("en.", "e.*d", "e?t")
                 },
                 answer: function() {
                     return new RegExp(this.y).test(this.x);
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
                     return answer === this.answer();
@@ -5417,13 +5422,13 @@ let chapters = [
                 description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de <code>x</code> (déclarée par ce tutoriel) dont tous les <code>to</code>, <code>at</code>, <code>in</code> et <code>is</code> ont été retirés (de préférence, avec une seule expression régulière).",
                 solved: "var answer = x.replace(/(to|at|in|is)/ig, '');",
                 init: function() {
-                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                    window.x = this.x = helpers.randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
                 },
                 answer: function() {
                     return this.x.replace(/(to|at|in|is)/g, '');
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
                     return answer === this.answer();
@@ -5434,13 +5439,13 @@ let chapters = [
                 description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de <code>x</code> (déclarée par ce tutoriel) dont chaque <code>e</code> a été remplacé par <code>-e-</code> à condition qu'il soit précédé et suivi d'une lettre (et pas d'une espace — de préférence, avec une seule expression régulière).",
                 solved: "var answer = x.replace(/(\w)e(\w)/ig, '$1-e-$2');",
                 init: function() {
-                    window.x = this.x = randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                    window.x = this.x = helpers.randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
                 },
                 answer: function() {
                     return this.x.replace(/(\w)e(\w)/ig, '$1-e-$2');
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
                     return answer === this.answer();
@@ -5451,14 +5456,14 @@ let chapters = [
                 description: "Créer une variable nommée <code>answer</code> et lui affecter le compte de <code><strong>...</strong></code> contenus dans la chaine de caractères déclarée par <code>x</code> (déclarée par ce tutoriel) ou <code>...</code> correspond à un ou plusieurs caractères quelconques.",
                 solved: "var match = x.match(/&lt;strong&gt;.*?&lt;\\/strong&gt;/g);<br>var answer = !match ? 0 : match.length;",
                 init: function() {
-                    window.x = this.x = randomize("I used to <strong>get</strong> mad at my school (No I <strong>can't</strong> complain)", "Lucy in the <strong>sky</strong> with <strong>diamonds</strong>", "And in the end, the love you <strong>take</strong> is equal to the love you <strong>make</strong>", "Sit <strong>back</strong> and let the evening <strong>go</strong>");
+                    window.x = this.x = helpers.randomize("I used to <strong>get</strong> mad at my school (No I <strong>can't</strong> complain)", "Lucy in the <strong>sky</strong> with <strong>diamonds</strong>", "And in the end, the love you <strong>take</strong> is equal to the love you <strong>make</strong>", "Sit <strong>back</strong> and let the evening <strong>go</strong>");
                 },
                 answer: function() {
                     var match = this.x.match(/<strong>.*?<\/strong>/g);
                     return !match ? 0 : match.length;
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
                     return answer === this.answer();
@@ -5476,25 +5481,25 @@ let chapters = [
                 excerpt: "La méthode <code>Math.floor(Math.random() * 9)</code> retourne un nombre aléatoire entre 0 et 8.",
                 solved: "var shuffle = function(o){<br>  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);<br>  return o;<br>}<br><br>var render = function(matrix) {<br>  var ul = document.querySelector('.sliding ul');<br>  ul.innerHTML = '';<br><br>  var squares = [].concat(matrix[0], matrix[1], matrix[2])<br>  for (var square of squares) {<br>    var li = document.createElement('li');<br>    li.className = 'square' + square;<br>    ul.appendChild(li);<br>  }<br>}<br><br>document.querySelector('.sliding button').addEventListener('click', function() {<br>  var squares = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8]);<br>  var matrix = [<br>    [squares[0], squares[1], squares[2]],<br>    [squares[3], squares[4], squares[5]],<br>    [squares[6], squares[7], squares[8]]<br>  ];<br>  render(matrix);<br>});",
                 dom: function() {
-                    return sliding.bind(sliding);
+                    return dom.sliding();
                 },
                 solution: function() {
-                    let classNames = getClassNames('.sliding li');
+                    let classNames = helpers.getClassNames('.sliding li');
 
                     if (classNames.length !== 9)
                         this.warn = this.warn || "Le puzzle doit contenir 9 <code>li</code>";
-                    if (equals(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']) !== true)
+                    if (helpers.equals(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']) !== true)
                         this.warn = this.warn || "Les cases doivent être dans l'ordre avant le mélange";
 
                     let button = document.querySelector('.sliding button');
                     button.click();
 
-                    classNames = getClassNames('.sliding li');
+                    classNames = helpers.getClassNames('.sliding li');
                     if (classNames.length !== 9)
                         this.warn = this.warn || "Le puzzle doit contenir 9 <code>li</code>";
-                    if (equals(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']) !== false)
+                    if (helpers.equals(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']) !== false)
                         this.warn = this.warn || "Les cases doivent être dans le désordre après le mélange";
-                    if (equalsContent(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']) !== true)
+                    if (helpers.equalsContent(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']) !== true)
                         this.warn = this.warn || "Les cases doivent toutes être présentes, sans doublon";
 
                     return !this.warn;
@@ -5506,14 +5511,14 @@ let chapters = [
                 excerpt: "Stocker l'état du puzzle dans une variable (une matrice de préférence — un tableau de tableaux, 3 lignes, 3 colonnes), et trouver une façon condensée pour lister quelles cases sont accessibles à partir d'une autre case. Se concentrer pour l'instant sur les mouvements horizontaux.",
                 solved: "var shuffle = function(o){<br>  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);<br>  return o;<br>}<br><br>var render = function(matrix) {<br>  var ul = document.querySelector('.sliding ul');<br>  ul.innerHTML = '';<br><br>  var squares = [].concat(matrix[0], matrix[1], matrix[2])<br>  for (var square of squares) {<br>    var li = document.createElement('li');<br>    li.className = 'square' + square;<br>    li.setAttribute('data-id', square);<br>    li.addEventListener('click', function() {<br>      move(matrix, parseInt(this.getAttribute('data-id')));<br>    });<br>    ul.appendChild(li);<br>  }<br>}<br>var move = function(matrix, square) {<br>  if (square === 0)<br>    return false;<br>  if (matrix[0][0] === square)<br>    canToggle(matrix, [0, 0], [[0, 1]]);<br>  else if (matrix[0][1] === square)<br>    canToggle(matrix, [0, 1], [[0, 0], [0, 2]]);<br>  else if (matrix[0][2] === square)<br>    canToggle(matrix, [0, 2], [[0, 1]]);<br>  else if (matrix[1][0] === square)<br>    canToggle(matrix, [1, 0], [[1, 1]]);<br>  else if (matrix[1][1] === square)<br>    canToggle(matrix, [1, 1], [[1, 0], [1, 2]]);<br>  else if (matrix[1][2] === square)<br>    canToggle(matrix, [1, 2], [[1, 1]]);<br>  else if (matrix[2][0] === square)<br>    canToggle(matrix, [2, 0], [[2, 1]]);<br>  else if (matrix[2][1] === square)<br>    canToggle(matrix, [2, 1], [[2, 0], [2, 2]]);<br>  else if (matrix[2][2] === square)<br>    canToggle(matrix, [2, 2], [[2, 1]]);<br>}<br>var canToggle = function(matrix, from, combinaisons) {<br>  for (var c of combinaisons) {<br>    if (matrix[c[0]][c[1]] === 0) {<br>      toggle(matrix, [from[0], from[1]], [c[0], c[1]]);<br>      break;<br>    }<br>  }<br>}<br>var toggle = function(matrix, from, to) {<br>  var memo = matrix[from[0]][from[1]];<br>  matrix[from[0]][from[1]] = matrix[to[0]][to[1]];<br>  matrix[to[0]][to[1]] = memo;<br>  render(matrix);<br>}<br><br>document.querySelector('.sliding button').addEventListener('click', function() {<br>  var squares = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8]);<br>  var matrix = [<br>    [squares[0], squares[1], squares[2]],<br>    [squares[3], squares[4], squares[5]],<br>    [squares[6], squares[7], squares[8]]<br>  ];<br>  render(matrix);<br>});",
                 dom: function() {
-                    return sliding.bind(sliding);
+                    return dom.sliding();
                 },
                 solution: function() {
                     let button = document.querySelector('.sliding button');
                     button.click();
 
                     // click on possible
-                    let classNames = getClassNames('.sliding li');
+                    let classNames = helpers.getClassNames('.sliding li');
                     let expected = classNames.slice(0);
                     let position = classNames.indexOf('square0') + 1;
                     let toPosition;
@@ -5527,25 +5532,25 @@ let chapters = [
                     expected[position - 1] = expected[toPosition - 1];
                     expected[toPosition - 1] = memo;
 
-                    classNames = getClassNames('.sliding li');
+                    classNames = helpers.getClassNames('.sliding li');
 
                     let basic = true;
-                    basic = basic && equals(expected, classNames);
+                    basic = basic && helpers.equals(expected, classNames);
 
                     // click on empty
                     expected = classNames.slice(0);
                     position = classNames.indexOf('square0') + 1;
                     document.querySelector(`.sliding li:nth-child(${position})`).click();
-                    classNames = getClassNames('.sliding li');
-                    basic = basic && equals(expected, classNames);
+                    classNames = helpers.getClassNames('.sliding li');
+                    basic = basic && helpers.equals(expected, classNames);
 
                     // click on impossible
                     expected = classNames.slice(0);
                     position = classNames.indexOf('square0');
                     position = ((position + 4) % 9) + 1;
                     document.querySelector(`.sliding li:nth-child(${position})`).click();
-                    classNames = getClassNames('.sliding li');
-                    basic = basic && equals(expected, classNames);
+                    classNames = helpers.getClassNames('.sliding li');
+                    basic = basic && helpers.equals(expected, classNames);
 
                     if (!basic)
                         this.warn = "Le déplacement horizontal d'une case doit fonctionner";
@@ -5557,14 +5562,14 @@ let chapters = [
                 description: "Au clic sur une case, celle-ci doit être intervertie avec la case vide <code>.square0</code> à condition que l'une et l'autre soit à côté (et pas en diagonale).",
                 solved: "var shuffle = function(o){<br>  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);<br>  return o;<br>}<br><br>var render = function(matrix) {<br>  var ul = document.querySelector('.sliding ul');<br>  ul.innerHTML = '';<br><br>  var squares = [].concat(matrix[0], matrix[1], matrix[2])<br>  for (var square of squares) {<br>    var li = document.createElement('li');<br>    li.className = 'square' + square;<br>    li.setAttribute('data-id', square);<br>    li.addEventListener('click', function() {<br>      move(matrix, parseInt(this.getAttribute('data-id')));<br>    });<br>    ul.appendChild(li);<br>  }<br>}<br>var move = function(matrix, square) {<br>  if (square === 0)<br>    return false;<br>  if (matrix[0][0] === square)<br>    canToggle(matrix, [0, 0], [[0, 1], [1, 0]]);<br>  else if (matrix[0][1] === square)<br>    canToggle(matrix, [0, 1], [[0, 0], [1, 1], [0, 2]]);<br>  else if (matrix[0][2] === square)<br>    canToggle(matrix, [0, 2], [[0, 1], [1, 2]]);<br>  else if (matrix[1][0] === square)<br>    canToggle(matrix, [1, 0], [[0, 0], [1, 1], [2, 0]]);<br>  else if (matrix[1][1] === square)<br>    canToggle(matrix, [1, 1], [[0, 1], [1, 0], [1, 2], [2, 1]]);<br>  else if (matrix[1][2] === square)<br>    canToggle(matrix, [1, 2], [[0, 2], [1, 1], [2, 2]]);<br>  else if (matrix[2][0] === square)<br>    canToggle(matrix, [2, 0], [[1, 0], [2, 1]]);<br>  else if (matrix[2][1] === square)<br>    canToggle(matrix, [2, 1], [[2, 0], [1, 1], [2, 2]]);<br>  else if (matrix[2][2] === square)<br>    canToggle(matrix, [2, 2], [[2, 1], [1, 2]]);<br>}<br>var canToggle = function(matrix, from, combinaisons) {<br>  for (var c of combinaisons) {<br>    if (matrix[c[0]][c[1]] === 0) {<br>      toggle(matrix, [from[0], from[1]], [c[0], c[1]]);<br>      break;<br>    }<br>  }<br>}<br>var toggle = function(matrix, from, to) {<br>  var memo = matrix[from[0]][from[1]];<br>  matrix[from[0]][from[1]] = matrix[to[0]][to[1]];<br>  matrix[to[0]][to[1]] = memo;<br>  render(matrix);<br>}<br><br>document.querySelector('.sliding button').addEventListener('click', function() {<br>  var squares = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8]);<br>  var matrix = [<br>    [squares[0], squares[1], squares[2]],<br>    [squares[3], squares[4], squares[5]],<br>    [squares[6], squares[7], squares[8]]<br>  ];<br>  render(matrix);<br>});",
                 dom: function() {
-                    return sliding.bind(sliding);
+                    return dom.sliding();
                 },
                 solution: function() {
                     let button = document.querySelector('.sliding button');
                     button.click();
 
                     // click on possible
-                    let classNames = getClassNames('.sliding li');
+                    let classNames = helpers.getClassNames('.sliding li');
                     let expected = classNames.slice(0);
                     let position = classNames.indexOf('square0') + 1;
                     let toPosition;
@@ -5578,10 +5583,10 @@ let chapters = [
                     expected[position - 1] = expected[toPosition - 1];
                     expected[toPosition - 1] = memo;
 
-                    classNames = getClassNames('.sliding li');
+                    classNames = helpers.getClassNames('.sliding li');
 
                     let basic = true;
-                    basic = basic && equals(expected, classNames);
+                    basic = basic && helpers.equals(expected, classNames);
 
                     if (!basic)
                         this.warn = "Le déplacement vertical d'une case doit fonctionner";
@@ -5599,7 +5604,7 @@ let chapters = [
                 description: "Dans la <code>table</code> générer 6 lignes <code>tr</code> avec chacune 7 colonnes <code>td</code> afin de créer le plateau de jeu.",
                 solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br>render();",
                 dom: function() {
-                    return connectfour.bind(connectfour);
+                    return dom.connectfour();
                 },
                 solution: function() {
                     if (document.querySelectorAll('table tr').length !== 6)
@@ -5614,7 +5619,7 @@ let chapters = [
                 description: "Au clic sur n'importe quel <code>td</code> d'une colonne, ajouter au <code>td</code> en pied de cette colonne la classe <code>yellow</code> ou <code>red</code> alternativement (si il n'a pas de classe). Au fur et à mesure des clics, les jetons s'empilent ainsi les uns sur les autres. Si une colonne est remplie, elle ne reçoit plus de jeton au clic.",
                 solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      if (column)<br>        td.className = column;<br><br>      td.addEventListener('click', function(e) {<br>        var index = Array.prototype.indexOf.call(this.parentElement.children, this);<br>        for (var i = 5; i >= 0; i--) {<br>          if (!grid[i][index]) {<br>            color = (color === 'yellow' ? 'red' : 'yellow');<br>            grid[i][index] = color;<br>            break;<br>          } else continue;<br>        }<br>        render();<br>      });<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br>render();",
                 dom: function() {
-                    return connectfour.bind(connectfour);
+                    return dom.connectfour();
                 },
                 solution: function() {
                     var cell = function(tr, td) {
@@ -5626,13 +5631,13 @@ let chapters = [
                     cell(1, 1).click();
                     cell(1, 2).click();
 
-                    if (elHasClass(cell(6, 1), 'yellow') !== true)
+                    if (helpers.elHasClass(cell(6, 1), 'yellow') !== true)
                         this.warn = this.warn || "Après un clic sur la première colonne, le pion de la première case de cette colonne doit être jaune";
-                    if (elHasClass(cell(5, 1), 'red') !== true)
+                    if (helpers.elHasClass(cell(5, 1), 'red') !== true)
                         this.warn = this.warn || "Après un clic sur la première colonne, le pion de la deuxième case de cette colonne doit être rouge";
-                    if (elHasClass(cell(4, 1), 'yellow') !== true)
+                    if (helpers.elHasClass(cell(4, 1), 'yellow') !== true)
                         this.warn = this.warn || "Après un clic sur la première colonne, le pion de la troisième case de cette colonne doit être jaune";
-                    if (elHasClass(cell(6, 2), 'red') !== true)
+                    if (helpers.elHasClass(cell(6, 2), 'red') !== true)
                         this.warn = this.warn || "Après un clic sur la première colonne, le pion de la quatrième case de cette colonne doit être rouge";
                     return !this.warn;
                 }
@@ -5642,7 +5647,7 @@ let chapters = [
                 description: "Lorsque 4 jetons consécutifs de la même couleur sont alignés horizontalement, leur ajouter la classe <code>victory</code>. Les clics suivants sur la table n'ajoutent plus de jetons.",
                 solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var winner = false;<br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      if (column)<br>        td.className = column;<br><br>      td.addEventListener('click', function(e) {<br>        if (winner)<br>          return;<br><br>        var index = Array.prototype.indexOf.call(this.parentElement.children, this);<br>        for (var i = 5; i >= 0; i--) {<br>          if (!grid[i][index]) {<br>            color = (color === 'yellow' ? 'red' : 'yellow');<br>            grid[i][index] = color;<br>            break;<br>          } else continue;<br>        }<br><br>        winner = wins(grid);<br>        if (winner) {<br>          for (var i = 0; i < winner.length; i++) {<br>            var position = winner[i].split('-');<br>            grid[position[0]][position[1]] += ' victory';<br>          }<br>        }<br>        render();<br>      });<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br><br>var wins = function() {<br>  return horizontalWinner(grid);<br>};<br><br>var horizontalWinner = function() {<br>  var player, positions;<br>  for (var row = 5; row >= 0; row--) {<br>    positions = []<br>    for (var column = 0; column < 7; column++) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>render();",
                 dom: function() {
-                    return connectfour.bind(connectfour);
+                    return dom.connectfour();
                 },
                 solution: function() {
                     var cell = function(tr, td) {
@@ -5657,11 +5662,11 @@ let chapters = [
                     cell(1, 4).click(); cell(1, 4).click();
 
                     var basic = true;
-                    basic = basic && elHasClass(cell(5, 1), 'victory');
-                    basic = basic && elHasClass(cell(5, 2), 'victory');
-                    basic = basic && elHasClass(cell(5, 3), 'victory');
-                    basic = basic && elHasClass(cell(5, 4), 'victory');
-                    basic = basic && !elHasClass(cell(4, 4), 'red');
+                    basic = basic && helpers.elHasClass(cell(5, 1), 'victory');
+                    basic = basic && helpers.elHasClass(cell(5, 2), 'victory');
+                    basic = basic && helpers.elHasClass(cell(5, 3), 'victory');
+                    basic = basic && helpers.elHasClass(cell(5, 4), 'victory');
+                    basic = basic && !helpers.elHasClass(cell(4, 4), 'red');
 
                     if (!basic)
                         this.warn = "Les combinaisons horizontales gagnantes doivent fonctionner";
@@ -5673,7 +5678,7 @@ let chapters = [
                 description: "Faire de même lorsque 4 jetons sont alignés verticalement.",
                 solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var winner = false;<br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      if (column)<br>        td.className = column;<br><br>      td.addEventListener('click', function(e) {<br>        if (winner)<br>          return;<br><br>        var index = Array.prototype.indexOf.call(this.parentElement.children, this);<br>        for (var i = 5; i >= 0; i--) {<br>          if (!grid[i][index]) {<br>            color = (color === 'yellow' ? 'red' : 'yellow');<br>            grid[i][index] = color;<br>            break;<br>          } else continue;<br>        }<br><br>        winner = wins(grid);<br>        if (winner) {<br>          for (var i = 0; i < winner.length; i++) {<br>            var position = winner[i].split('-');<br>            grid[position[0]][position[1]] += ' victory';<br>          }<br>        }<br>        render();<br>      });<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br><br>var wins = function() {<br>  return verticalWinner(grid) || horizontalWinner(grid);<br>};<br><br>var verticalWinner = function() {<br>  var player, positions;<br>  for (var column = 0; column < 7; column++) {<br>    positions = [];<br>    for (var row = 5; row >= 0; row--) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>var horizontalWinner = function() {<br>  var player, positions;<br>  for (var row = 5; row >= 0; row--) {<br>    positions = []<br>    for (var column = 0; column < 7; column++) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>render();",
                 dom: function() {
-                    return connectfour.bind(connectfour);
+                    return dom.connectfour();
                 },
                 solution: function() {
                     var cell = function(tr, td) {
@@ -5687,14 +5692,14 @@ let chapters = [
                     cell(1, 1).click(); cell(1, 2).click();
 
                     var basic = true;
-                    basic = basic && elHasClass(cell(6, 1), 'victory');
-                    basic = basic && elHasClass(cell(5, 1), 'victory');
-                    basic = basic && elHasClass(cell(4, 1), 'victory');
-                    basic = basic && elHasClass(cell(3, 1), 'victory');
-                    basic = basic && !elHasClass(cell(6, 2), 'victory');
-                    basic = basic && !elHasClass(cell(5, 2), 'victory');
-                    basic = basic && elHasClass(cell(4, 2), 'red');
-                    basic = basic && !elHasClass(cell(3, 2), 'red');
+                    basic = basic && helpers.elHasClass(cell(6, 1), 'victory');
+                    basic = basic && helpers.elHasClass(cell(5, 1), 'victory');
+                    basic = basic && helpers.elHasClass(cell(4, 1), 'victory');
+                    basic = basic && helpers.elHasClass(cell(3, 1), 'victory');
+                    basic = basic && !helpers.elHasClass(cell(6, 2), 'victory');
+                    basic = basic && !helpers.elHasClass(cell(5, 2), 'victory');
+                    basic = basic && helpers.elHasClass(cell(4, 2), 'red');
+                    basic = basic && !helpers.elHasClass(cell(3, 2), 'red');
 
                     if (!basic)
                         this.warn = "Les combinaisons verticales gagnantes doivent fonctionner";
@@ -5712,7 +5717,7 @@ let chapters = [
                 excerpt: "Dans ce jeu deux adversaires s'affrontent, et jouent deux coups à tour de rôle. Avec un coup, un joueur peut déplacer un pion d'une colonne vers une autre. Si plusieurs pions sont sur la même colonne, seul le plus éloigné du territoire adverse peut être déplacé. Et, quand un pion arrive dans une colonne, il arrive dans la première ligne disponible, la plus éloignée du territoire adverse.<br><br>Dans les étapes suivantes, deux objets de la classe <code>Player</code> vont être utilisés pour gérer les actions des deux joueurs ; la classe va définir un comportement similaire, unique pour les deux joueurs, le premier de ses objets gérera le premier joueur, et le second, le second joueur.<br><br>Il est possible (et souvent souhaitable) de structurer un programme à l'aide de composants au comportement clairement défini. Une classe est un modèle (comme un moule à pâtisserie) qui définit un ensemble d'attributs (la taille, les fruits utilisés) et de méthodes (découper, manger). <pre><code>var Player = function(name) {<br>  this.name = name;<br>}<br>var player = new Player(1);</code></pre>Par convention les classes commencent par une majuscule et les variables / instances par une minuscules.",
                 solved: "var Player = function(name) {<br>  this.name = name;<br>};",
                 dom: function() {
-                    return might.bind(might);
+                    return dom.might();
                 },
                 solution: function() {
                     var player = new Player(1);
@@ -5728,7 +5733,7 @@ let chapters = [
                 excerpt: "Le constructeur d'une classe peut être utilisé pour configurer l'objet qu'il créé. Ici, deux objet <code>Player</code> vont être créés, ils partageront le même comportement, mais l'un gérera la <code>table</code> du haut (joueur 1), l'autre la <code>table</code> du bas (joueur 2).",
                 solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};",
                 dom: function() {
-                    return might.bind(might);
+                    return dom.might();
                 },
                 solution: function() {
                     var player = new Player(1);
@@ -5743,7 +5748,7 @@ let chapters = [
                 excerpt: "Dans les étapes suivantes, afin de déplacer les pions, il sera nécessaire de pouvoir récupérer chaque case du territoire d'un joueur et de savoir si elle libre ou occupée. La méthode <code>get</code> est créée pour cela.<br><br>Pour ajouter un comportement commun à chaque objet d'une classe, il est possible de modifier le prototype de celle-ci. De cette façon, tous les objets créés à partir de cette clase, disposeront de la même fonction.<pre><code>Player.prototype.get = function(x, y) {<br>  return this.table.querySelector('[data-x=\"' + x + '\"]');<br>}</code></pre>",
                 solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  }<br>};",
                 dom: function() {
-                    return might.bind(might);
+                    return dom.might();
                 },
                 solution: function() {
                     var player = new Player(1);
@@ -5760,7 +5765,7 @@ let chapters = [
                 excerpt: "Dans les étapes suivantes, afin de déplacer les pions, il sera nécessaire de pouvoir modifier une case du territoire d'un joueur, celle dont il vient devra ne plus avoir de classe (pour apparaitre vide), celle ou il arrive devra obtenir la classe correspondante, <code>.peon</code>, <code>.block</code> ou <code>.attack</code>. La méthode <code>set</code> est créée pour cela.",
                 solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  }<br>};",
                 dom: function() {
-                    return might.bind(might);
+                    return dom.might();
                 },
                 solution: function() {
                     var player = new Player(1);
@@ -5779,7 +5784,7 @@ let chapters = [
                 excerpt: "Dans les étapes suivantes, au clic sur une colonne, le dernier pion de la colonne (le plus loin du territoire adverse) pourra être déplacé vers une autre colonne. La méthode <code>free</code> permettra de connaître le premier emplacement disponible de la colonne d'arrivée du déplacement.",
                 solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var i = this.free(x);<br>    if (i) {<br>      return i - 1;<br>    } else {<br>      return 4;<br>    }<br>  }<br>};",
                 dom: function() {
-                    return might.bind(might);
+                    return dom.might();
                 },
                 solution: function() {
                     var player = new Player(1);
@@ -5803,7 +5808,7 @@ let chapters = [
                 excerpt: "Dans les étapes suivantes, au clic sur une colonne, le dernier pion de la colonne (le plus loin du territoire adverse) pourra être déplacé vers une autre colonne. La méthode <code>last</code> permettra de connaître le dernier emplacement occupé de la colonne de départ du déplacement.",
                 solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  }<br>};",
                 dom: function() {
-                    return might.bind(might);
+                    return dom.might();
                 },
                 solution: function() {
                     var player = new Player(1);
@@ -5824,7 +5829,7 @@ let chapters = [
                 excerpt: "Dans les étapes suivantes, l'attribut <code>game.memo</code> permettra de déplacer le pion. ",
                 solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  }<br>};<br><br>var player1 = new Player(1);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    game.select(+this.dataset.x);<br>  });<br>}",
                 dom: function() {
-                    return might.bind(might);
+                    return dom.might();
                 },
                 solution: function() {
                     var player = new Player(1);
@@ -5839,7 +5844,7 @@ let chapters = [
                 description: "Lors d'un clic sur une colonne occupée par un péon (bleu), puis sur une autre colonne, la dernière case occupée cliquée (c'est à dire <code>game.memo</code>), est vidée et déplacée vers la première case libre de la seconde colonne cliquée. Si les deux colonnes sont identiques, rien ne se passe. Si la seconde colonne n'a plus d'espace libre, rien ne se passe non plus.",
                 solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  }<br>};<br><br>var player1 = new Player(1);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br>    }<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var x = +this.dataset.x;<br>    if (game.memo) {<br>      game.move(x);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
                 dom: function() {
-                    return might.bind(might);
+                    return dom.might();
                 },
                 solution: function() {
                     var player = new Player(1);
@@ -5860,7 +5865,7 @@ let chapters = [
                 description: "Lors du déplacement d'une case, diminuer le nombre de coups du joueur en cours de 1. Si ce nombre tombe à 0, supprimer la classe <code>active</code> de sa <code>table</code> et l'ajouter à la <code>table</code> de l'autre joueur. Les méthodes pour effectuer ces modifications peuvent être ajoutées à la classe <code>Player</code>. Modifier le compteur de tour dans le <code>th</code> de la <code>table</code> des joueurs. Lorsque ce n'est pas son tour, les <code>td</code> de la <code>table</code> d'un joueur ne doivent pas être cliquable.",
                 solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  life: '♥♥',<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  title: function(moves) {<br>    this.table.querySelector('th').innerHTML = moves + ' ' + this.life;<br>  },<br>  stop: function() {<br>    this.table.classList.remove('active');<br>  },<br>  start: function() {<br>    this.table.classList.add('active');<br>  }<br>};<br><br>var player1 = new Player(1);<br>var player2 = new Player(2);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br><br>      this.moves--;<br>      this.player.title(this.moves);<br>      if (this.moves === 0) {<br>        this.player.stop();<br><br>        this.player = this.opponent();<br>        this.player.start();<br>        this.moves = 2;<br>        this.player.title(this.moves);<br>      }<br>    }<br>  },<br>  opponent: function() {<br>    return this.player === player1 ? player2 : player1;<br>  },<br>  isActivePlayer(playerName) {<br>    return this.player.name === playerName;<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var table = this.closest('table');<br>    if (!game.isActivePlayer(+table.dataset.p)) {<br>      return;<br>    }<br><br>    var x = +this.dataset.x;<br>    if (game.memo) {<br>      game.move(x);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
                 dom: function() {
-                    return might.bind(might);
+                    return dom.might();
                 },
                 solution: function() {
                     var player = new Player(1);
@@ -5890,7 +5895,7 @@ let chapters = [
                 description: "Lorsqu'après un déplacement 3 péons (bleus) se retrouvent dans la même colonne, ils sont supprimés et une unique tête brûlée (un <code>td.attack</code>) les remplace à la place du premier d'entre eux (celui le plus proche du territoire adverse).",
                 solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  life: '♥♥',<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  title: function(moves) {<br>    this.table.querySelector('th').innerHTML = moves + ' ' + this.life;<br>  },<br>  stop: function() {<br>    this.table.classList.remove('active');<br>  },<br>  start: function() {<br>    this.table.classList.add('active');<br>  },<br>  column: function(x) {<br>    var y = this.last(x);<br>    var td1 = (y === 3) ? this.get(x, 1) : this.get(x, 2);<br>    var td2 = (y === 3) ? this.get(x, 2) : this.get(x, 3);<br>    var td3 = (y === 3) ? this.get(x, 3) : this.get(x, 4);<br>    if (td1.className === 'peon' && td1.className === td2.className && td2.className === td3.className) {<br>      td1.className = 'attack';<br>      td2.className = td3.className = '';<br>    }<br>  }<br>};<br><br>var player1 = new Player(1);<br>var player2 = new Player(2);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br><br>      this.player.column(x)<br><br>      this.moves--;<br>      this.player.title(this.moves);<br>      if (this.moves === 0) {<br>        this.player.stop();<br><br>        this.player = this.opponent();<br>        this.player.start();<br>        this.moves = 2;<br>        this.player.title(this.moves);<br>      }<br>    }<br>  },<br>  opponent: function() {<br>    return this.player === player1 ? player2 : player1;<br>  },<br>  isActivePlayer(playerName) {<br>    return this.player.name === playerName;<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var table = this.closest('table');<br>    if (!game.isActivePlayer(+table.dataset.p)) {<br>      return;<br>    }<br><br>    var x = +this.dataset.x;<br>    if (game.memo) {<br>      game.move(x);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
                 dom: function() {
-                    return might.bind(might);
+                    return dom.might();
                 },
                 solution: function() {
                     var player = new Player(1);
@@ -5906,7 +5911,7 @@ let chapters = [
                 description: "Au clic sur une tête brûlée, celle-ci disparait (les péons de derrière avance alors d'une case) et diminue d'un point le nombre de ♥ de l'adversaire. Si l'adversaire n'a plus de ♥, un x est affiché à la place et la partie prend fin (plus aucune case n'est cliquable).",
                 solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  life: '♥♥',<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    return this.match(x, '');<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  title: function(moves) {<br>    this.table.querySelector('th').innerHTML = moves + ' ' + this.life;<br>  },<br>  stop: function() {<br>    this.table.classList.remove('active');<br>  },<br>  start: function() {<br>    this.table.classList.add('active');<br>  },<br>  column: function(x) {<br>    var y = this.last(x);<br>    var td1 = (y === 3) ? this.get(x, 1) : this.get(x, 2);<br>    var td2 = (y === 3) ? this.get(x, 2) : this.get(x, 3);<br>    var td3 = (y === 3) ? this.get(x, 3) : this.get(x, 4);<br>    if (td1.className === 'peon' && td1.className === td2.className && td2.className === td3.className) {<br>      td1.className = 'attack';<br>      td2.className = td3.className = '';<br>    }<br>  },<br>  match: function(x, className) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (td.className === className) {<br>        return y;<br>      }<br>    }<br>  },<br>  attack: function(x) {<br>    var match = this.match(x, 'attack')<br>    if (match) {<br>        for (var y = match + 1; y < 4; y++) {<br>          this.set(x, y - 1, this.get(x, y).className);<br>        }<br>        this.set(x, 4, '');<br>        return true;<br>    }<br>  },<br>  hurt: function() {<br>    if (this.life === '♥♥')<br>      this.life = '♥';<br>    else<br>      this.life = 'x';<br>  },<br>  dead: function() {<br>    return this.life === 'x';<br>  }<br>};<br><br>var player1 = new Player(1);<br>var player2 = new Player(2);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    if (this.player.attack(x)) {<br>      this.opponent().hurt();<br>      this.opponent().title(2);<br>      if (this.opponent().dead())<br>        this.player.stop();<br>      else<br>        this.next();<br>      return;<br>    }<br><br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br><br>      this.player.column(x)<br>      this.next();<br>    }<br>  },<br>  next: function() {<br>    this.moves--;<br>    this.player.title(this.moves);<br>    if (this.moves === 0) {<br>      this.player.stop();<br><br>      this.player = this.opponent();<br>      this.player.start();<br>      this.moves = 2;<br>      this.player.title(this.moves);<br>    }<br>  },<br>  opponent: function() {<br>    return this.player === player1 ? player2 : player1;<br>  },<br>  isActivePlayer(playerName) {<br>    return this.player.name === playerName;<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var table = this.closest('table');<br>    if (!game.isActivePlayer(+table.dataset.p)) {<br>      return;<br>    }<br><br>    var x = +this.dataset.x;<br>    if (game.memo) {<br>      game.move(x);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
                 dom: function() {
-                    return might.bind(might);
+                    return dom.might();
                 },
                 solution: function() {
                     var player = new Player(1);
@@ -5934,7 +5939,7 @@ let chapters = [
                 description: "Lorsqu'après un déplacement au moins 3 péons (bleus) se retrouvent dans la même ligne, ils sont remplacés par des têtes d'arbre (un <code>td.block</code>).",
                 solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  life: '♥♥',<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    return this.match(x, '');<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  title: function(moves) {<br>    this.table.querySelector('th').innerHTML = moves + ' ' + this.life;<br>  },<br>  stop: function() {<br>    this.table.classList.remove('active');<br>  },<br>  start: function() {<br>    this.table.classList.add('active');<br>  },<br>  column: function(x) {<br>    var y = this.last(x);<br>    var td1 = (y === 3) ? this.get(x, 1) : this.get(x, 2);<br>    var td2 = (y === 3) ? this.get(x, 2) : this.get(x, 3);<br>    var td3 = (y === 3) ? this.get(x, 3) : this.get(x, 4);<br>    if (td1.className === 'peon' && td1.className === td2.className && td2.className === td3.className) {<br>      td1.className = 'attack';<br>      td2.className = td3.className = '';<br>    }<br>  },<br>  line: function(x, y) {<br>    var count = 0;<br>    for (var _x = x - 1; _x >= 1; _x--) {<br>      if (this.get(_x, y).className === 'peon')<br>        count++;<br>      else<br>        break;<br>    }<br><br>    for (var _x = x + 1; _x <= 7; _x++) {<br>      if (this.get(_x, y).className === 'peon')<br>        count++;<br>      else<br>        break;<br>    }<br><br>    if (count >= 3) {<br>      this.get(x, y).className = 'block'<br>      for (var _x = x - 1; _x >= 1; _x--) {<br>        if (this.get(_x, y).className === 'peon')<br>          this.get(_x, y).className = 'block';<br>        else<br>          break;<br>      }<br><br>      for (var _x = x + 1; _x <= 7; _x++) {<br>        if (this.get(_x, y).className === 'peon')<br>          this.get(_x, y).className = 'block';<br>        else<br>          break;<br>      }<br>    }<br>  },<br>  match: function(x, className) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (td.className === className) {<br>        return y;<br>      }<br>    }<br>  },<br>  attack: function(x) {<br>    var match = this.match(x, 'attack')<br>    if (match) {<br>        for (var y = match + 1; y < 4; y++) {<br>          this.set(x, y - 1, this.get(x, y).className);<br>        }<br>        this.set(x, 4, '');<br>        return true;<br>    }<br>  },<br>  hurt: function() {<br>    if (this.life === '♥♥')<br>      this.life = '♥';<br>    else<br>      this.life = 'x';<br>  },<br>  dead: function() {<br>    return this.life === 'x';<br>  }<br>};<br><br>var player1 = new Player(1);<br>var player2 = new Player(2);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    if (this.player.attack(x)) {<br>      this.opponent().hurt();<br>      this.opponent().title(2);<br>      if (this.opponent().dead())<br>        this.player.stop();<br>      else<br>        this.next();<br>      return;<br>    }<br><br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x, y) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br><br>      this.player.column(x);<br>      this.player.line(x, y);<br>      this.next();<br>    }<br>  },<br>  next: function() {<br>    this.moves--;<br>    this.player.title(this.moves);<br>    if (this.moves === 0) {<br>      this.player.stop();<br><br>      this.player = this.opponent();<br>      this.player.start();<br>      this.moves = 2;<br>      this.player.title(this.moves);<br>    }<br>  },<br>  opponent: function() {<br>    return this.player === player1 ? player2 : player1;<br>  },<br>  isActivePlayer(playerName) {<br>    return this.player.name === playerName;<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var table = this.closest('table');<br>    if (!game.isActivePlayer(+table.dataset.p)) {<br>      return;<br>    }<br><br>    var x = +this.dataset.x;<br>    var y = +this.dataset.y;<br>    if (game.memo) {<br>      game.move(x, y);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
                 dom: function() {
-                    return might.bind(might);
+                    return dom.might();
                 },
                 solution: function() {
                     var player = new Player(1);
@@ -5950,7 +5955,7 @@ let chapters = [
                 description: "Lorsqu'une tête brûle attaque et qu'une tête d'arbre lui fait fasse en première ligne dans le territoire adverse, les deux disparraissent (les péons de derrière avance alors d'une case) sans causer de dégats à l'adversaire.",
                 solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  life: '♥♥',<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    return this.match(x, '');<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  title: function(moves) {<br>    this.table.querySelector('th').innerHTML = moves + ' ' + this.life;<br>  },<br>  stop: function() {<br>    this.table.classList.remove('active');<br>  },<br>  start: function() {<br>    this.table.classList.add('active');<br>  },<br>  column: function(x) {<br>    var y = this.last(x);<br>    var td1 = (y === 3) ? this.get(x, 1) : this.get(x, 2);<br>    var td2 = (y === 3) ? this.get(x, 2) : this.get(x, 3);<br>    var td3 = (y === 3) ? this.get(x, 3) : this.get(x, 4);<br>    if (td1.className === 'peon' && td1.className === td2.className && td2.className === td3.className) {<br>      td1.className = 'attack';<br>      td2.className = td3.className = '';<br>    }<br>  },<br>  line: function(x, y) {<br>    var count = 0;<br>    for (var _x = x - 1; _x >= 1; _x--) {<br>      if (this.get(_x, y).className === 'peon')<br>        count++;<br>      else<br>        break;<br>    }<br><br>    for (var _x = x + 1; _x <= 7; _x++) {<br>      if (this.get(_x, y).className === 'peon')<br>        count++;<br>      else<br>        break;<br>    }<br><br>    if (count >= 3) {<br>      this.get(x, y).className = 'block'<br>      for (var _x = x - 1; _x >= 1; _x--) {<br>        if (this.get(_x, y).className === 'peon')<br>          this.get(_x, y).className = 'block';<br>        else<br>          break;<br>      }<br><br>      for (var _x = x + 1; _x <= 7; _x++) {<br>        if (this.get(_x, y).className === 'peon')<br>          this.get(_x, y).className = 'block';<br>        else<br>          break;<br>      }<br>    }<br>  },<br>  match: function(x, className) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (td.className === className) {<br>        return y;<br>      }<br>    }<br>  },<br>  attack: function(x) {<br>    var match = this.match(x, 'attack')<br>    if (match) {<br>        this.dash(x, match);<br>        return true;<br>    }<br>  },<br>  block: function(x) {<br>    if (this.get(x, 1).className === 'block') {<br>      this.dash(x, 1);<br>      return true;<br>    }<br>  },<br>  dash: function(x, y) {<br>    for (var _y = y + 1; _y < 4; _y++) {<br>      this.set(x, _y - 1, this.get(x, _y).className);<br>    }<br>    this.set(x, 4, '');<br>  },<br>  hurt: function() {<br>    if (this.life === '♥♥')<br>      this.life = '♥';<br>    else<br>      this.life = 'x';<br>  },<br>  dead: function() {<br>    return this.life === 'x';<br>  }<br>};<br><br>var player1 = new Player(1);<br>var player2 = new Player(2);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    if (this.player.attack(x)) {<br>      if (!this.opponent().block(x)) {<br>        this.opponent().hurt();<br>        this.opponent().title(2);<br>      }<br><br>      if (this.opponent().dead())<br>        this.player.stop();<br>      else<br>        this.next();<br>      return;<br>    }<br><br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x, y) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br><br>      this.player.column(x);<br>      this.player.line(x, y);<br>      this.next();<br>    }<br>  },<br>  next: function() {<br>    this.moves--;<br>    this.player.title(this.moves);<br>    if (this.moves === 0) {<br>      this.player.stop();<br><br>      this.player = this.opponent();<br>      this.player.start();<br>      this.moves = 2;<br>      this.player.title(this.moves);<br>    }<br>  },<br>  opponent: function() {<br>    return this.player === player1 ? player2 : player1;<br>  },<br>  isActivePlayer(playerName) {<br>    return this.player.name === playerName;<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var table = this.closest('table');<br>    if (!game.isActivePlayer(+table.dataset.p)) {<br>      return;<br>    }<br><br>    var x = +this.dataset.x;<br>    var y = +this.dataset.y;<br>    if (game.memo) {<br>      game.move(x, y);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
                 dom: function() {
-                    return might.bind(might);
+                    return dom.might();
                 },
                 solution: function() {
                     var player = new Player(1);
@@ -6093,17 +6098,17 @@ let chapters = [
                 excerpt: "Les méthodes <code>map</code> et <code>forEach</code> parcourent toutes deux le tableau sur lequel elles s'appliquent. <code>map</code> retourne un nouveau tableau ou chaque valeur du tableau original peut avoir été modifiée, <code>forEach</code> peut modifier le tableau actuel ou seulement lire les valeurs pour les afficher, par exemple.",
                 solved: "var answer = x.map(value => Math.round(value));<br><br>/* -------------------- or -------------------- */<br><br>var answer = [];<br>x.forEach(value => answer.push(Math.round(value)));<br><br>/* ------------------- es5 -------------------- */<br><br>var answer = x.map(function(value) {<br>  return Math.round(value);<br>});<br><br>/* ------------------- es3 -------------------- */<br><br>var answer = [];<br>for (var i = 0; i < x.length; i++) {<br>  var value = x[i];<br>  answer[i] = Math.round(value); <br>}",
                 init: function() {
-                    this.x = [random(1, 10) + 0.1 * random(1, 10), random(1, 10) + 0.1 * random(1, 10), random(1, 10) + 0.1 * random(1, 10), random(1, 10) + 0.1 * random(1, 10)];
+                    this.x = [helpers.random(1, 10) + 0.1 * helpers.random(1, 10), helpers.random(1, 10) + 0.1 * helpers.random(1, 10), helpers.random(1, 10) + 0.1 * helpers.random(1, 10), helpers.random(1, 10) + 0.1 * helpers.random(1, 10)];
                     window.x = this.x.slice(0);
                 },
                 answer: function() {
                     return this.x.map(function(item) { return Math.round(item); });
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
-                    return equals(answer, this.answer());
+                    return helpers.equals(answer, this.answer());
                 }
             },
             {
@@ -6111,7 +6116,7 @@ let chapters = [
                 description: "Créer une variable nommée <code>answer</code> de type tableau avec toutes les valeurs du tableau <code>x</code> dont les valeurs inférieures à 10 ont été retirées (ex. [7, 12, 3, 17] -> [12, 17] — déclarées par ce tutoriel). La méthode <code>filter</code> est la plus approriée pour se faire.",
                 solved: "var answer = x.filter(value => value >= 10);<br><br>/* ------------------- es5 -------------------- */<br><br>var answer = x.filter(function(value) {<br>  return value >= 10;<br>});<br><br>/* ------------------- es3 -------------------- */<br><br>var answer = [];<br>for (var i = 0; i < x.length; i++) {<br>  if (x[i] >= 10) {<br>    answer.push(x[i]);<br>  }<br>}",
                 init: function() {
-                    this.x = [random(1, 20), random(1, 20), random(1, 20), random(1, 20), random(1, 20), random(1, 20), random(1, 20), random(1, 20)];
+                    this.x = [helpers.random(1, 20), helpers.random(1, 20), helpers.random(1, 20), helpers.random(1, 20), helpers.random(1, 20), helpers.random(1, 20), helpers.random(1, 20), helpers.random(1, 20)];
                     window.x = this.x.slice(0);
                 },
                 answer: function() {
@@ -6122,7 +6127,7 @@ let chapters = [
                     return "La variable <code>answer</code> vaut <code>" + JSON.stringify(answer) + "</code> et non la résultat attendu, <code>" + this.answer() + "</code> (attention, le tableau contient des entiers et des chaines de caractères).";
                 },
                 solution: function() {
-                    return equals(answer, this.answer());
+                    return helpers.equals(answer, this.answer());
                 }
             },
             {
@@ -6130,14 +6135,14 @@ let chapters = [
                 description: "Créer une variable nommée <code>answer</code> ayant pour valeur la moyenne (entière, arrondie à l'inférieur) des valeurs du tableau <code>x</code> (ex. [1, 5, 7] -> (1+5+7)/3 -> 4 — déclarée par ce tutoriel). La méthode <code>reduce</code> est la plus approriée pour se faire.",
                 solved: "var answer = Math.ceil(x.reduce((memo, value) => memo + value, 0) / x.length);<br><br>/* -------------------- es5 -------------------- */<br><br>var answer = x.reduce(function(memo, value) {<br>  return memo + value;<br>}, 0);<br>answer = Math.ceil(answer / x.length);<br><br>/* -------------------- es3 -------------------- */<br><br>var answer = 0;<br>for (var i = 0; i < x.length; i++) {<br>  answer = answer + x[i];<br>}<br>answer = Math.ceil(answer / x.length);",
                 init: function() {
-                    this.x = [random(1, 10), random(1, 10), random(1, 10), random(1, 10)];
+                    this.x = [helpers.random(1, 10), helpers.random(1, 10), helpers.random(1, 10), helpers.random(1, 10)];
                     window.x = this.x.slice(0);
                 },
                 answer: function() {
                     return Math.ceil(this.x.reduce(function(memo, value) { return memo + value; }, 0) / this.x.length);
                 },
                 warn: function() {
-                    return basicWarn(answer, this.answer());
+                    return helpers.basicWarn(answer, this.answer());
                 },
                 solution: function() {
                     return answer === this.answer();
@@ -6193,7 +6198,7 @@ let chapters = [
                 description: "Créer une classe nommée <code>Movie</code> dont le constructeur reçoit son titre, <code>title</code>, et son année de sortie, <code>release</code> en paramètre. Cette classe possède une méthode <code>isOlderThan</code> qui reçoit un <code>Movie</code> en paramètre et retourne <code>true</code> si le film en paramètre est sorti après l'instance testée (<code>alien.isOlderThan(terminator)</code> retourne <code>true</code>).",
                 solved: "class Movie {<br>  constructor(title, release) {<br>    this.title = title;<br>    this.release = release;<br>  }<br>  isOlderThan(movie) {<br>    return this.release < movie.release;<br>  }<br>}<br><br>/* -------------------- es5 -------------------- */<br><br>var Movie = function(title, release) {<br>  this.title = title;<br>  this.release = release;<br>}<br><br>Movie.prototype.isOlderThan = function(movie) {<br>  return this.release < movie.release;<br>}",
                 init: function() {
-                    this.x = [random(1, 10), random(1, 10), random(1, 10), random(1, 10)];
+                    this.x = [helpers.random(1, 10), helpers.random(1, 10), helpers.random(1, 10), helpers.random(1, 10)];
                     window.x = this.x.slice(0);
                 },
                 solution: function() {
@@ -6957,7 +6962,7 @@ let stepper = function(el, data, methods) {
                 if (stepContent.init)
                     stepContent.init();
                 if (stepContent.dom)
-                    document.querySelector('[data-hook=dom]').innerHTML = stepContent.dom()();
+                    document.querySelector('[data-hook=dom]').innerHTML = stepContent.dom();
 
                 this.methods.reload.call(this, noWarning);
                 this.methods.divulge.call(this);
