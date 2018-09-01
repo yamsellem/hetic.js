@@ -1,4 +1,4 @@
-# JavaScript, le langage du web
+# JavaScript, le langage du web [![download](https://img.shields.io/badge/télécharger%20-MOOC-brightgreen.svg?style=flat)](https://github.com/yamsellem/hetic.js/raw/master/MOOC.zip) [![GitHub license](https://img.shields.io/badge/licence-GNU-blue.svg)](https://github.com/yamsellem/hetic.js/blob/master/LICENSE.CODE)
 
 Ce repository est le point d'accès à tous les éléments de cours de JavaScript du bachelor web de l'Hetic. 
 
