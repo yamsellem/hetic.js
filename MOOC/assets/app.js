@@ -1371,7 +1371,7 @@ let chapters = [
                 solved: "var answer = [];<br>for (var i = 0; i < x.length; i++) {<br>  if (answer.indexOf(x[i]) === -1) {<br>    answer.push(x[i]);<br>  }<br>}",
                 init: function() {
                     var fruits = ['banana', 'apple', 'pear', 'pineapple', 'coconut'];
-                    this.x = [randomize.apply(null, fruits), randomize.apply(null, fruits), randomize.apply(null, fruits), randomize.apply(null, fruits)];
+                    this.x = [helpers.randomize(fruits), helpers.randomize(fruits), helpers.randomize(fruits), helpers.randomize(fruits)];
                     window.x = this.x.slice(0);
                 },
                 answer: function() {
@@ -1475,7 +1475,7 @@ let chapters = [
             {
                 title: "Utiliser un dictionnaire pour structurer des données",
                 description: "Créer une variable nommée <code>answer</code> de type dictionnaire, avec cinq clés, <code>a</code>, <code>e</code>, <code>i</code>, <code>o</code> et <code>u</code> et y stocker le nombre de chacune de ces voyelles dans la chaîne de caratères déclarée par la variable <code>x</code> (ex. 'hello' -> {a:0, e:1, i:0, o: 1, u:0} — déclarée par ce tutoriel).",
-                solved: "var answer = {a:0, e:0, i:0, o:0, u:0};<br>for (var i = 0; i < x.length; i++) {<br>  switch(x[i].toLowerCase()) {<br>    case 'a': answer.a++; break;<br>    case 'e': answer.e++; break;<br>    case 'i': answer.i++; break;<br>    case 'o': answer.o++; break;<br>    case 'u': answer.u++; break;<br>  }<br>}",
+                solved: "var answer = {a:0, e:0, i:0, o:0, u:0};<br>for (var i = 0; i < x.length; i++) {<br>  switch(x[i].toLowerCase()) {<br>    case 'a': answer.a++; break;<br>    case 'e': answer.e++; break;<br>    case 'i': answer.i++; break;<br>    case 'o': answer.o++; break;<br>    case 'u': answer.u++; break;<br>  }<br>}<br><br>/* or, instead */<br><br>var answer = {a:0, e:0, i:0, o:0, u:0};<br>for (var i = 0; i < x.length; i++) {<br>  var char = x[i].toLowerCase();<br>  if (char === 'a') {<br>    answer.a++;<br>  } else if(char === 'e') {<br>    answer.e++;<br>  } else if(char === 'i') {<br>    answer.i++;<br>  } else if(char === 'o') {<br>    answer.o++;<br>  } else if(char === 'u') {<br>    answer.u++;<br>  }<br>}",
                 init: function() {
                     window.x = this.x = helpers.randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
                 },
@@ -1508,9 +1508,9 @@ let chapters = [
                     window.x = Object.assign({}, this.x);
 
                     let keys = Object.keys(this.x);
-                    let first = randomize.apply(null, keys);
+                    let first = helpers.randomize(keys);
                     keys.splice(keys.indexOf(first), 1);
-                    let second = randomize.apply(null, keys);
+                    let second = helpers.randomize(keys);
                     this.y = [first, second];
                     window.y = this.y.slice(0);
                 },
@@ -1991,7 +1991,7 @@ let chapters = [
 
                     L'objet \`Event\` qui représente cette action utilisateur peut être capturé directement sur un \`Element\` cible ou sur un de ces parents. En voici les principaux :
                     * souris : \`click\`, \`dblclick\`, \`mouseover\`, \`mouseleave\`, \`drag\`, \`dragend\`, notifient, entre autres, un clic, un double clic, le survol d'un élément, le fait que la souris quitte un élément ou le glisser déposer d'un élément
-                    * clavier : \`keydown\`, \`keyup\`, notifient, entre autres, quelle touche a été appuyée ou relâchée (avec un code pour identifier la touche, voir la liste des codes pour plus de détails)
+                    * clavier : \`keydown\`, \`keyup\`, \`keypress\`, notifient, entre autres, quelle touche a été appuyée ou relâchée (avec un code pour identifier la touche, voir la liste des codes pour plus de détails)
                     * souris ou clavier : \`focus\`, \`blur\`, \`change\`, \`submit\`, notifient, entre autres, la sélection d'un élément, sa désélection, la modification d'une valeur (très utilisés pour les champ de saisie) et la soumission d'un formulaire
                     * document : \`resize\`, \`scroll\`, notifient, entre autres, le redimensionnement de la fenêtre ou le défilement de la page vers le haut ou le bas
 
@@ -2340,7 +2340,7 @@ let chapters = [
                 title: "Formatter des dates",
                 description: "Mettre en forme les dates saisies dans <code>.from input</code> et <code>.to input</code> de façon a ce qu'elles s'affichent dans <code>.from .formatted</code> et <code>.to .formatted</code> sous le format « JANV. 10 » (premières initiales du mois, suivies du jour, avec la locale française).",
                 excerpt: "La librairie <a target=\"_blank\" href=\"http://momentjs.com/\">moment</a> permet de manipuler facilement des dates, et, notamment, de les mettre en forme en fonction de la locale.",
-                solved: "/* import this in the HTML <head> before the code<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js\"&gt;&lt;/script&gt;<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/fr.js\"&gt;&lt;/script&gt;<br>*/<br>document.querySelector('.booking .from input').addEventListener('change', function() {<br>  var date = moment(this.value);<br>  document.querySelector('.from .formatted').innerHTML = date.format('MMM').toUpperCase() + ' ' + date.format('D');<br>});<br><br>document.querySelector('.booking .to input').addEventListener('change', function() {<br>  var date = moment(this.value);<br>  document.querySelector('.to .formatted').innerHTML = date.format('MMM').toUpperCase() + ' ' + date.format('D');<br>});",
+                solved: "/* import this in the HTML <head> before the code<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js\"&gt;&lt;/script&gt;<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/fr.js\"&gt;&lt;/script&gt;<br>*/<br>document.querySelector('.booking .from input').addEventListener('change', function(event) {<br>  var date = moment(event.target.value);<br>  document.querySelector('.from .formatted').innerHTML = date.format('MMM').toUpperCase() + ' ' + date.format('D');<br>});<br><br>document.querySelector('.booking .to input').addEventListener('change', function(event) {<br>  var date = moment(event.target.value);<br>  document.querySelector('.to .formatted').innerHTML = date.format('MMM').toUpperCase() + ' ' + date.format('D');<br>});",
                 dom: function() {
                     return dom.booking();
                 },
@@ -2430,7 +2430,7 @@ let chapters = [
             {
                 title: "Multiplier par le nombre de voyageurs",
                 description: "Pour chaque voyageur, multiplier le prix (un voyage à 80€ coûtera 240€ pour 3 voyageurs).",
-                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br>var passengers = 1;<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = to.value.diff(from.value, 'days') + 1;<br>  document.querySelector('.price').innerHTML = 40 * days * passengers + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});<br><br>document.querySelector('select').addEventListener('change', function() {<br>  passengers = this.value;<br>  total();<br>});",
+                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br>var passengers = 1;<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = to.value.diff(from.value, 'days') + 1;<br>  document.querySelector('.price').innerHTML = 40 * days * passengers + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});<br><br>document.querySelector('select').addEventListener('change', function(event) {<br>  passengers = event.target.value;<br>  total();<br>});",
                 dom: function() {
                     return dom.booking();
                 },
@@ -2462,7 +2462,7 @@ let chapters = [
             {
                 title: "Décompter les weekends",
                 description: "Les samedis et dimanches ne sont pas facturés (vendredi, samedi, dimanche coûtera 40€ — 1 jour —, vendredi, samedi, dimanche, lundi coûtera 80€ — 2 jours —, du lundi au lundi deux semaines après, coûtera 840€ — 11 jours).",
-                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br>var passengers = 1;<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = 0;<br>  var clone = from.value.clone();<br>  while (clone.isSameOrBefore(to.value)) {<br>    if (clone.day() !== 6 && clone.day() !== 0)<br>      days++;<br>    clone.add(1, 'days');<br>  }<br><br>  document.querySelector('.price').innerHTML = 40 * days * passengers + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});<br><br>document.querySelector('select').addEventListener('change', function() {<br>  passengers = this.value;<br>  total();<br>});",
+                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br>var passengers = 1;<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = 0;<br>  var clone = from.value.clone();<br>  while (clone.isSameOrBefore(to.value)) {<br>    if (clone.day() !== 6 && clone.day() !== 0)<br>      days++;<br>    clone.add(1, 'days');<br>  }<br><br>  document.querySelector('.price').innerHTML = 40 * days * passengers + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});<br><br>document.querySelector('select').addEventListener('change', function(event) {<br>  passengers = event.target.value;<br>  total();<br>});",
                 dom: function() {
                     return dom.booking();
                 },
@@ -2575,7 +2575,7 @@ let chapters = [
                           if (exponent === 0)
                             return 1;
                           else
-                            return number + power(number, exponent - 1);
+                            return number * power(number, exponent - 1);
                         }
 
                         power(3, 2);
@@ -6692,6 +6692,56 @@ let glossary = {
                 document.querySelector('.visible').addEventListener('click', echo);
         `;
 
+        let events = `
+            ### Événements usuels souris
+
+            Événements déclenchés par un clic de souris.
+
+                'click', 'dblclick'
+            
+            ---
+
+            Événements déclenchés par un survol de souris.
+            
+                'mouseover', 'mouseleave'
+                
+            ### Événements usuels clavier
+
+            Événements déclenchés par un glisser déposer de souris.
+            
+                'drag', 'dragend'
+
+            ---
+
+            Événements déclenchés par une saisie de touches de clavier. Le premier paramètre de la fonction déclenchée dispose d'un attribut keyCode ou which correspondant au code de la touche appuyée. Le code 13 correspond à la touche entrée.
+                
+                'keydown', 'keyup', 'keypress'
+
+            ### Événements usuels élément
+
+            Événements déclenchés par la prise ou la perte de focus d'un élément.
+            
+                'focus', 'blur'
+                
+            ---
+
+            Événement déclenché par le changement de valeur d'un champ de saisie. Le premier paramètre de la fonction déclenchée dispose d'un attribut target.value correspondant à la nouvelle valeur saisie.
+
+                'change'
+            
+            ---
+
+            Événement déclenché par la soumission d'un formulaire. Le premier paramètre de la fonction déclenchée dispose d'une fonction preventDefault() permettant d'interrompre le comportement normal du navigateur, d'éviter que le formulaire soit soumit à un serveur, et d'économiser ainsi un rechargement de page.
+            
+                'submit'
+
+            ### Événements usuels document
+
+            Événements déclenchés par le redimensionnement de la fenêtre ou le défilement de la page vers le haut ou le bas.
+
+                'resize', 'scroll'
+        `;
+
         let functions = `
             ### Fonctions usuelles
 
@@ -6813,14 +6863,16 @@ let glossary = {
                                     ${index === 2 ? 'Variables' : ''}
                                     ${index === 3 ? 'Conditions' : ''}
                                     ${index === 4 ? 'DOM' : ''}
-                                    ${index === 5 ? 'Fonctions' : ''}
-                                    ${index === 6 ? 'Classes' : ''}
+                                    ${index === 5 ? 'Événements' : ''}
+                                    ${index === 6 ? 'Fonctions' : ''}
+                                    ${index === 7 ? 'Classes' : ''}
                                 </span>
                                 <div class="menu transition">
                                     <div class="item">Opérations</div>
                                     <div class="item">Variables</div>
                                     <div class="item">Conditions</div>
                                     <div class="item">DOM</div>
+                                    <div class="item">Événements</div>
                                     <div class="item">Fonctions</div>
                                     <div class="item">Classes</div>
                                 </div>
@@ -6832,8 +6884,9 @@ let glossary = {
                             <div class="description ${index === 2 ? '' : 'hidden'}" data-tab="second">${marked(dedent(variables))}</div>
                             <div class="description ${index === 3 ? '' : 'hidden'}" data-tab="third">${marked(dedent(conditions))}</div>
                             <div class="description ${index === 4 ? '' : 'hidden'}" data-tab="forth">${marked(dedent(dom))}</div>
-                            <div class="description ${index === 5 ? '' : 'hidden'}" data-tab="fifth">${marked(dedent(functions))}</div>
-                            <div class="description ${index === 6 ? '' : 'hidden'}" data-tab="sixth">${marked(dedent(classes))}</div>
+                            <div class="description ${index === 5 ? '' : 'hidden'}" data-tab="fifth">${marked(dedent(events))}</div>
+                            <div class="description ${index === 6 ? '' : 'hidden'}" data-tab="fifth">${marked(dedent(functions))}</div>
+                            <div class="description ${index === 7 ? '' : 'hidden'}" data-tab="sixth">${marked(dedent(classes))}</div>
                         </div>
                     </div>
                 </div>
