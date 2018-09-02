@@ -495,333 +495,16 @@ let http = {
     },
 };
 
-// Glossary
-
-let glossary = function(gpage) {
-    let operations = `
-        ### Valeurs
-
-        Un nombre.
-
-            12
-
-        D'autres nombres (négatif, fraction, exposant).
-
-            -12 1.5 3.4e10
-
-        Une chaîne avec des guillemets est une chaîne de caractères, un morceau de texte. Guillemets doubles ou simples.
-
-            "Il était une fois"
-
-        Un booléen, true pour oui, false pour non.
-
-            true
-
-        ### Opérateurs
-
-        Une addition (égal 13).
-
-            10 + 3
-
-        Une soustraction (égal 7).
-
-            10 - 3
-
-        Une multiplication (égal 30).
-
-            10 * 3
-
-        Une division (égal 3.33).
-
-            10 / 3
-
-        Un modulo (égal 2). Retourne le reste de la division euclidienne, c'est à dire 14 divisé par 4 arrondi à l'entier inférieur — donc 3. Le module est alors 14 moins 4 fois 3, c'est à dire 2.
-
-            14 % 4
-    `;
-
-    let variables = `
-        ### Variables, types simples
-
-        La définition d'une variable. La variable « banana » est définie avec la valeur 18. La valeur est optionnelle. var banana (sans donner de valeur) la définit avec la valeur undefined.
-
-            var banana = 18
-
-        Une définition multiple. Chaque définition est séparée par une virgule.
-
-            var banana = 18, lemon = 12
-
-        Un mot sans guillemets référence une variable dans le contexte actuel et accède à sa valeur. Le résultat est 18.
-
-            banana
-
-        Opérateur appliqué à deux variables. Le résultat est 30. Plusieurs opérateurs disponibles,      + pour additionner, - pour soustraire, * pour multiplier, / pour diviser.
-
-            banana + lemon
-
-        Les parenthèses utilisées pour expliciter un groupe. Par défaut les multiplications et les divisions sont exécutées avant les additions. Ici, l'addition est prioritaire grâce aux parenthèses. Le résultat est 300. Sans parenthèses le résultat serait 138.
-
-            (banana + lemon) * 10
-
-        Un opérateur de comparaison. Le résultat est false (18 est supérieur à 12). Plusieurs opérateurs disponibles, ==, != (différent), <, >, <= (inférieur ou égal), >=, === (égal si type identique, le chiffre 18 est différent de la chaîne de caractères "18" pour cet opérateur), !==.
-
-            banana < lemon
-
-        Un opérateur logique. Deux opérateurs,  && (et), || (ou). L'opérateur ou retourne true si l'un de ces membres est évalué à true. L'opérateur et retourne true si tous ses membres sont évalués à true. En cas contraire, ces opérateurs retournent false.
-        L'opérateur ou évalue ses membres un à un jusqu'à trouver une valeur évaluée à true, il arrête d'évaluer ses membres dès qu'il en a trouvé une. L'opérateur et évalue ses membres un à un tant qu'il trouve une valeur évaluée à true, il arrête d'évaluer ses membres dès qu'il en a trouvé une false.
-        Si ils trouvent une valeur évaluée à true, ces opérateurs retourne la valeur évaluée.
-
-            banana && lemon
-
-        ### Variables, types complexes
-
-        Un tableau représente une liste de valeurs ou de variables.
-
-            var fruits = [banana, lemon, "grapes", 15]
-
-        Accès à l'élément stocké dans la troisième case du tableau (zéro est la première case). Le résultat est "grapes". Si l'élément n'existe pas le résultat est undefined.
-
-            fruits[2]
-
-        Modification de l'élément stocké dans la troisième case du tableau.
-
-            fruits[2] = "strawberries"
-
-        Un objet représente une liste de valeurs sous la forme clé: valeur séparées par des virgules. Deux accolades encadre sa déclaration.
-
-            var tree = {color: "yellow", fruit: "lemon"}
-
-        Accès à la propriété stockée pour la clé color de l'objet tree. Le résultat est "yellow". Si la propriété n'existe pas le résultat est undefined.
-
-            tree.color
-
-        Modification de la propriété stockée pour la clé color de l'objet tree.
-
-            tree.color = "green"
-
-        Utilisation d'objet comme éléments d'un tableau.
-
-            var fruits=[{color:"red",fruit:"grapes"},{color:"yellow",fruit:"lemon"}]
-
-        Utilisation de tableaux comme valeur d'objet.
-
-            var fruits={color:["red", "green"],fruit:"grapes"}
-
-        ### Propriétés usuelles des tableaux
-
-        Retourne le nombre d'éléments du tableau.
-
-            fruits.length
-
-        Ajoute un élément au début du tableau.
-
-            fruits.unshift("orange")
-
-        Ajoute un élément à la fin du tableau.
-
-            fruits.push("orange")
-
-        Supprime le premier élément d'un tableau et le retourne.
-
-            fruits.shift()
-
-        Supprime le dernier élément d'un tableau et le retourne.
-
-            fruits.pop()
-
-        Retourne une partie du tableau, similaire à slice pour les chaîne de caractères.
-
-            fruits.slice(1, 3)
-    `;
-
-    let conditions = `
-        ### Branchements conditionnels
-
-        Une instruction conditionnelle. Si la condition est évaluée à true, les instructions situées entres les premières accolades sont exécutées. Sinon, les instructions du else sont exécutées. Le else est optionnel. Les instructions conditionnelles de ce type peuvent être chaînées : if (condition) {} else if (otherCondition) {} else {}.
-
-            if (tree.color == "yellow") { /* .. */ } else { /* .. */ }
-
-        Une boucle. Les instructions entre accolades sont exécutées tant que la condition est évaluée à true.
-
-            while (size < 12) { size = size - 1; }
-
-        Une boucle pour. Cette boucle est composé de trois blocs séparés par des points virgules. Le premier déclare une variable et l'initialise, le second indique la condition de sortie de boucle et le troisième indique l'opération a effectuer après chaque tour de boucle. Pour chaque tour de boucle les instructions entre accolades sont exécutées.
-
-            for (var i = 0; i < 10; i++) { /* .. */ }
-
-        ### Propriétés mathématiques usuelles
-
-        Retourne un nombre aléatoire entre 0 et 1.
-
-            Math.random()
-
-        Retourne un entier arrondi au plus proche. Le résultat est 2 (ou 3 pour Math.round(2.5)).
-
-            Math.round(2.4)
-
-        Retourne la valeur absolue d'une nombre. Le résultat est 4.
-
-            Math.abs(-4)
-
-        Retourne le nombre le plus grand parmi une liste. Le résultat est 5.
-
-            Math.max(1, 5, 4)
-    `;
-
-    let dom = `
-        ### DOM — Document Object Model
-
-        Sélectionne le premier élément de la page avec la classe visible. La sélection se fait avec la même syntaxe que celle utilisée par le CSS. Le sélecteur #name, sélectionne l'élément avec l'id name le sélecteur .value sélectionne l'élément avec la classe value.
-
-            var el = document.querySelector('.visible');
-
-        Une fois un élément sélectionné, il est possible de modifier son contenu (le texte situé entre ses balises). Le texte ainsi remplacé peut être un simple mot ou une suite de balises HTML qui seront intégrées à la page, par exemple "&lt;li&gt;item&lt;/li&gt;".
-
-            el.innerHTML = 'text';
-
-        Une fois un élément sélectionné, il est possible de modifier les classes dont il dispose à l'aide de son attribut classList. Celui-ci dispose notamment des méthodes add (ajouter une classe), remove (supprimer une classe) ou toggle (ajouter une classe si elle n'est pas présente, la supprimer si elle l'est).
-
-            el.classList.add('.visible');
-
-        Une fois un élément sélectionné, le supprime de la page.
-
-            el.remove();
-
-        Une fois un élément sélectionné, accède à ses attributs data-*. Ici dataset.value accède à son attribut data-value. Sa valeur peut être lue ou modifiée.
-
-            el.dataset.value;
-
-        Sélectionne tous les éléments de la page avec la classe visible.
-
-            var els = document.querySelectorAll('.visible');
-
-        Sélectionne tous les éléments td de la première table de la page.
-
-            var els = document.querySelector('table').querySelectorAll('td');
-
-        Ajoute un écouteur d'événement sur le premier élément de la page avec la classe visible. La fonction echo sera déclenchée à chaque clic sur cet élément. Les événements disponibles sont nombreux, notamment click, keypress (l'appui sur une touche) et blur (la perte de focus sur un champ de formulaire).
-
-            var echo = function(event) { console.log(event.target); }
-            document.querySelector('.visible').addEventListener('click', echo);
-    `;
-
-    let functions = `
-        ### Fonctions usuelles
-
-        Convertit une chaîne de caractères en nombre. Le résultat est 5.
-
-            Number("5")
-
-        Convertit un nombre en chaîne de caractère. Le résultat est "5".
-
-            String(5)
-
-        Retourne la taille (le nombre de caractères) d'une chaîne de caractères.
-
-            "yellow".length
-
-        Retourne le caractère à la position indiqué (0 est la première position). Le résultat est "o".
-
-            "yellow".charAt(4)
-
-        Retourne une partie de la chaîne  située entre les deux positions (0 est la première position, la position de début est incluse, pas celle de fin). Le résultat est "ll".
-
-            "yellow".slice(2, 4)
-
-        Découpe la chaîne selon un caractère, retourne un tableau. Le résultat est ["hi", "all"]
-
-            "hi all".split(" ")
-
-        ### Déclaration de fonctions
-
-        Déclaration d'une fonction qui prend une variable en paramètre et retourne son attribut color. Une fonction peut prendre plusieurs paramètres en entrée (séparés par des virgules). Le corps de la fonction peut être composé de plusieurs traitements (conditions, boucles, etc).
-
-            var findColor = function(something) { return something.color; }
-
-        Appel de la fonction avec la variable tree. Le résultat est "yellow".
-
-            var found = findColor({color: 'yellow'})
-    `;
-
-    let classes = `
-        ### Classes, objet et prototype
-
-        Crée une classe Pie.
-
-            var Pie = function(fruits) { this.fruits = fruits; this.pieces = 8; }
-
-        Ajoute une méthodes aux objets de la classe Pie.
-
-            Pie.prototype.eat = function() { this.pieces--; }
-
-        Crée un objet de classe Pie.
-
-            var applePie = new Pie('apple')
-
-        Crée un second objet de classe Pie.
-
-            var cheeseCake = new Pie('cheese')
-
-        Accède à un attribut de l'objet.
-
-            applePie.fruits
-
-        Ajoute dynamiquement un attribut à l'objet.
-
-            applePie.weight = '800g'
-
-        Invoque une méthode de l'objet.
-
-            applePie.eat()
-
-        Ajoute une méthode (dite statique) à la classe.
-
-            Pie.favoriteFavour = function() { return 'lemon'; }
-
-        Invoque une méthode de la classe.
-
-            Pie.favoriteFavour()
-    `;
-
-    gpage = gpage || 1;
-
-    let description = `
-        <div class="ui stackable one column grid h-glossary animated hidden" data-hook="glossary">
-            <div class="column">
-                <div class="ui fluid card">
-                    <div class="ui top attached tabular stackable menu">
-                        <div class="${gpage === 1 ? 'active' : ''} item" data-tab="first">Opérations</div>
-                        <div class="${gpage === 2 ? 'active' : ''} item" data-tab="second">Variables</div>
-                        <div class="${gpage === 3 ? 'active' : ''} item" data-tab="third">Conditions</div>
-                        <div class="${gpage === 4 ? 'active' : ''} item" data-tab="forth">DOM</div>
-                        <div class="${gpage === 5 ? 'active' : ''} item" data-tab="fifth">Fonctions</div>
-                        <div class="${gpage === 6 ? 'active' : ''} item" data-tab="sixth">Classes</div>
-                    </div>
-                    <div class="content">
-                        <div class="description ${gpage === 1 ? '' : 'hidden'}" data-tab="first">${marked(dedent(operations))}</div>
-                        <div class="description ${gpage === 2 ? '' : 'hidden'}" data-tab="second">${marked(dedent(variables))}</div>
-                        <div class="description ${gpage === 3 ? '' : 'hidden'}" data-tab="third">${marked(dedent(conditions))}</div>
-                        <div class="description ${gpage === 4 ? '' : 'hidden'}" data-tab="forth">${marked(dedent(dom))}</div>
-                        <div class="description ${gpage === 5 ? '' : 'hidden'}" data-tab="fifth">${marked(dedent(functions))}</div>
-                        <div class="description ${gpage === 6 ? '' : 'hidden'}" data-tab="sixth">${marked(dedent(classes))}</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="ui top right attached medium labels">
-            <div class="ui mini basic button" data-hook="toggle-glossary">
-                <i class="book icon"></i>
-                <span>Lexique</span>
-            </div>
-        </div>
-    `;
-
-    return description;
-};
-
 // Helpers
 
 let helpers = {
+    highlight: function() {
+        let blocks = document.querySelectorAll('code');
+        for (var i = 0; i < blocks.length; i++) {
+            hljs.highlightBlock(blocks[i]);
+        }
+    },
+
     random: function(min, max) {
         return Math.floor(Math.random() * (max - min || 99)) + (min || 1);
     },
@@ -6726,10 +6409,380 @@ let chapters = [
     }
 ];
 
+let glossary = {
+    render: function(gpage) {
+        let operations = `
+            ### Valeurs
+
+            Un nombre.
+
+                12
+
+            D'autres nombres (négatif, fraction, exposant).
+
+                -12 1.5 3.4e10
+
+            Une chaîne avec des guillemets est une chaîne de caractères, un morceau de texte. Guillemets doubles ou simples.
+
+                "Il était une fois"
+
+            Un booléen, true pour oui, false pour non.
+
+                true
+
+            ### Opérateurs
+
+            Une addition (égal 13).
+
+                10 + 3
+
+            Une soustraction (égal 7).
+
+                10 - 3
+
+            Une multiplication (égal 30).
+
+                10 * 3
+
+            Une division (égal 3.33).
+
+                10 / 3
+
+            Un modulo (égal 2). Retourne le reste de la division euclidienne, c'est à dire 14 divisé par 4 arrondi à l'entier inférieur — donc 3. Le module est alors 14 moins 4 fois 3, c'est à dire 2.
+
+                14 % 4
+        `;
+
+        let variables = `
+            ### Variables, types simples
+
+            La définition d'une variable. La variable « banana » est définie avec la valeur 18. La valeur est optionnelle. var banana (sans donner de valeur) la définit avec la valeur undefined.
+
+                var banana = 18
+
+            Une définition multiple. Chaque définition est séparée par une virgule.
+
+                var banana = 18, lemon = 12
+
+            Un mot sans guillemets référence une variable dans le contexte actuel et accède à sa valeur. Le résultat est 18.
+
+                banana
+
+            Opérateur appliqué à deux variables. Le résultat est 30. Plusieurs opérateurs disponibles,      + pour additionner, - pour soustraire, * pour multiplier, / pour diviser.
+
+                banana + lemon
+
+            Les parenthèses utilisées pour expliciter un groupe. Par défaut les multiplications et les divisions sont exécutées avant les additions. Ici, l'addition est prioritaire grâce aux parenthèses. Le résultat est 300. Sans parenthèses le résultat serait 138.
+
+                (banana + lemon) * 10
+
+            Un opérateur de comparaison. Le résultat est false (18 est supérieur à 12). Plusieurs opérateurs disponibles, ==, != (différent), <, >, <= (inférieur ou égal), >=, === (égal si type identique, le chiffre 18 est différent de la chaîne de caractères "18" pour cet opérateur), !==.
+
+                banana < lemon
+
+            Un opérateur logique. Deux opérateurs,  && (et), || (ou). L'opérateur ou retourne true si l'un de ces membres est évalué à true. L'opérateur et retourne true si tous ses membres sont évalués à true. En cas contraire, ces opérateurs retournent false.
+            L'opérateur ou évalue ses membres un à un jusqu'à trouver une valeur évaluée à true, il arrête d'évaluer ses membres dès qu'il en a trouvé une. L'opérateur et évalue ses membres un à un tant qu'il trouve une valeur évaluée à true, il arrête d'évaluer ses membres dès qu'il en a trouvé une false.
+            Si ils trouvent une valeur évaluée à true, ces opérateurs retourne la valeur évaluée.
+
+                banana && lemon
+
+            ### Variables, types complexes
+
+            Un tableau représente une liste de valeurs ou de variables.
+
+                var fruits = [banana, lemon, "grapes", 15]
+
+            Accès à l'élément stocké dans la troisième case du tableau (zéro est la première case). Le résultat est "grapes". Si l'élément n'existe pas le résultat est undefined.
+
+                fruits[2]
+
+            Modification de l'élément stocké dans la troisième case du tableau.
+
+                fruits[2] = "strawberries"
+
+            Un objet représente une liste de valeurs sous la forme clé: valeur séparées par des virgules. Deux accolades encadre sa déclaration.
+
+                var tree = {color: "yellow", fruit: "lemon"}
+
+            Accès à la propriété stockée pour la clé color de l'objet tree. Le résultat est "yellow". Si la propriété n'existe pas le résultat est undefined.
+
+                tree.color
+
+            Modification de la propriété stockée pour la clé color de l'objet tree.
+
+                tree.color = "green"
+
+            Utilisation d'objet comme éléments d'un tableau.
+
+                var fruits=[{color:"red",fruit:"grapes"},{color:"yellow",fruit:"lemon"}]
+
+            Utilisation de tableaux comme valeur d'objet.
+
+                var fruits={color:["red", "green"],fruit:"grapes"}
+
+            ### Propriétés usuelles des tableaux
+
+            Retourne le nombre d'éléments du tableau.
+
+                fruits.length
+
+            Ajoute un élément au début du tableau.
+
+                fruits.unshift("orange")
+
+            Ajoute un élément à la fin du tableau.
+
+                fruits.push("orange")
+
+            Supprime le premier élément d'un tableau et le retourne.
+
+                fruits.shift()
+
+            Supprime le dernier élément d'un tableau et le retourne.
+
+                fruits.pop()
+
+            Retourne une partie du tableau, similaire à slice pour les chaîne de caractères.
+
+                fruits.slice(1, 3)
+        `;
+
+        let conditions = `
+            ### Branchements conditionnels
+
+            Une instruction conditionnelle. Si la condition est évaluée à true, les instructions situées entres les premières accolades sont exécutées. Sinon, les instructions du else sont exécutées. Le else est optionnel. Les instructions conditionnelles de ce type peuvent être chaînées : if (condition) {} else if (otherCondition) {} else {}.
+
+                if (tree.color == "yellow") { /* .. */ } else { /* .. */ }
+
+            Une boucle. Les instructions entre accolades sont exécutées tant que la condition est évaluée à true.
+
+                while (size < 12) { size = size - 1; }
+
+            Une boucle pour. Cette boucle est composé de trois blocs séparés par des points virgules. Le premier déclare une variable et l'initialise, le second indique la condition de sortie de boucle et le troisième indique l'opération a effectuer après chaque tour de boucle. Pour chaque tour de boucle les instructions entre accolades sont exécutées.
+
+                for (var i = 0; i < 10; i++) { /* .. */ }
+
+            ### Propriétés mathématiques usuelles
+
+            Retourne un nombre aléatoire entre 0 et 1.
+
+                Math.random()
+
+            Retourne un entier arrondi au plus proche. Le résultat est 2 (ou 3 pour Math.round(2.5)).
+
+                Math.round(2.4)
+
+            Retourne la valeur absolue d'une nombre. Le résultat est 4.
+
+                Math.abs(-4)
+
+            Retourne le nombre le plus grand parmi une liste. Le résultat est 5.
+
+                Math.max(1, 5, 4)
+        `;
+
+        let dom = `
+            ### DOM — Document Object Model
+
+            Sélectionne le premier élément de la page avec la classe visible. La sélection se fait avec la même syntaxe que celle utilisée par le CSS. Le sélecteur #name, sélectionne l'élément avec l'id name le sélecteur .value sélectionne l'élément avec la classe value.
+
+                var el = document.querySelector('.visible');
+
+            Une fois un élément sélectionné, il est possible de modifier son contenu (le texte situé entre ses balises). Le texte ainsi remplacé peut être un simple mot ou une suite de balises HTML qui seront intégrées à la page, par exemple "&lt;li&gt;item&lt;/li&gt;".
+
+                el.innerHTML = 'text';
+
+            Une fois un élément sélectionné, il est possible de modifier les classes dont il dispose à l'aide de son attribut classList. Celui-ci dispose notamment des méthodes add (ajouter une classe), remove (supprimer une classe) ou toggle (ajouter une classe si elle n'est pas présente, la supprimer si elle l'est).
+
+                el.classList.add('.visible');
+
+            Une fois un élément sélectionné, le supprime de la page.
+
+                el.remove();
+
+            Une fois un élément sélectionné, accède à ses attributs data-*. Ici dataset.value accède à son attribut data-value. Sa valeur peut être lue ou modifiée.
+
+                el.dataset.value;
+
+            Sélectionne tous les éléments de la page avec la classe visible.
+
+                var els = document.querySelectorAll('.visible');
+
+            Sélectionne tous les éléments td de la première table de la page.
+
+                var els = document.querySelector('table').querySelectorAll('td');
+
+            Ajoute un écouteur d'événement sur le premier élément de la page avec la classe visible. La fonction echo sera déclenchée à chaque clic sur cet élément. Les événements disponibles sont nombreux, notamment click, keypress (l'appui sur une touche) et blur (la perte de focus sur un champ de formulaire).
+
+                var echo = function(event) { console.log(event.target); }
+                document.querySelector('.visible').addEventListener('click', echo);
+        `;
+
+        let functions = `
+            ### Fonctions usuelles
+
+            Convertit une chaîne de caractères en nombre. Le résultat est 5.
+
+                Number("5")
+
+            Convertit un nombre en chaîne de caractère. Le résultat est "5".
+
+                String(5)
+
+            Retourne la taille (le nombre de caractères) d'une chaîne de caractères.
+
+                "yellow".length
+
+            Retourne le caractère à la position indiqué (0 est la première position). Le résultat est "o".
+
+                "yellow".charAt(4)
+
+            Retourne une partie de la chaîne  située entre les deux positions (0 est la première position, la position de début est incluse, pas celle de fin). Le résultat est "ll".
+
+                "yellow".slice(2, 4)
+
+            Découpe la chaîne selon un caractère, retourne un tableau. Le résultat est ["hi", "all"]
+
+                "hi all".split(" ")
+
+            ### Déclaration de fonctions
+
+            Déclaration d'une fonction qui prend une variable en paramètre et retourne son attribut color. Une fonction peut prendre plusieurs paramètres en entrée (séparés par des virgules). Le corps de la fonction peut être composé de plusieurs traitements (conditions, boucles, etc).
+
+                var findColor = function(something) { return something.color; }
+
+            Appel de la fonction avec la variable tree. Le résultat est "yellow".
+
+                var found = findColor({color: 'yellow'})
+        `;
+
+        let classes = `
+            ### Classes, objet et prototype
+
+            Crée une classe Pie.
+
+                var Pie = function(fruits) { this.fruits = fruits; this.pieces = 8; }
+
+            Ajoute une méthodes aux objets de la classe Pie.
+
+                Pie.prototype.eat = function() { this.pieces--; }
+
+            Crée un objet de classe Pie.
+
+                var applePie = new Pie('apple')
+
+            Crée un second objet de classe Pie.
+
+                var cheeseCake = new Pie('cheese')
+
+            Accède à un attribut de l'objet.
+
+                applePie.fruits
+
+            Ajoute dynamiquement un attribut à l'objet.
+
+                applePie.weight = '800g'
+
+            Invoque une méthode de l'objet.
+
+                applePie.eat()
+
+            Ajoute une méthode (dite statique) à la classe.
+
+                Pie.favoriteFavour = function() { return 'lemon'; }
+
+            Invoque une méthode de la classe.
+
+                Pie.favoriteFavour()
+        `;
+
+        let index = (gpage && gpage.index) || 1;
+        let visible = (gpage && gpage.visible) || false;
+
+        let description = `
+            <div class="ui one column grid h-glossary animated ${!visible ? 'hidden' : 'active visible'}" data-hook="glossary">
+                <div class="column">
+                    <div class="ui fluid card">
+                        <div class="content">
+                            <div class="ui floating labeled icon dropdown button">
+                                <i class="sort icon"></i>
+                                <span class="text">
+                                    ${index === 1 ? 'Opérations' : ''}
+                                    ${index === 2 ? 'Variables' : ''}
+                                    ${index === 3 ? 'Conditions' : ''}
+                                    ${index === 4 ? 'DOM' : ''}
+                                    ${index === 5 ? 'Fonctions' : ''}
+                                    ${index === 6 ? 'Classes' : ''}
+                                </span>
+                                <div class="menu transition">
+                                    <div class="item">Opérations</div>
+                                    <div class="item">Variables</div>
+                                    <div class="item">Conditions</div>
+                                    <div class="item">DOM</div>
+                                    <div class="item">Fonctions</div>
+                                    <div class="item">Classes</div>
+                                </div>
+                            </div>
+
+                            <br><br>
+
+                            <div class="description ${index === 1 ? '' : 'hidden'}" data-tab="first">${marked(dedent(operations))}</div>
+                            <div class="description ${index === 2 ? '' : 'hidden'}" data-tab="second">${marked(dedent(variables))}</div>
+                            <div class="description ${index === 3 ? '' : 'hidden'}" data-tab="third">${marked(dedent(conditions))}</div>
+                            <div class="description ${index === 4 ? '' : 'hidden'}" data-tab="forth">${marked(dedent(dom))}</div>
+                            <div class="description ${index === 5 ? '' : 'hidden'}" data-tab="fifth">${marked(dedent(functions))}</div>
+                            <div class="description ${index === 6 ? '' : 'hidden'}" data-tab="sixth">${marked(dedent(classes))}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui top right attached medium labels">
+                <div class="ui basic button ${!visible ? '' : 'active'}" data-hook="toggle-glossary">
+                    <i class="book icon"></i>
+                    <span>Lexique</span>
+                </div>
+            </div>
+        `;
+
+        return description;
+    }, listen: function(el, fnToggle, fnUpdate) {
+        let glossaryEl = el.querySelector('[data-hook="glossary"]');
+        let dropdownEl = glossaryEl.querySelector('.dropdown span')
+        let menuEl = glossaryEl.querySelector('.menu')
+        el.querySelector('[data-hook="toggle-glossary"]').addEventListener('click', function() {
+            this.classList.toggle('active');
+            let hidden = glossaryEl.classList.toggle('hidden');
+            fnToggle && fnToggle(!hidden);
+        });
+
+        glossaryEl.querySelector('.dropdown').addEventListener('click', function() {
+            this.classList.toggle('active');
+            this.classList.toggle('visible');
+            menuEl.classList.toggle('visible');
+        });
+
+        let items = menuEl.querySelectorAll('.item');
+        let contents = el.querySelectorAll('[data-tab].description');
+        for (let i = 0; i < items.length; i++) {
+            items[i].addEventListener('click', function() {
+                for (var j = 0; j < items.length; j++)
+                    contents[j].classList.add('hidden');
+
+                contents[i].classList.remove('hidden');
+                dropdownEl.innerHTML = items[i].innerHTML;
+                fnUpdate && fnUpdate(i + 1);
+            });
+        }
+    }
+};
+
 let digest = function(el, data, methods) {
     let completion = data.completion;
+    let gpage = data.gpage;
 
     let enter = methods.enter;
+    let gpageToggle = methods.gpageToggle;
+    let gpageUpdate = methods.gpageUpdate;
 
     return {
         render: function() {
@@ -6741,6 +6794,9 @@ let digest = function(el, data, methods) {
                         <h2 class="ui grey header">Le langage du web</h2>
                     </div>
                 </div>
+
+                ${glossary.render(gpage)}
+
                 <div class="ui stackable center aligned grid" data-hook="cards"></div>
             </div>`;
 
@@ -6784,6 +6840,8 @@ let digest = function(el, data, methods) {
 
                 grid.appendChild(div);
             }
+            helpers.highlight();
+            glossary.listen(el, gpageToggle, gpageUpdate);
         },
         methods: {
             isDone: function(step, chapter) {
@@ -6808,6 +6866,8 @@ let stepper = function(el, data, methods) {
     let nextChapter = methods.nextChapter;
     let nextStep = methods.nextStep;
     let resetChapter = methods.resetChapter;
+    let gpageToggle = methods.gpageToggle;
+    let gpageUpdate = methods.gpageUpdate;
 
     let chapterContent = chapters[chapter - 1];
     let stepContent = chapters[chapter - 1].steps[step - 1];
@@ -6834,7 +6894,7 @@ let stepper = function(el, data, methods) {
             <div class="stepper">
                 <h2 class="ui grey header"><a href="" data-hook="leave"><i class="arrow left icon"></i>${chapterContent.title}</a></h2>
 
-                ${glossary(gpage)}
+                ${glossary.render(gpage)}
 
                 <div class="ui stackable one column grid">
                     <div class="column">
@@ -6909,7 +6969,7 @@ let stepper = function(el, data, methods) {
             }
 
             this.methods.reset.call(this);
-            this.methods.glossary.call(this);
+            glossary.listen(el, gpageToggle, gpageUpdate);
         },
         methods: {
             isDone: function(_step) {
@@ -6966,7 +7026,7 @@ let stepper = function(el, data, methods) {
 
                 this.methods.reload.call(this, noWarning);
                 this.methods.divulge.call(this);
-                this.methods.highlight.call(this);
+                helpers.highlight();
             },
             warn: function() {
                 let warning = 'Réponse incorrecte';
@@ -7003,12 +7063,6 @@ let stepper = function(el, data, methods) {
                 code.remove();
                 document.body.appendChild(script);
             },
-            highlight: function() {
-                let blocks = document.querySelectorAll('code');
-                for (var i = 0; i < blocks.length; i++) {
-                    hljs.highlightBlock(blocks[i]);
-                }
-            },
             divulge: function() {
                 if (stepContent.solved) {
                     el.querySelector('[data-hook=divulge]').innerHTML = `
@@ -7039,28 +7093,6 @@ let stepper = function(el, data, methods) {
                         }.bind(this), 3000);
                     }
                 });
-            },
-            glossary: function() {
-                let glossaryEl = el.querySelector('[data-hook="glossary"]');
-                el.querySelector('[data-hook="toggle-glossary"]').addEventListener('click', function() {
-                    this.classList.toggle('active');
-                    glossaryEl.classList.toggle('hidden');
-                });
-
-                let tabs = el.querySelectorAll('[data-tab].item');
-                let contents = el.querySelectorAll('[data-tab].description');
-                for (let i = 0; i < tabs.length; i++) {
-                    tabs[i].addEventListener('click', function() {
-                        for (var j = 0; j < tabs.length; j++) {
-                            contents[j].classList.add('hidden');
-                            tabs[j].classList.remove('active');
-                        }
-
-                        contents[i].classList.remove('hidden');
-                        tabs[i].classList.add('active');
-                        localStorage.setItem('gpage', i + 1);
-                    });
-                }
             }
         }
     }
@@ -7132,6 +7164,14 @@ let app = {
         resetChapter: function(chapter) {
             delete this.data.completion[chapter];
             localStorage.setItem('completion', JSON.stringify(this.data.completion));
+        },
+        gpageUpdate: function(i) {
+            app.data.gpage = {index: i, visible: app.data.gpage.visible};
+            localStorage.setItem('gpage', JSON.stringify(app.data.gpage));
+        },
+        gpageToggle: function(visible) {
+            app.data.gpage = {index: !app.data.gpage ? 1 : app.data.gpage.index, visible: visible};
+            localStorage.setItem('gpage', JSON.stringify(app.data.gpage));
         }
     }
 }
@@ -7142,8 +7182,10 @@ if (localStorage.getItem('completion')) {
 if (localStorage.getItem('chapter') && localStorage.getItem('step')) {
     app.data.chapter = +localStorage.getItem('chapter');
     app.data.step = +localStorage.getItem('step');
-    app.data.gpage = +localStorage.getItem('gpage');
     app.data.digest = false;
+}
+if (localStorage.getItem('gpage')) {
+    app.data.gpage = JSON.parse(localStorage.getItem('gpage'));
 }
 
 app.render();
