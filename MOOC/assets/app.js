@@ -6418,13 +6418,19 @@ let glossary = {
 
                 12
 
+            ---
+
             D'autres nombres (négatif, fraction, exposant).
 
                 -12 1.5 3.4e10
+            
+            ---
 
             Une chaîne avec des guillemets est une chaîne de caractères, un morceau de texte. Guillemets doubles ou simples.
 
                 "Il était une fois"
+
+            ---
 
             Un booléen, true pour oui, false pour non.
 
@@ -6435,18 +6441,26 @@ let glossary = {
             Une addition (égal 13).
 
                 10 + 3
+            
+            ---
 
             Une soustraction (égal 7).
 
                 10 - 3
+            
+            ---
 
             Une multiplication (égal 30).
 
                 10 * 3
+            
+            ---
 
             Une division (égal 3.33).
 
                 10 / 3
+
+            ---
 
             Un modulo (égal 2). Retourne le reste de la division euclidienne, c'est à dire 14 divisé par 4 arrondi à l'entier inférieur — donc 3. Le module est alors 14 moins 4 fois 3, c'est à dire 2.
 
@@ -6460,25 +6474,37 @@ let glossary = {
 
                 var banana = 18
 
+            ---
+
             Une définition multiple. Chaque définition est séparée par une virgule.
 
                 var banana = 18, lemon = 12
+
+            ---
 
             Un mot sans guillemets référence une variable dans le contexte actuel et accède à sa valeur. Le résultat est 18.
 
                 banana
 
+            ---
+
             Opérateur appliqué à deux variables. Le résultat est 30. Plusieurs opérateurs disponibles,      + pour additionner, - pour soustraire, * pour multiplier, / pour diviser.
 
                 banana + lemon
+
+            ---
 
             Les parenthèses utilisées pour expliciter un groupe. Par défaut les multiplications et les divisions sont exécutées avant les additions. Ici, l'addition est prioritaire grâce aux parenthèses. Le résultat est 300. Sans parenthèses le résultat serait 138.
 
                 (banana + lemon) * 10
 
+            ---
+
             Un opérateur de comparaison. Le résultat est false (18 est supérieur à 12). Plusieurs opérateurs disponibles, ==, != (différent), <, >, <= (inférieur ou égal), >=, === (égal si type identique, le chiffre 18 est différent de la chaîne de caractères "18" pour cet opérateur), !==.
 
                 banana < lemon
+
+            ---
 
             Un opérateur logique. Deux opérateurs,  && (et), || (ou). L'opérateur ou retourne true si l'un de ces membres est évalué à true. L'opérateur et retourne true si tous ses membres sont évalués à true. En cas contraire, ces opérateurs retournent false.
             L'opérateur ou évalue ses membres un à un jusqu'à trouver une valeur évaluée à true, il arrête d'évaluer ses membres dès qu'il en a trouvé une. L'opérateur et évalue ses membres un à un tant qu'il trouve une valeur évaluée à true, il arrête d'évaluer ses membres dès qu'il en a trouvé une false.
@@ -6492,29 +6518,43 @@ let glossary = {
 
                 var fruits = [banana, lemon, "grapes", 15]
 
+            ---
+
             Accès à l'élément stocké dans la troisième case du tableau (zéro est la première case). Le résultat est "grapes". Si l'élément n'existe pas le résultat est undefined.
 
                 fruits[2]
+
+            ---
 
             Modification de l'élément stocké dans la troisième case du tableau.
 
                 fruits[2] = "strawberries"
 
+            ---
+
             Un objet représente une liste de valeurs sous la forme clé: valeur séparées par des virgules. Deux accolades encadre sa déclaration.
 
                 var tree = {color: "yellow", fruit: "lemon"}
+
+            ---
 
             Accès à la propriété stockée pour la clé color de l'objet tree. Le résultat est "yellow". Si la propriété n'existe pas le résultat est undefined.
 
                 tree.color
 
+            ---
+
             Modification de la propriété stockée pour la clé color de l'objet tree.
 
                 tree.color = "green"
 
+            ---
+
             Utilisation d'objet comme éléments d'un tableau.
 
                 var fruits=[{color:"red",fruit:"grapes"},{color:"yellow",fruit:"lemon"}]
+
+            ---
 
             Utilisation de tableaux comme valeur d'objet.
 
@@ -6526,21 +6566,31 @@ let glossary = {
 
                 fruits.length
 
+            ---
+
             Ajoute un élément au début du tableau.
 
                 fruits.unshift("orange")
+
+            ---
 
             Ajoute un élément à la fin du tableau.
 
                 fruits.push("orange")
 
+            ---
+
             Supprime le premier élément d'un tableau et le retourne.
 
                 fruits.shift()
 
+            ---
+
             Supprime le dernier élément d'un tableau et le retourne.
 
                 fruits.pop()
+
+            ---
 
             Retourne une partie du tableau, similaire à slice pour les chaîne de caractères.
 
@@ -6554,9 +6604,13 @@ let glossary = {
 
                 if (tree.color == "yellow") { /* .. */ } else { /* .. */ }
 
+            ---
+
             Une boucle. Les instructions entre accolades sont exécutées tant que la condition est évaluée à true.
 
                 while (size < 12) { size = size - 1; }
+
+            ---
 
             Une boucle pour. Cette boucle est composé de trois blocs séparés par des points virgules. Le premier déclare une variable et l'initialise, le second indique la condition de sortie de boucle et le troisième indique l'opération a effectuer après chaque tour de boucle. Pour chaque tour de boucle les instructions entre accolades sont exécutées.
 
@@ -6568,13 +6622,19 @@ let glossary = {
 
                 Math.random()
 
+            ---
+
             Retourne un entier arrondi au plus proche. Le résultat est 2 (ou 3 pour Math.round(2.5)).
 
                 Math.round(2.4)
 
+            ---
+
             Retourne la valeur absolue d'une nombre. Le résultat est 4.
 
                 Math.abs(-4)
+
+            ---
 
             Retourne le nombre le plus grand parmi une liste. Le résultat est 5.
 
@@ -6588,29 +6648,43 @@ let glossary = {
 
                 var el = document.querySelector('.visible');
 
+            ---
+
             Une fois un élément sélectionné, il est possible de modifier son contenu (le texte situé entre ses balises). Le texte ainsi remplacé peut être un simple mot ou une suite de balises HTML qui seront intégrées à la page, par exemple "&lt;li&gt;item&lt;/li&gt;".
 
                 el.innerHTML = 'text';
+
+            ---
 
             Une fois un élément sélectionné, il est possible de modifier les classes dont il dispose à l'aide de son attribut classList. Celui-ci dispose notamment des méthodes add (ajouter une classe), remove (supprimer une classe) ou toggle (ajouter une classe si elle n'est pas présente, la supprimer si elle l'est).
 
                 el.classList.add('.visible');
 
+            ---
+
             Une fois un élément sélectionné, le supprime de la page.
 
                 el.remove();
+
+            ---
 
             Une fois un élément sélectionné, accède à ses attributs data-*. Ici dataset.value accède à son attribut data-value. Sa valeur peut être lue ou modifiée.
 
                 el.dataset.value;
 
+            ---
+
             Sélectionne tous les éléments de la page avec la classe visible.
 
                 var els = document.querySelectorAll('.visible');
 
+            ---
+
             Sélectionne tous les éléments td de la première table de la page.
 
                 var els = document.querySelector('table').querySelectorAll('td');
+
+            ---
 
             Ajoute un écouteur d'événement sur le premier élément de la page avec la classe visible. La fonction echo sera déclenchée à chaque clic sur cet élément. Les événements disponibles sont nombreux, notamment click, keypress (l'appui sur une touche) et blur (la perte de focus sur un champ de formulaire).
 
@@ -6625,21 +6699,31 @@ let glossary = {
 
                 Number("5")
 
+            ---
+
             Convertit un nombre en chaîne de caractère. Le résultat est "5".
 
                 String(5)
+
+            ---
 
             Retourne la taille (le nombre de caractères) d'une chaîne de caractères.
 
                 "yellow".length
 
+            ---
+
             Retourne le caractère à la position indiqué (0 est la première position). Le résultat est "o".
 
                 "yellow".charAt(4)
 
+            ---
+
             Retourne une partie de la chaîne  située entre les deux positions (0 est la première position, la position de début est incluse, pas celle de fin). Le résultat est "ll".
 
                 "yellow".slice(2, 4)
+
+            ---
 
             Découpe la chaîne selon un caractère, retourne un tableau. Le résultat est ["hi", "all"]
 
@@ -6650,6 +6734,8 @@ let glossary = {
             Déclaration d'une fonction qui prend une variable en paramètre et retourne son attribut color. Une fonction peut prendre plusieurs paramètres en entrée (séparés par des virgules). Le corps de la fonction peut être composé de plusieurs traitements (conditions, boucles, etc).
 
                 var findColor = function(something) { return something.color; }
+
+            ---
 
             Appel de la fonction avec la variable tree. Le résultat est "yellow".
 
@@ -6663,33 +6749,49 @@ let glossary = {
 
                 var Pie = function(fruits) { this.fruits = fruits; this.pieces = 8; }
 
+            ---
+
             Ajoute une méthodes aux objets de la classe Pie.
 
                 Pie.prototype.eat = function() { this.pieces--; }
+
+            ---
 
             Crée un objet de classe Pie.
 
                 var applePie = new Pie('apple')
 
+            ---
+
             Crée un second objet de classe Pie.
 
                 var cheeseCake = new Pie('cheese')
+
+            ---
 
             Accède à un attribut de l'objet.
 
                 applePie.fruits
 
+            ---
+
             Ajoute dynamiquement un attribut à l'objet.
 
                 applePie.weight = '800g'
+
+            ---
 
             Invoque une méthode de l'objet.
 
                 applePie.eat()
 
+            ---
+
             Ajoute une méthode (dite statique) à la classe.
 
                 Pie.favoriteFavour = function() { return 'lemon'; }
+
+            ---
 
             Invoque une méthode de la classe.
 

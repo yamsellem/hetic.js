@@ -59,6 +59,13 @@ h3 {
     color: rgba(0,0,0,.68) !important;
 }
 
+hr {
+    border: 0;
+    height: 1px;
+    color: rgba(0,0,0,.05);
+    background-color: rgba(0,0,0,.05);
+}
+
 .hidden {
     display: none !important;
 }
