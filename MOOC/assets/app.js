@@ -265,6 +265,25 @@ let dom = {
             </div>
         `;
     },
+
+    // Hanoi
+
+    hanoi: function() {
+        return `
+            <div class="hanoi">
+                <ul class="tower-origin">
+                    <li class="disk-1" data-weight="1"></li>
+                    <li class="disk-2" data-weight="2"></li>
+                    <li class="disk-3" data-weight="3"></li>
+                    <li class="disk-4" data-weight="4"></li>
+                    <li class="disk-5" data-weight="5"></li>
+                    <li class="disk-6" data-weight="6"></li>
+                </ul>
+                <ul></ul>
+                <ul class="tower-target"></ul>
+            </div>
+        `;
+    },
     
     // Forms
     
@@ -585,6 +604,10 @@ let helpers = {
             classNames.push(els[i].className);
         }
         return classNames;
+    },
+
+    chapterLabel: function(index, title, color) {
+        return `<span data-hook="enter" data-chapter="${index}" class="ui small ${color} label clickable">${title}</span>`;
     }
 }
 
@@ -3432,7 +3455,7 @@ let chapters = [
         ]
     },  {
         title: "Applications | Modèles & vues",
-        description: "Les approches MV* (modèle, vue & co) structurent les applications. Un modèle stocke l'état de l'application (ex. un panier). Les vues affichent les informations d'un modèle et le modifient.<br><br>Ce chapitre présente la réalisation d'une liste de tâches pas à pas avec une approche MV*.",
+        description: "Les approches MV* (modèle, vue & co) structurent les applications. Un modèle stocke l'état de l'application (ex. un panier). Les vues affichent les informations d'un modèle et le modifient.<br><br>Ce chapitre présente la réalisation d'une liste de tâches pas à pas en approche MV*.",
         color: "teal",
         steps: [
             {
@@ -4549,7 +4572,7 @@ let chapters = [
         ]
     }, {
         title: "Applications | Routeur",
-        description: "Un routeur est un aiguilleur qui modifie les vues affichées à l'écran en fonction de l'adresse saisie par l'utilisateur. Lorsque l'utilisateur rafraîchit la page ou qu'il partage son adresse, le routeur affiche ainsi les vues à l'identique.<br><br>Ce chapitre présente la réalisation d'une boutique pas à pas avec un routeur.",
+        description: "Un routeur est un aiguilleur qui modifie les vues affichées à l'écran en fonction de l'URL de la page. Lorsque l'utilisateur rafraîchit la page ou qu'il partage son adresse, le routeur sélectionne les bonnes vues à afficher.<br><br>Ce chapitre présente la réalisation d'une boutique pas à pas avec un routeur.",
         color: "teal",
         steps: [{
             title: "Le templating",
@@ -5154,15 +5177,286 @@ let chapters = [
             }
         ]
     }, {
-        title: "Puzzle | Taquin",
-        description: "Un taquin est ce puzzle en plastique à résoudre du bout des pouces. Une pièce peut être glissée horizontalement ou verticalement pour venir prendre la place de l'espace libre.<br><br>Ce chapitre présente la réalisation (corsée) d'un taquin pas à pas.",
+        title: "Puzzle | Tours d'Hanoï",
+        description: "Les tours d'Hanoï est un jeu de réflexion solitaire. Plusieurs disques de diamètre différents, sont à déplacer un à un de gauche à droite, dans trois tours / colonnes sans placer un grand disque sur un plus petit.<br><br>Ce chapitre présente la réalisation des tours d'Hanoï dont la solution est à déverrouiller.",
         color: "pink",
         steps: [
+            {
+                course: true,
+                description: `
+                    Les tours d'Hanoï est un jeu de réflexion qui consiste à déplacer des disques de diamètres différents d'une tour de départ à une tour d'arrivée en passant par une tour intermédiaire, et ceci en un minimum de coups, tout en respectant les règles suivantes :
+
+                    * on ne peut déplacer plus d'un disque à la fois
+                    * on ne peut placer un disque que sur un autre disque plus grand que lui ou sur un emplacement vide
+
+                    On suppose que cette dernière règle est également respectée dans la configuration de départ.
+
+                    <br>
+
+                    ---
+
+                    <br>
+
+                    **Prérequis** ${helpers.chapterLabel(2, 'Variables et opérations', 'green')} ${helpers.chapterLabel(3, 'Conditions et boucles', 'green')} ${helpers.chapterLabel(8, 'Le DOM', 'yellow')}
+
+                    **Solution** débloquée lors de la réussite de chaque étape
+
+                    **Code final** ~20 lignes
+                `
+            },
+            {
+                title: "Déplacer les disques",
+                description: "Au clic sur une des trois tours, <code>.hanoi ul</code>, le disque, <code>li</code>, le plus haut de celle-ci est mémorisé. Au clic suivant sur une des trois tours, ce disque est déplacé dans cette nouvelle tour. Et ainsi de suite (cliquer sur une troisième tour mémorise son plus haut disque, cliquer sur une quatrième tour déplace le disque à cet endroit).",
+                solved: "var memo;<br>var uls = document.querySelectorAll('.hanoi ul');<br>for (var i = 0; i < uls.length; i++) {<br>  uls[i].addEventListener('click', function(event) {<br>    var ul = event.currentTarget;<br>    var firstChild = ul.querySelector('li');<br>    if (memo) {<br>      ul.prepend(memo);<br>      memo = undefined;<br>    } else if (firstChild) {<br>      memo = firstChild;<br>    }<br>  });<br>}",
+                solvedOnSuccess: true,
+                dom: function() {
+                    return dom.hanoi();
+                },
+                solution: function() {
+                    let uls = document.querySelectorAll('.hanoi ul');
+                    uls[0].click();
+                    uls[1].click();
+
+                    if (uls[0].querySelectorAll('li').length !== 5)
+                        this.warn = this.warn || "Cliquer sur la première tour puis sur la deuxième doit supprimer le premier li de la première tour";
+                    if (uls[1].querySelectorAll('li').length !== 1)
+                        this.warn = this.warn || "Cliquer sur la première tour puis sur la deuxième doit déplacer le premier li de la première tour vers la seconde";
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Respecter l'ordre des disques",
+                description: "Après avoir mémorisé un disque, le clic sur une seconde tour ne doit pas ajouter le disque mémorisé si ce dernier est plus large que le plus haut de la nouvelle tour (avec un attribut data <code>weight</code> plus élevé). <i>Optionnel</i> : si ce cas se produit, le disque mémorisé est oublié, et c'est le disque le plus haut de la nouvelle tour qui est mémorisé à sa place (et sera donc déplacé au prochain clic, si les conditions précédentes sont remplies).",
+                solved: "var memo;<br>var uls = document.querySelectorAll('.hanoi ul');<br>for (var i = 0; i < uls.length; i++) {<br>  uls[i].addEventListener('click', function(event) {<br>    var ul = event.currentTarget;<br>    var firstChild = ul.querySelector('li');<br>    if (memo && (!firstChild || firstChild.dataset.weight > memo.dataset.weight)) {<br>      ul.prepend(memo);<br>      memo = undefined;<br>    } else if (firstChild) {<br>      memo = firstChild;<br>    }<br>  });<br>}",
+                solvedOnSuccess: true,
+                dom: function() {
+                    return dom.hanoi();
+                },
+                solution: function() {
+                    let uls = document.querySelectorAll('.hanoi ul');
+                    uls[0].click();
+                    uls[1].click();
+
+                    uls[0].click();
+                    uls[1].click();
+
+                    if (uls[0].querySelectorAll('li').length !== 5 || uls[1].querySelectorAll('li').length !== 1)
+                        this.warn = this.warn || "Après avoir déplacé le petit disque de la première à la seconde tour, essayer de déplacer le second disque de la première tour vers le seconde ne doit pas être autorisé";
+                    
+                    uls[2].click();
+
+                    if (uls[0].querySelectorAll('li').length !== 5 || uls[1].querySelectorAll('li').length !== 0 || uls[2].querySelectorAll('li').length !== 1)
+                        this.warn = this.warn || "Après avoir déplacé le petit disque de la première à la seconde tour, cliquer sur la première tour, puis la second, puis la troisième, doit résulter dans le déplacement du petit disque de la tour du milieu à celle de droite.";
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Indiquer la victoire",
+                description: "Après avoir déplacé tous les disque de la tour de gauche à celle de droite, ajouter la classe <code>success</code> au <code>ul</code> de la tour de droite pour indiquer la victoire.",
+                solved: "var memo;<br>var uls = document.querySelectorAll('.hanoi ul');<br>for (var i = 0; i < uls.length; i++) {<br>  uls[i].addEventListener('click', function(event) {<br>    var ul = event.currentTarget;<br>    var firstChild = ul.querySelector('li');<br>    if (memo && (!firstChild || firstChild.dataset.weight > memo.dataset.weight)) {<br>      ul.prepend(memo);<br>      memo = undefined;<br>    } else if (firstChild) {<br>      memo = firstChild;<br>    }<br><br>    if (ul.classList.contains('tower-target') && ul.querySelectorAll('li').length === 6) {<br>      ul.classList.add('success');<br>    }<br>  });<br>}",
+                solvedOnSuccess: true,
+                dom: function() {
+                    return dom.hanoi();
+                },
+                solution: function() {
+                    let uls = document.querySelectorAll('.hanoi ul');
+                    let move = function() {
+                        let tower = [].slice.call(arguments);
+                        for (let i = 0; i < tower.length; i = i + 2) {
+                            uls[tower[i] - 1].click();
+                            uls[tower[i+1] - 1].click();
+                        }
+                    };
+
+                    let moveA = move.bind(null, 1, 2, 1, 3, 2, 3);
+                    let moveB = move.bind(null, 1, 2, 3, 1, 3, 2);
+                    let moveC = move.bind(null, 2, 1, 3, 1, 2, 3);
+                    let moveD = move.bind(null, 1, 2, 3, 1, 2, 3);
+                    let moveE = move.bind(null, 2, 1, 3, 1, 3, 2);
+                    let moveF = function() {
+                        moveA(); moveB(); moveA(); moveC(); moveA();
+                    };
+
+                    moveF(); moveB(); moveD(); moveE(); moveF(); moveE(); moveD(); moveC();
+
+                    if (uls[2].classList.contains('success'))
+                        this.warn = this.warn || "Tant que tous les disques ne sont pas sur la troisième tour, celle-ci ne doit pas posséder la classe success.";
+
+                    moveF();
+
+                    if (!uls[2].classList.contains('success'))
+                        this.warn = this.warn || "Si tous les disques sont pas sur la troisième tour, celle-ci doit pas posséder la classe success.";
+
+                    return !this.warn;
+                }
+            }
+        ]
+    }, {
+        title: "Puzzle | Puissance 4",
+        description: "Un puissance 4 est un puzzle pour 2 joueurs jouant à tour de rôle un jeton dans une colonne. Chaque jeton s'empile aux jetons précédement, le premier joueur à en aligner 4 remporte la partie.<br><br>Ce chapitre présente la réalisation d'un puissance 4 dont la solution est à déverouiller.",
+        color: "pink",
+        steps: [
+            {
+                course: true,
+                description: `
+                    Le puissance 4 est un jeu dont le but est d'aligner 4 pions de même couleur sur une grille.<br><br>Tour à tour les deux joueurs placent un pion de leur couleur dans la colonne de leur choix, le pion coulisse alors jusqu'à la position la plus basse possible ce ette colonne.<br><br>Le vainqueur est le joueur qui réalise le premier un alignement (horizontal, vertical ou diagonal) consécutif d'au moins quatre pions de sa couleur.
+                    
+                    <br>
+
+                    ---
+
+                    <br>
+
+                    **Prérequis** ${helpers.chapterLabel(4, 'Les tableaux', 'green')} ${helpers.chapterLabel(8, 'Le DOM', 'yellow')} ${helpers.chapterLabel(10, 'Les fonctions', 'yellow')}
+
+                    **Solution** débloquée lors de la réussite de chaque étape
+
+                    **Code final** ~100 lignes
+                `
+            },
+            {
+                title: "Générer une table de jeu",
+                description: "Dans le tableau <code>.connectfour table</code> générer 6 lignes <code>tr</code> avec chacune 7 colonnes <code>td</code> afin de créer le plateau de jeu.",
+                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br>render();",
+                solvedOnSuccess: true,
+                dom: function() {
+                    return dom.connectfour();
+                },
+                solution: function() {
+                    if (document.querySelectorAll('table tr').length !== 6)
+                        this.warn = this.warn || "La table doit contenir 6 <code>tr</code>";
+                    if (document.querySelectorAll('table tr td').length !== 42)
+                        this.warn = this.warn || "La table doit contenir 42 <code>td</code>";
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Ajouter un jeton alternativement jaune puis rouge",
+                description: "Au clic sur n'importe quel <code>td</code> d'une colonne, ajouter au <code>td</code> en pied de cette colonne la classe <code>yellow</code> ou <code>red</code> alternativement (si il n'a pas de classe). Au fur et à mesure des clics, les jetons s'empilent ainsi les uns sur les autres. Si une colonne est remplie, elle ne reçoit plus de jeton au clic.",
+                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      if (column)<br>        td.className = column;<br><br>      td.addEventListener('click', function(e) {<br>        var index = Array.prototype.indexOf.call(this.parentElement.children, this);<br>        for (var i = 5; i >= 0; i--) {<br>          if (!grid[i][index]) {<br>            color = (color === 'yellow' ? 'red' : 'yellow');<br>            grid[i][index] = color;<br>            break;<br>          } else continue;<br>        }<br>        render();<br>      });<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br>render();",
+                solvedOnSuccess: true,
+                dom: function() {
+                    return dom.connectfour();
+                },
+                solution: function() {
+                    var cell = function(tr, td) {
+                        return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
+                    }
+
+                    cell(1, 1).click();
+                    cell(1, 1).click();
+                    cell(1, 1).click();
+                    cell(1, 2).click();
+
+                    if (helpers.elHasClass(cell(6, 1), 'yellow') !== true)
+                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la première case de cette colonne doit être jaune";
+                    if (helpers.elHasClass(cell(5, 1), 'red') !== true)
+                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la deuxième case de cette colonne doit être rouge";
+                    if (helpers.elHasClass(cell(4, 1), 'yellow') !== true)
+                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la troisième case de cette colonne doit être jaune";
+                    if (helpers.elHasClass(cell(6, 2), 'red') !== true)
+                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la quatrième case de cette colonne doit être rouge";
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Combinaison horizontale gagnante",
+                description: "Lorsque 4 jetons consécutifs de la même couleur sont alignés horizontalement, leur ajouter la classe <code>victory</code>. Les clics suivants sur la table n'ajoutent plus de jetons.",
+                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var winner = false;<br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      if (column)<br>        td.className = column;<br><br>      td.addEventListener('click', function(e) {<br>        if (winner)<br>          return;<br><br>        var index = Array.prototype.indexOf.call(this.parentElement.children, this);<br>        for (var i = 5; i >= 0; i--) {<br>          if (!grid[i][index]) {<br>            color = (color === 'yellow' ? 'red' : 'yellow');<br>            grid[i][index] = color;<br>            break;<br>          } else continue;<br>        }<br><br>        winner = wins(grid);<br>        if (winner) {<br>          for (var i = 0; i < winner.length; i++) {<br>            var position = winner[i].split('-');<br>            grid[position[0]][position[1]] += ' victory';<br>          }<br>        }<br>        render();<br>      });<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br><br>var wins = function() {<br>  return horizontalWinner(grid);<br>};<br><br>var horizontalWinner = function() {<br>  var player, positions;<br>  for (var row = 5; row >= 0; row--) {<br>    positions = []<br>    for (var column = 0; column < 7; column++) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>render();",
+                solvedOnSuccess: true,
+                dom: function() {
+                    return dom.connectfour();
+                },
+                solution: function() {
+                    var cell = function(tr, td) {
+                        return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
+                    }
+
+                    cell(1, 2).click(); cell(1, 3).click();
+                    cell(1, 4).click(); cell(1, 5).click();
+                    cell(1, 2).click(); cell(1, 1).click();
+                    cell(1, 3).click(); cell(1, 6).click();
+                    cell(1, 1).click(); cell(1, 1).click();
+                    cell(1, 4).click(); cell(1, 4).click();
+
+                    var basic = true;
+                    basic = basic && helpers.elHasClass(cell(5, 1), 'victory');
+                    basic = basic && helpers.elHasClass(cell(5, 2), 'victory');
+                    basic = basic && helpers.elHasClass(cell(5, 3), 'victory');
+                    basic = basic && helpers.elHasClass(cell(5, 4), 'victory');
+                    basic = basic && !helpers.elHasClass(cell(4, 4), 'red');
+
+                    if (!basic)
+                        this.warn = "Les combinaisons horizontales gagnantes doivent fonctionner";
+                    return basic;
+                }
+            },
+            {
+                title: "Combinaison verticale gagnante",
+                description: "Faire de même lorsque 4 jetons sont alignés verticalement.",
+                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var winner = false;<br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      if (column)<br>        td.className = column;<br><br>      td.addEventListener('click', function(e) {<br>        if (winner)<br>          return;<br><br>        var index = Array.prototype.indexOf.call(this.parentElement.children, this);<br>        for (var i = 5; i >= 0; i--) {<br>          if (!grid[i][index]) {<br>            color = (color === 'yellow' ? 'red' : 'yellow');<br>            grid[i][index] = color;<br>            break;<br>          } else continue;<br>        }<br><br>        winner = wins(grid);<br>        if (winner) {<br>          for (var i = 0; i < winner.length; i++) {<br>            var position = winner[i].split('-');<br>            grid[position[0]][position[1]] += ' victory';<br>          }<br>        }<br>        render();<br>      });<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br><br>var wins = function() {<br>  return verticalWinner(grid) || horizontalWinner(grid);<br>};<br><br>var verticalWinner = function() {<br>  var player, positions;<br>  for (var column = 0; column < 7; column++) {<br>    positions = [];<br>    for (var row = 5; row >= 0; row--) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>var horizontalWinner = function() {<br>  var player, positions;<br>  for (var row = 5; row >= 0; row--) {<br>    positions = []<br>    for (var column = 0; column < 7; column++) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>render();",
+                solvedOnSuccess: true,
+                dom: function() {
+                    return dom.connectfour();
+                },
+                solution: function() {
+                    var cell = function(tr, td) {
+                        return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
+                    }
+
+                    cell(1, 4).click(); cell(1, 4).click();
+                    cell(1, 1).click(); cell(1, 2).click();
+                    cell(1, 1).click(); cell(1, 2).click();
+                    cell(1, 1).click(); cell(1, 2).click();
+                    cell(1, 1).click(); cell(1, 2).click();
+
+                    var basic = true;
+                    basic = basic && helpers.elHasClass(cell(6, 1), 'victory');
+                    basic = basic && helpers.elHasClass(cell(5, 1), 'victory');
+                    basic = basic && helpers.elHasClass(cell(4, 1), 'victory');
+                    basic = basic && helpers.elHasClass(cell(3, 1), 'victory');
+                    basic = basic && !helpers.elHasClass(cell(6, 2), 'victory');
+                    basic = basic && !helpers.elHasClass(cell(5, 2), 'victory');
+                    basic = basic && helpers.elHasClass(cell(4, 2), 'red');
+                    basic = basic && !helpers.elHasClass(cell(3, 2), 'red');
+
+                    if (!basic)
+                        this.warn = "Les combinaisons verticales gagnantes doivent fonctionner";
+                    return basic;
+                }
+            }
+        ]
+    }, {
+        title: "Puzzle | Taquin",
+        description: "Un taquin est ce puzzle en plastique à résoudre du bout des pouces. Une pièce peut être glissée horizontalement ou verticalement pour venir prendre la place de l'espace libre.<br><br>Ce chapitre présente la réalisation d'un taquin dont la solution est à déverrouiller.",
+        color: "pink",
+        steps: [
+            {
+                course: true,
+                description: `
+                    Le taquin est un jeu solitaire en forme de damier qui consiste à remettre dans l'ordre des carreaux à partir d'une configuration initiale quelconque. Un des carreaux est manquant, permettant ainsi de glisser un carreau horizontalement ou verticalement à sa place.
+
+                    <br>
+
+                    ---
+
+                    <br>
+
+                    **Prérequis** ${helpers.chapterLabel(4, 'Les tableaux', 'green')} ${helpers.chapterLabel(8, 'Le DOM', 'yellow')} ${helpers.chapterLabel(10, 'Les fonctions', 'yellow')}
+
+                    **Solution** débloquée lors de la réussite de chaque étape
+
+                    **Code final** ~80 lignes
+                `
+            },
             {
                 title: "Mélanger les cases",
                 description: "Mélanger les 9 <code>li</code> du puzzle listés dans <code>.sliding ul</code> au clic sur le bouton « mélanger ».",
                 excerpt: "La méthode <code>Math.floor(Math.random() * 9)</code> retourne un nombre aléatoire entre 0 et 8.",
                 solved: "var shuffle = function(o){<br>  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);<br>  return o;<br>}<br><br>var render = function(matrix) {<br>  var ul = document.querySelector('.sliding ul');<br>  ul.innerHTML = '';<br><br>  var squares = [].concat(matrix[0], matrix[1], matrix[2])<br>  for (var square of squares) {<br>    var li = document.createElement('li');<br>    li.className = 'square' + square;<br>    ul.appendChild(li);<br>  }<br>}<br><br>document.querySelector('.sliding button').addEventListener('click', function() {<br>  var squares = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8]);<br>  var matrix = [<br>    [squares[0], squares[1], squares[2]],<br>    [squares[3], squares[4], squares[5]],<br>    [squares[6], squares[7], squares[8]]<br>  ];<br>  render(matrix);<br>});",
+                solvedOnSuccess: true,
                 dom: function() {
                     return dom.sliding();
                 },
@@ -5190,9 +5484,10 @@ let chapters = [
             },
             {
                 title: "Gérer le déplacement horizontal d'une case",
-                description: "Au clic sur une case, celle-ci doit être intervertie avec la case vide <code>.square0</code> à condition que l'une et l'autre soit à côté (et pas en diagonale).",
+                description: "Au clic sur une case, celle-ci doit être intervertie avec la case vide <code>.square0</code> à condition que l'une et l'autre soit à côté horizontalement (et pas en diagonale).",
                 excerpt: "Stocker l'état du puzzle dans une variable (une matrice de préférence — un tableau de tableaux, 3 lignes, 3 colonnes), et trouver une façon condensée pour lister quelles cases sont accessibles à partir d'une autre case. Se concentrer pour l'instant sur les mouvements horizontaux.",
                 solved: "var shuffle = function(o){<br>  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);<br>  return o;<br>}<br><br>var render = function(matrix) {<br>  var ul = document.querySelector('.sliding ul');<br>  ul.innerHTML = '';<br><br>  var squares = [].concat(matrix[0], matrix[1], matrix[2])<br>  for (var square of squares) {<br>    var li = document.createElement('li');<br>    li.className = 'square' + square;<br>    li.setAttribute('data-id', square);<br>    li.addEventListener('click', function() {<br>      move(matrix, parseInt(this.getAttribute('data-id')));<br>    });<br>    ul.appendChild(li);<br>  }<br>}<br>var move = function(matrix, square) {<br>  if (square === 0)<br>    return false;<br>  if (matrix[0][0] === square)<br>    canToggle(matrix, [0, 0], [[0, 1]]);<br>  else if (matrix[0][1] === square)<br>    canToggle(matrix, [0, 1], [[0, 0], [0, 2]]);<br>  else if (matrix[0][2] === square)<br>    canToggle(matrix, [0, 2], [[0, 1]]);<br>  else if (matrix[1][0] === square)<br>    canToggle(matrix, [1, 0], [[1, 1]]);<br>  else if (matrix[1][1] === square)<br>    canToggle(matrix, [1, 1], [[1, 0], [1, 2]]);<br>  else if (matrix[1][2] === square)<br>    canToggle(matrix, [1, 2], [[1, 1]]);<br>  else if (matrix[2][0] === square)<br>    canToggle(matrix, [2, 0], [[2, 1]]);<br>  else if (matrix[2][1] === square)<br>    canToggle(matrix, [2, 1], [[2, 0], [2, 2]]);<br>  else if (matrix[2][2] === square)<br>    canToggle(matrix, [2, 2], [[2, 1]]);<br>}<br>var canToggle = function(matrix, from, combinaisons) {<br>  for (var c of combinaisons) {<br>    if (matrix[c[0]][c[1]] === 0) {<br>      toggle(matrix, [from[0], from[1]], [c[0], c[1]]);<br>      break;<br>    }<br>  }<br>}<br>var toggle = function(matrix, from, to) {<br>  var memo = matrix[from[0]][from[1]];<br>  matrix[from[0]][from[1]] = matrix[to[0]][to[1]];<br>  matrix[to[0]][to[1]] = memo;<br>  render(matrix);<br>}<br><br>document.querySelector('.sliding button').addEventListener('click', function() {<br>  var squares = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8]);<br>  var matrix = [<br>    [squares[0], squares[1], squares[2]],<br>    [squares[3], squares[4], squares[5]],<br>    [squares[6], squares[7], squares[8]]<br>  ];<br>  render(matrix);<br>});",
+                solvedOnSuccess: true,
                 dom: function() {
                     return dom.sliding();
                 },
@@ -5242,8 +5537,9 @@ let chapters = [
             },
             {
                 title: "Gérer le déplacement vertical d'une case",
-                description: "Au clic sur une case, celle-ci doit être intervertie avec la case vide <code>.square0</code> à condition que l'une et l'autre soit à côté (et pas en diagonale).",
+                description: "Au clic sur une case, celle-ci doit être intervertie avec la case vide <code>.square0</code> à condition que l'une et l'autre soit à côté verticalement (et pas en diagonale).",
                 solved: "var shuffle = function(o){<br>  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);<br>  return o;<br>}<br><br>var render = function(matrix) {<br>  var ul = document.querySelector('.sliding ul');<br>  ul.innerHTML = '';<br><br>  var squares = [].concat(matrix[0], matrix[1], matrix[2])<br>  for (var square of squares) {<br>    var li = document.createElement('li');<br>    li.className = 'square' + square;<br>    li.setAttribute('data-id', square);<br>    li.addEventListener('click', function() {<br>      move(matrix, parseInt(this.getAttribute('data-id')));<br>    });<br>    ul.appendChild(li);<br>  }<br>}<br>var move = function(matrix, square) {<br>  if (square === 0)<br>    return false;<br>  if (matrix[0][0] === square)<br>    canToggle(matrix, [0, 0], [[0, 1], [1, 0]]);<br>  else if (matrix[0][1] === square)<br>    canToggle(matrix, [0, 1], [[0, 0], [1, 1], [0, 2]]);<br>  else if (matrix[0][2] === square)<br>    canToggle(matrix, [0, 2], [[0, 1], [1, 2]]);<br>  else if (matrix[1][0] === square)<br>    canToggle(matrix, [1, 0], [[0, 0], [1, 1], [2, 0]]);<br>  else if (matrix[1][1] === square)<br>    canToggle(matrix, [1, 1], [[0, 1], [1, 0], [1, 2], [2, 1]]);<br>  else if (matrix[1][2] === square)<br>    canToggle(matrix, [1, 2], [[0, 2], [1, 1], [2, 2]]);<br>  else if (matrix[2][0] === square)<br>    canToggle(matrix, [2, 0], [[1, 0], [2, 1]]);<br>  else if (matrix[2][1] === square)<br>    canToggle(matrix, [2, 1], [[2, 0], [1, 1], [2, 2]]);<br>  else if (matrix[2][2] === square)<br>    canToggle(matrix, [2, 2], [[2, 1], [1, 2]]);<br>}<br>var canToggle = function(matrix, from, combinaisons) {<br>  for (var c of combinaisons) {<br>    if (matrix[c[0]][c[1]] === 0) {<br>      toggle(matrix, [from[0], from[1]], [c[0], c[1]]);<br>      break;<br>    }<br>  }<br>}<br>var toggle = function(matrix, from, to) {<br>  var memo = matrix[from[0]][from[1]];<br>  matrix[from[0]][from[1]] = matrix[to[0]][to[1]];<br>  matrix[to[0]][to[1]] = memo;<br>  render(matrix);<br>}<br><br>document.querySelector('.sliding button').addEventListener('click', function() {<br>  var squares = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8]);<br>  var matrix = [<br>    [squares[0], squares[1], squares[2]],<br>    [squares[3], squares[4], squares[5]],<br>    [squares[6], squares[7], squares[8]]<br>  ];<br>  render(matrix);<br>});",
+                solvedOnSuccess: true,
                 dom: function() {
                     return dom.sliding();
                 },
@@ -5274,395 +5570,6 @@ let chapters = [
                     if (!basic)
                         this.warn = "Le déplacement vertical d'une case doit fonctionner";
                     return basic;
-                }
-            }
-        ]
-    }, {
-        title: "Puzzle | Puissance 4",
-        description: "Un puissance 4 est un puzzle pour 2 joueurs jouant à tour de rôle un jeton dans une colonne. Chaque jeton s'empile aux jetons précédement, le premier joueur à en aligner 4 remporte la partie.<br><br>Ce chapitre présente la réalisation (corsée) d'un puissance 4 pas à pas.",
-        color: "pink",
-        steps: [
-            {
-                title: "Générer une table de jeu",
-                description: "Dans la <code>table</code> générer 6 lignes <code>tr</code> avec chacune 7 colonnes <code>td</code> afin de créer le plateau de jeu.",
-                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br>render();",
-                dom: function() {
-                    return dom.connectfour();
-                },
-                solution: function() {
-                    if (document.querySelectorAll('table tr').length !== 6)
-                        this.warn = this.warn || "La table doit contenir 6 <code>tr</code>";
-                    if (document.querySelectorAll('table tr td').length !== 42)
-                        this.warn = this.warn || "La table doit contenir 42 <code>td</code>";
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Ajouter un jeton alternativement jaune puis rouge",
-                description: "Au clic sur n'importe quel <code>td</code> d'une colonne, ajouter au <code>td</code> en pied de cette colonne la classe <code>yellow</code> ou <code>red</code> alternativement (si il n'a pas de classe). Au fur et à mesure des clics, les jetons s'empilent ainsi les uns sur les autres. Si une colonne est remplie, elle ne reçoit plus de jeton au clic.",
-                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      if (column)<br>        td.className = column;<br><br>      td.addEventListener('click', function(e) {<br>        var index = Array.prototype.indexOf.call(this.parentElement.children, this);<br>        for (var i = 5; i >= 0; i--) {<br>          if (!grid[i][index]) {<br>            color = (color === 'yellow' ? 'red' : 'yellow');<br>            grid[i][index] = color;<br>            break;<br>          } else continue;<br>        }<br>        render();<br>      });<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br>render();",
-                dom: function() {
-                    return dom.connectfour();
-                },
-                solution: function() {
-                    var cell = function(tr, td) {
-                        return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
-                    }
-
-                    cell(1, 1).click();
-                    cell(1, 1).click();
-                    cell(1, 1).click();
-                    cell(1, 2).click();
-
-                    if (helpers.elHasClass(cell(6, 1), 'yellow') !== true)
-                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la première case de cette colonne doit être jaune";
-                    if (helpers.elHasClass(cell(5, 1), 'red') !== true)
-                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la deuxième case de cette colonne doit être rouge";
-                    if (helpers.elHasClass(cell(4, 1), 'yellow') !== true)
-                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la troisième case de cette colonne doit être jaune";
-                    if (helpers.elHasClass(cell(6, 2), 'red') !== true)
-                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la quatrième case de cette colonne doit être rouge";
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Combinaison horizontale gagnante",
-                description: "Lorsque 4 jetons consécutifs de la même couleur sont alignés horizontalement, leur ajouter la classe <code>victory</code>. Les clics suivants sur la table n'ajoutent plus de jetons.",
-                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var winner = false;<br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      if (column)<br>        td.className = column;<br><br>      td.addEventListener('click', function(e) {<br>        if (winner)<br>          return;<br><br>        var index = Array.prototype.indexOf.call(this.parentElement.children, this);<br>        for (var i = 5; i >= 0; i--) {<br>          if (!grid[i][index]) {<br>            color = (color === 'yellow' ? 'red' : 'yellow');<br>            grid[i][index] = color;<br>            break;<br>          } else continue;<br>        }<br><br>        winner = wins(grid);<br>        if (winner) {<br>          for (var i = 0; i < winner.length; i++) {<br>            var position = winner[i].split('-');<br>            grid[position[0]][position[1]] += ' victory';<br>          }<br>        }<br>        render();<br>      });<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br><br>var wins = function() {<br>  return horizontalWinner(grid);<br>};<br><br>var horizontalWinner = function() {<br>  var player, positions;<br>  for (var row = 5; row >= 0; row--) {<br>    positions = []<br>    for (var column = 0; column < 7; column++) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>render();",
-                dom: function() {
-                    return dom.connectfour();
-                },
-                solution: function() {
-                    var cell = function(tr, td) {
-                        return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
-                    }
-
-                    cell(1, 2).click(); cell(1, 3).click();
-                    cell(1, 4).click(); cell(1, 5).click();
-                    cell(1, 2).click(); cell(1, 1).click();
-                    cell(1, 3).click(); cell(1, 6).click();
-                    cell(1, 1).click(); cell(1, 1).click();
-                    cell(1, 4).click(); cell(1, 4).click();
-
-                    var basic = true;
-                    basic = basic && helpers.elHasClass(cell(5, 1), 'victory');
-                    basic = basic && helpers.elHasClass(cell(5, 2), 'victory');
-                    basic = basic && helpers.elHasClass(cell(5, 3), 'victory');
-                    basic = basic && helpers.elHasClass(cell(5, 4), 'victory');
-                    basic = basic && !helpers.elHasClass(cell(4, 4), 'red');
-
-                    if (!basic)
-                        this.warn = "Les combinaisons horizontales gagnantes doivent fonctionner";
-                    return basic;
-                }
-            },
-            {
-                title: "Combinaison verticale gagnante",
-                description: "Faire de même lorsque 4 jetons sont alignés verticalement.",
-                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var winner = false;<br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      if (column)<br>        td.className = column;<br><br>      td.addEventListener('click', function(e) {<br>        if (winner)<br>          return;<br><br>        var index = Array.prototype.indexOf.call(this.parentElement.children, this);<br>        for (var i = 5; i >= 0; i--) {<br>          if (!grid[i][index]) {<br>            color = (color === 'yellow' ? 'red' : 'yellow');<br>            grid[i][index] = color;<br>            break;<br>          } else continue;<br>        }<br><br>        winner = wins(grid);<br>        if (winner) {<br>          for (var i = 0; i < winner.length; i++) {<br>            var position = winner[i].split('-');<br>            grid[position[0]][position[1]] += ' victory';<br>          }<br>        }<br>        render();<br>      });<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br><br>var wins = function() {<br>  return verticalWinner(grid) || horizontalWinner(grid);<br>};<br><br>var verticalWinner = function() {<br>  var player, positions;<br>  for (var column = 0; column < 7; column++) {<br>    positions = [];<br>    for (var row = 5; row >= 0; row--) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>var horizontalWinner = function() {<br>  var player, positions;<br>  for (var row = 5; row >= 0; row--) {<br>    positions = []<br>    for (var column = 0; column < 7; column++) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>render();",
-                dom: function() {
-                    return dom.connectfour();
-                },
-                solution: function() {
-                    var cell = function(tr, td) {
-                        return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
-                    }
-
-                    cell(1, 4).click(); cell(1, 4).click();
-                    cell(1, 1).click(); cell(1, 2).click();
-                    cell(1, 1).click(); cell(1, 2).click();
-                    cell(1, 1).click(); cell(1, 2).click();
-                    cell(1, 1).click(); cell(1, 2).click();
-
-                    var basic = true;
-                    basic = basic && helpers.elHasClass(cell(6, 1), 'victory');
-                    basic = basic && helpers.elHasClass(cell(5, 1), 'victory');
-                    basic = basic && helpers.elHasClass(cell(4, 1), 'victory');
-                    basic = basic && helpers.elHasClass(cell(3, 1), 'victory');
-                    basic = basic && !helpers.elHasClass(cell(6, 2), 'victory');
-                    basic = basic && !helpers.elHasClass(cell(5, 2), 'victory');
-                    basic = basic && helpers.elHasClass(cell(4, 2), 'red');
-                    basic = basic && !helpers.elHasClass(cell(3, 2), 'red');
-
-                    if (!basic)
-                        this.warn = "Les combinaisons verticales gagnantes doivent fonctionner";
-                    return basic;
-                }
-            }
-        ]
-    }, {
-        title: "Puzzle | Might & Magic",
-        description: "Might & Magic est un jeu pour 2 joueurs jouant à tour de rôle des pions sur un échiquier. Chaque pion dispose de pouvoirs particuliers et les joueurs d'un nombre de point de vie limité.<br><br>Ce chapitre présente la réalisation (corsée) d'un puzzle rpg au tour par tour.",
-        color: "pink",
-        steps: [{
-                title: "Créer une classe",
-                description: "Créer une classe <code>Player</code> avec un attribut <code>name</code>, de façon à ce que <code>new Player(1)</code> crée un objet avec l'attrbut <code>name</code> initialisé à <code>1</code>.",
-                excerpt: "Dans ce jeu deux adversaires s'affrontent, et jouent deux coups à tour de rôle. Avec un coup, un joueur peut déplacer un pion d'une colonne vers une autre. Si plusieurs pions sont sur la même colonne, seul le plus éloigné du territoire adverse peut être déplacé. Et, quand un pion arrive dans une colonne, il arrive dans la première ligne disponible, la plus éloignée du territoire adverse.<br><br>Dans les étapes suivantes, deux objets de la classe <code>Player</code> vont être utilisés pour gérer les actions des deux joueurs ; la classe va définir un comportement similaire, unique pour les deux joueurs, le premier de ses objets gérera le premier joueur, et le second, le second joueur.<br><br>Il est possible (et souvent souhaitable) de structurer un programme à l'aide de composants au comportement clairement défini. Une classe est un modèle (comme un moule à pâtisserie) qui définit un ensemble d'attributs (la taille, les fruits utilisés) et de méthodes (découper, manger). <pre><code>var Player = function(name) {<br>  this.name = name;<br>}<br>var player = new Player(1);</code></pre>Par convention les classes commencent par une majuscule et les variables / instances par une minuscules.",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>};",
-                dom: function() {
-                    return dom.might();
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    if (player.name !== 1)
-                        this.warn = this.warn || "L'attribut <code>name</code> de la classe <code>Player</code> doit être initialisé avec son premier paramètre de constructeur.";
-
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Modifier le constructeur d'une classe",
-                description: "Modifier le constructeur de la classe <code>Player</code>, afin que le <code>name</code> passé en paramètre soit utilisé également pour initialiser un attribut <code>table</code> avec la <code>table[data-p=..]</code> du dom correspondante. Les deux tables disposent chacune d'un attribut <code>data-p</code> différent avec le « nom » du joueur (1 ou 2).",
-                excerpt: "Le constructeur d'une classe peut être utilisé pour configurer l'objet qu'il créé. Ici, deux objet <code>Player</code> vont être créés, ils partageront le même comportement, mais l'un gérera la <code>table</code> du haut (joueur 1), l'autre la <code>table</code> du bas (joueur 2).",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};",
-                dom: function() {
-                    return dom.might();
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    if (player.table.querySelectorAll('td').length !== 24)
-                        this.warn = this.warn || "L'attribut <code>table</code> de la classe <code>Player</code> doit être initialisé avec son premier paramètre de constructeur.";
-
-                    return !this.warn;
-                }
-            }, {
-                title: "Modifier le prototype d'une classe",
-                description: "Modifier le prototype de la classe <code>Player</code>, en lui ajoutant la méthode <code>get(x, y)</code> pour récupérer un <code>td</code> de sa <code>table</code> par ses coordonnées x,y. Chaque <code>td</code> dispose d'attributs <code>data-x</code> et <code>data-y</code> pour faciliter cette recherche.",
-                excerpt: "Dans les étapes suivantes, afin de déplacer les pions, il sera nécessaire de pouvoir récupérer chaque case du territoire d'un joueur et de savoir si elle libre ou occupée. La méthode <code>get</code> est créée pour cela.<br><br>Pour ajouter un comportement commun à chaque objet d'une classe, il est possible de modifier le prototype de celle-ci. De cette façon, tous les objets créés à partir de cette clase, disposeront de la même fonction.<pre><code>Player.prototype.get = function(x, y) {<br>  return this.table.querySelector('[data-x=\"' + x + '\"]');<br>}</code></pre>",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  }<br>};",
-                dom: function() {
-                    return dom.might();
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    if (player.get(1, 1).className !== 'peon')
-                        this.warn = this.warn || "La case 1,1 du joueur 1 contient la classe <code>peon</code>. La méthode <code>new Player(1).get(1, 1)</code> doit retourner ce <code>td</code>.";
-                    if (player.get(2, 1).className !== 'block')
-                        this.warn = this.warn || "La case 2,1 du joueur 1 contient la classe <code>block</code>. La méthode <code>new Player(1).get(2, 1)</code> doit retourner ce <code>td</code>.";
-
-                    return !this.warn;
-                }
-            }, {
-                title: "Modifier le prototype d'une classe",
-                description: "Modifier le prototype de la classe <code>Player</code>, en lui ajoutant la méthode <code>set(x, y, className)</code> pour modifier la classe d'un <code>td</code> de sa <code>table</code> en le recherchant par ses coordonnées x,y et en remplacant sa classe par className.",
-                excerpt: "Dans les étapes suivantes, afin de déplacer les pions, il sera nécessaire de pouvoir modifier une case du territoire d'un joueur, celle dont il vient devra ne plus avoir de classe (pour apparaitre vide), celle ou il arrive devra obtenir la classe correspondante, <code>.peon</code>, <code>.block</code> ou <code>.attack</code>. La méthode <code>set</code> est créée pour cela.",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  }<br>};",
-                dom: function() {
-                    return dom.might();
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    if (player.get(1, 1).className !== 'peon')
-                        this.warn = this.warn || "La case 1,1 du joueur 1 contient la classe <code>peon</code>. La méthode <code>new Player(1).get(1, 1)</code> doit retourner ce <code>td</code>.";
-
-                    player.set(2, 1, 'peon');
-                    if (player.get(2, 1).className !== 'peon')
-                        this.warn = this.warn || "La case 2,1 du joueur 1 ne contient pas la classe <code>peon</code>. La méthode <code>new Player(1).set(2, 1, 'peon')</code> doit lui ajouter.";
-
-                    return !this.warn;
-                }
-            }, {
-                title: "Modifier le prototype d'une classe",
-                description: "Modifier le prototype de la classe <code>Player</code>, en lui ajoutant la méthode <code>free(x)</code> qui retourne l'index de la première ligne disponible (de 1 à 4) pour cette colonne ou <code>undefined</code> sinon. Cette méthode ne gère pas le clic sur la colonne, elle indique juste, pour une colonne donnée, quelle est la première ligne disponible.",
-                excerpt: "Dans les étapes suivantes, au clic sur une colonne, le dernier pion de la colonne (le plus loin du territoire adverse) pourra être déplacé vers une autre colonne. La méthode <code>free</code> permettra de connaître le premier emplacement disponible de la colonne d'arrivée du déplacement.",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var i = this.free(x);<br>    if (i) {<br>      return i - 1;<br>    } else {<br>      return 4;<br>    }<br>  }<br>};",
-                dom: function() {
-                    return dom.might();
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    if (player.free(1) !== 3)
-                        this.warn = this.warn || "La colonne 1 est occupée jusqu'en case 3, la méthode <code>free(1)</code> doit retourner <code>3</code>.";
-
-                    if (player.free(2) !== 2)
-                        this.warn = this.warn || "La colonne 2 est occupée jusqu'en case 2, la méthode <code>free(2)</code> doit retourner <code>2</code>.";
-
-                    if (player.free(3) !== 1)
-                        this.warn = this.warn || "La colonne 3 est inoccupée, la méthode <code>free(3)</code> doit retourner <code>1</code>.";
-
-                    if (player.free(4) !== 3)
-                        this.warn = this.warn || "La colonne 4 est occupée jusqu'en case 3, la méthode <code>free(4)</code> doit retourner <code>3</code>.";
-
-                    return !this.warn;
-                }
-            }, {
-                title: "Modifier le prototype d'une classe",
-                description: "Modifier le prototype de la classe <code>Player</code>, en lui ajoutant la méthode <code>last(x)</code> qui retourne l'indice de la dernière ligne occupée (de 1 à 4) pour cette colonne ou <code>undefined</code> sinon.",
-                excerpt: "Dans les étapes suivantes, au clic sur une colonne, le dernier pion de la colonne (le plus loin du territoire adverse) pourra être déplacé vers une autre colonne. La méthode <code>last</code> permettra de connaître le dernier emplacement occupé de la colonne de départ du déplacement.",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  }<br>};",
-                dom: function() {
-                    return dom.might();
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    if (player.last(3) !== 0)
-                        this.warn = this.warn || "La colonne 3 est inoccupée, la méthode <code>last(3)</code> doit retourner <code>0</code>.";
-
-                    if (player.last(4) !== 2)
-                        this.warn = this.warn || "La colonne 4 est occupée jusqu'en case 2, la méthode <code>last(4)</code> doit retourner <code>2</code>.";
-
-                    if (player.last(5) !== 1)
-                        this.warn = this.warn || "La colonne 5 est occupée jusqu'en case 1, la méthode <code>last(5)</code> doit retourner <code>1</code>.";
-
-                    return !this.warn;
-                }
-            }, {
-                title: "Commencer la partie",
-                description: "Créer un dictionnaire <code>game</code> pour représenter la partie. Lui ajouter l'attribut <code>player</code> (le joueur actif) initialisé avec <code>new Player(1)</code>, l'attribut <code>moves</code> (le nombre de coups du joueur actif) intialisé à 2 et la méthode <code>select(x)</code> qui récupère (à l'aide de <code>this.player.last(x)</code>) la dernière case contenant un pion et la mémorise dans un attribut <code>memo</code> au format <code>{x:.., y:..}</code>.<br><br>Ajouter un écouteur d'événement sur tous les <code>td</code> des deux <code>table</code>, et, au clic sur l'un d'entre eux, récupérer sa colonne, x, et invoquer la méthode <code>game.select(x)</code>.",
-                excerpt: "Dans les étapes suivantes, l'attribut <code>game.memo</code> permettra de déplacer le pion. ",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  }<br>};<br><br>var player1 = new Player(1);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    game.select(+this.dataset.x);<br>  });<br>}",
-                dom: function() {
-                    return dom.might();
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    player.get(4, 1).click();
-                    if (game.memo.x !== 4 || game.memo.y !== 2)
-                        this.warn = this.warn || "Au clic sur le <code>td</code> en case 4,1 <code>game.memo</code> doit être initialisée à <code>{x: 4, y: 2}</code> car il s'agit de la dernière case avec une classe de cette colonne.";
-
-                    return !this.warn;
-                }
-            }, {
-                title: "Déplacer un péon",
-                description: "Lors d'un clic sur une colonne occupée par un péon (bleu), puis sur une autre colonne, la dernière case occupée cliquée (c'est à dire <code>game.memo</code>), est vidée et déplacée vers la première case libre de la seconde colonne cliquée. Si les deux colonnes sont identiques, rien ne se passe. Si la seconde colonne n'a plus d'espace libre, rien ne se passe non plus.",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  }<br>};<br><br>var player1 = new Player(1);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br>    }<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var x = +this.dataset.x;<br>    if (game.memo) {<br>      game.move(x);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
-                dom: function() {
-                    return dom.might();
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    player.get(5, 1).click();
-                    player.get(3, 1).click();
-                    if (player.get(3, 1).className !== 'peon' || player.get(5, 1).className !== '')
-                        this.warn = this.warn || "Au clic sur le <code>td</code> en case 5,1 puis 3,1 leur classes doivent s'intervertir.";
-
-                    player.get(3, 1).click();
-                    player.get(2, 1).click();
-                    if (player.get(2, 2).className !== 'peon' || player.get(3, 1).className !== '')
-                        this.warn = this.warn || "Au clic sur le <code>td</code> en case 3,1 puis 2,1 la colonne 2 doit contenir 2 péons.";
-
-                    return !this.warn;
-                }
-            }, {
-                title: "Gérer le tour des joueurs",
-                description: "Lors du déplacement d'une case, diminuer le nombre de coups du joueur en cours de 1. Si ce nombre tombe à 0, supprimer la classe <code>active</code> de sa <code>table</code> et l'ajouter à la <code>table</code> de l'autre joueur. Les méthodes pour effectuer ces modifications peuvent être ajoutées à la classe <code>Player</code>. Modifier le compteur de tour dans le <code>th</code> de la <code>table</code> des joueurs. Lorsque ce n'est pas son tour, les <code>td</code> de la <code>table</code> d'un joueur ne doivent pas être cliquable.",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  life: '♥♥',<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  title: function(moves) {<br>    this.table.querySelector('th').innerHTML = moves + ' ' + this.life;<br>  },<br>  stop: function() {<br>    this.table.classList.remove('active');<br>  },<br>  start: function() {<br>    this.table.classList.add('active');<br>  }<br>};<br><br>var player1 = new Player(1);<br>var player2 = new Player(2);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br><br>      this.moves--;<br>      this.player.title(this.moves);<br>      if (this.moves === 0) {<br>        this.player.stop();<br><br>        this.player = this.opponent();<br>        this.player.start();<br>        this.moves = 2;<br>        this.player.title(this.moves);<br>      }<br>    }<br>  },<br>  opponent: function() {<br>    return this.player === player1 ? player2 : player1;<br>  },<br>  isActivePlayer(playerName) {<br>    return this.player.name === playerName;<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var table = this.closest('table');<br>    if (!game.isActivePlayer(+table.dataset.p)) {<br>      return;<br>    }<br><br>    var x = +this.dataset.x;<br>    if (game.memo) {<br>      game.move(x);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
-                dom: function() {
-                    return dom.might();
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    player.get(5, 1).click();
-                    player.get(3, 1).click();
-                    if (player.table.querySelector('th').innerHTML !== '1 ♥♥')
-                        this.warn = this.warn || "Après 1 déplacement, le compteur du joueur 1 doit indiquer 1 ♥♥.";
-
-                    player.get(3, 1).click();
-                    player.get(4, 1).click();
-                    if (player.table.querySelector('th').innerHTML !== '0 ♥♥')
-                        this.warn = this.warn || "Après 2 déplacement, le compteur du joueur 1 doit indiquer 0 ♥♥.";
-
-                    var opponent = new Player(2);
-                    opponent.get(3, 1).click();
-                    opponent.get(4, 1).click();
-                    if (opponent.get(3, 1).className !== '' || opponent.get(4, 1).className !== 'peon')
-                        this.warn = this.warn || "Au clic sur le <code>td</code> en case 3,1 puis 4,1 du joueur 2 la colonne 2 doit contenir 3 péons.";
-
-                    if (opponent.table.querySelector('th').innerHTML !== '1 ♥♥')
-                        this.warn = this.warn || "Après 1 déplacement, le compteur du joueur 2 doit indiquer 1 ♥♥.";
-
-                    return !this.warn;
-                }
-            }, {
-                title: "La tête brûlée",
-                description: "Lorsqu'après un déplacement 3 péons (bleus) se retrouvent dans la même colonne, ils sont supprimés et une unique tête brûlée (un <code>td.attack</code>) les remplace à la place du premier d'entre eux (celui le plus proche du territoire adverse).",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  life: '♥♥',<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (!td.className) {<br>        return y;<br>      }<br>    }<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  title: function(moves) {<br>    this.table.querySelector('th').innerHTML = moves + ' ' + this.life;<br>  },<br>  stop: function() {<br>    this.table.classList.remove('active');<br>  },<br>  start: function() {<br>    this.table.classList.add('active');<br>  },<br>  column: function(x) {<br>    var y = this.last(x);<br>    var td1 = (y === 3) ? this.get(x, 1) : this.get(x, 2);<br>    var td2 = (y === 3) ? this.get(x, 2) : this.get(x, 3);<br>    var td3 = (y === 3) ? this.get(x, 3) : this.get(x, 4);<br>    if (td1.className === 'peon' && td1.className === td2.className && td2.className === td3.className) {<br>      td1.className = 'attack';<br>      td2.className = td3.className = '';<br>    }<br>  }<br>};<br><br>var player1 = new Player(1);<br>var player2 = new Player(2);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br><br>      this.player.column(x)<br><br>      this.moves--;<br>      this.player.title(this.moves);<br>      if (this.moves === 0) {<br>        this.player.stop();<br><br>        this.player = this.opponent();<br>        this.player.start();<br>        this.moves = 2;<br>        this.player.title(this.moves);<br>      }<br>    }<br>  },<br>  opponent: function() {<br>    return this.player === player1 ? player2 : player1;<br>  },<br>  isActivePlayer(playerName) {<br>    return this.player.name === playerName;<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var table = this.closest('table');<br>    if (!game.isActivePlayer(+table.dataset.p)) {<br>      return;<br>    }<br><br>    var x = +this.dataset.x;<br>    if (game.memo) {<br>      game.move(x);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
-                dom: function() {
-                    return dom.might();
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    player.get(5, 1).click();
-                    player.get(4, 1).click();
-                    if (player.get(4, 1).className !== 'attack')
-                        this.warn = this.warn || "Après 1 déplacement d'un <code>td</code> en 4,1 en 5,1 les 3 péons doivent se transformer en une tête brûlée.";
-
-                    return !this.warn;
-                }
-            }, {
-                title: "L'attaque de la tête brûlée",
-                description: "Au clic sur une tête brûlée, celle-ci disparait (les péons de derrière avance alors d'une case) et diminue d'un point le nombre de ♥ de l'adversaire. Si l'adversaire n'a plus de ♥, un x est affiché à la place et la partie prend fin (plus aucune case n'est cliquable).",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  life: '♥♥',<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    return this.match(x, '');<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  title: function(moves) {<br>    this.table.querySelector('th').innerHTML = moves + ' ' + this.life;<br>  },<br>  stop: function() {<br>    this.table.classList.remove('active');<br>  },<br>  start: function() {<br>    this.table.classList.add('active');<br>  },<br>  column: function(x) {<br>    var y = this.last(x);<br>    var td1 = (y === 3) ? this.get(x, 1) : this.get(x, 2);<br>    var td2 = (y === 3) ? this.get(x, 2) : this.get(x, 3);<br>    var td3 = (y === 3) ? this.get(x, 3) : this.get(x, 4);<br>    if (td1.className === 'peon' && td1.className === td2.className && td2.className === td3.className) {<br>      td1.className = 'attack';<br>      td2.className = td3.className = '';<br>    }<br>  },<br>  match: function(x, className) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (td.className === className) {<br>        return y;<br>      }<br>    }<br>  },<br>  attack: function(x) {<br>    var match = this.match(x, 'attack')<br>    if (match) {<br>        for (var y = match + 1; y < 4; y++) {<br>          this.set(x, y - 1, this.get(x, y).className);<br>        }<br>        this.set(x, 4, '');<br>        return true;<br>    }<br>  },<br>  hurt: function() {<br>    if (this.life === '♥♥')<br>      this.life = '♥';<br>    else<br>      this.life = 'x';<br>  },<br>  dead: function() {<br>    return this.life === 'x';<br>  }<br>};<br><br>var player1 = new Player(1);<br>var player2 = new Player(2);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    if (this.player.attack(x)) {<br>      this.opponent().hurt();<br>      this.opponent().title(2);<br>      if (this.opponent().dead())<br>        this.player.stop();<br>      else<br>        this.next();<br>      return;<br>    }<br><br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br><br>      this.player.column(x)<br>      this.next();<br>    }<br>  },<br>  next: function() {<br>    this.moves--;<br>    this.player.title(this.moves);<br>    if (this.moves === 0) {<br>      this.player.stop();<br><br>      this.player = this.opponent();<br>      this.player.start();<br>      this.moves = 2;<br>      this.player.title(this.moves);<br>    }<br>  },<br>  opponent: function() {<br>    return this.player === player1 ? player2 : player1;<br>  },<br>  isActivePlayer(playerName) {<br>    return this.player.name === playerName;<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var table = this.closest('table');<br>    if (!game.isActivePlayer(+table.dataset.p)) {<br>      return;<br>    }<br><br>    var x = +this.dataset.x;<br>    if (game.memo) {<br>      game.move(x);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
-                dom: function() {
-                    return dom.might();
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    player.get(5, 1).click();
-                    player.get(4, 1).click();
-                    player.get(1, 1).click();
-                    player.get(6, 1).click();
-
-                    var opponent = new Player(2);
-                    opponent.get(2, 1).click();
-                    opponent.get(3, 1).click();
-                    opponent.get(3, 1).click();
-                    opponent.get(2, 1).click();
-
-                    player.get(4, 1).click();
-                    player.get(6, 1).click();
-
-                    if (opponent.table.querySelector('th').innerHTML !== '2 x')
-                        this.warn = this.warn || "Après 2 attaques, le compteur du joueur 2 doit indiquer x.";
-
-                    return !this.warn;
-                }
-            }, {
-                title: "La tête d'arbre",
-                description: "Lorsqu'après un déplacement au moins 3 péons (bleus) se retrouvent dans la même ligne, ils sont remplacés par des têtes d'arbre (un <code>td.block</code>).",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  life: '♥♥',<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    return this.match(x, '');<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  title: function(moves) {<br>    this.table.querySelector('th').innerHTML = moves + ' ' + this.life;<br>  },<br>  stop: function() {<br>    this.table.classList.remove('active');<br>  },<br>  start: function() {<br>    this.table.classList.add('active');<br>  },<br>  column: function(x) {<br>    var y = this.last(x);<br>    var td1 = (y === 3) ? this.get(x, 1) : this.get(x, 2);<br>    var td2 = (y === 3) ? this.get(x, 2) : this.get(x, 3);<br>    var td3 = (y === 3) ? this.get(x, 3) : this.get(x, 4);<br>    if (td1.className === 'peon' && td1.className === td2.className && td2.className === td3.className) {<br>      td1.className = 'attack';<br>      td2.className = td3.className = '';<br>    }<br>  },<br>  line: function(x, y) {<br>    var count = 0;<br>    for (var _x = x - 1; _x >= 1; _x--) {<br>      if (this.get(_x, y).className === 'peon')<br>        count++;<br>      else<br>        break;<br>    }<br><br>    for (var _x = x + 1; _x <= 7; _x++) {<br>      if (this.get(_x, y).className === 'peon')<br>        count++;<br>      else<br>        break;<br>    }<br><br>    if (count >= 3) {<br>      this.get(x, y).className = 'block'<br>      for (var _x = x - 1; _x >= 1; _x--) {<br>        if (this.get(_x, y).className === 'peon')<br>          this.get(_x, y).className = 'block';<br>        else<br>          break;<br>      }<br><br>      for (var _x = x + 1; _x <= 7; _x++) {<br>        if (this.get(_x, y).className === 'peon')<br>          this.get(_x, y).className = 'block';<br>        else<br>          break;<br>      }<br>    }<br>  },<br>  match: function(x, className) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (td.className === className) {<br>        return y;<br>      }<br>    }<br>  },<br>  attack: function(x) {<br>    var match = this.match(x, 'attack')<br>    if (match) {<br>        for (var y = match + 1; y < 4; y++) {<br>          this.set(x, y - 1, this.get(x, y).className);<br>        }<br>        this.set(x, 4, '');<br>        return true;<br>    }<br>  },<br>  hurt: function() {<br>    if (this.life === '♥♥')<br>      this.life = '♥';<br>    else<br>      this.life = 'x';<br>  },<br>  dead: function() {<br>    return this.life === 'x';<br>  }<br>};<br><br>var player1 = new Player(1);<br>var player2 = new Player(2);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    if (this.player.attack(x)) {<br>      this.opponent().hurt();<br>      this.opponent().title(2);<br>      if (this.opponent().dead())<br>        this.player.stop();<br>      else<br>        this.next();<br>      return;<br>    }<br><br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x, y) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br><br>      this.player.column(x);<br>      this.player.line(x, y);<br>      this.next();<br>    }<br>  },<br>  next: function() {<br>    this.moves--;<br>    this.player.title(this.moves);<br>    if (this.moves === 0) {<br>      this.player.stop();<br><br>      this.player = this.opponent();<br>      this.player.start();<br>      this.moves = 2;<br>      this.player.title(this.moves);<br>    }<br>  },<br>  opponent: function() {<br>    return this.player === player1 ? player2 : player1;<br>  },<br>  isActivePlayer(playerName) {<br>    return this.player.name === playerName;<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var table = this.closest('table');<br>    if (!game.isActivePlayer(+table.dataset.p)) {<br>      return;<br>    }<br><br>    var x = +this.dataset.x;<br>    var y = +this.dataset.y;<br>    if (game.memo) {<br>      game.move(x, y);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
-                dom: function() {
-                    return dom.might();
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    player.get(4, 1).click();
-                    player.get(3, 1).click();
-                    if (player.get(1, 1).className !== 'peon' || player.get(3, 1).className !== 'block' || player.get(4, 1).className !== 'block' || player.get(3, 1).className !== 'block' || player.get(5, 1).className !== 'block' || player.get(6, 1).className !== 'block')
-                        this.warn = this.warn || "Après 1 déplacement d'un <code>td</code> en 4,1 vers 3,1 les 4 péons de la première ligne doivent se transformer en une tête d'arbre.";
-
-                    return !this.warn;
-                }
-            }, {
-                title: "La défense de la tête d'arbre",
-                description: "Lorsqu'une tête brûle attaque et qu'une tête d'arbre lui fait fasse en première ligne dans le territoire adverse, les deux disparraissent (les péons de derrière avance alors d'une case) sans causer de dégats à l'adversaire.",
-                solved: "var Player = function(name) {<br>  this.name = name;<br>  this.table = document.querySelector('table[data-p=\"' + name + '\"]');<br>};<br><br>Player.prototype = {<br>  life: '♥♥',<br>  get: function(x, y) {<br>    return this.table.querySelector('[data-x=\"' + x + '\"][data-y=\"' + y + '\"]') || {};<br>  },<br>  set: function(x, y, className) {<br>    var td = this.get(x, y);<br>    td.className = className;<br>  },<br>  free: function(x) {<br>    return this.match(x, '');<br>  },<br>  last: function(x) {<br>    var y = this.free(x);<br>    if (y) {<br>      return y - 1;<br>    } else {<br>      return 4;<br>    }<br>  },<br>  title: function(moves) {<br>    this.table.querySelector('th').innerHTML = moves + ' ' + this.life;<br>  },<br>  stop: function() {<br>    this.table.classList.remove('active');<br>  },<br>  start: function() {<br>    this.table.classList.add('active');<br>  },<br>  column: function(x) {<br>    var y = this.last(x);<br>    var td1 = (y === 3) ? this.get(x, 1) : this.get(x, 2);<br>    var td2 = (y === 3) ? this.get(x, 2) : this.get(x, 3);<br>    var td3 = (y === 3) ? this.get(x, 3) : this.get(x, 4);<br>    if (td1.className === 'peon' && td1.className === td2.className && td2.className === td3.className) {<br>      td1.className = 'attack';<br>      td2.className = td3.className = '';<br>    }<br>  },<br>  line: function(x, y) {<br>    var count = 0;<br>    for (var _x = x - 1; _x >= 1; _x--) {<br>      if (this.get(_x, y).className === 'peon')<br>        count++;<br>      else<br>        break;<br>    }<br><br>    for (var _x = x + 1; _x <= 7; _x++) {<br>      if (this.get(_x, y).className === 'peon')<br>        count++;<br>      else<br>        break;<br>    }<br><br>    if (count >= 3) {<br>      this.get(x, y).className = 'block'<br>      for (var _x = x - 1; _x >= 1; _x--) {<br>        if (this.get(_x, y).className === 'peon')<br>          this.get(_x, y).className = 'block';<br>        else<br>          break;<br>      }<br><br>      for (var _x = x + 1; _x <= 7; _x++) {<br>        if (this.get(_x, y).className === 'peon')<br>          this.get(_x, y).className = 'block';<br>        else<br>          break;<br>      }<br>    }<br>  },<br>  match: function(x, className) {<br>    for (var y = 1; y <= 4; y++) {<br>      var td = this.get(x, y);<br>      if (td.className === className) {<br>        return y;<br>      }<br>    }<br>  },<br>  attack: function(x) {<br>    var match = this.match(x, 'attack')<br>    if (match) {<br>        this.dash(x, match);<br>        return true;<br>    }<br>  },<br>  block: function(x) {<br>    if (this.get(x, 1).className === 'block') {<br>      this.dash(x, 1);<br>      return true;<br>    }<br>  },<br>  dash: function(x, y) {<br>    for (var _y = y + 1; _y < 4; _y++) {<br>      this.set(x, _y - 1, this.get(x, _y).className);<br>    }<br>    this.set(x, 4, '');<br>  },<br>  hurt: function() {<br>    if (this.life === '♥♥')<br>      this.life = '♥';<br>    else<br>      this.life = 'x';<br>  },<br>  dead: function() {<br>    return this.life === 'x';<br>  }<br>};<br><br>var player1 = new Player(1);<br>var player2 = new Player(2);<br><br>var game = {<br>  player: player1,<br>  moves: 2,<br>  memo: null,<br>  select: function(x) {<br>    if (this.player.attack(x)) {<br>      if (!this.opponent().block(x)) {<br>        this.opponent().hurt();<br>        this.opponent().title(2);<br>      }<br><br>      if (this.opponent().dead())<br>        this.player.stop();<br>      else<br>        this.next();<br>      return;<br>    }<br><br>    var y = this.player.last(x);<br>    if (y) {<br>      this.memo = {x: x, y: y, className: this.player.get(x, y).className};<br>    }<br>  },<br>  move: function(x, y) {<br>    if (x === this.memo.x)<br>      return;<br><br>    var y = this.player.free(x);<br>    if (y) {<br>      this.player.set(x, y, this.memo.className);<br>      this.player.set(this.memo.x, this.memo.y, '');<br>      this.memo = null;<br><br>      this.player.column(x);<br>      this.player.line(x, y);<br>      this.next();<br>    }<br>  },<br>  next: function() {<br>    this.moves--;<br>    this.player.title(this.moves);<br>    if (this.moves === 0) {<br>      this.player.stop();<br><br>      this.player = this.opponent();<br>      this.player.start();<br>      this.moves = 2;<br>      this.player.title(this.moves);<br>    }<br>  },<br>  opponent: function() {<br>    return this.player === player1 ? player2 : player1;<br>  },<br>  isActivePlayer(playerName) {<br>    return this.player.name === playerName;<br>  }<br>}<br><br>var tds = document.querySelectorAll('td');<br>for (var i = 0; i < tds.length; i++) {<br>  tds[i].addEventListener('click', function() {<br>    var table = this.closest('table');<br>    if (!game.isActivePlayer(+table.dataset.p)) {<br>      return;<br>    }<br><br>    var x = +this.dataset.x;<br>    var y = +this.dataset.y;<br>    if (game.memo) {<br>      game.move(x, y);<br>    } else if (this.className) {<br>      game.select(x);<br>    }<br>  });<br>}",
-                dom: function() {
-                    return dom.might();
-                },
-                solution: function() {
-                    var player = new Player(1);
-                    player.get(5, 1).click();
-                    player.get(4, 1).click();
-                    player.get(6, 1).click();
-                    player.get(1, 1).click();
-
-                    var opponent = new Player(2);
-                    opponent.get(5, 1).click();
-                    opponent.get(4, 1).click();
-                    opponent.get(2, 1).click();
-                    opponent.get(1, 1).click();
-
-                    player.get(4, 1).click();
-                    player.get(1, 1).click();
-
-                    if (opponent.get(4, 1).className !== '')
-                        this.warn = this.warn || "Si une attaque a lieu et qu'une tête d'arbre lui fait fasse, celle-ci doit disparaitre.";
-
-                    if (opponent.table.querySelector('th').innerHTML !== '2 ♥')
-                        this.warn = this.warn || "Après 2 attaques, dont 1 bloquée, le compteur du joueur 2 doit indiquer ♥.";
-
-                    return !this.warn;
                 }
             }
         ]
@@ -6725,7 +6632,7 @@ let glossary = {
                 
             ---
 
-            Événement déclenché par le changement de valeur d'un champ de saisie. Le premier paramètre de la fonction déclenchée dispose d'un attribut target.value correspondant à la nouvelle valeur saisie.
+            Événement déclenché par le changement de valeur d'un champ de saisie. Le premier paramètre de la fonction déclenchée dispose d'un attribut currentTarget.value correspondant à la nouvelle valeur saisie.
 
                 'change'
             
@@ -7015,6 +6922,7 @@ let stepper = function(el, data, methods) {
     let step = data.step;
     let gpage = data.gpage;
 
+    let enter = methods.enter;
     let leave = methods.leave;
     let jump = methods.jump;
     let completed = methods.completed;
@@ -7062,7 +6970,7 @@ let stepper = function(el, data, methods) {
                                 ${title}
                                 <div class="description">${description}</div>
                                 <div class="dom" data-hook="dom"></div>
-                                <div data-hook="divulge"></div>
+                                <div data-hook="divulge" class="${this.methods.isSolvedHidden.call(this) ? 'hidden' : ''}"></div>
                                 <div class="ui piled segment ${chapterContent.color} ${excerptHidden}">
                                     <h4 class="ui header">À propos</h4>
                                     <p>${stepContent.excerpt}</p>
@@ -7110,6 +7018,14 @@ let stepper = function(el, data, methods) {
                 this.methods.validate.call(this);
             }.bind(this));
 
+
+            let links = el.querySelectorAll('[data-hook=enter]')
+            for (let i = 0; i < links.length; i++) {
+                links[i].addEventListener('click', function() {
+                    enter(this.dataset.chapter);
+                });
+            }
+
             lis = el.querySelectorAll('ul.h-steps li');
             for (let _step = 0; _step < lis.length; _step++) {
                 lis[_step].addEventListener('click', function() {
@@ -7141,6 +7057,9 @@ let stepper = function(el, data, methods) {
             },
             isCourse: function(_step) {
                 return chapterContent.steps[_step - 1].course;
+            },
+            isSolvedHidden: function() {
+                return stepContent.solvedOnSuccess && !this.methods.isDone(step);
             },
             validate: function() {
                 this.methods.renderDom.call(this, true);
@@ -7219,12 +7138,14 @@ let stepper = function(el, data, methods) {
                 document.body.appendChild(script);
             },
             divulge: function() {
-                if (stepContent.solved) {
+                if (stepContent.solved && !this.methods.isSolvedHidden.call(this)) {
                     el.querySelector('[data-hook=divulge]').innerHTML = `
                         <a class="ui ${chapterContent.color} ribbon label">
                             <i class="bug icon"></i>Solution
                         </a>
                         <p><pre><code class="hidden javascript">${stepContent.solved}</code></pre></p>`;
+
+                    el.querySelector('[data-hook=divulge]').classList.remove('hidden');
 
                     el.querySelector('[data-hook=divulge] .ribbon').addEventListener('click', function() {
                         this.parentNode.querySelector('code').classList.toggle('hidden');

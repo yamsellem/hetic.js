@@ -70,6 +70,10 @@ hr {
     display: none !important;
 }
 
+.clickable {
+    cursor: pointer;
+}
+
 .digest, .stepper {
     position: relative;
 }
@@ -83,7 +87,7 @@ hr {
     position: fixed;
     right: -1px;
     top: 10px;
-    z-index: 2;
+    z-index: 100;
 }
 .top.right.attached.labels .ui.basic.button {
     margin: 0;
@@ -97,13 +101,13 @@ hr {
 }
 
 .h-glossary {
-    background: #EDEFF0;
+    z-index: 100;
     position: fixed;
-    z-index: 1;
     top: -17px;
     bottom: 0;
     right: 0;
     width: 400px;
+    background: #EDEFF0;
     margin-right: 0 !important;
     margin-top: 1.5rem !important;
     margin-bottom: 0.5rem !important;
@@ -558,6 +562,49 @@ hr {
 .connectfour td.red { background-color: #DB2B1E; }
 .connectfour td.victory { border: 5px solid white; }
 .connectfour table:after { content: ''; position: absolute; bottom: -10px; left: -15px; right: -15px; height: 10px; background: #1E84D6; }
+
+.hanoi { text-align: center; margin-right: -1em; margin-left: -1em; }
+.hanoi ul {
+    display: inline-flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    vertical-align: top;
+    position: relative;
+    cursor: pointer;
+    width: 115px;
+    height: 125px;
+    border-bottom: 10px solid #767676;;
+    margin-left: 5px;
+    z-index: 10;
+}
+.hanoi ul:first-child {
+    margin-left: 0;
+}
+.hanoi ul:after {
+    position: absolute;
+    content: "";
+    top: 0;
+    bottom: 0;
+    left: 52px;
+    border-right: 10px solid #767676;;
+    z-index: -10;
+}
+.hanoi ul.success,
+.hanoi ul.success:after {
+    border-color: #FBBE00;
+}
+.hanoi li {
+    margin: 0 auto;
+    display: block;
+    height: 15px;
+    background-color: #002451;
+}
+.hanoi li.disk-1 { width: 25px; background-color: #00b5ad; }
+.hanoi li.disk-2 { width: 40px; background-color: #FBBE00; }
+.hanoi li.disk-3 { width: 55px; background-color: #F27200; }
+.hanoi li.disk-4 { width: 70px; background-color: #DB2B1E; }
+.hanoi li.disk-5 { width: 85px; background-color: #DF3A9B; }
+.hanoi li.disk-6 { width: 100px; background-color: #6232D1; }
 
 .favorites .ui.button {
     margin-bottom: 0.75em;
