@@ -141,7 +141,7 @@ let dom = {
                     <li class="square7"></li>
                     <li class="square8"></li>
                 </ul>
-                <button class="ui pink button">Mélanger</button>
+                <button class="ui grey button">Mélanger</button>
             </div>
         `;
     },
@@ -261,7 +261,9 @@ let dom = {
     connectfour: function() {
         return `
             <div class="connectfour">
-                <table></table>
+                <table>
+                    ${('<tr>' + '<td></td>'.repeat(7) + '</tr>').repeat(6)}
+                </table>
             </div>
         `;
     },
@@ -283,6 +285,80 @@ let dom = {
                 <ul class="tower-target"></ul>
             </div>
         `;
+    },
+
+    // Minesweeper
+
+    minesweeper: function() {
+        return `
+            <div class="minesweeper">
+                <table>
+                    ${('<tr>' + '<td></td>'.repeat(10) + '</tr>').repeat(10)}
+                </table>
+                <button class="ui grey button">Recommencer</button>
+            </div>
+        `;
+    },
+
+    minesweeperMines: function() {
+        let mines = [{x: 1, y: 1}];
+
+        for (let i = 0; i < 10; i++)
+            mines.push({x: helpers.random(1, 10), y: helpers.random(1, 10)});
+        
+        var set = {};
+        return mines.filter(function(mine) {
+            let key = `${mine.x}.${mine.y}`;
+            return key in set ? false : set[key] = true;
+        });
+    },
+
+    minesweeperGetCellNotBomb: function(mines) {
+        let mine;
+        do {
+            mine = {x: helpers.random(1, 10), y: helpers.random(1, 10)};
+        } while (helpers.contains(mines, mine));
+        return mine;
+    },
+
+    minesweeperGetCellCount: function(mines, x, y) {
+        var grid = {};
+        for (let i = 0; i < mines.length; i++) {
+            if (!grid[mines[i].x])
+                grid[mines[i].x] = {};
+            grid[mines[i].x][mines[i].y] = true;
+        }
+
+        var hasMine = function(mines, x, y) {
+            return grid[x] && grid[x][y];
+        }
+
+        var count = 0;        
+        if (hasMine(grid, x - 1, y - 1)) count++;
+        if (hasMine(grid, x, y - 1)) count++;
+        if (hasMine(grid, x + 1, y - 1)) count++;
+        if (hasMine(grid, x - 1, y)) count++;
+        if (hasMine(grid, x + 1, y)) count++;
+        if (hasMine(grid, x - 1, y + 1)) count++;
+        if (hasMine(grid, x, y + 1)) count++;
+        if (hasMine(grid, x + 1, y + 1)) count++;
+        return count;
+    },
+
+    minesweeperGetEdgedCell: function(mines) {
+        let mine;
+        do {
+            mine = dom.minesweeperGetCellNotBomb(mines);
+        } while (!dom.minesweeperGetCellCount(mines, mine.x, mine.y));
+        return mine;
+    },
+
+    minesweeperGetCellEmpty: function(mines) {
+        let mine;
+        do {
+            mine = dom.minesweeperGetCellNotBomb(mines);
+        } while (dom.minesweeperGetCellCount(mines, mine.x, mine.y));
+        return mine;
     },
     
     // Forms
@@ -425,43 +501,7 @@ let dom = {
         {name: 'Manches longues', price: 15, image: 'longsleeve', quantity: 0},
         {name: 'T-shirt', price: 25, image: 'tshirt', quantity: 0},
         {name: 'Chemise', price: 40, image: 'shirt', quantity: 0}
-    ],
-    
-    // Might
-    
-    might: function() {
-        var tiles = [
-            '', '', '', '', '', '',
-            '', '', '', '', '', '',
-            'peon', '', '', 'peon', '', 'peon',
-            'peon', 'block', '', 'peon', 'peon', 'peon',
-            'attack', 'peon', 'peon', '', 'peon', 'peon',
-            'peon', 'peon', '', '', 'peon', '',
-            '', '', '', '', '', '',
-            '', '', '', '', '', ''
-        ];
-    
-        var html = '<div class="might">';
-        for (var y = 0; y < 8; y++) {
-            if (y === 0)
-                html += '<table class="active" data-p="1"><thead><th class="floating ui pink label">2 ♥♥</th></thead><tbody>';
-            else if (y === 4)
-                html += '<table data-p="2"><thead><th class="floating ui pink label">0 ♥♥</th></thead><tbody>';
-    
-            html += '<tr>';
-            for (var x = 0; x < 6; x++) {
-                var clazz = tiles[y*6+x];
-                html += `<td class="${clazz}" data-y="${y<4 ? 4-y%4 : y%4+1}" data-x="${x+1}"></td>`;
-            }
-            html += '</tr>';
-    
-            if (y === 3 || y === 7)
-                html += '</tbody></table>';
-        }
-    
-        html += '</div>';
-        return html;
-    }
+    ]
 };
 
 let http = {
@@ -541,6 +581,12 @@ let helpers = {
     
     equalsContent: function(a, b) {
         return JSON.stringify(a.slice(0).sort()) === JSON.stringify(b.slice(0).sort());
+    },
+
+    contains: function(array, item) {
+        return !!array.find(function(element) {
+            return helpers.equals(element, item);
+        });
     },
     
     basicWarn: function(actual, expected) {
@@ -2311,6 +2357,123 @@ let chapters = [
             }
         ]
     }, {
+        title: "Puzzle | Tours d'Hanoï",
+        description: "Les tours d'Hanoï est un jeu de réflexion solitaire. Plusieurs disques de diamètre différents, sont à déplacer un à un de gauche à droite, dans trois tours sans placer un grand disque sur un plus petit.<br><br>Ce chapitre présente la réalisation des tours d'Hanoï dont la solution est à déverrouiller.",
+        color: "grey",
+        steps: [
+            {
+                course: true,
+                description: `
+                    Les tours d'Hanoï est un jeu de réflexion qui consiste à déplacer des disques de diamètres différents d'une tour de départ à une tour d'arrivée en passant par une tour intermédiaire, et ceci en un minimum de coups, tout en respectant les règles suivantes :
+
+                    * on ne peut déplacer plus d'un disque à la fois
+                    * on ne peut placer un disque que sur un autre disque plus grand que lui ou sur un emplacement vide
+
+                    On suppose que cette dernière règle est également respectée dans la configuration de départ.
+
+                    <br>
+
+                    ---
+
+                    <br>
+
+                    **Prérequis** ${helpers.chapterLabel(2, 'Variables et opérations', 'green')} ${helpers.chapterLabel(3, 'Conditions et boucles', 'green')} ${helpers.chapterLabel(8, 'Le DOM', 'yellow')}
+
+                    **Solution** débloquée lors de la réussite de chaque étape
+
+                    **Code final** ~20 lignes
+                `
+            },
+            {
+                title: "Déplacer les disques",
+                description: "Au clic sur une des trois tours, <code>.hanoi ul</code>, le disque, <code>li</code>, le plus haut de celle-ci est mémorisé. Au clic suivant sur une des trois tours, ce disque est déplacé dans cette nouvelle tour. Et ainsi de suite (cliquer sur une troisième tour mémorise son plus haut disque, cliquer sur une quatrième tour déplace le disque à cet endroit).",
+                solved: "var memo;<br>var uls = document.querySelectorAll('.hanoi ul');<br>for (var i = 0; i < uls.length; i++) {<br>  uls[i].addEventListener('click', function(event) {<br>    var ul = event.currentTarget;<br>    var firstChild = ul.querySelector('li');<br>    if (memo) {<br>      ul.prepend(memo);<br>      memo = undefined;<br>    } else if (firstChild) {<br>      memo = firstChild;<br>    }<br>  });<br>}",
+                solvedOnSuccess: true,
+                dom: function() {
+                    return dom.hanoi();
+                },
+                solution: function() {
+                    let uls = document.querySelectorAll('.hanoi ul');
+                    uls[0].click();
+                    uls[1].click();
+
+                    if (uls[0].querySelectorAll('li').length !== 5)
+                        this.warn = this.warn || "Cliquer sur la première tour puis sur la deuxième doit supprimer le premier li de la première tour";
+                    if (uls[1].querySelectorAll('li').length !== 1)
+                        this.warn = this.warn || "Cliquer sur la première tour puis sur la deuxième doit déplacer le premier li de la première tour vers la seconde";
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Respecter l'ordre des disques",
+                description: "Après avoir mémorisé un disque, le clic sur une seconde tour ne doit pas ajouter le disque mémorisé si ce dernier est plus large que le plus haut de la nouvelle tour (avec un attribut data <code>weight</code> plus élevé). <i>Optionnel</i> : si ce cas se produit, le disque mémorisé est oublié, et c'est le disque le plus haut de la nouvelle tour qui est mémorisé à sa place (et sera donc déplacé au prochain clic, si les conditions précédentes sont remplies).",
+                solved: "var memo;<br>var uls = document.querySelectorAll('.hanoi ul');<br>for (var i = 0; i < uls.length; i++) {<br>  uls[i].addEventListener('click', function(event) {<br>    var ul = event.currentTarget;<br>    var firstChild = ul.querySelector('li');<br>    if (memo && (!firstChild || firstChild.dataset.weight > memo.dataset.weight)) {<br>      ul.prepend(memo);<br>      memo = undefined;<br>    } else if (firstChild) {<br>      memo = firstChild;<br>    }<br>  });<br>}",
+                solvedOnSuccess: true,
+                dom: function() {
+                    return dom.hanoi();
+                },
+                solution: function() {
+                    let uls = document.querySelectorAll('.hanoi ul');
+                    uls[0].click();
+                    uls[1].click();
+
+                    uls[0].click();
+                    uls[1].click();
+
+                    if (uls[0].querySelectorAll('li').length !== 5 || uls[1].querySelectorAll('li').length !== 1)
+                        this.warn = this.warn || "Après avoir déplacé le petit disque de la première à la seconde tour, essayer de déplacer le second disque de la première tour vers le seconde ne doit pas être autorisé";
+                    
+                    uls[2].click();
+
+                    if (uls[0].querySelectorAll('li').length !== 5 || uls[1].querySelectorAll('li').length !== 0 || uls[2].querySelectorAll('li').length !== 1)
+                        this.warn = this.warn || "Après avoir déplacé le petit disque de la première à la seconde tour, cliquer sur la première tour, puis la second, puis la troisième, doit résulter dans le déplacement du petit disque de la tour du milieu à celle de droite.";
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Indiquer la victoire",
+                description: "Après avoir déplacé tous les disque de la tour de gauche à celle de droite, ajouter la classe <code>success</code> au <code>ul</code> de la tour de droite pour indiquer la victoire.",
+                solved: "var memo;<br>var uls = document.querySelectorAll('.hanoi ul');<br>for (var i = 0; i < uls.length; i++) {<br>  uls[i].addEventListener('click', function(event) {<br>    var ul = event.currentTarget;<br>    var firstChild = ul.querySelector('li');<br>    if (memo && (!firstChild || firstChild.dataset.weight > memo.dataset.weight)) {<br>      ul.prepend(memo);<br>      memo = undefined;<br>    } else if (firstChild) {<br>      memo = firstChild;<br>    }<br><br>    if (ul.classList.contains('tower-target') && ul.querySelectorAll('li').length === 6) {<br>      ul.classList.add('success');<br>    }<br>  });<br>}",
+                solvedOnSuccess: true,
+                dom: function() {
+                    return dom.hanoi();
+                },
+                solution: function() {
+                    let uls = document.querySelectorAll('.hanoi ul');
+                    let move = function() {
+                        let tower = [].slice.call(arguments);
+                        for (let i = 0; i < tower.length; i = i + 2) {
+                            uls[tower[i] - 1].click();
+                            uls[tower[i+1] - 1].click();
+                        }
+                    };
+
+                    let moveA = move.bind(null, 1, 2, 1, 3, 2, 3);
+                    let moveB = move.bind(null, 1, 2, 3, 1, 3, 2);
+                    let moveC = move.bind(null, 2, 1, 3, 1, 2, 3);
+                    let moveD = move.bind(null, 1, 2, 3, 1, 2, 3);
+                    let moveE = move.bind(null, 2, 1, 3, 1, 3, 2);
+                    let moveF = function() {
+                        moveA(); moveB(); moveA(); moveC(); moveA();
+                    };
+
+                    moveF(); moveB(); moveD(); moveE(); moveF(); moveE(); moveD(); moveC();
+
+                    if (uls[2].classList.contains('success'))
+                        this.warn = this.warn || "Tant que tous les disques ne sont pas sur la troisième tour, celle-ci ne doit pas posséder la classe success.";
+
+                    moveF();
+
+                    if (!uls[2].classList.contains('success'))
+                        this.warn = this.warn || "Si tous les disques sont pas sur la troisième tour, celle-ci doit pas posséder la classe success.";
+
+                    return !this.warn;
+                }
+            }
+        ]
+    }, {
         title: "Les dates",
         description: "Les dates sont des types natifs comme les nombres ou les chaines de caractères, elles permettent de manipuler le calendrier grégorien.<br><br>Ce chapitre présente la manipulation de dates avec la librairie moment — qui en facilite grandement l'usage.",
         color: "yellow",
@@ -2921,7 +3084,7 @@ let chapters = [
                             });
                         });
 
-                        return '<p><strong>Démonstration (cliquer sur les flêches) :</strong></p>' + carousel();
+                        return '<p><strong>Démonstration (cliquer sur les flêches) :</strong></p>' + dom.carousel();
                     }
                 }
             },
@@ -3287,10 +3450,560 @@ let chapters = [
                 }
             }
         ]
+    }, 
+    {
+        title: "Puzzle | Démineur",
+        description: "Le démineur est un jeu de réflexion solitaire. L'objectif est de localiser des mines cachées dans un champ virtuel avec comme seule indication le nombre de mines dans les cases adjacentes.<br><br>Ce chapitre présente la réalisation d'un puissance 4 dont la solution est à déverouiller.",
+        color: "grey",
+        steps: [
+            {
+                course: true,
+                description: `
+                    Le champ de mines est représenté par une grille composée de cases.
+
+                    Chaque case de la grille peut soit cacher une mine (10 au total), soit être vide. Le but du jeu est de découvrir toutes les cases libres sans faire exploser les mines, c'est-à-dire sans cliquer sur les cases qui les dissimulent.
+                    
+                    Lorsque le joueur clique sur une case libre comportant au moins une mine dans l'une de ses cases avoisinantes, un chiffre apparaît, indiquant ce nombre de mines. Si en revanche toutes les cases adjacentes sont vides, une case vide est affichée et la même opération est répétée sur ces cases, et ce jusqu'à ce que la zone vide soit entièrement délimitée par des chiffres.
+
+                    <br>
+
+                    ---
+
+                    <br>
+
+                    **Prérequis** ${helpers.chapterLabel(4, 'Les tableaux', 'green')} ${helpers.chapterLabel(5, 'Les dictionnaires', 'green')} ${helpers.chapterLabel(8, 'Le DOM', 'yellow')} ${helpers.chapterLabel(10, 'Les fonctions', 'yellow')}
+
+                    **Solution** débloquée lors de la réussite de chaque étape
+
+                    **Code final** ~80 lignes
+                `
+            },
+            {
+                title: "Détecter l'absence de mine",
+                description: "La position des mines est définie par la variable <code>mines</code> déclarée par ce tutoriel ; ainsi, une mine <code>{x: 1, y: 1}</code> se situe en haut à gauche de la table de jeu, une mine <code>{x: 1, y: 10}</code> se situe en bas à gauche de la table de jeu.<br><br>Au clic sur n'importe quelle case, <code>.minesweeper td</code>, lui ajouter la classe <code>empty</code> si elle ne contient pas de mines.",
+                solved: "var grid = {};<br><br>for (let i = 0; i < mines.length; i++) {<br>  var x = grid[mines[i].x];<br>  if (!x)<br>    grid[mines[i].x] = {};<br>  grid[mines[i].x][mines[i].y] = true;<br>}<br><br>var hasMine = function(grid, x, y) {<br>  return grid[x] && grid[x][y];<br>}<br><br>var check = function(grid, x, y) {<br>  var tr = document.querySelectorAll('tr')[y - 1];<br>  var td = tr && tr.querySelectorAll('td')[x - 1];<br>  if (!td || td.className !== '')<br>    return;<br><br>  if (!hasMine(grid, x, y)) {<br>    td.classList.add('empty');<br>  }<br>}<br><br>var trs = document.querySelectorAll('.minesweeper tr');<br>for (let y = 1; y <= trs.length; y++) {<br>  var tds = trs[y - 1].querySelectorAll('.minesweeper td');<br>  for (let x = 1; x <= tds.length; x++) {<br>    let td = tds[x - 1];<br>    td.addEventListener('click', function() {<br>      check(grid, x, y);<br>    });<br>  }<br>}",
+                solvedOnSuccess: true,
+                init: function() {
+                    window.mines = this.mines = helpers.deepClone(dom.minesweeperMines());
+                },
+                dom: function() {
+                    return dom.minesweeper();
+                },
+                solution: function() {
+                    let tds = document.querySelectorAll('.minesweeper td');
+
+                    let mine = dom.minesweeperGetCellNotBomb(this.mines);
+                    let index = (mine.x - 1) + ((mine.y - 1) * 10);
+                    tds[index].click();
+                    if (!tds[index].classList.contains('empty'))
+                        this.warn = this.warn || "Cliquer sur une case ne contenant pas de mine doit lui ajouter la classe <code>empty</code>";
+
+                    tds[0].click();
+                    if (tds[0].classList.contains('empty'))
+                        this.warn = this.warn || "Cliquer sur une case contenant une mine ne doit pas lui ajouter la classe <code>empty</code>";
+                    
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Détecter une mine",
+                description: "Au clic sur n'importe quelle case, <code>.minesweeper td</code>, lui ajouter la classe <code>mine</code> si elle contient une mine.",
+                solved: "var grid = {};<br><br>for (let i = 0; i < mines.length; i++) {<br>  var x = grid[mines[i].x];<br>  if (!x)<br>    grid[mines[i].x] = {};<br>  grid[mines[i].x][mines[i].y] = true;<br>}<br><br>var hasMine = function(grid, x, y) {<br>  return grid[x] && grid[x][y];<br>}<br><br>var check = function(grid, x, y) {<br>  var tr = document.querySelectorAll('tr')[y - 1];<br>  var td = tr && tr.querySelectorAll('td')[x - 1];<br>  if (!td || td.className !== '')<br>    return;<br><br>  if (hasMine(grid, x, y)) {<br>    td.classList.add('mine');<br>  } else {<br>    td.classList.add('empty');<br>  }<br>}<br><br>var trs = document.querySelectorAll('.minesweeper tr');<br>for (let y = 1; y <= trs.length; y++) {<br>  var tds = trs[y - 1].querySelectorAll('.minesweeper td');<br>  for (let x = 1; x <= tds.length; x++) {<br>    let td = tds[x - 1];<br>    td.addEventListener('click', function() {<br>      check(grid, x, y);<br>    });<br>  }<br>}",
+                solvedOnSuccess: true,
+                init: function() {
+                    window.mines = this.mines = helpers.deepClone(dom.minesweeperMines());
+                },
+                dom: function() {
+                    return dom.minesweeper();
+                },
+                solution: function() {
+                    let tds = document.querySelectorAll('.minesweeper td');
+
+                    let mine = this.mines[1];
+                    let index = (mine.x - 1) + ((mine.y - 1) * 10);
+                    tds[index].click();
+                    if (!tds[index].classList.contains('mine'))
+                        this.warn = this.warn || "Cliquer sur une case contenant une mine doit lui ajouter la classe <code>mine</code>";
+
+                    tds[0].click();
+                    if (tds[0].classList.contains('empty'))
+                        this.warn = this.warn || "Cliquer sur une case contenant une mine ne doit pas lui ajouter la classe <code>empty</code>";
+                    
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Réinitialiser la partie",
+                description: "Enlever toutes les classes des cases, <code>.minesweeper td</code>, et vider leur <code>innerHTML</code> au clic sur le bouton « recommencer ».",
+                solved: "var grid = {};<br><br>for (let i = 0; i < mines.length; i++) {<br>  var x = grid[mines[i].x];<br>  if (!x)<br>    grid[mines[i].x] = {};<br>  grid[mines[i].x][mines[i].y] = true;<br>}<br><br>var hasMine = function(grid, x, y) {<br>  return grid[x] && grid[x][y];<br>}<br><br>var check = function(grid, x, y) {<br>  var tr = document.querySelectorAll('tr')[y - 1];<br>  var td = tr && tr.querySelectorAll('td')[x - 1];<br>  if (!td || td.className !== '')<br>    return;<br><br>  if (hasMine(grid, x, y)) {<br>    td.classList.add('mine');<br>  } else {<br>    td.classList.add('empty');<br>  }<br>}<br><br>var trs = document.querySelectorAll('.minesweeper tr');<br>for (let y = 1; y <= trs.length; y++) {<br>  var tds = trs[y - 1].querySelectorAll('.minesweeper td');<br>  for (let x = 1; x <= tds.length; x++) {<br>    let td = tds[x - 1];<br>    td.addEventListener('click', function() {<br>      check(grid, x, y);<br>    });<br>  }<br>}<br><br>var button = document.querySelector('.minesweeper button');<br>button.addEventListener('click', function() {<br>  var tds = document.querySelectorAll('.minesweeper td');<br>  for (let i = 0; i < tds.length; i++) {<br>    tds[i].className = '';<br>    tds[i].innerHTML = '';<br>  }<br>});",
+                solvedOnSuccess: true,
+                init: function() {
+                    window.mines = this.mines = helpers.deepClone(dom.minesweeperMines());
+                },
+                dom: function() {
+                    return dom.minesweeper();
+                },
+                solution: function() {
+                    let tds = document.querySelectorAll('.minesweeper td');
+
+                    let mine = dom.minesweeperGetCellNotBomb(this.mines);
+                    let index = (mine.x - 1) + ((mine.y - 1) * 10);
+                    tds[index].click();
+                    
+                    let button = document.querySelector('.minesweeper .button');
+                    button.click();
+
+                    if (tds[index].className)
+                        this.warn = this.warn || "Cliquer sur le bouton « recommencer » doit retirer les classes des toutes les cases";
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Compter les mines environnantes",
+                description: "Au clic sur n'importe quelle case, <code>.minesweeper td</code>, si elle ne contient pas de mine mais que ses voisines directes (orthogonals et diagonals) en contiennent, ajouter le compte de mines voisines dans son <code>innerHTML</code>.",
+                solved: "var grid = {};<br><br>for (let i = 0; i < mines.length; i++) {<br>  var x = grid[mines[i].x];<br>  if (!x)<br>    grid[mines[i].x] = {};<br>  grid[mines[i].x][mines[i].y] = true;<br>}<br><br>var hasMine = function(grid, x, y) {<br>  return grid[x] && grid[x][y];<br>}<br><br>var check = function(grid, x, y) {<br>  var tr = document.querySelectorAll('tr')[y - 1];<br>  var td = tr && tr.querySelectorAll('td')[x - 1];<br>  if (!td || td.className !== '')<br>    return;<br><br>  if (hasMine(grid, x, y)) {<br>    td.classList.add('mine');<br>  } else {<br>    var count = 0;<br>    if (hasMine(grid, x - 1, y - 1)) count++;<br>    if (hasMine(grid, x, y - 1)) count++;<br>    if (hasMine(grid, x + 1, y - 1)) count++;<br>    if (hasMine(grid, x - 1, y)) count++;<br>    if (hasMine(grid, x + 1, y)) count++;<br>    if (hasMine(grid, x - 1, y + 1)) count++;<br>    if (hasMine(grid, x, y + 1)) count++;<br>    if (hasMine(grid, x + 1, y + 1)) count++;<br><br>    td.classList.add('empty');<br>    if (count) {<br>      td.innerHTML = count;<br>    }<br>  }<br>}<br><br>var trs = document.querySelectorAll('.minesweeper tr');<br>for (let y = 1; y <= trs.length; y++) {<br>  var tds = trs[y - 1].querySelectorAll('.minesweeper td');<br>  for (let x = 1; x <= tds.length; x++) {<br>    let td = tds[x - 1];<br>    td.addEventListener('click', function() {<br>      check(grid, x, y);<br>    });<br>  }<br>}<br><br>var button = document.querySelector('.minesweeper button');<br>button.addEventListener('click', function() {<br>  var tds = document.querySelectorAll('.minesweeper td');<br>  for (let i = 0; i < tds.length; i++) {<br>    tds[i].className = '';<br>    tds[i].innerHTML = '';<br>  }<br>});",
+                solvedOnSuccess: true,
+                init: function() {
+                    window.mines = this.mines = helpers.deepClone(dom.minesweeperMines());
+                },
+                dom: function() {
+                    return dom.minesweeper();
+                },
+                solution: function() {
+                    let tds = document.querySelectorAll('.minesweeper td');
+
+                    let mine = dom.minesweeperGetEdgedCell(this.mines);
+                    let count = dom.minesweeperGetCellCount(this.mines, mine.x, mine.y);
+
+                    let index = (mine.x - 1) + ((mine.y - 1) * 10);
+                    if (tds[index].innerHTML)
+                        this.warn = this.warn || "Tant qu'elles n'ont pas été cliquées, les cases doivent rester vides";
+
+                    tds[index].click();
+                    if (tds[index].innerHTML !== String(count))
+                        this.warn = this.warn || "Cliquer sur une case adjacente à des mines doit afficher le nombre de ses mines adjacentes dans son <code>innerHTML</code>";
+                    
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Propager la découverte de cases vides",
+                description: "Au clic sur n'importe quelle case vide, sans mine voisine, effectuer à nouveau le test sur toutes ses voisines directes (orthogonales et diagonales) et révéler ces cases. Si une cases à des mines adjacentes, elle affiche leur compte, mais ne découvre pas ses cases voisines.",
+                solved: "var grid = {};<br><br>for (let i = 0; i < mines.length; i++) {<br>  var x = grid[mines[i].x];<br>  if (!x)<br>    grid[mines[i].x] = {};<br>  grid[mines[i].x][mines[i].y] = true;<br>}<br><br>var hasMine = function(grid, x, y) {<br>  return grid[x] && grid[x][y];<br>}<br><br>var check = function(grid, x, y) {<br>  var tr = document.querySelectorAll('tr')[y - 1];<br>  var td = tr && tr.querySelectorAll('td')[x - 1];<br>  if (!td || td.className !== '')<br>    return;<br><br>  if (hasMine(grid, x, y)) {<br>    td.classList.add('mine');<br>  } else {<br>    var count = 0;<br>    if (hasMine(grid, x - 1, y - 1)) count++;<br>    if (hasMine(grid, x, y - 1)) count++;<br>    if (hasMine(grid, x + 1, y - 1)) count++;<br>    if (hasMine(grid, x - 1, y)) count++;<br>    if (hasMine(grid, x + 1, y)) count++;<br>    if (hasMine(grid, x - 1, y + 1)) count++;<br>    if (hasMine(grid, x, y + 1)) count++;<br>    if (hasMine(grid, x + 1, y + 1)) count++;<br><br>    td.classList.add('empty');<br>    if (count) {<br>      td.innerHTML = count;<br>    } else {<br>      check(grid, x - 1, y - 1);<br>      check(grid, x, y - 1);<br>      check(grid, x + 1, y - 1);<br>      check(grid, x - 1, y);<br>      check(grid, x + 1, y);<br>      check(grid, x - 1, y + 1);<br>      check(grid, x, y + 1);<br>      check(grid, x + 1, y + 1);<br>    }<br>  }<br>}<br><br>var trs = document.querySelectorAll('.minesweeper tr');<br>for (let y = 1; y <= trs.length; y++) {<br>  var tds = trs[y - 1].querySelectorAll('.minesweeper td');<br>  for (let x = 1; x <= tds.length; x++) {<br>    let td = tds[x - 1];<br>    td.addEventListener('click', function() {<br>      check(grid, x, y);<br>    });<br>  }<br>}<br><br>var button = document.querySelector('.minesweeper button');<br>button.addEventListener('click', function() {<br>  var tds = document.querySelectorAll('.minesweeper td');<br>  for (let i = 0; i < tds.length; i++) {<br>    tds[i].className = '';<br>    tds[i].innerHTML = '';<br>  }<br>});",
+                solvedOnSuccess: true,
+                init: function() {
+                    window.mines = this.mines = helpers.deepClone(dom.minesweeperMines());
+                },
+                dom: function() {
+                    return dom.minesweeper();
+                },
+                solution: function() {
+                    let tds = document.querySelectorAll('.minesweeper td');
+
+                    let mine = dom.minesweeperGetCellEmpty(this.mines);
+                    let index = (mine.x - 1) + ((mine.y - 1) * 10);
+                    tds[index].click();
+                    
+                    let assertCount = function(x, y) {
+                        if (x < 1 || x > 10 || y < 1 || y > 10)
+                            return;
+
+                        index = (x - 1) + ((y - 1) * 10);
+
+                        let count = dom.minesweeperGetCellCount(this.mines, x, y);
+                        if (count && tds[index].innerHTML !== String(count))
+                            this.warn = this.warn || "Une mine adjacente à la mine cliquée si elle dispose elle-même de mines adjacentes, doit afficher ce nombre après propagation";
+                        
+                        if (tds[index].className !== 'empty')
+                            this.warn = this.warn || "Les mines adjacentes à la mine cliquée doivent toutes posséder la classe <code>empty</code> après propagation";
+                    }.bind(this);
+
+                    assertCount(mine.x - 1, mine.y - 1);
+                    assertCount(mine.x - 1, mine.y);
+                    assertCount(mine.x - 1, mine.y + 1);
+                    assertCount(mine.x, mine.y - 1);
+                    assertCount(mine.x, mine.y + 1);
+                    assertCount(mine.x + 1, mine.y - 1);
+                    assertCount(mine.x + 1, mine.y);
+                    assertCount(mine.x + 1, mine.y + 1);
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Arrêter la partie dès qu'une mine est révélée",
+                description: "Au clic sur une case contenant une mine, il ne doit plus être possible de cliquer à nouveau sur une autre cas. Cliquer sur le bouton « Recommencer » permet alors de recommencer une partie, et rend les cases à nouveau cliquables.",
+                solved: "var grid = {};<br>var losed = false;<br><br>for (let i = 0; i < mines.length; i++) {<br>  var x = grid[mines[i].x];<br>  if (!x)<br>    grid[mines[i].x] = {};<br>  grid[mines[i].x][mines[i].y] = true;<br>}<br><br>var hasMine = function(grid, x, y) {<br>  return grid[x] && grid[x][y];<br>}<br><br>var check = function(grid, x, y) {<br>  var tr = document.querySelectorAll('tr')[y - 1];<br>  var td = tr && tr.querySelectorAll('td')[x - 1];<br>  if (!td || td.className !== '')<br>    return;<br><br>  if (hasMine(grid, x, y)) {<br>    td.classList.add('mine');<br>    losed = true;<br>  } else {<br>    var count = 0;<br>    if (hasMine(grid, x - 1, y - 1)) count++;<br>    if (hasMine(grid, x, y - 1)) count++;<br>    if (hasMine(grid, x + 1, y - 1)) count++;<br>    if (hasMine(grid, x - 1, y)) count++;<br>    if (hasMine(grid, x + 1, y)) count++;<br>    if (hasMine(grid, x - 1, y + 1)) count++;<br>    if (hasMine(grid, x, y + 1)) count++;<br>    if (hasMine(grid, x + 1, y + 1)) count++;<br><br>    td.classList.add('empty');<br>    if (count) {<br>      td.innerHTML = count;<br>    } else {<br>      check(grid, x - 1, y - 1);<br>      check(grid, x, y - 1);<br>      check(grid, x + 1, y - 1);<br>      check(grid, x - 1, y);<br>      check(grid, x + 1, y);<br>      check(grid, x - 1, y + 1);<br>      check(grid, x, y + 1);<br>      check(grid, x + 1, y + 1);<br>    }<br>  }<br>}<br><br>var trs = document.querySelectorAll('.minesweeper tr');<br>for (let y = 1; y <= trs.length; y++) {<br>  var tds = trs[y - 1].querySelectorAll('.minesweeper td');<br>  for (let x = 1; x <= tds.length; x++) {<br>    let td = tds[x - 1];<br>    td.addEventListener('click', function() {<br>      if (losed)<br>        return;<br><br>      check(grid, x, y);<br>    });<br>  }<br>}<br><br>var button = document.querySelector('.minesweeper button');<br>button.addEventListener('click', function() {<br>  losed = false;<br><br>  var tds = document.querySelectorAll('.minesweeper td');<br>  for (let i = 0; i < tds.length; i++) {<br>    tds[i].className = '';<br>    tds[i].innerHTML = '';<br>  }<br>});",
+                solvedOnSuccess: true,
+                init: function() {
+                    window.mines = this.mines = helpers.deepClone(dom.minesweeperMines());
+                },
+                dom: function() {
+                    return dom.minesweeper();
+                },
+                solution: function() {
+                    let tds = document.querySelectorAll('.minesweeper td');
+
+                    tds[0].click();
+
+                    let mine = dom.minesweeperGetCellNotBomb(this.mines);
+                    let index = (mine.x - 1) + ((mine.y - 1) * 10);
+                    tds[index].click();
+                    if (tds[index].classList.contains('empty'))
+                        this.warn = this.warn || "Cliquer sur une mine doit empêcher tout nouveau clic sur une autre case";
+
+                    let button = document.querySelector('.minesweeper .button');
+                    button.click();
+
+                    tds[index].click();
+                    if (!tds[index].classList.contains('empty'))
+                        this.warn = this.warn || "Cliquer sur le bouton « recommencer » doit permettre de cliquer à nouveau sur les différentes cases";
+                    
+                    return !this.warn;
+                }
+            }
+        ]
     }, {
-        title: "Composant | Carte",
+        title: "Puzzle | Puissance 4",
+        description: "Le puissance 4 est un jeu de réflexion pour 2 joueurs jouant à tour de rôle un jeton dans une colonne. Chaque jeton s'empile aux jetons précédement, le premier joueur à en aligner 4 remporte la partie.<br><br>Ce chapitre présente la réalisation d'un puissance 4 dont la solution est à déverouiller.",
+        color: "grey",
+        steps: [
+            {
+                course: true,
+                description: `
+                    Le puissance 4 est un jeu dont le but est d'aligner 4 pions de même couleur sur une grille.<br><br>Tour à tour les deux joueurs placent un pion de leur couleur dans la colonne de leur choix, le pion coulisse alors jusqu'à la position la plus basse possible ce ette colonne.<br><br>Le vainqueur est le joueur qui réalise le premier un alignement (horizontal, vertical ou diagonal) consécutif d'au moins quatre pions de sa couleur.
+                    
+                    <br>
+
+                    ---
+
+                    <br>
+
+                    **Prérequis** ${helpers.chapterLabel(4, 'Les tableaux', 'green')} ${helpers.chapterLabel(8, 'Le DOM', 'yellow')} ${helpers.chapterLabel(10, 'Les fonctions', 'yellow')}
+
+                    **Solution** débloquée lors de la réussite de chaque étape
+
+                    **Code final** ~100 lignes (sans les diagonales), ~150 lignes (avec)
+                `
+            },
+            {
+                title: "Ajouter un jeton alternativement jaune puis rouge",
+                description: "Au clic sur n'importe quel <code>td</code> d'une colonne, ajouter au <code>td</code> en pied de cette colonne la classe <code>yellow</code> ou <code>red</code> alternativement (si il n'a pas de classe). Au fur et à mesure des clics, les jetons s'empilent ainsi les uns sur les autres. Si une colonne est remplie, elle ne reçoit plus de jeton au clic.",
+                solved: "var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br><br>var forEachCell = function (fn) {<br>  var trs = document.querySelectorAll('table tr');<br>  for (var row = 0; row < trs.length; row++) {<br>    var tr = trs[row];<br>    var tds = tr.querySelectorAll('td');<br>    for (var column = 0; column < tds.length; column++) {<br>      var td = tds[column];<br>      fn(td, row, column);<br>    }<br>  }<br>}<br><br>forEachCell(function (td, row, column) {<br>  td.addEventListener('click', function () {<br>    for (var i = 5; i >= 0; i--) {<br>      if (grid[i][column]) continue;<br><br>      color = (color === 'yellow' ? 'red' : 'yellow');<br>      grid[i][column] = color;<br><br>      forEachCell(function (td, row, column) {<br>        if (grid[row][column])<br>          td.className = grid[row][column];<br>      });<br><br>      break;<br>    }<br>  });<br>});",
+                solvedOnSuccess: true,
+                dom: function() {
+                    return dom.connectfour();
+                },
+                solution: function() {
+                    var cell = function(tr, td) {
+                        return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
+                    }
+
+                    cell(1, 1).click();
+                    cell(1, 1).click();
+                    cell(1, 1).click();
+                    cell(1, 2).click();
+
+                    if (helpers.elHasClass(cell(6, 1), 'yellow') !== true)
+                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la première case de cette colonne doit être jaune";
+                    if (helpers.elHasClass(cell(5, 1), 'red') !== true)
+                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la deuxième case de cette colonne doit être rouge";
+                    if (helpers.elHasClass(cell(4, 1), 'yellow') !== true)
+                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la troisième case de cette colonne doit être jaune";
+                    if (helpers.elHasClass(cell(6, 2), 'red') !== true)
+                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la quatrième case de cette colonne doit être rouge";
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Combinaison horizontale gagnante",
+                description: "Lorsque 4 jetons consécutifs de la même couleur sont alignés horizontalement, leur ajouter la classe <code>victory</code>. Les clics suivants sur la table n'ajoutent plus de jetons.",
+                solved: "var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var winner = false;<br><br>var forEachCell = function (fn) {<br>  var trs = document.querySelectorAll('table tr');<br>  for (var row = 0; row < trs.length; row++) {<br>    var tr = trs[row];<br>    var tds = tr.querySelectorAll('td');<br>    for (var column = 0; column < tds.length; column++) {<br>      var td = tds[column];<br>      fn(td, row, column);<br>    }<br>  }<br>}<br><br>var checkVictory = function () {<br>  winner = isHorizontalWinner();<br>  if (winner) {<br>    for (var i = 0; i < winner.length; i++) {<br>      var position = winner[i].split('-');<br>      grid[position[0]][position[1]] += ' victory';<br>    }<br>  }<br>};<br><br>var isHorizontalWinner = function () {<br>  var player, positions;<br>  for (var row = 5; row >= 0; row--) {<br>    positions = []<br>    for (var column = 0; column < 7; column++) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>forEachCell(function (td, row, column) {<br>  td.addEventListener('click', function () {<br>    if (winner)<br>      return;<br><br>    for (var i = 5; i >= 0; i--) {<br>      if (grid[i][column]) continue;<br><br>      color = (color === 'yellow' ? 'red' : 'yellow');<br>      grid[i][column] = color;<br><br>      checkVictory();<br><br>      forEachCell(function (td, row, column) {<br>        if (grid[row][column])<br>          td.className = grid[row][column];<br>      });<br><br>      break;<br>    }<br>  });<br>});",
+                solvedOnSuccess: true,
+                dom: function() {
+                    return dom.connectfour();
+                },
+                solution: function() {
+                    var cell = function(tr, td) {
+                        return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
+                    }
+
+                    cell(1, 2).click(); cell(1, 3).click();
+                    cell(1, 4).click(); cell(1, 5).click();
+                    cell(1, 2).click(); cell(1, 1).click();
+                    cell(1, 3).click(); cell(1, 6).click();
+                    cell(1, 1).click(); cell(1, 1).click();
+                    cell(1, 4).click(); cell(1, 4).click();
+
+                    var basic = true;
+                    basic = basic && helpers.elHasClass(cell(5, 1), 'victory');
+                    basic = basic && helpers.elHasClass(cell(5, 2), 'victory');
+                    basic = basic && helpers.elHasClass(cell(5, 3), 'victory');
+                    basic = basic && helpers.elHasClass(cell(5, 4), 'victory');
+                    basic = basic && !helpers.elHasClass(cell(4, 4), 'red');
+
+                    if (!basic)
+                        this.warn = "Les combinaisons horizontales gagnantes doivent fonctionner";
+                    return basic;
+                }
+            },
+            {
+                title: "Combinaison verticale gagnante",
+                description: "Faire de même lorsque 4 jetons sont alignés verticalement.",
+                solved: "var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var winner = false;<br><br>var forEachCell = function (fn) {<br>  var trs = document.querySelectorAll('table tr');<br>  for (var row = 0; row < trs.length; row++) {<br>    var tr = trs[row];<br>    var tds = tr.querySelectorAll('td');<br>    for (var column = 0; column < tds.length; column++) {<br>      var td = tds[column];<br>      fn(td, row, column);<br>    }<br>  }<br>}<br><br>var checkVictory = function () {<br>  winner = isHorizontalWinner() || isVerticalWinner();<br>  if (winner) {<br>    for (var i = 0; i < winner.length; i++) {<br>      var position = winner[i].split('-');<br>      grid[position[0]][position[1]] += ' victory';<br>    }<br>  }<br>};<br><br>var isHorizontalWinner = function () {<br>  var player, positions;<br>  for (var row = 5; row >= 0; row--) {<br>    positions = []<br>    for (var column = 0; column < 7; column++) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>var isVerticalWinner = function () {<br>  var player, positions;<br>  for (var column = 0; column < 7; column++) {<br>    positions = [];<br>    for (var row = 5; row >= 0; row--) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>forEachCell(function (td, row, column) {<br>  td.addEventListener('click', function () {<br>    if (winner)<br>      return;<br><br>    for (var i = 5; i >= 0; i--) {<br>      if (grid[i][column]) continue;<br><br>      color = (color === 'yellow' ? 'red' : 'yellow');<br>      grid[i][column] = color;<br><br>      checkVictory();<br><br>      forEachCell(function (td, row, column) {<br>        if (grid[row][column])<br>          td.className = grid[row][column];<br>      });<br><br>      break;<br>    }<br>  });<br>});",
+                solvedOnSuccess: true,
+                dom: function() {
+                    return dom.connectfour();
+                },
+                solution: function() {
+                    var cell = function(tr, td) {
+                        return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
+                    }
+
+                    cell(1, 4).click(); cell(1, 4).click();
+                    cell(1, 1).click(); cell(1, 2).click();
+                    cell(1, 1).click(); cell(1, 2).click();
+                    cell(1, 1).click(); cell(1, 2).click();
+                    cell(1, 1).click(); cell(1, 2).click();
+
+                    var basic = true;
+                    basic = basic && helpers.elHasClass(cell(6, 1), 'victory');
+                    basic = basic && helpers.elHasClass(cell(5, 1), 'victory');
+                    basic = basic && helpers.elHasClass(cell(4, 1), 'victory');
+                    basic = basic && helpers.elHasClass(cell(3, 1), 'victory');
+                    basic = basic && !helpers.elHasClass(cell(6, 2), 'victory');
+                    basic = basic && !helpers.elHasClass(cell(5, 2), 'victory');
+                    basic = basic && helpers.elHasClass(cell(4, 2), 'red');
+                    basic = basic && !helpers.elHasClass(cell(3, 2), 'red');
+
+                    if (!basic)
+                        this.warn = "Les combinaisons verticales gagnantes doivent fonctionner";
+                    return basic;
+                }
+            },
+            {
+                title: "Combinaison diagonale gagnante (1/2)",
+                description: "Faire de même lorsque 4 jetons sont alignés diagonalement (d'en bas à gauche à en haut à droite).",
+                solved: "var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var winner = false;<br><br>var forEachCell = function (fn) {<br>  var trs = document.querySelectorAll('table tr');<br>  for (var row = 0; row < trs.length; row++) {<br>    var tr = trs[row];<br>    var tds = tr.querySelectorAll('td');<br>    for (var column = 0; column < tds.length; column++) {<br>      var td = tds[column];<br>      fn(td, row, column);<br>    }<br>  }<br>}<br><br>var checkVictory = function () {<br>  winner = isHorizontalWinner() || isVerticalWinner() || isDiagonalWinner();<br>  if (winner) {<br>    for (var i = 0; i < winner.length; i++) {<br>      var position = winner[i].split('-');<br>      grid[position[0]][position[1]] += ' victory';<br>    }<br>  }<br>};<br><br>var isHorizontalWinner = function (customGrid) {<br>  var player, positions;<br>  for (var row = 5; row >= 0; row--) {<br>    positions = []<br>    for (var column = 0; column < 7; column++) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>var isVerticalWinner = function (customGrid) {<br>  customGrid = customGrid || grid;<br><br>  var player, positions;<br>  for (var column = 0; column < 7; column++) {<br>    positions = [];<br>    for (var row = 5; row >= 0; row--) {<br>      var color = customGrid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>var isDiagonalWinner = function () {<br>  var grid45Left = [];<br>  for (var row = 5; row >= 0; row--) {<br>    for (var column = 0; column < 7; column++) {<br>      var shift = 5 - row;<br>      if (!grid45Left[row])<br>        grid45Left[row] = [];<br>      grid45Left[row][column - shift] = grid[row][column];<br>    }<br>  }<br>  var positions = isVerticalWinner(grid45Left);<br>  if (positions) {<br>    for (let i = 0; i < positions.length; i++) {<br>      var cell = positions[i].split('-');<br>      var row = Math.floor(cell[0]);<br>      var column = Math.floor(cell[1]);<br>      switch(row) {<br>        case 4: column += 1; break;<br>        case 3: column += 2; break;<br>        case 2: column += 3; break;<br>        case 1: column += 4; break;<br>        case 0: column += 5; break;<br>      }<br>      positions[i] = row + '-' + column;<br>    }<br>  }<br>  return positions;<br>}<br><br>forEachCell(function (td, row, column) {<br>  td.addEventListener('click', function () {<br>    if (winner)<br>      return;<br><br>    for (var i = 5; i >= 0; i--) {<br>      if (grid[i][column]) continue;<br><br>      color = (color === 'yellow' ? 'red' : 'yellow');<br>      grid[i][column] = color;<br><br>      checkVictory();<br><br>      forEachCell(function (td, row, column) {<br>        if (grid[row][column])<br>          td.className = grid[row][column];<br>      });<br><br>      break;<br>    }<br>  });<br>});",
+                solvedOnSuccess: true,
+                dom: function() {
+                    return dom.connectfour();
+                },
+                solution: function() {
+                    var cell = function(tr, td) {
+                        return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
+                    }
+
+                    cell(1, 1).click(); cell(1, 2).click();
+                    cell(1, 2).click(); cell(1, 3).click();
+                    cell(1, 4).click(); cell(1, 3).click();
+                    cell(1, 3).click(); cell(1, 4).click();
+                    cell(1, 4).click(); cell(1, 5).click();
+                    cell(1, 4).click(); cell(1, 4).click();
+
+                    var basic = true;
+                    basic = basic && helpers.elHasClass(cell(6, 1), 'victory');
+                    basic = basic && helpers.elHasClass(cell(5, 2), 'victory');
+                    basic = basic && helpers.elHasClass(cell(4, 3), 'victory');
+                    basic = basic && helpers.elHasClass(cell(3, 4), 'victory');
+                    basic = basic && !helpers.elHasClass(cell(6, 2), 'victory');
+                    basic = basic && !helpers.elHasClass(cell(5, 3), 'victory');
+                    basic = basic && helpers.elHasClass(cell(6, 1), 'yellow');
+                    basic = basic && !helpers.elHasClass(cell(6, 2), 'yellow');
+
+                    if (!basic)
+                        this.warn = "Les combinaisons diagonales bas gauche haut droite gagnantes doivent fonctionner";
+
+                    return basic;
+                }
+            },
+            {
+                title: "Combinaison diagonale gagnante (2/2)",
+                description: "Faire de même lorsque 4 jetons sont alignés diagonalement (d'en bas à droite à en haut à gauche).",
+                solved: "var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var winner = false;<br><br>var forEachCell = function (fn) {<br>  var trs = document.querySelectorAll('table tr');<br>  for (var row = 0; row < trs.length; row++) {<br>    var tr = trs[row];<br>    var tds = tr.querySelectorAll('td');<br>    for (var column = 0; column < tds.length; column++) {<br>      var td = tds[column];<br>      fn(td, row, column);<br>    }<br>  }<br>}<br><br>var checkVictory = function () {<br>  winner = isHorizontalWinner() || isVerticalWinner() || isDiagonalWinner();<br>  if (winner) {<br>    for (var i = 0; i < winner.length; i++) {<br>      var position = winner[i].split('-');<br>      grid[position[0]][position[1]] += ' victory';<br>    }<br>  }<br>};<br><br>var isHorizontalWinner = function (customGrid) {<br>  var player, positions;<br>  for (var row = 5; row >= 0; row--) {<br>    positions = []<br>    for (var column = 0; column < 7; column++) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>var isVerticalWinner = function (customGrid) {<br>  customGrid = customGrid || grid;<br><br>  var player, positions;<br>  for (var column = 0; column < 7; column++) {<br>    positions = [];<br>    for (var row = 5; row >= 0; row--) {<br>      var color = customGrid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>var isDiagonalWinner = function () {<br>  var grid45Left = [];<br>  for (var row = 5; row >= 0; row--) {<br>    for (var column = 0; column < 7; column++) {<br>      var shift = 5 - row;<br>      if (!grid45Left[row])<br>        grid45Left[row] = [];<br>      grid45Left[row][column - shift] = grid[row][column];<br>    }<br>  }<br>  var positions = isVerticalWinner(grid45Left);<br>  if (positions) {<br>    for (let i = 0; i < positions.length; i++) {<br>      var cell = positions[i].split('-');<br>      var row = Math.floor(cell[0]);<br>      var column = Math.floor(cell[1]);<br>      switch(row) {<br>        case 4: column += 1; break;<br>        case 3: column += 2; break;<br>        case 2: column += 3; break;<br>        case 1: column += 4; break;<br>        case 0: column += 5; break;<br>      }<br>      positions[i] = row + '-' + column;<br>    }<br>    return positions;<br>  }<br><br>  var grid45Right = [];<br>  for (var row = 5; row >= 0; row--) {<br>    for (var column = 0; column < 7; column++) {<br>      var shift = 5 - row;<br>      if (!grid45Left[row])<br>        grid45Left[row] = [];<br>      grid45Left[row][column + shift] = grid[row][column];<br>    }<br>  }<br>  var positions = isVerticalWinner(grid45Left);<br>  if (positions) {<br>    for (let i = 0; i < positions.length; i++) {<br>      var cell = positions[i].split('-');<br>      var row = Math.floor(cell[0]);<br>      var column = Math.floor(cell[1]);<br>      switch(row) {<br>        case 4: column -= 1; break;<br>        case 3: column -= 2; break;<br>        case 2: column -= 3; break;<br>        case 1: column -= 4; break;<br>        case 0: column -= 5; break;<br>      }<br>      positions[i] = row + '-' + column;<br>    }<br>  }<br>  <br>  return positions;<br>}<br><br>forEachCell(function (td, row, column) {<br>  td.addEventListener('click', function () {<br>    if (winner)<br>      return;<br><br>    for (var i = 5; i >= 0; i--) {<br>      if (grid[i][column]) continue;<br><br>      color = (color === 'yellow' ? 'red' : 'yellow');<br>      grid[i][column] = color;<br><br>      checkVictory();<br><br>      forEachCell(function (td, row, column) {<br>        if (grid[row][column])<br>          td.className = grid[row][column];<br>      });<br><br>      break;<br>    }<br>  });<br>});",
+                solvedOnSuccess: true,
+                dom: function() {
+                    return dom.connectfour();
+                },
+                solution: function() {
+                    var cell = function(tr, td) {
+                        return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
+                    }
+
+                    cell(1, 7).click(); cell(1, 6).click();
+                    cell(1, 6).click(); cell(1, 5).click();
+                    cell(1, 4).click(); cell(1, 5).click();
+                    cell(1, 5).click(); cell(1, 4).click();
+                    cell(1, 4).click(); cell(1, 3).click();
+                    cell(1, 4).click(); cell(1, 4).click();
+
+                    var basic = true;
+                    basic = basic && helpers.elHasClass(cell(6, 7), 'victory');
+                    basic = basic && helpers.elHasClass(cell(5, 6), 'victory');
+                    basic = basic && helpers.elHasClass(cell(4, 5), 'victory');
+                    basic = basic && helpers.elHasClass(cell(3, 4), 'victory');
+                    basic = basic && !helpers.elHasClass(cell(6, 6), 'victory');
+                    basic = basic && !helpers.elHasClass(cell(5, 5), 'victory');
+                    basic = basic && helpers.elHasClass(cell(6, 7), 'yellow');
+                    basic = basic && !helpers.elHasClass(cell(6, 6), 'yellow');
+
+                    if (!basic)
+                        this.warn = this.warn || "Les combinaisons diagonales bas droite haut gauche gagnantes doivent fonctionner";
+
+                    return basic;
+                }
+            }
+        ]
+    }, {
+        title: "Puzzle | Taquin",
+        description: "Le taquin est ce puzzle en plastique à résoudre du bout des pouces. Une pièce peut être glissée horizontalement ou verticalement pour venir prendre la place de l'espace libre.<br><br>Ce chapitre présente la réalisation d'un taquin dont la solution est à déverrouiller.",
+        color: "grey",
+        steps: [
+            {
+                course: true,
+                description: `
+                    Le taquin est un jeu solitaire en forme de damier qui consiste à remettre dans l'ordre des carreaux à partir d'une configuration initiale quelconque. Un des carreaux est manquant, permettant ainsi de glisser un carreau horizontalement ou verticalement à sa place.
+
+                    <br>
+
+                    ---
+
+                    <br>
+
+                    **Prérequis** ${helpers.chapterLabel(4, 'Les tableaux', 'green')} ${helpers.chapterLabel(8, 'Le DOM', 'yellow')} ${helpers.chapterLabel(10, 'Les fonctions', 'yellow')}
+
+                    **Solution** débloquée lors de la réussite de chaque étape
+
+                    **Code final** ~80 lignes
+                `
+            },
+            {
+                title: "Mélanger les cases",
+                description: "Mélanger les 9 <code>li</code> du puzzle listés dans <code>.sliding ul</code> au clic sur le bouton « mélanger ».",
+                excerpt: "La méthode <code>Math.floor(Math.random() * 9)</code> retourne un nombre aléatoire entre 0 et 8.",
+                solved: "var shuffle = function(o){<br>  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);<br>  return o;<br>}<br><br>var render = function(matrix) {<br>  var ul = document.querySelector('.sliding ul');<br>  ul.innerHTML = '';<br><br>  var squares = [].concat(matrix[0], matrix[1], matrix[2])<br>  for (var square of squares) {<br>    var li = document.createElement('li');<br>    li.className = 'square' + square;<br>    ul.appendChild(li);<br>  }<br>}<br><br>document.querySelector('.sliding button').addEventListener('click', function() {<br>  var squares = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8]);<br>  var matrix = [<br>    [squares[0], squares[1], squares[2]],<br>    [squares[3], squares[4], squares[5]],<br>    [squares[6], squares[7], squares[8]]<br>  ];<br>  render(matrix);<br>});",
+                solvedOnSuccess: true,
+                dom: function() {
+                    return dom.sliding();
+                },
+                solution: function() {
+                    let classNames = helpers.getClassNames('.sliding li');
+
+                    if (classNames.length !== 9)
+                        this.warn = this.warn || "Le puzzle doit contenir 9 <code>li</code>";
+                    if (helpers.equals(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']) !== true)
+                        this.warn = this.warn || "Les cases doivent être dans l'ordre avant le mélange";
+
+                    let button = document.querySelector('.sliding button');
+                    button.click();
+
+                    classNames = helpers.getClassNames('.sliding li');
+                    if (classNames.length !== 9)
+                        this.warn = this.warn || "Le puzzle doit contenir 9 <code>li</code>";
+                    if (helpers.equals(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']) !== false)
+                        this.warn = this.warn || "Les cases doivent être dans le désordre après le mélange";
+                    if (helpers.equalsContent(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']) !== true)
+                        this.warn = this.warn || "Les cases doivent toutes être présentes, sans doublon";
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Gérer le déplacement horizontal d'une case",
+                description: "Au clic sur une case, celle-ci doit être intervertie avec la case vide <code>.square0</code> à condition que l'une et l'autre soit à côté horizontalement (et pas en diagonale).",
+                excerpt: "Stocker l'état du puzzle dans une variable (une matrice de préférence — un tableau de tableaux, 3 lignes, 3 colonnes), et trouver une façon condensée pour lister quelles cases sont accessibles à partir d'une autre case. Se concentrer pour l'instant sur les mouvements horizontaux.",
+                solved: "var shuffle = function(o){<br>  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);<br>  return o;<br>}<br><br>var render = function(matrix) {<br>  var ul = document.querySelector('.sliding ul');<br>  ul.innerHTML = '';<br><br>  var squares = [].concat(matrix[0], matrix[1], matrix[2])<br>  for (var square of squares) {<br>    var li = document.createElement('li');<br>    li.className = 'square' + square;<br>    li.setAttribute('data-id', square);<br>    li.addEventListener('click', function() {<br>      move(matrix, parseInt(this.getAttribute('data-id')));<br>    });<br>    ul.appendChild(li);<br>  }<br>}<br>var move = function(matrix, square) {<br>  if (square === 0)<br>    return false;<br>  if (matrix[0][0] === square)<br>    canToggle(matrix, [0, 0], [[0, 1]]);<br>  else if (matrix[0][1] === square)<br>    canToggle(matrix, [0, 1], [[0, 0], [0, 2]]);<br>  else if (matrix[0][2] === square)<br>    canToggle(matrix, [0, 2], [[0, 1]]);<br>  else if (matrix[1][0] === square)<br>    canToggle(matrix, [1, 0], [[1, 1]]);<br>  else if (matrix[1][1] === square)<br>    canToggle(matrix, [1, 1], [[1, 0], [1, 2]]);<br>  else if (matrix[1][2] === square)<br>    canToggle(matrix, [1, 2], [[1, 1]]);<br>  else if (matrix[2][0] === square)<br>    canToggle(matrix, [2, 0], [[2, 1]]);<br>  else if (matrix[2][1] === square)<br>    canToggle(matrix, [2, 1], [[2, 0], [2, 2]]);<br>  else if (matrix[2][2] === square)<br>    canToggle(matrix, [2, 2], [[2, 1]]);<br>}<br>var canToggle = function(matrix, from, combinaisons) {<br>  for (var c of combinaisons) {<br>    if (matrix[c[0]][c[1]] === 0) {<br>      toggle(matrix, [from[0], from[1]], [c[0], c[1]]);<br>      break;<br>    }<br>  }<br>}<br>var toggle = function(matrix, from, to) {<br>  var memo = matrix[from[0]][from[1]];<br>  matrix[from[0]][from[1]] = matrix[to[0]][to[1]];<br>  matrix[to[0]][to[1]] = memo;<br>  render(matrix);<br>}<br><br>document.querySelector('.sliding button').addEventListener('click', function() {<br>  var squares = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8]);<br>  var matrix = [<br>    [squares[0], squares[1], squares[2]],<br>    [squares[3], squares[4], squares[5]],<br>    [squares[6], squares[7], squares[8]]<br>  ];<br>  render(matrix);<br>});",
+                solvedOnSuccess: true,
+                dom: function() {
+                    return dom.sliding();
+                },
+                solution: function() {
+                    let button = document.querySelector('.sliding button');
+                    button.click();
+
+                    // click on possible
+                    let classNames = helpers.getClassNames('.sliding li');
+                    let expected = classNames.slice(0);
+                    let position = classNames.indexOf('square0') + 1;
+                    let toPosition;
+                    if ([1, 2, 4, 5, 7, 8].indexOf(position) !== -1) {
+                        toPosition = position + 1;
+                    } else {
+                        toPosition = position - 1;
+                    }
+                    document.querySelector(`.sliding li:nth-child(${toPosition})`).click();
+                    let memo = expected[position - 1];
+                    expected[position - 1] = expected[toPosition - 1];
+                    expected[toPosition - 1] = memo;
+
+                    classNames = helpers.getClassNames('.sliding li');
+
+                    let basic = true;
+                    basic = basic && helpers.equals(expected, classNames);
+
+                    // click on empty
+                    expected = classNames.slice(0);
+                    position = classNames.indexOf('square0') + 1;
+                    document.querySelector(`.sliding li:nth-child(${position})`).click();
+                    classNames = helpers.getClassNames('.sliding li');
+                    basic = basic && helpers.equals(expected, classNames);
+
+                    // click on impossible
+                    expected = classNames.slice(0);
+                    position = classNames.indexOf('square0');
+                    position = ((position + 4) % 9) + 1;
+                    document.querySelector(`.sliding li:nth-child(${position})`).click();
+                    classNames = helpers.getClassNames('.sliding li');
+                    basic = basic && helpers.equals(expected, classNames);
+
+                    if (!basic)
+                        this.warn = "Le déplacement horizontal d'une case doit fonctionner";
+                    return basic;
+                }
+            },
+            {
+                title: "Gérer le déplacement vertical d'une case",
+                description: "Au clic sur une case, celle-ci doit être intervertie avec la case vide <code>.square0</code> à condition que l'une et l'autre soit à côté verticalement (et pas en diagonale).",
+                solved: "var shuffle = function(o){<br>  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);<br>  return o;<br>}<br><br>var render = function(matrix) {<br>  var ul = document.querySelector('.sliding ul');<br>  ul.innerHTML = '';<br><br>  var squares = [].concat(matrix[0], matrix[1], matrix[2])<br>  for (var square of squares) {<br>    var li = document.createElement('li');<br>    li.className = 'square' + square;<br>    li.setAttribute('data-id', square);<br>    li.addEventListener('click', function() {<br>      move(matrix, parseInt(this.getAttribute('data-id')));<br>    });<br>    ul.appendChild(li);<br>  }<br>}<br>var move = function(matrix, square) {<br>  if (square === 0)<br>    return false;<br>  if (matrix[0][0] === square)<br>    canToggle(matrix, [0, 0], [[0, 1], [1, 0]]);<br>  else if (matrix[0][1] === square)<br>    canToggle(matrix, [0, 1], [[0, 0], [1, 1], [0, 2]]);<br>  else if (matrix[0][2] === square)<br>    canToggle(matrix, [0, 2], [[0, 1], [1, 2]]);<br>  else if (matrix[1][0] === square)<br>    canToggle(matrix, [1, 0], [[0, 0], [1, 1], [2, 0]]);<br>  else if (matrix[1][1] === square)<br>    canToggle(matrix, [1, 1], [[0, 1], [1, 0], [1, 2], [2, 1]]);<br>  else if (matrix[1][2] === square)<br>    canToggle(matrix, [1, 2], [[0, 2], [1, 1], [2, 2]]);<br>  else if (matrix[2][0] === square)<br>    canToggle(matrix, [2, 0], [[1, 0], [2, 1]]);<br>  else if (matrix[2][1] === square)<br>    canToggle(matrix, [2, 1], [[2, 0], [1, 1], [2, 2]]);<br>  else if (matrix[2][2] === square)<br>    canToggle(matrix, [2, 2], [[2, 1], [1, 2]]);<br>}<br>var canToggle = function(matrix, from, combinaisons) {<br>  for (var c of combinaisons) {<br>    if (matrix[c[0]][c[1]] === 0) {<br>      toggle(matrix, [from[0], from[1]], [c[0], c[1]]);<br>      break;<br>    }<br>  }<br>}<br>var toggle = function(matrix, from, to) {<br>  var memo = matrix[from[0]][from[1]];<br>  matrix[from[0]][from[1]] = matrix[to[0]][to[1]];<br>  matrix[to[0]][to[1]] = memo;<br>  render(matrix);<br>}<br><br>document.querySelector('.sliding button').addEventListener('click', function() {<br>  var squares = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8]);<br>  var matrix = [<br>    [squares[0], squares[1], squares[2]],<br>    [squares[3], squares[4], squares[5]],<br>    [squares[6], squares[7], squares[8]]<br>  ];<br>  render(matrix);<br>});",
+                solvedOnSuccess: true,
+                dom: function() {
+                    return dom.sliding();
+                },
+                solution: function() {
+                    let button = document.querySelector('.sliding button');
+                    button.click();
+
+                    // click on possible
+                    let classNames = helpers.getClassNames('.sliding li');
+                    let expected = classNames.slice(0);
+                    let position = classNames.indexOf('square0') + 1;
+                    let toPosition;
+                    if ([1, 2, 3, 4, 5, 6].indexOf(position) !== -1) {
+                        toPosition = position + 3;
+                    } else {
+                        toPosition = position - 3;
+                    }
+                    document.querySelector(`.sliding li:nth-child(${toPosition})`).click();
+                    let memo = expected[position - 1];
+                    expected[position - 1] = expected[toPosition - 1];
+                    expected[toPosition - 1] = memo;
+
+                    classNames = helpers.getClassNames('.sliding li');
+
+                    let basic = true;
+                    basic = basic && helpers.equals(expected, classNames);
+
+                    if (!basic)
+                        this.warn = "Le déplacement vertical d'une case doit fonctionner";
+                    return basic;
+                }
+            }
+        ]
+    }, {
+        title: "Applications | Carte",
         description: "Les cartes affichent les rues, les adresses, les itinéraires et les points d'intérêt, très utiles sur mobile. À l'aide de la géolocalisation (gps et wifi notamment>), elles peuvent également afficher la position de l'utilisateur.<br><br>Ce chapitre présente l'utilisation des cartes google pas à pas.",
-        color: "violet",
+        color: "teal",
         steps: [
             {
                 title: "Afficher une carte",
@@ -5177,403 +5890,6 @@ let chapters = [
             }
         ]
     }, {
-        title: "Puzzle | Tours d'Hanoï",
-        description: "Les tours d'Hanoï est un jeu de réflexion solitaire. Plusieurs disques de diamètre différents, sont à déplacer un à un de gauche à droite, dans trois tours / colonnes sans placer un grand disque sur un plus petit.<br><br>Ce chapitre présente la réalisation des tours d'Hanoï dont la solution est à déverrouiller.",
-        color: "pink",
-        steps: [
-            {
-                course: true,
-                description: `
-                    Les tours d'Hanoï est un jeu de réflexion qui consiste à déplacer des disques de diamètres différents d'une tour de départ à une tour d'arrivée en passant par une tour intermédiaire, et ceci en un minimum de coups, tout en respectant les règles suivantes :
-
-                    * on ne peut déplacer plus d'un disque à la fois
-                    * on ne peut placer un disque que sur un autre disque plus grand que lui ou sur un emplacement vide
-
-                    On suppose que cette dernière règle est également respectée dans la configuration de départ.
-
-                    <br>
-
-                    ---
-
-                    <br>
-
-                    **Prérequis** ${helpers.chapterLabel(2, 'Variables et opérations', 'green')} ${helpers.chapterLabel(3, 'Conditions et boucles', 'green')} ${helpers.chapterLabel(8, 'Le DOM', 'yellow')}
-
-                    **Solution** débloquée lors de la réussite de chaque étape
-
-                    **Code final** ~20 lignes
-                `
-            },
-            {
-                title: "Déplacer les disques",
-                description: "Au clic sur une des trois tours, <code>.hanoi ul</code>, le disque, <code>li</code>, le plus haut de celle-ci est mémorisé. Au clic suivant sur une des trois tours, ce disque est déplacé dans cette nouvelle tour. Et ainsi de suite (cliquer sur une troisième tour mémorise son plus haut disque, cliquer sur une quatrième tour déplace le disque à cet endroit).",
-                solved: "var memo;<br>var uls = document.querySelectorAll('.hanoi ul');<br>for (var i = 0; i < uls.length; i++) {<br>  uls[i].addEventListener('click', function(event) {<br>    var ul = event.currentTarget;<br>    var firstChild = ul.querySelector('li');<br>    if (memo) {<br>      ul.prepend(memo);<br>      memo = undefined;<br>    } else if (firstChild) {<br>      memo = firstChild;<br>    }<br>  });<br>}",
-                solvedOnSuccess: true,
-                dom: function() {
-                    return dom.hanoi();
-                },
-                solution: function() {
-                    let uls = document.querySelectorAll('.hanoi ul');
-                    uls[0].click();
-                    uls[1].click();
-
-                    if (uls[0].querySelectorAll('li').length !== 5)
-                        this.warn = this.warn || "Cliquer sur la première tour puis sur la deuxième doit supprimer le premier li de la première tour";
-                    if (uls[1].querySelectorAll('li').length !== 1)
-                        this.warn = this.warn || "Cliquer sur la première tour puis sur la deuxième doit déplacer le premier li de la première tour vers la seconde";
-
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Respecter l'ordre des disques",
-                description: "Après avoir mémorisé un disque, le clic sur une seconde tour ne doit pas ajouter le disque mémorisé si ce dernier est plus large que le plus haut de la nouvelle tour (avec un attribut data <code>weight</code> plus élevé). <i>Optionnel</i> : si ce cas se produit, le disque mémorisé est oublié, et c'est le disque le plus haut de la nouvelle tour qui est mémorisé à sa place (et sera donc déplacé au prochain clic, si les conditions précédentes sont remplies).",
-                solved: "var memo;<br>var uls = document.querySelectorAll('.hanoi ul');<br>for (var i = 0; i < uls.length; i++) {<br>  uls[i].addEventListener('click', function(event) {<br>    var ul = event.currentTarget;<br>    var firstChild = ul.querySelector('li');<br>    if (memo && (!firstChild || firstChild.dataset.weight > memo.dataset.weight)) {<br>      ul.prepend(memo);<br>      memo = undefined;<br>    } else if (firstChild) {<br>      memo = firstChild;<br>    }<br>  });<br>}",
-                solvedOnSuccess: true,
-                dom: function() {
-                    return dom.hanoi();
-                },
-                solution: function() {
-                    let uls = document.querySelectorAll('.hanoi ul');
-                    uls[0].click();
-                    uls[1].click();
-
-                    uls[0].click();
-                    uls[1].click();
-
-                    if (uls[0].querySelectorAll('li').length !== 5 || uls[1].querySelectorAll('li').length !== 1)
-                        this.warn = this.warn || "Après avoir déplacé le petit disque de la première à la seconde tour, essayer de déplacer le second disque de la première tour vers le seconde ne doit pas être autorisé";
-                    
-                    uls[2].click();
-
-                    if (uls[0].querySelectorAll('li').length !== 5 || uls[1].querySelectorAll('li').length !== 0 || uls[2].querySelectorAll('li').length !== 1)
-                        this.warn = this.warn || "Après avoir déplacé le petit disque de la première à la seconde tour, cliquer sur la première tour, puis la second, puis la troisième, doit résulter dans le déplacement du petit disque de la tour du milieu à celle de droite.";
-
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Indiquer la victoire",
-                description: "Après avoir déplacé tous les disque de la tour de gauche à celle de droite, ajouter la classe <code>success</code> au <code>ul</code> de la tour de droite pour indiquer la victoire.",
-                solved: "var memo;<br>var uls = document.querySelectorAll('.hanoi ul');<br>for (var i = 0; i < uls.length; i++) {<br>  uls[i].addEventListener('click', function(event) {<br>    var ul = event.currentTarget;<br>    var firstChild = ul.querySelector('li');<br>    if (memo && (!firstChild || firstChild.dataset.weight > memo.dataset.weight)) {<br>      ul.prepend(memo);<br>      memo = undefined;<br>    } else if (firstChild) {<br>      memo = firstChild;<br>    }<br><br>    if (ul.classList.contains('tower-target') && ul.querySelectorAll('li').length === 6) {<br>      ul.classList.add('success');<br>    }<br>  });<br>}",
-                solvedOnSuccess: true,
-                dom: function() {
-                    return dom.hanoi();
-                },
-                solution: function() {
-                    let uls = document.querySelectorAll('.hanoi ul');
-                    let move = function() {
-                        let tower = [].slice.call(arguments);
-                        for (let i = 0; i < tower.length; i = i + 2) {
-                            uls[tower[i] - 1].click();
-                            uls[tower[i+1] - 1].click();
-                        }
-                    };
-
-                    let moveA = move.bind(null, 1, 2, 1, 3, 2, 3);
-                    let moveB = move.bind(null, 1, 2, 3, 1, 3, 2);
-                    let moveC = move.bind(null, 2, 1, 3, 1, 2, 3);
-                    let moveD = move.bind(null, 1, 2, 3, 1, 2, 3);
-                    let moveE = move.bind(null, 2, 1, 3, 1, 3, 2);
-                    let moveF = function() {
-                        moveA(); moveB(); moveA(); moveC(); moveA();
-                    };
-
-                    moveF(); moveB(); moveD(); moveE(); moveF(); moveE(); moveD(); moveC();
-
-                    if (uls[2].classList.contains('success'))
-                        this.warn = this.warn || "Tant que tous les disques ne sont pas sur la troisième tour, celle-ci ne doit pas posséder la classe success.";
-
-                    moveF();
-
-                    if (!uls[2].classList.contains('success'))
-                        this.warn = this.warn || "Si tous les disques sont pas sur la troisième tour, celle-ci doit pas posséder la classe success.";
-
-                    return !this.warn;
-                }
-            }
-        ]
-    }, {
-        title: "Puzzle | Puissance 4",
-        description: "Un puissance 4 est un puzzle pour 2 joueurs jouant à tour de rôle un jeton dans une colonne. Chaque jeton s'empile aux jetons précédement, le premier joueur à en aligner 4 remporte la partie.<br><br>Ce chapitre présente la réalisation d'un puissance 4 dont la solution est à déverouiller.",
-        color: "pink",
-        steps: [
-            {
-                course: true,
-                description: `
-                    Le puissance 4 est un jeu dont le but est d'aligner 4 pions de même couleur sur une grille.<br><br>Tour à tour les deux joueurs placent un pion de leur couleur dans la colonne de leur choix, le pion coulisse alors jusqu'à la position la plus basse possible ce ette colonne.<br><br>Le vainqueur est le joueur qui réalise le premier un alignement (horizontal, vertical ou diagonal) consécutif d'au moins quatre pions de sa couleur.
-                    
-                    <br>
-
-                    ---
-
-                    <br>
-
-                    **Prérequis** ${helpers.chapterLabel(4, 'Les tableaux', 'green')} ${helpers.chapterLabel(8, 'Le DOM', 'yellow')} ${helpers.chapterLabel(10, 'Les fonctions', 'yellow')}
-
-                    **Solution** débloquée lors de la réussite de chaque étape
-
-                    **Code final** ~100 lignes
-                `
-            },
-            {
-                title: "Générer une table de jeu",
-                description: "Dans le tableau <code>.connectfour table</code> générer 6 lignes <code>tr</code> avec chacune 7 colonnes <code>td</code> afin de créer le plateau de jeu.",
-                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br>render();",
-                solvedOnSuccess: true,
-                dom: function() {
-                    return dom.connectfour();
-                },
-                solution: function() {
-                    if (document.querySelectorAll('table tr').length !== 6)
-                        this.warn = this.warn || "La table doit contenir 6 <code>tr</code>";
-                    if (document.querySelectorAll('table tr td').length !== 42)
-                        this.warn = this.warn || "La table doit contenir 42 <code>td</code>";
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Ajouter un jeton alternativement jaune puis rouge",
-                description: "Au clic sur n'importe quel <code>td</code> d'une colonne, ajouter au <code>td</code> en pied de cette colonne la classe <code>yellow</code> ou <code>red</code> alternativement (si il n'a pas de classe). Au fur et à mesure des clics, les jetons s'empilent ainsi les uns sur les autres. Si une colonne est remplie, elle ne reçoit plus de jeton au clic.",
-                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      if (column)<br>        td.className = column;<br><br>      td.addEventListener('click', function(e) {<br>        var index = Array.prototype.indexOf.call(this.parentElement.children, this);<br>        for (var i = 5; i >= 0; i--) {<br>          if (!grid[i][index]) {<br>            color = (color === 'yellow' ? 'red' : 'yellow');<br>            grid[i][index] = color;<br>            break;<br>          } else continue;<br>        }<br>        render();<br>      });<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br>render();",
-                solvedOnSuccess: true,
-                dom: function() {
-                    return dom.connectfour();
-                },
-                solution: function() {
-                    var cell = function(tr, td) {
-                        return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
-                    }
-
-                    cell(1, 1).click();
-                    cell(1, 1).click();
-                    cell(1, 1).click();
-                    cell(1, 2).click();
-
-                    if (helpers.elHasClass(cell(6, 1), 'yellow') !== true)
-                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la première case de cette colonne doit être jaune";
-                    if (helpers.elHasClass(cell(5, 1), 'red') !== true)
-                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la deuxième case de cette colonne doit être rouge";
-                    if (helpers.elHasClass(cell(4, 1), 'yellow') !== true)
-                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la troisième case de cette colonne doit être jaune";
-                    if (helpers.elHasClass(cell(6, 2), 'red') !== true)
-                        this.warn = this.warn || "Après un clic sur la première colonne, le pion de la quatrième case de cette colonne doit être rouge";
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Combinaison horizontale gagnante",
-                description: "Lorsque 4 jetons consécutifs de la même couleur sont alignés horizontalement, leur ajouter la classe <code>victory</code>. Les clics suivants sur la table n'ajoutent plus de jetons.",
-                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var winner = false;<br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      if (column)<br>        td.className = column;<br><br>      td.addEventListener('click', function(e) {<br>        if (winner)<br>          return;<br><br>        var index = Array.prototype.indexOf.call(this.parentElement.children, this);<br>        for (var i = 5; i >= 0; i--) {<br>          if (!grid[i][index]) {<br>            color = (color === 'yellow' ? 'red' : 'yellow');<br>            grid[i][index] = color;<br>            break;<br>          } else continue;<br>        }<br><br>        winner = wins(grid);<br>        if (winner) {<br>          for (var i = 0; i < winner.length; i++) {<br>            var position = winner[i].split('-');<br>            grid[position[0]][position[1]] += ' victory';<br>          }<br>        }<br>        render();<br>      });<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br><br>var wins = function() {<br>  return horizontalWinner(grid);<br>};<br><br>var horizontalWinner = function() {<br>  var player, positions;<br>  for (var row = 5; row >= 0; row--) {<br>    positions = []<br>    for (var column = 0; column < 7; column++) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>render();",
-                solvedOnSuccess: true,
-                dom: function() {
-                    return dom.connectfour();
-                },
-                solution: function() {
-                    var cell = function(tr, td) {
-                        return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
-                    }
-
-                    cell(1, 2).click(); cell(1, 3).click();
-                    cell(1, 4).click(); cell(1, 5).click();
-                    cell(1, 2).click(); cell(1, 1).click();
-                    cell(1, 3).click(); cell(1, 6).click();
-                    cell(1, 1).click(); cell(1, 1).click();
-                    cell(1, 4).click(); cell(1, 4).click();
-
-                    var basic = true;
-                    basic = basic && helpers.elHasClass(cell(5, 1), 'victory');
-                    basic = basic && helpers.elHasClass(cell(5, 2), 'victory');
-                    basic = basic && helpers.elHasClass(cell(5, 3), 'victory');
-                    basic = basic && helpers.elHasClass(cell(5, 4), 'victory');
-                    basic = basic && !helpers.elHasClass(cell(4, 4), 'red');
-
-                    if (!basic)
-                        this.warn = "Les combinaisons horizontales gagnantes doivent fonctionner";
-                    return basic;
-                }
-            },
-            {
-                title: "Combinaison verticale gagnante",
-                description: "Faire de même lorsque 4 jetons sont alignés verticalement.",
-                solved: "var table = document.querySelector('table');<br>var grid = [<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0],<br>  [0, 0, 0, 0, 0, 0, 0]<br>];<br><br>var color = 'red';<br>var winner = false;<br>var render = function() {<br>  table.innerHTML = '';<br>  for (var row of grid) {<br>    var tr = document.createElement('tr');<br>    for (var column of row) {<br>      var td = document.createElement('td');<br>      if (column)<br>        td.className = column;<br><br>      td.addEventListener('click', function(e) {<br>        if (winner)<br>          return;<br><br>        var index = Array.prototype.indexOf.call(this.parentElement.children, this);<br>        for (var i = 5; i >= 0; i--) {<br>          if (!grid[i][index]) {<br>            color = (color === 'yellow' ? 'red' : 'yellow');<br>            grid[i][index] = color;<br>            break;<br>          } else continue;<br>        }<br><br>        winner = wins(grid);<br>        if (winner) {<br>          for (var i = 0; i < winner.length; i++) {<br>            var position = winner[i].split('-');<br>            grid[position[0]][position[1]] += ' victory';<br>          }<br>        }<br>        render();<br>      });<br>      tr.append(td);<br>    }<br>    table.append(tr);<br>  }<br>};<br><br>var wins = function() {<br>  return verticalWinner(grid) || horizontalWinner(grid);<br>};<br><br>var verticalWinner = function() {<br>  var player, positions;<br>  for (var column = 0; column < 7; column++) {<br>    positions = [];<br>    for (var row = 5; row >= 0; row--) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>var horizontalWinner = function() {<br>  var player, positions;<br>  for (var row = 5; row >= 0; row--) {<br>    positions = []<br>    for (var column = 0; column < 7; column++) {<br>      var color = grid[row][column];<br>      if (!color || player !== color) positions = [];<br>      if (!color) continue;<br><br>      positions.push(row + '-' + column);<br><br>      if (positions.length >= 4) return positions;<br>      player = color;<br>    }<br>  }<br>  return;<br>};<br><br>render();",
-                solvedOnSuccess: true,
-                dom: function() {
-                    return dom.connectfour();
-                },
-                solution: function() {
-                    var cell = function(tr, td) {
-                        return document.querySelector('table tr:nth-child(' + tr + ') td:nth-child(' + td + ')');
-                    }
-
-                    cell(1, 4).click(); cell(1, 4).click();
-                    cell(1, 1).click(); cell(1, 2).click();
-                    cell(1, 1).click(); cell(1, 2).click();
-                    cell(1, 1).click(); cell(1, 2).click();
-                    cell(1, 1).click(); cell(1, 2).click();
-
-                    var basic = true;
-                    basic = basic && helpers.elHasClass(cell(6, 1), 'victory');
-                    basic = basic && helpers.elHasClass(cell(5, 1), 'victory');
-                    basic = basic && helpers.elHasClass(cell(4, 1), 'victory');
-                    basic = basic && helpers.elHasClass(cell(3, 1), 'victory');
-                    basic = basic && !helpers.elHasClass(cell(6, 2), 'victory');
-                    basic = basic && !helpers.elHasClass(cell(5, 2), 'victory');
-                    basic = basic && helpers.elHasClass(cell(4, 2), 'red');
-                    basic = basic && !helpers.elHasClass(cell(3, 2), 'red');
-
-                    if (!basic)
-                        this.warn = "Les combinaisons verticales gagnantes doivent fonctionner";
-                    return basic;
-                }
-            }
-        ]
-    }, {
-        title: "Puzzle | Taquin",
-        description: "Un taquin est ce puzzle en plastique à résoudre du bout des pouces. Une pièce peut être glissée horizontalement ou verticalement pour venir prendre la place de l'espace libre.<br><br>Ce chapitre présente la réalisation d'un taquin dont la solution est à déverrouiller.",
-        color: "pink",
-        steps: [
-            {
-                course: true,
-                description: `
-                    Le taquin est un jeu solitaire en forme de damier qui consiste à remettre dans l'ordre des carreaux à partir d'une configuration initiale quelconque. Un des carreaux est manquant, permettant ainsi de glisser un carreau horizontalement ou verticalement à sa place.
-
-                    <br>
-
-                    ---
-
-                    <br>
-
-                    **Prérequis** ${helpers.chapterLabel(4, 'Les tableaux', 'green')} ${helpers.chapterLabel(8, 'Le DOM', 'yellow')} ${helpers.chapterLabel(10, 'Les fonctions', 'yellow')}
-
-                    **Solution** débloquée lors de la réussite de chaque étape
-
-                    **Code final** ~80 lignes
-                `
-            },
-            {
-                title: "Mélanger les cases",
-                description: "Mélanger les 9 <code>li</code> du puzzle listés dans <code>.sliding ul</code> au clic sur le bouton « mélanger ».",
-                excerpt: "La méthode <code>Math.floor(Math.random() * 9)</code> retourne un nombre aléatoire entre 0 et 8.",
-                solved: "var shuffle = function(o){<br>  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);<br>  return o;<br>}<br><br>var render = function(matrix) {<br>  var ul = document.querySelector('.sliding ul');<br>  ul.innerHTML = '';<br><br>  var squares = [].concat(matrix[0], matrix[1], matrix[2])<br>  for (var square of squares) {<br>    var li = document.createElement('li');<br>    li.className = 'square' + square;<br>    ul.appendChild(li);<br>  }<br>}<br><br>document.querySelector('.sliding button').addEventListener('click', function() {<br>  var squares = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8]);<br>  var matrix = [<br>    [squares[0], squares[1], squares[2]],<br>    [squares[3], squares[4], squares[5]],<br>    [squares[6], squares[7], squares[8]]<br>  ];<br>  render(matrix);<br>});",
-                solvedOnSuccess: true,
-                dom: function() {
-                    return dom.sliding();
-                },
-                solution: function() {
-                    let classNames = helpers.getClassNames('.sliding li');
-
-                    if (classNames.length !== 9)
-                        this.warn = this.warn || "Le puzzle doit contenir 9 <code>li</code>";
-                    if (helpers.equals(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']) !== true)
-                        this.warn = this.warn || "Les cases doivent être dans l'ordre avant le mélange";
-
-                    let button = document.querySelector('.sliding button');
-                    button.click();
-
-                    classNames = helpers.getClassNames('.sliding li');
-                    if (classNames.length !== 9)
-                        this.warn = this.warn || "Le puzzle doit contenir 9 <code>li</code>";
-                    if (helpers.equals(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']) !== false)
-                        this.warn = this.warn || "Les cases doivent être dans le désordre après le mélange";
-                    if (helpers.equalsContent(classNames, ['square1', 'square2', 'square0', 'square3', 'square4', 'square5', 'square6', 'square7', 'square8']) !== true)
-                        this.warn = this.warn || "Les cases doivent toutes être présentes, sans doublon";
-
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Gérer le déplacement horizontal d'une case",
-                description: "Au clic sur une case, celle-ci doit être intervertie avec la case vide <code>.square0</code> à condition que l'une et l'autre soit à côté horizontalement (et pas en diagonale).",
-                excerpt: "Stocker l'état du puzzle dans une variable (une matrice de préférence — un tableau de tableaux, 3 lignes, 3 colonnes), et trouver une façon condensée pour lister quelles cases sont accessibles à partir d'une autre case. Se concentrer pour l'instant sur les mouvements horizontaux.",
-                solved: "var shuffle = function(o){<br>  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);<br>  return o;<br>}<br><br>var render = function(matrix) {<br>  var ul = document.querySelector('.sliding ul');<br>  ul.innerHTML = '';<br><br>  var squares = [].concat(matrix[0], matrix[1], matrix[2])<br>  for (var square of squares) {<br>    var li = document.createElement('li');<br>    li.className = 'square' + square;<br>    li.setAttribute('data-id', square);<br>    li.addEventListener('click', function() {<br>      move(matrix, parseInt(this.getAttribute('data-id')));<br>    });<br>    ul.appendChild(li);<br>  }<br>}<br>var move = function(matrix, square) {<br>  if (square === 0)<br>    return false;<br>  if (matrix[0][0] === square)<br>    canToggle(matrix, [0, 0], [[0, 1]]);<br>  else if (matrix[0][1] === square)<br>    canToggle(matrix, [0, 1], [[0, 0], [0, 2]]);<br>  else if (matrix[0][2] === square)<br>    canToggle(matrix, [0, 2], [[0, 1]]);<br>  else if (matrix[1][0] === square)<br>    canToggle(matrix, [1, 0], [[1, 1]]);<br>  else if (matrix[1][1] === square)<br>    canToggle(matrix, [1, 1], [[1, 0], [1, 2]]);<br>  else if (matrix[1][2] === square)<br>    canToggle(matrix, [1, 2], [[1, 1]]);<br>  else if (matrix[2][0] === square)<br>    canToggle(matrix, [2, 0], [[2, 1]]);<br>  else if (matrix[2][1] === square)<br>    canToggle(matrix, [2, 1], [[2, 0], [2, 2]]);<br>  else if (matrix[2][2] === square)<br>    canToggle(matrix, [2, 2], [[2, 1]]);<br>}<br>var canToggle = function(matrix, from, combinaisons) {<br>  for (var c of combinaisons) {<br>    if (matrix[c[0]][c[1]] === 0) {<br>      toggle(matrix, [from[0], from[1]], [c[0], c[1]]);<br>      break;<br>    }<br>  }<br>}<br>var toggle = function(matrix, from, to) {<br>  var memo = matrix[from[0]][from[1]];<br>  matrix[from[0]][from[1]] = matrix[to[0]][to[1]];<br>  matrix[to[0]][to[1]] = memo;<br>  render(matrix);<br>}<br><br>document.querySelector('.sliding button').addEventListener('click', function() {<br>  var squares = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8]);<br>  var matrix = [<br>    [squares[0], squares[1], squares[2]],<br>    [squares[3], squares[4], squares[5]],<br>    [squares[6], squares[7], squares[8]]<br>  ];<br>  render(matrix);<br>});",
-                solvedOnSuccess: true,
-                dom: function() {
-                    return dom.sliding();
-                },
-                solution: function() {
-                    let button = document.querySelector('.sliding button');
-                    button.click();
-
-                    // click on possible
-                    let classNames = helpers.getClassNames('.sliding li');
-                    let expected = classNames.slice(0);
-                    let position = classNames.indexOf('square0') + 1;
-                    let toPosition;
-                    if ([1, 2, 4, 5, 7, 8].indexOf(position) !== -1) {
-                        toPosition = position + 1;
-                    } else {
-                        toPosition = position - 1;
-                    }
-                    document.querySelector(`.sliding li:nth-child(${toPosition})`).click();
-                    let memo = expected[position - 1];
-                    expected[position - 1] = expected[toPosition - 1];
-                    expected[toPosition - 1] = memo;
-
-                    classNames = helpers.getClassNames('.sliding li');
-
-                    let basic = true;
-                    basic = basic && helpers.equals(expected, classNames);
-
-                    // click on empty
-                    expected = classNames.slice(0);
-                    position = classNames.indexOf('square0') + 1;
-                    document.querySelector(`.sliding li:nth-child(${position})`).click();
-                    classNames = helpers.getClassNames('.sliding li');
-                    basic = basic && helpers.equals(expected, classNames);
-
-                    // click on impossible
-                    expected = classNames.slice(0);
-                    position = classNames.indexOf('square0');
-                    position = ((position + 4) % 9) + 1;
-                    document.querySelector(`.sliding li:nth-child(${position})`).click();
-                    classNames = helpers.getClassNames('.sliding li');
-                    basic = basic && helpers.equals(expected, classNames);
-
-                    if (!basic)
-                        this.warn = "Le déplacement horizontal d'une case doit fonctionner";
-                    return basic;
-                }
-            },
-            {
-                title: "Gérer le déplacement vertical d'une case",
-                description: "Au clic sur une case, celle-ci doit être intervertie avec la case vide <code>.square0</code> à condition que l'une et l'autre soit à côté verticalement (et pas en diagonale).",
-                solved: "var shuffle = function(o){<br>  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);<br>  return o;<br>}<br><br>var render = function(matrix) {<br>  var ul = document.querySelector('.sliding ul');<br>  ul.innerHTML = '';<br><br>  var squares = [].concat(matrix[0], matrix[1], matrix[2])<br>  for (var square of squares) {<br>    var li = document.createElement('li');<br>    li.className = 'square' + square;<br>    li.setAttribute('data-id', square);<br>    li.addEventListener('click', function() {<br>      move(matrix, parseInt(this.getAttribute('data-id')));<br>    });<br>    ul.appendChild(li);<br>  }<br>}<br>var move = function(matrix, square) {<br>  if (square === 0)<br>    return false;<br>  if (matrix[0][0] === square)<br>    canToggle(matrix, [0, 0], [[0, 1], [1, 0]]);<br>  else if (matrix[0][1] === square)<br>    canToggle(matrix, [0, 1], [[0, 0], [1, 1], [0, 2]]);<br>  else if (matrix[0][2] === square)<br>    canToggle(matrix, [0, 2], [[0, 1], [1, 2]]);<br>  else if (matrix[1][0] === square)<br>    canToggle(matrix, [1, 0], [[0, 0], [1, 1], [2, 0]]);<br>  else if (matrix[1][1] === square)<br>    canToggle(matrix, [1, 1], [[0, 1], [1, 0], [1, 2], [2, 1]]);<br>  else if (matrix[1][2] === square)<br>    canToggle(matrix, [1, 2], [[0, 2], [1, 1], [2, 2]]);<br>  else if (matrix[2][0] === square)<br>    canToggle(matrix, [2, 0], [[1, 0], [2, 1]]);<br>  else if (matrix[2][1] === square)<br>    canToggle(matrix, [2, 1], [[2, 0], [1, 1], [2, 2]]);<br>  else if (matrix[2][2] === square)<br>    canToggle(matrix, [2, 2], [[2, 1], [1, 2]]);<br>}<br>var canToggle = function(matrix, from, combinaisons) {<br>  for (var c of combinaisons) {<br>    if (matrix[c[0]][c[1]] === 0) {<br>      toggle(matrix, [from[0], from[1]], [c[0], c[1]]);<br>      break;<br>    }<br>  }<br>}<br>var toggle = function(matrix, from, to) {<br>  var memo = matrix[from[0]][from[1]];<br>  matrix[from[0]][from[1]] = matrix[to[0]][to[1]];<br>  matrix[to[0]][to[1]] = memo;<br>  render(matrix);<br>}<br><br>document.querySelector('.sliding button').addEventListener('click', function() {<br>  var squares = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8]);<br>  var matrix = [<br>    [squares[0], squares[1], squares[2]],<br>    [squares[3], squares[4], squares[5]],<br>    [squares[6], squares[7], squares[8]]<br>  ];<br>  render(matrix);<br>});",
-                solvedOnSuccess: true,
-                dom: function() {
-                    return dom.sliding();
-                },
-                solution: function() {
-                    let button = document.querySelector('.sliding button');
-                    button.click();
-
-                    // click on possible
-                    let classNames = helpers.getClassNames('.sliding li');
-                    let expected = classNames.slice(0);
-                    let position = classNames.indexOf('square0') + 1;
-                    let toPosition;
-                    if ([1, 2, 3, 4, 5, 6].indexOf(position) !== -1) {
-                        toPosition = position + 3;
-                    } else {
-                        toPosition = position - 3;
-                    }
-                    document.querySelector(`.sliding li:nth-child(${toPosition})`).click();
-                    let memo = expected[position - 1];
-                    expected[position - 1] = expected[toPosition - 1];
-                    expected[toPosition - 1] = memo;
-
-                    classNames = helpers.getClassNames('.sliding li');
-
-                    let basic = true;
-                    basic = basic && helpers.equals(expected, classNames);
-
-                    if (!basic)
-                        this.warn = "Le déplacement vertical d'une case doit fonctionner";
-                    return basic;
-                }
-            }
-        ]
-    }, {
         title: "ES6",
         description: "Chaque année, les navigateurs intègrent les dernières nouveautés de JavaScript. La norme ECMAScript dispose d'ailleurs d'un versionning annuel annoncant ces nouvelles fonctionnalités.<br><br>Ce chapitre présente les nouveatés principales de ES5 et ES6.",
         color: "grey",
@@ -6970,11 +7286,11 @@ let stepper = function(el, data, methods) {
                                 ${title}
                                 <div class="description">${description}</div>
                                 <div class="dom" data-hook="dom"></div>
-                                <div data-hook="divulge" class="${this.methods.isSolvedHidden.call(this) ? 'hidden' : ''}"></div>
                                 <div class="ui piled segment ${chapterContent.color} ${excerptHidden}">
                                     <h4 class="ui header">À propos</h4>
                                     <p>${stepContent.excerpt}</p>
                                 </div>
+                                <div class="divulge" data-hook="divulge" class="${this.methods.isSolvedHidden.call(this) ? 'hidden' : ''}"></div>
                             </div>
                             <div class="extra content">
                                 <div class="ui stackable grid">
@@ -7095,8 +7411,14 @@ let stepper = function(el, data, methods) {
             renderDom: function(noWarning) {
                 if (stepContent.init)
                     stepContent.init();
-                if (stepContent.dom)
-                    document.querySelector('[data-hook=dom]').innerHTML = stepContent.dom();
+
+                if (stepContent.dom) {
+                    let dom = stepContent.dom();
+                    if (typeof dom === 'function')
+                        dom = dom();
+
+                    document.querySelector('[data-hook=dom]').innerHTML = dom;
+                }
 
                 this.methods.reload.call(this, noWarning);
                 this.methods.divulge.call(this);
@@ -7139,16 +7461,36 @@ let stepper = function(el, data, methods) {
             },
             divulge: function() {
                 if (stepContent.solved && !this.methods.isSolvedHidden.call(this)) {
-                    el.querySelector('[data-hook=divulge]').innerHTML = `
-                        <a class="ui ${chapterContent.color} ribbon label">
-                            <i class="bug icon"></i>Solution
+                    let elDivulge = el.querySelector('[data-hook=divulge]');
+                    elDivulge.innerHTML = `
+                        <a class="ui bottom attached label">
+                            <i class="unlock icon"></i>Solution
                         </a>
-                        <p><pre><code class="hidden javascript">${stepContent.solved}</code></pre></p>`;
+                        <div class="hidden">
+                            <pre><code class="javascript">${stepContent.solved}</code></pre>
+                            <button class="ui inverted basic right floated mini button">Copier</button>
+                        </div>
+                    `;
 
-                    el.querySelector('[data-hook=divulge]').classList.remove('hidden');
+                    elDivulge.classList.remove('hidden');
 
-                    el.querySelector('[data-hook=divulge] .ribbon').addEventListener('click', function() {
-                        this.parentNode.querySelector('code').classList.toggle('hidden');
+                    elDivulge.querySelector('.label').addEventListener('click', function() {
+                        this.parentNode.querySelector('div').classList.toggle('hidden');
+                    });
+
+                    elDivulge.querySelector('button').addEventListener('click', function() {
+                        var range = document.createRange();
+                        range.selectNodeContents(elDivulge.querySelector('pre'));
+                        var selection = window.getSelection();
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                        document.execCommand('copy');
+                        selection.removeAllRanges();
+
+                        this.innerHTML = 'Copié !';
+                        setTimeout(function() {
+                            this.innerHTML = 'Copier';
+                        }.bind(this), 3000);
                     });
                 }
             },
