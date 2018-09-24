@@ -29,6 +29,7 @@ io.on('connection', socket => {
     socket.on('js', data => updateCode('js', data));
     socket.on('css', data => updateCode('css', data));
     socket.on('html', data => updateCode('html', data));
+    socket.on('resources', data => updateCode('resources', data));
 
     socket.on('create', data => createRoom(data.room));
     socket.on('destroy', data => destroyRoom(data.room));

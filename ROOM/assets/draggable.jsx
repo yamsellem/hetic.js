@@ -23,6 +23,9 @@ class Draggable extends React.Component {
         this.props.onUpdateStart && this.props.onUpdateStart();
     }
     dragEnd() {
+        if (!this.dragging)
+            return;
+
         this.dragging = false;
         this.props.onUpdateStop && this.props.onUpdateStop();
     }
@@ -36,6 +39,8 @@ class Draggable extends React.Component {
         document.addEventListener('mousemove', this.drag);
     }
     componentWillUmount() {
+        this.el.removeEventListener('dblclick', this.defaultHalf);
+        this.el.removeEventListener('mousedown', this.dragStart);
         document.removeEventListener('mouseup', this.dragEnd);
         document.removeEventListener('mousemove', this.drag);
     }

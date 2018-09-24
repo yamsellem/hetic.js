@@ -1,8 +1,8 @@
 import CodeMirror from 'codemirror';
 
-const mirror = (el, lang, readonly) => {
+const mirror = (el, lang, value, readonly) => {
     return CodeMirror(el, {
-        value: '',
+        value: value || '',
         theme: 'one-dark',
         lineNumbers: true,
         readOnly: readonly,

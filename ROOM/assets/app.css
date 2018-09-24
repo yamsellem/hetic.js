@@ -19,11 +19,45 @@ body, html, #app, #app > div {
 .button.is-primary:hover, .tag:not(body).is-primary:hover {
     background-color: #47b0bd;
 }
+.tag:not(body).is-add {
+    margin-left: 1px;
+    padding: 0;
+    position: relative;
+    width: 2em;
+}
+.tag:not(body).is-add:before {
+    height: 1px;
+    width: 12px;
+ 
+    background-color: currentColor;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+}
+.tag:not(body).is-add:after {
+    height: 50%;
+    width: 1px;
+ 
+    background-color: currentColor;
+    content: "";
+    display: block;
+    left: 50%;
+    position: absolute;
+}
+ul.is-unstyled {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
 .navbar {
     background-color: #2C323B;
     position: absolute;
     left: 0;
     right: 0;
+}
+.navbar .control {
+    position: static;
 }
 .navbar .navbar-brand {
     font-size: 1.5rem;
@@ -35,6 +69,51 @@ body, html, #app, #app > div {
     right: 0.85rem;
     top: 0.85rem;
 }
+.navbar .notification {
+    color: white;
+    background-color: #3D4550;
+    position: absolute;
+    top: 2rem;
+    right: 0;
+    left: 0;
+    padding: 0.5rem;
+    user-select: none;
+    overflow: scroll;
+    max-height: 85vh;
+}
+.navbar .notification p {
+    font-size: 10px;
+}
+.navbar .notification .field:not(:last-child) {
+    margin-bottom: 0rem;
+}
+.navbar .notification ul:not(:last-child) {
+    margin-bottom: 0.75rem;
+}
+.navbar .notification li {
+    position: relative;
+    overflow: hidden;
+    direction: rtl;
+    text-overflow: ellipsis;
+}
+.navbar .notification li a {
+    display: inline-block;
+    text-decoration: none;
+    white-space: nowrap;
+    font-size: 12px;
+    width: 85%;
+    opacity: 0.75;
+}
+.navbar .notification li i {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5rem;
+    font-size: 12px;
+    opacity: 0.75;
+}
+
 .tags.has-addons .tag:not(:first-child) {
     margin-left: 0;
 }
@@ -67,9 +146,6 @@ body, html, #app, #app > div {
 }
 .h-home .buttons {
     display: block;
-}
-.h-home .buttons .button {
-    text-transform: capitalize;
 }
 .h-home input {
     max-width: 8rem;

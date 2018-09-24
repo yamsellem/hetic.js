@@ -9,9 +9,10 @@ class BaseEditor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            js: '',
-            css: '',
-            html: '',
+            js: props.code.js || '',
+            css: props.code.css || '',
+            html: props.code.html || '',
+            resources: props.code.resources || {},
             leftRatio: 50,
             rightRatio: 50,
             draggingRight: false
@@ -53,7 +54,7 @@ class BaseEditor extends React.Component {
                     <Draggable title="Result" parent={this} onUpdate={this.updateDragRight.bind(this)} onUpdateStart={this.updateDragRightToggle.bind(this, true)} onUpdateStop={this.updateDragRightToggle.bind(this, false)} />
                     <div className="columns" style={{flexBasis: 100 - this.state.rightRatio + '%' }}>
                         <div className="column is-paddingless" ref={el => this.frame = el}>
-                            <Result className={classnames({'is-hidden': this.state.draggingRight})} js={this.state.js} css={this.state.css} html={this.state.html}/>
+                            <Result className={classnames({'is-hidden': this.state.draggingRight})} js={this.state.js} css={this.state.css} html={this.state.html} resources={this.state.resources} />
                             <div className={classnames({'is-hidden': !this.state.draggingRight})}></div>
                         </div>
                     </div>
