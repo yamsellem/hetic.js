@@ -1,0 +1,10 @@
+{
+    "presets": [["env", {"modules": false}], "react"],
+    "plugins": [
+        "react-html-attrs", 
+        "transform-object-rest-spread", 
+        "transform-es2015-template-literals", 
+        "transform-object-assign",
+        "es6-promise"
+    ]
+}
