@@ -5984,18 +5984,18 @@ let chapters = [
 
                     **Raccourci fat arrow et bind automatique de this :**
 
-                        class Pie {
-                          displayLater() {
+                        var beatles = {
+                          song: 'Lonely hearts club band',
+                          play: function() {
                             var fn = () => {
-                              console.log(15);
+                              console.log(this.song);
                             };
 
                             setTimeout(fn, 10);
                           }
                         };
 
-                        var applePie = new Pie();
-                        applePie.displayLater();
+                        beatles.play(); // displays 'Lonely hearts club band', without => it displays undefined
                 `
             },
             {
