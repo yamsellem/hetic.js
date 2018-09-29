@@ -29,6 +29,10 @@ code.no-highlight {
 code.hljs { display: inline; padding:.4em }
 pre > code.hljs { display: block; }
 
+code i {
+    font-style: normal;
+}
+
 body {
     background-color: #EDEFF0;
     padding-top: 20px;
@@ -64,6 +68,12 @@ hr {
     height: 1px;
     color: rgba(0,0,0,.05);
     background-color: rgba(0,0,0,.05);
+}
+
+img.schema {
+    display: block !important;
+    max-width: 100%;
+    margin: auto auto .5em auto;
 }
 
 .hidden {
