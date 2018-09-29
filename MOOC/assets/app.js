@@ -678,14 +678,23 @@ let chapters = [
                     * 1997 — Standardisation du langage via la norme ECMAScript
                     * 1999 — Microsoft crée le précurseur d'Ajax pour appeler un serveur de façon asynchrone
                     * 2006 — La librairie jQuery standardise la manipulation cross-browser des pages
+                    * 2006 — Le préprocesseur SASS augmente les possibilités des CSS
                     * 2008 — Popularisation de l'architecture REST (Representational State Transfer)
                     * 2009 — Sortie du navigateur Google Chrome équipé de V8, axé sur les performances
                     * 2009 — Usage du moteur d'exécution V8 pour créer un serveur d'application, Node.js
                     * 2010 — Démocratisation des RIA (Rich Internet Application) JavaScript succédant à Flash
                     * 2012 — Démocratisation des outils de développement web (Require.js, Grunt, Bower)
+                    * 2013 — Applications desktop natives en JavaScript avec Electron (Spotify, Slack, WhatsApp, Atom, VSCode)
                     * 2014 — Standardisation de HTML5
-                    * 2015 — Standardisation de ECMAScript 6
-                    * 2016 — Standardisation de ECMAScript 7, également nommé ES2016
+                    * 2014 — Fonctionnalités futures du langage disponibles dans les anciens navigateurs avec Babel et Webpack
+                    * 2015 — Standardisation de ECMAScript 6, nommé ES6 ou ES2015 (classes, modules, promises, fat arrows, fetch, template string...)
+                    * 2015 — Applications mobiles natives (Android, iOS) en JavaScript avec React Native
+                    * 2016 — Standardisation de ES7 ou ES2016
+                    * 2016 — Applications React rendues côté server puis côté client avec Next, pour améliorer leur référencement notamment (SSR)
+                    * 2016 — Améliorations nettes du postionnement et du layout en CSS avec les flexbox
+                    * 2017 — Standardisation de ES2017 (async/await)
+                    * 2018 — Standardisation de ES2018 (rest/spread, async iteration...)
+                    * 2018 — Sortie de Firefox Quantum, axé sur les performances et la confidentialité
 
                     À son apparition, JavaScript ajouta une pointe de vie aux sites internet. Il fût possible de naviguer au sein d'un carrousel d'images sans quitter la page ou de valider un formulaire avant de l'envoyer. L'arrivée de moteurs d'exécution performants, V8 en tête, changea la donne. D'un langage d'appoint, JavaScript allait devenir le langage du web.
 
