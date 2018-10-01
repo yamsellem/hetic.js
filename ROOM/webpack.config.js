@@ -5,6 +5,7 @@ var BUILD_DIR = path.resolve(__dirname, 'public');
 var APP_DIR = path.resolve(__dirname, 'assets');
 var STYLE_DIR = [
     path.resolve(__dirname, 'node_modules/codemirror/lib/'),
+    path.resolve(__dirname, 'node_modules/codemirror/addon/hint/'),
     path.resolve(__dirname, 'node_modules/codemirror-one-dark-theme/'),
     path.resolve(__dirname, 'node_modules/bulma/css/'),
     APP_DIR

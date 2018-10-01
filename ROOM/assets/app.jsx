@@ -6,7 +6,16 @@ import 'codemirror/mode/xml/xml';
 import 'codemirror/mode/xml/xml';
 import 'codemirror/mode/htmlmixed/htmlmixed';
 
+import 'codemirror/addon/edit/closebrackets';
+import 'codemirror/addon/edit/matchbrackets';
+import 'codemirror/addon/edit/matchtags';
+import 'codemirror/addon/edit/closetag';
+import 'codemirror/keymap/sublime';
+import 'codemirror/addon/hint/show-hint';
+import 'codemirror/addon/hint/javascript-hint';
+
 import 'codemirror/lib/codemirror.css';
+import 'codemirror/addon/hint/show-hint.css';
 import 'codemirror-one-dark-theme/one-dark.css';
 import 'bulma/css/bulma.css'
 import './app.css';

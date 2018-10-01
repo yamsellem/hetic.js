@@ -1,4 +1,6 @@
 import React from 'react';
+import debounceRender from 'react-debounce-render';
+import { addInfiniteLoopProtection } from './utils';
 
 class Result extends React.Component {
     template(js, css, html, resources) {
@@ -18,7 +20,7 @@ class Result extends React.Component {
                 <body>
                     ${html}
                     ${resourcesJS ? resourcesJS : ''}
-                    <script id="code">${js}</script>
+                    <script id="code">${addInfiniteLoopProtection(js, 1000)}</script>
                 </body>
             </html>
         `;
@@ -29,4 +31,4 @@ class Result extends React.Component {
     }
 }
 
-export default Result;
+export default debounceRender(Result, 500);

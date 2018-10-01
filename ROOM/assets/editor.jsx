@@ -1,17 +1,31 @@
-import BaseEditor from './base-editor.jsx';
-import mirror from './codemirror'
+import React from 'react';
 
-class Editor extends BaseEditor {
+import BaseEditor from './base-editor.jsx';
+import CodeMirror from './code-mirror.jsx';
+
+class Editor extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            js: props.code.js || '',
+            css: props.code.css || '',
+            html: props.code.html || ''
+        };
+    }
     emitCode(lang, value, diff) {
         this.socket.emit(lang, {room: this.props.room, value: value, diff: diff});
     }
+    onCodeUpdate(editor, diff, value, lang) {
+        this.updateCode(lang, value);
+        this.emitCode(lang, value, diff);
+        this.props.onCode(lang, value);
+    }
+    updateCode(lang, value) {
+        const state = {};
+        state[lang] = value;
+        this.setState(state);
+    }
     componentDidMount() {
-        const mirrors = {
-            html: mirror(this.html, 'htmlmixed', this.props.code && this.props.code.html),
-            css: mirror(this.css, 'css', this.props.code && this.props.code.css),
-            js: mirror(this.js, 'javascript', this.props.code && this.props.code.js)
-        };
-
         this.socket = io();
         this.socket.emit('create', {room: this.props.room});
 
@@ -21,26 +35,30 @@ class Editor extends BaseEditor {
                 this.emitCode(lang, this.props.code[lang]);
             });
         }
-
-        ['html', 'css', 'js'].forEach(lang => {
-            mirrors[lang].on('change', (editor, diff) => {
-                this.updateCodeDebounced(lang, editor.getValue());
-                this.emitCode(lang, editor.getValue(), diff);
-                this.props.onCode(lang, editor.getValue());
-            });
-        });
-    }
-    componentWillUnmount() {
-        this.socket.emit('destroy', {room: this.props.room});
-        this.socket.disconnect();
     }
     componentDidUpdate(prevProps) {
         if (JSON.stringify(this.props.code && this.props.code.resources) === JSON.stringify(prevProps.code && prevProps.code.resources))
             return;
         
         const props = this.props;
-        this.setState({resources: props.code.resources});
         this.emitCode('resources', props.code.resources, props.code.resources);
+    }
+    componentWillUnmount() {
+        this.socket.emit('destroy', {room: this.props.room});
+        this.socket.disconnect();
+    }
+    render() {
+        return (
+            <BaseEditor 
+                htmlEditor={<CodeMirror lang="htmlmixed" value={this.state.html} onChange={this.onCodeUpdate.bind(this)} />}
+                cssEditor={<CodeMirror lang="css" value={this.state.css} onChange={this.onCodeUpdate.bind(this)} />}
+                jsEditor={<CodeMirror lang="javascript" value={this.state.js} onChange={this.onCodeUpdate.bind(this)} />}
+                resources={(this.props.code && this.props.code.resources) || {}}
+                html={this.state.html}
+                css={this.state.css}
+                js={this.state.js}
+            />
+        );
     }
 }
 

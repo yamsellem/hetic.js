@@ -13,8 +13,8 @@
   },
   "scripts": {
     "start": "nodemon server.js --ignore 'public/**/*'",
-    "webpack:build": "NODE_ENV=production webpack -p --optimize-minimize",
-    "webpack:watch": "webpack -d --watch"
+    "build": "NODE_ENV=production webpack -p --optimize-minimize",
+    "watch": "webpack -d --watch"
   },
   "homepage": "https://github.com/yamsellem/hetic.js",
   "dependencies": {
@@ -22,8 +22,11 @@
     "codemirror": "5.40.x",
     "codemirror-one-dark-theme": "1.1.x",
     "express": "4.16.x",
+    "esprima": "4.0.x",
     "react": "16.5.x",
     "react-dom": "16.5.x",
+    "react-codemirror2": "5.1.0",
+    "react-debounce-render": "4.0.x",
     "socket.io": "2.1.x"
   },
   "devDependencies": {

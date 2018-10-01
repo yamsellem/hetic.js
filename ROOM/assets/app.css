@@ -162,7 +162,8 @@ ul.is-unstyled {
     margin: 0;
 }
 .h-editor.columns .columns .column,
-.h-editor.columns .columns .column > div {
+.h-editor.columns .columns .column > div,
+.h-editor.columns .columns .column > div > div {
     height: 100%;
 }
 .h-editor.columns > .column:first-of-type {

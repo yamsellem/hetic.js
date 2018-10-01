@@ -1,15 +1,28 @@
-import BaseEditor from './base-editor.jsx';
-import mirror from './codemirror'
+import React from 'react';
 
-class Mirror extends BaseEditor {
+import BaseEditor from './base-editor.jsx';
+import CodeMirror from './code-mirror.jsx';
+
+class Mirror extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            js: props.code.js || '',
+            css: props.code.css || '',
+            html: props.code.html || '',
+            resources: (props.code && props.code.resources) || {}
+        };
+    }
+    onCodeUpdate(editor, diff, value, lang) {
+        this.updateCode(lang, value);
+    }
+    updateCode(lang, value) {
+        const state = {};
+        state[lang] = value;
+        this.setState(state);
+    }
     componentDidMount() {
         const room = this.props.room;
-
-        const mirrors = {
-            html: mirror(this.html, 'htmlmixed', '', true),
-            css: mirror(this.css, 'css', '', true),
-            js: mirror(this.js, 'javascript', '', true)
-        };
 
         this.socket = io();
         this.socket.on(`${room}://mirror`, mirror => {
@@ -23,8 +36,7 @@ class Mirror extends BaseEditor {
                 return;
             }
             
-            mirrors[lang].replaceRange(diff.text, diff.from, diff.to, diff.origin);
-            this.updateCodeDebounced(lang, mirrors[lang].getValue());
+            this[lang].replaceRange(diff.text, diff.from, diff.to, diff.origin);
         });
 
         fetch(`/rooms/${room}`)
@@ -35,14 +47,26 @@ class Mirror extends BaseEditor {
             ['html', 'css', 'js'].forEach(lang => {
                 if (!data[lang])
                     return;
-
-                mirrors[lang].setValue(data[lang].value);
-                this.updateCode(lang, mirrors[lang].getValue());
+                
+                this.updateCode(lang, data[lang].value);
             });
         });
     }
     componentWillUnmount() {
         this.socket.off(`${this.props.room}://mirror`);
+    }
+    render() {
+        return (
+            <BaseEditor 
+                htmlEditor={<CodeMirror lang="htmlmixed" value={this.state.html} onMount={e => {this.html = e;}} onChange={this.onCodeUpdate.bind(this)} readonly={true} />}
+                cssEditor={<CodeMirror lang="css" value={this.state.css} onMount={e => {this.css = e;}} onChange={this.onCodeUpdate.bind(this)} readonly={true} />}
+                jsEditor={<CodeMirror lang="javascript" value={this.state.js} onMount={e => {this.js = e;}} onChange={this.onCodeUpdate.bind(this)} readonly={true} />}
+                resources={this.state.resources}
+                html={this.state.html}
+                css={this.state.css}
+                js={this.state.js}
+            />
+        );
     }
 }
 
