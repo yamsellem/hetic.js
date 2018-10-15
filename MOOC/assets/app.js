@@ -955,7 +955,7 @@ let chapters = [
             {
                 title: "Identifier le nombre le plus grand",
                 description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur du plus grand nombre parmi <code>x</code> et <code>y</code> (déclarées par ce tutoriel).",
-                excerpt: "Il est égalemen d'écrire une condition qui vérifie lequel de deux nombres est le plus grand avec <code>if</code>. Ou, à la place d'utiliser <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math\"><code>Math</code></a>, celui-ci dispose de fonctionnalités pour identifier les maximum, minimum, sinus, etc.",
+                excerpt: "Il est également possible d'écrire une condition qui vérifie lequel de deux nombres est le plus grand avec <code>if</code>. Ou, à la place d'utiliser <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Math\"><code>Math</code></a>, celui-ci dispose de fonctionnalités pour identifier les maximum, minimum, sinus, etc.",
                 solved: "var answer;<br>if (x > y) {<br>  answer = x;<br>} else {<br>  answer = y;<br>}<br><br>/* or, instead */<br><br>var answer = Math.max(x, y);",
                 init: function() {
                     window.x = this.x = helpers.random();
