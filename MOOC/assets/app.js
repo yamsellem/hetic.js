@@ -1228,7 +1228,7 @@ let chapters = [
             {
                 title: "Identifier un palindrome",
                 description: "Créer une variable nommée <code>answer</code> ayant pour valeur <code>true</code> si <code>x</code> (déclarée par ce tutoriel) est un palindrome, <code>false</code> sinon. Un palindrome est un mot qui se lit de la même manière à l'endroit et à l'envers (ex. kayak).",
-                solved: "var answer = true;<br>for (var i = 0; i < x.length / 2; i++) {<br>  if (x[i] !== x[x.length - 1 - i]) {<br>    answer = false;<br>  }<br>}",
+                solved: "var reverse = '';<br>for (var i = 0; i < x.length; i++) {<br>  reverse = x[i] + reverse;<br>}<br>var answer = (reverse === x);<br><br>/* or, instead */<br><br>var answer = true;<br>for (var i = 0; i < x.length / 2; i++) {<br>  if (x[i] !== x[x.length - 1 - i]) {<br>    answer = false;<br>  }<br>}",
                 init: function() {
                     window.x = this.x = helpers.randomize('anna', 'kayak', 'eva', 'canoe');
                 },
