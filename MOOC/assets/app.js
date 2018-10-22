@@ -1111,7 +1111,7 @@ let chapters = [
             {
                 title: "Calculer une puissance",
                 description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de <code>x</code> puissance <code>y</code> (ex. 2^3 = 2*2*2 — déclarées par ce tutoriel)",
-                solved: "var answer = x;<br>while (y > 1) {<br>  answer = answer * x;<br>  y = y - 1;<br>}",
+                solved: "var answer = 1;<br>var power = 0;<br>while (power &lt; y) {<br>  answer = answer * x;<br>  power = power + 1;<br>}<br><br>/* or, instead */<br><br>var answer = x;<br>while (y > 1) {<br>  answer = answer * x;<br>  y = y - 1;<br>}",
                 init: function() {
                     window.x = this.x = helpers.randomize(2, 4, 6);
                     window.y = this.y = helpers.randomize(3, 5, 7);
@@ -1129,7 +1129,7 @@ let chapters = [
             {
                 title: "Calculer une plage",
                 description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de la plage située entre <code>x</code> et <code>y</code> (ex. 2-5 = 2+3+4+5 — déclarées par ce tutoriel)",
-                solved: "var answer = 0;<br>while (x <= y) {<br>  answer = answer + x;<br>  x = x + 1;<br>}",
+                solved: "var answer = 0;<br>var max = y, pos = x;<br>while (pos &lt;= max) {<br>  answer = answer + pos;<br>  pos = pos + 1;<br>}<br><br>/* or, instead */<br><br>var answer = 0;<br>while (x <= y) {<br>  answer = answer + x;<br>  x = x + 1;<br>}",
                 init: function() {
                     window.x = this.x = helpers.randomize(2, 4, 6);
                     window.y = this.y = helpers.randomize(8, 10, 12);
