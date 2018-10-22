@@ -1478,7 +1478,7 @@ let chapters = [
                 solved: "var answer = [];<br>for (var i = 0; i < x.length; i++) {<br>  if (answer.indexOf(x[i]) === -1) {<br>    answer.push(x[i]);<br>  }<br>}",
                 init: function() {
                     var fruits = ['banana', 'apple', 'pear', 'pineapple', 'coconut'];
-                    this.x = [helpers.randomize(fruits), helpers.randomize(fruits), helpers.randomize(fruits), helpers.randomize(fruits)];
+                    this.x = [].concat(helpers.randomize(fruits), helpers.randomize(fruits));
                     window.x = this.x.slice(0);
                 },
                 answer: function() {
