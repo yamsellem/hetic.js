@@ -1167,6 +1167,15 @@ let chapters = [
                         notes;
                         → '♬♬♬♬' // after the for loop, notes has been updated four times
 
+                        /* which is perfectly equivalent to */
+
+                        var notes = '';
+                        var instruments = 0;
+                        while (instruments < 4) {
+                            notes = notes + '♬';
+                            instruments++;
+                        }
+
                     Il est tout à fait possible d'itérer en sens inverse. Il suffit pour cela de modifier l'initialisation, d'inverser la condition et de modifier l'opération finale afin de décrémenter à chaque tour de boucle. Des itérations plus évoluées sont également imaginables (2 à 2, etc).
 
                     Les opérateurs \`++\` et \`--\` sont couramment utilisés dans les boucles. Ils incrémentent (plus 1) ou décrémentent (moins 1) la valeur d'une variable numérique. Ils peuvent être utilisés avant et après une variable. Avant, la valeur est modifiée puis retournée, après, la valeur est retournée puis modifiée.
