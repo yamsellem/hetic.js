@@ -2444,7 +2444,7 @@ let chapters = [
             },
             {
                 title: "Déplacer les disques",
-                description: "Au clic sur une des trois tours, <code>.hanoi ul</code>, le disque, <code>li</code>, le plus haut de celle-ci est mémorisé. Au clic suivant sur une des trois tours, ce disque est déplacé dans cette nouvelle tour. Et ainsi de suite (cliquer sur une troisième tour mémorise son plus haut disque, cliquer sur une quatrième tour déplace le disque à cet endroit).",
+                description: "Au clic sur une des trois tours, <code>.hanoi ul</code>, le disque, <code>li</code>, le plus haut de celle-ci est mémorisé. Au clic suivant sur une des trois tours, ce disque est déplacé dans cette nouvelle tour à condition que son plus haut disque soit plus grand que celui à déplacer. Et ainsi de suite (cliquer sur une troisième tour mémorise son plus haut disque, cliquer sur une autre tour déplace le disque à cet endroit).",
                 solved: "var memo;<br>var uls = document.querySelectorAll('.hanoi ul');<br>for (var i = 0; i < uls.length; i++) {<br>  uls[i].addEventListener('click', function(event) {<br>    var ul = event.currentTarget;<br>    var firstChild = ul.querySelector('li');<br>    if (memo) {<br>      ul.prepend(memo);<br>      memo = undefined;<br>    } else if (firstChild) {<br>      memo = firstChild;<br>    }<br>  });<br>}",
                 solvedOnSuccess: true,
                 dom: function() {
