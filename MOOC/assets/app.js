@@ -1541,12 +1541,21 @@ let chapters = [
                     **Boucle for..in sur un dictionnaire :**
 
                         var profil = '';
-                        for (var attribute in paul) {
-                          profil += attribute + ' -> ' + paul[attribute] +  ', ';
+                        for (var key in paul) {
+                          profil += key + ' -> ' + paul[key] +  ', ';
                         }
 
                         profil;
                         → 'name -> paul, age -> 72, guitar -> true, '
+
+                        /* which is perfectly equivalent to */
+
+                        var profil = '';
+                        var keys = Object.keys(paul);
+                        for (var i = 0; i < keys.length; i++) {
+                          var key = keys[i];
+                          profil += key + ' -> ' + paul[key] +  ', ';
+                        }
 
                     Contrairement aux tableaux ou l'ordre d'itération est normé, l'ordre d'itération sur les attributs d'un objet littéral n'est pas garanti. La majorité des implémentations (des navigateurs) itèrent sur les attributs selon l'ordre dans lequel ils ont été définis, mais pas toutes.
                 `
