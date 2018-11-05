@@ -1538,6 +1538,29 @@ let chapters = [
 
                     Itérer sur un objet littéral retourne ses attributs un à un. Il est alors possible de récupérer la valeur de chacun d'entre eux.
 
+                    **Notation pointée et entre crochets**
+                        
+                        var key = 'guitar';
+
+                        /* those three lines are perfectly equivalent */
+                        paul[key] = false;
+                        paul.guitar = false;
+                        paul['guitar'] = false;
+
+                        paul;
+                        → {name: 'Paul', guitar: false, bass: true}
+                        
+                        /* those two lines are **not** equivalent */
+                        paul.key = false;
+                        paul[key] = false;
+
+                        paul;
+                        → {name: 'Paul', guitar: false, key: false, bass: true}
+                        
+                    Il existe deux notations pour accéder aux clés d'une dictionnaire. La notation pointée \`paul.guitar\` et la notation entre crochets \`paul['guitar']\`. La notation entre crochets nécessite l'usage d'une chaîne de caractères. 
+                    
+                    Une variable peut être utilisée (mais uniquement avec la notation entre crochets), ex. \`paul[key]\`, cette variable est d'abord résolue et sa valeur, ex. \`key = 'guitar'\`, est utilisée comme clé pour accèder à la valeur stockée dans le dictionnaire.
+
                     **Boucle for..in sur un dictionnaire :**
 
                         var profil = '';
@@ -1628,6 +1651,30 @@ let chapters = [
             },
             {
                 title: "Filtrer un dictionnaire",
+                description: "Créer une variable nommée <code>answer</code> de type dictionnaire, avec les attributs du dictionnaire déclarés par la variable <code>x</code> dont l'attribut déclaré par la variable <code>y</code> a été supprimé (ex. {paul:true, john:true, george:true}, 'paul' -> {john:true, george:true} — déclarée par ce tutoriel).",
+                solved: "var answer = x;<br>delete answer[y];",
+                init: function() {
+                    this.x = {yellow: true, green: true, blue: true, violet: true, red: true, orange: true};
+                    window.x = Object.assign({}, this.x);
+
+                    let keys = Object.keys(this.x);
+                    window.y = this.y = helpers.randomize(keys)[0];
+                },
+                answer: function() {
+                    let x = Object.assign({}, this.x);
+                    delete x[this.y];
+
+                    return x;
+                },
+                warn: function() {
+                    return "La variable <code>answer</code> vaut <code>" + JSON.stringify(answer) + "</code> et non la résultat attendu, <code>" + JSON.stringify(this.answer()) + "</code>";
+                },
+                solution: function() {
+                    return helpers.equals(answer, this.answer());
+                }
+            },
+            {
+                title: "Filtrer un dictionnaire avec un tableau",
                 description: "Créer une variable nommée <code>answer</code> de type dictionnaire, avec les attributs du dictionnaire déclarés par la variable <code>x</code> dont les attributs listés dans le tableau déclaré par la variable <code>y</code> ont été supprimés (ex. {paul:true, john:true, george:true}, ['paul', 'ringo'] -> {john:true, george:true} — déclarée par ce tutoriel).",
                 solved: "var answer = x;<br>for (var i = 0; i < y.length; i++) {<br>  delete answer[y[i]];<br>}",
                 init: function() {
