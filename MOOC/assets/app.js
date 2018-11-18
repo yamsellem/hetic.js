@@ -80,6 +80,22 @@ let dom = {
     
         return ul.outerHTML;
     },
+
+    // Forms
+
+    forms: function(form) {
+        return `
+            <div class="forms">
+                <div class="ui stackable grid">
+                    <div class="sixteen wide center aligned column">
+                        <form class="ui form card">
+                            ${form}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        `;
+    },
     
     // Tooltip
     
@@ -190,7 +206,7 @@ let dom = {
         return `
             <div class="booking">
                 <div class="ui stackable grid">
-                    <div class="sixteen wide yellow center aligned column">
+                    <div class="sixteen wide grey center aligned column">
                         <h4 class="ui header">
                             <i class="plane icon"></i>
                             <div class="content">Réserver un vol + hôtel</div>
@@ -361,7 +377,7 @@ let dom = {
         return mine;
     },
     
-    // Forms
+    // Todos
     
     todolist: function() {
         return `
@@ -2462,334 +2478,160 @@ let chapters = [
             }
         ]
     }, {
-        title: "Puzzle | Tours d'Hanoï",
-        description: "Les tours d'Hanoï est un jeu de réflexion solitaire. Plusieurs disques de diamètre différents, sont à déplacer un à un de gauche à droite, dans trois tours sans placer un grand disque sur un plus petit.<br><br>Ce chapitre présente la réalisation des tours d'Hanoï dont la solution est à déverrouiller.",
-        color: "grey",
-        steps: [
-            {
-                course: true,
-                description: `
-                    Les tours d'Hanoï est un jeu de réflexion qui consiste à déplacer des disques de diamètres différents d'une tour de départ à une tour d'arrivée en passant par une tour intermédiaire, et ceci en un minimum de coups, tout en respectant les règles suivantes :
-
-                    * on ne peut déplacer plus d'un disque à la fois
-                    * on ne peut placer un disque que sur un autre disque plus grand que lui ou sur un emplacement vide
-
-                    On suppose que cette dernière règle est également respectée dans la configuration de départ.
-
-                    <br>
-
-                    ---
-
-                    <br>
-
-                    **Prérequis** ${helpers.chapterLabel(2, 'Variables et opérations', 'green')} ${helpers.chapterLabel(3, 'Conditions et boucles', 'green')} ${helpers.chapterLabel(8, 'Le DOM', 'yellow')}
-
-                    **Solution** débloquée lors de la réussite de chaque étape
-
-                    **Code final** ~20 lignes
-                `
-            },
-            {
-                title: "Déplacer les disques",
-                description: "Au clic sur une des trois tours, <code>.hanoi ul</code>, le disque, <code>li</code>, le plus haut de celle-ci est mémorisé. Au clic suivant sur une des trois tours, ce disque est déplacé dans cette nouvelle tour à condition que son plus haut disque soit plus grand que celui à déplacer. Et ainsi de suite (cliquer sur une troisième tour mémorise son plus haut disque, cliquer sur une autre tour déplace le disque à cet endroit).",
-                solved: "var memo;<br>var uls = document.querySelectorAll('.hanoi ul');<br>for (var i = 0; i < uls.length; i++) {<br>  uls[i].addEventListener('click', function(event) {<br>    var ul = event.currentTarget;<br>    var firstChild = ul.querySelector('li');<br>    if (memo) {<br>      ul.prepend(memo);<br>      memo = undefined;<br>    } else if (firstChild) {<br>      memo = firstChild;<br>    }<br>  });<br>}",
-                solvedOnSuccess: true,
-                dom: function() {
-                    return dom.hanoi();
-                },
-                solution: function() {
-                    let uls = document.querySelectorAll('.hanoi ul');
-                    uls[0].click();
-                    uls[1].click();
-
-                    if (uls[0].querySelectorAll('li').length !== 5)
-                        this.warn = this.warn || "Cliquer sur la première tour puis sur la deuxième doit supprimer le premier li de la première tour";
-                    if (uls[1].querySelectorAll('li').length !== 1)
-                        this.warn = this.warn || "Cliquer sur la première tour puis sur la deuxième doit déplacer le premier li de la première tour vers la seconde";
-
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Respecter l'ordre des disques",
-                description: "Après avoir mémorisé un disque, le clic sur une seconde tour ne doit pas ajouter le disque mémorisé si ce dernier est plus large que le plus haut de la nouvelle tour (avec un attribut data <code>weight</code> plus élevé). <i>Optionnel</i> : si ce cas se produit, le disque mémorisé est oublié, et c'est le disque le plus haut de la nouvelle tour qui est mémorisé à sa place (et sera donc déplacé au prochain clic, si les conditions précédentes sont remplies).",
-                solved: "var memo;<br>var uls = document.querySelectorAll('.hanoi ul');<br>for (var i = 0; i < uls.length; i++) {<br>  uls[i].addEventListener('click', function(event) {<br>    var ul = event.currentTarget;<br>    var firstChild = ul.querySelector('li');<br>    if (memo && (!firstChild || firstChild.dataset.weight > memo.dataset.weight)) {<br>      ul.prepend(memo);<br>      memo = undefined;<br>    } else if (firstChild) {<br>      memo = firstChild;<br>    }<br>  });<br>}",
-                solvedOnSuccess: true,
-                dom: function() {
-                    return dom.hanoi();
-                },
-                solution: function() {
-                    let uls = document.querySelectorAll('.hanoi ul');
-                    uls[0].click();
-                    uls[1].click();
-
-                    uls[0].click();
-                    uls[1].click();
-
-                    if (uls[0].querySelectorAll('li').length !== 5 || uls[1].querySelectorAll('li').length !== 1)
-                        this.warn = this.warn || "Après avoir déplacé le petit disque de la première à la seconde tour, essayer de déplacer le second disque de la première tour vers le seconde ne doit pas être autorisé";
-                    
-                    uls[2].click();
-
-                    if (uls[0].querySelectorAll('li').length !== 5 || uls[1].querySelectorAll('li').length !== 0 || uls[2].querySelectorAll('li').length !== 1)
-                        this.warn = this.warn || "Après avoir déplacé le petit disque de la première à la seconde tour, cliquer sur la première tour, puis la second, puis la troisième, doit résulter dans le déplacement du petit disque de la tour du milieu à celle de droite.";
-
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Indiquer la victoire",
-                description: "Après avoir déplacé tous les disque de la tour de gauche à celle de droite, ajouter la classe <code>success</code> au <code>ul</code> de la tour de droite pour indiquer la victoire.",
-                solved: "var memo;<br>var uls = document.querySelectorAll('.hanoi ul');<br>for (var i = 0; i < uls.length; i++) {<br>  uls[i].addEventListener('click', function(event) {<br>    var ul = event.currentTarget;<br>    var firstChild = ul.querySelector('li');<br>    if (memo && (!firstChild || firstChild.dataset.weight > memo.dataset.weight)) {<br>      ul.prepend(memo);<br>      memo = undefined;<br>    } else if (firstChild) {<br>      memo = firstChild;<br>    }<br><br>    if (ul.classList.contains('tower-target') && ul.querySelectorAll('li').length === 6) {<br>      ul.classList.add('success');<br>    }<br>  });<br>}",
-                solvedOnSuccess: true,
-                dom: function() {
-                    return dom.hanoi();
-                },
-                solution: function() {
-                    let uls = document.querySelectorAll('.hanoi ul');
-                    let move = function() {
-                        let tower = [].slice.call(arguments);
-                        for (let i = 0; i < tower.length; i = i + 2) {
-                            uls[tower[i] - 1].click();
-                            uls[tower[i+1] - 1].click();
-                        }
-                    };
-
-                    let moveA = move.bind(null, 1, 2, 1, 3, 2, 3);
-                    let moveB = move.bind(null, 1, 2, 3, 1, 3, 2);
-                    let moveC = move.bind(null, 2, 1, 3, 1, 2, 3);
-                    let moveD = move.bind(null, 1, 2, 3, 1, 2, 3);
-                    let moveE = move.bind(null, 2, 1, 3, 1, 3, 2);
-                    let moveF = function() {
-                        moveA(); moveB(); moveA(); moveC(); moveA();
-                    };
-
-                    moveF(); moveB(); moveD(); moveE(); moveF(); moveE(); moveD(); moveC();
-
-                    if (uls[2].classList.contains('success'))
-                        this.warn = this.warn || "Tant que tous les disques ne sont pas sur la troisième tour, celle-ci ne doit pas posséder la classe success.";
-
-                    moveF();
-
-                    if (!uls[2].classList.contains('success'))
-                        this.warn = this.warn || "Si tous les disques sont pas sur la troisième tour, celle-ci doit pas posséder la classe success.";
-
-                    return !this.warn;
-                }
-            }
-        ]
-    }, {
-        title: "Les dates",
-        description: "Les dates sont des types natifs comme les nombres ou les chaines de caractères, elles permettent de manipuler le calendrier grégorien.<br><br>Ce chapitre présente la manipulation de dates avec la librairie moment — qui en facilite grandement l'usage.",
+        title: "Les formulaires",
+        description: "Recueillir un texte saisi par un utilisateur, lui demander un choix parmi deux options, valider un nouveau mot de passe, tout cela requiert l'usage de champs à renseigner.<br/><br/>Ce chapitre présente les formulaires (input, bouton, submit, etc).",
         color: "yellow",
         steps: [
             {
-                title: "Les librairies",
-                course: true,
-                description: `
-                    JavaScript est le langage doté du plus grand répertoire de librairies open source. Une librairie est un ensemble de fichiers mis à disposition (souvent gratuitement) répondant à un ou plusieurs problèmes. Les librairies sont couramment accompagnées d'un mode d'emploi et d'une liste de versions (la version 1.0 à telles fonctionnalités, la 1.1 ajoute celle-ci, la 2.0 remplace celle-là par celle-ci, etc).
-
-                    La librairie la plus connue du langage est [jQuery](http://jquery.com/) (abrégée $). Cette librairie a été développée dès 2006 pour faciliter l'usage de JavaScript ; à cette époque les navigateurs fonctionnaient tous très différemment les uns des autres et il était nécessaire de réaliser une version d'un programme distincte pour chacun d'entre eux. En proposant une façon normalisée d'utiliser les navigateurs, et en simplifiant l'usage d'Ajax (détaillé plus loin), jQuery a offert la possibilité de réaliser une unique version d'un programme compatible avec tous les navigateurs ; et à ainsi fait de JavaScript le langage célèbre qu'il est aujourd'hui.
-
-                    Il existe de très nombreuses librairies et une communauté active les améliore quotidiennement. Il est courant de s'appuyer sur ces librairies pour profiter de l'expérience de la communauté et pour gagner du temps à ne pas réinventer la roue. Il est toutefois souvent sage de tester plusieurs librairies répondant au même problème afin de choisir la plus appropriée à un problème donné.
-
-                    Parmi les librairies les plus utilisés, [moment](http://momentjs.com/) simplifie grandement la manipulation de dates et de calendrier
-                `
-            },
-            {
-                title: 'La librairie moment',
-                course: true,
-                description: `
-                    Une date représente un instant du calendrier — précis à la miliseconde près en JavaScript — et les langages de programmation ne facilitent pas forcément la comparaison de dates, leur formatage ou la gestion de différents fuseaux horaires. L'objectif de moment est de simplifier ces opérations.
-
-                    Bien qu'elles soient constituées de nombreux fichiers, les librairies sont souvent rendues disponibles sous la forme d'un seul fichier par soucis de simplicité d'usage. Il suffit alors d'importer ce script dans la page avant ses propres scripts et le tour est joué. Les libraires exposent souvent une variable globale donnant accès à leurs différentes fonctionnalités. Pour la librarie moment, un unique fichier [\`moment.js\`](http://momentjs.com/downloads/moment.js) ou [\`moment.min.js\`](http://momentjs.com/downloads/moment.js) (version minifiée).
-
-                    **Manipulation de dates natives au langage :**
-
-                        new Date(1964, 11, 17); // accepts only one format
-                        → Thu Dec 17 1964 00:00:00 GMT+0100 (CET)
-
-                        moment('17121964', 'DDMMYYYY').toDate(); // accepts configurable formats
-                        → Thu Dec 17 1964 00:00:00 GMT+0100 (CET)
-
-                    En plus de faciliter la création de dates, et d'utiliser une numérotation de mois commençant à 1 (contrairement aux dates natives qui commencent à 0, ou décembre est donc égal à 11), moment, permet de modifier facilement des dates (ajouter un jour, une semaine, le premier lundi du mois) et de les formater.
-
-                    **Manipulation de dates avec moment :**
-
-                        /* import this in the HTML <head> before the code */
-                        /* <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script> */
-
-                        var release = moment('17121964', 'DDMMYYYY');
-                        release.add(2, 'weeks');
-                        release.format('dddd, Do of MMM YYYY')
-                        → 'Thursday, 31st of Dec 1964'
-
-                    Sa simplicité d'usage est telle, qu'il est rarement nécessaire d'utiliser à nouveau l'objet Date.
-                `
-            },
-            {
-                title: "Formatter des dates",
-                description: "Mettre en forme les dates saisies dans <code>.from input</code> et <code>.to input</code> de façon a ce qu'elles s'affichent dans <code>.from .formatted</code> et <code>.to .formatted</code> sous le format « JANV. 10 » (premières initiales du mois, suivies du jour, avec la locale française).",
-                excerpt: "La librairie <a target=\"_blank\" href=\"http://momentjs.com/\">moment</a> permet de manipuler facilement des dates, et, notamment, de les mettre en forme en fonction de la locale.",
-                solved: "/* import this in the HTML <head> before the code<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js\"&gt;&lt;/script&gt;<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/fr.js\"&gt;&lt;/script&gt;<br>*/<br>document.querySelector('.booking .from input').addEventListener('change', function(event) {<br>  var date = moment(event.target.value);<br>  document.querySelector('.from .formatted').innerHTML = date.format('MMM').toUpperCase() + ' ' + date.format('D');<br>});<br><br>document.querySelector('.booking .to input').addEventListener('change', function(event) {<br>  var date = moment(event.target.value);<br>  document.querySelector('.to .formatted').innerHTML = date.format('MMM').toUpperCase() + ' ' + date.format('D');<br>});",
+                title: "Dupliquer la valeur d'un input",
+                description: "Ajouter un écouteur d'événement sur le bouton contenu dans <code>.forms</code>, et, au clic, dupliquer le texte de l'input <code>password</code> dans l'input <code>copy</code>.",
+                excerpt: "La valeur saisie dans un élément input peut être accédé à l'aide de son attribut <code>input.value</code>.",
+                solved: "var form = document.querySelector('.forms')<br>form.querySelector('.button').addEventListener('click', function() {<br>  var password = form.querySelector('input[name=password]');<br>  var copy = form.querySelector('input[name=copy]');<br>  copy.value = password.value;<br>});",
                 dom: function() {
-                    return dom.booking();
+                    return dom.forms(`
+                        <div class="content">
+                            <div class="field">
+                                <label>Mot de passe</label>
+                                <input name="password" type="password" class="ui input" placeholder="Entrez un password"></input>
+                            </div>
+                            <div class="field">
+                                <label>Copie</label>
+                                <input name="copy" type="text" class="ui input" disabled="disabled"></input>
+                            </div>
+                        </div>
+                        <div class="ui bottom attached button">
+                            Dupliquer
+                        </div>
+                    `);
                 },
                 solution: function() {
-                    var from = {
-                        input: document.querySelector('.from input'),
-                        formatted: document.querySelector('.from .formatted')
-                    }
-                    var to = {
-                        input: document.querySelector('.to input'),
-                        formatted: document.querySelector('.to .formatted')
-                    }
+                    let fruit = helpers.randomize(['banana', 'apple', 'pear', 'pineapple', 'coconut'])[0];
+                    document.querySelector('.forms input[name=password]').value = fruit;
+                    document.querySelector('.forms .button').click();
 
-                    from.input.value = '2017-01-24';
-                    helpers.change(from.input);
+                    if (document.querySelector('.forms input[name=copy]').value !== fruit)
+                        this.warn = this.warn || "Cliquer sur le bouton « dupliquer » doit copier le contenu de l'input <code>name</code> dans l'input <code>copy</code>";
 
-                    to.input.value = '2017-01-26';
-                    helpers.change(to.input);
-
-                    if (helpers.elContains(from.formatted, 'JANV. 24') !== true)
-                        this.warn = this.warn || "La date affichée dans <code>.from .formatted</code> doit être égale à JANV. 24, lorsque la date saisie est le 24 janvier";
-                    if (helpers.elContains(to.formatted, 'JANV. 26') !== true)
-                        this.warn = this.warn || "La date affichée dans <code>.to .formatted</code> doit être égale à JANV. 26, lorsque la date saisie est le 26 janvier";
                     return !this.warn;
                 }
             },
             {
-                title: "Limiter les dates",
-                description: "Si la date de retour saisie est antérieure ou égale à la date de l'aller, elle est par défaut 1 jour après l'aller (l'aller est le 12 janvier, la date de retour doit être le 13 janvier au plus tôt).",
-                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>});",
+                title: "Valider la valeur d'un input",
+                description: "Ajouter un écouteur d'événement sur l'input <code>age</code>, qui a chaque touche saisie, indique une erreur si l'age est inférieur à 18 ans. Si c'est le cas, ajouter la classe <code>error</code> sur le <code>div.field</code> qui contient l'input.",
+                excerpt: "L'événement <code>keypress</code> permet d'écouter chaque saisie de caractère dans un input.",
+                solved: "var input = document.querySelector('.forms input[name=age]');<br>input.addEventListener('keypress', function() {<br>  document.querySelector('.forms .field').classList.toggle('error', input.value < 18);<br>});",
                 dom: function() {
-                    return dom.booking();
+                    return dom.forms(`
+                        <div class="content">
+                            Film interdit aux moins de 18 ans
+                        </div>
+                        <div class="content">
+                            <div class="field">
+                                <label>Age</label>
+                                <input name="age" type="text" class="ui input" placeholder="Entrez votre age"></input>
+                            </div>
+                        </div>
+                    `);
                 },
                 solution: function() {
-                    var from = {
-                        input: document.querySelector('.from input'),
-                        formatted: document.querySelector('.from .formatted')
-                    }
-                    var to = {
-                        input: document.querySelector('.to input'),
-                        formatted: document.querySelector('.to .formatted')
-                    }
+                    let input = document.querySelector('.forms input[name=age]');
+                    let field = document.querySelector('.forms .field');
 
-                    from.input.value = '2017-01-24';
-                    helpers.change(from.input);
+                    input.value = '17';
+                    helpers.keypress(input, 13);
+                    if (!helpers.elHasClass(field, 'error'))
+                        this.warn = this.warn || "Indiquer une valeur inférieur à 18 doit ajouter la classe <code>error</code> au <code>.field</code> de l'input <code>age</code>";
 
-                    to.input.value = '2017-01-24';
-                    helpers.change(to.input);
+                    input.value = '18';
+                    helpers.keypress(input, 13);
+                    if (helpers.elHasClass(field, 'error'))
+                        this.warn = this.warn || "Indiquer une valeur supérieure ou égale à 18 doit retirer la classe <code>error</code> au <code>.field</code> de l'input <code>age</code>";
 
-                    if (helpers.elContains(from.formatted, 'JANV. 24') !== true)
-                        this.warn = this.warn || "La date affichée dans <code>.from .formatted</code> doit être égale à JANV. 24, lorsque la date saisie est le 24 janvier";
-                    if (helpers.elContains(to.formatted, 'JANV. 25') !== true)
-                        this.warn = this.warn || "La date affichée dans <code>.to .formatted</code> doit être égale à JANV. 25, lorsque la date de l'aller est le 24 janvier et que la date saisie lui est antérieure";
-                    if (to.input.value !== '2017-01-25')
-                        this.warn = this.warn || "La date de l'input <code>.to</code> doit être égale au 25 janvier, lorsque la date de l'aller est le 24 janvier et que la date saisie lui est antérieure";
+                    input.value = '17';
+                    helpers.keypress(input, 13);
+                    if (!helpers.elHasClass(field, 'error'))
+                        this.warn = this.warn || "Indiquer une valeur inférieur à 18 doit ajouter la classe <code>error</code> au <code>.field</code> de l'input <code>age</code>";
+
                     return !this.warn;
                 }
             },
             {
-                title: "Compter le nombre de jours de voyage",
-                description: "Pour chaque jour de voyage, compter 40€, et afficher le total dans <code>.price</code>.",
-                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = to.value.diff(from.value, 'days') + 1;<br>  document.querySelector('.price').innerHTML = 40 * days + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});",
+                title: "Valider des checkbox",
+                description: "Ajouter un écouteur d'événement sur les deux checkbox, <code>newsletter</code> et <code>terms</code>, et, si au moins l'une des deux est cochée, retirer la classe <code>disabled</code> du bouton, sinon, lui ajouter cette classe.",
+                excerpt: "L'attribut <code>input.checked</code> d'un input checkbox permet de savoir s'il est coché ou non.",
+                solved: "var newsletter = document.querySelector('.forms input[name=newsletter]');<br>var terms = document.querySelector('.forms input[name=terms]');<br><br>var change = function() {<br>  document.querySelector('.forms .button').classList.toggle('disabled', !newsletter.checked && !terms.checked);<br>};<br><br>newsletter.addEventListener('change', change);<br>terms.addEventListener('change', change);",
                 dom: function() {
-                    return dom.booking();
+                    return dom.forms(`
+                        <div class="content">
+                            <div class="ui checkbox">
+                                <input name="newsletter" id="newsletter" type="checkbox">
+                                <label for="newsletter">S'abonner à la newsletter</label>
+                            </div>
+                            <div class="ui checkbox">
+                                <input name="terms" id="terms" type="checkbox">
+                                <label for="terms">Accepter les conditions d'utilisation</label>
+                            </div>
+                        </div>
+                        <div class="ui bottom attached disabled button">
+                            Étape suivante
+                        </div>
+                    `);
                 },
                 solution: function() {
-                    var from = {
-                        input: document.querySelector('.from input'),
-                        formatted: document.querySelector('.from .formatted')
-                    }
-                    var to = {
-                        input: document.querySelector('.to input'),
-                        formatted: document.querySelector('.to .formatted')
-                    }
+                    let newsletter = document.querySelector('.forms input[name=newsletter]');
+                    let terms = document.querySelector('.forms input[name=terms]');
+                    let button = document.querySelector('.forms .button');
 
-                    from.input.value = '2017-01-24';
-                    helpers.change(from.input);
+                    newsletter.click();
+                    if (helpers.elHasClass(button, 'disabled'))
+                        this.warn = this.warn || "Lorsqu'une checkbox est cliquée, le bouton ne doit pas avoir la classe <code>disabled</code>";
+                    
+                    newsletter.click();
+                    if (!helpers.elHasClass(button, 'disabled'))
+                        this.warn = this.warn || "Lorsqu'aucune checkbox n'est cliquée, le bouton doit avoir la classe <code>disabled</code>";
+                    
+                    newsletter.click();
+                    terms.click();
+                    if (helpers.elHasClass(button, 'disabled'))
+                        this.warn = this.warn || "Lorsque les deux checkbox sont cliquées, le bouton ne doit pas avoir la classe <code>disabled</code>";
 
-                    to.input.value = '2017-01-27';
-                    helpers.change(to.input);
-
-                    if (helpers.elContains(document.querySelector('.price'), '160€') !== true)
-                        this.warn = "Le prix doit être de 160€ pour un voyage du 24 au 27 janvier";
                     return !this.warn;
                 }
             },
             {
-                title: "Multiplier par le nombre de voyageurs",
-                description: "Pour chaque voyageur, multiplier le prix (un voyage à 80€ coûtera 240€ pour 3 voyageurs).",
-                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br>var passengers = 1;<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = to.value.diff(from.value, 'days') + 1;<br>  document.querySelector('.price').innerHTML = 40 * days * passengers + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});<br><br>document.querySelector('select').addEventListener('change', function(event) {<br>  passengers = event.target.value;<br>  total();<br>});",
+                title: "Soumettre un formulaire",
+                description: "Ajouter un écouteur d'événement sur la soumission du formulaire, <code>.forms form</code>. À sa soumission, ajouter le texte saisi dans l'input au message de bienvenue, de façon à obtenir « Bienvenue ... » ou ... est la valeur contenue dans l'input.",
+                excerpt: "Un écouteur d'événement reçoit en premier paramètre l'événement qui l'a déclenché. S'il s'agit d'un événement clavier <code>keypress</code> celui-ci indique via <code>event.keyCode</code> quelle touche a été saisie, et via <code>event.target.value</code> quelle est la valeur actuelle du champ de formulaire.<br><br>La soumission d'un formulaire, par défaut, rafraichit la page (puisqu'elle est sensée émettre une requête à un serveur). Pour éviter ce rafraichissement, il est possible d'utiliser l'événement retourné par l'écouteur avec <code>event.preventDefault()</code>.<br><br><strong>Exemple</strong> : <pre><code>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) { <br>  console.log(event.keyCode, event.target.value); <br>  event.preventDefault();<br>});</code></pre> affiche ces deux informations à chaque saisie dans le premier <code>input</code> de la page et annule leur effet, le caractère saisi ne sera pas ajouté à l'input.",
+                solved: "var input = document.querySelector('.forms input[name=name');<br>var form = document.querySelector('.forms form');<br><br>form.addEventListener('submit', function(event) {<br>  event.preventDefault();<br>  document.querySelector('.forms .content').innerHTML = 'Bienvenue ' + input.value;<br>});",
                 dom: function() {
-                    return dom.booking();
+                    return dom.forms(`
+                        <div class="content">
+                            Bienvenue
+                        </div>
+                        <div class="content">
+                            <div class="field">
+                                <label>Nom</label>
+                                <input name="name" type="text" class="ui input" placeholder="Entrez votre nom"></input>
+                            </div>
+                        </div>
+                        <button class="ui bottom attached button">
+                            Valider
+                        </button>
+                    `);
                 },
                 solution: function() {
-                    var from = {
-                        input: document.querySelector('.from input'),
-                        formatted: document.querySelector('.from .formatted')
-                    }
-                    var to = {
-                        input: document.querySelector('.to input'),
-                        formatted: document.querySelector('.to .formatted')
-                    }
+                    let fruit = helpers.randomize(['banana', 'apple', 'pear', 'pineapple', 'coconut'])[0];
+                    let input = document.querySelector('.forms input[name=name]');
+                    input.value = fruit;
 
-                    from.input.value = '2017-01-24';
-                    helpers.change(from.input);
+                    document.querySelector('.forms form').addEventListener('submit', function(e) {e.preventDefault();}); // avoir reload if missing
+                    document.querySelector('.forms .button').click();
 
-                    to.input.value = '2017-01-27';
-                    helpers.change(to.input);
+                    let welcome = document.querySelector('.forms .content');
 
-                    var select = document.querySelector('select');
-                    select.value = 3;
-                    helpers.change(select);
+                    if (welcome.innerHTML !== `Bienvenue ${fruit}`)
+                        this.warn = this.warn || "Soumettre le formulaire doit modifier le premier <div.content> pour afficher « Bienvenue ... » avec ... égal à la valeur saisie dans l'input.";
 
-                    if (helpers.elContains(document.querySelector('.price'), '480€') !== true)
-                        this.warn = "Le prix doit être de 160€ pour un voyage du 24 au 27 janvier pour 3 voyageurs";
-                    return !this.warn;
-                }
-            },
-            {
-                title: "Décompter les weekends",
-                description: "Les samedis et dimanches ne sont pas facturés (vendredi, samedi, dimanche coûtera 40€ — 1 jour —, vendredi, samedi, dimanche, lundi coûtera 80€ — 2 jours —, du lundi au lundi deux semaines après, coûtera 840€ — 11 jours).",
-                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br>var passengers = 1;<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = 0;<br>  var clone = from.value.clone();<br>  while (clone.isSameOrBefore(to.value)) {<br>    if (clone.day() !== 6 && clone.day() !== 0)<br>      days++;<br>    clone.add(1, 'days');<br>  }<br><br>  document.querySelector('.price').innerHTML = 40 * days * passengers + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});<br><br>document.querySelector('select').addEventListener('change', function(event) {<br>  passengers = event.target.value;<br>  total();<br>});",
-                dom: function() {
-                    return dom.booking();
-                },
-                solution: function() {
-                    var from = {
-                        input: document.querySelector('.from input'),
-                        formatted: document.querySelector('.from .formatted')
-                    }
-                    var to = {
-                        input: document.querySelector('.to input'),
-                        formatted: document.querySelector('.to .formatted')
-                    }
-
-                    from.input.value = '2017-01-27';
-                    helpers.change(from.input);
-
-                    to.input.value = '2017-01-30';
-                    helpers.change(to.input);
-
-                    var select = document.querySelector('select');
-                    select.value = 2;
-                    helpers.change(select);
-
-                    var basic = true;
-                    basic = basic && helpers.elContains(document.querySelector('.price'), '160€');
-                    if (helpers.elContains(document.querySelector('.price'), '160€') !== true)
-                        this.warn = this.warn || "Le prix doit être de 160€ pour un voyage de 4 jours incluant samedi et dimanche pour 2 voyageurs";
-
-                    from.input.value = '2017-01-13';
-                    helpers.change(from.input);
-
-                    to.input.value = '2017-01-30';
-                    helpers.change(to.input);
-
-                    if (helpers.elContains(document.querySelector('.price'), '960€') !== true)
-                        this.warn = this.warn || "Le prix doit être de 960€ pour un voyage de 18 jours incluant 3 samedis et dimanches pour 2 voyageurs";
                     return !this.warn;
                 }
             }
@@ -3063,6 +2905,123 @@ let chapters = [
                         count;
                         → {value: 20}
                 `
+            }
+        ]
+    }, {
+        title: "Puzzle | Tours d'Hanoï",
+        description: "Les tours d'Hanoï est un jeu de réflexion solitaire. Plusieurs disques de diamètre différents, sont à déplacer un à un de gauche à droite, dans trois tours sans placer un grand disque sur un plus petit.<br><br>Ce chapitre présente la réalisation des tours d'Hanoï dont la solution est à déverrouiller.",
+        color: "grey",
+        steps: [
+            {
+                course: true,
+                description: `
+                    Les tours d'Hanoï est un jeu de réflexion qui consiste à déplacer des disques de diamètres différents d'une tour de départ à une tour d'arrivée en passant par une tour intermédiaire, et ceci en un minimum de coups, tout en respectant les règles suivantes :
+
+                    * on ne peut déplacer plus d'un disque à la fois
+                    * on ne peut placer un disque que sur un autre disque plus grand que lui ou sur un emplacement vide
+
+                    On suppose que cette dernière règle est également respectée dans la configuration de départ.
+
+                    <br>
+
+                    ---
+
+                    <br>
+
+                    **Prérequis** ${helpers.chapterLabel(2, 'Variables et opérations', 'green')} ${helpers.chapterLabel(3, 'Conditions et boucles', 'green')} ${helpers.chapterLabel(8, 'Le DOM', 'yellow')}
+
+                    **Solution** débloquée lors de la réussite de chaque étape
+
+                    **Code final** ~20 lignes
+                `
+            },
+            {
+                title: "Déplacer les disques",
+                description: "Au clic sur une des trois tours, <code>.hanoi ul</code>, le disque, <code>li</code>, le plus haut de celle-ci est mémorisé. Au clic suivant sur une des trois tours, ce disque est déplacé dans cette nouvelle tour à condition que son plus haut disque soit plus grand que celui à déplacer. Et ainsi de suite (cliquer sur une troisième tour mémorise son plus haut disque, cliquer sur une autre tour déplace le disque à cet endroit).",
+                solved: "var memo;<br>var uls = document.querySelectorAll('.hanoi ul');<br>for (var i = 0; i < uls.length; i++) {<br>  uls[i].addEventListener('click', function(event) {<br>    var ul = event.currentTarget;<br>    var firstChild = ul.querySelector('li');<br>    if (memo) {<br>      ul.prepend(memo);<br>      memo = undefined;<br>    } else if (firstChild) {<br>      memo = firstChild;<br>    }<br>  });<br>}",
+                solvedOnSuccess: true,
+                dom: function() {
+                    return dom.hanoi();
+                },
+                solution: function() {
+                    let uls = document.querySelectorAll('.hanoi ul');
+                    uls[0].click();
+                    uls[1].click();
+
+                    if (uls[0].querySelectorAll('li').length !== 5)
+                        this.warn = this.warn || "Cliquer sur la première tour puis sur la deuxième doit supprimer le premier li de la première tour";
+                    if (uls[1].querySelectorAll('li').length !== 1)
+                        this.warn = this.warn || "Cliquer sur la première tour puis sur la deuxième doit déplacer le premier li de la première tour vers la seconde";
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Respecter l'ordre des disques",
+                description: "Après avoir mémorisé un disque, le clic sur une seconde tour ne doit pas ajouter le disque mémorisé si ce dernier est plus large que le plus haut de la nouvelle tour (avec un attribut data <code>weight</code> plus élevé). <i>Optionnel</i> : si ce cas se produit, le disque mémorisé est oublié, et c'est le disque le plus haut de la nouvelle tour qui est mémorisé à sa place (et sera donc déplacé au prochain clic, si les conditions précédentes sont remplies).",
+                solved: "var memo;<br>var uls = document.querySelectorAll('.hanoi ul');<br>for (var i = 0; i < uls.length; i++) {<br>  uls[i].addEventListener('click', function(event) {<br>    var ul = event.currentTarget;<br>    var firstChild = ul.querySelector('li');<br>    if (memo && (!firstChild || firstChild.dataset.weight > memo.dataset.weight)) {<br>      ul.prepend(memo);<br>      memo = undefined;<br>    } else if (firstChild) {<br>      memo = firstChild;<br>    }<br>  });<br>}",
+                solvedOnSuccess: true,
+                dom: function() {
+                    return dom.hanoi();
+                },
+                solution: function() {
+                    let uls = document.querySelectorAll('.hanoi ul');
+                    uls[0].click();
+                    uls[1].click();
+
+                    uls[0].click();
+                    uls[1].click();
+
+                    if (uls[0].querySelectorAll('li').length !== 5 || uls[1].querySelectorAll('li').length !== 1)
+                        this.warn = this.warn || "Après avoir déplacé le petit disque de la première à la seconde tour, essayer de déplacer le second disque de la première tour vers le seconde ne doit pas être autorisé";
+                    
+                    uls[2].click();
+
+                    if (uls[0].querySelectorAll('li').length !== 5 || uls[1].querySelectorAll('li').length !== 0 || uls[2].querySelectorAll('li').length !== 1)
+                        this.warn = this.warn || "Après avoir déplacé le petit disque de la première à la seconde tour, cliquer sur la première tour, puis la second, puis la troisième, doit résulter dans le déplacement du petit disque de la tour du milieu à celle de droite.";
+
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Indiquer la victoire",
+                description: "Après avoir déplacé tous les disque de la tour de gauche à celle de droite, ajouter la classe <code>success</code> au <code>ul</code> de la tour de droite pour indiquer la victoire.",
+                solved: "var memo;<br>var uls = document.querySelectorAll('.hanoi ul');<br>for (var i = 0; i < uls.length; i++) {<br>  uls[i].addEventListener('click', function(event) {<br>    var ul = event.currentTarget;<br>    var firstChild = ul.querySelector('li');<br>    if (memo && (!firstChild || firstChild.dataset.weight > memo.dataset.weight)) {<br>      ul.prepend(memo);<br>      memo = undefined;<br>    } else if (firstChild) {<br>      memo = firstChild;<br>    }<br><br>    if (ul.classList.contains('tower-target') && ul.querySelectorAll('li').length === 6) {<br>      ul.classList.add('success');<br>    }<br>  });<br>}",
+                solvedOnSuccess: true,
+                dom: function() {
+                    return dom.hanoi();
+                },
+                solution: function() {
+                    let uls = document.querySelectorAll('.hanoi ul');
+                    let move = function() {
+                        let tower = [].slice.call(arguments);
+                        for (let i = 0; i < tower.length; i = i + 2) {
+                            uls[tower[i] - 1].click();
+                            uls[tower[i+1] - 1].click();
+                        }
+                    };
+
+                    let moveA = move.bind(null, 1, 2, 1, 3, 2, 3);
+                    let moveB = move.bind(null, 1, 2, 3, 1, 3, 2);
+                    let moveC = move.bind(null, 2, 1, 3, 1, 2, 3);
+                    let moveD = move.bind(null, 1, 2, 3, 1, 2, 3);
+                    let moveE = move.bind(null, 2, 1, 3, 1, 3, 2);
+                    let moveF = function() {
+                        moveA(); moveB(); moveA(); moveC(); moveA();
+                    };
+
+                    moveF(); moveB(); moveD(); moveE(); moveF(); moveE(); moveD(); moveC();
+
+                    if (uls[2].classList.contains('success'))
+                        this.warn = this.warn || "Tant que tous les disques ne sont pas sur la troisième tour, celle-ci ne doit pas posséder la classe success.";
+
+                    moveF();
+
+                    if (!uls[2].classList.contains('success'))
+                        this.warn = this.warn || "Si tous les disques sont pas sur la troisième tour, celle-ci doit pas posséder la classe success.";
+
+                    return !this.warn;
+                }
             }
         ]
     }, {
@@ -4279,7 +4238,7 @@ let chapters = [
             {
                 title: "Ajouter un todo",
                 description: "Ajouter un <code>li</code> au <code>.todos ul</code> existant à chaque appui sur entrée dans le champ de formulaire. Ce nouveau <code>li</code> à pour texte la valeur saisie dans le champ de formulaire.",
-                excerpt: "Un écouteur d'événement reçoit en premier paramètre l'événement qui l'a déclenché. s'il s'agit d'un événement clavier <code>keypress</code> celui indique via <code>event.keyCode</code> quelle touche a été saisie, et via <code>event.target.value</code> quelle est la valeur actuelle du champ de formulaire.<br><br><strong>Exemple</strong> : <pre><code>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) { <br>  console.log(event.keyCode, event.target.value); <br>});</code></pre> affiche ces deux informations à chaque saisie dans le premier <code>input</code> de la page.",
+                excerpt: "Un écouteur d'événement reçoit en premier paramètre l'événement qui l'a déclenché. S'il s'agit d'un événement clavier <code>keypress</code> celui-ci indique via <code>event.keyCode</code> quelle touche a été saisie, et via <code>event.target.value</code> quelle est la valeur actuelle du champ de formulaire.<br><br><strong>Exemple</strong> : <pre><code>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) { <br>  console.log(event.keyCode, event.target.value); <br>});</code></pre> affiche ces deux informations à chaque saisie dans le premier <code>input</code> de la page.",
                 solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    var ul = document.querySelector('.todos ul');<br>    ul.innerHTML = '&lt;li class=\"item\"&gt;&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value + '&lt;/li&gt;';<br>  }<br>});",
                 dom: function() {
                     return dom.todolist();
@@ -5791,213 +5750,9 @@ let chapters = [
             }
         }]
     }, {
-        title: "Les expressions régulières",
-        description: "Les expressions régulières sont des expressions rationnelles permettant de reconnaître un motif (pattern) dans un texte de façon plus fine qu'une recherche classique de caratère.<br><br>Ce chapitre présente les expressions régulières.",
-        color: "teal",
-        steps: [
-            {
-                title: "",
-                course: true,
-                description: `
-                    Les expressions régulières sont des expressions rationnelles permettant de reconnaître un motif (pattern) dans un texte. Il existe deux méthodes pour les exprimer, l'une avec l'objet RegExp, l'autre avec deux « / » remplaçant les guillemets d'une chaîne de caractères. En plus du pattern à matcher, des flags (ou indicateurs) peuvent être indiqués pour préciser ce pattern.
-
-                    **Création d'expressions régulières :**
-
-                        /pattern/flags
-                        new RegExp(pattern[, flags])
-
-                    L'utilisation la plus simple d'une expression régulière est équivalente à la méthode indexOf des String recherchant la première occurrence d'un pattern dans un texte.
-
-                    **Expressions régulières, usage simple (équivalent à indexOf) :**
-
-                        'we all live in a yellow submarine'.indexOf('in')
-                        → 12
-
-                        /in/.test('we all live in a yellow submarine')
-                        → true
-
-                        'we all live in a yellow submarine'.match(/in/)
-                        → ['in']
-
-                    De nombreux caractères spéciaux permettent de rechercher des patterns plus élaborés :
-
-                    * « ? » indique que le caractère précédent est présent 0 ou 1 fois
-                    * « + » indique que le caractère précédent peut être répété 1 fois ou plus
-                    * « * » indique que le caractère précédent peut être répété 0 fois ou plus
-                    * « . » est un joker remplaçant n'importe quel caractère
-                    * « | » sépare deux alternatives possibles d'expressions régulière
-                    * « ( » et « ) » forme un groupe sur lequel les autres caractères spéciaux s'appliquent
-                    * « { » et « } » indique que le caractère précédent doit être répété un certain nombre de fois
-                    * « ^ » indique que le pattern doit commencer par le caractère qui suit
-                    * « $ » indique que le pattern doit se conclure par le caractère qui suit
-                `
-            },
-            {
-                course: true,
-                description: `
-                    **Expressions régulières avec caractères spéciaux :**
-
-                        'we all live in a yellow submarine'.match(/sub.*in/)
-                        → ['submarin']
-
-                        'we all live in a yellow submarine'.match(/s.b.a.i.e/)
-                        → ['submarin']
-
-                        'we all live in a yellow submarine'.match(/l{2}/)
-                        → ['ll']
-
-                        'we all live in a yellow submarine'.replace(/l/, '')
-                        → 'we al live in a yellow submarine'
-
-                    Par défaut, la recherche du pattern s'effectue uniquement sur la première occurrence de celui-ci et en respectant la casse (majuscule et minuscule sont différentes). Les flags qu'il est possible d'indiquer à l'expression permettent de modifier cela :
-
-                    * « g » indique de chercher pour toutes les occurrences du pattern
-                    * « i » indique d'être insensible à la casse (majuscules / miniscules)
-
-                    **Expressions régulières avec flags :**
-
-                        'we all live in a yellow submarine'.match(/in/g)
-                        → ['in', 'in']
-
-                        'we all live in a yellow submarine'.match(/l/g)
-                        → ['l', 'l', 'l', 'l', 'l']
-
-                        'we all live in a yellow submarine'.match(/SU./i)
-                        → ['sub']
-
-                        'we all live in a yellow submarine'.replace(/l/g, '')
-                        → 'we a ive in a yeow submarine'
-
-                    Une documentation détaillée est disponible sur les [RegExp](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/RegExp) pour plus de détails. Et [un excellent outil](https://regex101.com/) en ligne pour les tester et mieux les appréhender.
-                `
-            },
-            {
-                title: "Supprimer toutes les occurences d'une lettre",
-                description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de <code>x</code> (déclarée par ce tutoriel) dont toutes les lettres <code>e</code> ont été retirées.",
-                solved: "var answer = x.replace(/e/ig, '');",
-                init: function() {
-                    window.x = this.x = helpers.randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
-                },
-                answer: function() {
-                    return this.x.replace(/e/ig, '');
-                },
-                warn: function() {
-                    return helpers.basicWarn(answer, this.answer());
-                },
-                solution: function() {
-                    return answer === this.answer();
-                }
-            },
-            {
-                title: "Identifier si une chaine de caractères contient un pattern",
-                description: "Créer une variable nommée <code>answer</code> et lui affecter <code>true</code> si la valeur de <code>x</code> (déclarée par ce tutoriel) contient la pattern <code>en.</code> ou <code>.</code> correspond à un caractère quelconque. Lui affecter <code>false</code> sinon.",
-                solved: "var answer = /en./i.test(x);",
-                init: function() {
-                    window.x = this.x = helpers.randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
-                },
-                answer: function() {
-                    return /en./i.test(this.x);
-                },
-                warn: function() {
-                    return helpers.basicWarn(answer, this.answer());
-                },
-                solution: function() {
-                    return answer === this.answer();
-                }
-            },
-            {
-                title: "Identifier combien de fois une chaine de caractères contient un pattern",
-                description: "Créer une variable nommée <code>answer</code> et lui affecter le compte de <code>e</code> contenus dans la chaine de caractères déclarée par <code>x</code> (déclarée par ce tutoriel).",
-                solved: "var match = x.match(/e/ig);<br>var answer = !match ? 0 : match.length;",
-                init: function() {
-                    window.x = this.x = helpers.randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
-                },
-                answer: function() {
-                    var match = this.x.match(/e/ig);
-                    return !match ? 0 : match.length;
-                },
-                warn: function() {
-                    return helpers.basicWarn(answer, this.answer());
-                },
-                solution: function() {
-                    return answer === this.answer();
-                }
-            },
-            {
-                title: "Déclarer un pattern dynamique",
-                description: "Créer une variable nommée <code>answer</code> et lui affecter <code>true</code> si le pattern déclaré par <code>y</code> est contenu dans la valeur de <code>x</code> (déclarées par ce tutoriel).",
-                solved: "var answer = new RegExp(y).test(x);",
-                init: function() {
-                    window.x = this.x = helpers.randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
-                    window.y = this.y = helpers.randomize("en.", "e.*d", "e?t")
-                },
-                answer: function() {
-                    return new RegExp(this.y).test(this.x);
-                },
-                warn: function() {
-                    return helpers.basicWarn(answer, this.answer());
-                },
-                solution: function() {
-                    return answer === this.answer();
-                }
-            },
-            {
-                title: "Déclarer un pattern conditonnel",
-                description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de <code>x</code> (déclarée par ce tutoriel) dont tous les <code>to</code>, <code>at</code>, <code>in</code> et <code>is</code> ont été retirés (de préférence, avec une seule expression régulière).",
-                solved: "var answer = x.replace(/(to|at|in|is)/ig, '');",
-                init: function() {
-                    window.x = this.x = helpers.randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
-                },
-                answer: function() {
-                    return this.x.replace(/(to|at|in|is)/g, '');
-                },
-                warn: function() {
-                    return helpers.basicWarn(answer, this.answer());
-                },
-                solution: function() {
-                    return answer === this.answer();
-                }
-            },
-            {
-                title: "Déclarer un pattern avec des groupes",
-                description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de <code>x</code> (déclarée par ce tutoriel) dont chaque <code>e</code> a été remplacé par <code>-e-</code> à condition qu'il soit précédé et suivi d'une lettre (et pas d'une espace — de préférence, avec une seule expression régulière).",
-                solved: "var answer = x.replace(/(\w)e(\w)/ig, '$1-e-$2');",
-                init: function() {
-                    window.x = this.x = helpers.randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
-                },
-                answer: function() {
-                    return this.x.replace(/(\w)e(\w)/ig, '$1-e-$2');
-                },
-                warn: function() {
-                    return helpers.basicWarn(answer, this.answer());
-                },
-                solution: function() {
-                    return answer === this.answer();
-                }
-            },
-            {
-                title: "Déclarer un pattern non glouton",
-                description: "Créer une variable nommée <code>answer</code> et lui affecter le compte de <code><strong>...</strong></code> contenus dans la chaine de caractères déclarée par <code>x</code> (déclarée par ce tutoriel) ou <code>...</code> correspond à un ou plusieurs caractères quelconques.",
-                solved: "var match = x.match(/&lt;strong&gt;.*?&lt;\\/strong&gt;/g);<br>var answer = !match ? 0 : match.length;",
-                init: function() {
-                    window.x = this.x = helpers.randomize("I used to <strong>get</strong> mad at my school (No I <strong>can't</strong> complain)", "Lucy in the <strong>sky</strong> with <strong>diamonds</strong>", "And in the end, the love you <strong>take</strong> is equal to the love you <strong>make</strong>", "Sit <strong>back</strong> and let the evening <strong>go</strong>");
-                },
-                answer: function() {
-                    var match = this.x.match(/<strong>.*?<\/strong>/g);
-                    return !match ? 0 : match.length;
-                },
-                warn: function() {
-                    return helpers.basicWarn(answer, this.answer());
-                },
-                solution: function() {
-                    return answer === this.answer();
-                }
-            }
-        ]
-    }, {
         title: "ES6",
         description: "Chaque année, les navigateurs intègrent les dernières nouveautés de JavaScript. La norme ECMAScript dispose d'ailleurs d'un versionning annuel annoncant ces nouvelles fonctionnalités.<br><br>Ce chapitre présente les nouveatés principales de ES5 et ES6.",
-        color: "grey",
+        color: "teal",
         steps: [
             {
                 course: true,
@@ -6291,6 +6046,426 @@ let chapters = [
 
                     À nouveau, ces fonctionnalités ne sont pas toutes supportées par tous les navigateurs actuels et l'usage d'un polyfill est nécessaire pour s'assurer qu'une application fonctionnera sur chacun d'entre eux.
                 `
+            }
+        ]
+    }, {
+        title: "Les expressions régulières",
+        description: "Les expressions régulières sont des expressions rationnelles permettant de reconnaître un motif (pattern) dans un texte de façon plus fine qu'une recherche classique de caratère.<br><br>Ce chapitre présente les expressions régulières.",
+        color: "grey",
+        steps: [
+            {
+                title: "",
+                course: true,
+                description: `
+                    Les expressions régulières sont des expressions rationnelles permettant de reconnaître un motif (pattern) dans un texte. Il existe deux méthodes pour les exprimer, l'une avec l'objet RegExp, l'autre avec deux « / » remplaçant les guillemets d'une chaîne de caractères. En plus du pattern à matcher, des flags (ou indicateurs) peuvent être indiqués pour préciser ce pattern.
+
+                    **Création d'expressions régulières :**
+
+                        /pattern/flags
+                        new RegExp(pattern[, flags])
+
+                    L'utilisation la plus simple d'une expression régulière est équivalente à la méthode indexOf des String recherchant la première occurrence d'un pattern dans un texte.
+
+                    **Expressions régulières, usage simple (équivalent à indexOf) :**
+
+                        'we all live in a yellow submarine'.indexOf('in')
+                        → 12
+
+                        /in/.test('we all live in a yellow submarine')
+                        → true
+
+                        'we all live in a yellow submarine'.match(/in/)
+                        → ['in']
+
+                    De nombreux caractères spéciaux permettent de rechercher des patterns plus élaborés :
+
+                    * « ? » indique que le caractère précédent est présent 0 ou 1 fois
+                    * « + » indique que le caractère précédent peut être répété 1 fois ou plus
+                    * « * » indique que le caractère précédent peut être répété 0 fois ou plus
+                    * « . » est un joker remplaçant n'importe quel caractère
+                    * « | » sépare deux alternatives possibles d'expressions régulière
+                    * « ( » et « ) » forme un groupe sur lequel les autres caractères spéciaux s'appliquent
+                    * « { » et « } » indique que le caractère précédent doit être répété un certain nombre de fois
+                    * « ^ » indique que le pattern doit commencer par le caractère qui suit
+                    * « $ » indique que le pattern doit se conclure par le caractère qui suit
+                `
+            },
+            {
+                course: true,
+                description: `
+                    **Expressions régulières avec caractères spéciaux :**
+
+                        'we all live in a yellow submarine'.match(/sub.*in/)
+                        → ['submarin']
+
+                        'we all live in a yellow submarine'.match(/s.b.a.i.e/)
+                        → ['submarin']
+
+                        'we all live in a yellow submarine'.match(/l{2}/)
+                        → ['ll']
+
+                        'we all live in a yellow submarine'.replace(/l/, '')
+                        → 'we al live in a yellow submarine'
+
+                    Par défaut, la recherche du pattern s'effectue uniquement sur la première occurrence de celui-ci et en respectant la casse (majuscule et minuscule sont différentes). Les flags qu'il est possible d'indiquer à l'expression permettent de modifier cela :
+
+                    * « g » indique de chercher pour toutes les occurrences du pattern
+                    * « i » indique d'être insensible à la casse (majuscules / miniscules)
+
+                    **Expressions régulières avec flags :**
+
+                        'we all live in a yellow submarine'.match(/in/g)
+                        → ['in', 'in']
+
+                        'we all live in a yellow submarine'.match(/l/g)
+                        → ['l', 'l', 'l', 'l', 'l']
+
+                        'we all live in a yellow submarine'.match(/SU./i)
+                        → ['sub']
+
+                        'we all live in a yellow submarine'.replace(/l/g, '')
+                        → 'we a ive in a yeow submarine'
+
+                    Une documentation détaillée est disponible sur les [RegExp](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/RegExp) pour plus de détails. Et [un excellent outil](https://regex101.com/) en ligne pour les tester et mieux les appréhender.
+                `
+            },
+            {
+                title: "Supprimer toutes les occurences d'une lettre",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de <code>x</code> (déclarée par ce tutoriel) dont toutes les lettres <code>e</code> ont été retirées.",
+                solved: "var answer = x.replace(/e/ig, '');",
+                init: function() {
+                    window.x = this.x = helpers.randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                },
+                answer: function() {
+                    return this.x.replace(/e/ig, '');
+                },
+                warn: function() {
+                    return helpers.basicWarn(answer, this.answer());
+                },
+                solution: function() {
+                    return answer === this.answer();
+                }
+            },
+            {
+                title: "Identifier si une chaine de caractères contient un pattern",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter <code>true</code> si la valeur de <code>x</code> (déclarée par ce tutoriel) contient la pattern <code>en.</code> ou <code>.</code> correspond à un caractère quelconque. Lui affecter <code>false</code> sinon.",
+                solved: "var answer = /en./i.test(x);",
+                init: function() {
+                    window.x = this.x = helpers.randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                },
+                answer: function() {
+                    return /en./i.test(this.x);
+                },
+                warn: function() {
+                    return helpers.basicWarn(answer, this.answer());
+                },
+                solution: function() {
+                    return answer === this.answer();
+                }
+            },
+            {
+                title: "Identifier combien de fois une chaine de caractères contient un pattern",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter le compte de <code>e</code> contenus dans la chaine de caractères déclarée par <code>x</code> (déclarée par ce tutoriel).",
+                solved: "var match = x.match(/e/ig);<br>var answer = !match ? 0 : match.length;",
+                init: function() {
+                    window.x = this.x = helpers.randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                },
+                answer: function() {
+                    var match = this.x.match(/e/ig);
+                    return !match ? 0 : match.length;
+                },
+                warn: function() {
+                    return helpers.basicWarn(answer, this.answer());
+                },
+                solution: function() {
+                    return answer === this.answer();
+                }
+            },
+            {
+                title: "Déclarer un pattern dynamique",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter <code>true</code> si le pattern déclaré par <code>y</code> est contenu dans la valeur de <code>x</code> (déclarées par ce tutoriel).",
+                solved: "var answer = new RegExp(y).test(x);",
+                init: function() {
+                    window.x = this.x = helpers.randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                    window.y = this.y = helpers.randomize("en.", "e.*d", "e?t")
+                },
+                answer: function() {
+                    return new RegExp(this.y).test(this.x);
+                },
+                warn: function() {
+                    return helpers.basicWarn(answer, this.answer());
+                },
+                solution: function() {
+                    return answer === this.answer();
+                }
+            },
+            {
+                title: "Déclarer un pattern conditonnel",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de <code>x</code> (déclarée par ce tutoriel) dont tous les <code>to</code>, <code>at</code>, <code>in</code> et <code>is</code> ont été retirés (de préférence, avec une seule expression régulière).",
+                solved: "var answer = x.replace(/(to|at|in|is)/ig, '');",
+                init: function() {
+                    window.x = this.x = helpers.randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                },
+                answer: function() {
+                    return this.x.replace(/(to|at|in|is)/g, '');
+                },
+                warn: function() {
+                    return helpers.basicWarn(answer, this.answer());
+                },
+                solution: function() {
+                    return answer === this.answer();
+                }
+            },
+            {
+                title: "Déclarer un pattern avec des groupes",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter la valeur de <code>x</code> (déclarée par ce tutoriel) dont chaque <code>e</code> a été remplacé par <code>-e-</code> à condition qu'il soit précédé et suivi d'une lettre (et pas d'une espace — de préférence, avec une seule expression régulière).",
+                solved: "var answer = x.replace(/(\w)e(\w)/ig, '$1-e-$2');",
+                init: function() {
+                    window.x = this.x = helpers.randomize("I used to get mad at my school (No I can't complain)", "Lucy in the sky with diamonds", "And in the end, the love you take is equal to the love you make", "Sit back and let the evening go");
+                },
+                answer: function() {
+                    return this.x.replace(/(\w)e(\w)/ig, '$1-e-$2');
+                },
+                warn: function() {
+                    return helpers.basicWarn(answer, this.answer());
+                },
+                solution: function() {
+                    return answer === this.answer();
+                }
+            },
+            {
+                title: "Déclarer un pattern non glouton",
+                description: "Créer une variable nommée <code>answer</code> et lui affecter le compte de <code><strong>...</strong></code> contenus dans la chaine de caractères déclarée par <code>x</code> (déclarée par ce tutoriel) ou <code>...</code> correspond à un ou plusieurs caractères quelconques.",
+                solved: "var match = x.match(/&lt;strong&gt;.*?&lt;\\/strong&gt;/g);<br>var answer = !match ? 0 : match.length;",
+                init: function() {
+                    window.x = this.x = helpers.randomize("I used to <strong>get</strong> mad at my school (No I <strong>can't</strong> complain)", "Lucy in the <strong>sky</strong> with <strong>diamonds</strong>", "And in the end, the love you <strong>take</strong> is equal to the love you <strong>make</strong>", "Sit <strong>back</strong> and let the evening <strong>go</strong>");
+                },
+                answer: function() {
+                    var match = this.x.match(/<strong>.*?<\/strong>/g);
+                    return !match ? 0 : match.length;
+                },
+                warn: function() {
+                    return helpers.basicWarn(answer, this.answer());
+                },
+                solution: function() {
+                    return answer === this.answer();
+                }
+            }
+        ]
+    }, {
+        title: "Les dates",
+        description: "Les dates sont des types natifs comme les nombres ou les chaines de caractères, elles permettent de manipuler le calendrier grégorien.<br><br>Ce chapitre présente la manipulation de dates avec la librairie moment — qui en facilite grandement l'usage.",
+        color: "grey",
+        steps: [
+            {
+                title: "Les librairies",
+                course: true,
+                description: `
+                    JavaScript est le langage doté du plus grand répertoire de librairies open source. Une librairie est un ensemble de fichiers mis à disposition (souvent gratuitement) répondant à un ou plusieurs problèmes. Les librairies sont couramment accompagnées d'un mode d'emploi et d'une liste de versions (la version 1.0 à telles fonctionnalités, la 1.1 ajoute celle-ci, la 2.0 remplace celle-là par celle-ci, etc).
+
+                    La librairie la plus connue du langage est [jQuery](http://jquery.com/) (abrégée $). Cette librairie a été développée dès 2006 pour faciliter l'usage de JavaScript ; à cette époque les navigateurs fonctionnaient tous très différemment les uns des autres et il était nécessaire de réaliser une version d'un programme distincte pour chacun d'entre eux. En proposant une façon normalisée d'utiliser les navigateurs, et en simplifiant l'usage d'Ajax (détaillé plus loin), jQuery a offert la possibilité de réaliser une unique version d'un programme compatible avec tous les navigateurs ; et à ainsi fait de JavaScript le langage célèbre qu'il est aujourd'hui.
+
+                    Il existe de très nombreuses librairies et une communauté active les améliore quotidiennement. Il est courant de s'appuyer sur ces librairies pour profiter de l'expérience de la communauté et pour gagner du temps à ne pas réinventer la roue. Il est toutefois souvent sage de tester plusieurs librairies répondant au même problème afin de choisir la plus appropriée à un problème donné.
+
+                    Parmi les librairies les plus utilisés, [moment](http://momentjs.com/) simplifie grandement la manipulation de dates et de calendrier
+                `
+            },
+            {
+                title: 'La librairie moment',
+                course: true,
+                description: `
+                    Une date représente un instant du calendrier — précis à la miliseconde près en JavaScript — et les langages de programmation ne facilitent pas forcément la comparaison de dates, leur formatage ou la gestion de différents fuseaux horaires. L'objectif de moment est de simplifier ces opérations.
+
+                    Bien qu'elles soient constituées de nombreux fichiers, les librairies sont souvent rendues disponibles sous la forme d'un seul fichier par soucis de simplicité d'usage. Il suffit alors d'importer ce script dans la page avant ses propres scripts et le tour est joué. Les libraires exposent souvent une variable globale donnant accès à leurs différentes fonctionnalités. Pour la librarie moment, un unique fichier [\`moment.js\`](http://momentjs.com/downloads/moment.js) ou [\`moment.min.js\`](http://momentjs.com/downloads/moment.js) (version minifiée).
+
+                    **Manipulation de dates natives au langage :**
+
+                        new Date(1964, 11, 17); // accepts only one format
+                        → Thu Dec 17 1964 00:00:00 GMT+0100 (CET)
+
+                        moment('17121964', 'DDMMYYYY').toDate(); // accepts configurable formats
+                        → Thu Dec 17 1964 00:00:00 GMT+0100 (CET)
+
+                    En plus de faciliter la création de dates, et d'utiliser une numérotation de mois commençant à 1 (contrairement aux dates natives qui commencent à 0, ou décembre est donc égal à 11), moment, permet de modifier facilement des dates (ajouter un jour, une semaine, le premier lundi du mois) et de les formater.
+
+                    **Manipulation de dates avec moment :**
+
+                        /* import this in the HTML <head> before the code */
+                        /* <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script> */
+
+                        var release = moment('17121964', 'DDMMYYYY');
+                        release.add(2, 'weeks');
+                        release.format('dddd, Do of MMM YYYY')
+                        → 'Thursday, 31st of Dec 1964'
+
+                    Sa simplicité d'usage est telle, qu'il est rarement nécessaire d'utiliser à nouveau l'objet Date.
+                `
+            },
+            {
+                title: "Formatter des dates",
+                description: "Mettre en forme les dates saisies dans <code>.from input</code> et <code>.to input</code> de façon a ce qu'elles s'affichent dans <code>.from .formatted</code> et <code>.to .formatted</code> sous le format « JANV. 10 » (premières initiales du mois, suivies du jour, avec la locale française).",
+                excerpt: "La librairie <a target=\"_blank\" href=\"http://momentjs.com/\">moment</a> permet de manipuler facilement des dates, et, notamment, de les mettre en forme en fonction de la locale.",
+                solved: "/* import this in the HTML <head> before the code<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js\"&gt;&lt;/script&gt;<br>&lt;script src=\"https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/locale/fr.js\"&gt;&lt;/script&gt;<br>*/<br>document.querySelector('.booking .from input').addEventListener('change', function(event) {<br>  var date = moment(event.target.value);<br>  document.querySelector('.from .formatted').innerHTML = date.format('MMM').toUpperCase() + ' ' + date.format('D');<br>});<br><br>document.querySelector('.booking .to input').addEventListener('change', function(event) {<br>  var date = moment(event.target.value);<br>  document.querySelector('.to .formatted').innerHTML = date.format('MMM').toUpperCase() + ' ' + date.format('D');<br>});",
+                dom: function() {
+                    return dom.booking();
+                },
+                solution: function() {
+                    var from = {
+                        input: document.querySelector('.from input'),
+                        formatted: document.querySelector('.from .formatted')
+                    }
+                    var to = {
+                        input: document.querySelector('.to input'),
+                        formatted: document.querySelector('.to .formatted')
+                    }
+
+                    from.input.value = '2017-01-24';
+                    helpers.change(from.input);
+
+                    to.input.value = '2017-01-26';
+                    helpers.change(to.input);
+
+                    if (helpers.elContains(from.formatted, 'JANV. 24') !== true)
+                        this.warn = this.warn || "La date affichée dans <code>.from .formatted</code> doit être égale à JANV. 24, lorsque la date saisie est le 24 janvier";
+                    if (helpers.elContains(to.formatted, 'JANV. 26') !== true)
+                        this.warn = this.warn || "La date affichée dans <code>.to .formatted</code> doit être égale à JANV. 26, lorsque la date saisie est le 26 janvier";
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Limiter les dates",
+                description: "Si la date de retour saisie est antérieure ou égale à la date de l'aller, elle est par défaut 1 jour après l'aller (l'aller est le 12 janvier, la date de retour doit être le 13 janvier au plus tôt).",
+                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>});",
+                dom: function() {
+                    return dom.booking();
+                },
+                solution: function() {
+                    var from = {
+                        input: document.querySelector('.from input'),
+                        formatted: document.querySelector('.from .formatted')
+                    }
+                    var to = {
+                        input: document.querySelector('.to input'),
+                        formatted: document.querySelector('.to .formatted')
+                    }
+
+                    from.input.value = '2017-01-24';
+                    helpers.change(from.input);
+
+                    to.input.value = '2017-01-24';
+                    helpers.change(to.input);
+
+                    if (helpers.elContains(from.formatted, 'JANV. 24') !== true)
+                        this.warn = this.warn || "La date affichée dans <code>.from .formatted</code> doit être égale à JANV. 24, lorsque la date saisie est le 24 janvier";
+                    if (helpers.elContains(to.formatted, 'JANV. 25') !== true)
+                        this.warn = this.warn || "La date affichée dans <code>.to .formatted</code> doit être égale à JANV. 25, lorsque la date de l'aller est le 24 janvier et que la date saisie lui est antérieure";
+                    if (to.input.value !== '2017-01-25')
+                        this.warn = this.warn || "La date de l'input <code>.to</code> doit être égale au 25 janvier, lorsque la date de l'aller est le 24 janvier et que la date saisie lui est antérieure";
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Compter le nombre de jours de voyage",
+                description: "Pour chaque jour de voyage, compter 40€, et afficher le total dans <code>.price</code>.",
+                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = to.value.diff(from.value, 'days') + 1;<br>  document.querySelector('.price').innerHTML = 40 * days + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});",
+                dom: function() {
+                    return dom.booking();
+                },
+                solution: function() {
+                    var from = {
+                        input: document.querySelector('.from input'),
+                        formatted: document.querySelector('.from .formatted')
+                    }
+                    var to = {
+                        input: document.querySelector('.to input'),
+                        formatted: document.querySelector('.to .formatted')
+                    }
+
+                    from.input.value = '2017-01-24';
+                    helpers.change(from.input);
+
+                    to.input.value = '2017-01-27';
+                    helpers.change(to.input);
+
+                    if (helpers.elContains(document.querySelector('.price'), '160€') !== true)
+                        this.warn = "Le prix doit être de 160€ pour un voyage du 24 au 27 janvier";
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Multiplier par le nombre de voyageurs",
+                description: "Pour chaque voyageur, multiplier le prix (un voyage à 80€ coûtera 240€ pour 3 voyageurs).",
+                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br>var passengers = 1;<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = to.value.diff(from.value, 'days') + 1;<br>  document.querySelector('.price').innerHTML = 40 * days * passengers + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});<br><br>document.querySelector('select').addEventListener('change', function(event) {<br>  passengers = event.target.value;<br>  total();<br>});",
+                dom: function() {
+                    return dom.booking();
+                },
+                solution: function() {
+                    var from = {
+                        input: document.querySelector('.from input'),
+                        formatted: document.querySelector('.from .formatted')
+                    }
+                    var to = {
+                        input: document.querySelector('.to input'),
+                        formatted: document.querySelector('.to .formatted')
+                    }
+
+                    from.input.value = '2017-01-24';
+                    helpers.change(from.input);
+
+                    to.input.value = '2017-01-27';
+                    helpers.change(to.input);
+
+                    var select = document.querySelector('select');
+                    select.value = 3;
+                    helpers.change(select);
+
+                    if (helpers.elContains(document.querySelector('.price'), '480€') !== true)
+                        this.warn = "Le prix doit être de 160€ pour un voyage du 24 au 27 janvier pour 3 voyageurs";
+                    return !this.warn;
+                }
+            },
+            {
+                title: "Décompter les weekends",
+                description: "Les samedis et dimanches ne sont pas facturés (vendredi, samedi, dimanche coûtera 40€ — 1 jour —, vendredi, samedi, dimanche, lundi coûtera 80€ — 2 jours —, du lundi au lundi deux semaines après, coûtera 840€ — 11 jours).",
+                solved: "var from = {<br>  value: null,<br>  input: document.querySelector('.from input'),<br>  formatted: document.querySelector('.from .formatted')<br>}<br>var to = {<br>  value: null,<br>  input: document.querySelector('.to input'),<br>  formatted: document.querySelector('.to .formatted')<br>}<br>var passengers = 1;<br><br>var total = function() {<br>  if (!from.value || !to.value)<br>    return;<br><br>  var days = 0;<br>  var clone = from.value.clone();<br>  while (clone.isSameOrBefore(to.value)) {<br>    if (clone.day() !== 6 && clone.day() !== 0)<br>      days++;<br>    clone.add(1, 'days');<br>  }<br><br>  document.querySelector('.price').innerHTML = 40 * days * passengers + '€';<br>}<br><br>from.input.addEventListener('change', function() {<br>  from.value = moment(from.input.value);<br>  from.formatted.innerHTML = from.value.format('MMM').toUpperCase() + ' ' + from.value.format('D');<br>});<br><br>to.input.addEventListener('change', function() {<br>  to.value = moment(to.input.value);<br>  if (to.value.isSameOrBefore(from.value)) {<br>    to.value = from.value.clone().add(1, 'day');<br>    to.input.value = to.value.format('YYYY-MM-DD');<br>  }<br>  to.formatted.innerHTML = to.value.format('MMM').toUpperCase() + ' ' + to.value.format('D');<br>  total();<br>});<br><br>document.querySelector('select').addEventListener('change', function(event) {<br>  passengers = event.target.value;<br>  total();<br>});",
+                dom: function() {
+                    return dom.booking();
+                },
+                solution: function() {
+                    var from = {
+                        input: document.querySelector('.from input'),
+                        formatted: document.querySelector('.from .formatted')
+                    }
+                    var to = {
+                        input: document.querySelector('.to input'),
+                        formatted: document.querySelector('.to .formatted')
+                    }
+
+                    from.input.value = '2017-01-27';
+                    helpers.change(from.input);
+
+                    to.input.value = '2017-01-30';
+                    helpers.change(to.input);
+
+                    var select = document.querySelector('select');
+                    select.value = 2;
+                    helpers.change(select);
+
+                    var basic = true;
+                    basic = basic && helpers.elContains(document.querySelector('.price'), '160€');
+                    if (helpers.elContains(document.querySelector('.price'), '160€') !== true)
+                        this.warn = this.warn || "Le prix doit être de 160€ pour un voyage de 4 jours incluant samedi et dimanche pour 2 voyageurs";
+
+                    from.input.value = '2017-01-13';
+                    helpers.change(from.input);
+
+                    to.input.value = '2017-01-30';
+                    helpers.change(to.input);
+
+                    if (helpers.elContains(document.querySelector('.price'), '960€') !== true)
+                        this.warn = this.warn || "Le prix doit être de 960€ pour un voyage de 18 jours incluant 3 samedis et dimanches pour 2 voyageurs";
+                    return !this.warn;
+                }
             }
         ]
     }, {
@@ -6600,70 +6775,7 @@ let chapters = [
 
                     De nombreuses choses demandent beaucoup de temps, d'attention, et de persévérance, et il est souvent tentant de faire au plus vite pour passer à autre chose, ou de ne pas se tourner vers les autres pour décoincer une situation. Faire preuve de courage en s'attaquant patiemment à un gros problème ou en faisant le maximum preuve de diplomatie porte souvent ses fruits.
                 `
-            }
-        ]
-    }, {
-        title: "Caches et storages",
-        description: "Accélérer la vitesse d'affichage d'un site web est toujours une question importante. Les navigateur et le réseau internet prévoient des outils pour ce faire.<br><br>Ce chapitre présente les mécanisme de cache et de storage des navigateurs et du réseau.",
-        color: "grey",
-        steps: [
-            {
-                course: true,
-                description: `
-                    Le temps que l'utilisateur met à récupérer une application est un critère fondamental. Si l'attente dépasse quelques secondes, il aura l'impression qu'elle ne fonctionne pas et quittera la page.
-
-                    Ce temps est déterminé par plusieurs critères :
-
-                    * le temps pour résoudre le nom de domaine (~10ms via DNS, Domain Name System)
-                    * le temps de télécharger l'application (plus le poids de celle-ci est élevé, plus ce sera long)
-                    * le temps de latence, c'est à dire le temps que la requête arrive au serveur hébergeant le site et le temps que celui-ci réponde (~150ms pour qu'une requête traverse l'atlantique)
-                    * le nombre de requêtes nécessaires à la récupération de l'application (chacune d'entre elles à un coût d'établissement et une latence)
-
-                    Pour diminuer ce temps, il est donc nécessaire de :
-
-                    * diminuer la taille d'une application en minifiant ses sources (grâce à un outil)
-                    * diminuer la latence en hébergeant l'application proche de la localisation de l'utilisateur
-                    * diminuer le nombre de requêtes en regroupant les fichiers
-                    * diminuer le nombre de requêtes en utilisant le cache réseau et le cache navigateur
-                `
             },
-            {
-                title: "Les caches",
-                course: true,
-                description: `
-                    Losqu'une ressource est accédé par un navigateur, celui-ci va d'abord vérifier s'il n'en dispose pas déjà d'une copie en cache. En effet, lorsqu'un serveur communique un fichier à un navigateur, il indique sa durée de vie (via le header \`Expires\` et une date d'expiration dans le futur). L'onglet Network du navigateur indique quelles ressources ont été récupérées sur le serveur et quelles autres étaient déjà en cache (statut 304), et jusqu'à quand.
-
-                    Il est courant de mettre en cache tous les scripts, toutes les images et tous les styles. Ainsi, un utilisateur utilisant pour la seconde fois une application n'aura presqu'aucune donnée à télécharger avant que la page ne s'affiche.
-
-                    Les différents équipements sur lesquels véhiculent ces données stockent également une copie en cache si elle est indiquée comme telle — profitant ainsi aux proches sur le réseau.
-                    Les caches peuvent poser un problème si l'on souhaite remplacer la version d'une application qui a été sauvegardée sur le navigateur de l'utilisateur. Il n'est décemment pas possible de lui demander de vider son cache manuellement. Pour ce faire, les fichiers sont souvent suffixés par une date (app.20160110.js par exemple), ainsi, si une nouvelle version est livrée, il suffit de lui donner une date différente pour que le navigateur de l'utilisateur détecte qu'il ne l'a pas en cache et récupère une copie fraîche.
-
-                    Les CDN (Content Delivery Network) sont des machines réparties sur le territoire dupliquant les mêmes fichiers pour les servir le plus rapidement possible aux navigateurs. Il est possible d'en louer pour ses propres usages ([Akamai](https://www.akamai.com/) ou [CloudFront](http://aws.amazon.com/cloudfront), par exemple). Les librairies populaires sont quant à elles disponible sur [cdnjs](https://cdnjs.com/).
-                `
-            },
-            {
-                title: "Le local storage",
-                course: true,
-                description: `
-                    Depuis peu, les navigateurs embarque une base de données simplifiée pour conserver des données entre deux pages du même site ou entre plusieurs sessions du même utilisateur (une session s'achève quand la page est fermée).
-
-                    **Sauvegarde et accès au local storage :**
-
-                        localStorage.setItem('beatles', ['Paul', 'John', 'George', 'Ringo']);
-                        localStorage.getItem('submarine');
-                        → 'Paul,John,George,Ringo'
-
-                    Les données y sont stockées sous la forme clé valeur. Clé et valeur sous la forme de chaînes de caractères (un object devra donc être \`stringify\` avant d'y être stocké).
-
-                    Une documentation détaillée est disponible sur le [local storage](https://developer.mozilla.org/en/docs/Web/API/Window/localStorage) pour plus de détails.
-                `
-            }
-        ]
-    }, {
-        title: "Les modules",
-        description: "Les applications JavaScript font souvent des dixaines de millier de lignes. Il est donc nécessaire de les découper en flusieurs fichiers ou modules.<br><br>Ce chapitre présente les modules et les différents outils associés.",
-        color: "grey",
-        steps: [
             {
                 title: "La modularité",
                 course: true,
@@ -6731,6 +6843,63 @@ let chapters = [
                     Ensuite, chaque composant isolé dans son propre fichier, peut accéder aux autres modules à l'aide de la méthode \`require('path')\` en indiquant le chemin relatif du fichier à accéder à partir de son propre chemin. Enfin, ce composant peut exposer des variables et des fonctions aux autres en utilisant \`module.exports\` (comme une fonction utilise un \`return\`).
 
                     Ces gestionnaire offre des outils pour faciliter le développement (pour générer le bundle à chaque modification par exemple) puis permet de générer le livrable, un fichier minifié.
+                `
+            }
+        ]
+    }, {
+        title: "Caches et storages",
+        description: "Accélérer la vitesse d'affichage d'un site web est toujours une question importante. Les navigateur et le réseau internet prévoient des outils pour ce faire.<br><br>Ce chapitre présente les mécanisme de cache et de storage des navigateurs et du réseau.",
+        color: "grey",
+        steps: [
+            {
+                course: true,
+                description: `
+                    Le temps que l'utilisateur met à récupérer une application est un critère fondamental. Si l'attente dépasse quelques secondes, il aura l'impression qu'elle ne fonctionne pas et quittera la page.
+
+                    Ce temps est déterminé par plusieurs critères :
+
+                    * le temps pour résoudre le nom de domaine (~10ms via DNS, Domain Name System)
+                    * le temps de télécharger l'application (plus le poids de celle-ci est élevé, plus ce sera long)
+                    * le temps de latence, c'est à dire le temps que la requête arrive au serveur hébergeant le site et le temps que celui-ci réponde (~150ms pour qu'une requête traverse l'atlantique)
+                    * le nombre de requêtes nécessaires à la récupération de l'application (chacune d'entre elles à un coût d'établissement et une latence)
+
+                    Pour diminuer ce temps, il est donc nécessaire de :
+
+                    * diminuer la taille d'une application en minifiant ses sources (grâce à un outil)
+                    * diminuer la latence en hébergeant l'application proche de la localisation de l'utilisateur
+                    * diminuer le nombre de requêtes en regroupant les fichiers
+                    * diminuer le nombre de requêtes en utilisant le cache réseau et le cache navigateur
+                `
+            },
+            {
+                title: "Les caches",
+                course: true,
+                description: `
+                    Losqu'une ressource est accédé par un navigateur, celui-ci va d'abord vérifier s'il n'en dispose pas déjà d'une copie en cache. En effet, lorsqu'un serveur communique un fichier à un navigateur, il indique sa durée de vie (via le header \`Expires\` et une date d'expiration dans le futur). L'onglet Network du navigateur indique quelles ressources ont été récupérées sur le serveur et quelles autres étaient déjà en cache (statut 304), et jusqu'à quand.
+
+                    Il est courant de mettre en cache tous les scripts, toutes les images et tous les styles. Ainsi, un utilisateur utilisant pour la seconde fois une application n'aura presqu'aucune donnée à télécharger avant que la page ne s'affiche.
+
+                    Les différents équipements sur lesquels véhiculent ces données stockent également une copie en cache si elle est indiquée comme telle — profitant ainsi aux proches sur le réseau.
+                    Les caches peuvent poser un problème si l'on souhaite remplacer la version d'une application qui a été sauvegardée sur le navigateur de l'utilisateur. Il n'est décemment pas possible de lui demander de vider son cache manuellement. Pour ce faire, les fichiers sont souvent suffixés par une date (app.20160110.js par exemple), ainsi, si une nouvelle version est livrée, il suffit de lui donner une date différente pour que le navigateur de l'utilisateur détecte qu'il ne l'a pas en cache et récupère une copie fraîche.
+
+                    Les CDN (Content Delivery Network) sont des machines réparties sur le territoire dupliquant les mêmes fichiers pour les servir le plus rapidement possible aux navigateurs. Il est possible d'en louer pour ses propres usages ([Akamai](https://www.akamai.com/) ou [CloudFront](http://aws.amazon.com/cloudfront), par exemple). Les librairies populaires sont quant à elles disponible sur [cdnjs](https://cdnjs.com/).
+                `
+            },
+            {
+                title: "Le local storage",
+                course: true,
+                description: `
+                    Depuis peu, les navigateurs embarque une base de données simplifiée pour conserver des données entre deux pages du même site ou entre plusieurs sessions du même utilisateur (une session s'achève quand la page est fermée).
+
+                    **Sauvegarde et accès au local storage :**
+
+                        localStorage.setItem('beatles', ['Paul', 'John', 'George', 'Ringo']);
+                        localStorage.getItem('submarine');
+                        → 'Paul,John,George,Ringo'
+
+                    Les données y sont stockées sous la forme clé valeur. Clé et valeur sous la forme de chaînes de caractères (un object devra donc être \`stringify\` avant d'y être stocké).
+
+                    Une documentation détaillée est disponible sur le [local storage](https://developer.mozilla.org/en/docs/Web/API/Window/localStorage) pour plus de détails.
                 `
             }
         ]
