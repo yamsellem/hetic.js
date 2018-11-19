@@ -2416,7 +2416,7 @@ let chapters = [
             {
                 title: "Manipuler les attributs data-*",
                 description: "À chaque clic sur un <code>li</code> de <code>ul.board</code>, ajouter un attribut <code>data-value</code> sur cet élément avec le nombre d'éléments sélectionnés jusque là.<br><br>Un élément ne peut être sélectionné deux fois.",
-                solved: "var value = 0;<br>var lis = document.querySelectorAll('.board li');<br>for (var i = 0; i < lis.length; i++) {<br>  var li = lis[i];<br>  li.addEventListener('click', function(event) {<br>    if (!event.target.dataset.value) {<br>      event.target.dataset.value = value++;<br>    }<br>  });<br>}",
+                solved: "var value = 0;<br>var lis = document.querySelectorAll('.board li');<br>for (var i = 0; i < lis.length; i++) {<br>  let li = lis[i];<br>  li.addEventListener('click', function() {<br>    if (!li.dataset.value) {<br>      li.dataset.value = value++;<br>    }<br>  });<br>}",
                 dom: function() {
                     return dom.board(dom.kyle);
                 },
