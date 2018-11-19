@@ -2518,8 +2518,8 @@ let chapters = [
             {
                 title: "Valider la valeur d'un input",
                 description: "Ajouter un écouteur d'événement sur l'input <code>age</code>, qui a chaque touche saisie, indique une erreur si l'age est inférieur à 18 ans. Si c'est le cas, ajouter la classe <code>error</code> sur le <code>div.field</code> qui contient l'input.",
-                excerpt: "L'événement <code>keypress</code> permet d'écouter chaque saisie de caractère dans un input.",
-                solved: "var input = document.querySelector('.forms input[name=age]');<br>input.addEventListener('keypress', function() {<br>  document.querySelector('.forms .field').classList.toggle('error', input.value < 18);<br>});",
+                excerpt: "L'événement <code>keyup</code> permet d'écouter chaque saisie de caractère dans un input.",
+                solved: "var input = document.querySelector('.forms input[name=age]');<br>input.addEventListener('keyup', function() {<br>  document.querySelector('.forms .field').classList.toggle('error', input.value < 18);<br>});",
                 dom: function() {
                     return dom.forms(`
                         <div class="content">
