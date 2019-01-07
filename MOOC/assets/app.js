@@ -3514,8 +3514,172 @@ let chapters = [
                 }
             }
         ]
-    }, 
-    {
+    }, {
+        title: "Composant | Carte",
+        description: "Les cartes affichent les rues, les adresses, les itinéraires et les points d'intérêt, très utiles sur mobile. À l'aide de la géolocalisation (gps et wifi notamment>), elles peuvent également afficher la position de l'utilisateur.<br><br>Ce chapitre présente l'utilisation des cartes google pas à pas.",
+        color: "violet",
+        steps: [
+            {
+                title: "Afficher une carte",
+                description: "Créer une variable <code>map</code> et l'initialiser avec une carte de <a target=\"_blank\" href=\"https://developers.google.com/maps/\">la librairie google maps</a>. L'afficher dans la balise <code>.map</code>, la centrer sur Paris (lat: 48.86, lng: 2.35) et zoomer x12.",
+                excerpt: "<strong>Ne pas utiliser la propriété <code>async</code> du script ni son <code>callback</code></strong>. Bien qu'il s'agisse de la méthode classique pour manipuler une carte google (l'affichage de la carte ne bloque pas le chargement du reste de la page), cette méthode n'est pas compatible avec ce tutoriel. Sans callback, le script de la librairie doit être avant le script qui l'utilise, et ce dernier n'a pas besoin d'une fonction englobante (puisque la page est bloquée tant que google maps n'est pas chargé), et peut être directement déclaré <code>var map = new google.maps.Map(..)</code>.<br><br>Il est possible d'obtenir une clé d'usage via la documentation (les librairies ont courament des clés afin d'effectuer un suivi / limite d'usage).",
+                solved: "/* à ajouter avant le script principal<br>&lt;script src=\"https://maps.googleapis.com/maps/api/js?key=\"&gt;&lt;/script&gt;<br>*/<br>var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});",
+                dom: function() {
+                    return dom.maps();
+                },
+                solution: function() {
+                    if (!map)
+                        return;
+
+                    return dom.mapsWait().then(function() {
+                        if (dom.near({lat: map.center.lat(), lng: map.center.lng()}, {lat: 48.86, lng: 2.35}) !== true)
+                            this.warn = this.warn || "Le centre le carte doit être positionné proche de <code>{lat: 48.86, lng: 2.35}</code>";
+                        if (map.zoom !== 12)
+                            this.warn = this.warn || "Le zoom de la carte doit être égal à <code>12</code>";
+                        return !this.warn;
+                    }.bind(this));
+                }
+            },
+            {
+                title: "Ajouter un point d'intérêt",
+                description: "Créer une variable <code>marker</code> et l'initialiser avec un marqueur de carte (le célèbre pin rouge) aux coordonnées du pont des arts de Paris.",
+                solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});",
+                dom: function() {
+                    return dom.maps();
+                },
+                solution: function() {
+                    if (!map || !marker)
+                        return;
+
+                    return dom.mapsWait().then(function() {
+                        if (dom.near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
+                            this.warn = this.warn || "Le marqueur doit être positionné proche de <code>{lat: 48.8583, lng: 2.3353}</code>";
+                        return !this.warn;
+                    }.bind(this));
+                }
+            },
+            {
+                title: "Ajouter une popin au clic sur un point d'intérêt",
+                description: "Afficher « Le Pont des Arts » dans une <code>infowindow</code> au dessus du marqueur. Cette fenêtre doit se fermer au clic sur la carte.",
+                solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});<br><br>var infowindow = new google.maps.InfoWindow({<br>  content: 'Le Pont des Arts'<br>});<br><br>infowindow.open(map, marker);<br><br>map.addListener('click', function() {<br>  infowindow.close();<br>});",
+                dom: function() {
+                    return dom.maps(true);
+                },
+                solution: function() {
+                    if (!map || !marker)
+                        return;
+
+                    return dom.mapsWait().then(function() {
+                        google.maps.event.trigger(marker, 'click');
+
+                        if (helpers.elContains(document.querySelector('.gm-style-iw div div'), 'Le Pont des Arts') !== true)
+                            this.warn = this.warn || "Le popin doit afficher « Le Pont des Arts »";
+
+                        google.maps.event.trigger(map, 'click');
+                        if (helpers.elContains(document.querySelector('.gm-style-iw div div'), 'Le Pont des Arts') !== false)
+                            this.warn = this.warn || "Au clic sur la carte, le popin doit être masqué";
+
+                        return !this.warn;
+                    }.bind(this));
+                }
+            },
+            {
+                title: "Déplacer le marqueur à l'adresse recherchée",
+                description: "Lorsqu'une adresse est saisie dans <code>.places input</code> suivi de la touche entrée, le marqueur actuel est déplacé vers l'adresse ainsi recherchée et la carte est centrée sur ce point.",
+                excerpt: "La librairie offre un géocodeur pour transformer une adresse en coordonnées latitude, longitude.",
+                solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});<br><br>var infowindow = new google.maps.InfoWindow({<br>  content: 'Le Pont des Arts'<br>});<br><br>marker.addListener('click', function() {<br>  infowindow.open(map, marker);<br>});<br><br>map.addListener('click', function() {<br>  infowindow.close();<br>});<br><br>geocoder = new google.maps.Geocoder();<br>document.querySelector('.places input').addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13)<br>    return;<br><br>  geocoder.geocode({'address': event.target.value}, function(results, status) {<br>    if (status !== google.maps.GeocoderStatus.OK)<br>      return;<br><br>    map.setCenter(results[0].geometry.location);<br>    marker.setPosition(results[0].geometry.location);<br>  });<br>});",
+                dom: function() {
+                    return dom.maps(true);
+                },
+                solution: function() {
+                    if (!map || !marker)
+                        return;
+
+                    return dom.mapsWait().then(function() {
+                        let input = document.querySelector('.places input');
+
+                        if (dom.near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
+                            this.warn = this.warn || "Le marqueur doit être positionné proche de <code>{lat: 48.8583, lng: 2.3353}</code>";
+
+                        input.value = '29 Rue des Trois Frères';
+                        helpers.keypress(input, 13);
+
+                        return Promise
+                        .resolve()
+                        .then(function() {
+                            // wait for the geocoder
+                            return new Promise(function(res, rej) { setTimeout(res, 100); });
+                        })
+                        .then(function() {
+                            if (dom.near( {lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8848, lng: 2.3407}) !== true)
+                                this.warn = this.warn || "Après une recherche sur « 29 Rue des Trois Frères », la marqueur doit être positionné proche de <code>{lat: 48.8848, lng: 2.3407}</code>";
+                            if (dom.near({lat: map.center.lat(), lng: map.center.lng()}, {lat: 48.8848, lng: 2.3407}) !== true)
+                                this.warn = this.warn || "Après une recherche sur « 29 Rue des Trois Frères », la carte doit être centrée proche de <code>{lat: 48.8848, lng: 2.3407}</code>";
+
+                            input.value = '13 Boulevard Garibaldi';
+                            helpers.keypress(input, 13);
+                        }.bind(this))
+                        .then(function() {
+                            // wait for the geocoder
+                            return new Promise(function(res, rej) { setTimeout(res, 100); });
+                        })
+                        .then(function() {
+                            if (dom.near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8476, lng: 2.3036}) !== true)
+                                this.warn = this.warn || "Après une recherche sur « 13 Boulevard Garibaldi », le marqueur doit être positionné proche de <code>{lat: 48.8476, lng: 2.3036}</code>";
+
+                            if (dom.near({lat: map.center.lat(), lng: map.center.lng()}, {lat: 48.8476, lng: 2.3036}) !== true)
+                                this.warn = this.warn || "Après une recherche sur « 13 Boulevard Garibaldi », le carte doit être centrée proche de <code>{lat: 48.8476, lng: 2.3036}</code>";
+
+                            return !this.warn;
+                        }.bind(this));
+                    }.bind(this));
+                }
+            },
+            {
+                title: "Déplacer le marqueur à l'adresse de l'utilisateur",
+                description: "Lorsque l'adresse saisie est « ici », le navigateur est géolocalisé et sa position est affichée sur la carte.",
+                excerpt: "Le navigateur est en mesure d'acèder à <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/API/Geolocation/Using_geolocation\">sa position géographique</a>, cepdendant, il a besoin de l'autorisation de l'utilisateur pour ce faire.",
+                solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});<br><br>var infowindow = new google.maps.InfoWindow({<br>  content: 'Le Pont des Arts'<br>});<br><br>marker.addListener('click', function() {<br>  infowindow.open(map, marker);<br>});<br><br>map.addListener('click', function() {<br>  infowindow.close();<br>});<br><br>geocoder = new google.maps.Geocoder();<br>document.querySelector('.places input').addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13)<br>    return;<br><br>  if (event.target.value === 'ici') {<br>    return navigator.geolocation.getCurrentPosition(function(position) {<br>      map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude});<br>      marker.setPosition({lat: position.coords.latitude, lng: position.coords.longitude});<br>    });<br>  }<br><br>  geocoder.geocode({'address': event.target.value}, function(results, status) {<br>    if (status !== google.maps.GeocoderStatus.OK)<br>      return;<br><br>    map.setCenter(results[0].geometry.location);<br>    marker.setPosition(results[0].geometry.location);<br>  });<br>});",
+                dom: function() {
+                    return dom.maps(true);
+                },
+                solution: function() {
+                    if (!map || !marker)
+                        return;
+
+                    return dom.mapsWait().then(function() {
+                        let input = document.querySelector('.places input');
+
+                        if (dom.near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
+                            this.warn = this.warn || "Le marqueur doit être positionné proche de <code>{lat: 48.8583, lng: 2.3353}</code>";
+
+                        input.value = 'ici';
+                        helpers.keypress(input, 13);
+
+                        return Promise
+                        .resolve()
+                        .then(function() {
+                            return new Promise(function(res, rej) {
+                                navigator.geolocation.getCurrentPosition(function(geoloc) {
+                                    res(geoloc);
+                                });
+                            });
+                        })
+                        .then(function(geoloc) {
+                            // wait for the marker
+                            return new Promise(function(res, rej) { setTimeout(function() { res(geoloc); }, 100); });
+                        })
+                        .then(function(geoloc) {
+                            if (dom.near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: geoloc.coords.latitude, lng: geoloc.coords.longitude}) !== true)
+                                this.warn = this.warn || "Après une recherche sur « ici », le marqueur doit être positionné proche de la position de l'utilisateur";
+
+                            return !this.warn;
+                        }.bind(this));
+                    }.bind(this));
+                }
+            }
+        ]
+    }, {
         title: "Puzzle | Démineur",
         description: "Le démineur est un jeu de réflexion solitaire. L'objectif est de localiser des mines cachées dans un champ virtuel avec comme seule indication le nombre de mines dans les cases adjacentes.<br><br>Ce chapitre présente la réalisation d'un puissance 4 dont la solution est à déverouiller.",
         color: "grey",
@@ -4061,171 +4225,6 @@ let chapters = [
                     if (!basic)
                         this.warn = "Le déplacement vertical d'une case doit fonctionner";
                     return basic;
-                }
-            }
-        ]
-    }, {
-        title: "Applications | Carte",
-        description: "Les cartes affichent les rues, les adresses, les itinéraires et les points d'intérêt, très utiles sur mobile. À l'aide de la géolocalisation (gps et wifi notamment>), elles peuvent également afficher la position de l'utilisateur.<br><br>Ce chapitre présente l'utilisation des cartes google pas à pas.",
-        color: "teal",
-        steps: [
-            {
-                title: "Afficher une carte",
-                description: "Créer une variable <code>map</code> et l'initialiser avec une carte de <a target=\"_blank\" href=\"https://developers.google.com/maps/\">la librairie google maps</a>. L'afficher dans la balise <code>.map</code>, la centrer sur Paris (lat: 48.86, lng: 2.35) et zoomer x12.",
-                excerpt: "<strong>Ne pas utiliser la propriété <code>async</code> du script ni son <code>callback</code></strong>. Bien qu'il s'agisse de la méthode classique pour manipuler une carte google (l'affichage de la carte ne bloque pas le chargement du reste de la page), cette méthode n'est pas compatible avec ce tutoriel. Sans callback, le script de la librairie doit être avant le script qui l'utilise, et ce dernier n'a pas besoin d'une fonction englobante (puisque la page est bloquée tant que google maps n'est pas chargé), et peut être directement déclaré <code>var map = new google.maps.Map(..)</code>.<br><br>Il est possible d'obtenir une clé d'usage via la documentation (les librairies ont courament des clés afin d'effectuer un suivi / limite d'usage).",
-                solved: "/* à ajouter avant le script principal<br>&lt;script src=\"https://maps.googleapis.com/maps/api/js?key=\"&gt;&lt;/script&gt;<br>*/<br>var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});",
-                dom: function() {
-                    return dom.maps();
-                },
-                solution: function() {
-                    if (!map)
-                        return;
-
-                    return dom.mapsWait().then(function() {
-                        if (dom.near({lat: map.center.lat(), lng: map.center.lng()}, {lat: 48.86, lng: 2.35}) !== true)
-                            this.warn = this.warn || "Le centre le carte doit être positionné proche de <code>{lat: 48.86, lng: 2.35}</code>";
-                        if (map.zoom !== 12)
-                            this.warn = this.warn || "Le zoom de la carte doit être égal à <code>12</code>";
-                        return !this.warn;
-                    }.bind(this));
-                }
-            },
-            {
-                title: "Ajouter un point d'intérêt",
-                description: "Créer une variable <code>marker</code> et l'initialiser avec un marqueur de carte (le célèbre pin rouge) aux coordonnées du pont des arts de Paris.",
-                solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});",
-                dom: function() {
-                    return dom.maps();
-                },
-                solution: function() {
-                    if (!map || !marker)
-                        return;
-
-                    return dom.mapsWait().then(function() {
-                        if (dom.near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
-                            this.warn = this.warn || "Le marqueur doit être positionné proche de <code>{lat: 48.8583, lng: 2.3353}</code>";
-                        return !this.warn;
-                    }.bind(this));
-                }
-            },
-            {
-                title: "Ajouter une popin au clic sur un point d'intérêt",
-                description: "Afficher « Le Pont des Arts » dans une <code>infowindow</code> au dessus du marqueur. Cette fenêtre doit se fermer au clic sur la carte.",
-                solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});<br><br>var infowindow = new google.maps.InfoWindow({<br>  content: 'Le Pont des Arts'<br>});<br><br>infowindow.open(map, marker);<br><br>map.addListener('click', function() {<br>  infowindow.close();<br>});",
-                dom: function() {
-                    return dom.maps(true);
-                },
-                solution: function() {
-                    if (!map || !marker)
-                        return;
-
-                    return dom.mapsWait().then(function() {
-                        google.maps.event.trigger(marker, 'click');
-
-                        if (helpers.elContains(document.querySelector('.gm-style-iw div div'), 'Le Pont des Arts') !== true)
-                            this.warn = this.warn || "Le popin doit afficher « Le Pont des Arts »";
-
-                        google.maps.event.trigger(map, 'click');
-                        if (helpers.elContains(document.querySelector('.gm-style-iw div div'), 'Le Pont des Arts') !== false)
-                            this.warn = this.warn || "Au clic sur la carte, le popin doit être masqué";
-
-                        return !this.warn;
-                    }.bind(this));
-                }
-            },
-            {
-                title: "Déplacer le marqueur à l'adresse recherchée",
-                description: "Lorsqu'une adresse est saisie dans <code>.places input</code> suivi de la touche entrée, le marqueur actuel est déplacé vers l'adresse ainsi recherchée et la carte est centrée sur ce point.",
-                excerpt: "La librairie offre un géocodeur pour transformer une adresse en coordonnées latitude, longitude.",
-                solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});<br><br>var infowindow = new google.maps.InfoWindow({<br>  content: 'Le Pont des Arts'<br>});<br><br>marker.addListener('click', function() {<br>  infowindow.open(map, marker);<br>});<br><br>map.addListener('click', function() {<br>  infowindow.close();<br>});<br><br>geocoder = new google.maps.Geocoder();<br>document.querySelector('.places input').addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13)<br>    return;<br><br>  geocoder.geocode({'address': event.target.value}, function(results, status) {<br>    if (status !== google.maps.GeocoderStatus.OK)<br>      return;<br><br>    map.setCenter(results[0].geometry.location);<br>    marker.setPosition(results[0].geometry.location);<br>  });<br>});",
-                dom: function() {
-                    return dom.maps(true);
-                },
-                solution: function() {
-                    if (!map || !marker)
-                        return;
-
-                    return dom.mapsWait().then(function() {
-                        let input = document.querySelector('.places input');
-
-                        if (dom.near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
-                            this.warn = this.warn || "Le marqueur doit être positionné proche de <code>{lat: 48.8583, lng: 2.3353}</code>";
-
-                        input.value = '29 Rue des Trois Frères';
-                        helpers.keypress(input, 13);
-
-                        return Promise
-                        .resolve()
-                        .then(function() {
-                            // wait for the geocoder
-                            return new Promise(function(res, rej) { setTimeout(res, 100); });
-                        })
-                        .then(function() {
-                            if (dom.near( {lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8848, lng: 2.3407}) !== true)
-                                this.warn = this.warn || "Après une recherche sur « 29 Rue des Trois Frères », la marqueur doit être positionné proche de <code>{lat: 48.8848, lng: 2.3407}</code>";
-                            if (dom.near({lat: map.center.lat(), lng: map.center.lng()}, {lat: 48.8848, lng: 2.3407}) !== true)
-                                this.warn = this.warn || "Après une recherche sur « 29 Rue des Trois Frères », la carte doit être centrée proche de <code>{lat: 48.8848, lng: 2.3407}</code>";
-
-                            input.value = '13 Boulevard Garibaldi';
-                            helpers.keypress(input, 13);
-                        }.bind(this))
-                        .then(function() {
-                            // wait for the geocoder
-                            return new Promise(function(res, rej) { setTimeout(res, 100); });
-                        })
-                        .then(function() {
-                            if (dom.near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8476, lng: 2.3036}) !== true)
-                                this.warn = this.warn || "Après une recherche sur « 13 Boulevard Garibaldi », le marqueur doit être positionné proche de <code>{lat: 48.8476, lng: 2.3036}</code>";
-
-                            if (dom.near({lat: map.center.lat(), lng: map.center.lng()}, {lat: 48.8476, lng: 2.3036}) !== true)
-                                this.warn = this.warn || "Après une recherche sur « 13 Boulevard Garibaldi », le carte doit être centrée proche de <code>{lat: 48.8476, lng: 2.3036}</code>";
-
-                            return !this.warn;
-                        }.bind(this));
-                    }.bind(this));
-                }
-            },
-            {
-                title: "Déplacer le marqueur à l'adresse de l'utilisateur",
-                description: "Lorsque l'adresse saisie est « ici », le navigateur est géolocalisé et sa position est affichée sur la carte.",
-                excerpt: "Le navigateur est en mesure d'acèder à <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/API/Geolocation/Using_geolocation\">sa position géographique</a>, cepdendant, il a besoin de l'autorisation de l'utilisateur pour ce faire.",
-                solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});<br><br>var infowindow = new google.maps.InfoWindow({<br>  content: 'Le Pont des Arts'<br>});<br><br>marker.addListener('click', function() {<br>  infowindow.open(map, marker);<br>});<br><br>map.addListener('click', function() {<br>  infowindow.close();<br>});<br><br>geocoder = new google.maps.Geocoder();<br>document.querySelector('.places input').addEventListener('keypress', function(event) {<br>  if (event.keyCode !== 13)<br>    return;<br><br>  if (event.target.value === 'ici') {<br>    return navigator.geolocation.getCurrentPosition(function(position) {<br>      map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude});<br>      marker.setPosition({lat: position.coords.latitude, lng: position.coords.longitude});<br>    });<br>  }<br><br>  geocoder.geocode({'address': event.target.value}, function(results, status) {<br>    if (status !== google.maps.GeocoderStatus.OK)<br>      return;<br><br>    map.setCenter(results[0].geometry.location);<br>    marker.setPosition(results[0].geometry.location);<br>  });<br>});",
-                dom: function() {
-                    return dom.maps(true);
-                },
-                solution: function() {
-                    if (!map || !marker)
-                        return;
-
-                    return dom.mapsWait().then(function() {
-                        let input = document.querySelector('.places input');
-
-                        if (dom.near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: 48.8583, lng: 2.3353}) !== true)
-                            this.warn = this.warn || "Le marqueur doit être positionné proche de <code>{lat: 48.8583, lng: 2.3353}</code>";
-
-                        input.value = 'ici';
-                        helpers.keypress(input, 13);
-
-                        return Promise
-                        .resolve()
-                        .then(function() {
-                            return new Promise(function(res, rej) {
-                                navigator.geolocation.getCurrentPosition(function(geoloc) {
-                                    res(geoloc);
-                                });
-                            });
-                        })
-                        .then(function(geoloc) {
-                            // wait for the marker
-                            return new Promise(function(res, rej) { setTimeout(function() { res(geoloc); }, 100); });
-                        })
-                        .then(function(geoloc) {
-                            if (dom.near({lat: marker.position.lat(), lng: marker.position.lng()}, {lat: geoloc.coords.latitude, lng: geoloc.coords.longitude}) !== true)
-                                this.warn = this.warn || "Après une recherche sur « ici », le marqueur doit être positionné proche de la position de l'utilisateur";
-
-                            return !this.warn;
-                        }.bind(this));
-                    }.bind(this));
                 }
             }
         ]
