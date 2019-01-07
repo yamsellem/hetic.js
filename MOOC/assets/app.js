@@ -174,7 +174,7 @@ let dom = {
     
         return `
             <div class="places">
-                <div class="ui icon mini input">
+                <div class="ui icon input">
                     <i class="search icon"></i>
                     <input type="text" placeholder="Rechercher un lieu">
                 </div>
@@ -2937,7 +2937,7 @@ let chapters = [
             },
             {
                 title: "Déplacer les disques",
-                description: "Au clic sur une des trois tours, <code>.hanoi ul</code>, le disque, <code>li</code>, le plus haut de celle-ci est mémorisé. Au clic suivant sur une des trois tours, ce disque est déplacé dans cette nouvelle tour à condition que son plus haut disque soit plus grand que celui à déplacer. Et ainsi de suite (cliquer sur une troisième tour mémorise son plus haut disque, cliquer sur une autre tour déplace le disque à cet endroit).",
+                description: "Au clic sur une des trois tours, <code>.hanoi ul</code>, le disque, <code>li</code>, le plus haut de celle-ci est mémorisé. Au clic suivant sur une des trois tours, ce disque est déplacé dans cette nouvelle tour. Et ainsi de suite (cliquer sur une troisième tour mémorise son plus haut disque, cliquer sur une autre tour déplace le disque à cet endroit).",
                 solved: "var memo;<br>var uls = document.querySelectorAll('.hanoi ul');<br>for (var i = 0; i < uls.length; i++) {<br>  uls[i].addEventListener('click', function(event) {<br>    var ul = event.currentTarget;<br>    var firstChild = ul.querySelector('li');<br>    if (memo) {<br>      ul.prepend(memo);<br>      memo = undefined;<br>    } else if (firstChild) {<br>      memo = firstChild;<br>    }<br>  });<br>}",
                 solvedOnSuccess: true,
                 dom: function() {
@@ -4110,8 +4110,8 @@ let chapters = [
             },
             {
                 title: "Ajouter une popin au clic sur un point d'intérêt",
-                description: "Afficher « Le Pont des Arts » dans une <code>infowindow</code> au clic sur le point d'intérêt. Cette fenêtre doit se fermer au clic sur la carte.",
-                solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});<br><br>var infowindow = new google.maps.InfoWindow({<br>  content: 'Le Pont des Arts'<br>});<br><br>marker.addListener('click', function() {<br>  infowindow.open(map, marker);<br>});<br><br>map.addListener('click', function() {<br>  infowindow.close();<br>});",
+                description: "Afficher « Le Pont des Arts » dans une <code>infowindow</code> au dessus du marqueur. Cette fenêtre doit se fermer au clic sur la carte.",
+                solved: "var map = new google.maps.Map(document.querySelector('.map'), {<br>  center: {lat: 48.86, lng: 2.35},<br>  scrollwheel: false,<br>  zoom: 12<br>});<br><br>var marker = new google.maps.Marker({<br>  position: {lat: 48.8583459,lng: 2.3353197},<br>  map: map<br>});<br><br>var infowindow = new google.maps.InfoWindow({<br>  content: 'Le Pont des Arts'<br>});<br><br>infowindow.open(map, marker);<br><br>map.addListener('click', function() {<br>  infowindow.close();<br>});",
                 dom: function() {
                     return dom.maps(true);
                 },
@@ -4122,7 +4122,6 @@ let chapters = [
                     return dom.mapsWait().then(function() {
                         google.maps.event.trigger(marker, 'click');
 
-                        let basic = true;
                         if (helpers.elContains(document.querySelector('.gm-style-iw div div'), 'Le Pont des Arts') !== true)
                             this.warn = this.warn || "Le popin doit afficher « Le Pont des Arts »";
 
@@ -4282,7 +4281,7 @@ let chapters = [
                     if (input.value !== '')
                         this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, l'input doit être vidé";
                     if (lis.length !== 2)
-                        this.warn = this.warn || "À la saisie d'un mot vide, puis d'entrée, aucun <code>li</code> ne doit être créé";
+                        this.warn = this.warn || "À la saisie d'un mot puis d'entrée, puis d'un second et d'entrée, deux <code>li</code> doivent être crées";
                     if (helpers.elContains(lis[0], 'apple') !== true)
                         this.warn = this.warn || "À la saisie d'un mot, puis d'entrée, un <code>li</code> doit être créé";
                     if (helpers.elContains(lis[1], 'pear') !== true)
@@ -7724,7 +7723,7 @@ let stepper = function(el, data, methods) {
                 script.id = 'code';
                 script.type = 'text/javascript';
 
-                let content = code.innerHTML
+                let content = code.innerHTML;
                 if (noWarning)
                     content = `try { ${content} } catch (err) {};`
                 else if (content.substring(0, 6) === 'try { ' && content.substring(content.length - 18, content.length) ===  ' } catch (err) {};')
