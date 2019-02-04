@@ -12,9 +12,12 @@
   },
   "homepage": "https://github.com/yamsellem/hetic.js",
   "dependencies": {
+    "chalk": "2.4.x",
+    "command-line-args": "5.0.x",
     "finalhandler": "1.1.x",
-    "serve-static": "1.13.x",
-    "nightmare": "2.10.x"
+    "ms": "^2.1.1",
+    "nightmare": "2.10.x",
+    "serve-static": "1.13.x"
   },
   "scripts": {
     "start": "node index.js"
