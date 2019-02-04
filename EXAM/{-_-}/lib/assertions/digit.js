@@ -1,6 +1,7 @@
 'use strict';
 
 const Nightmare = require('nightmare');
+const logger = require('../logger');
 
 const runner = (path) => {
     const nightmare = Nightmare({ show: false, typeInterval: 1 });
@@ -49,8 +50,11 @@ const score = (path) => {
             .click('#plus')
         )
         .then(value => {
-            if (value === 1)
+            const valid = value === 1;
+            if (valid)
                 score += 1;
+            
+            logger.point(valid, 1, "(a) Cliquer sur #plus doit afficher 1 dans #count");
         }), 
         assert(
             runner(path)
@@ -59,8 +63,11 @@ const score = (path) => {
             .click('#plus')
         )
         .then((value) => {
-            if (value === 3)
+            const valid = value === 3;
+            if (valid)
                 score += 1;
+
+            logger.point(valid, 1, "(a) Cliquer trois fois sur #plus doit afficher 3 dans #count");
         }), 
         assert(
             runner(path)
@@ -70,8 +77,11 @@ const score = (path) => {
             .click('#multiplied')
         )
         .then((value) => {
-            if (value === 8)
+            const valid = value === 8;
+            if (valid)
                 score += 1;
+
+            logger.point(valid, 1, "(b) Cliquer deux fois sur #plus puis deux fois sur #multiplied doit afficher 8 dans #count");
         }), 
         assert(
             runner(path)
@@ -81,8 +91,11 @@ const score = (path) => {
             .click('#plus')
         )
         .then((value) => {
-            if (value === 5)
+            const valid = value === 5;
+            if (valid)
                 score += 1;
+
+            logger.point(valid, 1, "(b) Cliquer deux fois sur #plus, une fois sur #multiplied, puis une fois sur #plus doit afficher 5 dans #count");
         }), 
         assertLis(
             runner(path)
@@ -91,8 +104,11 @@ const score = (path) => {
             .click('#plus')
         )
         .then((actives) => {
-            if (equals(actives, [false, false, false]))
+            const valid = equals(actives, [false, false, false]);
+            if (valid)
                 score += 1;
+
+            logger.point(valid, 1, "(c) Cliquer trois fois sur #plus, ne doit ajouter la classe #active à aucun élément");
         }), 
         assertLis(
             runner(path)
@@ -102,8 +118,11 @@ const score = (path) => {
             .click('#plus')
         )
         .then((actives) => {
-            if (equals(actives, [true, false, false]))
+            const valid = equals(actives, [true, false, false]);
+            if (valid)
                 score += 1;
+
+            logger.point(valid, 1, "(c) Cliquer quatre fois sur #plus, doit ajouter la classe #active au premier élément");
         }), 
         assertLis(
             runner(path)
@@ -115,8 +134,11 @@ const score = (path) => {
             .click('#plus')
         )
         .then((actives) => {
-            if (equals(actives, [true, true, false]))
+            const valid = equals(actives, [true, true, false]);
+            if (valid)
                 score += 1;
+
+            logger.point(valid, 1, "(d) Cliquer trois fois sur #plus, deux sur #multiplied puis une sur #plus, doit ajouter la classe #active aux deux premiers éléments");
         }), 
         assertLis(
             runner(path)
@@ -130,8 +152,11 @@ const score = (path) => {
             .click('#plus')
         )
         .then((actives) => {
-            if (equals(actives, [true, true, true]))
+            const valid = equals(actives, [true, true, true]);
+            if (valid)
                 score += 1;
+
+            logger.point(valid, 1, "(e) Cliquer trois fois sur #plus, deux sur #multiplied puis trois sur #plus, doit ajouter la classe #active aux trois éléments");
         }), 
         assertLis(
             runner(path)
@@ -143,8 +168,11 @@ const score = (path) => {
             .click('#multiplied')
         )
         .then((actives) => {
-            if (equals(actives, [true, true, false]))
+            const valid = equals(actives, [true, true, false]);
+            if (valid)
                 score += 1;
+
+            logger.point(valid, 1, "(e) Cliquer trois fois sur #plus puis trois sur #multiplied puis trois sur #plus, doit ajouter la classe #active aux deux premiers éléments");
         })
     ])
     .then(() => score);
