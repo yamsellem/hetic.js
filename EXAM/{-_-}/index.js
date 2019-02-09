@@ -2,8 +2,8 @@
 
 const commandLineArgs = require('command-line-args');
 const options = commandLineArgs([
-    {name: 'file', type: String, multiple: true},
-    {name: 'summary', type: Boolean, defaultValue: false}
+    {name: 'deep', type: Boolean},
+    {name: 'summary', type: Boolean}
 ]);
 
 const logger = require('./lib/logger');
@@ -14,8 +14,7 @@ const folder = 'public';
 const port = 8888;
 serve.start(folder, port);
 
-const stepNames = options.file.map(name => name.replace('.html', ''));
-const students = require('./lib/students')(stepNames, folder);
+const students = require('./lib/students').get(folder, options.deep);
 
 let promise = Promise.resolve();
 
@@ -23,10 +22,12 @@ for (let student in students) {
     let files = students[student].files;
     for (let file in files) {
         promise = promise.then(() => {
-            logger.log(`${student} (${file})`);
-            return require(`./lib/assertions/${file}`)(`http://localhost:${port}/${student}/${file}.html`);
+            logger.trace(`${student} (${file})`);
+            const path = !options.deep ? file : `${student}/${file}`;
+            return require(`./lib/assertions/${file}`)(`http://localhost:${port}/${path}.html`);
         })
         .then((score) => {
+            logger.flush();
             files[file] = score;
             students[student].score += score;
         });
