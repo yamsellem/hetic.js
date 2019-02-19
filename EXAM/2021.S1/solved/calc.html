@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style media="screen">
+            input { outline: none; }        
+            #calc { width: 320px; height: 417px; margin: 0 auto; margin-top: 100px; box-shadow: 0 0 2px #4E4E4E; background-color:#B9B9B9; }
+            #calc > input { float: left; width: 310px; height: 110px; font-size: xx-large; text-align: right; border: none; padding: 0 5px; background-color: #fff}
+            .numeric { position: relative; float: left; background-color: #4E4E4E; }
+            .numeric input { width: 77px; height: 77px; color: #fff; background-color: #4E4E4E; border: none; font-size: large; font-weight: bold; cursor: pointer; vertical-align: top; }
+            .numeric input:disabled { cursor: auto; }
+            .numeric input:not(:disabled):hover { background-color: #464545; }
+            .operation { position: relative; float: left; background-color: #B9B9B9; }
+            .operation input { width: 88px; height: 60.4px; color: #fff; background-color: #B9B9B9; border: none; font-size: large; font-weight: bold; cursor: pointer; }
+            .operation input:hover { background-color: #ACABAB; }
+            .operation div:last-child { margin-top: 120.8px; }
+        </style>
+    </head>
+    <body>
+        <div id="calc">
+            <input class="display" type="text" disabled="disabled" />
+            <div class="numeric">
+                <div><input type="button" value="7" /><input type="button" value="8" /><input type="button" value="9" /></div>
+                <div><input type="button" value="4" /><input type="button" value="5" /><input type="button" value="6" /></div>
+                <div><input type="button" value="1" /><input type="button" value="2" /><input type="button" value="3" /></div>
+                <div><input type="button" disabled /><input type="button" value="0" /><input type="button" disabled /></div>
+            </div>
+
+            <div class="operation">
+                <div><input type="button" value="-" /></div>
+                <div><input type="button" value="+" /></div>
+                <div><input type="button" value="=" /></div>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript">
+        let position = 0;
+        let operator = '';
+        let numbers = [];
+
+        const display = document.querySelector('.display');
+
+        const values = document.querySelectorAll('.numeric input:not(:disabled');
+        for (let i = 0; i < values.length; i++) {
+            values[i].addEventListener('click', function () {
+                display.value += values[i].value;
+
+                if (!numbers[position])
+                    numbers[position] = '';
+                numbers[position] += values[i].value;
+            });
+        }
+
+        const operations = document.querySelectorAll('.operation input');
+        for (let i = 0; i < 2; i++) {
+            operations[i].addEventListener('click', function () {
+                if (operator) return;
+
+                display.value += operations[i].value;
+                operator = operations[i].value;
+                position = 1;
+            });
+        }
+
+        operations[2].addEventListener('click', function () {
+            if (numbers.length < 2) return;
+
+            let result = 0;
+            switch (operator) {
+                case '-': result = Number(numbers[0]) - Number(numbers[1]); break;
+                case '+': result = Number(numbers[0]) + Number(numbers[1]); break;
+            }
+            display.value = result;
+
+            position = 1;
+            operator = '';
+            numbers = [result];
+        });
+    </script>
+</html>
