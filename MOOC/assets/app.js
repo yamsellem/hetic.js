@@ -4237,7 +4237,7 @@ let chapters = [
                 title: "Ajouter un todo",
                 description: "Ajouter un <code>li</code> au <code>.todos ul</code> existant à chaque appui sur entrée dans le champ de formulaire. Ce nouveau <code>li</code> à pour texte la valeur saisie dans le champ de formulaire.",
                 excerpt: "Un écouteur d'événement reçoit en premier paramètre l'événement qui l'a déclenché. S'il s'agit d'un événement clavier <code>keypress</code> celui-ci indique via <code>event.keyCode</code> quelle touche a été saisie, et via <code>event.target.value</code> quelle est la valeur actuelle du champ de formulaire.<br><br><strong>Exemple</strong> : <pre><code>var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) { <br>  console.log(event.keyCode, event.target.value); <br>});</code></pre> affiche ces deux informations à chaque saisie dans le premier <code>input</code> de la page.",
-                solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    var ul = document.querySelector('.todos ul');<br>    ul.innerHTML = '&lt;li class=\"item\"&gt;&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value + '&lt;/li&gt;';<br>  }<br>});",
+                solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13) {<br>    var ul = document.querySelector('.todos ul');<br>    ul.innerHTML = '&lt;li class=\"item\"&gt;' + input.value + '&lt;/li&gt;';<br>  }<br>});",
                 dom: function() {
                     return dom.todolist();
                 },
@@ -4260,7 +4260,7 @@ let chapters = [
             {
                 title: "Ajouter plusieurs todos",
                 description: "Si le champ de formulaire est vide, aucun <code>li</code> ne doit être créé. Et, losqu'un <code>li</code> est créé, le champ de formulaire doit être vidé.",
-                solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    var ul = document.querySelector('.todos ul');<br>    ul.innerHTML += '&lt;li class=\"item\"&gt;&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value + '&lt;/li&gt;';<br>    event.target.value ='';<br>  }<br>});",
+                solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && input.value) {<br>    var ul = document.querySelector('.todos ul');<br>    ul.innerHTML += '&lt;li class=\"item\"&gt' + input.value + '&lt;/li&gt;';<br>    input.value = '';<br>  }<br>});",
                 dom: function() {
                     return dom.todolist();
                 },
@@ -4293,7 +4293,7 @@ let chapters = [
                 title: "Supprimer des todos",
                 description: "Lorsqu'un <code>li</code> est ajouté au <code>.todos ul</code> existant, son texte est préfixé par <code>&lt;i class=\"remove icon\"&gt;&lt;/i&gt;</code>. Cette balise fait apparaitre une croix devant son nom. Au clic sur cette croix, le <code>li</code> doit être supprimé.",
                 excerpt: "À la création d'un élément dans le DOM, il est possible d'ajouter un écouteur d'événement sur un de ses sous éléments, ou sur lui même.",
-                solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    var ul = document.querySelector('.todos ul');<br>    var li = document.createElement('li');<br>    li.className = 'item';<br>    li.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value;<br>    li.querySelector('i').addEventListener('click', function() {<br>      li.remove();<br>    });<br>    ul.appendChild(li);<br>    event.target.value = '';<br>  }<br>});",
+                solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && input.value) {<br>    var ul = document.querySelector('.todos ul');<br>    var li = document.createElement('li');<br>    li.className = 'item';<br>    li.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + input.value;<br>    li.querySelector('i').addEventListener('click', function() {<br>      li.remove();<br>    });<br>    ul.appendChild(li);<br>    input.value = '';<br>  }<br>});",
                 dom: function() {
                     return dom.todolist();
                 },
@@ -4321,7 +4321,7 @@ let chapters = [
             {
                 title: "Cocher les todos",
                 description: "Lorsqu'un <code>li</code> est cliqué, la classe <code>done</code> doit lui être ajoutée. S'il est cliqué de nouveau, cette classe est supprimée.",
-                solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && event.target.value) {<br>    var ul = document.querySelector('.todos ul');<br>    var li = document.createElement('li');<br>    li.className = 'item';<br>    li.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + event.target.value;<br>    li.querySelector('i').addEventListener('click', function() {<br>      li.remove();<br>    });<br>    li.addEventListener('click', function() {<br>        li.classList.toggle('done');<br>    });<br>    ul.appendChild(li);<br>    event.target.value = '';<br>  }<br>});",
+                solved: "var input = document.querySelector('input');<br>input.addEventListener('keypress', function(event) {<br>  if (event.keyCode === 13 && input.value) {<br>    var ul = document.querySelector('.todos ul');<br>    var li = document.createElement('li');<br>    li.className = 'item';<br>    li.innerHTML = '&lt;i class=\"remove icon\"&gt;&lt;/i&gt;' + input.value;<br>    li.querySelector('i').addEventListener('click', function() {<br>      li.remove();<br>    });<br>    li.addEventListener('click', function() {<br>        li.classList.toggle('done');<br>    });<br>    ul.appendChild(li);<br>    input.value = '';<br>  }<br>});",
                 dom: function() {
                     return dom.todolist();
                 },
