@@ -2810,7 +2810,7 @@ let chapters = [
             {
                 title: "Compter le nombre de « a » et « e »",
                 description: "Créer une fonction <code>count</code> qui prend un paramètre et retourne un littéral indiquant le nombre de « a » et de « e » de cette chaine (sous la forme <code>{a: 5, e: 7}</code>).",
-                solved: "var text = 'Short ribs fatback pork chop turducken. Hamburger capicola turkey sausage tail leberkas ham andouille pork chop picanha pancetta landjaeger brisket. Ground round pork belly jowl pancetta frankfurter beef ribs ham cupim turkey tenderloin drumstick sausage shoulder. Pig cow short ribs tenderloin tongue pork belly.';<br>var count = function(text) {<br>  text = text.toLowerCase();<br>  var total = {a: 0, e: 0};<br>  for (var i = 0; i < text.length; i++) {<br>    var char = text.charAt(i);<br>    if (char === 'a')<br>      total.a++;<br>    else if (char === 'e')<br>      total.e++;<br>  };<br>  return total;<br>};",
+                solved: "var count = function(text) {<br>  text = text.toLowerCase();<br>  var total = {a: 0, e: 0};<br>  for (var i = 0; i < text.length; i++) {<br>    var char = text.charAt(i);<br>    if (char === 'a')<br>      total.a++;<br>    else if (char === 'e')<br>      total.e++;<br>  };<br>  return total;<br>};",
                 solution: function() {
                     if (helpers.equals({a: 0, e: 0}, count('')) !== true)
                         this.warn = this.warn || "La fonction <code>count('')</code> doit retourner <code>{a: 0, e: 0}</code>";
