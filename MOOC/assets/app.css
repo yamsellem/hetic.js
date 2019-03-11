@@ -231,10 +231,14 @@ img.schema {
 .ui.card.h-yellow > .content:first-child { background-color: #FBBE00; }
 .ui.card.h-violet > .content:first-child { background-color: #6232D1; }
 .ui.card.h-red > .content:first-child { background-color: #DB2B1E; }
-.ui.card.h-grey > .content:first-child { background-color: #767676; }
+.ui.card.h-grey > .content:first-child { background-color: #989898; }
 .ui.card.h-pink > .content:first-child { background-color: #DF3A9B; }
 .ui.card.h-orange > .content:first-child { background-color: #F27200; }
 .ui.card.h-teal > .content:first-child { background-color: #00b5ad; }
+
+.ui.grey.button, .ui.grey.buttons .button {
+    background-color: #989898;
+}
 
 .ui.card.h-colored > .content:first-child > .header {
     color: white;
@@ -638,7 +642,7 @@ img.schema {
     cursor: pointer;
     width: 115px;
     height: 125px;
-    border-bottom: 10px solid #767676;;
+    border-bottom: 10px solid #989898;;
     margin-left: 5px;
     z-index: 10;
 }
@@ -651,7 +655,7 @@ img.schema {
     top: 0;
     bottom: 0;
     left: 52px;
-    border-right: 10px solid #767676;;
+    border-right: 10px solid #989898;;
     z-index: -10;
 }
 .hanoi ul.success,
