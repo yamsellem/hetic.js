@@ -7795,6 +7795,7 @@ let app = {
         chapter: null,
         step: null,
         digest: true,
+        scroll: 0,
         completion: {}
     },
     render: function() {
@@ -7813,8 +7814,10 @@ let app = {
             this.data.digest = false;
             this.data.chapter = chapter;
             this.data.step = Math.min(Math.max.apply(null, Object.keys(Object.assign({0: true}, this.data.completion[chapter]))) + 1, chapters[chapter - 1].steps.length);
-
+            
+            this.methods.updateScroll.call(this);
             this.methods.updateProgress.call(this);
+            window.scrollTo({top: 0});
         },
         leave: function() {
             this.data.digest = true;
@@ -7822,11 +7825,13 @@ let app = {
             this.data.step = null;
 
             this.methods.updateProgress.call(this);
+            window.scrollTo({top: this.data.scroll});
         },
         nextStep: function() {
             this.data.step++;
 
             this.methods.updateProgress.call(this);
+            window.scrollTo({top: 0});
         },
         nextChapter: function() {
             this.data.step = 1;
@@ -7846,6 +7851,10 @@ let app = {
             this.data.completion[chapter][step] = true;
 
             localStorage.setItem('completion', JSON.stringify(this.data.completion));
+        },
+        updateScroll: function() {
+            this.data.scroll = window.pageYOffset;
+            localStorage.setItem('scroll', this.data.scroll);
         },
         updateProgress: function() {
             this.data.step ? localStorage.setItem('step', this.data.step) : localStorage.removeItem('step');
@@ -7877,6 +7886,9 @@ if (localStorage.getItem('chapter') && localStorage.getItem('step')) {
 }
 if (localStorage.getItem('gpage')) {
     app.data.gpage = JSON.parse(localStorage.getItem('gpage'));
+}
+if (localStorage.getItem('scroll')) {
+    app.data.scroll = +localStorage.getItem('scroll');
 }
 
 app.render();
