@@ -7652,6 +7652,7 @@ let stepper = function(el, data, methods) {
             },
             validate: function() {
                 this.methods.renderDom.call(this, true);
+                delete this.warn;
 
                 let complete = false;
 
