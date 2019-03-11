@@ -37,7 +37,7 @@ b. Ajouter un écouteur d'événement `click` sur le bouton `.left` afin qu'à c
 
 **Ex.** ![](./gifs/dino-b.gif)
 
-c. Ajouter un écouteur d'événement `click` sur le bouton `.top` afin qu'à chaque clic, le dinosaure se déplace vers la haut. Une fois arrivé au dernier en haut, cela n'a plus d'effet.
+c. Ajouter un écouteur d'événement `click` sur le bouton `.up` afin qu'à chaque clic, le dinosaure se déplace vers la haut. Une fois arrivé au dernier en haut, cela n'a plus d'effet.
 
 **Ex.** ![](./gifs/dino-c.gif)
 
