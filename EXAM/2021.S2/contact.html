@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style media="screen">
+            html, body { height: 100%; display: flex; flex-direction: column; align-items: center; font-family: Helvetica; }
+            form { width: 150px; display: flex; }
+            input { flex: 1; height: 30px; background: #2c3e50; color: white; border: none; padding: 0 .5em; }
+            input::placeholder{ color: #dbdbdb }
+            select { -webkit-appearance: none; -moz-appearance: none; -ms-appearance: none; appearance: none; outline: 0; box-shadow: none; border: 0 !important; background: #2c3e50; background-image: none;}
+            select::-ms-expand { display: none; }
+            select { flex: 1; padding: 0 5px; color: white; cursor: pointer; }
+            .select { position: relative; display: flex; width: 150px; height: 30px;  background: #2c3e50; overflow: hidden; }
+            .select::after { content: '\25BC'; color: white; position: absolute; font-size: 10px; top: 10px; right: 5px; padding: 0 .5em; cursor: pointer; pointer-events: none; }
+            .pagination { width: 150px; background: #dbdbdb; border-radius: 2px; text-align: center; padding: 2px 0; font-size: 0.75rem; background: #2c3e50; color: white; border-top: 1px solid white; }
+            ul { width: 150px; margin: 0; padding: 0; }
+            li { padding: 1px 5px; list-style: none; border: 1px solid #dbdbdb; border-top: 0; text-align: center; }
+            i { font-style: normal; cursor: pointer; float: left; padding: 0 5px; }
+            i.next { float: right; }
+        </style>
+    </head>
+    <body>
+        <form>
+            <input name="filter" placeholder="Filtrer" type="text" autocomplete="off">
+        </form>
+
+        <ul>
+            <li>Agathe</li>
+            <li>Alice</li>
+            <li>Ambre</li>
+            <li>Arthur</li>
+            <li>Camille</li>
+            <li>Chloé</li>
+            <li>Gabin</li>
+            <li>Gabriel</li>
+            <li>Hugo</li>
+            <li>Jade</li>
+            <li>Julia</li>
+            <li>Léa</li>
+            <li>Léo</li>
+            <li>Louis</li>
+            <li>Louise</li>
+            <li>Maël</li>
+            <li>Mila</li>
+            <li>Paul</li>
+            <li>Théo</li>
+            <li>Valentin<li>
+        </ul>
+
+        <div class="select">
+            <select name="limit">
+                <option value="all">Tous</option>
+                <option value="five">5 par 5</option>
+            </select>
+        </div>
+
+        <div class="pagination">
+            <i class="previous">&lt;</i>
+            <span>1 à 20</span>
+            <i class="next">&gt;</i>
+        </div>
+    </body>
+    <script type="text/javascript">
+
+        const names = ['Agathe','Alice','Ambre','Arthur','Camille','Chloé','Gabin','Gabriel','Hugo','Jade','Julia','Léa','Léo','Louis','Louise','Maël','Mila','Paul','Théo','Valentin']
+
+        // code goes here (keep those 20 names in the same order)
+
+    </script>
+</html>
