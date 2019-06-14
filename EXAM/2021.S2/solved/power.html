@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style media="screen">
+            html, body { height: 100%; display: flex; align-items: center; justify-content: center; font-family: Helvetica; }
+            ul { padding: 0; list-style-type: none; display: flex; flex-wrap: wrap; width: 200px; }
+            li { display: inline-flex; width: 90px; height: 90px; background: #F5F5F5; margin: 0 5px 5px 0; align-items: center; justify-content: center; text-align: center; }
+            li.on { background-color: #ffdc6e; }
+            li.low { background-color: #fe385f }
+            li.medium { background-color: #fe8b5b; }
+            form { display: flex; flex-direction: column; }
+            form label { margin: 5px 0; user-select: none; }
+            form input, form select { float: right; }
+            form hr { width: 100%; }
+        </style>
+    </head>
+    <body>
+        <ul>
+            <li class="kitchen">Cuisine</li>
+            <li class="bathroom">Salle de bain</li>
+            <li class="livingroom">Salon</li>
+            <li class="bedroom">Chambre</li>
+        </ul>
+
+        <form>
+            <label>
+                Cuisine
+                <input name="kitchen" type="checkbox">
+            </label>
+            <label>
+                Salle de bain
+                <input name="bathroom" type="checkbox">
+            </label>
+            <label>
+                Chambre
+                <select name="bedroom">
+                    <option value="Éteint">Éteint</option>
+                    <option value="Faible">Faible</option>
+                    <option value="Moyen">Moyen</option>
+                    <option value="Fort">Fort</option>
+                </select>
+            </label>
+            <label>
+                Salon 1
+                <input name="livingroom-1" type="checkbox">
+            </label>
+            <label>
+                Salon 2
+                <input name="livingroom-2" type="checkbox">
+            </label>
+            <hr/>
+            <label>
+                Compteur électrique
+                <input name="power" type="checkbox" checked="checked">
+            </label>
+        </form>
+    </body>
+    <script type="text/javascript">
+
+        const state = {
+            kitchen: false,
+            bathroom: false,
+            bedroom: false,
+            livingroom: false
+        };
+
+        const kitchen = document.querySelector('.kitchen');
+        const kitchenSwitch = document.querySelector('input[name=kitchen]');
+        kitchenSwitch.addEventListener('change', () => {
+            kitchen.classList.toggle('on', kitchenSwitch.checked);
+            state.kitchen = kitchenSwitch.checked;
+        });
+
+        const bathroom = document.querySelector('.bathroom');
+        const bathroomSwitch = document.querySelector('input[name=bathroom]');
+        bathroomSwitch.addEventListener('change', () => {
+            bathroom.classList.toggle('on', bathroomSwitch.checked);
+            state.bathroom = bathroomSwitch.checked;
+        });
+
+        const bedroom = document.querySelector('.bedroom');
+        const bedroomSwitch = document.querySelector('select[name=bedroom]');
+        const bedroomToggle = (value) => {
+            switch(value) {
+                case 'Éteint': bedroom.className = ''; break;
+                case 'Faible': bedroom.className = 'low'; break;
+                case 'Moyen': bedroom.className = 'medium'; break;
+                case 'Fort': bedroom.className = 'on'; break;
+            }
+        }
+
+        bedroomSwitch.addEventListener('change', () => {
+            bedroomToggle(bedroomSwitch.value);
+            state.bedroom = bedroomSwitch.value;
+        });
+
+        const livingroom = document.querySelector('.livingroom');
+
+        const livingroomSwitch1 = document.querySelector('input[name=livingroom-1]');
+        const livingroomSwitch2 = document.querySelector('input[name=livingroom-2]');
+        const livingroomToggle = () => {
+            let on = false;
+            if (livingroomSwitch1.checked && livingroomSwitch2.checked)
+                on = false;
+            else if (livingroomSwitch1.checked || livingroomSwitch2.checked)
+                on = true;
+            
+            livingroom.classList.toggle('on', on);
+            state.livingroom = on;
+        }
+
+        livingroomSwitch1.addEventListener('change', () => livingroomToggle());
+        livingroomSwitch2.addEventListener('change', () => livingroomToggle());
+
+        const powerSwitch = document.querySelector('input[name=power]');
+        powerSwitch.addEventListener('change', () => {
+            if (!powerSwitch.checked) {
+                kitchen.className = '';
+                bathroom.className = '';
+                bedroom.className = '';
+                livingroom.className = '';
+            } else {
+                kitchen.classList.toggle('on', state.kitchen);
+                bathroom.classList.toggle('on', state.bathroom);
+                bedroomToggle(state.bedroom);
+                livingroom.classList.toggle('on', state.livingroom);
+            }
+        });
+    </script>
+</html>
