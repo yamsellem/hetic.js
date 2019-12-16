@@ -2959,7 +2959,7 @@ let chapters = [
             {
                 title: "Respecter l'ordre des disques",
                 description: "Après avoir mémorisé un disque, le clic sur une seconde tour ne doit pas ajouter le disque mémorisé si ce dernier est plus large que le plus haut de la nouvelle tour (avec un attribut data <code>weight</code> plus élevé). <i>Optionnel</i> : si ce cas se produit, le disque mémorisé est oublié, et c'est le disque le plus haut de la nouvelle tour qui est mémorisé à sa place (et sera donc déplacé au prochain clic, si les conditions précédentes sont remplies).",
-                solved: "var memo;<br>var uls = document.querySelectorAll('.hanoi ul');<br>for (var i = 0; i < uls.length; i++) {<br>  uls[i].addEventListener('click', function(event) {<br>    var ul = event.currentTarget;<br>    var firstChild = ul.querySelector('li');<br>    if (memo && (!firstChild || firstChild.dataset.weight > memo.dataset.weight)) {<br>      ul.prepend(memo);<br>      memo = undefined;<br>    } else if (firstChild) {<br>      memo = firstChild;<br>    }<br>  });<br>}",
+                solved: "var memo;<br/>var uls = document.querySelectorAll('.hanoi ul');<br/>for (var i = 0; i < uls.length; i++) {<br/>  uls[i].addEventListener('click', function(event) {<br/>    var ul = event.currentTarget;<br/>    var firstChild = ul.querySelector('li');<br/>    if (memo) {<br/>      if (firstChild && firstChild.dataset.weight < memo.dataset.weight) {<br/>        return;<br/>      }<br/>      ul.prepend(memo);<br/>      memo = undefined;<br/>    } else {<br/>      memo = firstChild;<br/>    }<br/>  });<br/>}",
                 solvedOnSuccess: true,
                 dom: function() {
                     return dom.hanoi();
@@ -2977,8 +2977,8 @@ let chapters = [
                     
                     uls[2].click();
 
-                    if (uls[0].querySelectorAll('li').length !== 5 || uls[1].querySelectorAll('li').length !== 0 || uls[2].querySelectorAll('li').length !== 1)
-                        this.warn = this.warn || "Après avoir déplacé le petit disque de la première à la seconde tour, cliquer sur la première tour, puis la second, puis la troisième, doit résulter dans le déplacement du petit disque de la tour du milieu à celle de droite.";
+                    if (uls[0].querySelectorAll('li').length !== 4 || uls[1].querySelectorAll('li').length !== 1 || uls[2].querySelectorAll('li').length !== 1)
+                        this.warn = this.warn || "Après avoir déplacé le petit disque de la première à la seconde tour, cliquer sur la première tour, puis la seconde, puis la troisième, doit résulter dans le déplacement du deuxième disque (jaune) de la tour de gauche à celle de droite.";
 
                     return !this.warn;
                 }
@@ -2986,7 +2986,7 @@ let chapters = [
             {
                 title: "Indiquer la victoire",
                 description: "Après avoir déplacé tous les disque de la tour de gauche à celle de droite, ajouter la classe <code>success</code> au <code>ul</code> de la tour de droite pour indiquer la victoire.",
-                solved: "var memo;<br>var uls = document.querySelectorAll('.hanoi ul');<br>for (var i = 0; i < uls.length; i++) {<br>  uls[i].addEventListener('click', function(event) {<br>    var ul = event.currentTarget;<br>    var firstChild = ul.querySelector('li');<br>    if (memo && (!firstChild || firstChild.dataset.weight > memo.dataset.weight)) {<br>      ul.prepend(memo);<br>      memo = undefined;<br>    } else if (firstChild) {<br>      memo = firstChild;<br>    }<br><br>    if (ul.classList.contains('tower-target') && ul.querySelectorAll('li').length === 6) {<br>      ul.classList.add('success');<br>    }<br>  });<br>}",
+                solved: "var memo;<br/>var uls = document.querySelectorAll('.hanoi ul');<br/>for (var i = 0; i < uls.length; i++) {<br/>  uls[i].addEventListener('click', function(event) {<br/>    var ul = event.currentTarget;<br/>    var firstChild = ul.querySelector('li');<br/>    if (memo) {<br/>      if (firstChild && firstChild.dataset.weight < memo.dataset.weight) {<br/>        return;<br/>      }<br/>      ul.prepend(memo);<br/>      memo = undefined;<br/>    } else {<br/>      memo = firstChild;<br/>    }<br/>    if (ul.classList.contains('tower-target') && ul.querySelectorAll('li').length === 6) {<br/>      ul.classList.add('success');<br/>    }<br/>  });<br/>}",
                 solvedOnSuccess: true,
                 dom: function() {
                     return dom.hanoi();
