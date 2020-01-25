@@ -2484,7 +2484,7 @@ let chapters = [
         steps: [
             {
                 title: "Dupliquer la valeur d'un input",
-                description: "Ajouter un écouteur d'événement sur le bouton contenu dans <code>.forms</code>, et, au clic, dupliquer le texte de l'input <code>password</code> dans l'input <code>copy</code>.",
+                description: "Ajouter un écouteur d'événement sur l'élement <code>.button</code> contenu dans <code>.forms</code>, et, au clic, dupliquer le texte de l'input <code>password</code> dans l'input <code>copy</code>.",
                 excerpt: "La valeur saisie dans un élément input peut être accédé à l'aide de son attribut <code>input.value</code>.",
                 solved: "var form = document.querySelector('.forms')<br>form.querySelector('.button').addEventListener('click', function() {<br>  var password = form.querySelector('input[name=password]');<br>  var copy = form.querySelector('input[name=copy]');<br>  copy.value = password.value;<br>});",
                 dom: function() {
@@ -2499,9 +2499,9 @@ let chapters = [
                                 <input name="copy" type="text" class="ui input" disabled="disabled"></input>
                             </div>
                         </div>
-                        <button class="ui bottom attached button">
+                        <div class="ui bottom attached button">
                             Dupliquer
-                        </button>
+                        </div>
                     `);
                 },
                 solution: function() {
