@@ -2499,9 +2499,9 @@ let chapters = [
                                 <input name="copy" type="text" class="ui input" disabled="disabled"></input>
                             </div>
                         </div>
-                        <div class="ui bottom attached button">
+                        <button class="ui bottom attached button">
                             Dupliquer
-                        </div>
+                        </button>
                     `);
                 },
                 solution: function() {
